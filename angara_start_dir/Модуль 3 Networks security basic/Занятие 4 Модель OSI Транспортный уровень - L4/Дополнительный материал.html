@@ -1,0 +1,684 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Дополнительный материал</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="c6e4e935-c455-4841-8c94-3fa61ddabf36" class="page sans"><header><h1 class="page-title">Дополнительный материал</h1><p class="page-description"></p></header><div class="page-body"><h1 id="a6f3acf2-66b6-4e33-8468-906452ade46e" class="">Транспортные протоколы</h1><p id="0d8520d3-7948-4c45-8453-285fff89126d" class="">Протоколы транспортного уровня обеспечивают контроль над передачей данных между межсетевыми протоколами и приложениями уровня операционной системы.<br/>Транспортные протоколы предписывают способ передачи сообщений между узлами. Наиболее популярными из транспортных протоколов являются протокол управления передачей (TCP) и протокол пользовательских датаграмм (UDP).<br/></p><h2 id="811deaaf-1fbd-46d2-9b10-159671671687" class="">Протокол TCP</h2><p id="2de11744-090c-49d6-99c6-16e1e50fbc14" class="">Рассмотрим первый популярный транспортный протокол. Он называется TCP – Transmission Control Protocol, протокол управления передачей.</p><p id="6df6766a-db64-4959-b688-548f82c3cd99" class="">Если приложению требуется подтверждение доставки сообщения, оно использует протокол TCP. </p><p id="51a290f5-d4bd-4b41-891b-821259d5ab02" class="">Единица передачи данных на транспортном уровне модели OSI называется сегмент.</p><p id="da3b01ef-7267-43fd-b98c-bcc800b4649a" class="">TCP разбивает сообщение на фрагменты меньшего размера, именуемые сегментами. Эти сегменты последовательно нумеруются и передаются IP-протоколу, который затем осуществляет сборку пакетов. TCP отслеживает количество сегментов, отправленных на тот или иной узел тем или иным приложением. Если отправитель не получает подтверждения в течение определенного периода времени, то TCP рассматривает эти сегменты как потерянные и повторяет их отправку. Повторно отправляется только потерянная часть сообщения, а не все сообщение целиком.</p><h3 id="34eba8f8-5004-4a0f-8382-41763f3f44ad" class=""><strong>Структура заголовка TCP сегмента</strong></h3><p id="6f587210-21aa-450a-8c33-f9f21690d157" class="">В TCP тоже присутствует набор заголовков, стандартизованных для транспортного протокола.</p><p id="a5e70d24-8c5f-4ef8-b11f-fca9c96740e3" class="">Рассмотрим заголовки TCP сегмента.</p><figure id="46077d04-fb21-4e4a-b0ef-e4b7405adde4" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20c6e4e935c45548418c943fa61ddabf36/Untitled.png"><img style="width:336px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20c6e4e935c45548418c943fa61ddabf36/Untitled.png"/></a></figure><p id="27f77d38-a078-46e2-ac5a-32d8f67c47f4" class="">В начальных заголовках TCP мы увидим <strong>порт источника и порт назначения</strong>. Это специальные номера, с помощью которых клиент может обратиться к конкретному приложению, работающему на сервере.</p><p id="ae6615c9-c951-41b9-9cb0-acafc08be093" class=""><strong>Порядковый номер</strong>, он же Sequence number. Этот заголовок позволяет контролировать порядок сообщений. Именно благодаря этому параметру принимающая система собирает пакеты именно так, как надо, а не в том порядке, как они пришли.</p><p id="c6fda987-31e4-4392-aac5-a63b0347514a" class=""><strong>Номер подтверждения,</strong> Acknowledgment Number – этот заголовок показывает, на пакет с каким Sequence number отвечает удаленная система. Таким образом мы можем понять, что удаленная система получила пакет с нашим Sequence number.</p><p id="1edc8c4e-7b98-44c6-83f5-38b22fdf90d1" class=""><strong>Длина заголовка</strong>, Data offset, известная также как смещение данных. Этот заголовок содержит размер заголовка TCP, измеряемый в 32-битных сегментах. Минимальный размер заголовка TCP составляет пять 32-битных сегментов (всего 20 байт), а максимальный — пятнадцать 32-битных сегментов (или 60 байт).</p><p id="a226b52a-d956-4195-95fc-127d846d9a29" class="">Далее идут <strong>зарезервированные биты</strong>. Размер этого поля рамен трем битам. Эти данные зарезервированы для будущего использования, а сейчас просто забивается нулями. На данный момент осталось три незадействованных бита, в то время как еще три ранее зарезервированных бита уже используются как флаги.</p><p id="f3e2257c-74f3-44aa-b80d-074a8fffecb4" class="">Следующее поле – <strong>флаги</strong>. Это специальные управляющие биты, определяющие функциональность TCP соединения. Их рассмотрим подробнее далее.</p><p id="532e228a-7088-4d36-80d5-987ea8f4472d" class="">Заголовок <strong>Размер окна</strong> (Window Size) позволяет сообщить серверу, какой объем данных готов принять обратно. Этим клиент информирует сервер о размере своего буфера. Если сервер попытается ответить клиенту, отправив данные большего объема, чем размер буфера клиента, то клиент такой набор данных обработать не сможет.</p><p id="418430e2-8886-4291-b5a8-9dc96881ec79" class="">Заголовок <strong>контрольной суммы</strong> используется для проверки целостности всех заголовков TCP. Аналогичный параметр ранее мы разбирали в протоколе IP.</p><p id="dca78d87-47aa-40a2-8095-d530a09be9f4" class=""><strong>Указатель срочности</strong>, Urgent pointer, необходим для того, чтобы приоритизировать данный трафик для приложения. Если данные помечены с помощью этого поля как срочные, то приложение-получатель трафика обработает эти данные немедленно. В данном поле указывается смещение данных, благодаря которому приложение понимает, где приоритизированные данные в сегменте заканчиваются.</p><p id="ecdefbb6-43a0-46e2-b783-a8b3a3686ded" class=""><strong>Поле опций </strong>необходимо для расширения функциональности TCP. В этом заголовке разработчики приложений могут определять свои специальные опции, с которыми будет работать их приложение.</p><p id="df1d1b5e-1062-45b3-89aa-d3a45ec1c20d" class="">И непосредственно сами <strong>данные</strong>.</p><p id="fc8b7286-116f-472c-8586-8f4702070dec" class=""><strong>Флаги TCP</strong></p><p id="b1fac18a-f81c-48b2-8591-5bea15c7aa8c" class="">Рассмотрим наиболее часто используемые флаги TCP:</p><ul id="2881373f-5796-4135-a9c3-273121c8f454" class="bulleted-list"><li style="list-style-type:disc">SYN</li></ul><p id="b3128068-7d28-4098-8149-e45d5ca0a89a" class="">Синхронизация - первый флаг между двумя хостами, используется для установки соединения</p><ul id="6c7ecc90-cd0b-468b-ae8a-48e1faab7e8c" class="bulleted-list"><li style="list-style-type:disc">ACK </li></ul><p id="87c5e41f-a6ed-4744-b566-2a52740e7c35" class="">Подтверждено - подтверждение получения пакета</p><ul id="30ae2cc8-b642-4fc1-844d-1f6ba60f5736" class="bulleted-list"><li style="list-style-type:disc">RST</li></ul><p id="dc492189-8f82-4bd0-9aea-9ff0cd376a1f" class="">Сброс - запрашивает разрыв соединения. Последний пакет, отправленный клиентом</p><ul id="722f8657-bf2f-4820-bd0e-53da25bbf43f" class="bulleted-list"><li style="list-style-type:disc">FIN </li></ul><p id="26cc7231-c8f7-424e-a90a-40eafa145444" class="">Сообщает другой стороне что все пакеты были отправлены, и соединение пора завершить</p><ul id="9d0642e5-3a9d-427d-8545-ac564814725b" class="bulleted-list"><li style="list-style-type:disc">PSH</li></ul><p id="a61c279d-3608-4e2d-8c92-651633ed0f3c" class="">Используется, если необходимо немедленно отправить все данные из буфера</p><ul id="0a47c85c-ce52-41c7-8406-26e58a0e853f" class="bulleted-list"><li style="list-style-type:disc">URG  </li></ul><p id="b05241c3-36c3-4ef0-a128-d0cc6de04871" class="">Указатель важности. 0 если не используется, 1 - используется </p><h3 id="becd2242-33fe-4bbd-ad41-2220aec11ad9" class="">TCP соединение</h3><p id="f08a7c85-aab2-4051-94b6-b9a138d9570d" class="">TCP-соединение можно разделить на 3 стадии:</p><ul id="295995f1-3abf-4a3e-b3be-ef06b12ee834" class="bulleted-list"><li style="list-style-type:disc">Установка соединения</li></ul><ul id="be08dd43-4a23-450e-ac79-74b2426e0116" class="bulleted-list"><li style="list-style-type:disc">Передача данных</li></ul><ul id="3d1788a2-7973-4047-9693-b81543c74877" class="bulleted-list"><li style="list-style-type:disc">Завершение сеанса</li></ul><p id="7390436a-0586-4dba-8274-65efbc52925a" class=""><strong>Процесс установки соединения</strong></p><p id="4893b1d8-2130-40a9-a966-c473846a1d47" class="">Важно разобраться и в том, как TCP гарантирует надежный обмен данными между клиентом и сервером.<br/>Протокол устанавливает соединение между двух устройств с помощью так называемого рукопожатия, которое еще называют TCP handshake. Клиент отправляет сегмент с флагом SYN. Этот флаг – запрос на синхронизацию. Сервер, получивший такое сообщение, если готов к установке соединения, посылает клиенту ответ под названием SYN-ACK.<br/>Клиент, получивший такой ответ от сервера, подтверждает свои намерения на установку соединения ответом ACK. После этого сервер переходит в состояние ESTABLISHED, что означает, что между клиентом и сервером был успешно установлен TCP коннект.<br/></p><p id="9f3ee65e-7de3-4c4b-be55-7c900a4f8cee" class=""><strong>Процесс передачи данных</strong></p><p id="3d878a4d-61be-4adb-bd60-74721f1476fe" class="">Клиент отравляет запрос к серверу. Поскольку данные поместились в один пакет TCP, он получил флаг PSH, чтобы сервер не ждал продолжение получения данных. При этом пакет получил 2 флага: ACK (подтвердил предыдущею передачу пакетов от сервера) и PSH.<br/>В ответ на это сервер отправляет пакет ACK с номером успешно полученных данных.<br/>Далее сервер обработал запрос и отправляет данные клиенту. Эти данные делятся на пакеты и отправляются сегментами.<br/>Далее клиент подтверждает, что данные получены отправляя пакеты с флагом ACK.<br/></p><p id="3e261ecf-3a1c-489c-9436-1ad0cfe9914e" class=""><strong>Завершение сеанса</strong></p><p id="39e2b0f2-e121-468c-be7d-5ae1663f9ec9" class="">Завершение сеанса – последний этап TCP-соединения. На этом общение заканчивается и сессия закрывается<br/>Клиент запрашивает завершение сеанса, отправляя другой стороне флаг “FIN”<br/>Далее сервер возвращает флаг “ACK” для подтверждения запроса<br/></p><p id="f1399fa3-8b30-4402-839e-56484d1acf6b" class="">После сервер отправляет флаг “FIN”<br/>Клиент утверждает “FIN” и отвечает флагом “ACK”. После этого соединение завершено<br/></p><h2 id="c4ab7a06-f79a-469a-9b6b-9c7a993b3a22" class="">Протокол UDP</h2><p id="43761e61-d99c-489f-bf94-12a6175d8f73" class="">Теперь перейдем к второму популярному транспортному протоколу – UDP (User Datagram Protocol). С помощью UDP компьютерные приложения могут посылать сообщения другим хостам по IP-сети без необходимости предварительного сообщения для установки специальных каналов передачи или путей данных.<br/>Такие сообщения называются датаграммы. Этот протокол работает намного быстрее, чем TCP, но в нем нет механизма повторной передачи данных, поэтому такой протокол считается ненадежным.<br/></p><h3 id="e3b6227f-338d-4469-b2ee-989af39a889a" class="">Структура пакета</h3><p id="b639947a-76b7-4471-84f3-4981b9d5b0a8" class="">Заголовков у UDP гораздо меньше, чем у TCP. Этот протокол банально проще, оттого и быстрее.<br/>Давайте рассмотрим эти заголовки поподробнее.<br/></p><figure id="e6ae4645-4289-41d4-bde4-a64c885f152d" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20c6e4e935c45548418c943fa61ddabf36/Untitled%201.png"><img style="width:336px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20c6e4e935c45548418c943fa61ddabf36/Untitled%201.png"/></a></figure><p id="1f8ad4a2-e296-4933-98fa-9be36e2c3b58" class=""><strong>Порт отправителя и порт получателя</strong> – как и в случае с TCP, в заголовке будет находится цифра порта, куда трафик адресован, а также порт, откуда трафик отправлялся. <strong>Порт получателя </strong>нужен для того, чтобы принимающее устройство могло определить, какой программе направить трафик на обработку, ведь одновременно на компьютере может работать большое количество программ. <strong>Порт отправителя </strong>содержит значение порта, на который при необходимости будет посылаться ответ в случае необходимости.</p><p id="b87a97b3-e80e-4128-b846-1883e3aec1ca" class=""><strong>Длина датаграммы</strong> – это поле, задающее длину всей дейтаграммы (заголовка и данных) в байтах. Минимальная длина равна длине заголовка - 8 байт. Теоретически, максимальный размер поля - 65535 байт для UDP-дейтаграммы (8 байт на заголовок и 65527 на данные). Фактический предел для длины данных при использовании IPv4 - 65507 (помимо 8 байт на UDP-заголовок требуется еще 20 на IP-заголовок).</p><p id="75e15ea6-1c0a-4574-91a3-e2b54c904efb" class=""><strong>Контрольная сумма</strong> - поле контрольной суммы используется для проверки заголовка и данных на ошибки. Если сумма не сгенерирована передатчиком, то поле заполняется нулями.</p><p id="ae987f94-c9e0-4070-8d32-d6a850d9388f" class="">И непосредственно сами <strong>данные</strong>.</p><h3 id="72fe0845-804e-4cad-9492-2c4b39939b1b" class="">Принцип работы</h3><p id="129471e4-28fd-48da-8bfd-bdfd87333640" class="">UDP получает сообщения от прикладного уровня, добавляет к ним поля номеров портов отправителя и получателя для демультиплексирования приемной стороной, а также два других специальных поля и передает полученный сегмент сетевому уровню. Сетевой уровень заключает сегмент в дейтаграмму и «по возможности» передает ее хосту назначения. Если последний успешно получает сегмент, протокол UDP с помощью поля номера порта получателя направляет данные сегмента нужному процессу. Обратите внимание на то, что протокол UDP не предусматривает процедуры рукопожатия перед началом передачи сегментов. Поэтому говорят, что UDP осуществляет передачу данных без установления соединения.</p><h2 id="e6070045-5b5b-4055-a4a9-2fb76bb7831e" class="">Порты. Сравнение TCP и UDP</h2><h3 id="6246ad3e-01b9-4354-9f23-d10919dbf780" class="">Логические порты</h3><p id="7f4e22a1-6a25-4035-acbc-df6df4831767" class="">Логический порт – это номер, присвоенный логическому соединению<br/>Существует 65536 портов TCP и UDP, разделённых на три основные группы следующим образом:<br/></p><p id="60dd3d31-5566-4882-b9ea-de545f79904d" class=""><strong>Известные порты – 0-1023.</strong> Номера портов в диапазоне “известных” портов назначаются наиболее часто используемым и важным протоколам. Номера портов являются постоянными.</p><p id="c8511787-b72f-44ac-9b58-12182db385fb" class=""><strong>Зарегистрированные порты – 1024 – 49151.</strong> IANA назначила эти части IT-компаниям, которые хотят зарегистрировать их для проприетарных приложений. Например, Microsoft RDP – 3389 и Dropbox – 7600.</p><p id="e46977d6-1717-4b63-8942-ca2bc8e0a65c" class=""><strong>Динамические и частные порты – 49152 – 65535.</strong>  Эта группа охватывает оставшиеся логические порты, доступные для любого приложения.</p><p id="23ccaef8-02d0-4d29-b3a1-cbc8330e0789" class="">Диапазон портов известен как “клиентские порты” и обычно используется для логического подключения клиента.</p><p id="89611bb5-8176-4068-ac3d-57c0645934b8" class="">Например, хост, подключающийся к веб-серверу, отправляет запросы на порт 80. Это позволяет веб-серверу узнать, какую службу запрашивает клиент. Однако обратный трафик должен быть отправлен на исходный порт, который выбирается случайным образом. Когда соединение закрывается, порт можно повторно использовать для другого соединения, что позволяет клиенту устанавливать несколько соединений и управлять ответами из нескольких источников</p><p id="c15525bd-9e67-4769-8f45-d19d8066a728" class=""><strong>Номера портов</strong></p><p id="97f8c63a-c45b-4ebe-85a0-33f9d5d42f28" class="">Популярные номера портов TCP и UDP, и протоколы, работающие на них.</p><p id="b240e661-c677-4a9a-8e15-aee6e394aaa4" class=""><strong>TCP:</strong></p><ul id="89fd0b60-0a68-41c7-859b-8a852a388fe0" class="bulleted-list"><li style="list-style-type:disc">80 порт - HTTP</li></ul><ul id="e8da2395-a6f5-46bd-8486-244655acef61" class="bulleted-list"><li style="list-style-type:disc">443 порт - HTTPS</li></ul><ul id="39c7e224-bf90-4c28-aa28-577418ccaf6b" class="bulleted-list"><li style="list-style-type:disc">25, 465 порты - SMTP</li></ul><ul id="3224ebc6-418d-4dc5-93c2-2c8a5f448840" class="bulleted-list"><li style="list-style-type:disc">110 порт - POP3</li></ul><ul id="50c41c62-f6f0-4e47-890c-83758aa4a770" class="bulleted-list"><li style="list-style-type:disc">22 порт - SSH</li></ul><ul id="9376309c-06f6-4e1d-9cc0-8e4e8bfdde5f" class="bulleted-list"><li style="list-style-type:disc">3389 порт - RDP</li></ul><ul id="848cf445-01bb-4d32-ba40-6a5458a02dce" class="bulleted-list"><li style="list-style-type:disc">445 порт - SMB</li></ul><ul id="20f66271-b870-43dd-b78b-ae7e5c1a76fc" class="bulleted-list"><li style="list-style-type:disc">20, 21 порты - FTP</li></ul><p id="f659d6af-b961-4a00-be08-de47bff2d0b4" class=""><strong>UDP:</strong></p><ul id="70677cbe-cd4a-493e-9de1-96e7f59e3fb6" class="bulleted-list"><li style="list-style-type:disc">53 порт - DNS</li></ul><ul id="4d8847eb-ba94-46d2-9cae-084f92be921f" class="bulleted-list"><li style="list-style-type:disc">67, 68 порты - DHCP</li></ul><ul id="b807ec40-160d-4a03-a349-332fbe627769" class="bulleted-list"><li style="list-style-type:disc">69 порт - TFTP</li></ul><ul id="adc29b39-37fd-4c46-994f-b6238fce611d" class="bulleted-list"><li style="list-style-type:disc">123 порт - NTP</li></ul><h3 id="e48453e3-8194-4114-adcf-1b5a31d56101" class="">Сравнение</h3><p id="cf234d0f-c46d-4aa1-9c21-1eb720c6c4a1" class="">TCP</p><ul id="e198d941-ad27-45af-8513-5a3772a8c436" class="bulleted-list"><li style="list-style-type:disc">Ориентирован на соединение</li></ul><ul id="6116994b-5298-484e-9f54-3be0a7263c27" class="bulleted-list"><li style="list-style-type:disc">Подходит для приложений, требующих высокой надёжности, где время передачи менее критично</li></ul><ul id="0b186274-d325-487c-a165-c1469cade12d" class="bulleted-list"><li style="list-style-type:disc">Упорядочивает пакеты данных в указанном порядке</li></ul><ul id="66066da2-b195-4bfd-b2cc-7ac6fee4eee6" class="bulleted-list"><li style="list-style-type:disc">Гарантирует, что переданные данные останутся нетронутыми. Если пакет повреждён по прибытии, он отправляется повторно</li></ul><ul id="f92fe00c-14c1-4ac3-a20f-302e4fbbd1d0" class="bulleted-list"><li style="list-style-type:disc">Ошибки выявляются по контрольной сумме</li></ul><ul id="4b1f6655-4387-484b-a02f-fd306996bcc4" class="bulleted-list"><li style="list-style-type:disc">Относительно медленный</li></ul><ul id="680a5ec5-4573-4f1c-b0dc-7f15df85a72d" class="bulleted-list"><li style="list-style-type:disc">Размер заголовка TCP составляет 20 байт. Данные считываются как поток байтов, и никакие чёткие указания не передаются границам сегмента</li></ul><p id="b75ba2a8-cf2d-43dd-9786-144e48d10ed8" class="">UDP</p><ul id="2b41fb77-f870-4fa4-a39f-cc1861bf0dff" class="bulleted-list"><li style="list-style-type:disc">Без установления соединения</li></ul><ul id="e77e49cf-d6e1-4cda-ac61-2a4dc76a0726" class="bulleted-list"><li style="list-style-type:disc">Подходит для приложений, которым требуется быстрая и эффективная передача. Полезно для серверов, которые отвечают на небольшие запросы от большого количества клиентов</li></ul><ul id="ad801dea-7a78-4029-b613-6efac608cbb1" class="bulleted-list"><li style="list-style-type:disc">Пакеты могут приходить не по порядку, UDP их не упорядочивает</li></ul><ul id="eef2c136-8b1e-4f3c-96bf-f614b7277a68" class="bulleted-list"><li style="list-style-type:disc">Нет никакой гарантии, что отправленные сообщения или пакеты достигнут места назначения</li></ul><ul id="5b1ec84f-c6ee-4052-ac10-23830ebe4c61" class="bulleted-list"><li style="list-style-type:disc">UDP выполняет проверку ошибок, но просто отбрасывает пакеты. Исправление ошибок не предпринимается</li></ul><ul id="3fd8712a-d54d-42a5-940e-45b1e6eb3a16" class="bulleted-list"><li style="list-style-type:disc">Относительно быстрый</li></ul><ul id="30da9612-ed0b-4fd0-bc19-706e696dfe1f" class="bulleted-list"><li style="list-style-type:disc">Размер заголовка UDP составляет 8 байт. Пакеты отправляются индивидуально и проверяются на целостность только в том случае, если они приходят</li></ul><p id="da7cc88a-be30-426b-a052-422055e12c48" class="">Использование того или иного протокола для сетевых приложений определяет сам разработчик в зависимости от специфики использования этого приложения.</p><h1 id="e0567fa2-3108-425f-99b2-b69f92f2eecf" class="">Техники сканирования сети</h1><h2 id="f84be503-6cec-47a4-a4e1-480573eef2c6" class="">Инстурменты для сканирования</h2><p id="3a5843b5-2145-4cdc-8ace-f23d8ee06272" class="">Существует огромное количество утилит для сканирования сети. Обозначим некоторые из них:</p><ul id="79d88133-add8-4139-9410-83f7795517b6" class="bulleted-list"><li style="list-style-type:disc">Ping</li></ul><p id="36a806d9-b6b9-4269-818d-07d228832b26" class=""><strong>Ping </strong>— утилита для проверки целостности и качества соединений в сетях на основе TCP/IP, а также обиходное наименование самого запроса.</p><p id="a6bffd6d-81c2-4717-b981-e4b89eed9e1a" class="">Утилита отправляет запросы (ICMP Echo-Request) протокола ICMP указанному узлу сети и фиксирует поступающие ответы (ICMP Echo-Reply). Время между отправкой запроса и получением ответа позволяет определять двусторонние задержки по маршруту и частоту потери пакетов, то есть косвенно определять загруженность на каналах передачи данных и промежуточных устройствах.</p><ul id="5be4f4f2-5fb8-42ef-9a31-bcd1b692764b" class="bulleted-list"><li style="list-style-type:disc">Arpping</li></ul><p id="9f6ab484-a50e-49f4-a448-ef140ee955e9" class=""><strong>arping</strong> — утилита для обнаружения хостов в компьютерной сети.</p><p id="061bec89-8d26-471c-9d8b-5d8b5f15b786" class="">Функционирует аналогично утилите <em>ping</em>, но, в отличие от неё, посылает/получает не ICMP-запросы/ответы, а ARP-запросы/ответы. Т.к. ARP-пакеты являются широковещательными и не проходят сквозь маршрутизаторы, утилиту arping можно использовать только внутри L2-доменов.</p><p id="4798a242-93aa-4179-963c-2622ae6d024d" class="">Основные опции, доступные при инициализации утилиты:<div class="indented"><ul id="f10b3f57-1e4a-4b26-a6e1-8d970d58f9d7" class="bulleted-list"><li style="list-style-type:disc">А — использовать при отправке ARP-пакета ARP-ответ (ARP REPLY) вместо ARP-запроса (ARP REQUEST).</li></ul><ul id="8c3a48ce-1fc5-4e88-8de1-b21a69600032" class="bulleted-list"><li style="list-style-type:disc">b — отправка широковещательных пакетов на уровне MAC.</li></ul><ul id="d3e839b1-6071-4419-bab3-75a266ee4980" class="bulleted-list"><li style="list-style-type:disc">с — указание количества запросов адресату, после которых рассылка должна быть остановлена.</li></ul><ul id="3e250150-e5f7-43da-8284-c1dfd5cb279c" class="bulleted-list"><li style="list-style-type:disc">I — наименование сетевого интерфейса, через который будут отправлены ARP-пакеты.</li></ul></div></p><ul id="7a2ac538-355b-4229-a78c-acdd009005d7" class="bulleted-list"><li style="list-style-type:disc">Arp-scan</li></ul><p id="f8b71068-aff8-4365-8a91-65a908ba2423" class="">Это ARP сканнер.</p><p id="2d049294-ccef-4414-9eb0-1ae00f021e8d" class="">arp-scan — это инструмент командной строки для обнаружения и снятия отпечатков. Он создает и отправляет ARP запросы указанным IP адресам и отображает полученные ответы.</p><p id="666889d0-e697-400e-8485-d597cb6ac805" class="">arp-scan позволяет вам:<div class="indented"><ul id="a9069f22-ba0e-437c-a0c8-3fb249410dbb" class="bulleted-list"><li style="list-style-type:disc">Отправлять ARP-пакеты на любое количество хостов-получателей, используя настраиваемую пропускную способность или скорость передачи.</li></ul><p id="5471ba52-6f71-4730-aa3e-1baf083e5008" class="">Это полезно для обнаружения устройств, когда вам может потребоваться сканировать большие адресные пространства.</p><ul id="1c06b17e-bc7d-49e9-b814-5892fd72bd94" class="bulleted-list"><li style="list-style-type:disc">Гибким способом конструировать исходящий ARP пакет.</li></ul><p id="da6cac2d-4a60-4c1e-a4a3-4d04c2b346e3" class="">arp-scan предоставляет управление всеми полями пакета ARP и полями в заголовке Ethernet кадра.</p><ul id="bfacfabd-7354-45dc-831a-fe30d36a9678" class="bulleted-list"><li style="list-style-type:disc">Декодировать и отображать любые возвращённые пакеты.</li></ul><p id="20c875a3-8b75-4ab0-bfca-f3f32d7e1be8" class="">arp-scan будет декодировать и отображать любые принятые ARP-пакеты и искать поставщика, используя MAC-адрес.</p><ul id="66daf1e3-ce1a-4ddc-b35a-f3f88a2ceed8" class="bulleted-list"><li style="list-style-type:disc">Снимать отпечатки IP хостов, используя инструмент arp-fingerprint.</li></ul></div></p><ul id="c2c24b70-a2f0-486c-a6fe-b76ab9082e3d" class="bulleted-list"><li style="list-style-type:disc">Nmap</li></ul><p id="e2ed977c-dd26-467f-8e6a-c1eb2c266859" class=""><strong>nmap </strong>— утилита, предназначенная для разнообразного настраиваемого сканирования IP-сетей с любым количеством объектов, определения состояния объектов сканируемой сети. Изначально программа была реализована для систем UNIX, но сейчас доступны версии для множества операционных систем.</p><ul id="fe2eaa2e-9495-4ca4-b98d-df040bdf007a" class="bulleted-list"><li style="list-style-type:disc">Masscan</li></ul><p id="8d1667f5-9b5c-4c23-bda4-8a7404ea8d32" class="">MASSCAN — это массовый сканер IP портов. Это самый быстрый сканер портов Интернета. Отправляя 10 миллионов пакетов в секунду, он может сканировать весь интернет за 6 минут. Этот инструмент полезен для обзора сетей большого масштаба — таких как Интернет или внутренние сети. Хотя скорость по умолчанию ограничена 100 пакетами в секунду, программа может разгоняться до 25 миллионов пакетов в секунду, при такой скорости весь (по одному порту на IP) Интернет будет просканирован за 3 минуты.</p><p id="c3e0a57b-e6ce-47db-aa77-edaf895c25ff" class="">Он создаёт результат схожий с nmap, самым знаменитым сканером портов. Внутри он работает используя асинхронную передачу. Он быстрее этих сканеров. Дополнительно, он более гибкий, позволяет произвольные диапазоны адресов и портов.</p><ul id="90dda23e-b68e-4111-96cd-8de7b8d98c81" class="bulleted-list"><li style="list-style-type:disc">Nbtscan</li></ul><p id="64fe7f7a-6eb5-4e63-bdbc-1d4133712ef3" class="">Это инструмент командной строки, который сканирует NETBIOS в локальной или удалённой TCP/IP сети, это первый шаг по поиску открытых совместных ресурсов. Также утилита определяет имя компьютера и имя рабочей группы (или домена) и собирает информацию о запущенных на компьютере службах. Инструмент основывается на функциональности стандартного инструмента Windows <strong>nbtstat</strong>, но он может работать не только с одним адресом, но и по диапазону адресов.</p><p id="a3219a17-6577-4791-9a29-1a45742f4714" class="">Инструмент имеет версию для Windows и Linux.</p><p id="488662ab-9781-41dd-83b2-e7b2178beb2f" class="">Версия Win32 работает на ОС Windows начиная с Windows 9x, NT и 2000 и более поздних версиях, доступна ниже как nbtscan.exe. Она написан на переносимом C и занимает менее 40 кбайт, не требует специальных библиотек или DLL и запускается в командном окне MS-DOS.</p><h2 id="d4443b0c-2421-44a1-9673-0bf9c4273a55" class="">Методы обнаружения хостов в сети</h2><p id="e7c180c9-fdd2-4d49-aee8-94c58d0ad3ca" class="">Первый вид сканирования — <strong>ping-сканирование.</strong> Основная задача — обнаружить «живые» узлы в сети. Под ping-сканированием понимают широковещательную рассылку пакетов ICMP. Сканер рассылает пакеты типа Echo REQUEST по указанным IP-адресам и ожидает в ответ пакеты типа Echo REPLY. Если ответ получен, считается, что узел присутствует в сети по указанному IP-адресу.</p><p id="88e000bd-a75b-456c-89f1-df72811b6bfb" class=""><strong>ARP сканирование. </strong>Эта техника похожа на ping-сканирование, но вместо протокола ping используется arp. В сеть рассылаются широковещательные запросы по всем искомым ip адресам, и если устройство ответило – значит, работает. Так как протокол arp нельзя отключить без последствия для устройства, это сканирование довольно эффективно, но действует только в рамках подсети, в которой находится злоумышленник. В добавок такое сканирование легко обнаружить.</p><h2 id="b6ee3149-b31f-43ed-8788-c89b3800d657" class="">Сканирование портов</h2><p id="e8744bbe-cfdf-4b27-8de4-d4e8af42b9d8" class="">Более продвинутая тактика сканирования – сканирование портов. Сканирование этими методами определяет доступные порты на узлах, а затем на основе полученных данных делается предположение о типе используемой операционной системы или конкретного приложения, запущенного на конечном узле. Под сканированием портов понимают пробные попытки подключения к внешним узлам.</p><p id="8fec94ac-5326-48fe-b9ac-b8d3b92b7a7c" class="">Методы сканирования портов:</p><p id="acf17b5f-774b-4506-9715-7df5326f76f1" class="">Наиболее часто используется метод TCP SYN. Его называют сканированием с установкой полуоткрытого соединения, так как соединение не устанавливается до конца. На исследуемый порт посылается сообщение SYN, затем идет ожидание ответа, на основании которого определяется статус порта. Ответы SYN/ACK говорят о том, что порт прослушивается, а ответ RST говорит о том, что порт не прослушивается.</p><p id="93fc444b-deda-4378-b7ab-c1f04def93cc" class="">Метод TCP CONNECT менее популярен, чем TCP SYN. При реализации метода TCP CONNECT производится попытка установить соединение по протоколу TCP к нужному порту с процедурой handshake. Процедура заключается в обмене сообщениями для согласования параметров соединения, то есть служебными сообщениями SYN, SYN/ACK, ACK, между узлами. Соединение устанавливается на уровне операционной системы, поэтому существует шанс, что оно будет заблокировано средством защиты и попадет в журнал событий.</p><p id="5e1e9067-7194-4779-a178-085277759105" class="">UDP-сканирование медленнее и сложнее, чем TCP-сканирование. Время сканирования всего диапазона UDP портов по одному ip адресу может занимать чуть ли не сутки.</p><p id="13e0c9f0-59f6-4940-86ba-a25554e6c3f8" class="">Для определения статуса порта посылается пустой UDP-заголовок, и если в ответ приходит ошибка достижимости ICMP Destination Unreachable с кодом Destination port unreachable, это значит, что порт закрыт; другие ошибки достижимости ICMP означают, что порт фильтруется. Если порт отвечает UDP-пакетом, значит, он открыт. Из-за специфики UDP и потери пакетов запросы повторяются несколько раз.</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

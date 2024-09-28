@@ -1,0 +1,2986 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Материал лекции</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 237, 214, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 237, 214, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(249, 228, 188, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+
+		.checkbox-on {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+
+		.checkbox-off {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+	</style>
+</head>
+
+<body>
+	<article id="d103f515-963b-473f-afd9-0ea42099f5d6" class="page sans">
+		<header>
+			<h1 class="page-title">Материал лекции</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<p id="5f9cd1dd-fc55-43a4-9d16-ad061f519e4b" class="">
+			</p>
+			<h1 id="b8333046-6bc7-48ef-9ab7-ac74955ecc46" class="">DNS</h1>
+			<p id="f610ad42-f723-4e95-b560-bc5c1319071a" class=""><strong>DNS</strong> расшифровывается как
+				<strong>«Domain Name System»</strong> (система доменных имён). Это базовая технология, которая делает
+				возможной работу интернета. На самом базовом уровне DNS обеспечивает поиск пары из доменного имени и
+				IP-адреса (например, google.com и 85.129.83.120), что позволяет компьютеру отправить запрос на
+				соответствующий сервер. По аналогии с телефонными номерами разница между доменным именем и IP-адресом
+				такая же, как и между вызовом Джону Доу и звонком по номеру 201-867-5309. Для поиска номера Джона нужна
+				телефонная книга, а для поиска IP-адреса домена — DNS. Таким образом, можно считать DNS телефонной
+				книгой интернета. Система доменных имен (DNS) — это распределенная база данных, представляющая
+				пространство имен. Пространство имен содержит все сведения, необходимые любому клиенту для поиска любого
+				имени. Любой DNS-сервер может отвечать на запросы о любом имени в своем пространстве имен. DNS-сервер
+				отвечает на запросы одним из следующих способов:</p>
+			<ul id="c525b1cb-cce8-471b-bc07-13b42ffd79e6" class="bulleted-list">
+				<li style="list-style-type:disc">Если ответ находится в кэше, он отвечает на запрос из кэша.</li>
+			</ul>
+			<ul id="d7da2a8a-b442-4be5-8fe4-a5fbca682cca" class="bulleted-list">
+				<li style="list-style-type:disc">Если ответ находится в зоне, размещенной DNS-сервером, он отвечает на
+					запрос из зоны. Зона — это часть дерева DNS, хранящегося на DNS-сервере. Когда DNS-сервер размещает
+					зону, он является заслуживающим доверия для имен в этой зоне (то есть DNS-сервер может отвечать на
+					запросы любого имени в зоне). Например, сервер, на котором размещена зона, contoso.com может
+					отвечать на запросы любого имени в contoso.com.</li>
+			</ul>
+			<ul id="b33accdd-6f55-403d-9602-abd2182f517c" class="bulleted-list">
+				<li style="list-style-type:disc">Если сервер не может ответить на запрос из своего кэша или зон, он
+					запрашивает другие серверы для ответа.</li>
+			</ul>
+			<p id="3161dc9b-b87f-467f-8ec4-bbf4246a601d" class="">Важно понимать основные функции DNS, такие как
+				делегирование, рекурсивное разрешение имен и зоны DNS, интегрированные с Active Directory, так как они
+				непосредственно влияют на структуру логической структуры Active Directory.</p>
+			<h2 id="81f4f274-53e5-40f5-b8f1-1501a555daad" class="">DNS записи</h2>
+			<p id="0d53da00-9a71-4e2a-8e18-ebc7df0e9afa" class="">В базе данных dns сервера содержатся различные типы
+				dns записей.</p>
+			<p id="30c03eb6-6996-48ff-a261-9a458ac68577" class=""><strong>А </strong>– Адресная запись, соответствие
+				между именем и IP-адресом. Одна из самых часто используемых записей</p>
+			<p id="6c9a96c4-97ae-4ce4-ba1c-221af6ca8535" class=""><strong>SOA</strong> запись указывает местоположение
+				эталонной записи о домене. Она содержит в себе контактную информацию лица, ответственного за данную
+				зону, время кэширования информации на серверах и данные о взаимодействии DNS. В данной записи
+				определяется время кеширование dns записей нашего домена.</p>
+			<p id="7c80d9fb-db42-4805-99bd-942ca3d4eba5" class=""><strong>MX</strong>. Это тип DNS-записи,
+				предназначенный для маршрутизации электронной почты. Благодаря такой записи почтовые сервера других
+				организаций смогут отправлять письма на нашу почту, привязанную к домену. Критически важна
+				для SMTP-протокола, основа маршрутизации почты в Интернете</p>
+			<p id="48e032e1-f7f3-43c0-a44d-bab083c5961b" class=""><strong>NS</strong> запись – она же nameserver. Это
+				запись, содержащая в себе ip адрес сервера, ответственного за сопоставление имен данной dns зоны.
+				Критически важна для функционирования самой системы доменных имён</p>
+			<p id="c18a96ef-64fa-4861-b74c-d9ad85a878c4" class=""><strong>PTR</strong> запись – это запись в DNS,
+				позволяющая получить имя узла по его IP-адресу. Так как это действие противоположно стандартному запросу
+				в DNS, его называют обратным. Широко используется для IPv4-адресов в домене in-addr.arpa, для IPv6 —
+				в ip6.arpa</p>
+			<h2 id="89f701b4-d2ce-4baa-bc22-0055324f3d7a" class="">Делегирование</h2>
+			<p id="e4826f88-69f4-437e-9768-3825d93c1662" class="">Чтобы DNS-сервер отвечал на запросы о любом имени, он
+				должен иметь прямой или косвенный путь к каждой зоне в пространстве имен. Эти пути создаются с помощью
+				делегирования. Делегирование — это запись в родительской зоне, которая содержит список серверов имен,
+				заслуживающих доверия для зоны на следующем уровне иерархии. Делегирование позволяет серверам в одной
+				зоне ссылаться на клиенты на серверы в других зонах. На следующем рисунке показан один пример
+				делегирования.</p>
+			<figure id="b2649c4a-7142-4b59-abb5-65c07d9b75b1" class="image"><a
+					href="Материал лекции/Untitled.png"><img
+						style="width:271px"
+						src="Материал лекции/Untitled.png" /></a>
+			</figure>
+			<p id="5b74bd49-54fd-4eb8-9a13-ee7564d0d0dc" class="">Корневой сервер DNS размещает корневую зону,
+				представленную как точка (“.”). Корневая зона содержит делегирование в зону на следующем уровне иерархии
+				— зоне com. Делегирование в корневой зоне сообщает dns-корневому серверу, что для поиска com-зоны он
+				должен связаться с com-сервером. Аналогичным образом, делегирование в зоне com сообщает com-серверу, что
+				для поиска зоны contoso.com он должен связаться с сервером Contoso.</p>
+			<p id="3635c85b-0d7e-4021-bc5d-ee46c25df4c3" class=""><strong>Примечание</strong></p>
+			<p id="5571d778-2ba1-473e-8d1d-2b15c2d10311" class="">Делегирование использует два типа записей. Запись
+				ресурса сервера имен (NS) предоставляет имя заслуживающего доверия сервера. Записи ресурсов узла (A) и
+				узла (AAAA) предоставляют IP-адреса версии 4 (IPv4) и IP версии 6 (IPv6) доверенного сервера.</p>
+			<p id="6c227a10-f6a5-45ff-b0ec-768939c4109a" class="">Эта система зон и делегирований создает иерархическое
+				дерево, представляющее пространство имен DNS. Каждая зона представляет слой в иерархии, а каждое
+				делегирование представляет ветвь дерева.</p>
+			<p id="1e6344a7-137e-41c2-9602-b26a51bcd62e" class="">Используя иерархию зон и делегирований, корневой
+				DNS-сервер может найти любое имя в пространстве имен DNS. Корневая зона включает делегирования, которые
+				непосредственно или косвенно ведут ко всем остальным зонам в иерархии. Любой сервер, который может
+				запрашивать корневой сервер DNS, может использовать сведения в делегированиях для поиска любого имени в
+				пространстве имен.</p>
+			<h2 id="95f9a98f-ba8f-460e-bc48-cef628cbe2fc" class="">Рекурсивное разрешение имен</h2>
+			<p id="791412b2-a385-4c5b-8a31-0cca6baa3b68" class="">Рекурсивное разрешение имен — это процесс, с помощью
+				которого DNS-сервер использует иерархию зон и делегирований для реагирования на запросы, для которых он
+				не является заслуживающим доверия.</p>
+			<p id="3c153947-20b2-443f-9c70-39e0dbfa49d5" class="">В некоторых конфигурациях DNS-серверы содержат
+				корневые указания (т. е. список имен и IP-адресов), которые позволяют им запрашивать корневые серверы
+				DNS. В других конфигурациях серверы перенаправляют все запросы, которые они не могут ответить на другой
+				сервер. Перенаправление и корневые указания — это оба метода, которые DNS-серверы могут использовать для
+				разрешения запросов, для которых они не являются заслуживающими доверия.</p>
+			<h2 id="2a827e1a-b30b-4879-9ee8-b398f1b8de9d" class="">Разрешение имен с помощью корневых подсказок</h2>
+			<p id="cf3f68f1-bf0f-49a4-8b7e-df353d9207a0" class="">Корневые подсказки позволяют любому DNS-серверу
+				находить корневые серверы DNS. После того как DNS-сервер находит корневой DNS-сервер, он может разрешить
+				любой запрос для этого пространства имен. На следующем рисунке показано, как DNS разрешает имя с помощью
+				корневых подсказок.</p>
+			<figure id="aab5622f-0920-46ba-83f3-0de8c0342955" class="image"><a
+					href="Материал лекции/Untitled%201.png"><img
+						style="width:392px"
+						src="Материал лекции/Untitled%201.png" /></a>
+			</figure>
+			<p id="9ad4dcc8-c24c-4e80-a957-37847e9d341a" class="">В этом примере происходят следующие события:</p>
+			<ol type="1" id="3ef5af4e-da4a-4cfe-a757-a22af69c0385" class="numbered-list" start="1">
+				<li>Клиент отправляет рекурсивный запрос на DNS-сервер, чтобы запросить IP-адрес, соответствующий имени
+					ftp.contoso.com. Рекурсивный запрос указывает, что клиент хочет окончательного ответа на запрос.
+					Ответ на рекурсивный запрос должен быть допустимым адресом или сообщением, указывающим на то, что
+					адрес не найден.</li>
+			</ol>
+			<ol type="1" id="a0a0e519-4c59-4ace-9279-03f7f32534a2" class="numbered-list" start="2">
+				<li>Так как DNS-сервер не является заслуживающим доверия для имени и не имеет ответа в кэше, DNS-сервер
+					использует корневые указания для поиска IP-адреса корневого сервера DNS.</li>
+			</ol>
+			<ol type="1" id="af81e240-e462-427c-83bf-879694ae2e35" class="numbered-list" start="3">
+				<li>DNS-сервер использует итеративный запрос, чтобы попросить корневой сервер DNS разрешить имя
+					ftp.contoso.com. Итеративный запрос указывает, что сервер примет ссылку на другой сервер вместо
+					окончательного ответа на запрос. Так как имя ftp.contoso.com заканчивается com меткой, корневой
+					сервер DNS возвращает ссылку на com-сервер, на котором размещена зона com.</li>
+			</ol>
+			<ol type="1" id="80d37a8d-4aef-4c1d-a2e1-1bc79209c503" class="numbered-list" start="4">
+				<li>DNS-сервер использует итеративный запрос, чтобы попросить com-сервер разрешить имя ftp.contoso.com.
+					Так как имя ftp.contoso.com заканчивается именем contoso.com, com-сервер возвращает ссылку на сервер
+					Contoso, на котором размещена зона contoso.com.</li>
+			</ol>
+			<ol type="1" id="f21f9fdd-af0b-4dad-870c-193ed61335ca" class="numbered-list" start="5">
+				<li>DNS-сервер использует итеративный запрос, чтобы попросить сервер Contoso разрешить имя
+					ftp.contoso.com. Сервер Contoso находит ответ в данных зоны, а затем возвращает ответ на сервер.
+				</li>
+			</ol>
+			<ol type="1" id="d8db7a83-6ac6-4e41-bf23-ffa16ac6b57d" class="numbered-list" start="6">
+				<li>Затем сервер возвращает результат клиенту.</li>
+			</ol>
+			<h2 id="e1cd9923-55f1-4f09-974a-46d59385d07d" class="">Разрешение имен с помощью переадресации</h2>
+			<p id="ddb0d577-5342-49c2-a6ba-15a0c375e2eb" class="">Переадресация позволяет маршрутизировать разрешение
+				имен через определенные серверы вместо использования корневых указаний. На следующем рисунке показано,
+				как DNS разрешает имя с помощью переадресации.</p>
+			<figure id="ca65b0ad-87ea-4d20-8257-300ba0a1c814" class="image"><a
+					href="Материал лекции/Untitled%202.png"><img
+						style="width:501px"
+						src="Материал лекции/Untitled%202.png" /></a>
+			</figure>
+			<p id="575445a5-c813-4fb8-a08d-589be259b77a" class="">В этом примере происходят следующие события:</p>
+			<ol type="1" id="1e8d1248-b7ad-4271-b2bd-5c6cf7cd34eb" class="numbered-list" start="1">
+				<li>Клиент запрашивает DNS-сервер для ftp.contoso.com имени.</li>
+			</ol>
+			<ol type="1" id="5c90a229-10aa-472b-ac4d-ed7db4858f74" class="numbered-list" start="2">
+				<li>DNS-сервер перенаправит запрос на другой DNS-сервер, известный как сервер пересылки.</li>
+			</ol>
+			<ol type="1" id="54f2f208-7630-40bb-8a75-43a729a2cc61" class="numbered-list" start="3">
+				<li>Так как сервер пересылки не является заслуживающим доверия для имени и не имеет ответа в своем кэше,
+					он использует корневые указания для поиска IP-адреса корневого сервера DNS.</li>
+			</ol>
+			<ol type="1" id="c4e88eee-c69b-4072-8a26-1b3aec8b3140" class="numbered-list" start="4">
+				<li>Сервер пересылки использует итеративный запрос, чтобы попросить корневой сервер DNS разрешить имя
+					ftp.contoso.com. Так как имя ftp.contoso.com заканчивается именем com, корневой СЕРВЕР DNS
+					возвращает ссылку на com-сервер, на котором размещена зона com.</li>
+			</ol>
+			<ol type="1" id="ca6067ee-1a49-45bd-95ed-837c3d6e6e78" class="numbered-list" start="5">
+				<li>Сервер пересылки использует итеративный запрос, чтобы попросить com-сервер разрешить имя
+					ftp.contoso.com. Так как имя ftp.contoso.com заканчивается именем contoso.com, com-сервер возвращает
+					ссылку на сервер Contoso, на котором размещена зона contoso.com.</li>
+			</ol>
+			<ol type="1" id="e7301579-5786-43a3-97fc-ca3345614ef1" class="numbered-list" start="6">
+				<li>Сервер пересылки использует итеративный запрос, чтобы попросить сервер Contoso разрешить имя
+					ftp.contoso.com. Сервер Contoso находит ответ в файлах зоны, а затем возвращает ответ на сервер.
+				</li>
+			</ol>
+			<ol type="1" id="ed63b5d3-b5fe-4094-8fa6-296abf87602c" class="numbered-list" start="7">
+				<li>Затем сервер пересылки возвращает результат на исходный DNS-сервер.</li>
+			</ol>
+			<ol type="1" id="a671810f-2f1c-4aef-b544-90e05011ac9d" class="numbered-list" start="8">
+				<li>Затем исходный DNS-сервер возвращает результат клиенту.</li>
+			</ol>
+			<p id="fa9ae0bd-ba32-4f91-a3f9-35fef811580f" class="">
+			</p>
+			<h1 id="38bd088f-43ed-42d7-ada3-ee40eaf445ab" class="">Web серверы</h1>
+			<p id="54075f40-9113-402a-86dc-c27f87e30cd7" class="">Понятие «веб-сервер» может относиться как к аппаратной
+				начинке, так и к программному обеспечению. Или даже к обеим частям, работающим совместно.</p>
+			<ul id="3072c646-a890-430b-88c9-d7b76c209f5b" class="bulleted-list">
+				<li style="list-style-type:disc">С точки зрения &quot;железа&quot;, «веб-сервер» — это компьютер,
+					который хранит файлы сайта (HTML-документы, CSS-стили, JavaScript-файлы, картинки и другие) и
+					доставляет их на устройство конечного пользователя (веб-браузер и т.д.). Он подключён к сети
+					Интернет и может быть доступен через доменное имя, подобное <code>mozilla.org</code>.</li>
+			</ul>
+			<ul id="3fa97c4b-1dc5-49fc-a6a8-e239d3e1ecfd" class="bulleted-list">
+				<li style="list-style-type:disc">С точки зрения ПО,  включает в себя несколько компонентов, которые
+					контролируют доступ веб-пользователей к размещённым на сервере файлам, как минимум —
+					это <em>HTTP-сервер</em>.  — это часть ПО, которая понимает URL-адреса (веб-адреса)
+					и HTTP (протокол, который ваш браузер использует для просмотра веб-страниц).</li>
+			</ul>
+			<p id="64c07013-424d-4712-bccd-20907a62a8ce" class="">На самом базовом уровне, когда браузеру нужен файл,
+				размещённый на веб-сервере, браузер запрашивает его через HTTP-протокол. Когда запрос достигает нужного
+				веб-сервера (&quot;железо&quot;), сервер HTTP (ПО) принимает запрос, находит запрашиваемый документ
+				(если нет, то сообщает об ошибке 404) и отправляет обратно, также через HTTP.</p>
+			<figure id="eb848372-89d5-4a79-9562-10cb544f92e4" class="image"><a
+					href="Материал лекции/Untitled%203.png"><img
+						style="width:530px"
+						src="Материал лекции/Untitled%203.png" /></a>
+			</figure>
+			<p id="d14bc3a8-3a05-4630-be42-632aa4f37f2b" class="">Чтобы опубликовать веб-сайт, необходим либо
+				статический, либо динамический веб-сервер.</p>
+			<ul id="f404ec5e-629c-4fca-9b14-e1e6fb93d855" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Статический веб-сервер</strong>, или стек, состоит из
+					компьютера (&quot;железо&quot;) с сервером HTTP (ПО). Мы называем это «статикой», потому что сервер
+					посылает размещённые файлы в браузер «как есть».</li>
+			</ul>
+			<ul id="b68d7a9f-f801-4049-b56c-70fc09cdd0e7" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Динамический веб-сервер</strong> состоит из статического
+					веб-сервера и дополнительного программного обеспечения, чаще всего <em>сервера
+						приложения </em>и <em>базы данных</em>. Мы называем его «динамическим», потому что сервер
+					приложений изменяет исходные файлы перед отправкой в ваш браузер по HTTP.</li>
+			</ul>
+			<p id="0c641a3e-f083-4429-a070-8ac4dd80edf9" class="">Обычно веб-серверы не обрабатывают динамический
+				контент и не позволяют программировать свои программы. Веб-серверы работают по протоколу передачи
+				гипертекста HTTP (Hypertext Transfer Protocol) или HTTPS (Hypertext Transfer Protocol Secure). Однако,
+				опционально, некоторые веб-серверы позволяют добавлять компоненты, позволяющие работать с динамическим
+				контентом.</p>
+			<figure id="2cab7082-812c-490b-9b3d-dc2f53b33ce5" class="image"><a
+					href="Материал лекции/Untitled%204.png"><img
+						style="width:600px"
+						src="Материал лекции/Untitled%204.png" /></a>
+			</figure>
+			<h2 id="8366fbe7-3da7-4bb0-bba8-75800300dd9f" class="">Популярные веб-серверы</h2>
+			<h3 id="2e0f0ba2-1891-4b35-95fc-585a2e879a7a" class=""><strong>Nginx</strong></h3>
+			<p id="de1acf96-9b59-45b1-8a09-f5adbec82f39" class="">Nginx – веб-сервер с открытым кодом, который может
+				работать как обратный прокси-сервер (reverse proxy). Nginx имеет архитектуру, управляемую событиями EDA
+				(event-driven architecture), позволяющую создавать и определять события, реагировать на события,
+				измерять потребление ресурсов реакции на событие. Кроме того, он может выполнять функции прокси-сервера
+				электронной почты и балансировщика нагрузки, а также может выполнять одновременно множество запросов.
+			</p>
+			<h3 id="a1a63072-0217-4a58-9468-ee5a81d6302d" class=""><strong>Apache HTTP</strong></h3>
+			<p id="0c612cce-aefc-49ad-9f92-8fee7244361c" class="">HTTP-сервер Apache – популярный веб-сервер на ОС
+				Linux, который входит с стек LAMP (Linux, Apache, MySQL, PHP). На этом веб-сервере работает около 40%
+				Интернет-сайтов. Apache имеет богатый выбор функций, включая htaccess, FTP, HTTP/2, ограничение полосы
+				пропускания для определённых клиентов (throttling), балансировку нагрузки и пр.</p>
+			<h3 id="c6cbd74b-e15a-4009-a211-52397f09033f" class=""><strong>Microsoft IIS</strong></h3>
+			<p id="f9209142-ec14-40ed-97aa-4f62b1d2d1e0" class="">Microsoft IIS (Internet Information Services) –
+				свободно распространяемый пакет серверного ПО, представляющий собой проприетарный набор служб от
+				компании Microsoft. IIS распространяется с пакетом Windows NT. IIS поддерживает протоколы HTTP, HTTPS,
+				FTP, POP3, SMTP, NNTP.</p>
+			<h3 id="86170626-b18c-4eb5-808f-a0f1a82295b5" class=""><strong>Jetty</strong></h3>
+			<p id="39c4313f-15ad-4a07-82f0-b5e33f6b2616" class="">Jetty – проект свободного ПО, который может
+				обеспечивать функции НТТР-сервера, НТТР-клиента и контейнера javax.servlet. Хотя Jetty разрабатывался
+				как веб-сервер, он также может служить платформой для межмашинных коммуникаций (М2М).</p>
+			<h3 id="00fe4b26-a3b8-4fe8-acc5-91f139c09a4b" class=""><strong>LiteSpeed</strong></h3>
+			<p id="f07de0e3-f6bf-4d0d-8b3b-52d35cc313d9" class="">LiteSpeed имеет хорошую производительность и
+				масштабируемость, широкий диапазон функций и простую в использовании консоль администратора. Это
+				четвёртый по популярности веб-сервер, который, по состоянию на декабрь 2020 года, использовался для 8.1%
+				веб-сайтов.</p>
+			<p id="e013df73-14db-496d-a561-68055bb6cced" class="">
+			</p>
+			<h1 id="581c6fe9-d861-4d0d-92a4-5960aba24b71" class="">Балансировщики нагрузки</h1>
+			<p id="bac937c3-8dc2-443a-bbc0-6f16f2ffc3fd" class="">Балансировка нагрузки — это метод, который
+				гарантирует, что сервер организации не будет перегружен трафиком. Под этим определением понимается
+				эффективное распределение входящего сетевого трафика между группой внутренних серверов, также известной
+				как ферма серверов или пул серверов.</p>
+			<figure id="8ab74c5d-5db6-46dc-b588-9964d4591bd5" class="image"><a
+					href="Материал лекции/Untitled%205.png"><img
+						style="width:528px"
+						src="Материал лекции/Untitled%205.png" /></a>
+			</figure>
+			<p id="d0b8eef9-0892-4d72-a567-97ba67186e68" class="">Операция выполняется физическим или виртуальным
+				устройством, определяющим, какой сервер в пуле удовлетворит клиентский запрос наилучшим образом. При
+				этом интенсивный сетевой трафик не перегружает систему. Кроме того, метод обеспечивает аварийное
+				переключение между устройствами. Поэтому если один из серверов выходит из строя, балансировщик
+				немедленно перенаправляет рабочие нагрузки на резервный сервер, тем самым снижая негативное воздействие
+				на конечных пользователей.</p>
+			<p id="65744949-e214-405f-aaf8-9101fff9e994" class="">Балансировщики нагрузки являются ключевым элементом
+				для создания превосходных современных интернет-приложений, поскольку они обеспечат вашему приложению
+				следующие преимущества:</p>
+			<ul id="e0e9cfcb-6130-45df-9876-95f3cb04ee7d" class="bulleted-list">
+				<li style="list-style-type:disc">Резервирование. Сервер приложений может выйти из строя, но до тех пор,
+					пока остается хотя бы один сервер приложений, балансировщик нагрузки может направлять трафик клиента
+					на оставшиеся в рабочем состоянии сервера приложений.</li>
+			</ul>
+			<ul id="d0c02811-955f-4c69-ad2e-cc630e32e608" class="bulleted-list">
+				<li style="list-style-type:disc">Масштабируемость. Так, например, два сервера, работающие за
+					балансировщиком нагрузки, позволят обрабатывать вдвое больший трафик от клиентов. Другими словами,
+					по мере увеличения вашего сетевого трафика, балансировщики нагрузки позволят вам легко добавлять все
+					больше и больше бэкенд-серверов.</li>
+			</ul>
+			<h2 id="58671f76-0287-456d-8a8b-7179982787a8" class="">Преимущества балансировки нагрузки</h2>
+			<ul id="3c92dc96-dcb0-480f-9794-3adc050c345d" class="bulleted-list">
+				<li style="list-style-type:disc">Надежность. Веб-сайт или приложение должны обеспечивать хороший UX даже
+					при высоком трафике. Балансировщики нагрузки обрабатывают пики трафика, эффективно перемещая данные,
+					оптимизируя использование ресурсов доставки приложений и предотвращая перегрузки сервера. Таким
+					образом, производительность сайта остается высокой, а пользователи остаются довольными.</li>
+			</ul>
+			<ul id="846cfdbf-d0ad-4d42-9535-4b0c595b8cd3" class="bulleted-list">
+				<li style="list-style-type:disc">Доступность. Балансировка нагрузки важна, поскольку она включает
+					периодические проверки работоспособности между балансировщиком нагрузки и хост-машинами, чтобы
+					гарантировать, что они получают запросы. Если одна из хост-машин не работает, балансировщик нагрузки
+					перенаправляет запрос на другие доступные устройства.</li>
+			</ul>
+			<ul id="23c3ab0b-d072-4d7b-a356-57c312c67a22" class="bulleted-list">
+				<li style="list-style-type:disc">Балансировщики нагрузки также удаляют неисправные серверы из пула, пока
+					проблема не будет решена. Некоторые подсистемы балансировки нагрузки даже создают новые
+					виртуализированные серверы приложений для удовлетворения возросшего количества запросов.</li>
+			</ul>
+			<ul id="c1a31b3e-6b44-4d0e-91f3-f69bb3ee30d3" class="bulleted-list">
+				<li style="list-style-type:disc">Безопасность. Балансировка нагрузки становится требованием для
+					большинства современных приложений, особенно с добавлением функций безопасности по мере развития
+					облачных вычислений. Функция разгрузки балансировщика нагрузки защищает от DDoS-атак, перекладывая
+					трафик атак на общедоступного облачного провайдера, а не на корпоративный сервер.</li>
+			</ul>
+			<ul id="d375f5be-5790-4e3f-8dca-8e38712d2b6a" class="bulleted-list">
+				<li style="list-style-type:disc">Прогнозирование. Балансировка нагрузки включает аналитику, которая
+					может предсказать узкие места трафика и позволить организациям их предотвратить. Прогнозные
+					аналитические данные способствуют автоматизации и помогают организациям принимать решения на
+					будущее.</li>
+			</ul>
+			<h2 id="d9e3cb23-a9c8-41c8-ba94-5dba78e41c34" class="">Разница между Application Load Balancer и Network
+				Load Balancer</h2>
+			<p id="0556dc92-0c4a-42c8-a45f-297562f8292d" class="">В официальной документации облачной платформы AWS для
+				Application Load Balancer и Network Load Balancer приложение ALB называется балансировщиком нагрузки
+				«уровня 7», а NLB именуют балансировщиком нагрузки «уровня 4». Эти уровни, как можно легко догадаться,
+				являются прямой отсылкой к сетевой модели OSI (детальнее проиллюстрировано на рисунке ниже).</p>
+			<figure id="f8fe7e29-789d-42c8-8d61-2c0b2b243509" class="image"><a
+					href="Материал лекции/Untitled%206.png"><img
+						style="width:528px"
+						src="Материал лекции/Untitled%206.png" /></a>
+			</figure>
+			<p id="d7744b74-0612-47fd-9c30-7aa9126040c6" class=""><em>Application Load Balancer является балансировщиком
+					нагрузки «уровня 7», а Network Load Balancer — балансировщиком нагрузки «уровня 4»</em></p>
+			<p id="bc0b666f-4555-491f-b2cc-59bd08dd91a2" class="">Модель OSI классифицирует различные операции,
+				связанные с сетевым обменом данными между одной компьютерной программой на одном компьютере и другой
+				компьютерной программой на другом компьютере. Ниже приведенная иллюстрация может наглядно
+				продемонстрировать движение сетевого трафика вниз и вверх по сетевой модели OSI. Эта общеизвестная
+				информация поможет нам лучше понять, какие трансформации происходят с сетевым трафиком, когда он
+				достигает балансировщика нагрузки.</p>
+			<figure id="765ef5c2-830b-489c-8cba-5a65ea1a0c31" class="image"><a
+					href="Материал лекции/Untitled%207.png"><img
+						style="width:528px"
+						src="Материал лекции/Untitled%207.png" /></a>
+			</figure>
+			<p id="896f7904-4468-4c9a-b0ca-19c74418fc09" class="">Если не вдаваться в детали, то соединение между
+				клиентом и сервером происходит следующим образом:</p>
+			<ol type="1" id="d03d253f-4f2a-46b7-a184-df4428a7162a" class="numbered-list" start="1">
+				<li>На прикладном уровне веб-браузер создает HTTP-запрос, представляющий собой небольшой текстовый
+					документ, описывающий, какой ресурс браузер хочет получить с веб-сервера.</li>
+			</ol>
+			<ol type="1" id="c50ba835-9f6f-4d41-98d0-f245c120e09d" class="numbered-list" start="2">
+				<li>Для обеспечения безопасного соединения между браузером и сервером веб-запрос шифруется с
+					использованием криптографического протокола транспортного уровня TLS (или SSL). Этот процесс
+					использует открытый ключ сервера для превращения полезной нагрузки (payload) HTTP в нечитаемый
+					фрагмент зашифрованных двоичных данных.</li>
+			</ol>
+			<ol type="1" id="cb430a40-8086-4104-a14d-a51aef6a3d90" class="numbered-list" start="3">
+				<li>Несколькими уровнями ниже, на транспортном уровне, зашифрованная полезная нагрузка разделяется на
+					пакеты TCP. Каждый пакет является частью полезной нагрузки HTTP, «обернутой» в метаданные, такие как
+					исходный IP-адрес, откуда был отправлен TCP-пакет, и IP-адрес назначения, куда должен быть доставлен
+					этот пакет.</li>
+			</ol>
+			<ol type="1" id="cba3f8bc-03a0-483b-81c1-25768664509f" class="numbered-list" start="4">
+				<li>Физический уровень принимает необработанные цифровые единички и нули, которые являются TCP-пакетами
+					в двоичном представлении, и превращает их в аналоговый сигнал, такой как электрический импульс на
+					медном проводе, световой импульс в оптоволоконном кабеле или радиоволна в воздухе. На другом конце
+					соединения другое устройство превращает этот аналоговый сигнал обратно в цифровые «1» и «0».</li>
+			</ol>
+			<ol type="1" id="20aa8e34-0eb0-488e-84fd-01d9a4c457e7" class="numbered-list" start="5">
+				<li>Сетевой трафик начинает свой путь назад по сетевой модели OSI, когда единички и нули
+					интерпретируются назад в ТСР-пакеты, которые затем снова собираются в исходную полезную нагрузку
+					зашифрованных данных.</li>
+			</ol>
+			<ol type="1" id="0fb875da-4ae4-422a-ab9e-b8df48ffaa63" class="numbered-list" start="6">
+				<li>Сервер использует свой закрытый ключ для дешифровки, зашифрованной с помощью TLS (или SSL) полезной
+					нагрузки обратно в исходный текстовый документ HTTP-запроса.</li>
+			</ol>
+			<ol type="1" id="f8a17d43-5604-4f17-ba13-111a91803df0" class="numbered-list" start="7">
+				<li>Сервер использует незашифрованный HTTP-запрос, чтобы определить, какой ресурс необходимо отправить
+					назад по сети.</li>
+			</ol>
+			<p id="0e70a234-9a3c-46fe-973e-825208c5bb5b" class="">Таким образом, знание того пути, которое сетевое
+				соединение проходит через сеть, дает нам понимание, что балансировщик нагрузки — это нечто большее, чем
+				просто пару линий между клиентом и балансировщиком нагрузки, а также между балансировщиком нагрузки и
+				бэкенд-сервером. Эти линии скрывают сложное сетевое взаимодействия. В действительности, клиент
+				отправляет свое сообщение вниз по стеку уровней сетевой модели OSI; когда это сообщение достигает
+				балансировщика нагрузки, оно перемещается обратно вверх по стеку уровней; а затем, следуя далее по
+				сетевому пути от балансировщика нагрузки к серверу назначения, сообщение проходит повторную
+				трансформацию — опускаясь сразу к нижнему физическому уровню, а затем опять поднимаясь вверх к
+				прикладному уровню.<br />Собственно, «уровень» балансировщика нагрузки непосредственно указывает на то,
+				до какого уровня сетевой модели OSI должно быть трансформировано сетевое сообщение, полученное по сети
+				на физическом уровне, чтобы балансировщик нагрузки смог его обработать и отправить назад по сети к
+				выбранному им конечному месту назначения.<br />Другими словами, для того, чтобы Application Load
+				Balancer, который является балансировщиком нагрузки «уровня 7», смог прочитать HTTP-запрос и определить,
+				куда этот запрос должен быть направлен, сетевое сообщение перед этим подвергнется трансформации до
+				прикладного уровня сетевой модели OSI.<br /></p>
+			<h2 id="e6b7409f-9e33-4192-b5af-85e2001d306a" class="">Алгоритмы и методы балансировки</h2>
+			<p id="44a878b2-6dc4-4325-b977-63f097aa9a9b" class="">Существуют определенные алгоритмы балансировки
+				нагрузки, определяющие оптимальные серверы для входящих клиентских запросов. Рассмотрим стандартные
+				решения:</p>
+			<ul id="210c9824-ad0e-4f9d-9d14-cfea2cf75769" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Хэш-подход</strong> (Source IP hash) вычисляет предпочтительный
+					сервер для клиента, на основе HTTP заголовка или информации об IP-адресе. Он полагается на
+					сохраненную информацию о состоянии конкретного пользователя. Например, для корзины оформления
+					заказа, на сайтах электронной коммерции.</li>
+			</ul>
+			<ul id="a02bcd8c-bec6-4a27-8de8-df0858de10c9" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Метод наименьшего количества подключений</strong> (Weighted
+					least connection) отдает предпочтение наименее загруженным серверам с самым минимальным количеством
+					текущих транзакций, учитывая весовой коэффициент серверов.</li>
+			</ul>
+			<ul id="fd614ae7-8b50-4ece-9828-3568604ca066" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Алгоритм наименьшего времени.</strong> Учитывает время ответа
+					сервера и активные соединения, отправляя новые запросы на самые быстрые незагруженные серверы.</li>
+			</ul>
+			<ul id="df13250c-e177-4b4f-af62-ec031f9c1e51" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Липкий метод</strong> (Sticky-session) — такой вид
+					балансировки, при котором трафик поступает на один определенный сервер группы, будто приклеивается к
+					устройству.</li>
+			</ul>
+			<ul id="39e103f6-6df9-497f-ae0a-f4ed1d47f5c9" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Метод циклического перебора</strong> (Round Robin) –
+					используется по умолчанию для балансировки нагрузки. Циклически просматривает список доступных
+					серверов в последовательном порядке. С его помощью можно рассчитать наихудшее время ответа для
+					одного процесса, при известном общем количестве процессов в очереди.</li>
+			</ul>
+			<p id="9e0c5f2f-2ca5-4aa5-bdcb-7dde1265f8cb" class="">
+			</p>
+			<h1 id="4a2fb336-72fd-434d-8533-3cf7fa4bf8a5" class="">Серверы веб-приложений</h1>
+			<p id="59c77cf9-8423-4679-98a9-af5d459d85af" class=""><strong>Сервер приложений (Application Server,
+					App-Server)</strong> – это программный комплекс, предназначенный для доставки контента и средств его
+				представления для клиентских приложений. Клиентами могут быть веб-приложения, браузеры или мобильные
+				приложения.</p>
+			<p id="d39e21c9-43d6-444f-94ae-0edc1a0b41e8" class="">Серверы приложений предоставляют для клиентов
+				бизнес-логику, то есть, преобразуют данные в динамический контент и обеспечивают функционал приложений.
+				Примеры такого контента:</p>
+			<ul id="c3271e27-d24c-4c92-bfa5-f491c727dc8a" class="bulleted-list">
+				<li style="list-style-type:disc">Результаты транзакций;</li>
+			</ul>
+			<ul id="a9861176-a144-4fa1-8bfe-623ca8c034e7" class="bulleted-list">
+				<li style="list-style-type:disc">Поддержка принятия решений;</li>
+			</ul>
+			<ul id="07245f21-5534-4f2c-ae28-a1ae84c09384" class="bulleted-list">
+				<li style="list-style-type:disc">Аналитика в реальном времени, и др.</li>
+			</ul>
+			<p id="f8c0f3f1-5315-4a82-be51-9ccc80e57170" class="">Сервер приложений – это связующее звено между клиентом
+				и программным кодом физического сервера. Типичные задачи сервера приложений:</p>
+			<ul id="0efd149c-a506-4c2a-aef1-f8e62264f09e" class="bulleted-list">
+				<li style="list-style-type:disc">Управление транзакциями;</li>
+			</ul>
+			<ul id="4ef4bcb8-bae7-4c59-aa11-639c246c9f26" class="bulleted-list">
+				<li style="list-style-type:disc">Безопасность;</li>
+			</ul>
+			<ul id="edc8567b-98a8-4905-bf26-31b7a278392c" class="bulleted-list">
+				<li style="list-style-type:disc">Внедрение зависимости DI (Dependency injection);</li>
+			</ul>
+			<ul id="f68b58d1-fe23-410e-bca9-f5804430b789" class="bulleted-list">
+				<li style="list-style-type:disc">Одновременность исполнения процессов (Concurrency).</li>
+			</ul>
+			<p id="2129dfc2-7b66-4a5a-98ce-880d9ba34468" class="">Серверы приложений также обрабатывают такие процессы,
+				как кластеризация, исправление отказов и балансировка нагрузки.</p>
+			<figure id="06b1ecbb-fd46-439a-aee2-2f64c1395910" class="image"><a
+					href="Материал лекции/Untitled%208.png"><img
+						style="width:600px"
+						src="Материал лекции/Untitled%208.png" /></a>
+			</figure>
+			<h2 id="86a951f2-ee61-44ae-89dc-f26546770a29" class="">Отличия сервера приложений и веб-сервера</h2>
+			<p id="64408c0e-47c8-4b39-a154-21544deed996" class="">Серверы приложений иногда путают с веб-серверами. У
+				них есть общие функции, но есть и много различий.</p>
+			<h2 id="1557146e-e71a-4783-b4ac-c64ac3f09b14" class="">Популярные серверы приложений</h2>
+			<h2 id="e7656fc8-ed7e-4cf2-96b1-9c69f49af6c9" class=""><strong>Apache Tomcat</strong></h2>
+			<p id="5d630b23-c004-4a2a-9abc-c7cdbd53738e" class="">Apache Tomcat – контейнер сервлетов с открытым
+				исходным кодом на языке Java. Tomcat позволяет запускать веб-приложения и содержит ряд программ для
+				автоматического конфигурирования и часто используется вместе с конфигурационным файлом Apache HTTPD
+				(Apache Hypertext Transfer Protocol Server daemon). Tomcat может исполнять Java-сервлеты, доставлять
+				клиентам страницы в кодах Java Server Page, и может обслуживать приложения Java EE (Java Enterprise
+				Edition).</p>
+			<h3 id="4dba4afa-6da8-438f-a7e5-ee6e24859769" class=""><strong>Oracle WebLogic</strong></h3>
+			<p id="0c7b5aa9-40b6-4ec4-8b44-a723c87d0081" class="">Сервер Oracle WebLogic – сервер для распределённых
+				приложений с использованием стандартов Java EE. Он полностью интегрирован с продуктами и облачными
+				сервисами Oracle.</p>
+			<h3 id="b8cd8f22-4548-4aa0-9ea0-2320b268107c" class=""><strong>Glassfish</strong></h3>
+			<p id="b4d8d8fe-51d5-4cc7-a8a5-ffddcabae997" class="">Glassfish – сервер приложений с открытым кодом на Java
+				EE, который поддерживает Java-сервлеты, а также спецификацию написания и поддержки серверных компонентов
+				с бизнес-логикой EJB (Enterprise JavaBeans).</p>
+			<h3 id="c53a3a0c-65e4-469c-b120-0f30b9ce3705" class=""><strong>JBoss</strong></h3>
+			<p id="49a9cc56-6e57-47de-8771-ed1df46a0248" class="">JBoss – сервер приложений с открытым кодом для
+				создания, развёртывания и хостинга приложений на языке Java. JBoss может работать на разных платформах и
+				в любой операционной системе с поддержкой Java.</p>
+			<h1 id="05852da5-2e0f-4a93-9999-03e74814a4ec" class="">Формы для аутентификации на сайте</h1>
+			<p id="bef8c56f-7e9f-4ce6-8d3a-6215077b0606" class="">
+			</p>
+			<p id="bbbdfa27-cd2e-42bb-bfb1-09a5ddb2f7e2" class="">Перед тем, как перейти к техническим деталям, давайте
+				немного освежим терминологию.</p>
+			<ul id="f1f64fb4-a125-4c1e-af27-9c34637713b2" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Идентификация</strong> — это заявление о том, кем вы являетесь.
+					В зависимости от ситуации, это может быть имя, адрес электронной почты, номер учетной записи, итд.
+				</li>
+			</ul>
+			<ul id="2b6bb551-56eb-48dc-b451-11c8d1ca4060" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Аутентификация</strong> — предоставление доказательств, что вы
+					на самом деле есть тот, кем идентифицировались (от слова “authentic” — истинный, подлинный).</li>
+			</ul>
+			<ul id="90834993-0ad7-4e82-bb49-b89fe2b9b047" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Авторизация</strong> — проверка, что вам разрешен доступ к
+					запрашиваемому ресурсу.</li>
+			</ul>
+			<p id="bb9114ca-9fd7-4a35-8459-ccdd7a2ea9b6" class="">Например, при попытке попасть в закрытый клуб вас
+				<em><strong>идентифицируют</strong></em><em> </em>(спросят ваше имя и фамилию),
+				<em><strong>аутентифицируют</strong></em><em> </em>(попросят показать паспорт и сверят фотографию) и
+				<em><strong>авторизуют </strong></em>(проверят, что фамилия находится в списке гостей), прежде чем
+				пустят внутрь.</p>
+			<p id="8177ca43-0e02-498a-8ece-2122572b7e09" class="">Аналогично эти термины применяются в компьютерных
+				системах, где традиционно:</p>
+			<p id="2b8b4f1d-9948-4ee5-bb84-fa6b0462b4cb" class="">под <em><strong>идентификацией</strong></em><em>
+				</em>понимают получение вашей учетной записи (identity) по username или email;</p>
+			<p id="58f36414-7de1-449b-9ea0-53ff36633150" class="">под <em><strong>аутентификацией </strong></em>—
+				проверку, что вы знаете пароль от этой учетной записи;</p>
+			<p id="433cfdc6-fc0c-47bb-ad4f-67e1179a8e69" class="">под <em><strong>авторизацией </strong></em>— проверку
+				вашей роли в системе и решение о предоставлении доступа к запрошенной странице или ресурсу.</p>
+			<p id="de3d57c3-4879-4bed-97dd-99a051e470af" class=""><em>Надежные механизмы аутентификации являются
+					неотъемлемым аспектом эффективной веб-безопасности.</em></p>
+			<p id="96ced79f-10a6-465c-8c09-8a53a33ffe74" class=""><em>Существует три фактора аутентификации, на которые
+					можно разделить различные типы аутентификации:</em></p>
+			<ul id="c810ca7c-e279-4d29-942e-232405c372e5" class="bulleted-list">
+				<li style="list-style-type:disc"><em>Что-то, что вы </em><em><strong>знаете</strong></em>
+					<p id="201d2fc1-a441-480d-b5f3-f13bbfe5bac1" class=""><em>, например пароль или ответ на контрольный
+							вопрос. Их иногда называют «факторами знаний».</em></p>
+				</li>
+			</ul>
+			<ul id="550b7bc8-ee82-488e-8c6c-2c3c5e35c199" class="bulleted-list">
+				<li style="list-style-type:disc"><em>Что-то, что у вас </em><em><strong>есть</strong></em>
+					<p id="357b4a1b-6f98-4645-b252-789e39217d50" class=""><em>, то есть физический объект, например
+							мобильный телефон или токен безопасности. Их иногда называют «факторами владения».</em></p>
+				</li>
+			</ul>
+			<ul id="f4e27c72-0ab7-4cff-aeb9-81797fb25d3e" class="bulleted-list">
+				<li style="list-style-type:disc"><em>Что-то, чем вы </em><em><strong>являетесь</strong></em>
+					<p id="d763d113-c495-44fe-a35f-65c3f6e47bc7" class=""><em>или что делаете, например, ваши
+							биометрические данные или модели поведения. Их иногда называют «факторами
+							неотъемлемости».</em></p>
+				</li>
+			</ul>
+			<p id="fbbdb4e3-5bb5-4c67-b49d-26cb84593c55" class=""><em>Механизмы аутентификации основаны на ряде
+					технологий для проверки одного или нескольких из этих факторов.</em></p>
+			<h2 id="25c8a761-c150-419c-90db-eebab4be1de9" class=""><strong>Аутентификация по паролю</strong></h2>
+			<p id="23261b0a-f11a-420d-90b3-ec7c3a3152f1" class="">Этот метод основывается на том, что пользователь
+				должен предоставить username и password для успешной идентификации и аутентификации в системе. Пара
+				username/password задается пользователем при его регистрации в системе, при этом в качестве username
+				может выступать адрес электронной почты пользователя.</p>
+			<p id="8ed1e8e3-e69c-4eeb-90b4-2aa6c2d0481c" class="">Применительно к веб-приложениям, существует несколько
+				стандартных протоколов для аутентификации по паролю, которые мы рассмотрим ниже.</p>
+			<h2 id="b0fc209e-081f-42c9-83a2-0bd311eeaadf" class=""><strong>HTTP authentication</strong></h2>
+			<p id="8ec050ec-33c7-4d55-b213-081edc55a68c" class="">HTTP предоставляет набор инструментов для контроля
+				доступа к ресурсам и аутентификации. Самой распространённой схемой HTTP аутентификации является
+				&quot;Базовая&quot; (Basic) аутентификация. Применительно к веб-сайтам работает следующим образом:</p>
+			<ol type="1" id="9d94b8b3-22d5-4cbb-a29c-9475b7abab55" class="numbered-list" start="1">
+				<li>Сервер, при обращении неавторизованного клиента к защищенному ресурсу, отсылает HTTP статус “401
+					Unauthorized” и добавляет заголовок “WWW-Authenticate” с указанием схемы и параметров
+					аутентификации.</li>
+			</ol>
+			<ol type="1" id="1de54358-3caf-47f7-a2ba-86c0bed65c92" class="numbered-list" start="2">
+				<li>Браузер, при получении такого ответа, автоматически показывает диалог ввода username и password.
+					Пользователь вводит детали своей учетной записи.</li>
+			</ol>
+			<ol type="1" id="017e6dad-a6c5-4892-89db-384f64180d6f" class="numbered-list" start="3">
+				<li>Во всех последующих запросах к этому веб-сайту браузер автоматически добавляет HTTP заголовок
+					“Authorization”, в котором передаются данные пользователя для аутентификации сервером.</li>
+			</ol>
+			<ol type="1" id="56d96903-b1da-4b20-b5f1-c20c874e4cf8" class="numbered-list" start="4">
+				<li>Сервер аутентифицирует пользователя по данным из этого заголовка. Решение о предоставлении доступа
+					(авторизация) производится отдельно на основании роли пользователя, ACL или других данных учетной
+					записи.</li>
+			</ol>
+			<p id="f1a7fe1b-7203-4974-93e1-4683adbaca1c" class="">Существует несколько схем аутентификации, отличающихся
+				по уровню безопасности:</p>
+			<p id="3921288c-b91f-45ba-ae95-e1d093cb41f3" class=""><strong>Basic</strong></p>
+			<p id="b1a169af-b216-4ae0-819e-792dce1e976d" class="">Наиболее простая схема, при которой username и
+				password пользователя передаются в заголовке Authorization в незашифрованном виде (base64-encoded).
+				Однако при использовании HTTPS (HTTP over SSL) протокола, является относительно безопасной.</p>
+			<figure id="14c28348-9ecf-4820-ba9c-c6cb4e49f1aa" class="image"><a
+					href="Материал лекции/Untitled%209.png"><img
+						style="width:576px"
+						src="Материал лекции/Untitled%209.png" /></a>
+			</figure>
+			<p id="5f978878-24d8-419f-afa1-e07d8ce7011b" class=""><strong>Digest</strong> </p>
+			<p id="d93367e9-ad47-41db-a477-8797f27a9f09" class="">Сhallenge-response-схема, при которой сервер посылает
+				уникальное значение nonce, а браузер передает MD5 хэш пароля пользователя, вычисленный с использованием
+				указанного nonce. Более безопасная альтернативв Basic схемы при незащищенных соединениях, но подвержена
+				man-in-the-middle attacks (с заменой схемы на basic). Кроме того, использование этой схемы не позволяет
+				применить современные хэш-функции для хранения паролей пользователей на сервере.</p>
+			<p id="ccd0f010-9af7-4977-a2d1-8722a8c6600a" class=""><strong>NTLM</strong></p>
+			<p id="3ba3a95c-ecac-4500-94d9-b6fd76955f17" class="">Известная как Windows authentication — также основана
+				на challenge-response подходе, при котором пароль не передается в чистом виде. Эта схема не является
+				стандартом HTTP, но поддерживается большинством браузеров и веб-серверов. Преимущественно используется
+				для аутентификации пользователей Windows Active Directory в веб-приложениях. Уязвима к
+				pass-the-hash-атакам.</p>
+			<p id="7108fb19-fdaa-4e10-b787-83b04f723b79" class="">
+			</p>
+			<p id="9fcbaad7-f1bc-448b-8e74-8f227111417d" class=""><strong>Negotiate</strong> </p>
+			<p id="1c89a61b-dba5-445c-8940-f6538715f783" class="">Еще одна схема из семейства Windows authentication,
+				которая позволяет клиенту выбрать между NTLM и Kerberos аутентификацией. Kerberos — более безопасный
+				протокол, основанный на принципе Single Sign-On. Однако он может функционировать, только если и клиент,
+				и сервер находятся в зоне intranet и являются частью домена Windows</p>
+			<h2 id="009d51bb-9134-4eb7-9c73-d2855b01788c" class=""><strong>Forms authentication</strong></h2>
+			<p id="3abb9c28-c4f4-4fd9-a13a-d6716146ba87" class="">Для этого протокола нет определенного стандарта,
+				поэтому все его реализации специфичны для конкретных систем, а точнее, для модулей аутентификации
+				фреймворков разработки.</p>
+			<p id="7e620cc1-0168-4c06-98f4-e8d93f5835ac" class="">Работает это по следующему принципу: в веб-приложение
+				включается HTML-форма, в которую пользователь должен ввести свои username/password и отправить их на
+				сервер через HTTP POST для аутентификации. В случае успеха веб-приложение создает session token, который
+				обычно помещается в browser cookies. При последующих веб-запросах <em>session token </em>автоматически
+				передается на сервер и позволяет приложению получить информацию о текущем пользователе для авторизации
+				запроса.</p>
+			<figure id="80bf9750-7ff2-4ee7-a706-3c409e717420" class="image"><a
+					href="Материал лекции/Untitled%2010.png"><img
+						style="width:528px"
+						src="Материал лекции/Untitled%2010.png" /></a>
+			</figure>
+			<h2 id="aaac8270-2211-4328-a591-3994977354c1" class="">Д<strong>ругие протоколы аутентификации по
+					паролю</strong></h2>
+			<p id="334d6065-0986-44c2-9657-76d863966c10" class="">Два протокола, описанных выше, успешно используются
+				для аутентификации пользователей на веб-сайтах. Но при разработке клиент-серверных приложений с
+				использованием веб-сервисов (например, iOS или Android), наряду с HTTP аутентификацией, часто
+				применяются нестандартные протоколы, в которых данные для аутентификации передаются в других частях
+				запроса.</p>
+			<p id="efc0c344-e804-4df1-a440-3c007d8e9da0" class="">Существует всего несколько мест, где можно передать
+				username и password в HTTP запросах:</p>
+			<ul id="053c7db6-6b66-4856-993e-e0107dd6bfcf" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>URL query</strong> — считается небезопасным вариантом, т. к.
+					строки URL могут запоминаться браузерами, прокси и веб-серверами.</li>
+			</ul>
+			<ul id="5d3ec378-a18a-4249-a8c2-94be2fbff9c6" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Request body</strong> — безопасный вариант, но он применим
+					только для запросов, содержащих тело сообщения (такие как POST, PUT, PATCH).</li>
+			</ul>
+			<ul id="58685f2c-ed2c-457f-9898-bfc3e034fd75" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>HTTP header</strong> —оптимальный вариант, при этом могут
+					использоваться и стандартный заголовок Authorization (например, с Basic-схемой), и другие
+					произвольные заголовки.</li>
+			</ul>
+			<p id="0630e341-6c0a-48f0-bbe8-ab55fa17747a" class="">
+			</p>
+			<h2 id="23c7c3da-2a3d-490a-88d5-c4c31a748f0f" class=""><strong>Аутентификация по сертификатам</strong></h2>
+			<p id="8a671f35-3902-4712-b49c-cf892601a2f7" class="">Сертификат представляет собой набор атрибутов,
+				идентифицирующих владельца, подписанный <em><strong>certificate authority
+					</strong></em><strong>(CA)</strong>. CA выступает в роли посредника, который гарантирует подлинность
+				сертификатов (по аналогии с ФМС, выпускающей паспорта). Также сертификат криптографически связан с
+				закрытым ключом, который хранится у владельца сертификата и позволяет однозначно подтвердить факт
+				владения сертификатом.</p>
+			<p id="fddafaea-56bd-4a52-8760-c0b8971563df" class="">На стороне клиента сертификат вместе с закрытым ключом
+				могут храниться в операционной системе, в браузере, в файле, на отдельном физическом устройстве (smart
+				card, USB token). Обычно закрытый ключ дополнительно защищен паролем или PIN-кодом.</p>
+			<figure id="bc862641-1b04-4c8b-a112-1134db1e63b1" class="image"><a
+					href="Материал лекции/Untitled%2011.png"><img
+						style="width:336px"
+						src="Материал лекции/Untitled%2011.png" /></a>
+			</figure>
+			<p id="e4d4465a-0a17-4fae-83d5-7d9d5565f50f" class="">
+			</p>
+			<p id="2961d8dd-1473-4311-aacd-4167506730d8" class="">Во время аутентификации сервер выполняет проверку
+				сертификата на основании следующих правил:</p>
+			<ol type="1" id="755500ac-a4f4-4c02-b90e-241fabaf49b2" class="numbered-list" start="1">
+				<li>Сертификат должен быть подписан доверенным certification authority (проверка цепочки сертификатов).
+				</li>
+			</ol>
+			<ol type="1" id="76fbde2c-9e26-44ed-abcd-50e173fc27cc" class="numbered-list" start="2">
+				<li>Сертификат должен быть действительным на текущую дату (проверка срока действия).</li>
+			</ol>
+			<ol type="1" id="055f4c8f-1352-4ac7-92bb-8cb9a0163c33" class="numbered-list" start="3">
+				<li>Сертификат не должен быть отозван соответствующим CA (проверка списков исключения).</li>
+			</ol>
+			<p id="f0041a41-2947-42be-aad9-ce3e1f41b6cf" class="">После успешной аутентификации веб-приложение может
+				выполнить авторизацию запроса на основании таких данных сертификата, как subject (имя владельца), issuer
+				(эмитент), serial number (серийный номер сертификата) или thumbprint (отпечаток открытого ключа
+				сертификата).</p>
+			<p id="1f252930-8a57-431c-8629-07fb90157f41" class="">Использование сертификатов для аутентификации — куда
+				более надежный способ, чем аутентификация посредством паролей. Это достигается созданием в процессе
+				аутентификации цифровой подписи, наличие которой доказывает факт применения закрытого ключа в конкретной
+				ситуации (non-repudiation). Однако трудности с распространением и поддержкой сертификатов делает такой
+				способ аутентификации малодоступным в широких кругах.</p>
+			<h2 id="4a2f8276-07a4-4b00-b2a8-f8619f90d220" class=""><strong>Аутентификация по одноразовым
+					паролям</strong></h2>
+			<p id="36e8b39d-5a12-4edd-b4d5-2853b91e3ef7" class="">Аутентификация по одноразовым паролям обычно
+				применяется дополнительно к аутентификации по паролям для реализации <em>two-factor authentication
+				</em>(2FA). В этой концепции пользователю необходимо предоставить данные двух типов для входа в систему:
+				что-то, что он знает (например, пароль), и что-то, чем он владеет (например, устройство для генерации
+				одноразовых паролей). Наличие двух факторов позволяет в значительной степени увеличить уровень
+				безопасности, что м. б. востребовано для определенных видов веб-приложений.</p>
+			<p id="e26abc2f-dc4b-49e0-8241-93e0bf194243" class="">Другой популярный сценарий использования одноразовых
+				паролей — дополнительная аутентификация пользователя во время выполнения важных действий: перевод денег,
+				изменение настроек и т. п.</p>
+			<p id="e34bda94-8950-438a-9b66-93f388a54ccb" class="">Существуют разные источники для создания одноразовых
+				паролей. Наиболее популярные:</p>
+			<ul id="d57c5160-f4d6-49c7-835a-6ea8edf27926" class="bulleted-list">
+				<li style="list-style-type:disc">Аппаратные или программные токены, которые могут генерировать
+					одноразовые пароли на основании секретного ключа, введенного в них, и текущего времени. Секретные
+					ключи пользователей, являющиеся фактором владения, также хранятся на сервере, что позволяет
+					выполнить проверку введенных одноразовых паролей. Пример аппаратной реализаций токенов — RSA
+					SecurID; программной — приложение Google Authenticator.</li>
+			</ul>
+			<figure id="1a99f27b-5b6c-4ffd-8f61-de242e70db0f" class="image"><a
+					href="Материал лекции/Untitled%2012.png"><img
+						style="width:225px"
+						src="Материал лекции/Untitled%2012.png" /></a>
+			</figure>
+			<ul id="8863e1f1-f7f1-4e59-af4a-43326d91d7c6" class="bulleted-list">
+				<li style="list-style-type:disc">Случайно генерируемые коды, передаваемые пользователю через SMS или
+					другой канал связи. В этой ситуации фактор владения — телефон пользователя (точнее — SIM-карта,
+					привязанная к определенному номеру).</li>
+			</ul>
+			<ul id="b1c09d36-9e9e-4e03-b4e7-2dd8fc5ec06d" class="bulleted-list">
+				<li style="list-style-type:disc">Распечатка или scratch card со списком заранее сформированных
+					одноразовых паролей. Для каждого нового входа в систему требуется ввести новый одноразовый пароль с
+					указанным номером.</li>
+			</ul>
+			<p id="a10aaadd-1d5e-4ba6-8441-3c2583208fb9" class="">В веб-приложениях такой механизм аутентификации часто
+				реализуется посредством расширения forms authentication: после первичной аутентификации по паролю,
+				создается сессия пользователя, однако в контексте этой сессии пользователь не имеет доступа к приложению
+				до тех пор, пока он не выполнит дополнительную аутентификацию по одноразовому паролю.</p>
+			<h2 id="a48941b9-b177-4be6-90be-ce23a012e0fa" class=""><strong>Аутентификация по ключам доступа</strong>
+			</h2>
+			<p id="1fa2432c-4db3-4115-9153-3707a35f0e75" class="">Этот способ чаще всего используется для аутентификации
+				устройств, сервисов или других приложений при обращении к веб-сервисам. Здесь в качестве секрета
+				применяются ключи доступа (<em>access key, API key</em>) — длинные уникальные строки, содержащие
+				произвольный набор символов, по сути заменяющие собой комбинацию username/password.</p>
+			<p id="601a646f-a056-4998-a773-2d01e94e0f46" class="">В большинстве случаев, сервер генерирует ключи доступа
+				по запросу пользователей, которые далее сохраняют эти ключи в клиентских приложениях. При создании ключа
+				также возможно ограничить срок действия и уровень доступа, который получит клиентское приложение при
+				аутентификации с помощью этого ключа.</p>
+			<p id="3f9c36eb-6572-4f67-9f5a-404c8fad11bc" class="">Хороший пример применения аутентификации по ключу —
+				облако Amazon Web Services. Предположим, у пользователя есть веб-приложение, позволяющее загружать и
+				просматривать фотографии, и он хочет использовать сервис Amazon S3 для хранения файлов. В таком случае,
+				пользователь через консоль AWS может создать ключ, имеющий ограниченный доступ к облаку: только
+				чтение/запись его файлов в Amazon S3. Этот ключ в результате можно применить для аутентификации
+				веб-приложения в облаке AWS.</p>
+			<figure id="4cf4e1ab-4e7d-41d5-afa8-7357418f5290" class="image"><a
+					href="Материал лекции/Untitled%2013.png"><img
+						style="width:432px"
+						src="Материал лекции/Untitled%2013.png" /></a>
+			</figure>
+			<p id="4537e69a-55a0-46a8-a8f0-8c676fbc054f" class="">Использование ключей позволяет избежать передачи
+				пароля пользователя сторонним приложениям (в примере выше пользователь сохранил в веб-приложении не свой
+				пароль, а ключ доступа). Ключи обладают значительно большей энтропией по сравнению с паролями, поэтому
+				их практически невозможно подобрать. Кроме того, если ключ был раскрыт, это не приводит к компрометации
+				основной учетной записи пользователя — достаточно лишь аннулировать этот ключ и создать новый.</p>
+			<h2 id="4e829145-ae43-4506-930a-f383a9ba42e0" class=""><strong>Аутентификация по токенам</strong></h2>
+			<p id="0a99c283-48f0-4adb-96d6-86ad89e1884c" class="">Такой способ аутентификации чаще всего применяется при
+				построении распределенных систем <em>Single Sign-On </em>(SSO), где одно приложение (<em>service
+					provider </em>или <em>relying party</em>) делегирует функцию аутентификации пользователей другому
+				приложению (<em>identity provider </em>или <em>authentication service</em>). Типичный пример этого
+				способа — вход в приложение через учетную запись в социальных сетях. Здесь социальные сети являются
+				сервисами аутентификации, а приложение доверяет функцию аутентификации пользователей социальным сетям.
+			</p>
+			<p id="6414d1ef-0fd7-4364-8921-530cf3d45acf" class="">Реализация этого способа заключается в том, что
+				identity provider (IP) предоставляет достоверные сведения о пользователе в виде токена, а service
+				provider (SP) приложение использует этот токен для идентификации, аутентификации и авторизации
+				пользователя.</p>
+			<p id="1dd1c8bc-c693-4b4d-87f0-8c154a8eb0b4" class="">На общем уровне, весь процесс выглядит следующим
+				образом:</p>
+			<ol type="1" id="7e7fbea9-cbd1-4266-abb9-ea63be4f7f9c" class="numbered-list" start="1">
+				<li>Клиент аутентифицируется в identity provider одним из способов, специфичным для него (пароль, ключ
+					доступа, сертификат, Kerberos, итд.).</li>
+			</ol>
+			<ol type="1" id="65ad25a1-7cfd-40c3-bd1d-4f0c80d2ca09" class="numbered-list" start="2">
+				<li>Клиент просит identity provider предоставить ему токен для конкретного SP-приложения. Identity
+					provider генерирует токен и отправляет его клиенту.</li>
+			</ol>
+			<ol type="1" id="4c5f674f-8657-458c-a286-c5593ab8b906" class="numbered-list" start="3">
+				<li>Клиент аутентифицируется в SP-приложении при помощи этого токена.</li>
+			</ol>
+			<figure id="1496c68e-5561-4aa6-a979-4eed8b56d255" class="image"><a
+					href="Материал лекции/Untitled%2014.png"><img
+						style="width:528px"
+						src="Материал лекции/Untitled%2014.png" /></a>
+			</figure>
+			<p id="d5b8b7d5-c610-4475-a125-cbb343611592" class="">Процесс, описанный выше, отражает механизм
+				аутентификации <em>активного</em><br /> клиента, т. е. такого, который может выполнять
+				запрограммированную последовательность действий (например, iOS/Android приложения). Браузер же
+				— <br /><em>пассивный</em><br /> клиент в том смысле, что он только может отображать страницы,
+				запрошенные пользователем. В этом случае аутентификация достигается посредством автоматического
+				перенаправления браузера между веб-приложениями identity provider и service provider.<br /></p>
+			<figure id="baeb6dee-5b6a-4bfa-9c8a-43a98d5f2991" class="image"><a
+					href="Материал лекции/Untitled%2015.png"><img
+						style="width:624px"
+						src="Материал лекции/Untitled%2015.png" /></a>
+			</figure>
+			<p id="9225045c-01ef-4d9a-b53e-9b21a96f467c" class="">
+			</p>
+			<h1 id="cd35eda2-60f3-4ba7-8f47-3e209ca46d57" class="">Сервер баз данных</h1>
+			<p id="b9482f26-565e-42bd-898c-9a9ac85d2f7a" class=""><strong>Сервер баз данных</strong> (БД) выполняет
+				обслуживание и управление базой данных и отвечает за целостность и сохранность данных, а также
+				обеспечивает операции ввода-вывода при доступе клиента к информации.</p>
+			<p id="4ec196b2-138e-4272-881a-fa0f39ae7530" class="">Архитектура клиент-сервер состоит из клиентов и
+				серверов. Основная идея состоит в том, чтобы размещать серверы на мощных машинах, а приложениям,
+				использующим языковые компоненты СУБД, обеспечить доступ к ним с менее мощных машин-клиентов посредством
+				внешних интерфейсов.</p>
+			<p id="b03f7eee-964a-4b21-b76e-309a546d0421" class="">Термин &quot;сервер баз данных&quot; обычно используют
+				для обозначения всей СУБД, основанной на архитектуре &quot;клиент-сервер&quot;, включая и серверную, и
+				клиентскую части. Такие системы предназначены для хранения и обеспечения доступа к базам данных.</p>
+			<p id="9abc4f8f-c852-422c-aefa-2ded6a04b624" class="">Сервер баз данных обеспечивает хранение и поддержку
+				целостности структурированных данных, таких как:</p>
+			<ul id="6271822f-ca6b-47f0-81c7-c1703d15b95b" class="bulleted-list">
+				<li style="list-style-type:disc">настройки приложений,</li>
+			</ul>
+			<ul id="165bb003-c35d-40d4-88b7-d87f224748b8" class="bulleted-list">
+				<li style="list-style-type:disc">учётные записи и другие объекты приложений,</li>
+			</ul>
+			<ul id="ae9881a2-c4ee-4062-a16c-e2fe23a9122f" class="bulleted-list">
+				<li style="list-style-type:disc">журналы обработки информации в системе,</li>
+			</ul>
+			<ul id="3041edbb-7604-4314-a534-992584993909" class="bulleted-list">
+				<li style="list-style-type:disc">данные бизнес-процессов,</li>
+			</ul>
+			<ul id="dcbf640a-654a-4175-a64a-27423e1c66ac" class="bulleted-list">
+				<li style="list-style-type:disc">служебная информация и пр.</li>
+			</ul>
+			<p id="19590cc6-774a-4733-9f13-7cc7e9c896ca" class="">Доступ к базе данных от прикладной программы или
+				пользователя производится путем обращения к клиентской части системы. В качестве основного интерфейса
+				между клиентской и серверной частями выступает язык баз данных SQL.</p>
+			<p id="0fb7bff9-e189-47aa-8bf2-753c65fd57f2" class="">Это язык по сути дела представляет собой текущий
+				стандарт интерфейса СУБД в открытых системах. Собирательное название SQL-сервер относится ко всем
+				серверам баз данных, основанных на SQL.</p>
+			<h1 id="c464c707-bd15-4041-bf6c-7715c2e0a8e6" class="">Синтаксис SQL</h1>
+			<p id="04371f4f-e3f8-4388-a518-42bc85e1352c" class="">SQL — это язык программирования, используемый в
+				большинстве реляционных баз данных<br /> для запросов, обработки и определения данных, а также контроля
+				доступа. SQL был разработан в IBM в 1970-х годах. Со временем у стандарта SQL ANSI появились
+				многочисленные расширения, разработанные такими компаниями как IBM, Oracle и Microsoft. Хотя в настоящее
+				время SQL все еще широко используется, начали появляться новые языки программирования запросов.<br />
+			</p>
+			<p id="50a3e4f4-75d8-4eca-8f56-a184f3492ea9" class="">Назначение SQL:</p>
+			<ul id="7aab2fa6-62cf-43a2-8142-f4c5c6bd4723" class="bulleted-list">
+				<li style="list-style-type:disc">создание БД и таблицы с полным описанием их структуры;</li>
+			</ul>
+			<ul id="28300b3c-e1b5-43fb-83e4-a05dc74d2310" class="bulleted-list">
+				<li style="list-style-type:disc">выполнение основных операций манипулирования данными (такие как
+					вставка, модификация и удаление данных из таблиц);</li>
+			</ul>
+			<ul id="37281eb1-39bb-46e2-a3f6-198d708b4d40" class="bulleted-list">
+				<li style="list-style-type:disc">выполнение простых и сложных запросов.</li>
+			</ul>
+			<p id="8a744e55-4b74-404d-a8d9-7034a413be94" class="">Одна из ключевых особенностей языка SQL заключается в
+				том, что с его помощью формируются запросы, описывающие, какую информацию из базы данных необходимо
+				получить, а пути решения этой задачи программа определяет сама.</p>
+			<h2 id="307c3c0b-9f66-4a4d-912b-e1801bbe760d" class="">Принцип работы запросов</h2>
+			<p id="b9993202-f806-4547-8367-45a968e353b5" class="">Чтобы разобраться, как именно работает магия запроса,
+				давайте представим его путь от пользователя до нужных ему данных:</p>
+			<p id="e7a42f4f-5688-4dd1-9d2a-a6d9fdfba96e" class="">Пользователь → Клиент → Запрос → Система управления →
+				База данных → Таблица с базами данных</p>
+			<p id="3db127c9-e695-4b3b-8ab6-55bed433d3ea" class="">Данные для работы с SQL хранятся в таблицах. Как
+				именно они устроены — разберемся ниже; пока же просто представим их. На пути от пользователя к таблице
+				находится несколько посредников:</p>
+			<ul id="fc7094c8-441b-4dfe-839b-8756d26c059a" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Клиент —</strong> способ введения запроса. В случае с Google,
+					например, клиентом будет поисковая строка браузера, в которую пользователь вводит сформулированный
+					запрос.</li>
+			</ul>
+			<ul id="370cab93-c0d5-4eac-940b-b7254300edfb" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Система управления базами данных (СУБД) —</strong> комплекс
+					программ, которые позволяют управлять данными. Эта система помогает таблицам понять, чего хочет
+					пользователь, а пользователю — что ему отвечают таблицы.</li>
+			</ul>
+			<ul id="21f03ee8-6c49-494f-a898-6d410b75c2db" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>База данных —</strong> система хранения таблиц, в которой они
+					связаны между собой. База данных сама по себе не умеет манипулировать информацией — это просто
+					хранилище, где у каждого объекта есть свое место.</li>
+			</ul>
+			<h2 id="6a26e57f-6a26-4320-a7b8-3dfc7a812fdc" class=""><strong>SQL-операторы</strong></h2>
+			<p id="9a3a3d32-ef75-44b1-9028-a27dd46dc44c" class="">Работать с данными помогают операторы — определенные
+				слова или символы, которые используются для выполнения конкретной операции — например, для выбора из
+				множества по конкретному параметру. Если нам нужно из всех видов пиццы отсортировать те, в которых есть
+				пармезан, — нужно использовать оператор SELECT (выбор в соответствии с условием).</p>
+			<p id="a47121df-0806-4bb4-b095-e9ee65e1b4fa" class="">Операторы в SQL делятся на несколько групп в
+				соответствии с задачами, которые они решают.</p>
+			<p id="5eabed30-89d6-48cc-ab78-dd207192872d" class="">
+			</p>
+			<p id="349fee46-f07e-487a-b5a9-09f44a9c45e7" class=""><strong>DDL (Data Definition Language)
+					—</strong> операторы определения данных. Они работают с объектами, то есть с целыми таблицами. Если
+				базу нужно дополнить таблицей с новыми данными или, наоборот, убрать одну из таблиц с ошибочными данными
+				— используется этот набор операторов.</p>
+			<ul id="69cba382-3a81-403b-9fb5-0bc921737782" class="bulleted-list">
+				<li style="list-style-type:disc"><code>CREATE</code> — создание объекта в базе данных</li>
+			</ul>
+			<ul id="1f4ead60-77d5-44f2-bfc9-f1e2432a4564" class="bulleted-list">
+				<li style="list-style-type:disc"><code>ALTER</code> — изменение объекта</li>
+			</ul>
+			<ul id="1f399d59-9f18-49d2-b327-dcd3bf5a05c9" class="bulleted-list">
+				<li style="list-style-type:disc"><code>DROP</code> — удаление объекта</li>
+			</ul>
+			<p id="6de9e4e7-9eef-4253-a242-42e36bd47cf6" class="">
+			</p>
+			<p id="0b8d583c-9e6a-4d49-a707-52cf78e6abf5" class=""><strong>DML (Data Manipulation Language)
+					—</strong> операторы манипуляции данными. Эти операторы уже работают с содержимым таблиц — строками,
+				атрибутами и значениями. С их помощью можно вносить изменения в конкретное значение. Например, заменить
+				поле в колонке «Фамилия» в строке с данными сотрудницы компании посте того, как она вышла замуж. Или
+				удалить строку с данными уволенного сотрудника.</p>
+			<ul id="5ba28b4b-e482-4bd0-b1ba-5b7bc88b2075" class="bulleted-list">
+				<li style="list-style-type:disc"><code>SELECT</code> — выбор данных в соответствии с условием</li>
+			</ul>
+			<ul id="c707730e-f0d9-4d9a-adfb-596327896aa8" class="bulleted-list">
+				<li style="list-style-type:disc"><code>INSERT</code> — добавление новых данных</li>
+			</ul>
+			<ul id="4eeb6e68-8542-469b-b2c0-1dda27610939" class="bulleted-list">
+				<li style="list-style-type:disc"><code>UPDATE</code> — изменение существующих данных</li>
+			</ul>
+			<ul id="6db38f19-902b-4599-8128-50c86c3e8af2" class="bulleted-list">
+				<li style="list-style-type:disc"><code>DELETE</code> — удаление данных</li>
+			</ul>
+			<p id="1e03c883-2eb6-4204-ada0-55f87a48ebac" class="">
+			</p>
+			<p id="53b0e38b-0ac8-44c9-8546-ec1e106de132" class=""><strong>DCL (Data Control Language)
+					—</strong> оператор определения доступа к данным. Он определяет, кто из пользователей может
+				отправлять запросы к базе, менять объекты и значения. Например, можно отозвать доступ у сотрудника,
+				перешедшего в другой отдел, а также открыть доступ к базе новому маркетологу или разработчику.</p>
+			<ul id="50c7684b-7718-41c9-9e1d-e8e0c084bf0e" class="bulleted-list">
+				<li style="list-style-type:disc"><code>GRANT</code> — предоставление доступа к объекту</li>
+			</ul>
+			<ul id="cf5dbd82-4aa5-4043-b625-45fba658e92a" class="bulleted-list">
+				<li style="list-style-type:disc"><code>REVOKE</code> — отзыв ранее выданного разрешения</li>
+			</ul>
+			<ul id="b525c464-516f-4c43-b021-8b7ccdf36db3" class="bulleted-list">
+				<li style="list-style-type:disc"><code>DENY</code> — запрет, который является приоритетным над
+					разрешением</li>
+			</ul>
+			<p id="dba88c15-2a62-477a-8e3f-d9f69fa653da" class="">
+			</p>
+			<p id="1ad7e075-c0b4-4bbf-9737-a566e8ec6a45" class=""><strong>TCL (Transaction Control Language)
+					—</strong> язык управления транзакциями. Транзакции — это набор команд, которые выполняются
+				поочередно. Если все команды выполнены, транзакция считается успешной, а если где-то произошла ошибка —
+				транзакция откатывается назад, отменяя все выполненные команды. Наглядный пример такой транзакции —
+				оплата онлайн, когда банк просит сначала ввести сумму и получателя, затем проверить и подтвердить
+				операцию, а после ввести одноразовый код. На каждом из этих этапов оплату можно отменить и транзакция
+				откатится назад.</p>
+			<ul id="31808ecc-b1f0-45b6-b365-813f940ccde2" class="bulleted-list">
+				<li style="list-style-type:disc"><code>BEGIN TRANSACTION</code> — обозначение начала транзакции</li>
+			</ul>
+			<ul id="65eae1ed-b43c-4a91-91c7-77d1a07f6156" class="bulleted-list">
+				<li style="list-style-type:disc"><code>COMMIT TRANSACTION</code> — изменение команд внутри транзакции
+				</li>
+			</ul>
+			<ul id="9d81e7cb-a2e3-44a3-a7e9-514b32c96779" class="bulleted-list">
+				<li style="list-style-type:disc"><code>ROLLBACK TRANSACTION</code> — откат транзакции</li>
+			</ul>
+			<ul id="4dfec599-e977-4c22-85cb-e55671d71c2d" class="bulleted-list">
+				<li style="list-style-type:disc"><code>SAVE TRANSACTION</code> — указание промежуточной точки сохранения
+					внутри транзакции</li>
+			</ul>
+			<p id="ba128483-07b4-4609-bc3d-2a75713f9b20" class="">
+			</p>
+			<h2 id="59ad528a-0c0d-41a7-8e8c-11ec3b6d7aef" class="">Синтаксис SQL запроса</h2>
+			<p id="ee12ce87-e7f8-4358-a637-bde8c1a6fa7f" class="">Одна из основных функций SQL — получение данных из
+				СУБД. Для построения всевозможных запросов к базе данных используется оператор <code>SELECT</code>. Он
+				позволяет выполнять сложные проверки и обработку данных.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="18e157fc-4aca-41de-a7f5-569e8d9d4bc6" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">SELECT [DISTINCT | ALL] поля_таблиц
+FROM список_таблиц
+[WHERE условия_на_ограничения_строк]
+[GROUP BY условия_группировки]
+[HAVING условия_на_ограничения_строк_после_группировки]
+[ORDER BY порядок_сортировки [ASC | DESC]]
+[LIMIT ограничение_количества_записей]</code></pre>
+			<h3 id="692856fa-df1a-48d5-b885-da4dc62e5e10" class=""><strong>Параметры оператора</strong></h3>
+			<ul id="9d4ae507-77e5-4591-842c-dcfacee860dd" class="bulleted-list">
+				<li style="list-style-type:disc"><code>DISTINCT</code> используется для исключения повторяющихся строк
+					из результатаALL (по умолчанию) используется для получения всех данных, в том числе и повторений
+				</li>
+			</ul>
+			<ul id="17eb47ed-52d7-44f0-bb4a-2b59b5ff718c" class="bulleted-list">
+				<li style="list-style-type:disc"><code>FROM</code> перечисляет используемые в запросе таблицы из базы
+					данных</li>
+			</ul>
+			<ul id="37960b45-9557-432d-9449-da02e52178be" class="bulleted-list">
+				<li style="list-style-type:disc"><code>WHERE</code> — это условный оператор, который используется для
+					ограничения строк по какому-либо условию</li>
+			</ul>
+			<ul id="9ac3c1d7-9441-40a7-b81b-9e83d6c3555a" class="bulleted-list">
+				<li style="list-style-type:disc"><code>GROUP BY</code> используется для группировки строк</li>
+			</ul>
+			<ul id="279baa06-5ab2-4e21-a7cd-b80896530c24" class="bulleted-list">
+				<li style="list-style-type:disc"><code>HAVING</code> применяется после группировки строк для фильтрации
+					по значениям агрегатных функций</li>
+			</ul>
+			<ul id="fb6ea2ac-401a-4fc8-9765-32ef85bd885e" class="bulleted-list">
+				<li style="list-style-type:disc"><code>ORDER BY</code> используется для сортировки. У него есть два
+					параметра:<ul id="210b081f-cf7f-45af-a70c-ee0ec937d192" class="bulleted-list">
+						<li style="list-style-type:circle"><code>ASC</code> (по умолчанию) используется для сортировки
+							по возрастанию</li>
+					</ul>
+					<ul id="37c39087-c386-4779-a625-d3e7d2cb8af8" class="bulleted-list">
+						<li style="list-style-type:circle"><code>DESC</code> — по убыванию</li>
+					</ul>
+				</li>
+			</ul>
+			<ul id="55910f4e-213c-499d-bee8-8accff7d047c" class="bulleted-list">
+				<li style="list-style-type:disc"><code>LIMIT</code> используется для ограничения количества строк для
+					вывода</li>
+			</ul>
+			<h3 id="27c80ebc-3308-41c3-8a4c-66d7877a2ce8" class=""><strong>Порядок выполнения инструкций</strong></h3>
+			<p id="5d4af2eb-692a-485e-a1ea-4b4e5420cfd1" class="">Следующие действия демонстрируют логический порядок
+				обработки инструкции <code>SELECT</code>. Этот порядок определяет, когда объекты, определенные в одном
+				шаге, становятся доступными для предложений в последующих шагах.</p>
+			<p id="7d399646-3453-4486-9cd3-fa476e9c96d9" class="">Например, в предложении <code>WHERE</code> не доступны
+				псевдонимы столбцов, определяемых в предложении <code>SELECT</code>, потому что, согласно списку, оно
+				выполняется до <code>SELECT</code>.</p>
+			<ul id="7670950d-2a02-4a3d-a7c0-1470be04be07" class="bulleted-list">
+				<li style="list-style-type:disc"><code>FROM</code></li>
+			</ul>
+			<ul id="cf971221-4166-4c4f-9f1c-5552b1cd64ac" class="bulleted-list">
+				<li style="list-style-type:disc"><code>WHERE</code></li>
+			</ul>
+			<ul id="a1e912c1-65db-4f20-a041-d0fd142e3fa8" class="bulleted-list">
+				<li style="list-style-type:disc"><code>GROUP BY</code></li>
+			</ul>
+			<ul id="7d13cfb6-5034-4b74-9274-28b9cc38a1b1" class="bulleted-list">
+				<li style="list-style-type:disc"><code>HAVING</code></li>
+			</ul>
+			<ul id="30e5bfb1-e014-479c-9944-2927c2841412" class="bulleted-list">
+				<li style="list-style-type:disc"><code>SELECT</code></li>
+			</ul>
+			<ul id="261494e7-9e85-4515-84be-a6c94a63e6f7" class="bulleted-list">
+				<li style="list-style-type:disc"><code>DISTINCT</code></li>
+			</ul>
+			<ul id="6d083f21-7d31-48eb-8d69-9c8f04e5ef9b" class="bulleted-list">
+				<li style="list-style-type:disc"><code>ORDER BY</code></li>
+			</ul>
+			<p id="7cfdac60-c2a4-4024-9d3b-53b96d88499c" class="">Фактическое выполнение инструкций определяется СУБД и
+				порядок из этого списка может значительно отличаться.</p>
+			<h3 id="df793461-8171-4e7f-8660-fa2f921ab76b" class="">Примеры использования</h3>
+			<p id="5738e1b9-8dca-4521-9516-45b01fb9e27e" class="">Вы можете выводить любые строки и числа вместо
+				столбцов:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="9c88e6fd-9d7e-4d0c-8e01-0e046f4ecb05"
+				class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">SELECT &quot;Hello world&quot;, 1;</code></pre>
+			<p id="6efc8458-6ac5-4df0-95ed-4605272d6ee7" class="">Для того, чтобы вывести все данные из таблицы Company,
+				вы можете использовать символ «<code>*</code>», который буквально означает «все столбцы»:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="2dbd17f8-c867-484a-bd82-8c5cd359b6a0"
+				class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">SELECT * FROM Company;</code></pre>
+			<p id="fdb5528f-382f-48ff-b750-0f77c7ca2b50" class="">Вы можете вывести любой столбец, определённый в
+				таблице, например, town_to из таблицы Trip: </p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="012feafd-9feb-4fc6-acbe-de31a2288a03"
+				class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">SELECT town_to FROM Trip;</code></pre>
+			<p id="bf77f05d-ae11-477e-aaa2-14481309c3a5" class="">Также вы можете вывести несколько столбцов. Для этого
+				их нужно перечислить через запятую:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="96422b82-2dc1-436e-9ab9-d702b307e6cb"
+				class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">SELECT member_name, state FROM FamilyMembers;</code></pre>
+			<p id="bb66b6c8-8e80-46c2-a03c-5cc9e77a788d" class="">Иногда возникают ситуации, в которых нужно получить
+				только уникальные записи. Для этого вы можете использовать <code>DISTINCT</code>. Например, выведем
+				список городов без повторений, в которые летали самолеты:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="5dae2bcc-9932-4586-b2b0-f2040365f0f9"
+				class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">SELECT DISTINCT town_to FROM Trip;</code></pre>
+			<h1 id="a3aa5fbb-d886-4ee7-9cbc-706a3506e3a3" class="">Базы данных</h1>
+			<p id="f3d2d2e8-1cba-47d4-b226-c6bf288aef2a" class="">База данных — это упорядоченный набор
+				структурированной информации или данных, которые обычно хранятся в электронном виде в компьютерной
+				системе. База данных обычно управляется системой управления базами данных (СУБД). Данные вместе с СУБД,
+				а также приложения, которые с ними связаны, называются системой баз данных, или, для краткости, просто
+				базой данных.</p>
+			<p id="d6636c01-1369-4824-8025-546b3c4b4202" class="">Данные в наиболее распространенных типах современных
+				баз данных обычно хранятся в виде строк и столбцов формирующих таблицу. Этими данными можно легко
+				управлять, изменять, обновлять, контролировать и упорядочивать. В большинстве баз данных для записи и
+				запросов данных используется язык структурированных запросов (SQL).</p>
+			<h2 id="b83ca3e4-f9d2-4e8f-9235-fc96cf2c7e2b" class=""><strong>Эволюция базы данных</strong></h2>
+			<p id="03488dc2-6993-4306-b31a-8c3f03b23876" class="">Базы данных значительно изменились с момента их
+				появления в начале 1960-х годов. Исходными системами, которые использовались для хранения и обработки
+				данных, были навигационные базы данных – например, иерархические базы данных (которые опирались на
+				древовидную модель и допускали только отношение «один-ко-многим») и базы данных с сетевой структурой
+				(более гибкая модель, допускающая множественные отношения). Несмотря на простоту, эти ранние системы
+				были негибкими. В 1980-х годах стали популярными реляционные базы данных, в 1990-х годах за ними
+				последовали объектно-ориентированные базы данных. Совсем недавно вследствие роста Интернета и
+				возникновения необходимости анализа неструктурированных данных появились базы данных NoSQL. В настоящее
+				время облачные базы данных и автономные базы данных открывают новые возможности в отношении способов
+				сбора, хранения, использования данных и управления ими.</p>
+			<h2 id="21cba12a-436b-4ee3-9a1b-87b59b56b173" class=""><strong>Различия между базой данных и электронной
+					таблицей</strong></h2>
+			<p id="f1521370-3a56-4450-93ad-8ecea01cbab7" class="">Базы данных и электронные таблицы (в частности,
+				Microsoft Excel) предоставляют удобные способы хранения информации. Основные различия между ними
+				заключаются в следующем.</p>
+			<ul id="9f12a696-f9d6-400b-ab34-9e05748cb4cc" class="bulleted-list">
+				<li style="list-style-type:disc">Способ хранения и обработки данных</li>
+			</ul>
+			<ul id="97b1d412-44e1-483c-b168-f04149adfadb" class="bulleted-list">
+				<li style="list-style-type:disc">Полномочия доступа к данным</li>
+			</ul>
+			<ul id="d90ce03d-3116-4783-acf7-cfedf56c72bf" class="bulleted-list">
+				<li style="list-style-type:disc">Объем хранения данных</li>
+			</ul>
+			<p id="92eb537d-96f4-4d6d-8ec8-afc4cf94b19e" class="">Электронные таблицы изначально разрабатывались для
+				одного пользователя, и их свойства отражают это. Они отлично подходят для одного пользователя или
+				небольшого числа пользователей, которым не нужно производить сложные операции с данными. С другой
+				стороны, базы данных предназначены для хранения гораздо больших наборов упорядоченной информации —
+				иногда огромных объемов. Базы данных дают возможность множеству пользователей в одно и то же время
+				быстро и безопасно получать доступ к данным и запрашивать их, используя развитую логику и язык запросов.
+			</p>
+			<h2 id="5c69732f-a39e-472a-896d-4830b887e22f" class=""><strong>Типы баз данных</strong></h2>
+			<h3 id="33174523-b5d2-4ff9-98f3-a8851289d1cf" class=""><strong>Реляционные базы данных</strong></h3>
+			<p id="2c55bd75-da0b-4456-a73d-f2cf9e1232ba" class="">Реляционные базы данных стали преобладать в 1980-х
+				годах. Данные в реляционной базе организованы в виде таблиц, состоящих из столбцов и строк. Реляционная
+				СУБД обеспечивает быстрый и эффективный доступ к структурированной информации.</p>
+			<h3 id="59f1fa13-ce53-4100-8f50-39ff0bf6cd19" class=""><strong>Объектно-ориентированные базы данных</strong>
+			</h3>
+			<p id="f11b09d2-e1a8-4e55-88fe-846de420b6c7" class="">Информация в объектно-ориентированной базе данных
+				представлена в форме объекта, как в объектно-ориентированном программировании.</p>
+			<h3 id="3e538550-13ec-48cd-8f70-47f49ab0a510" class=""><strong>Распределенные базы данных</strong></h3>
+			<p id="d79fd739-8cf4-408d-a208-ccbb4f4a2762" class="">Распределенная база данных состоит из двух или более
+				частей, расположенных на разных серверах. Такая база данных может храниться на нескольких компьютерах.
+			</p>
+			<h3 id="ad109189-6948-4305-8a44-39c5cf7a3938" class=""><strong>Хранилища данных</strong></h3>
+			<p id="5854a98d-c010-4eee-8058-06aa7122d623" class="">Будучи централизованным репозиторием для данных,
+				хранилище данных представляет собой тип базы данных, специально предназначенной для быстрого выполнения
+				запросов и анализа.</p>
+			<h3 id="9b3a68b2-0d1d-4dca-9b19-7f96236318c2" class=""><strong>Базы данных NoSQL</strong></h3>
+			<p id="e8d8ea99-d5e0-4342-8957-d1719362b1ad" class="">База данных NoSQL, или нереляционная база данных, дает
+				возможность хранить и обрабатывать неструктурированные или слабоструктурированные данные (в отличие от
+				реляционной базы данных, задающей структуру содержащихся в ней данных). Популярность баз данных NoSQL
+				растет по мере распространения и усложнения веб-приложений.</p>
+			<h3 id="1faacbdd-3957-458e-8127-9c7187098131" class=""><strong>Графовые базы данных</strong></h3>
+			<ul id="82376b33-7718-48c5-8d43-b84dcc5ff2b0" class="bulleted-list">
+				<li style="list-style-type:disc">Графовая база данных хранит данные в контексте сущностей и связей между
+					сущностями.</li>
+			</ul>
+			<ul id="d671dc0b-144a-414b-81c4-7fd92a100eff" class="bulleted-list">
+				<li style="list-style-type:disc">Базы данных OLTP<strong>.</strong> База данных OLTP — это база данных
+					предназначенная для выполнения бизнес-транзакций, выполняемых множеством пользователей.</li>
+			</ul>
+			<h2 id="235865a9-c125-4c55-b30b-45256abe1840" class="">Р<strong>еляционные базы данных</strong></h2>
+			<p id="3d998b85-a3da-414b-bc46-eed01bf02c79" class="">Реляционные базы данных представляют собой базы
+				данных, которые используются для хранения и предоставления доступа к взаимосвязанным элементам
+				информации. Реляционные базы данных основаны на реляционной модели — интуитивно понятном, наглядном
+				табличном способе представления данных. Каждая строка, содержащая в таблице такой базы данных,
+				представляет собой запись с уникальным идентификатором, который называют ключом. Столбцы таблицы имеют
+				атрибуты данных, а каждая запись обычно содержит значение для каждого атрибута, что дает возможность
+				легко устанавливать взаимосвязь между элементами данных.</p>
+			<figure id="7ff8d1b9-b149-48d1-ab94-ee4bbf6d9d23" class="image"><a
+					href="Материал лекции/Untitled%2016.png"><img
+						style="width:528px"
+						src="Материал лекции/Untitled%2016.png" /></a>
+			</figure>
+			<h3 id="24f5b3aa-5432-427c-bfcb-fe514ff97a43" class=""><strong>Пример реляционной базы данных</strong></h3>
+			<p id="504c6972-2590-43ec-a96d-1aa9d75d0b06" class="">В качестве примера рассмотрим две таблицы, которые
+				небольшое предприятие использует для обработки заказов продукции. Первая таблица содержит информацию о
+				заказчиках: каждая запись в ней включает в себя имя и адрес заказчика, платежные данные и информацию о
+				доставке, номер телефона и т. д. Каждый элемент информации (атрибут) помещен в отдельный столбец базы
+				данных, которому назначен уникальный идентификатор (ключ) для каждой строки. Во второй таблице (с
+				информацией о заказе) каждая запись содержит идентификатор заказчика, совершившего заказ, название
+				заказанного продукта, его количество, размер или цвет и т. д. Записи в этой таблице не содержат таких
+				данных, как имя заказчика или его контактные данные.</p>
+			<p id="bec2bc97-4030-4dc7-99d3-e787e835a575" class="">У обеих таблиц есть только один общий элемент —
+				идентификатор столбца (ключ). Благодаря наличию этого общего столбца реляционные базы данных могут
+				устанавливать взаимосвязи между двумя таблицами. Когда приложение для обработки заказов передает заказ в
+				базу данных, база данных обращается к таблице со сведениями о заказах, извлекает сведения о продукции и
+				использует идентификатор заказчика из этой таблицы, чтобы найти сведения об оплате и доставке в таблице
+				с информацией о нем. Затем на складе подбирают нужный продукт, заказчик своевременно получает свой заказ
+				и производит оплату.</p>
+			<h3 id="82cce49a-3f7b-49a6-8a5a-e4d0ac8bdde7" class=""><strong>Структура реляционных баз данных</strong>
+			</h3>
+			<p id="5f16ce1a-41b5-4e72-9f8b-8cd9ef188ee7" class="">Реляционная модель подразумевает логическую структуру
+				данных: таблицы, представления и индексы. Логическая структура отличается от физической структуры
+				хранения. Такое разделение дает возможность администраторам управлять физической системой хранения, не
+				меняя данных, содержащихся в логической структуре. Например, изменение имени файла базы данных не
+				повлияет на хранящиеся в нем таблицы.</p>
+			<p id="1acef958-72a1-49b3-9a5d-3edf4e15be22" class="">Разделение между физическим и логическим уровнем
+				распространяется в том числе на операции, которые представляют собой четко определенные действия с <a
+					href="https://www.oracle.com/cis/database/what-is-data-management/">данными</a> и структурами базы
+				данных. Логические операции дают возможность приложениям определять требования к необходимому
+				содержанию, в то время как физические операции определяют способ доступа к данным и выполнения задачи.
+			</p>
+			<p id="a96b9ee0-60e9-4ece-8705-e179626e557b" class="">Чтобы обеспечить точность и доступность данных, в
+				реляционных базах должны соблюдаться определенные правила целостности. Например, в правилах целостности
+				можно запретить использование дубликатов строк в таблицах, чтобы устранить вероятность попадания
+				неправильной информации в базу данных.</p>
+			<h3 id="bee65a6c-8681-49b0-bf73-1297afceb134" class=""><strong>Реляционная модель</strong></h3>
+			<p id="2249e64f-a7a9-4621-aa24-885c6f73189a" class="">В первых базах данных данные каждого приложения
+				хранились в отдельной уникальной структуре. Если разработчик хотел создать приложение для использования
+				таких данных, он должен был хорошо знать конкретную структуру, чтобы найти необходимые данные. Такой
+				метод организации был неэффективен, сложен в обслуживании и затруднял оптимизацию эффективности
+				приложений. Реляционная модель была разработана, чтобы устранить потребность в использовании
+				разнообразных структур данных.</p>
+			<p id="efe7fc91-1ab2-48c7-a9cf-3401bb9df1de" class="">Она обеспечила стандартный способ представления данных
+				и отправки запросов, которые могли быть использованы в любых приложениях. Разработчики уяснили, что
+				таблицы являются ключевым преимуществом реляционных баз данных, так как обеспечивают интуитивно
+				понятный, эффективный и гибкий способ хранения структурированной информации и получения к ней доступа.
+			</p>
+			<p id="20b4f895-4520-43db-a961-dff41ce29a00" class="">Со временем, когда разработчики стали использовать
+				язык структурированных запросов (SQL) для записи данных в базу и отправки запросов, стало очевидным и
+				другое преимущество реляционной модели. Вот уже на протяжении многих лет SQL широко используется в
+				качестве языка запросов в базах данных. Он основан на алгоритмах реляционной алгебры и четкой
+				математической структуре, что обеспечивает простоту и эффективность при оптимизации любых запросов к
+				базе данных. Для сравнения: при использовании других подходов приходится создавать отдельные, уникальные
+				запросы.</p>
+			<h3 id="1665cdce-8ee1-4fc5-93a2-6edfcd8ac19e" class=""><strong>Преимущества системы управления реляционными
+					базами данных</strong></h3>
+			<p id="6022d839-9564-4d3a-a8e3-323cc36cb6cb" class="">Компании всех типов и размеров используют простую, но
+				функциональную реляционную модель для обслуживания разнообразных информационных потребностей.
+				Реляционные базы данных применяются для отслеживания товарных запасов, обработки торговых транзакций
+				через Интернет, управления большими объемами критически важных данных заказчиков и т. д. Реляционные
+				базы данных можно рекомендовать для обслуживания любых информационных потребностей, где элементы данных
+				связаны между собой и необходимо обеспечивать безопасное и надежное управление ими на основе правил
+				целостности.</p>
+			<p id="dc56be7a-918c-414b-b6e8-854c397af399" class="">Реляционные базы данных появились в 1970-х годах. На
+				сегодняшний день преимущества реляционного подхода сделали его самой распространенной моделью для баз
+				данных в мире.</p>
+			<h2 id="b7a9996f-2732-414b-b46b-adfb2a3a13a5" class=""><strong>Базы данных NoSQL</strong></h2>
+			<p id="ee983e55-1660-48d6-989f-a7daa9579191" class="">Базы данных NoSQL специально созданы для определенных
+				моделей данных и обладают гибкими схемами, что позволяет разрабатывать современные приложения. Базы
+				данных NoSQL получили широкое распространение в связи с простотой разработки, функциональностью и
+				производительностью при любых масштабах.</p>
+			<figure id="6af8650a-3ef8-43db-a0ca-d3c9a5ee2ce3" class="image"><a
+					href="Материал лекции/Untitled%2017.png"><img
+						style="width:384px"
+						src="Материал лекции/Untitled%2017.png" /></a>
+			</figure>
+			<h3 id="77b8beaa-76c8-4bf2-9a90-bf89203120cf" class=""><strong>Принцип работы</strong></h3>
+			<p id="c15d3430-f167-4950-a943-0dc9607f1949" class="">Базы данных NoSQL используют разнообразные модели
+				данных для доступа к данным и управления ими. Базы данных таких типов оптимизированы для приложений,
+				которые работают с большим объемом данных, нуждаются в низкой задержке и гибких моделях данных. Все это
+				достигается путем смягчения жестких требований к непротиворечивости данных, характерных для других типов
+				БД.</p>
+			<p id="43e784ea-336e-4f9a-8c49-7ab18b749188" class="">Рассмотрим пример моделирования схемы для простой базы
+				данных книг.</p>
+			<ul id="5e92601b-fa83-4971-a943-b09936a05040" class="bulleted-list">
+				<li style="list-style-type:disc">В реляционной базе данных запись о книге часто разделяется на несколько
+					частей (или «нормализуется») и хранится в отдельных таблицах, отношения между которыми определяются
+					ограничениями первичных и внешних ключей. В этом примере в таблице «<strong>Книги</strong>» имеются
+					столбцы «<strong>ISBN</strong>», «<strong>Название книги</strong>» и «<strong>Номер
+						издания</strong>», в таблице «<strong>Авторы</strong>» – столбцы «<strong>ИД автора</strong>» и
+					«<strong>Имя автора</strong>», а в таблице «<strong>Автор–ISBN</strong>» – столбцы
+					«<strong>Автор</strong>» и «<strong>ISBN</strong>». Реляционная модель создана таким образом, чтобы
+					обеспечить целостность ссылочных данных между таблицами в базе данных. Данные нормализованы для
+					снижения избыточности и в целом оптимизированы для хранения.</li>
+			</ul>
+			<ul id="049b5dec-c706-4ff0-9597-c60d3a3af22e" class="bulleted-list">
+				<li style="list-style-type:disc">В базе данных NoSQL запись о книге обычно хранится как документ JSON.
+					Для каждой книги, или элемента, значения «<strong>ISBN</strong>», «<strong>Название книги</strong>»,
+					«<strong>Номер издания</strong>», «<strong>Имя автора</strong> и «<strong>ИД автора</strong>»
+					хранятся в качестве атрибутов в едином документе. В такой модели данные оптимизированы для
+					интуитивно понятной разработки и горизонтальной масштабируемости.</li>
+			</ul>
+			<h3 id="b16fc313-30f5-455e-903e-67001d6d83d6" class=""><strong>Преимущества баз данных NoSQL</strong></h3>
+			<p id="dba1b90a-0cf7-4152-8241-a3616a7a30b6" class="">Базы данных NoSQL хорошо подходят для многих
+				современных приложений, например мобильных, игровых, интернет‑приложений, когда требуются гибкие
+				масштабируемые базы данных с высокой производительностью и широкими функциональными возможностями,
+				способные обеспечивать максимальное удобство использования.</p>
+			<ul id="9b768c28-2d45-47fd-b1a1-44a014691b5f" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Гибкость.</strong> Как правило, базы данных NoSQL предлагают
+					гибкие схемы, что позволяет осуществлять разработку быстрее и обеспечивает возможность поэтапной
+					реализации. Благодаря использованию гибких моделей данных БД NoSQL хорошо подходят для частично
+					структурированных и неструктурированных данных.</li>
+			</ul>
+			<ul id="08c231b9-ed66-432e-aada-86f6fd6078d1" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Масштабируемость.</strong> Базы данных NoSQL рассчитаны на
+					масштабирование с использованием распределенных кластеров аппаратного обеспечения, а не путем
+					добавления дорогих надежных серверов. Некоторые поставщики облачных услуг проводят эти операции в
+					фоновом режиме, обеспечивая полностью управляемый сервис.</li>
+			</ul>
+			<ul id="1eb5ad28-7427-4a0d-acaf-62de3afc5426" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Высокая производительность. </strong>Базы данных NoSQL
+					оптимизированы для конкретных моделей данных и шаблонов доступа, что позволяет достичь более высокой
+					производительности по сравнению с реляционными базами данных.</li>
+			</ul>
+			<ul id="4fee3110-0b05-4e0c-b886-26572a073822" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Широкие функциональные возможности.</strong> Базы данных NoSQL
+					предоставляют API и типы данных с широкой функциональностью, которые специально разработаны для
+					соответствующих моделей данных.</li>
+			</ul>
+			<h3 id="b4a7f13e-9f4f-47f2-a544-4b75fbc812fe" class=""><strong>Типы баз даных NoSQL</strong></h3>
+			<ul id="c273e9b8-5762-4a2f-a136-556f8785b156" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Хранилища «ключ-значение»</strong>. Наипростейший тип БД NoSQL,
+					который может сохранять исключительно пары ключ-значение. Такой тип хранилища может стать подходящим
+					при требовании к быстрому поиску информации посредством ключа. Amazon DynamoDB и Redis — типичные
+					примеры баз данных «ключ-значение». Однако такой подход не позволяет выполнять большинство операций,
+					доступных в других типах баз данных.</li>
+			</ul>
+			<ul id="c6beb4b7-5886-4804-a980-8c2f70238b8e" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Хранилища документов</strong>. Документо-ориентированные БД
+					хранят всю информацию об определенном объекте в едином файле стандарта XML, BSON либо JSON.
+					Документы одного типа можно сгруппировать в коллекции либо списки. Такой подход позволяет
+					девелоперам не переживать о типах данных и отношениях между ними. Благодаря своим свойствам,
+					документо-ориентированные БД могут быть использованы для эффективного прототипирования и анализа
+					данных.</li>
+			</ul>
+			<ul id="f2bf0499-b028-4707-87c3-3ca7fc6a95c2" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Колоночные СУБД</strong>. Работая как со структурированными,
+					так и с неструктурированными данными, колоночная БД подходит для задач, в которых требуется быстрый
+					поиск по значениям столбцов. В БД данного вида любой столбец хранится в качестве логического
+					массива. Колоночные СУБД гарантируют легкую масштабируемость и дублируемость, однако уступают
+					аналогам по производительности.</li>
+			</ul>
+			<ul id="e792bdab-40a0-4309-bcba-1f120ecbc3ac" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Графовые базы данных</strong>. В графовых БД каждая сущность
+					или узел являются изолированным документом с метаданными произвольного формата. Узлы соединяются
+					ребрами, которые и определяют их отношения. Подобная реализация значительно упрощает визуализацию
+					данных.</li>
+			</ul>
+			<h2 id="d292e1de-f61a-4403-90d9-6d7458bbba5b" class="">Сравнение реляционных баз данных и NoSQL</h2>
+			<h2 id="255a16ca-f3b4-4f03-b218-dfa1ad1b6ede" class="">Система управления базами данных</h2>
+			<p id="3a893e0d-9a5b-49da-b97c-86bb52307932" class=""><strong>Система управления базами данных
+					(СУБД)</strong> — это программное обеспечение, которое необходимо для создания, редактирования и
+				обслуживания файлов БД. С его помощью можно упростить процесс работы — от ввода данных до отчетности.
+				Кроме того, система управления базами данных помогает выполнять резервное копирование, поддерживать
+				безопасность, предоставлять общий доступ к БД. СУБД позволяет работать с базами данных одновременно
+				нескольким пользователям.</p>
+			<figure id="e60c503b-95ad-4b8c-bc16-08000951e959" class="image"><a
+					href="Материал лекции/Untitled%2018.png"><img
+						style="width:1642px"
+						src="Материал лекции/Untitled%2018.png" /></a>
+			</figure>
+			<h2 id="c945012a-05d1-41f4-b2a5-dd30edc5f44f" class="">Популярные СУБД</h2>
+			<h3 id="b7bbb0ee-48eb-41ed-bb1b-78831dd8c5c7" class=""><strong>MySQL</strong></h3>
+			<p id="2bbdae52-7261-4571-a724-6948479ec4bc" class="">Одна из самых распространенных систем управления
+				базами данных. Используется в ряде крупных мировых компаний (Meta, Twitter, Amazon, LinkedIn и т.д.).
+				Это реляционная СУБД, относящаяся к свободному программному обеспечению.</p>
+			<p id="82a4aec0-1bab-400a-aa1e-0f944acefad6" class="">Особенности:</p>
+			<ul id="50b3038a-d4d2-4c82-8fdb-f4c43f0aa351" class="bulleted-list">
+				<li style="list-style-type:disc">Возможность работы с различными типами таблиц, от популярных InnoDB или
+					MyISAM до редко используемых MERGE или HEAP.</li>
+			</ul>
+			<ul id="800e1f4c-00e3-4ccf-ad83-f115fa1eab1d" class="bulleted-list">
+				<li style="list-style-type:disc">Постоянное обновление и добавление новых поддерживаемых типов таблиц.
+				</li>
+			</ul>
+			<ul id="8bb32cd6-902b-40fa-b3d5-d322a7b74839" class="bulleted-list">
+				<li style="list-style-type:disc">Высокая скорость работы — MySQL считается одной из самых быстрых
+					несмотря на то, что одновременно с ней могут работать несколько пользователей, а количество строк в
+					таблицах достигает 50 миллионов.</li>
+			</ul>
+			<ul id="5d642454-0cab-4f2f-9ddb-59f7565b52df" class="bulleted-list">
+				<li style="list-style-type:disc">Простота — с MySQL несложно работать, потому что она поддерживает
+					меньшее количество возможностей по сравнению с другими СУБД.</li>
+			</ul>
+			<ul id="9a4ccea1-d642-43be-b900-9a01bddb6924" class="bulleted-list">
+				<li style="list-style-type:disc">При работе с MySQL доступен не только текстовый, но и графический
+					режим. Приложение phpMyAdmin позволяет администрировать свою базу данных через браузер без знания
+					SQL-команд.</li>
+			</ul>
+			<p id="0399fb88-6146-41c5-b101-1f507c7bfdf6" class="">MySQL — удобная, гибкая и хорошо работающая БД для
+				крупных или средних проектов.</p>
+			<h3 id="999ebd69-feab-4a5e-8c76-42c6b159fee2" class="">MongoDB</h3>
+			<p id="7bf7f72b-9bbb-4af1-a09c-6099b721b56f" class="">Относится к NoSQL-системам. MongoDB —
+				документоориентированная СУБД с открытым исходным кодом. Для хранения данных применяется JSON-подобный
+				формат. В ней используется язык запросов, обеспечивается несколько видов поиска: географический,
+				текстовый и поиск по графам. Способна выдерживать большие нагрузки благодаря горизонтальному
+				масштабированию.</p>
+			<p id="67b35a18-abd2-4495-a1be-49b6793ffb97" class=""><strong>Особенности:</strong></p>
+			<ul id="8a5fa20b-1cc6-4c6c-9858-cd71e1ac75c5" class="bulleted-list">
+				<li style="list-style-type:disc">Не требуется описание схемы таблиц, как в реляционных БД. Данные
+					хранятся в формате BSON (бинарных JSON-подобных документов).</li>
+			</ul>
+			<ul id="926374c3-c9dd-4e3d-8546-3be230ec1138" class="bulleted-list">
+				<li style="list-style-type:disc">Между коллекциями отсутствуют сложные соединения типа JOIN, как между
+					таблицами реляционных баз данных. Обычно соединение выполняется при сохранении данных благодаря
+					объединению документов.</li>
+			</ul>
+			<ul id="3fef02c5-e07d-4fc9-a341-2e2683eb5775" class="bulleted-list">
+				<li style="list-style-type:disc">Структура коллекций может различаться. У одного документа может быть
+					один набор полей, в то время как у другого документа — совершенно другой (как тип, так и количество
+					полей). MongoDB может хранить любые данные в формате JSON.</li>
+			</ul>
+			<p id="4acb6e99-6471-4e96-a843-9572be45e674" class="">MongoDB можно использовать в мобильных приложениях,
+				CMS-системах, играх, электронной коммерции — в любых сферах, где предполагается высокий уровень
+				нагрузки. Для структурированных баз данных, а также если в будущем предполагается создание таких жестких
+				схем, система применяется редко.</p>
+			<h3 id="602bc1db-4f73-4818-a38b-d24ad888298f" class=""><strong>PostgreSQL</strong></h3>
+			<p id="98619e95-1118-4a33-a47b-f42f75352fb7" class="">PostgreSQL относится к объектно-реляционному типу,
+				свободно распространяется и работает на языках SQL и MySQL. Основное отличие от MySQL — в использовании
+				инноваций и расширенном функционале.</p>
+			<p id="81820432-8167-41e7-a6c3-0faa5951ca1a" class="">Особенности:</p>
+			<ul id="33ebc1d3-afd5-418b-aca9-00609fe82419" class="bulleted-list">
+				<li style="list-style-type:disc">перегрузка функций и наследование таблиц;</li>
+			</ul>
+			<ul id="2c3251d3-731d-48a9-8af5-3e064d1993ec" class="bulleted-list">
+				<li style="list-style-type:disc">поддержка большого количества типов данных: JSON, XML, «ключ —
+					значение», пространственных данных и многого другого;</li>
+			</ul>
+			<ul id="15f4cc6d-c828-4a16-8306-cc912c0afc45" class="bulleted-list">
+				<li style="list-style-type:disc">расширяемость, т.е. можно использовать готовые расширения, а также
+					создавать собственные.</li>
+			</ul>
+			<p id="35f905ed-a73c-4cb1-af2c-4e541d668d19" class="">PostgreSQL подходит для хранения больших объемов
+				данных, может обрабатывать сложные запросы. Способна выстраивать небольшие DWH (Data Warehouse), быть
+				хранилищем для геоинформационных систем, мобильных игр, веб-приложений и т.д.</p>
+			<p id="9908a431-a092-4087-bd8f-7a76a1b8a97d" class="">PostgreSQL не подойдет для работы с БД, где необходимо
+				горизонтальное масштабирование, OLAP-хранилище, а также преобладают записи чтения.</p>
+			<h3 id="7068d5d0-fa42-42ed-a882-aa4a4763f24c" class=""><strong>Elasticsearch</strong></h3>
+			<p id="8613ad99-d461-4b82-b37d-c5299185e272" class="">Распределенная СУБД, основанная на Java-библиотеке
+				Lucene. Способна поддерживать как структурированные, так и полуструктурированные данные. Это одна из
+				самых масштабированных поисковых систем. Входит в группу Elastic Stack.</p>
+			<p id="04bd0d88-42b3-4024-8829-9f3caad5cc40" class="">Особенности:</p>
+			<ul id="b4f87e28-e03d-4f9d-a025-2ce80081103c" class="bulleted-list">
+				<li style="list-style-type:disc">поисковый сервер с открытым исходным кодом, который написан на Java;
+				</li>
+			</ul>
+			<ul id="24144e0b-b7be-499e-a984-5d5f975effb0" class="bulleted-list">
+				<li style="list-style-type:disc">распределенное хранилище документов без схем, REST &amp; JSON;</li>
+			</ul>
+			<ul id="390e4c25-972c-47c5-8f79-dcc4808cfcd2" class="bulleted-list">
+				<li style="list-style-type:disc">веб-интерфейс REST API с выводом JSON;</li>
+			</ul>
+			<ul id="562f3a57-cbed-41ad-ad1e-c554eeb6b077" class="bulleted-list">
+				<li style="list-style-type:disc">встроенный анализатор текстов;</li>
+			</ul>
+			<ul id="cd69d5a7-e8ff-419c-bba9-b14596c7c85c" class="bulleted-list">
+				<li style="list-style-type:disc">полнотекстовый поиск;</li>
+			</ul>
+			<ul id="396c7ec7-0451-4d58-a27e-89945bca53be" class="bulleted-list">
+				<li style="list-style-type:disc">поиск в реальном времени (NRT);</li>
+			</ul>
+			<ul id="daccd616-e52c-4ec0-a987-30c2a194bb8d" class="bulleted-list">
+				<li style="list-style-type:disc">поддержка разных языков и геолокации.</li>
+			</ul>
+			<p id="667dc46c-728e-4919-9649-84b5652912b0" class="">Подойдет для задач, в которых предполагается поиск в
+				режиме реального времени большого объема структурированных данных. Это поисковики интернет-магазинов,
+				веб-сайтов, хранение и мониторинг логов из большого количества источников, сервисы, занимающиеся
+				разоблачением шпионских программ и мошенничества.</p>
+			<h3 id="8b03823a-da1c-4563-aef9-f792456d9dbb" class=""><strong>SQLite</strong></h3>
+			<p id="7ff495a8-da7e-4ffb-ac3b-e7d55a1fb6c6" class="">Реляционная СУБД, которая выпускается в виде
+				библиотеки на языке C.</p>
+			<p id="182d0064-4984-46f9-82df-d26d335b817f" class="">Особенности:</p>
+			<ul id="aa965a0a-2de9-4dde-bf5e-108fd4fea500" class="bulleted-list">
+				<li style="list-style-type:disc">Встраивание в само приложение, а не работа по принципу «клиент —
+					сервер». СУБД хранится на устройстве в виде локального файла: так она по умолчанию может быть
+					встроена в некоторые телефоны и компьютеры.</li>
+			</ul>
+			<ul id="bffa5bfa-39ce-4d3e-9161-c0074727ae7b" class="bulleted-list">
+				<li style="list-style-type:disc">Поставка с нулевой конфигурацией, поэтому администрирование или
+					настройка не требуются.</li>
+			</ul>
+			<ul id="a95110ec-c359-4c88-bbbe-2fb252b0fdf1" class="bulleted-list">
+				<li style="list-style-type:disc">Небольшой размер.</li>
+			</ul>
+			<ul id="f70018f2-6445-450d-984f-a45ce6db69c8" class="bulleted-list">
+				<li style="list-style-type:disc">Автономность, что означает отсутствие внешних зависимостей.</li>
+			</ul>
+			<ul id="bcf3d984-fc2b-4235-9e40-83b02019b759" class="bulleted-list">
+				<li style="list-style-type:disc">SQLite-транзакции полностью совместимы с ACID, обеспечивают безопасный
+					доступ к разным процессам или потокам.</li>
+			</ul>
+			<p id="24657276-3319-47fc-8d26-0aec51a71e7f" class="">SQLite подходит для работы с мобильными приложениями,
+				веб-сайтами с небольшим трафиком, локальным кэшем, настольными приложениями (инструментами финансового
+				анализа), интернетом вещей.</p>
+			<p id="eafe6552-4852-45ad-9720-3c3cc4083103" class="">Для задач, которые предполагают отделение данных от
+				приложения сетью, для сервисов с высоким трафиком, большого количества параллельных операций, больших
+				объемов данных SQLite не подойдет. При этом СУБД способна работать с базами данных размером до 281
+				терабайта.</p>
+			<h1 id="92d81d7a-b0e6-46cf-9615-83842507fb86" class="">Кэширование</h1>
+			<p id="5bea46b5-a569-4378-ac5f-ebfb6890c85b" class="">В сфере вычислительной обработки данных кэш – это
+				высокоскоростной уровень хранения, на котором требуемый набор данных, как правило, временного характера.
+				Доступ к данным на этом уровне осуществляется значительно быстрее, чем к основному месту их хранения. С
+				помощью кэширования становится возможным эффективное повторное использование ранее полученных или
+				вычисленных данных.</p>
+			<p id="ce018b61-ad40-49c3-ade9-2ef13f841114" class="">Служба кэширования предоставляет простое хранилище
+				данных в формате ключ-значение, которое позволяет хранить и искать информацию за время, близкое к
+				линейному (O(1)). Обычно приложения используют функции кэширования, чтобы сохранять результаты
+				дорогостоящих вычислений и воспользоваться ими позже из кэша, а не пересчитывать их еще раз. Приложение
+				может кэшировать результаты запроса в базы данных, результаты обращения к внешним службам, HTML для
+				заданного URL-адреса и многое другое. Вот некоторые примеры из реального мира:</p>
+			<ul id="30764e4b-2845-4fc9-b76f-55bd4b704622" class="bulleted-list">
+				<li style="list-style-type:disc">Google кэширует результаты поиска для популярных поисковых запросов,
+					таких как «собака» или «Тейлор Свифт», а не ищет их каждый раз заново;</li>
+			</ul>
+			<ul id="096112a0-e26a-4e8f-8519-3c825fe10e28" class="bulleted-list">
+				<li style="list-style-type:disc">Facebook кэширует большую часть данных, которые вы видите при входе в
+					систему, например, списки постов или друзей;</li>
+			</ul>
+			<ul id="f87bfb27-1d3c-4753-80e9-670c220ac69d" class="bulleted-list">
+				<li style="list-style-type:disc">Storyblocks кэширует HTML-страницы от React, результаты поиска и
+					другое.</li>
+			</ul>
+			<p id="33204ee7-3ebc-462d-8da7-2c0f2fc2c719" class="">Двумя наиболее распространёнными технологиями
+				кэширования являются Redis и Memcache.</p>
+			<h2 id="27e70aaa-ba77-4ac5-811f-eedc5e42d2e1" class="">Приницп работы кэширования</h2>
+			<p id="06d01994-d248-420f-91a4-7e88e812cb99" class="">Данные в кэше обычно хранятся на устройстве с быстрым
+				доступом, таком как ОЗУ (оперативное запоминающее устройство), и могут использоваться совместно с
+				программными компонентами. Основная функция кэша – ускорение процесса извлечения данных. Он избавляет от
+				необходимости обращаться к менее скоростному базовому уровню хранения.</p>
+			<p id="f81bdafa-d7cf-4a0a-9a05-3828727d96ae" class="">Небольшой объем памяти кэша компенсируется высокой
+				скоростью доступа. В кэше обычно хранится только требуемый набор данных, причем временно, в отличие от
+				баз данных, где данные обычно хранятся полностью и постоянно.</p>
+			<h2 id="75efd8ef-f9e1-432c-aa47-503928c57aa1" class=""><strong>Области применения</strong></h2>
+			<p id="6cdd7155-1cc1-4be8-96f1-9a1805a687b4" class="">Кэш используется на разных технологических уровнях,
+				включая операционные системы, сетевые уровни, в том числе сети доставки контента (CDN) и DNS,
+				интернет-приложения и базы данных. С помощью кэширования можно значительно сократить задержки и повысить
+				производительность операций ввода-вывода в секунду для многих рабочих нагрузок приложений с большой
+				нагрузкой на чтение, например порталов для вопросов и ответов, игровых ресурсов, порталов для
+				распространения мультимедиа и социальных сетей. Кэшировать можно результаты запросов к базам данных,
+				вычислений, которые требовательны к ресурсам, запросы к API и ответы на них, а также веб-артефакты,
+				например файлы HTML, JavaScript и изображений. Рабочие нагрузки, требующие больших вычислительных
+				мощностей для обработки наборов данных, например сервисы рекомендаций и высокопроизводительное
+				вычислительное моделирование, тоже могут эффективно использовать уровень данных в памяти в качестве
+				кэша. В этих приложениях можно обращаться к очень большим наборам данных в режиме реального времени
+				через кластеры машин, которые охватывают сотни узлов. Управление этими данными в дисковом хранилище
+				является узким местом таких приложений из-за низкой скорости работы базового оборудования.</p>
+			<figure id="97660e94-786b-46ed-aa54-7bf8849f3d51" class="image"><a
+					href="Материал лекции/Untitled%2019.png"><img
+						style="width:1800px"
+						src="Материал лекции/Untitled%2019.png" /></a>
+			</figure>
+			<h2 id="9e3e3063-f697-41f1-9587-d55a2eb045f9" class=""><strong>Преимущества кэширования</strong></h2>
+			<ul id="e626f4cb-2182-4ab3-a806-82e77ed1a199" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Повышение производительности приложений</strong></li>
+			</ul>
+			<p id="b49bda3c-7b1d-4a7a-b6c5-60cddbc066a5" class="">Поскольку память работает в разы быстрее
+				диска (магнитного или SSD), чтение данных из кэша в памяти производится крайне быстро (за доли
+				миллисекунды). Это значительно ускоряет доступ к данным и повышает общую производительность приложения.
+			</p>
+			<ul id="3a78a26c-259e-4b2c-b007-58953a85b05e" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Прогнозируемая производительность</strong></li>
+			</ul>
+			<p id="3f4de6ba-a483-4033-998d-cdeb644ecadb" class="">Общей проблемой современных приложений является
+				обработка пиков в использовании приложений. Примерами могут служить социальные сети во время Суперкубка
+				или в день выборов, веб-сайты электронной коммерции в Черную пятницу и т. д. Повышенная нагрузка на базу
+				данных приводит к повышению задержек при получении данных, и общая производительность приложения
+				становится непредсказуемой. Эту проблему можно решить благодаря использованию кэша в памяти с высокой
+				пропускной способностью.</p>
+			<ul id="1669cfcd-34cb-4c21-a3f1-8f76f0d48639" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Сокращение затрат на базы данных</strong></li>
+			</ul>
+			<p id="2564dc80-e98d-4974-bbe9-caaaf702307e" class="">Один инстанс кэша может обрабатывать тысячи операций
+				ввода-вывода в секунду, потенциально заменяя несколько инстансов базы данных, что в результате дает
+				снижение общих затрат. Это особенно важно, если плата взимается за пропускную способность базы данных. В
+				таких случаях можно снизить затраты на десятки процентов.</p>
+			<ul id="ddb223b4-d46b-44ae-8a46-d6ba1572e9de" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Устранение проблемных мест в базах данных</strong></li>
+			</ul>
+			<p id="8531c36a-3562-4216-8878-3e849a9a0ac1" class="">Во многих приложениях небольшое подмножество данных,
+				например профиль знаменитости или популярный продукт, может оказаться намного более востребованным, чем
+				остальные данные. Это приводит к появлению проблемных мест в базе данных и требует избыточного выделения
+				ее ресурсов, чтобы удовлетворить спрос на пропускную способность, которой достаточно для получения
+				наиболее часто используемых данных. За счет хранения общих ключей в кэше в памяти можно избавиться от
+				необходимости избыточного выделения ресурсов и обеспечить быструю и предсказуемую работу системы при
+				обращении к самым востребованным данным.</p>
+			<ul id="33085822-1f4f-4fb3-b7c3-fc457ed00e4a" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Снижение нагрузки на серверную часть</strong></li>
+			</ul>
+			<p id="eb282728-4a1b-41e3-b10b-b38be5b7e55c" class="">Благодаря освобождению серверной базы данных от
+				значительной части нагрузки на чтение, которая направляется на уровень памяти, кэширование может
+				сократить нагрузку на базу данных и защитить ее от снижения производительности под нагрузкой и даже от
+				сбоев при пиковых нагрузках.</p>
+			<ul id="9d596537-64ff-420f-947a-2a0fdf56d335" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Повышение пропускной способности операций чтения (количество
+						операций ввода-вывода в секунду)</strong></li>
+			</ul>
+			<p id="bb9ec929-9c25-496c-a661-03bae8739224" class="">Помимо сокращения задержек, системы в памяти
+				обеспечивают намного более высокую скорость выполнения запросов (количество операций ввода-вывода в
+				секунду) по сравнению с базами данных на диске. Один инстанс, который используется как распределенный
+				дополнительный кэш, может обслуживать сотни тысяч запросов в секунду.</p>
+			<p id="d5ed9a37-68a6-4952-99d5-5aa8cb87c4e6" class="">
+			</p>
+			<h1 id="46ef6d0f-fe68-4bd9-98f4-e6049e8d3155" class="">Очереди задач</h1>
+			<p id="ea6b462f-33bb-4dc6-810d-23cfdbf39d37" class="">Большинству веб-приложений требуется выполнять
+				некоторую работу, напрямую не связанную с ответом на запросы пользователей, асинхронно, в фоновом
+				режиме. Например, Google должен сканировать и индексировать весь интернет, чтобы возвращать релевантные
+				результаты поиска. Он не делает это при каждом запросе, а сканирует сеть асинхронно, обновляя поисковые
+				индексы «по пути».</p>
+			<p id="10e06aae-2335-4f65-a0f4-0f61c7f4f9fc" class="">Выполнять асинхронную работу позволяют разные
+				архитектуры, но наиболее распространённой является архитектура «очередь задач». Она состоит из двух
+				компонентов: очереди «заданий», которые необходимо выполнить, и одного или нескольких рабочих серверов
+				(часто называемых «работниками»), которые обрабатывают задания из очереди.</p>
+			<p id="75020479-bc18-40e7-82d8-a02f666af830" class="">В очередях задач хранятся списки заданий, которые
+				нужно выполнить асинхронно. Всякий раз, когда приложению нужно выполнить какую-то задачу, которая должна
+				выполняться по расписанию или в соответствии с действием пользователя, оно добавляет её в очередь. Проще
+				всего организованы очереди FIFO — «первым пришёл — первым ушёл», но большинство приложений в конечном
+				итоге нуждаются в какой-то системе балансировки очередей.</p>
+			<p id="c187263b-e94a-40f2-8436-f4bea5edd772" class="">Например, в Storyblocks очередь заданий используется
+				для выполнения многих скрытых работ, необходимых для поддержания проекта: кодирование видео и
+				фотографий, обработка CSV-файлов для тегов метаданных, агрегирование статистики пользователей, отправка
+				писем с паролями для сброса и т. д. Со временем проект отказался от простой очереди FIFO в пользу
+				приоритетной очереди, чтобы операции с фиксированным временем выполнения, такие как отправка писем о
+				сбросе пароля, были завершены как можно скорее.</p>
+			<p id="b213245f-1be5-4a36-a479-8f28211bb730" class="">Сервера заданий выполняют задания из очереди. Они
+				запрашивают её, чтобы определить, есть ли работа, и если есть, — приступают к выполнению.</p>
+			<h2 id="41b23b0d-0572-4242-b77c-31d98bd03dd8" class=""><strong>RabbitMQ</strong></h2>
+			<p id="320252e7-7623-4b66-a79f-5555bedeff29" class=""><strong>RabbitMQ</strong> ориентирован на оптимизацию
+				рабочей нагрузки или отправку данных, которые сервер может обрабатывать, путем передачи аналогичных
+				задач независимым и сторонним источникам. Чтобы по-настоящему понять этот инструмент, давайте начнем с
+				первого компонента этого процесса.</p>
+			<figure id="9fc541dd-7323-4e78-8bb8-007e251ee3d9" class="image"><a
+					href="Материал лекции/Untitled%2020.png"><img
+						style="width:835px"
+						src="Материал лекции/Untitled%2020.png" /></a>
+			</figure>
+			<p id="a03b7673-fc3e-44d4-8c91-462cc09a71fe" class="">На изображении, показанном выше, RabbitMQ состоит из
+				четырех компонентов, начиная с <strong>производителя</strong>. Производитель - это любое клиентское
+				приложение, которое создает задачу, которая должна быть отправлена, обработана и ожидает отправки данных
+				в соответствии с их запросом.</p>
+			<p id="53822dbd-df8b-40e3-aa19-e59e53fb7787" class="">Далее у нас есть <strong>обмен. </strong>Основная цель
+				обмена - получать и отправлять сообщения в соответствующую очередь в зависимости от типа обмена. На
+				изображении выше у нас только одна очередь, поэтому все задачи будут помещены в очередь. На изображении
+				выше у нас только одна очередь, поэтому все задачи будут помещены в очередь. Когда в уравнение входит
+				несколько очередей, биржи играют более важную роль.</p>
+			<p id="0d97a63c-e6bd-4e56-ac8b-26a76ae55b42" class="">В-третьих, в процессе
+				есть <strong>очереди. </strong>Очереди используются для группировки похожих задач в порядке FIFO (First
+				In First Out). Реальный пример этого - когда вы стоите в очереди в магазине смузи. Первый человек,
+				который входит в очередь, является первым, кто решит или, в данном случае, купит свой смузи и уйдет.
+				Очереди в RabbitMQ можно рассматривать точно так же, они используются для хранения сообщений или задач,
+				ожидающих решения, в том порядке, в котором они пришли.</p>
+			<p id="264a2896-0582-478f-a327-696bb95bd90b" class="">Наконец, у нас
+				есть <strong>потребители. </strong>Потребитель - это любое приложение, которое решает задачу или
+				сообщение в очереди. После того, как задача помещена в очередь, потребитель удалит это сообщение из
+				очереди, чтобы его можно было выполнить. Преимущества RabbitMQ в том, что у потребителя и производителя
+				нет необходимости иметь отношения за пределами их ссылки RabbitMQ. Причина в том, что единственная
+				задача потребителя - выполнить задачу, выходящую из очереди, поэтому, поскольку задача может быть
+				выполнена на любом языке, связь между приложениями практически отсутствует.</p>
+			<p id="36034907-2608-407a-9e1e-ef1bd7d6e899" class="">
+			</p>
+			<p id="818ebd2f-d0b8-4d45-8dc7-79a9eaf59164" class="">RabbitMQ не стал бы частью того инструмента, которым
+				он является сейчас, если бы предлагал только эти услуги. Поэтому на следующем рисунке показано, когда у
+				вас есть несколько очередей, которые могут группировать похожие задачи для выполнения.</p>
+			<figure id="74dceb64-4df1-497e-807e-2223dc2a1ba8" class="image"><a
+					href="Материал лекции/Untitled%2021.png"><img
+						style="width:862px"
+						src="Материал лекции/Untitled%2021.png" /></a>
+			</figure>
+			<p id="ad782567-f589-48ff-a355-19bf2d37d29d" class="">Преимущества использования нескольких очередей
+				заключаются в том, что вы можете выполнять разные группы задач во внешних процессах. Эта методология
+				выделяет и оптимизирует для разделения проблем при группировании выполнения ваших задач. При добавлении
+				нескольких очередей в этот процесс рабочая нагрузка биржи становится все более логистической, поскольку
+				она должна помещать задачу в правильную очередь. Это сопоставление задач с конкретной очередью зависит
+				от типа реализованного обмена.</p>
+			<h3 id="3d7a99af-fc32-4767-914d-2b591962ee74" class=""><strong>Различные типы обменов</strong></h3>
+			<p id="cdd4a3be-0c8e-4dc9-a20c-9636c21c53cc" class="">Когда производитель создает задачу, к задаче
+				прикрепляется ключ маршрутизации. В дополнение к этому, соединения между обменом и очередью называются
+				привязками. Каждая ссылка привязки имеет ключ привязки. Именно через тип обмена определяется способ
+				сравнения ключа маршрутизации и ключа привязки.</p>
+			<ul id="8234a4c2-e1f2-46d7-a0a2-e96b6b12ff85" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Прямой обмен</strong></li>
+			</ul>
+			<p id="9588ec14-daf9-46d5-afff-48a98eb9bd8a" class="">При прямом обмене ключ маршрутизации в задаче напрямую
+				сравнивается с ключами привязки, имеющимися между обменом и очередью. Затем задача направляется в
+				очередь, ключ привязки которой соответствует ключу маршрутизации.</p>
+			<ul id="548dbf8c-9a52-413b-ad75-285fd3d3b7a4" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Тематический обмен</strong></li>
+			</ul>
+			<p id="8cc807d2-3f64-472a-8306-c22d0bde07b0" class="">При обмене темами ключ маршрутизации в задаче должен
+				только частично совпадать с ключом привязки. Например, если была задача с ключом маршрутизации «hello» и
+				одним из ключей привязки было «hello.world», обмен направит задачу в соответствующую очередь, поскольку
+				тема ключа маршрутизации частично соответствует шаблону ключ привязки.</p>
+			<ul id="4ca66555-81a8-40b1-af83-539395d3bf0f" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Fanout Exchange</strong></li>
+			</ul>
+			<p id="d05c0466-d9b4-4b7b-a6c2-24724479b4ab" class="">При разветвленном обмене независимо от ключа привязки
+				задача отправляется во все очереди, буквально распределяя задачу по нескольким процессам (каждой
+				очереди, в которую была отправлена задача). Пример использования этого - если у вас есть задача, которая
+				является обязательной для выполнения всеми группами задач.</p>
+			<ul id="7dae0037-bfe8-4672-8238-e9bd68aba02a" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Обмен по умолчанию (безымянный)</strong></li>
+			</ul>
+			<p id="16249c8f-02e8-45f3-8328-de6fcb7102e3" class="">В безымянном обмене нет связующего ключа. Каждая
+				очередь поставляется с ключом, который сравнивается с ключом маршрутизации, чтобы узнать, в какую
+				очередь направляется задача. Это очень полезно, поскольку гарантирует, что вы уже создали очередь до
+				того, как задача будет опубликована на бирже.</p>
+			<p id="62fe5e47-3be0-46cc-aa15-3f264ded7c13" class="">
+			</p>
+			<h1 id="50d38f28-e16f-4897-8742-bffc557a9ab8" class="">Полнотекстовый поиск</h1>
+			<p id="6147804a-6867-4f0b-813c-0b78eccba1bd" class="">Многие, если не большинство, веб-приложений
+				поддерживают функцию поиска по текстовому вводу (часто называемого «запрос»), в котором приложение
+				возвращает наиболее «релевантные» результаты. Технология, использующая эту функцию, обычно называется
+				«полнотекстовым поиском» и использует инвертированный индекс для быстрого поиска документов, содержащих
+				ключевые слова запроса.</p>
+			<figure id="b9f33f6b-2495-4d69-b91b-dbfaf37c22b0" class="image"><a
+					href="Материал лекции/Untitled%2022.png"><img
+						style="width:576px"
+						src="Материал лекции/Untitled%2022.png" /></a>
+			</figure>
+			<p id="9551c383-3a22-4a20-8aa2-f20b153115d0" class="">В этом примере три заголовка документов преобразуются
+				в инвертированные индексы, что облегчает поиск по определённому ключевому слову среди документов с этим
+				ключевым словом в заголовке. Обратите внимание, что обычные слова, также называемые стоп-словами («in»,
+				«the», «with» и т. д.), обычно не включаются в инвертированный индекс.</p>
+			<p id="780a59b7-9e7a-4faa-87a1-a6995ccd6892" class="">В действительности можно выполнять полнотекстовый
+				поиск непосредственно из некоторых баз данных (например, его поддерживает MySQL), но обычно принято
+				запускать отдельную службу, которая вычисляет и сохраняет инвертированные индексы и предоставляет
+				интерфейс для запросов. Самая популярная полнотекстовая поисковая платформа сегодня — Elasticsearch ,
+				хотя есть и другие варианты, такие как</p>
+			<p id="09ee595d-aa3c-4d37-ae3f-a9d43e237dc7" class="">Sphinx или Apache Solr.</p>
+			<h2 id="4acf3ffb-e68c-43db-a0ec-0a9316e069cc" class=""><strong>Устройство полнотекстового индекса</strong>
+			</h2>
+			<p id="2ed3d0b9-d7c9-4a58-a94a-ca434e3c3d26" class="">Все технологии полнотекстового поиска работают по
+				одному принципу. На основе текстовых данных строится индекс, который способен очень быстро искать
+				соответствия по ключевым словам.</p>
+			<p id="d06d8688-1fc2-48de-ab2f-fe0fabf5b7e0" class="">Обычно сервис поиска состоит из двух компонент.
+				Поисковик и индексатор.</p>
+			<p id="d7029ddb-a116-4d89-a338-3fa45b02dba5" class=""><strong>Индексатор</strong> получает текст на вход,
+				делает обработку текста (вырезание окончаний, незначимых слов и т.п.) и сохраняет все в индексе.
+				Устройство такого индекса позволяет проводить по нему очень быстрый поиск.</p>
+			<figure id="d7e3d123-caf7-4451-a3f0-ce234d65836e" class="image"><a
+					href="Материал лекции/Untitled%2023.png"><img
+						style="width:336px"
+						src="Материал лекции/Untitled%2023.png" /></a>
+			</figure>
+			<p id="18f307b6-a7eb-4f89-97a1-3fddeff9111b" class=""><strong>Поисковик </strong>— интерфейс поиска по
+				индексу — принимает от клиента запрос, обрабатывает фразу и ищет ее в индексе.</p>
+			<figure id="7df7ddfe-1e01-4df7-8824-fb4f54ccdd9c" class="image"><a
+					href="Материал лекции/Untitled%2024.png"><img
+						style="width:1024px"
+						src="Материал лекции/Untitled%2024.png" /></a>
+			</figure>
+			<p id="498405bf-e8fe-4cc0-9de3-184a870ff328" class="">Существует несколько популярных технологий для
+				реализации полнотекстового поиска в приложениях.</p>
+			<ul id="0178eb11-0bc1-4f87-8fb9-bb72737b6855" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Sphinx</strong>. Простой, быстрый, легкий, используется в
+					связке с базовый данных, поиск по русскому/английскому тексту, wildcard поиск.</li>
+			</ul>
+			<ul id="d017594a-de32-4705-83bc-18e25457a1a8" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Solr</strong>. Большой, мощный, выступает как хранилище,
+					миллион функций, сделать можно практически все, есть неточный поиск и возможность масштабироваться
+					из коробке.</li>
+			</ul>
+			<ul id="c9a5c024-eb55-4211-91ee-0992bdd8f1fa" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Elastic</strong>. Не только поиск и хранилище, а и другие
+					инструменты (визуализация, сборщик логов, система шифрования и т.п.). Умеет масштабироваться и
+					позволяет выполнять выборки очень сложной формы, что делает это хорошим вариантов для аналитической
+					платформы.</li>
+			</ul>
+			<p id="9210b5b9-b8e5-46cf-ae38-549a7b2fc97e" class="">
+			</p>
+			<h1 id="8050b7a0-abe3-4485-9e09-0bae75af50ac" class="">Службы</h1>
+			<p id="729adc3e-3f50-4a64-8979-9e77fcfcc87a" class="">Прежде всего, веб-сервисы (или веб-службы) — это
+				технология. И как и любая другая технология, они имеют довольно четко очерченную среду применения.</p>
+			<p id="fd553683-f0b6-44ac-819a-e845c304eb13" class="">Если посмотреть на веб-сервисы в разрезе стека сетевых
+				протококолов, мы увидим, что это, в классическом случае, не что иное, как еще одна надстройка поверх
+				протокола HTTP.</p>
+			<p id="8cbfef56-9dc2-4781-bce5-0a2ab56384d1" class="">С другой стороны, если гипотетически разделить
+				Интернет на несколько слоев, мы сможем выделить, как минимум, два концептуальных типа приложений —
+				вычислительные узлы, которые реализуют нетривиальные функции и прикладные веб-ресурсы. При этом вторые,
+				зачастую заинтересованы в услугах первых.</p>
+			<p id="dfc75dea-28ef-4cb7-ac58-e8b8d612b3d2" class="">Но и сам Интернет — разнороден, т. е. различные
+				приложения на различных узлах сети функционируют на разных аппаратно-программных платформах, и
+				используют различные технологии и языки.</p>
+			<p id="7484c840-3d9a-488a-bd5f-1cccb96f4301" class="">Чтобы связать все это и предоставить возможность одним
+				приложениям обмениваться данными с другими, и были придуманы веб-сервисы.</p>
+			<p id="89e444f8-42d4-4b2e-afb0-665992abc8cc" class="">По сути, веб-сервисы — это реализация абсолютно четких
+				интерфейсов обмена данными между различными приложениями, которые написаны не только на разных языках,
+				но и распределены на разных узлах сети.</p>
+			<p id="75771cd0-ff1f-4110-bb21-f34a8077b8a7" class="">Именно с появлением веб-сервисов развилась идея
+				<strong>SOA</strong> — сервис-ориентированной архитектуры веб-приложений (<strong>Service Oriented
+					Architecture</strong>).</p>
+			<p id="e77cf0ae-8d08-4785-9c4d-e974f6468608" class=""><strong>Примеры вуб-служб</strong></p>
+			<p id="2bd4ca68-dabf-424b-b381-bd5ca5030519" class="">Взаимодействие между авиакомпаниями и бюро
+				путешествий. Первые предоставляют через веб-службы полезную информацию, которую вторые используют при
+				поиске оптимальных предложений своим клиентам.</p>
+			<p id="927ce717-94bb-4a96-aad9-131f93d27183" class="">Google с 2002 до 2009 года предоставлял веб-службу,
+				которая позволяла заказчикам искать необходимую информацию в интернете так же, как это делают обычные
+				пользователи. По удобству это несравнимо, например, с автоматическим разбором HTML-текста Google всяких
+				страниц.</p>
+			<p id="e3885041-e0b7-4f13-9b3b-e252735acf28" class="">Amazon.com имеет веб-службу, предоставляющую различные
+				веб-базированные услуги.</p>
+			<h2 id="dc406c61-ffd1-4e0d-99a3-0db51fcab9fe" class=""><strong>Протоколы веб-сервисов</strong></h2>
+			<p id="c3568b3b-93fc-49b6-abe1-fdd72b995d2e" class="">На сегодняшний день наибольшее распространение
+				получили следующие протоколы реализации веб-сервисов:</p>
+			<ul id="4f638235-2e37-4a8a-ac13-e10ac9df6f12" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>SOAP (Simple Object Access Protocol)</strong> — по сути это
+					тройка стандартов SOAP/WSDL/UDDI</li>
+			</ul>
+			<ul id="b924ebc9-5e47-46ed-ba73-114e077fa3e1" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>REST (Representational State Transfer)</strong></li>
+			</ul>
+			<ul id="631a0dad-dcdb-45de-9483-e9cd52bd91c0" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>XML-RPC</strong> <strong>(XML Remote Procedure Call)</strong>
+				</li>
+			</ul>
+			<p id="4074186a-83e9-4ed1-9029-2e58761decf0" class="">На самом деле, SOAP произошел от XML-RPC и является
+				следующей ступенью его развития. В то время как REST — это концепция, в основе которой лежит скорее
+				архитектурный стиль, нежели новая технология, основанный на теории манипуляции объектами CRUD (Create
+				Read Update Delete) в контексте концепций WWW.</p>
+			<p id="709c6d60-7eec-4e1c-ae94-e06964eb1a80" class="">Безусловно, существуют и иные протоколы, но, поскольку
+				они не получили широкого распространения, мы остановимся в этом кратком обзоре на двух основных — SOAP и
+				REST. XML-RPC ввиду того, что является несколько «устаревшим», мы рассматривать подробно не будем.</p>
+			<h3 id="57a3eee7-ead6-4703-92f1-66aceabb88e1" class=""><strong>SOAP против REST</strong></h3>
+			<p id="6472ae3b-70fd-4a22-ad03-cb337a42534d" class="">SOAP более применим в сложных архитектурах, где
+				взаимодействие с объектами выходит за рамки теории CRUD, а вот в тех приложениях, которые не покидают
+				рамки данной теории, вполне применимым может оказаться именно REST ввиду своей простоты и прозрачности.
+				Действительно, если любым объектам вашего сервиса не нужны более сложные взаимоотношения, кроме:
+				«Создать», «Прочитать», «Изменить», «Удалить» (как правило — в 99% случаев этого достаточно), возможно,
+				именно REST станет правильным выбором. Кроме того, REST по сравнению с SOAP, может оказаться и более
+				производительным, так как не требует затрат на разбор сложных XML команд на сервере (выполняются обычные
+				HTTP запросы — PUT, GET, POST, DELETE). Хотя SOAP, в свою очередь, более надежен и безопасен.</p>
+			<p id="e29afabb-ddb2-4af7-bc2d-c1cecb4d5045" class="">
+			</p>
+			<h1 id="10945b83-3097-4f68-b4f8-73c49096846b" class="">Хранилище данных</h1>
+			<p id="5619a58c-0473-4a7c-8928-57a733dfda23" class=""><strong>Хранилище данных</strong> — это разновидность
+				системы управления данными, которая обеспечивает поддержку бизнес-аналитики. Хранилища данных
+				предназначены только для выполнения запросов и анализа и обычно содержат большие объемы исторических
+				данных. Данные обычно поступают в хранилище из самых различных источников, таких как журналы приложений
+				и приложения транзакций.</p>
+			<p id="5af05ea1-709d-46c1-8416-cc613f7c83df" class="">Хранилище данных служит для централизации и
+				консолидации больших объемов данных из различных источников. Аналитические инструменты дают возможность
+				компаниям извлекать из собственных данных ценные для бизнеса сведения и повышать эффективность принятых
+				решений. Со временем в хранилище накапливаются записи за прошедшие периоды, которые представляют большую
+				ценность для специалистов по изучению данных и бизнес-аналитиков. Эти возможности делают хранилища
+				данных “единым источником проверенной информации компании.”</p>
+			<p id="1228f012-235b-4fc8-baf2-57d5d5106144" class="">Обычно хранилище данных включает в себя следующие
+				компоненты:</p>
+			<ul id="568fe195-87e2-404e-8c3c-84786c9fabc6" class="bulleted-list">
+				<li style="list-style-type:disc">реляционную базу данных для хранения данных и управления ими;</li>
+			</ul>
+			<ul id="0337c429-935a-444b-8522-60c305c98904" class="bulleted-list">
+				<li style="list-style-type:disc">решение для извлечения, загрузки и преобразования данных, которое
+					служит для подготовки данных к анализу;</li>
+			</ul>
+			<ul id="a8748c22-955e-4255-80b9-c510ad6fd104" class="bulleted-list">
+				<li style="list-style-type:disc">средства статистического анализа, отчетности и глубинного анализа
+					данных;</li>
+			</ul>
+			<ul id="d5c5ff67-256d-49de-a279-aec567d299e4" class="bulleted-list">
+				<li style="list-style-type:disc">инструменты анализа для визуализации данных и их представления для
+					корпоративных пользователей;</li>
+			</ul>
+			<ul id="33786785-8a37-4729-8541-4289eb56b7ed" class="bulleted-list">
+				<li style="list-style-type:disc">Другие, более сложные аналитические приложения, которые
+					генерируют полезную информацию по алгоритмам исследования данных и деятельности искусственного
+					интеллекта (ИИ) или графам и функциям обработки пространственных данных, что обеспечивает больше
+					вариантов анализа рассматриваемых данных.</li>
+			</ul>
+			<h2 id="cac1d430-f953-451e-98bb-3c43ac022194" class=""><strong>Преимущества хранилища данных</strong></h2>
+			<p id="dafd1e52-f5cc-4432-8b5e-8cecfc5a46b2" class="">Хранилища данных обеспечивают для компаний обширные
+				преимущества, так как дают возможность анализировать большие объемы разнообразных данных, извлекать из
+				них значительную ценность, а также хранить записи за прошедшие периоды.</p>
+			<p id="c37801ef-1e92-4a8c-8bd1-78f7cd2a4340" class="">Эти уникальные преимущества доступны благодаря четырем
+				отличительным особенностям хранилищ данных, которые описал специалист по вычислительным системам Уильям
+				Инмон (William Inmon). Согласно данному им определению, хранилища данных имеют следующие характеристики.
+			</p>
+			<ul id="f71b8b82-2041-439c-9e76-cc3a5183ee35" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Субъектно-ориентированность.</strong> Хранилища можно
+					использовать для анализа данных, которые относятся к одной теме или функциональной области
+					(например, продажи).</li>
+			</ul>
+			<ul id="058cb467-f382-4390-8028-d6a7bcca7bcf" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Единообразие.</strong> Хранилища данных обеспечивают
+					целостность данных различных типов, полученных из разных источников.</li>
+			</ul>
+			<ul id="1b268f00-af89-4881-8361-65e9d5704a33" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Неизменность.</strong> Элементы данных, помещенные в хранилище
+					данных, не подвергаются изменениям.</li>
+			</ul>
+			<ul id="33fc842c-9345-4b9e-91ca-10a5a7ca5f8d" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Изменения во времени.</strong> Анализ данных, помещенных в
+					хранилище данных, предназначен для выявления изменений в закономерностях, возникающих со временем.
+				</li>
+			</ul>
+			<p id="71ca38d8-bed1-43f9-8600-66fe0171627f" class="">Хорошо спроектированное хранилище данных обеспечивает
+				быстрое выполнение запросов, эффективное прохождение больших объемов данных и достаточный уровень
+				гибкости, чтобы конечные пользователи могли формировать продольные и поперечные срезы данных или
+				уменьшать их объем для более подробного изучения, то есть обеспечивает соответствие самым различным
+				потребностям в изучении данных как на высшем, так и на самом низовом уровне. Хранилища данных служат
+				функциональной основой для промежуточных сред бизнес-аналитики, которые предоставляют конечным
+				пользователям доступ к отчетам, панелям мониторинга и прочим элементам интерфейса.</p>
+			<h2 id="89dbc7c5-5a20-4ef2-96d8-9d56a6e971ee" class=""><strong>Архитектура хранилища данных</strong></h2>
+			<p id="9b3ff4d0-5842-48bc-9632-65df0ceb79ac" class="">Архитектура хранилища данных зависит от потребностей
+				компании. Наиболее распространенными типами архитектур являются следующие.</p>
+			<ul id="ac61a701-9f43-4948-b93e-c34df6da14ec" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Простая.</strong> Все хранилища данных имеют общую конструкцию,
+					где метаданные, сводные данные и необработанные данные хранятся в центральном репозитории хранилища.
+					В репозиторий поступают данные из источников, к которым затем получают доступ конечные пользователи
+					для выполнения анализа, составления отчетов и изучения.</li>
+			</ul>
+			<ul id="213ee01a-81da-41b1-922b-4e2da677f722" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Простая архитектура с областью подготовки.</strong> Перед
+					помещением в хранилище операционные данные должны пройти процедуру очистки и обработки. Это можно
+					сделать программным способом, однако во многих хранилищах данных есть специальная область, где
+					данные проходят обработку перед поступлением непосредственно в хранилище.</li>
+			</ul>
+			<ul id="0c2e75b4-7d36-4086-9688-f98350f5ad2d" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Основное и дополнительные хранилища.</strong> Добавление витрин
+					данных между центральным репозиторием и конечными пользователями дает возможность компаниям
+					использовать хранилища данных для обслуживания различных направлений бизнеса. Когда данные готовы к
+					использованию, их помещают в соответствующую витрину.</li>
+			</ul>
+			<ul id="1354ff35-c4eb-4e90-bd40-f7e0e6252e49" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>«Песочницы».</strong> «Песочницы» представляют собой безопасные
+					частные и защищенные области, в которых компании могут быстро изучать новые наборы данных или
+					способы анализа без необходимости обеспечивать соответствие формальным правилам и протоколам
+					хранилища данных.</li>
+			</ul>
+			<h2 id="d88cc106-af14-4e32-9f75-453e29055f92" class=""><strong>Эволюция хранилища данных</strong></h2>
+			<p id="7f242e15-8310-4f11-9f13-8f29a32ef239" class="">Первые хранилища данных появились в конце 1980-х гг.,
+				и их задачей было обеспечить обмен данными между операционными БД (БД для поддержки бизнеса) и системами
+				поддержки принятия решения (СППР). Первым хранилищам данных требовалось много копий. Большинство
+				компаний использовали несколько СППР для различных потребностей. Хотя эти СППР обычно использовали одни
+				и те же данные, процессы сбора, очистки и интеграции выполнялись для каждой из них по отдельности.</p>
+			<p id="1954a722-dce1-4f7b-b777-7b847cbbfd2c" class="">По мере того как эффективность хранилищ данных росла,
+				они превратились из «складов информации» для поддержки традиционных платформ бизнес-аналитики в обширные
+				аналитические инфраструктуры, которые сегодня обслуживают самые разнообразные потребности компаний,
+				включая операционную аналитику и управление эффективностью.</p>
+			<p id="8b1a83e5-71a4-4145-97f8-999c3a5c5b0c" class="">Эволюция хранилищ данных сделала их важным
+				инструментом для постепенного наращивания бизнес-ценности для предприятия.</p>
+			<p id="8ff96065-fea3-4b12-98e9-dcccbdb8df7e" class="">На каждом из пяти этапов требуется увеличивать
+				разнообразие наборов данных. На последних трех этапах максимально обширный диапазон данных и
+				аналитических средств является обязательным требованием.</p>
+			<p id="581922f9-6b75-4fa8-99a9-7c84f2d5ab52" class="">
+			</p>
+			<h1 id="0ec01c5e-1656-4686-9726-8441d1473a04" class="">Облачное хранилище</h1>
+			<p id="41856e0f-c247-4eee-bfd1-ef1dd0d00657" class="">Облачное хранилище представляет собой хранилище самых
+				разных типов данных, с самыми разными способами доступа к ним. Главное, чтобы обратиться к ним можно
+				было из любой точки интернета.</p>
+			<p id="6c832baa-efc7-4b2d-a9f0-24c64530cc75" class="">Речь не идёт исключительно о публичном сервисе. Он
+				может быть вполне приватным или корпоративным.</p>
+			<p id="183fc5cf-aba9-4f4d-9ebe-f1154534e358" class=""><strong>Зачем хранить данные в облаке</strong></p>
+			<p id="b0693d92-5bca-4f9b-8f95-7d12abe97cb5" class="">Причин для размещения данных в облаке может быть
+				достаточно много, и для разных пользователей они могут иметь разный приоритет.</p>
+			<p id="4687d8fd-17f4-4b7e-93e2-09535c70965b" class="">Например, для частных лиц важнее будет возможность
+				доступа к данным из разных мест интернета и с разных устройств, а для корпоративных пользователей более
+				существенными могут оказаться надёжность и стоимость хранения.</p>
+			<p id="e1f41977-6d72-40b7-a346-eda5abe69614" class="">Это не исчерпывающий список мотивов для использования
+				облачного хранилища. Например, для корпоративных пользователей может также иметь большое значение
+				трансформация капитальных расходов в операционные. Проще говоря, использование такси вместо покупки
+				служебного автомобиля.</p>
+			<h2 id="4f3e6ce7-a2ec-4d82-9f23-bd8557d060b5" class=""><strong>Виды облачных хранилищ</strong></h2>
+			<p id="3da6977b-30f3-4cc2-a3a6-ed9093fa2314" class="">Размещать в интернете можно разные данные, по-разному
+				организованные, поэтому и хранилища тоже могут быть разными.</p>
+			<p id="8c905343-d432-429c-96ad-c56697944ee7" class="">Но чтобы перейти к рассмотрению типов
+				интернет-хранилищ нужно сделать одну оговорку: данные в них могут хранить не только пользователи, но и
+				приложения, которыми, в свою очередь, пользуются люди или предприятия. Например, многие программы для
+				связи — Skype, WhatsApp, Facebook Messenger и прочие — хранят контакты пользователей в своих
+				интернет-хранилищах.</p>
+			<p id="574a3e14-0dde-4bdf-ab5e-4e1cf34ef922" class="">С точки зрения пользователя, интернет-хранилище может
+				выглядеть как дополнительный <em>локальный диск</em> или <em>папка</em> для размещения произвольных
+				файлов. Последний вариант хорошо знаком многочисленным пользователям сервисов Dropbox, OneDrive,
+				Яндекс.Диск, Google.Drive, Облако.Mail.Ru, …</p>
+			<p id="568a203d-b2cc-45e3-9e1e-bd5cc1f7d12f" class="">Но есть типы интернет-хранилищ, с которыми частные
+				лица обычно не сталкиваются. Хранилища этих типов используются приложениями. Например, такое хранилище
+				может иметь давно привычный SQL-интерфейс, но при этом не будет требоваться какое-либо системное
+				администрирование SQL-сервера.</p>
+			<p id="f4cec6ec-80ee-4f3e-a2db-161ac95628bd" class="">Наиболее современным и универсальным типом облачных
+				хранилищ является <em>объектное хранилище</em>, которое позволяет работать с данными наиболее обобщённым
+				способом.</p>
+			<figure id="89292b55-960d-46e4-a523-d1e05af3d8fa" class="image"><a
+					href="Материал лекции/Untitled%2025.png"><img
+						style="width:384px"
+						src="Материал лекции/Untitled%2025.png" /></a>
+			</figure>
+			<p id="bf95f491-9a5b-46ce-b9bc-dea03d070efd" class="">
+			</p>
+			<p id="a96489ba-3cfd-4741-8705-00bcf49cf126" class="">Для большинства прикладных пользователей сетевой диск
+				или сетевая папка — понятия близкие, если не идентичные. Но в части системного администрирования они
+				существенно различаются.</p>
+			<h3 id="9f820dab-fb42-49bd-8a32-9ef4e35666b0" class=""><strong>Облачные диски</strong></h3>
+			<p id="51dab637-3302-4558-9659-32084ee58bd5" class="">Сейчас очень часто облачными дисками называют сервисы
+				типа Dropbox, OneDrive или Яндекс.Диск, что неправильно. Эти ресурсы предоставляются пользователям либо
+				через веб-интерфейс, либо в виде папок на Рабочем столе. В обоих случаях речь не может идти о дисках.
+				Например, их нельзя отформатировать в нужную файловую систему.</p>
+			<p id="5841fe06-8c0d-4e0e-a89d-06f740ea14d9" class="">Но дисковое пространство хранилища действительно может
+				быть представлено некоему компьютеру через интернет так, чтобы оно воспринималось как локальный диск, с
+				которым будут доступны все дисковые операции.</p>
+			<p id="820d1706-795d-40fe-a8be-5496e3e088bc" class="">Для предоставления дискового пространства через
+				интернет существуют специальные протоколы, например, Internet Small Computer Systems Interface (iSCSI),
+				iFCP (Internet Fibre Channel Protocol) или Fibre Channel over IP (FCIP). На их основе создаются, так
+				называемые, сети хранения данных (SAN, Storage Area Network). По этим протоколам дисковые устройства
+				представляются серверу, к которому они подключаются, на самом низком — блочном — уровне, и поэтому
+				являются универсальными.</p>
+			<p id="0bce3403-8373-4e1e-945a-fab6ad1734ba" class="">Однако взаимодействие на таком уровне требует
+				интенсивного обмена данными между сервером и дисковым устройством. Если такой обмен идёт по недостаточно
+				быстрым каналам связи, эффективность дискового устройства падает. Если связь высокоскоростная и
+				высоконадёжная, облачные диски могут стать удобной и универсальной частью корпоративной информационной
+				системы.</p>
+			<h3 id="5590bf9d-86d6-40e5-a211-3d7a5abdeb6f" class=""><strong>Облачные папки</strong></h3>
+			<p id="3a90bc86-5fe1-406b-924f-b43ac96c073c" class="">Именно их сейчас часто именуют облачными дисками. О
+				том, что это неверно, уже было сказано. Тем не менее, облачная папка — полезный и широко востребованный
+				ресурс, особенно среди частных лиц. Например, он даёт возможность использовать одни и те же файлы с
+				разных устройств, подключенных к интернету. Также возможно совместное использование папки для групповой
+				работы с файлами.</p>
+			<p id="2e90af2d-7ea7-4852-9aa9-eda07497b820" class="">Положить файл в облачную папку можно либо через
+				браузер и веб-интерфейс, либо через специальную локальную папку, которая автоматически синхронизируется
+				с облачным хранилищем. Во втором случае на компьютер пользователя требуется установить соответствующую
+				утилиту.</p>
+			<p id="dc04f0dd-7793-41d8-a3dd-f57a335c81a3" class="">Помимо доступа к файлам с разных устройств, облачные
+				папки обеспечивают хранение резервных копий этих файлов. Как правило, облачная инфраструктура строится
+				на оборудовании с очень высокой надёжностью.</p>
+			<h3 id="5697c9bd-216b-4a73-a01f-b01b99c29c59" class=""><strong>СУБД — системы управления базами
+					данных</strong></h3>
+			<p id="c666817d-2aea-481f-83d6-c237bd791129" class="">Системы управления базами данных разрабатывают и
+				эксплуатируют с середины 60-х годов. За прошедшее время возникло множество их вариантов. Большое
+				распространение получили СУБД на основе SQL-запросов к реляционным базам данных. Помимо них в последнее
+				время стали появляться и находить применение базы неструктурированных или плохо структурированных
+				данных.</p>
+			<p id="571852c4-b359-47cd-b5bb-6b994d3809bc" class="">В ответ на запросы СУБД обоих типов возвращают, так
+				называемые, наборы данных (datasets) — выборки данных, собранных в таблицы или некие списки.</p>
+			<p id="258ffab8-31b3-4f26-ad18-675f55a71dde" class="">Принципиальным является то, что приложение,
+				запросившее данные из хранилища, должно само уметь сложить эти данные в некоторую прикладную сущность,
+				например, «пользователь», «задача», «растение», «транспортное средство», «объект недвижимости» и т.д.
+			</p>
+			<h2 id="e31649ab-31f8-4ff4-9fce-9da64c3a371e" class=""><strong>Объектные хранилища</strong></h2>
+			<p id="ab45e049-0d3b-47a4-9d1b-fe5b104e3487" class="">Концепция объектного хранилища позволила обеспечить
+				универсальную обработку данных произвольного типа.</p>
+			<p id="ffa4d4b4-ed16-4336-9438-125726f2c10c" class="">Файлы в таком хранилище сопровождаются дополнительными
+				сведениями — мета-данными — которые позволяют обрабатывать эти файлы как прикладные объекты:
+				бухгалтерские документы, видеофильмы, проекты, товары, фотографии и т. п.</p>
+			<p id="48abc73b-6180-4a98-8b65-f7f3f9d95248" class="">Идея объектного хранения данных возникла и
+				прорабатывалась ещё в 70-е и 80-е годы. Но тогда она развивалась в рамках отдельных замкнутых проектов,
+				а сейчас это — широко востребованная услуга, используемая в самых разнообразных приложениях.</p>
+			<p id="2bcc2326-b3e6-4391-9585-f5bcfaf524d4" class="">Для взаимодействия с облачным объектным хранилищем
+				используется программный интерфейс (API). То есть запись объекта в хранилище происходит не
+				перетаскиванием файла из одной папки в другую, а с помощью специальных команд, выдаваемых приложениями.
+			</p>
+			<h1 id="684faef2-df31-44b8-beea-e7c8f6bc3076" class="">CDN</h1>
+			<h3 id="9b176561-c7cf-40cf-a173-0e4ec2d709dd" class=""><strong>Основные термины</strong></h3>
+			<p id="a38672dc-b7e5-4a81-a27b-e528242fb118" class=""><strong>CDN (Content Delivery Network) </strong>— это
+				географически распределённая сетевая инфраструктура, обеспечивающая быструю доставку контента
+				пользователям веб-сервисов и сайтов. Входящие в состав CDN cерверы географически располагаются таким
+				образом, чтобы сделать время ответа для пользователей сайта/сервиса минимальным.</p>
+			<p id="e39251e4-441d-432b-bbf7-78086e51e2ba" class=""><strong>Ориджин (origin) </strong>— сервер, на котором
+				хранятся исходные файлы или данные, раздаваемые через CDN.</p>
+			<p id="419c0a8b-614c-4f26-bd81-2b308383326d" class=""><strong>PoP (point of presence, точка присутствия)
+				</strong>— кэширующий сервер в составе CDN, расположенный в определенной географической локации. Для
+				обозначения таких серверов также используется термин edge.</p>
+			<p id="b0deffc6-5b77-4f61-ab2c-61a3655feeef" class=""><strong>Динамический контент </strong>― контент,
+				генерируемый на сервере в момент получения запроса (либо изменяемый пользователем, либо загружаемый из
+				базы данных).</p>
+			<p id="d84916e2-706a-476d-9889-4bc9caed35b2" class=""><strong>Статический контент </strong>― контент,
+				хранимый на сервере в неизменяемом виде (например, бинарные файлы, аудио- и видеофайлы, JS и CSS).</p>
+			<figure id="d786d243-c537-4f6f-826a-4d44ebc18974" class="image"><a
+					href="Материал лекции/Untitled%2026.png"><img
+						style="width:480px"
+						src="Материал лекции/Untitled%2026.png" /></a>
+			</figure>
+			<p id="6ff31fb4-549f-4b33-8640-16764055e32a" class="">Чаще всего CDN используется для уменьшения времени
+				отклика кэшированного контента, что уменьшает отток посетителей из-за медленной загрузки ресурса и тем
+				самым сокращает возможные финансовые потери. Также CDN помогает снизить риск потери доступа к контенту
+				из-за падения основного сервера. Контент будет доступен всё время, пока вы восстанавливаете
+				работоспособность основного сервера.</p>
+			<p id="1d086084-58b9-4526-a33b-653af857678e" class="">Использование CDN существенно снижает нагрузку на
+				основной сервер, что помогает решить проблему пиковых нагрузок. Современная CDN способна переживать
+				очень большие нагрузки. В конце 2018 года компания Akamai заявила о рекордном объеме передаваемого через
+				CDN трафика: 72 Тб/c.</p>
+			<p id="042275e1-186d-4f2f-a4ed-a74cb33f64ce" class="">В наше время CDN активно используются также для
+				раздачи стримингового контента.</p>
+			<h2 id="49c855f2-a0ab-4738-87dd-ed6f17441315" class="">Принцип<strong> работаеты CDN</strong></h2>
+			<p id="4100457d-86ea-483c-8a15-5b6cee2dac8d" class="">Представим себе веб-сервис, которым пользуются люди на
+				всей территории России. Основные серверы расположены в Санкт-Петербурге, а пользователи находятся в
+				самых разных географических точках: скажем, в Краснодаре (2 604,2 км от Петербурга), Новосибирске (3
+				826,1 км), Иркутске (5 661, 7 км) или Владивостоке (9 602, 4 км). Чем дальше пользователь находится от
+				оригинального сервера, тем больше время «‎оригинального»‎ ответа. На заре Рунета, в самом начале 2000-х,
+				жители Южно-Сахалинска или Петропавловска-Камчатского могли дожидаться полной загрузки простой
+				веб-страницы полновесные 5, а то и все 10, минут.</p>
+			<p id="0ac9d549-a970-4711-ba8f-6610ba55ddc8" class="">При использовании CDN всё происходит по-другому:
+				пользователь из Владивостока переадресуется к географически ближайшему кэширующему серверу в составе
+				CDN, благодаря чему доставка статического контента происходит гораздо быстрее.</p>
+			<figure id="bb2a9618-2d88-452c-85ff-612da27bd802" class="image"><a
+					href="Материал лекции/Untitled%2027.png"><img
+						style="width:576px"
+						src="Материал лекции/Untitled%2027.png" /></a>
+			</figure>
+			<p id="40712b4d-e86b-43cb-9a44-821a87d3268d" class="">Для ускорения раздачи динамики при использовании CDN
+				используются другие механизмы: CDN-провайдер за счет своей сети сокращает сетевой маршрут.</p>
+			<p id="a6127d6e-79d0-4443-8aec-78736bb8601c" class="">Ещё один интересный сценарий использования CDN ― так
+				называемый live-streaming: пользователи Интернета со всего мира могут в браузере (а иногда и в
+				специальном приложении) смотреть или слушать трансляцию с мест событий. Устроено это так: один или
+				несколько ориджин-серверов принимают c видеокамеры транслируемый поток, который сразу же ретранслируется
+				на точки присутствия. Ориджин-серверы при этом контент клиентам не раздают. В состав стриминговых CDN
+				входят также балансировщики нагрузки, перенаправляющие запросы к наименее загруженным на текущий момент
+				edge-серверам.</p>
+			<h3 id="4f073395-c690-49a5-85ae-26feca26f500" class=""><strong>Как организована раздача контента?</strong>
+			</h3>
+			<p id="2ec7fcc9-e3bf-4e79-a6f0-2ae3c9e2a246" class="">Как правило, для настройки раздачи статического
+				контента через CDN необходимо выполнить следующие шаги:</p>
+			<ol type="1" id="e3ebdf4e-b5a0-4e59-90a9-055697215937" class="numbered-list" start="1">
+				<li>Вынести статику сайта на отдельный домен, например, static.example.com — это будет origin.</li>
+			</ol>
+			<ol type="1" id="76592c4a-dabe-4759-820d-e86dea4fdd1a" class="numbered-list" start="2">
+				<li>Для работы через CDN создать домен вида cdn.example.com.</li>
+			</ol>
+			<ol type="1" id="709cd49d-2827-4ecb-a75d-099db480432c" class="numbered-list" start="3">
+				<li>Подключить CDN у провайдера. Для подключения владельцу веб-сервиса необходимо сообщить провайдеру
+					следующее: <br />домен, с которого он будет забирать статику static.example.com;<br />домен, с
+					которого будет идти раздача — cdn.example.com.<br /></li>
+			</ol>
+			<ol type="1" id="1fea93d5-7d63-477b-80e5-bcb502d9faba" class="numbered-list" start="4">
+				<li>У своего DNS-регистратора настроить CNAME запись с cdn.example.com на домен CDN-провайдера, который
+					CDN провайдер выделяет при подключении.<br />Например, в CDN Selectel такой домен имеет вид
+					85e77c09-bc03-43bf-b8f3-9492ae33390f.selcdn.net, где 85e72c09-bc03-43bf-b8f3-9492ae33390f
+					генерируется автоматически.<br /></li>
+			</ol>
+			<ol type="1" id="c719687d-abc3-4bb0-808b-09009758d249" class="numbered-list" start="5">
+				<li>На своем сайте изменить домен для статики, которую планируется раздавать через CDN, на
+					cdn.example.com.</li>
+			</ol>
+			<p id="f0cbc050-0598-4b4b-8477-802761d4b81b" class="">Пользователь набирает в строке браузера адрес <a
+					href="http://www.example.com/">www.example.com</a>, с которого он получает HTML-страницу. При этом
+				весь статический контент, например, графические изображения, подгружается из CDN (с адреса
+				cdn.example.com).</p>
+			<p id="c3bfd728-4acf-411d-b9f5-4afbafcad9f2" class="">Статический контент, предназначенный для раздачи,
+				часто помещается в объектные хранилища. Существует множество плагинов и расширений для популярных CMS
+				(Wordpress, Joomla, Drupal, 1C Битрикс и других), с помощью которых можно настроить интеграцию с
+				облачными сервисами хранения и раздачу статики через CDN.</p>
+			<p id="4422c08d-823f-4724-9a9f-69e817c1e9dc" class="">Веб-сервис после подключения CDN будет работать на том
+				же оригинальном сервере. Кэшированные части сайта будут загружены на серверы CDN-сети. Система находит
+				для пользователя ближайший сервер и максимально быстро загружает статику сайта с него.</p>
+			<p id="ee965ac4-147b-4f2b-98e5-0775345cb8d7" class="">Обратим внимание на один важный момент: серверы,
+				входящие в состав CDN, не являются подобием файловых серверов, на которые контент размещается для
+				последующего скачивания. CDN используются не для хранения контента, а для кэширования на основе
+				конкретных алгоритмов.</p>
+			<h3 id="48315bf4-be00-479a-9a14-b68102e44781" class=""><strong>Как CDN понимает, где находится ближайший
+					кэширующий сервер?</strong></h3>
+			<p id="a63ad704-4eb8-467d-ba3d-06e1f99e887e" class="">Как правило, для подгрузки контента из CDN
+				используются две популярные технологии: GeoDNS и AnyCast.</p>
+			<p id="48e403a1-9914-4138-89da-e03bd952770f" class="">С помощью GeoDNS можно привязать к одному доменному
+				имени несколько IP-адресов. В зависимости от географического положения (определяется по IP-адресу, с
+				которого пришел запрос) пользователь перенаправляется на ближайший сервер.</p>
+			<p id="c5e68ecc-37ce-4b32-9399-d0e87c16be8b" class="">При использовании технологии Anycast адреса общие, но
+				маршрутизация происходит на «‎свои» серверы в пределах региона. При обращении к адресу <a
+					href="http://www.example.com/">www.example.com</a> пользователь переадресуется на ближайшую точку
+				присутствия. Провайдер пользователя получает несколько анонсов от разных сетей, в которых есть точка
+				присутствия, и маршрутизатор провайдера выбирает из них самый близкий. Ответ аналогичным образом
+				возвращается по наиболее короткому маршруту.</p>
+			<h3 id="41181372-9f3a-4833-acb3-80e9e1b4a3ac" class=""><strong>Как кэшируется контент?</strong></h3>
+			<p id="79a2f070-5ce8-463a-a3ff-9070b9f6630b" class="">Самой распространенной является схема <strong>по
+					первому обращению</strong>: максимальное количество времени на загрузку затрачивает пользователь,
+				обратившийся к оригинальному серверу первым. Все последующие пользователи будут получать данные,
+				кэшированные на ближайшей к ним точке присутствия.</p>
+			<p id="9cb87e7f-7d3c-48d8-9d1b-3b69c78ba927" class="">Здесь очень важна география: например, после обращения
+				пользователя из Рио-де-Жанейро данные будут закэшированы на сервере, находящемся на территории Бразилии,
+				что не решит проблемы со скоростью доступа для пользователей из Парижа или Лондона.</p>
+			<p id="154dd19e-8fdb-464e-82bb-bc467434efb9" class="">Для преодоления ограничений, накладываемых этой
+				схемой, используются технологии регионального извлечения: соседние серверы, входящие в состав CDN,
+				забирают контент друг у друга, а не обращаются к оригинальному серверу.</p>
+			<p id="65abe6dd-9edd-49d2-9e03-f1186bbc41eb" class="">В большинстве CDN пользователь, отправивший запрос на
+				получение статического контента, переадресуется к ближайшей точке присутствия и получает кэшированную
+				версию этого контента с неё. Если ближайшая точка присутствия не сможет найти файлы, начнётся поиск по
+				соседним точкам присутствия, откуда и будет перенаправлен ответ пользователю. В CDN Akamai эта процедура
+				называется tiered distribution (на русский можно перевести как «многоуровневая раздача»).</p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

@@ -1,0 +1,1032 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Занятие 1. Основы Linux</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 237, 214, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 237, 214, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(249, 228, 188, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+	</style>
+</head>
+
+<body>
+	<article id="2b1f36df-db50-4ae5-9fce-c01a8d532d79" class="page sans">
+		<header>
+			<h1 class="page-title">Занятие 1. Основы Linux</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<h2 id="37948759-6fb2-4786-823c-6b65efb4eea4" class="">План занятия №1. Основы Linux </h2>
+			<ul id="87b63fb9-f8df-4d32-969e-61c3d3559965" class="bulleted-list">
+				<li style="list-style-type:disc">Дистрибутивы OS Linux</li>
+			</ul>
+			<ul id="3b279074-7981-482d-9a24-04ecea16aad6" class="bulleted-list">
+				<li style="list-style-type:disc">Структура системы Linux</li>
+			</ul>
+			<ul id="554b652d-854b-47d6-8818-deca5b725784" class="bulleted-list">
+				<li style="list-style-type:disc">Основы работы с командной строкой</li>
+			</ul>
+			<ul id="a8aad74f-5b4d-4f96-8ef8-22172ac4d560" class="bulleted-list">
+				<li style="list-style-type:disc">Работа с файлами в Linux<ul id="7d157905-2baf-4d64-83d5-058f87e67647"
+						class="bulleted-list">
+						<li style="list-style-type:circle">Разрешения в ФС</li>
+					</ul>
+					<ul id="a18d86b9-ef0e-4f12-bbd2-27efb1db34c5" class="bulleted-list">
+						<li style="list-style-type:circle">RWX. Способы назначения</li>
+					</ul>
+				</li>
+			</ul>
+			<ul id="c5b45598-91fd-4fb8-8387-67c0795aa05b" class="bulleted-list">
+				<li style="list-style-type:disc">Операторы поиска Grep, Awk, Seq</li>
+			</ul>
+			<ul id="51b2ecaa-2bad-4f12-a37f-23b4e7150d32" class="bulleted-list">
+				<li style="list-style-type:disc">Команды и логические операторы<ul
+						id="a6ccaa81-c585-4036-ac54-b88e2ba0de5e" class="bulleted-list">
+						<li style="list-style-type:circle">Функции и переменные</li>
+					</ul>
+				</li>
+			</ul>
+			<ul id="426ce824-7fd5-4556-bc96-efc963baf3c3" class="bulleted-list">
+				<li style="list-style-type:disc">Фильтры вывода</li>
+			</ul>
+			<ul id="fc1b3792-fc98-47c3-9dd8-fa05d956824c" class="bulleted-list">
+				<li style="list-style-type:disc">Пакетные менеджеры, установка новых программ, репозитории</li>
+			</ul>
+			<h3 id="3690e9df-2cf9-4a1e-87ea-fd42f20e3710" class="">Презентация к занятию №1:</h3>
+			<figure id="61e7e22b-ac03-4792-beaa-053c24f3b556">
+				<div class="source"><a
+						href="Занятие 1 Основы Linux/OS_Linux_1.pptx">OS
+						Linux_Тема 1.pptx</a></div>
+			</figure>
+			<h3 id="f9977b06-223a-40de-8006-1b7015857583" class="">Запись занятия:</h3>
+			<figure id="f52ccc79-832c-4e76-9728-58b76795fc8a">
+				<div class="source"><a
+						href="../../video/vid-linux-1.mp4">Запись занятия</a>
+				</div>
+			</figure>
+			<p id="42dc4d30-b3b2-41aa-b07f-15b0fe7d0826" class="">
+			</p>
+			<p id="617da9ba-9734-4f3f-8a15-cdb34bf5a59f" class="">
+			</p>
+			<figure id="259a1896-92d3-4dc9-874a-2bca3667466a" class="link-to-page"><a
+					href="Занятие 1 Основы Linux/Материал лекции.html">Материал
+					лекции</a></figure>
+			<figure id="e1498da8-8c11-4702-b0e3-3115b861f61a" class="link-to-page"><a
+					href="Занятие 1 Основы Linux/Дополнительный материал.html">Дополнительный
+					материал</a></figure>
+			<h1 id="2c1e8e03-fdcd-46b2-8019-fc741e0c8a78" class="">Практические работы:</h1>
+			<p id="f67044d6-ed25-48c7-91a3-15ccaddb1e84" class="">
+			</p>
+			<figure id="974ac39e-1678-4201-90bf-7051ee9bd8d2" class="link-to-page"><a
+					href="Занятие 1 Основы Linux/Практическая работа №1 1.html">Практическая
+					работа №1.1</a></figure>
+			<figure id="34743d9e-38c2-4e7c-bc3a-674d1d3e9b10" class="link-to-page"><a
+					href="Занятие 1 Основы Linux/Практическая работа №1 2.html">Практическая
+					работа №1.2</a></figure>
+			<figure id="7fb828a1-216d-42e6-ac20-2fb0d3d842f4" class="link-to-page"><a
+					href="Занятие 1 Основы Linux/Практическая работа №1 3.html">Практическая
+					работа №1.3</a></figure>
+			<p id="8baaa4be-1341-43b6-a11c-653b14d756ce" class="">
+			</p>
+			<h3 id="8501c5a6-fc54-4569-84fc-36b15b8604ce" class="">Задача к практической работе 1.1:</h3>
+			<ul id="b5e26260-4027-4332-b3ed-4a06aba1864d" class="bulleted-list">
+				<li style="list-style-type:disc">Выполнить все задания. </li>
+			</ul>
+			<ul id="3e971b7f-ee20-4920-b058-30e85df47dc1" class="bulleted-list">
+				<li style="list-style-type:disc">Необходимо работать исключительно в терминале.</li>
+			</ul>
+			<h3 id="10214b8e-6fcc-41db-831a-e3dac81936b4" class="">Задача к практической работе 1.2:</h3>
+			<ul id="eaea10df-3a49-406a-981d-9273c85cc27f" class="bulleted-list">
+				<li style="list-style-type:disc">Вы проводите поиск в Интернете, и видите, что используются две разные
+					версии Python, и вы не знаете, какая из них был установлен в вашей системе установщиком Ubuntu или
+					Debian, и устанавливал ли он какие-либо дополнительные модули?</li>
+			</ul>
+			<ul id="aa978bd4-f760-4844-8f70-8acd4fe42eec" class="bulleted-list">
+				<li style="list-style-type:disc">Допустим, у вас возникли проблемы с вашим веб-сервером Apache, и вы
+					обратились к одному из многих форумов в сети с просьбой о помощи. Добрая душа, которая вам ответила,
+					попросила вас отправить содержимое вашего
+					файла <code>/etc/apache2/sites-available/default-ssl</code>. Разве вам не было бы легче, если бы вы
+					могли просто удалить все закомментированные строки?</li>
+			</ul>
+			<ul id="595a7970-88e3-4556-973c-5dbbf0116c4a" class="bulleted-list">
+				<li style="list-style-type:disc">Например, предположим, что у вас есть целая папка, полная музыкальных
+					файлов разных форматов. Вы хотите найти все файлы <code>.mp3</code> у исполнителя ABC, но вы не
+					хотите никаких ремиксов. Как поступить?</li>
+			</ul>
+			<ul id="72a7a6cf-b904-47d1-b609-8625d0198b47" class="bulleted-list">
+				<li style="list-style-type:disc">Как отобразить количество строк до или после строки поиска?</li>
+			</ul>
+			<ul id="e721d0cf-ab69-440e-b738-0d7f41e55e4b" class="bulleted-list">
+				<li style="list-style-type:disc">Как вывести количество строк совпадения?</li>
+			</ul>
+			<ul id="718d358c-966c-41e3-b61a-9fada9328ab5" class="bulleted-list">
+				<li style="list-style-type:disc">Как выяснить количество совпадений?</li>
+			</ul>
+			<ul id="df07c979-be00-4d48-8842-02a5048d76ee" class="bulleted-list">
+				<li style="list-style-type:disc">Как найти файлы по заданным номерам строк?</li>
+			</ul>
+			<ul id="dc5e5332-35b5-4562-8f1e-cc2a7ed6e3d9" class="bulleted-list">
+				<li style="list-style-type:disc">Произвести поиск рекурсивной строки во всех каталогах.</li>
+			</ul>
+			<ul id="b6ae4e14-fd9a-436e-8608-a86fdb2d79ee" class="bulleted-list">
+				<li style="list-style-type:disc">Произвести поиск строк в архивах файлах Gzip. (создать zip архив
+					см.п.1.10)</li>
+			</ul>
+			<h3 id="38dcfa53-28cd-465a-a4dd-531b8c6037ae" class="">Задача к практической работе 1.3:</h3>
+			<ul id="7ef5c391-3733-4fb2-bdd9-1d1b060389a3" class="bulleted-list">
+				<li style="list-style-type:disc">Выполнить все задания.</li>
+			</ul>
+			<ul id="1c2ccd4f-bb0b-4026-9a03-9cfcd675a9dd" class="bulleted-list">
+				<li style="list-style-type:disc">Пройти интерактивное обучение <a
+						href="https://www.openvim.com/">https://www.openvim.com/</a>.</li>
+			</ul>
+			<ul id="31a5154c-ccfc-4abb-a2b6-a47785bc80a6" class="bulleted-list">
+				<li style="list-style-type:disc">Ответить на контрольные вопросы, что проделано в данной работе и в
+					интерактивное обучении <a href="https://www.openvim.com/">https://www.openvim.com/</a>. (отвечать на
+					контрольные вопросы в случае, если преподаватель спрашивает лично).</li>
+			</ul>
+			<ul id="86afcfb0-cd28-4b71-80ec-91374075d4fa" class="toggle">
+				<li>
+					<details open="">
+						<summary>Контрольные вопросы</summary>
+						<ol type="1" id="fae40afd-87ce-4822-93ec-e708e7877ccd" class="numbered-list" start="1">
+							<li>Как перейти в режим редактирования?</li>
+						</ol>
+						<ol type="1" id="3fef8c97-9d8c-49cf-b6d2-c13791323b19" class="numbered-list" start="2">
+							<li>Как перейти из режима редактирования в режим навигации?</li>
+						</ol>
+						<ol type="1" id="8c85b5c4-1cf1-435f-9f02-b9fd4a303c18" class="numbered-list" start="3">
+							<li>Как сохранить внесённые в файл изменения?</li>
+						</ol>
+						<ol type="1" id="7493a878-3105-4d84-ac9d-97d92f060982" class="numbered-list" start="4">
+							<li>Как посмотреть справку по какой-либо команде?</li>
+						</ol>
+						<ol type="1" id="b578824f-ca31-49ed-9988-474f3d41a60b" class="numbered-list" start="5">
+							<li>Какими клавишами осуществляется навигация на один символ вправо/влево, на одну строку
+								вверх/вниз?</li>
+						</ol>
+						<ol type="1" id="5bdddee2-912a-442d-80ac-152e4deb0ff9" class="numbered-list" start="6">
+							<li>Как перейти к началу и к концу строки?</li>
+						</ol>
+						<ol type="1" id="2a4b68ae-1550-45fb-803e-af2796bb4015" class="numbered-list" start="7">
+							<li>Как перейти к началу/концу документа?</li>
+						</ol>
+						<ol type="1" id="3a326ff7-d7a5-4c91-9f21-2f5f40e66ec3" class="numbered-list" start="8">
+							<li>Как узнать количество строк в файле?</li>
+						</ol>
+						<ol type="1" id="03ac7b5f-442e-49c6-9573-bbb2070b634c" class="numbered-list" start="9">
+							<li>Как перейти к строке номер 10?</li>
+						</ol>
+						<ol type="1" id="0963429a-ec44-45c7-bd97-30a7c63905e1" class="numbered-list" start="10">
+							<li>Как перейти к соответствующей закрывающейся скобке, если курсор находится на
+								открывающейся?</li>
+						</ol>
+						<ol type="1" id="1cb890fa-d288-476a-8beb-2016691ede72" class="numbered-list" start="11">
+							<li>Как удалить символ под курсором?</li>
+						</ol>
+						<ol type="1" id="30279ad3-a9b4-47c1-9166-d0213ae79364" class="numbered-list" start="12">
+							<li>Как удалить текущую строку?</li>
+						</ol>
+						<ol type="1" id="fb14d01a-f73b-4029-a487-aa5f40676df2" class="numbered-list" start="13">
+							<li>Как удалить 5 строк, начиная с той, на которой находится курсор?</li>
+						</ol>
+						<ol type="1" id="7d6027e2-a3fc-4bb6-accb-649ebe89b551" class="numbered-list" start="14">
+							<li>Как удалить строки с текущей, до конца/начала файла?</li>
+						</ol>
+						<ol type="1" id="e7dc2189-4894-40f1-b9f2-3aebe248a135" class="numbered-list" start="15">
+							<li>Как удалить часть строки от курсора до конца/начала строки?</li>
+						</ol>
+						<ol type="1" id="fd6ea6fd-aed0-45fb-864c-6ae296a8e977" class="numbered-list" start="16">
+							<li>Как удалить символы от курсора до конца слова?</li>
+						</ol>
+						<ol type="1" id="21c27c9d-7393-44bc-9008-f9a7f2e2c358" class="numbered-list" start="17">
+							<li>Как удалить произвольную часть текста?</li>
+						</ol>
+						<ol type="1" id="494c451d-3a04-4d0b-88d0-6487b8ec651d" class="numbered-list" start="18">
+							<li>Как скопировать/вставить целую строку?</li>
+						</ol>
+						<ol type="1" id="c762ad0b-5e2b-469b-83b0-ba80807da19c" class="numbered-list" start="19">
+							<li>Как скопировать/вставить одно слово?</li>
+						</ol>
+						<ol type="1" id="647e0452-d358-4f99-9942-6328a034e6fe" class="numbered-list" start="20">
+							<li>Как скопировать/вставить часть текста от текущего положения курсора, до конца следующей
+								строки?</li>
+						</ol>
+					</details>
+				</li>
+			</ul>
+			<ul id="0ced3809-1fb8-48f1-9e7b-8a96abb888e0" class="bulleted-list">
+				<li style="list-style-type:disc">Сделать скриншоты выполнения всех заданий.</li>
+			</ul>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

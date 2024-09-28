@@ -1,0 +1,684 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Практическая работа №5.2 Средства мониторинга Windows.</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2d689ad4-7b18-4e6d-affa-1103c896dcea" class="page sans"><header><h1 class="page-title">Практическая работа №5.2 Средства мониторинга Windows.</h1><p class="page-description"></p></header><div class="page-body"><hr id="bc8a813b-6fdb-423f-a7d9-3ee06b7ffd5f"/><h1 id="53a08c3d-5cf0-4349-a78e-a21943368076" class="">Занятие 5 - <em>Обмен данными в домене и средства мониторинга Windows</em></h1><h1 id="c35d4c71-c87f-42ad-a496-c477b13032dd" class="">Задание:</h1><p id="fc833bf8-7bb6-4831-8845-0db1344d43bf" class="">1) Настроить файловый ресурс с целью журналирования событий удаления объектов</p><p id="09cc3a7a-4127-4c58-b982-8a9616a85520" class="">2) Настроить отправку журналов с помощью инструментария windows в соответствии с методическими материалами</p><p id="de694eda-8122-473e-95c7-dac9b859b437" class="">3) Настроить сборщик журналов</p><h1 id="425d0e4c-f232-4c58-94d4-23bfebc51e8c" class="">Методический материал:</h1><h2 id="36ecbf32-5ed9-426b-b6e4-989cc69eb0b6" class="">Часть 2. Управление средствами мониторинга Windows</h2><p id="42b12aaa-f76f-499d-b024-da0e0e8a76c1" class="">Решим задачу с настройкой логирования удаления файлов с сетевых файловых ресурсов на dc1</p><p id="d72dac09-cab0-4318-81c0-2f9e6a196185" class="">==2.1 Зайдём в настройки папки share==</p><hr id="3841b659-9a62-4122-b363-28533549fea6"/><figure id="cfcdd108-dfc8-4385-a815-d25a38736a7b" class="image"><a href="https://i.imgur.com/crrFSDt.png"><img src="https://i.imgur.com/crrFSDt.png"/></a></figure><hr id="14773367-24c3-4271-96ba-df3b5c5fb0f2"/><p id="b6f9e184-afc2-4261-9729-3b6816fcbf83" class="">==2.2 Security -&gt; Advanced==</p><hr id="fc272cb3-7d46-46cf-b230-32c986b1fa0f"/><figure id="a73e8509-d8d3-45f9-951f-105d77192e51" class="image"><a href="https://i.imgur.com/f40V4ii.png"><img src="https://i.imgur.com/f40V4ii.png"/></a></figure><hr id="e92f800e-fb67-44bc-893a-08dd129a19c8"/><p id="5564d4c0-b8d9-4cc9-8501-90406e5699db" class="">==2.3 Зайдём во вкладку Аудит и нажмём Add, чтобы добавить правило аудита==</p><hr id="f4d4c68d-e900-4035-8f7e-ed228d2a8b7f"/><figure id="3aaf5d73-c42a-42fe-b750-44395c468f54" class="image"><a href="https://i.imgur.com/afxzsPk.png"><img src="https://i.imgur.com/afxzsPk.png"/></a></figure><hr id="d78b6ab7-b75b-4d3e-9d50-6a0b65211b4c"/><p id="12172e9f-3738-45b6-8fa0-4b745df84079" class="">:::info<br/>Ранее мы настроили политику, позволяющую логировать операции с файлами. Но по умолчанию все папки и файлы не будут подвержены аудиту, поэтому нужно настроить правила вручную<br/>:::<br/></p><p id="ec69a73b-1fc7-4b87-a1e8-66902f40836c" class="">==2.4 Выберем Principal -- это объект, действия которого нужно логировать==</p><hr id="90cb9b8d-dff3-4756-ab1f-3aae84d01307"/><figure id="37d89640-504d-4813-bc86-5a54e9a4c0ce" class="image"><a href="https://i.imgur.com/dXThEX4.png"><img src="https://i.imgur.com/dXThEX4.png"/></a></figure><hr id="73090897-6ce0-4442-803c-ee71c9b937a2"/><p id="6c176eb3-e831-41c8-a125-e2fddabae0dd" class="">==2.5 Отметим группу Domain Users==</p><hr id="f7dbe43a-b607-4e57-b81c-e8a1405b0b03"/><figure id="5186b6e5-fb19-4d2c-b159-47ca8b0959b4" class="image"><a href="https://i.imgur.com/cuMiP3e.png"><img src="https://i.imgur.com/cuMiP3e.png"/></a></figure><hr id="9351e1d3-2752-45d0-ba66-4b8da916cd10"/><p id="63026ab3-ec5d-4b5d-9138-ced2bfc365e6" class="">==2.6 Выставим type=all, чтобы мониторить как успех, так и отказ. Нажмём кнопку show advanced permissions==</p><hr id="c51f6f89-2d1e-494b-9245-21b558722b1d"/><figure id="e3c6118e-3bd6-4530-b3da-2a64fed8be5e" class="image"><a href="https://i.imgur.com/2ofAScI.png"><img src="https://i.imgur.com/2ofAScI.png"/></a></figure><hr id="ad20952c-9f17-443d-a162-4989c977f9a9"/><p id="08839107-05f5-46e0-b5c4-d8691bbb8f21" class="">==2.7 Отметим галочкой оба пункта Delete и нажмём ОК==</p><hr id="a68a6f7f-1abb-4a86-b026-e7b1b0b56873"/><figure id="e60aff31-414f-4c7b-afbb-915f1f4accd2" class="image"><a href="https://i.imgur.com/fgDQKM0.png"><img src="https://i.imgur.com/fgDQKM0.png"/></a></figure><hr id="1bca50a0-3fb7-4bef-bc8b-390057abfe64"/><p id="f63ac28f-6b81-480c-a655-9735d240d7b5" class="">==2.8 Правило создано для папки share, а так же всех её вложенных папок и файлов==</p><hr id="041e1b9a-38cb-41fe-876b-e6b4da195655"/><figure id="189d7784-1e63-445d-8245-97b6c3a1dabc" class="image"><a href="https://i.imgur.com/pQgjD7b.png"><img src="https://i.imgur.com/pQgjD7b.png"/></a></figure><hr id="92cd1cba-86c8-45dd-b406-5131fe87123d"/><p id="5b2b6db8-ab3f-486e-993e-ad21a4bf2299" class="">Создайте в папке all_share папку folder-for-delete для тестирования генерации событий</p><p id="8de97ea9-4c40-4729-aa12-68ea4fd0e3d3" class="">==2.9 На pc1 от имени пользователя Olga попробуем удалить папку folder-for-delete из папки all_share==</p><hr id="85f2209d-bf41-4a4e-91b0-9f6e2cb56e25"/><figure id="90e11513-7a12-41f8-add9-22111dd6b12a" class="image"><a href="https://i.imgur.com/T9LXPJY.png"><img src="https://i.imgur.com/T9LXPJY.png"/></a></figure><hr id="7483e38e-1ee5-4bf5-9dad-e40f97562494"/><p id="8d5cf288-944c-46ce-a15c-d9821b342b1b" class="">==2.10 Проверим журнал безопасности dc1==</p><hr id="9d6beb4c-ac8b-485d-9c8b-77b4f8598e34"/><figure id="6806af86-8809-40c2-8b11-be650e7ae52c" class="image"><a href="https://i.imgur.com/uSzW7rf.png"><img src="https://i.imgur.com/uSzW7rf.png"/></a></figure><hr id="ddc83950-4494-4cc4-bc5c-3497726adeef"/><p id="18c4ca2c-ca20-4e5e-8786-3f4afa637a8d" class="">==2.11 Событий много, отфильтруем их. Зайдём в меню filter current log и введём интересующие нас id событий (4656, 4659, 4660, 4663) в поле фильтра==</p><hr id="533007db-f480-4cb8-a761-224871661b99"/><figure id="24873d42-a3aa-4d2d-9db6-8fe5b21ab261" class="image"><a href="https://i.imgur.com/IJc5Yob.png"><img src="https://i.imgur.com/IJc5Yob.png"/></a></figure><hr id="988b8095-bb8e-47b9-b185-8e3644643c96"/><p id="a56dc560-4b78-47e7-97cf-dba503b1d24b" class="">:::info<br/>При удалении файла создается набор событий.<br/>Сначала идёт 4656 -- запрос дескриптора объекта. Это проверка прав доступа к файлу. Это событие показывает, что доступ был запрошен и результаты запроса, но не показывает, что операция была выполнена.<br/>Затем 4663 -- это событие указывает на то, что над объектом была выполнена определенная операция. Основное отличие от 4656 является то, что 4663 показывает, что право доступа было использовано вместо только что запрошенного, и 4663 не имеет событий отказа.<br/>После идёт 4660 -- это событие генерируется при удалении объекта. Оно не содержит имени удаляемого объекта, а только handle id.<br/>4659 понадобилось бы, если бы в папке находились файлы. Событие с кодом 4659 регистрируется, когда дескриптор объекта запрашивается с целью его удаления.<br/></p><p id="6ebf3ce5-d9f0-4cf3-b464-f4790640e200" class="">События можно связать по handle id -- если у нескольких событий он одинаков, то это значит, что события относятся к одному объекту.<br/>:::<br/></p><p id="61bb3c73-92f8-4e77-8e78-078198899c85" class="">==2.12 По итогу вы увидите много подряд идущих событий, из которых 3 явно нас интересуют==</p><hr id="a3987a51-c65f-4946-a7ca-10e264c775a4"/><figure id="47b5cff9-8403-48c9-b923-dffb82a95cd6" class="image"><a href="https://i.imgur.com/jqmAZ3i.png"><img src="https://i.imgur.com/jqmAZ3i.png"/></a></figure><hr id="8c6f3617-b1c1-4892-92ca-bd4e3bf2e599"/><figure id="821208a0-07fa-493d-9c96-caac0331753f" class="image"><a href="https://i.imgur.com/rocrMwf.png"><img src="https://i.imgur.com/rocrMwf.png"/></a></figure><hr id="839bad3e-873e-4c52-ac21-ebce45af1b4f"/><figure id="9c8cae5c-688f-4ab8-ad4e-ca1d9f101af0" class="image"><a href="https://i.imgur.com/5rO4D6W.png"><img src="https://i.imgur.com/5rO4D6W.png"/></a></figure><hr id="891a228a-24f1-4cb5-865a-c3bb18724ab9"/><h2 id="5f4d8be0-5a2d-4b9a-83d0-d8ffd6aade33" class="">Часть 3. Инфраструктура отправки журналов Windows в SIEM</h2><p id="42034a69-83d8-44b6-b902-36851a7454c2" class="">==3.1 Включим сервис сборщика логов и подтвердим его автостарт==</p><hr id="fd0c77a3-ea9b-4365-8573-fcee291c3f9b"/><figure id="0c0e746e-5fc9-4ad1-81d1-6926976c15c5" class="image"><a href="https://i.imgur.com/2q1hcu5.png"><img src="https://i.imgur.com/2q1hcu5.png"/></a></figure><hr id="008833f6-5e0d-4751-b009-ff9d77941ce0"/><p id="cc54c865-8d39-4f06-8fb7-110d91210e5b" class="">==3.2 Настроим политику отправки журналов на logcollector. Зайдём в редактор групповой политики и создадим новую, log_delivery==</p><hr id="46172ec3-bd95-48cb-bfa5-c23129c5d4a0"/><figure id="bd44a67e-8d6f-4674-a065-4c641eea5dc4" class="image"><a href="https://i.imgur.com/VjK16aL.png"><img src="https://i.imgur.com/VjK16aL.png"/></a></figure><hr id="9fdd1b90-08e0-44a9-b427-504a43ba3fee"/><p id="89727ab6-8d61-4008-bc0c-197e094cf657" class="">==3.3 Найдём пункт включения службы WinRM==</p><hr id="8b88bdda-802f-42b2-9cbb-b48d2d308777"/><figure id="b661f491-27ac-4af9-b957-45848d3f3e58" class="image"><a href="https://i.imgur.com/q9V85R2.png"><img src="https://i.imgur.com/q9V85R2.png"/></a></figure><hr id="05f54b74-9bbf-4b79-8fc0-1e42455cb6e9"/><p id="2a36d524-3db1-4755-a504-6442cf779284" class="">Путь до настройки: Computer Configuration/Policies/Windows Setting/Security Setting/System Services</p><hr id="ba3b82fc-b579-4b93-9eed-9c98dba5b385"/><p id="72e73a92-0d4e-440f-b509-4fcfbb26d491" class="">==3.4 Включим службу==</p><hr id="ee088c15-9949-4ac8-affe-17c9e1e72cbc"/><figure id="0558d844-3f75-48d1-afe7-5ff07fce3b8f" class="image"><a href="https://i.imgur.com/F5u2xTM.png"><img src="https://i.imgur.com/F5u2xTM.png"/></a></figure><hr id="767980b5-2513-43d1-aff8-ab3510b795eb"/><p id="f185c61d-d8b9-4ad3-8195-2d933720c3be" class="">==3.5 Найдём пункт настройки менеджера подписок==</p><hr id="fda495ce-da53-4de5-9348-a28f31ba4948"/><figure id="978adf12-1ae2-4852-9923-bed0c0992f2b" class="image"><a href="https://i.imgur.com/chLt2lV.png"><img src="https://i.imgur.com/chLt2lV.png"/></a></figure><hr id="9178604b-8566-467f-b4b0-a939059a3d84"/><p id="5afccf73-6ba1-4906-9a36-b0d5e0dff7d9" class="">Путь до настройки: Computer Configuration/Policies/Administrative Templates:…/Windows Components/Event Forwarding</p><hr id="326ff6f2-d61a-46b0-b5b7-a6254c406a9b"/><p id="fe75d9fc-1cca-4716-ba05-fda6251138a5" class="">==3.6 Активируем его==</p><hr id="c59f8154-4041-4167-b374-98998d9ee95e"/><figure id="1425e578-3ee5-42c1-9f69-60fd1c3e7810" class="image"><a href="https://i.imgur.com/E31kzur.png"><img src="https://i.imgur.com/E31kzur.png"/></a></figure><hr id="3aa40b62-5638-4359-87eb-5d26fa8bc4c2"/><p id="2f889be5-9812-47d5-9ca0-d8140a09cc40" class="">==3.7 Настроим путь до логколлектора==</p><hr id="2bc58b4f-427d-4d2a-af47-a2bc69d682f4"/><figure id="ca8b87d5-c04c-480c-96a4-d5a3d86e032d" class="image"><a href="https://i.imgur.com/SDJfdGU.png"><img src="https://i.imgur.com/SDJfdGU.png"/></a></figure><hr id="3fed5e61-bb78-402c-a005-5fa25edd05f9"/><p id="5ce05e20-a065-4b2f-b280-4ed8f7030c74" class="">Для примера использовалось FQDN dc1. Если ввести ip адрес -- не будет работать инициализация со стороны клиента</p><hr id="8cfd19fc-1153-42e5-8a14-9119c10d9f0e"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11986dab-6544-4576-bf1e-b18d5d3eaccb" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Server=http://dc1.pt.local:5985/wsman/SubscriptionManager/WEC,Refresh=60</code></pre><hr id="393391eb-d191-46b2-9b01-39d2c88db389"/><p id="1700cb9f-7ef1-42f4-90b7-58f0ed4943ce" class="">==3.8 Сохраним и закроем меню редактирование политики. Применим фильтр безопасности, чтобы политика применилась только к pc1.==</p><hr id="e419d833-3ccf-4dc8-aa18-3cec5ab2942f"/><figure id="5dd04445-130c-42c0-91f6-c490598cd1fb" class="image"><a href="https://i.imgur.com/T66RLEw.png"><img src="https://i.imgur.com/T66RLEw.png"/></a></figure><hr id="4161d1ce-b27f-4818-b128-936e3e569617"/><p id="29acc599-fc18-48b8-9b4e-8dcc9a6b1b68" class="">==3.9 По умолчанию поиск не происходит среди компьютеров. Изменим это, выберем типы объектов для поиска==</p><hr id="6bb68292-96b5-4474-ac6d-07b67529b405"/><figure id="22e1ff2c-de85-4fa5-9dc7-a468fa0a3916" class="image"><a href="https://i.imgur.com/YW0kLPD.png"><img src="https://i.imgur.com/YW0kLPD.png"/></a></figure><hr id="7e373ae3-9e8b-4e13-86d2-9a5c7c90c648"/><p id="9813bef0-41c8-48e0-bfc8-6d5fc6e95a2a" class="">==3.10 Укажем тип объектов -- компьютеры==</p><hr id="3f33aa51-8a56-4d3a-a780-ed3ef7296145"/><figure id="f79f771e-54d3-4abb-95d7-76cd5d26126d" class="image"><a href="https://i.imgur.com/q1vlDnP.png"><img src="https://i.imgur.com/q1vlDnP.png"/></a></figure><hr id="368b7224-13ac-46a3-a166-38f1fbe7fb00"/><p id="9e0378bf-e046-474a-b307-be744ff0b48d" class="">==3.11 И проведем поиск по имени pc1 (введем имя и нажмём check names)==</p><hr id="b3cc99df-6b55-402c-9e19-efaf337b55d3"/><figure id="607edfb6-895d-42b7-b4cd-abf79896b78f" class="image"><a href="https://i.imgur.com/3FGMq5N.png"><img src="https://i.imgur.com/3FGMq5N.png"/></a></figure><hr id="b721c405-0b07-46eb-872a-53e7297dcf61"/><p id="d5c78ff2-6067-42bc-897b-8aecc24d8dd1" class="">==3.12 После -- удалим группу аутентифицированных пользователей, она не пригодится==</p><hr id="73366a02-456b-4087-9b7f-23f833c9337f"/><figure id="7374af06-5209-484c-8637-2c53b6d19868" class="image"><a href="https://i.imgur.com/cWMDkkx.png"><img src="https://i.imgur.com/cWMDkkx.png"/></a></figure><hr id="c384997a-f748-43d8-a9a6-ccf96d36e39f"/><p id="0cedb91d-2104-4709-be73-f4fcd7e77a49" class="">:::info<br/>Для управления компьютерами в домене с помощью WinRM нужно, чтобы брандмауэр windows разрешал подобные подключения. Изменим политику сбора логов так, чтобы правило было прописано на pc1.<br/>:::<br/></p><p id="dd6a7805-80b0-4204-8119-a5c42fd0e695" class="">==3.13 Найдём меню создания правил брандмауэра и создадим новое правило inbound==</p><hr id="8d8411ed-6a59-4d48-910e-d51e73ff4340"/><figure id="ee7f2e47-b389-4547-8fc5-1db2b46ec826" class="image"><a href="https://i.imgur.com/evk4MT9.png"><img src="https://i.imgur.com/evk4MT9.png"/></a></figure><hr id="0bb9a541-6cfd-4983-bb1d-b82ed3459adf"/><p id="8770fe17-8ae4-4366-8865-2c5d646ed65a" class="">Путь до настройки: Computer Configuration/Policies/Windows Setting/Security Setting/Windows Firewall …/Windows Firewall …/Inbound rules</p><hr id="9459f6af-711c-4cc9-a545-77e1dd058074"/><p id="f45e2076-0c61-4ebe-a1ac-192cf4a47543" class="">==3.14 Выберем преднастроенное правило для WinRM==</p><hr id="d512ec3b-a730-427c-be76-1832d305ae5e"/><figure id="9870f831-fa3d-4eb3-b447-2e4c933edcbb" class="image"><a href="https://i.imgur.com/UyYIdJ9.png"><img src="https://i.imgur.com/UyYIdJ9.png"/></a></figure><hr id="5b9176b4-2cb4-44c1-9e55-96bf6adbb713"/><p id="90a45473-12d1-4036-a9d9-162aa4644d8e" class="">==3.15 Создадим это правило только для доменной и частной сети (снимем галочку с public)==</p><hr id="49a99f4b-36cd-4ad1-8d05-8e00d3dbfc89"/><figure id="336532c6-28e3-4cf7-9c5f-5e14077f9a51" class="image"><a href="https://i.imgur.com/xk2WHlR.png"><img src="https://i.imgur.com/xk2WHlR.png"/></a></figure><hr id="e2c54a31-b6e3-4668-88a9-1a534dd278b0"/><p id="1f37919e-37fd-4277-9f6e-0750953f161c" class="">==3.16 Разрешим подключение==</p><hr id="b0fcb347-62c1-4fea-848d-fed286cfe3b2"/><figure id="33cef0c1-0fe4-4709-98fc-81b159b9412e" class="image"><a href="https://i.imgur.com/sdKi00C.png"><img src="https://i.imgur.com/sdKi00C.png"/></a></figure><hr id="85dc71cd-4a38-44b2-b1d8-84c60497942f"/><p id="d345ea7c-e577-4b0c-8596-c7db684482ac" class="">После применения порт на PC1 откроется и позволит выполнять WinRM команды, с помощью которых собираются логи с windows машин.<br/>Теперь нужно донастроить политику так, чтобы у учетной записи сборщика были права на доступ к журналам, которые мы собираем в коллектор.<br/></p><p id="acb96c7e-700a-4495-aa7e-31edbab9b0ab" class="">==3.17 Для настройки политики нам понадобится дескриптор безопасности журнала. Найдём его на pc1==</p><hr id="26819f4b-1104-44a1-9000-22409e14a46e"/><figure id="326e972b-ea44-406c-b196-98ee6762f420" class="image"><a href="https://i.imgur.com/393lZqP.png"><img src="https://i.imgur.com/393lZqP.png"/></a></figure><hr id="e2ccae12-67e6-4396-be6c-c3ed85e34bc4"/><p id="7e837685-95f3-48c5-934b-7f6f0d0366a1" class="">Команда: <mark class="highlight-gray_background"><strong>wevtutil gl security</strong></mark></p><hr id="e4153d40-84c7-46db-8759-3011a6b5211c"/><p id="c87a8bc3-720e-439f-acfc-ebe3dd8ee7bf" class="">==3.18 Настроим доступ УЗ до журнала security==</p><hr id="b61a9897-3def-402c-a877-4c55beef3f28"/><figure id="844929d4-6d33-4070-a7f6-e5f920a56064" class="image"><a href="https://i.imgur.com/kt33IF7.png"><img src="https://i.imgur.com/kt33IF7.png"/></a></figure><hr id="e858e7c7-dbcd-4704-8581-6725e4a73588"/><p id="0b341339-0eb4-4fee-9a44-ccba776f016c" class="">Путь до настройки: Computer Configuration/Policies/Administrative Templates:…/Windows Components/Event Log Service/Security</p><hr id="1080146d-5a24-4c81-8c56-5cd068dbb11e"/><p id="8c56a73f-cc24-4c76-96fe-656a1ca7b87e" class="">==3.19 Активируем политику и введём параметр channelAccess==</p><hr id="1c0ca760-0a1a-44a4-a9bb-07115bb388e4"/><figure id="35349039-77cb-4e44-bb32-9cdb27db4eb1" class="image"><a href="https://i.imgur.com/WLvDNOQ.png"><img src="https://i.imgur.com/WLvDNOQ.png"/></a></figure><hr id="972f7e10-5104-42c7-bc2a-4372d66bea3c"/><p id="8b081bd6-8d98-49cd-993f-dbcb658b6f16" class="">В примере этот параметр такой: O:BAG:SYD:(A;;0xf0005;;;SY)(A;;0x5;;;BA)(A;;0x1;;;S-1-5-32-573)</p><hr id="e2bf285c-0dc7-44c8-8b76-7c43944e7e6b"/><p id="5a5d3de3-54c0-473f-9f76-7fe0047f7b93" class="">В примере указан доп параметр (A;;0x1;;;S-1-5-20) -- для чтения журнала security службой network</p><hr id="e8322381-5a6c-46d9-9b5b-d776210c110b"/><p id="529f9763-2556-41ee-8450-9b23b9f5e91d" class="">==3.20 И отдельно добавим учетную запись, которую в дальнейшем будем использовать для чтения журналов, в группу читателей журнала. Зайдём в политику локальных групп и добавим правило для локальной группы==</p><hr id="41138a7d-bc80-4d48-b765-33c8ec8904b2"/><figure id="6f73f96c-6d2e-462d-b51f-10314c44cd27" class="image"><a href="https://i.imgur.com/D2vV7an.png"><img src="https://i.imgur.com/D2vV7an.png"/></a></figure><hr id="7017929e-f6ff-426d-be13-fbb083befa37"/><p id="908c24ce-1b17-4c6b-891e-58fcd6c363c0" class="">Путь до настройки: Computer Configuration/Preferences/Control Panel Setting/Local User and Groups</p><hr id="48784138-6746-4395-a855-6dc1f7d3a0f2"/><p id="f5017eff-a13a-4130-bf5d-210c330249e8" class="">==3.21 Локальная группа -- читатели журнала событий.==</p><hr id="bdd485dd-d0aa-4914-8a80-d3c4374bd734"/><figure id="3ac6a341-7169-4487-b399-82dd3e34be3b" class="image"><a href="https://i.imgur.com/w9Yww9V.png"><img src="https://i.imgur.com/w9Yww9V.png"/></a></figure><hr id="7f23fe8f-06c4-4026-afcd-defc2226cebf"/><p id="d93c6c71-4f90-4d6c-8543-de383783b59d" class="">==3.22 Пользователи -- администраторы домена (в реальной ситуации нужно добавлять пользователя, созданного для чтения журнала событий==</p><hr id="3f62d121-cca1-4083-9987-93721ca007be"/><figure id="e609d938-1555-4459-8a3f-f5bb52043164" class="image"><a href="https://i.imgur.com/uZPAiIP.png"><img src="https://i.imgur.com/uZPAiIP.png"/></a></figure><hr id="40257396-c49c-4911-9da8-03cb6fce8a84"/><p id="d6a135ee-6f61-402c-861a-c2af7d6e72ad" class="">==3.23 Вот так по итогу, применяем-сохраняем==</p><hr id="aff04f7e-ce77-41e0-b302-06cca0940286"/><figure id="1363f7ae-98dd-4ac4-a486-de9b9cded920" class="image"><a href="https://i.imgur.com/bVbHFeI.png"><img src="https://i.imgur.com/bVbHFeI.png"/></a></figure><hr id="ce0d3228-f5ef-4419-90fd-4defc5393101"/><p id="f733b308-7ff9-4570-8778-d939d581cb1f" class="">==3.24 Применим на домен==</p><hr id="c647c1b9-217e-4eb1-bf94-e2e5d8ff0138"/><figure id="4a400658-f10b-4975-bc4e-92abaaa4919e" class="image"><a href="https://i.imgur.com/3soXkLG.png"><img src="https://i.imgur.com/3soXkLG.png"/></a></figure><hr id="8b5f9f96-3fcc-41f9-bc1f-40c3ddb06af5"/><figure id="ddabc013-3d0e-4e3b-9f44-795411439c6a" class="image"><a href="https://i.imgur.com/m1NnUuM.png"><img src="https://i.imgur.com/m1NnUuM.png"/></a></figure><hr id="78d0f169-8b0e-4bdf-ae55-fc2828092db1"/><p id="df9e7a84-7ebc-41ea-aefc-9aabd3c22e86" class="">==3.25 Настроим приём логов на коллекторе. Пройдя в event viewer, зайдём в меню подписок и подтвердим автоматическое включение службы==</p><hr id="e0a43a62-f4a4-4683-b037-b19dee4bfe67"/><figure id="f8130811-1df4-4f72-a8a7-d1e30325b5e6" class="image"><a href="https://i.imgur.com/uvkqDUw.png"><img src="https://i.imgur.com/uvkqDUw.png"/></a></figure><hr id="a2f2aaf6-a901-4bba-ae85-d25d401a51fe"/><p id="b97b2053-74c1-4553-b515-e538434b270a" class="">==3.26 Создадим новую подписку==</p><hr id="217dfff1-e810-4adc-91e4-80f6b25b0988"/><figure id="a8f341ab-1d9f-4dfe-aa52-3d05a3e0ea42" class="image"><a href="https://i.imgur.com/lNYw6Bo.png"><img src="https://i.imgur.com/lNYw6Bo.png"/></a></figure><hr id="d6b4e3f4-b699-4b81-8928-4f65bb4f0424"/><p id="034de48b-81e4-42bf-aa65-7440bc481b3c" class="">==3.27 Назовём её collector-get и отметим ПК, с которых коллектор будет собирать логи (select computers)==</p><hr id="b3b26294-aad5-4dbb-8af4-3ea89213b7f1"/><figure id="2f9229de-b5c7-4a49-9915-e45473dd0922" class="image"><a href="https://i.imgur.com/sge5ZU4.png"><img src="https://i.imgur.com/sge5ZU4.png"/></a></figure><hr id="25712e4f-0d61-4af6-86fc-f3b3ec2802fe"/><p id="14b3600e-3b21-4489-ae56-3da27a155981" class="">==3.28 Выберем доменные компьютеры==</p><hr id="63518ba9-abc8-4e14-9bda-8178e991ed07"/><figure id="6115b146-cccb-4a31-9fa7-450b8abfc3ca" class="image"><a href="https://i.imgur.com/MSfbVqE.png"><img src="https://i.imgur.com/MSfbVqE.png"/></a></figure><hr id="6ab75fbb-8cec-4851-bb16-13982ece65d6"/><p id="0f3100a1-d29d-4ac6-bc15-c2fa5a0a2cf4" class="">==3.29 Выберем PC1==</p><hr id="6e995a67-f957-4274-b229-7111f421e889"/><figure id="2506ef4a-3217-4d6c-99df-b852febdbf86" class="image"><a href="https://i.imgur.com/VyKxICD.png"><img src="https://i.imgur.com/VyKxICD.png"/></a></figure><hr id="0699a7b4-03ed-4ac2-b6da-efb514096a5a"/><p id="ce9c09fd-17e5-4b20-ad90-a0ff4c5cfbc5" class="">==3.30 Нажмём кнопку Test чтобы проверить сетевую связность==</p><hr id="2de36f5d-aa95-4635-9ad2-d7512f2a486f"/><figure id="1eebc098-b876-4374-a042-62ff7cde611b" class="image"><a href="https://i.imgur.com/zamrxUk.png"><img src="https://i.imgur.com/zamrxUk.png"/></a></figure><hr id="94065640-79a9-4945-b3e6-63ca97256847"/><p id="71969830-d52b-4512-8c30-4c7059cbb5a1" class="">В случае ошибки проверяйте параметры брандмауэра и применилась ли политика.</p><hr id="6ea06389-0b29-42d6-b28c-bd98802fac8b"/><p id="b9cadfc8-0b48-4f23-bfa1-54d9565a8e68" class="">==3.31 Если возникнут проблемы с настройкой брандмауэра через GPO, то зайдите на PC1 и в CMD, запущенной от имени администратора, примените команду==</p><hr id="a4856a0d-fa07-45f4-ba65-d7f3c5bc4576"/><figure id="785e1c29-e903-45a1-a384-1b1fe4eec958" class="image"><a href="https://i.imgur.com/5L67Axl.png"><img src="https://i.imgur.com/5L67Axl.png"/></a></figure><hr id="8f244092-dc69-424d-8809-90ef2a91b205"/><p id="d742bb72-39dd-4c48-a140-facb6c5fd44f" class="">Команда:<mark class="highlight-gray_background"><strong> winrm qc</strong></mark> , затем подтвердите внесение изменний в брандмауэр</p><hr id="cada744b-5a45-4303-8ab2-d8dd05fcaadd"/><p id="4ea9bea0-0039-4976-b738-5834e26b8bd0" class="">==3.32 Зайдём в меню select events и выберем нужные журналы==</p><hr id="94357ecb-28c3-40c0-adf6-919f7a93cf8b"/><figure id="10b58f83-348c-4f89-8f3f-a91cfb8bcf00" class="image"><a href="https://i.imgur.com/zCO4QQn.png"><img src="https://i.imgur.com/zCO4QQn.png"/></a></figure><hr id="2ddf838e-f84d-41ac-8548-dd977b5d0182"/><p id="656111dd-d85f-46db-b877-940d0a4fd1c3" class="">==3.33 Зайдём в меню Advanced, укажем для сбора УЗ администратора==</p><hr id="275138aa-7a22-4ca0-8642-a0a34bc1b0d5"/><figure id="add004fa-3b6f-4054-bd56-f97245f29128" class="image"><a href="https://i.imgur.com/Xc8O51y.png"><img src="https://i.imgur.com/Xc8O51y.png"/></a></figure><hr id="48ad1976-d4e0-44da-81cb-018caf4a6772"/><p id="eb177299-a10b-4d58-a206-4934c82a6a53" class="">==3.34 Подтвердим настройки, увидим созданую подписку. Проверим, нет ли ошибок. Нам нужно меню Runtime Status==</p><hr id="55248bc3-775b-4695-bf16-b59578303687"/><figure id="cf677406-8184-47fd-a788-521a74ef38ec" class="image"><a href="https://i.imgur.com/WYJapJz.png"><img src="https://i.imgur.com/WYJapJz.png"/></a></figure><hr id="9c3c779c-a168-491d-a17c-6b2680295544"/><p id="6ab6953f-ae92-440d-8c81-8a66de823675" class="">==3.35 Увидим отсутствие ошибок==</p><hr id="f4685978-d8b9-4c73-be20-41d52a25d039"/><figure id="3896ca61-aecc-41bc-8ef5-7cb7996b9b16" class="image"><a href="https://i.imgur.com/Ci9gtBp.png"><img src="https://i.imgur.com/Ci9gtBp.png"/></a></figure><hr id="02f0ab57-d382-4882-bcbd-3dfcbc429132"/><p id="b6e5e440-e9eb-410b-a5da-bf11d9a2733e" class="">==3.36 Дадим доступ сетевой службе до чтения журнала безопасности, выполним команду на pc1==</p><hr id="4c26f2c0-3ab9-433a-a8df-d5f712cbaefd"/><figure id="7244f26a-5ab9-463d-b97f-91286add548d" class="image"><a href="https://i.imgur.com/jxrPtH8.png"><img src="https://i.imgur.com/jxrPtH8.png"/></a></figure><hr id="82d8687b-b87f-41c9-9b58-99dbdb94f52f"/><p id="3b4b7ff9-cd97-468e-bae3-81f73ca20989" class="">Команда: <mark class="highlight-gray_background"><strong>wevtutil set-log security /ca:O:BAG:SYD:(A;;0xf0005;;;SY)(A;;0x5;;;BA)(A;;0x1;;;S-1-5-32-573)(A;;0x1;;;S-1-5-20)</strong></mark></p><hr id="3dc8d370-0e77-4115-9841-dca8558bf7f3"/><p id="8889850c-8bdb-471a-96b7-540ca59b5629" class="">Получается, что мы выдаём доступ NTAUTHORITY\NETWORKSERVICE (SID S-1-5-20) доступ до журнала security</p><hr id="6374a58e-e78f-4ac1-897b-b8c0a4da1447"/><p id="56fbff04-eab7-4de4-8f00-063e12a216b3" class="">==3.37 После чего увидим логи в журнале forwarded events==</p><hr id="4bffcb3b-4c69-40bb-8473-3e10b325ec74"/><figure id="c13eb84c-95fc-45d2-a3fd-24b242299fc1" class="image"><a href="https://i.imgur.com/bupb5Rf.png"><img src="https://i.imgur.com/bupb5Rf.png"/></a></figure><hr id="59ed10fe-40b3-44f8-964a-532d9fc93cc6"/><p id="baf7ac22-1ff4-4dbf-878e-715d7a8b51a7" class="">Это может произойти не сразу, так что придётся подождать.</p><hr id="a598f3a4-4b2e-49cf-be0b-9b8044c8009d"/><h2 id="8107375f-6170-42fa-b405-0b9823d06017" class="">Часть 4. Настройка сборщика логов при компьютерах-инициаторах</h2><ul id="5818127f-c632-4ad9-a1aa-1e58eca42ebc" class="bulleted-list"><li style="list-style-type:disc"><strong>4.1</strong> На сервере-коллекторе выполнить команду winrm qc, ответить согласием на оба последующих вопроса (включение службы WinRM и прослушивание порта TCP:5985 для входящих соединений от источников)</li></ul><ul id="1fc4a341-c2fb-4027-94a6-d1da9598b131" class="bulleted-list"><li style="list-style-type:disc"><strong>4.2</strong> На сервере-коллекторе выполнить команду wecutil qc, согласиться на включение службы сборщика событий Windows.</li></ul><ul id="2846667e-39f4-48f2-9458-2bd8118a62ae" class="bulleted-list"><li style="list-style-type:disc"><strong>4.3</strong> На источниках событий следует включить службу WinRM (реализовано политикой в пункте 3.4)</li></ul><ul id="0329bc92-ffa5-4c67-896f-1c97076f3624" class="bulleted-list"><li style="list-style-type:disc"><strong>4.4</strong> Создать подписку, где инициатором будут компьютеры</li></ul><h2 id="0c7334a5-9c18-4ce0-b6a1-1aa46699b962" class="">Ссылки для закрепления материала и самостоятельного изучения:</h2><ul id="92ac7298-f981-4626-b823-9b34c646a1cc" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.securityvision.ru/blog/tsentralizovannyy-sbor-logov-s-windows-ustroystv/">Отправка журналов на логколлектор с помощью GPO</a></li></ul><ul id="ada9c340-1a2d-40b9-ab36-a8e017530983" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.mytechnote.ru/article/centralizovannyy-sbor-logov-v-windows-s-raznyh-kompyuterov-shtatnymi-sredstvami">Централизованный сбор логов в Windows</a></li></ul><ul id="68e63de7-da7e-47bd-9361-4c448dda1b8a" class="bulleted-list"><li style="list-style-type:disc">Доп ссылки по централизованному сбору событий (альтернативные источники):</li></ul><ul id="0d889e5f-9752-482e-b019-15fb042075a9" class="bulleted-list"><li style="list-style-type:disc"><a href="http://www.kovanev.net/faq/microsoft-windows/220-event-log-permissions">http://www.kovanev.net/faq/microsoft-windows/220-event-log-permissions</a></li></ul><ul id="44942dcb-4c89-4621-bd41-d645b922adf6" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.securityvision.ru/blog/tsentralizovannyy-sbor-logov-s-windows-ustroystv/">https://www.securityvision.ru/blog/tsentralizovannyy-sbor-logov-s-windows-ustroystv/</a></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

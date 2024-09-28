@@ -1,0 +1,686 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Практическая работа №1.2 Настройка Windows</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="9b93fe36-ae75-4a9c-b200-7eda695027c0" class="page sans"><header><h1 class="page-title">Практическая работа №1.2 <em><strong>Настройка Windows</strong></em></h1><p class="page-description"></p></header><div class="page-body"><hr id="0bc25017-9ad4-4a5c-8083-ac2e21ac8dbe"/><p id="a4b491d3-6cb5-496f-a566-38d4a3b2cadd" class="">
+</p><h1 id="12b1f713-5285-47ed-8f1c-54dad9e02095" class="">Занятие 1 - <em>Настройка Windows</em></h1><h1 id="68232c40-e803-4af2-b20e-db28381115b7" class="">Задание:</h1><p id="29cdfac0-7271-48aa-b42f-71ba8c8e821a" class="">1) Сконфигурировать виртуальный стенд:</p><ul id="9c8ed5c8-96a1-49c7-9ded-98de3049f35b" class="bulleted-list"><li style="list-style-type:disc">Поменять имена машин Windows server </li></ul><ul id="b4b1a815-5d3f-4ea7-ab12-415a68506c4f" class="bulleted-list"><li style="list-style-type:disc">Настроить статические адреса машин Windows server </li></ul><ul id="0b1dace7-943b-4c4d-b908-3ef177a348bf" class="bulleted-list"><li style="list-style-type:disc">Сконфигурировать Windows 10 PRO в соответствии с методическими указаниями</li></ul><ul id="f1e49f9c-00ea-44cc-b503-8c67ac8759c0" class="bulleted-list"><li style="list-style-type:disc">Установить на Windows 10 PRO Guest Additions</li></ul><p id="ee1ee363-283d-48a8-b6fa-6ffeebe1dbbd" class="">
+</p><h1 id="07d5facd-6fe8-4125-9654-4a59b53c613e" class="">Методический материал:</h1><h2 id="91d2d663-cd4c-4f58-86dd-7f95ff8f14b0" class="">Часть 0. Основная информация</h2><p id="781c4e22-8ab4-47ba-a7c9-bf34fadbebc4" class="">При работе с системой виртуализации мы будем сталкиваться с различными нюансами самих платформ виртуализации.<br/>Например, для того, чтобы передать ctrl+alt+del в виртуальную систему необходимо использовать хоткеи, определенные по умолчанию. Стандартный способ вызовет окно ctrl+alt+del в вашей хостовой системе, а не в виртуальной. В Virtual Box по умолчанию это сочетание вызывается клавишами <br/><strong>right ctrl+delete</strong>. Сочетания клавиш можно изменить в парамертах программы виртуализации.</p><h2 id="bed46346-4e1a-48fe-8314-58f1e5e745f9" class="">Часть 1. Настройка статических адресов</h2><p id="85977b17-b204-43b2-a3f8-7470d337f638" class="">Для корректного функционирования будущей серверной инфраструктуры необходима настройка статических IP.<br/>При запуске Windows Server вы увидите окно приложения Server Manager.<br/></p><p id="b436a7b4-53bb-4a51-9d61-30599501e95f" class="">==1.1 Пройдите в меню ==</p><hr id="eb7c6c13-9fb7-4bb7-ad48-552ffe47031c"/><figure id="a3284ffa-f855-4fe7-b8ae-f489fc7e9503" class="image"><a href="https://i.imgur.com/Ntihsoy.png"><img src="https://i.imgur.com/Ntihsoy.png"/></a></figure><hr id="7dfdafb1-636d-466d-9613-40ff4dc9f452"/><p id="730ee7d0-2a2d-4070-8d8d-87bef024c957" class="">==1.2 Нажмите на IPv4 address, чтобы изменить параметры сети==</p><hr id="a6439f4f-bd91-408d-9180-bd035f1e493b"/><figure id="c29c09ad-ff67-42c7-820b-59f147ba9e0a" class="image"><a href="https://i.imgur.com/GAI8fJv.png"><img src="https://i.imgur.com/GAI8fJv.png"/></a></figure><hr id="d3b8edb4-7876-4fff-8836-813e2f758f04"/><p id="8919e2ff-68a2-4f3d-ad6c-7e13bb0b4648" class="">==1.3 ПКМ -- properties==</p><hr id="bd0f3e33-1a67-4987-884e-5a8dbe6a58e6"/><figure id="b38d6254-e19e-4bc5-bafc-3eb10f32124c" class="image"><a href="https://i.imgur.com/kEJtlgY.png"><img src="https://i.imgur.com/kEJtlgY.png"/></a></figure><hr id="8e55dfb7-3f9e-4db6-95e5-eb4161e02d48"/><p id="8cbcd0f5-049c-4129-8236-d354d4eb61fb" class="">==1.4 Отключите IPv6, нажмите на IPv4 и нажмите properties==</p><hr id="87a5a4ba-a5aa-44ef-854a-9b6ab6737f6e"/><figure id="64f237bc-997c-464a-9168-42c59ccde854" class="image"><a href="https://i.imgur.com/qSsfSnT.png"><img src="https://i.imgur.com/qSsfSnT.png"/></a></figure><hr id="63f269f4-cdf5-4011-9972-5d51c642e502"/><p id="7a57ee8a-6836-446a-ae61-c4e2ede21ced" class="">==1.5 Выберите пунк с ручной настройкой IP и впишите данные==</p><hr id="edf6dc34-2dc0-4251-9a8f-bf4812a3776c"/><figure id="d2a5df2b-09c3-4e1f-8e42-988df2c2d46a" class="image"><a href="https://i.imgur.com/QFHk76W.png"><img src="https://i.imgur.com/QFHk76W.png"/></a></figure><hr id="3fa7143a-c8e3-41a4-826d-25226a128b2d"/><p id="4b1efa69-15bf-4765-8493-c75d5038dde8" class="">Нажмите ОК, закройте меню Ethernet adapter и закройте меню Network Connection</p><hr id="e35bc14a-7372-409a-82d7-7eddae75a777"/><p id="1052383f-d240-4bf1-9ec2-a338f2a741f4" class="">Второй Win Server настройте аналогично, но используйте адрес хоста ++192.168.10.201++</p><p id="88f2f788-1d84-42fa-8ec0-ee20e65f3b57" class=""><strong>Windows 10</strong> тоже настраиваем статически ввиду отсутствия DHCP сервера в инфраструктуре (но скоро он там появится и мы проведём перенастройку). В Windows 10 необходимо указать адреса будущих DNS серверов: ++192.168.10.200++ и ++192.168.10.201++</p><h2 id="9515cc42-cd7c-480c-ae33-952bbfeb69ca" class="">Часть 2. Настройка имени устройств</h2><p id="b6f5e603-f56c-48ca-8ebc-ede2138a04a0" class="">Имена устройств используются в домене для удобного взаимодействия пользователей (да и программ с сервисами тоже). Назовём первый win server 2016 -- <strong>dc1</strong>, второй -- <strong>dc2</strong>, а ПК Windows10 -- <strong>pc1</strong>.</p><p id="1670433d-b221-47ef-8e3b-15c400be36f9" class="">==2.1 В Windows Server в меню Local Server нажмите на имя устройства==</p><hr id="313a37b8-c4e0-4649-ba29-deac540d981e"/><figure id="43def55f-f751-4599-91a4-6b589d3cf72e" class="image"><a href="https://i.imgur.com/eXKBv7e.png"><img src="https://i.imgur.com/eXKBv7e.png"/></a></figure><hr id="e6b14bf2-cdb7-416b-921b-44d89f48e7b7"/><p id="d49831b7-8a1f-490c-af4f-5605265ff3d1" class="">==2.2 Откроется меню System properties. Нажмите Change==</p><hr id="edf2a90c-afd4-49f3-b84d-fff38e44a10e"/><figure id="db36322a-8a39-415c-9d17-d81457a9f6bc" class="image"><a href="https://i.imgur.com/VXhwwsA.png"><img src="https://i.imgur.com/VXhwwsA.png"/></a></figure><hr id="d9daed0e-2638-4ddd-ab07-5fa63360bfb1"/><p id="cd10eb86-8153-467f-807a-22324a15dce6" class="">==2.3 Впишите новое имя устройства и нажмите ОК==</p><hr id="aa9ee8d0-3439-4640-8be1-bfdcd3a81a2f"/><figure id="2a05c5a6-a2b5-4b87-902c-3c0b18165a57" class="image"><a href="https://i.imgur.com/a2diA2d.png"><img src="https://i.imgur.com/a2diA2d.png"/></a></figure><hr id="c2fc1428-8e55-480f-9261-f870b96a3d33"/><p id="8e5554b2-be8b-4615-aec7-0f77c55c394d" class="">==2.4 Появится Предупреждение о необходимости перезагрузки. Нажмите ОК.==</p><hr id="00555e3a-8146-45af-a145-2b700dc13708"/><figure id="ef5d4055-9cdd-4b09-a9ab-f4240dbc95aa" class="image"><a href="https://i.imgur.com/2AJfU7S.png"><img src="https://i.imgur.com/2AJfU7S.png"/></a></figure><hr id="e893b05c-8221-4e25-847c-e2b7a0d00df1"/><p id="4219868b-f7aa-4018-886a-c82a368a95fb" class="">==2.5 Окно пропадёт, в оставшемся нажмите Close==</p><hr id="827d71aa-d89d-41b8-908a-aacda5a720a3"/><figure id="8b96b9dd-08fc-4873-a93d-a4d04eb029d5" class="image"><a href="https://i.imgur.com/SNDIQ1G.png"><img src="https://i.imgur.com/SNDIQ1G.png"/></a></figure><hr id="ab3ddc05-8acf-4c5f-9d36-7a21e48647ef"/><p id="d25b2702-7f7a-4c7f-a670-090c1de231ed" class="">==2.6 Подтвердите перезагрузку==</p><hr id="342729ed-f565-4476-b81b-491ed10c6811"/><figure id="b45f90f7-5ba4-4026-b50a-c5db8a6a0158" class="image"><a href="https://i.imgur.com/kH4nxPM.png"><img src="https://i.imgur.com/kH4nxPM.png"/></a></figure><hr id="1dc1c029-cbef-4c0e-9970-73542539ac4c"/><hr id="38c0ac9d-ef94-431f-80ca-099726222aed"/><p id="ae0c28bf-1a21-4f58-bf96-abb8c0a80cac" class="">Нужно сменить имя и на Windows10</p><p id="c450100c-2066-4d25-ac41-885f7faa4ea4" class="">==2.7 Зайдите в параметры==</p><hr id="0ff24b1a-3b18-40d8-b95f-7070d9d17e77"/><figure id="6b288c3c-a753-40ac-b64c-6da20104cd72" class="image"><a href="https://i.imgur.com/1FODpeX.png"><img src="https://i.imgur.com/1FODpeX.png"/></a></figure><hr id="45463cbb-246e-4008-b971-8ec636801794"/><p id="2d6d189f-667e-4034-aa92-10f48b16960c" class="">==4.8 Вкладка &quot;система&quot;==</p><hr id="1be73022-9143-4b69-b078-23de3c50a3cc"/><figure id="a3aac4ec-2ea4-46db-82cc-3aa476c54a17" class="image"><a href="https://i.imgur.com/ujqFdTS.png"><img src="https://i.imgur.com/ujqFdTS.png"/></a></figure><hr id="81e44f92-5644-4057-88bb-d6fa86e689ea"/><p id="12db7d0a-0999-46ce-a2ec-5a25d9c26ced" class="">==2.9 Прокрутите меню вниз, нажмите &quot;о системе&quot;, вызванное меню тоже прокрутите вниз, нажмите &quot;сведения о системе&quot;==</p><hr id="8dc297ec-a121-4fec-8332-8d4a2932070e"/><figure id="266a230c-7b7a-437c-b0b9-7efa33252e29" class="image"><a href="https://i.imgur.com/9UNmMl1.png"><img src="https://i.imgur.com/9UNmMl1.png"/></a></figure><hr id="aac7b0c4-0928-4bd1-9bfd-b727278423cb"/><p id="03fdf525-1f56-4a8a-aea2-4a79d18536c3" class="">==2.10 Нажмите &quot;изменить параметры&quot;==</p><hr id="e80354f0-4cf8-4f6c-968e-396f2a0bac18"/><figure id="09643f14-8f04-4c7c-969b-6542460a0d4b" class="image"><a href="https://i.imgur.com/0PmV2p8.png"><img src="https://i.imgur.com/0PmV2p8.png"/></a></figure><hr id="4ef524bf-4303-4f39-8205-31cb9bb74418"/><p id="61e02438-1afe-4e84-b19b-331ecfe61ccb" class="">==2.11 Нажмите &quot;изменить&quot;==</p><hr id="b70f7bd4-f5b1-4b07-8cfa-cfd05a68e003"/><figure id="f6b4b1a7-36da-4d21-a4b6-4f2d10222db5" class="image"><a href="https://i.imgur.com/724n5ce.png"><img src="https://i.imgur.com/724n5ce.png"/></a></figure><hr id="24e6551b-6552-427e-89d1-aacb78fd729c"/><p id="46332931-25fe-49e0-9cbb-10c1104ca18c" class="">==2.12 Переименуйте ПК==</p><hr id="dba045c3-b34a-4ce2-8ee7-bcec6370d454"/><figure id="11c1a29f-b965-4c64-9ff5-3eea0d6b93ca" class="image"><a href="https://i.imgur.com/HGXbyl6.png"><img src="https://i.imgur.com/HGXbyl6.png"/></a></figure><hr id="ca99cb3c-c4b3-4db9-b175-79cd5fdeb8ef"/><p id="4e9c54a5-31e1-40d7-b3ff-1e64a2526fce" class="">==2.13 Согласитесь с применением изменений==</p><hr id="031a1c77-9cc4-491c-a8cd-4bd11bd7839f"/><figure id="eb42beb2-c8e5-49ef-8202-8433be000af1" class="image"><a href="https://i.imgur.com/kP0ikef.png"><img src="https://i.imgur.com/kP0ikef.png"/></a></figure><hr id="38556197-6223-4b85-9485-b81c70658a62"/><p id="d6b3db95-c049-47f0-ae1b-d8e2b42e1198" class="">==2.14 Согласитесь на перезагрузку ПК==</p><hr id="af04c76a-fdf8-48b4-8fc0-c432ef61ebff"/><figure id="860eb1f3-ad47-40bb-a33a-b94e593d3326" class="image"><a href="https://i.imgur.com/UvQNemY.png"><img src="https://i.imgur.com/UvQNemY.png"/></a></figure><hr id="31dd2d7e-d06b-43dd-ae86-427c0b4d3d2f"/><h2 id="e7deb0fb-f078-459e-a415-7cd314cc15af" class="">Часть 3. Установка Guest Additions</h2><p id="57836aed-bef1-41fe-9aac-21d702a2aea6" class="">Это пригодится для более удобного управления виртуальной системой</p><p id="51f1721f-3ca0-4f53-af56-e6cc756e401d" class="">==3.1 Примонтируем программу установки==</p><hr id="2e98f22c-4c74-4981-98dd-e0335d35226b"/><figure id="d1d12a25-6545-42a6-ac01-8ef11e9d7709" class="image"><a href="https://i.imgur.com/dBLgRBV.png"><img src="https://i.imgur.com/dBLgRBV.png"/></a></figure><hr id="a21f8540-14e2-44e5-b2dd-35550128f3b8"/><p id="9c85e393-5bb6-4953-8dcb-c44e15959466" class="">==3.2 Она появится в проводнике. Зайдем в примонтированный образ==</p><hr id="ae99671b-4847-4f4d-9015-5540e43f3edc"/><figure id="156799b0-262c-4195-93e8-99a7b0a581fd" class="image"><a href="https://i.imgur.com/7AMM9ii.png"><img src="https://i.imgur.com/7AMM9ii.png"/></a></figure><hr id="7e0caf93-b872-4c3c-8b7f-610ea82a411a"/><p id="d6e7e4c8-31f4-4e77-a428-9a42c112bf02" class="">==3.3 запустим VBoxWindowsAdditions.exe==</p><hr id="fc8050f5-8323-4080-b7f7-0195d470b1cf"/><figure id="3a96fa89-f788-48c1-bdec-af82bc409a44" class="image"><a href="https://i.imgur.com/HmUaL6m.png"><img src="https://i.imgur.com/HmUaL6m.png"/></a></figure><hr id="7a53fa71-7ba7-4dbf-b4cf-920c770a9bce"/><p id="1144d36d-1f9d-4b63-b517-84b617bf175a" class="">==3.4 Установим программу. Next.==</p><hr id="cc3d308c-37ec-4c43-aa23-d0f8084aab8b"/><figure id="2f48c60f-ff19-45d7-9f9c-9172835fbdcd" class="image"><a href="https://i.imgur.com/2rPkSEC.png"><img src="https://i.imgur.com/2rPkSEC.png"/></a></figure><hr id="9540045d-1bf7-40a6-b5e9-0844d7e075f7"/><p id="f134d870-7f15-45bb-b2f0-a01678d35165" class="">==3.5 Next==</p><hr id="fe6a64b5-84e5-4640-87a8-dd3a81649994"/><figure id="e1b0f9b4-74d7-4208-9be5-4537668b0d60" class="image"><a href="https://i.imgur.com/J9rhXfE.png"><img src="https://i.imgur.com/J9rhXfE.png"/></a></figure><hr id="51e718be-f5be-4418-9d09-eac7dbb141a7"/><p id="e57e8af9-cc26-4c4a-a232-ddd415591fa6" class="">==3.6 Install. В процессе установки программа попросит подтвердить установку драйвера. Согласимся на это.==</p><hr id="e9d173eb-2ad9-41cf-96ee-a0e3dbdead53"/><figure id="b548f141-e6e9-42fe-8712-b35de091e747" class="image"><a href="https://i.imgur.com/PqxxtzC.png"><img src="https://i.imgur.com/PqxxtzC.png"/></a></figure><hr id="75d2d755-3330-4799-9140-f8fd15850404"/><p id="8ac519c9-7984-427c-94d7-43c296a4aac3" class="">==3.7 После установки соглашаемся на перезагрузку==</p><hr id="e4186fbd-6d69-4d3a-adc6-148655a2afcb"/><figure id="a5737b94-7251-4f08-883a-88f02c11b60d" class="image"><a href="https://i.imgur.com/40SoQ6G.png"><img src="https://i.imgur.com/40SoQ6G.png"/></a></figure><hr id="1f912b1b-d6b8-4731-b0fe-e35bf1a5479b"/><p id="7d40abfb-3cda-48ed-93de-62ca36f353d8" class="">==3.8 Теперь можно будет включить общий буфер обмена. Включите двунаправленный режим.==</p><hr id="ba93dde6-05ad-49b5-a236-aa3c5e10d86a"/><figure id="44070c9f-e913-46af-b5ad-af3606bff733" class="image"><a href="https://i.imgur.com/W5jFXTu.png"><img src="https://i.imgur.com/W5jFXTu.png"/></a></figure><hr id="662fa7ee-85cd-469f-8d16-afc5f9b375e5"/><p id="4229d6ca-02d2-4c8d-b8c5-a7682826a5b1" class="">==3.9 Аналогично можно сделать для drag&#x27;n&#x27;drop. Это можно сделать как на server, так и на windows 10==</p><hr id="b3bfb706-53b3-4253-95f4-74cd20bd7bec"/><figure id="cdc95c7c-4832-4a8f-8382-0ec55bd3863a" class="image"><a href="https://i.imgur.com/CX0aiuI.png"><img src="https://i.imgur.com/CX0aiuI.png"/></a></figure><hr id="6fe6dc7c-887c-4470-a2b5-f49506babd0b"/><h2 id="9f853c09-5ca1-4271-bd54-b8172eb9c7f5" class=""></h2></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

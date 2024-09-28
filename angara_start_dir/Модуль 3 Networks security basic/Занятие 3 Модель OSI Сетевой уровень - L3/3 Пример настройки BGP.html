@@ -1,0 +1,1149 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>3. Пример настройки BGP</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 237, 214, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 237, 214, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(249, 228, 188, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+	</style>
+</head>
+
+<body>
+	<article id="fffaa64c-9d0a-8166-b45c-edff7c815104" class="page sans">
+		<header>
+			<h1 class="page-title">3. Пример настройки BGP</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<h3 id="fffaa64c-9d0a-8177-87f0-e1ef712d11ef" class="">Топология сети лабораторной работы №4.</h3>
+			<figure id="fffaa64c-9d0a-8134-bf1d-c28cfe3da534" class="image"><a
+					href="https://i.imgur.com/EV7pJyW.png"><img src="https://i.imgur.com/EV7pJyW.png" /></a></figure>
+			<hr id="fffaa64c-9d0a-8190-bd0f-f73ff28952ee" />
+			<h3 id="fffaa64c-9d0a-81f1-981c-f0bfe19b9669" class=""><strong>Характеристики оборудования для
+					самостоятельного построения стенда:</strong></h3>
+			<ul id="fffaa64c-9d0a-81a7-b54b-fbc234f5bd1a" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Cisco IOL: Router</strong> - L3 образ. 512mb RAM;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8152-8bfb-e178da6da7ac" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Cisco IOL: Switch</strong> - L2 образ. 256mb RAM;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81d1-9ecf-f3ec088a818b" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Mikrotik</strong> - Mikrotik ver.6.39;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-817f-be22-fba2530757a9" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Linux</strong>: Ubuntu 16.04 Server. 1024mb RAM, Ethernet 2;
+				</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81c8-b495-fcee8b9d2af1" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>VPC.</strong></li>
+			</ul>
+			<h3 id="fffaa64c-9d0a-8189-a73b-d8b30cd48e20" class="">Видео-инструкция: Настройка - iBGP (Часть 1).</h3>
+			<figure id="fffaa64c-9d0a-811d-9986-ebd1e4a2e7e0">
+				<div class="source"><a
+						href="../../../video/BGP_part-1.mp4">BGP_part-1.mp4</a>
+				</div>
+			</figure>
+			<h3 id="fffaa64c-9d0a-8197-9ad2-fd3e04812f96" class="">Видео-инструкция: Настройка - iBGP (Часть 2).</h3>
+			<figure id="fffaa64c-9d0a-81f6-8fe9-dd146fe8aead">
+				<div class="source"><a
+						href="../../../video/BGP_part-2.mp4">BGP_part-2.mp4</a>
+				</div>
+			</figure>
+			<h3 id="fffaa64c-9d0a-815a-a21b-e76776fde5de" class="">Видео-инструкция: Настройка iBGP (Часть 3).</h3>
+			<figure id="fffaa64c-9d0a-81ad-becf-d52d33d2645c">
+				<div class="source"><a
+						href="../../../video/BGP_part-3.mp4">BGP_part-3.mp4</a>
+				</div>
+			</figure>
+			<h3 id="fffaa64c-9d0a-8146-ad74-c731b376f726" class="">Видео-инструкция: Настройка eBGP.</h3>
+			<figure id="fffaa64c-9d0a-81b3-bec0-f17de2c12c98">
+				<div class="source"><a
+						href="../../../video/eBGP.mp4">eBGP.mp4</a>
+				</div>
+			</figure>
+			<p id="fffaa64c-9d0a-818d-9db5-c85b84e6b2fc" class="">
+			</p>
+			<hr id="fffaa64c-9d0a-81fa-b0a5-d497aeb7999d" />
+			<h1 id="fffaa64c-9d0a-81c8-8ea8-e512ae8c8780" class="">Протокол BGP</h1>
+			<h3 id="fffaa64c-9d0a-8132-8f9e-df4b65bbae9d" class="">Настройка IP адресов.</h3>
+			<p id="fffaa64c-9d0a-81d2-af80-d7ad6a3ca903" class="">Для того, что бы показать как работает BGP настроим
+				C-iBGP-102, M-iBGP-101 и C-iBGP-23.</p>
+			<p id="fffaa64c-9d0a-81f7-8c9f-ef81d4463a61" class=""><strong>Настройка на C-iBGP-102:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-8135-8960-cd8db86b872a" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Router&gt;en
+Router#conf t
+Router(config)#hostname C-iBGP-102
+C-iBGP-102(config)#int range e0/2-3, e1/0
+C-iBGP-102(config-if-range)#no shutdown
+C-iBGP-102(config-if-range)#int e0/2
+C-iBGP-102(config-if)#ip addr 13.1.1.102 255.255.255.0
+C-iBGP-102(config-if)#int e0/3
+C-iBGP-102(config-if)#ip addr 13.1.2.102 255.255.255.0
+C-iBGP-102(config-if)#int e1/0
+C-iBGP-102(config-if)#ip addr 13.1.3.102 255.255.255.0
+C-iBGP-102(config-if)#do wr</code></pre>
+			<p id="fffaa64c-9d0a-8175-b2d3-f1391d85db18" class=""><strong>Настройка на M-iBGP-101:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-8130-a055-cac02650b10b" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">[admin@MikroTik] &gt;
+[admin@MikroTik] /system identity&gt; set name=M-iBGP-101
+[admin@M-iBGP-101] /system identity&gt; print
+ name: M-iBGP-101
+[admin@M-iBGP-101] &gt; ip address
+[admin@M-iBGP-101] /ip address&gt; add interface=ether1 address=13.1.2.101/24 disabled=no
+[admin@M-iBGP-101] /ip address&gt; add interface=ether2 address=13.1.5.101/24 disabled=no
+[admin@M-iBGP-101] /ip address&gt; add interface=ether3 address=13.1.8.101/24 disabled=no
+[admin@M-iBGP-101] /ip address&gt; add interface=ether4 address=13.1.9.101/24 disabled=no
+[admin@M-iBGP-101] /ip address&gt; add interface=ether5 address=13.1.6.101/24 disabled=no
+[admin@M-iBGP-101] &gt; interface bridge
+[admin@M-iBGP-101] /interface bridge&gt; add name=loopback0
+[admin@M-iBGP-101] /ip address&gt; add interface=loopback0 address=9.9.9.9/32 disabled=no</code></pre>
+			<p id="fffaa64c-9d0a-811c-a2c5-d9e2e4f6d7a6" class=""><strong>Настройка на C-iBGP-23:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-813a-b527-cef503e830b7" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Router&gt;en
+Router#conf t
+Router(config)#hostname C-iBGP-23
+C-iBGP-23(config)#int range e0/0-2
+C-iBGP-23(config-if-range)#no shutdown
+C-iBGP-23(config-if-range)#int e0/0
+C-iBGP-23(config-if)#ip addr 13.1.4.23 255.255.255.0
+C-iBGP-23(config-if)#int e0/1
+C-iBGP-23(config-if)#ip addr 13.1.10.23 255.255.255.0
+C-iBGP-23(config-if)#int e0/2
+C-iBGP-23(config-if)#ip addr 13.1.8.23 255.255.255.0
+C-iBGP-23(config-if)#do wr</code></pre>
+			<p id="fffaa64c-9d0a-81d7-aa4f-ee434528f924" class="">Аналогично нужно сделать и со всеми остальными
+				маршрутизаторами в зоне iBGP.</p>
+			<hr id="fffaa64c-9d0a-8194-a4dc-dc4a4eabe87f" />
+			<h2 id="fffaa64c-9d0a-819a-b37c-d00d21fb093d" class="">Настройка iBGP</h2>
+			<p id="fffaa64c-9d0a-81af-956f-e3f3460cce4b" class="">Теперь перейдем к настройке протокола.</p>
+			<p id="fffaa64c-9d0a-8106-89db-c5fbb2b947a5" class=""><strong>Настройка на C-iBGP-102:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-8119-b63b-ef1666c7e979" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">C-iBGP-102(config)#router bgp 400
+C-iBGP-102(config-router)#network 13.1.1.0 mask 255.255.255.0
+C-iBGP-102(config-router)#network 13.1.2.0 mask 255.255.255.0
+C-iBGP-102(config-router)#network 13.1.3.0 mask 255.255.255.0
+C-iBGP-102(config-router)#neighbor 13.1.1.15 remote-as 400
+C-iBGP-102(config-router)#neighbor 13.1.2.101 remote-as 400
+C-iBGP-102(config-router)#neighbor 13.1.3.28 remote-as 400</code></pre>
+			<ul id="fffaa64c-9d0a-8184-892d-fb163f1b9d4d" class="bulleted-list">
+				<li style="list-style-type:disc">network 13.1.1.0 mask 255.255.255.0 - указываем подключенные сети.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81f7-a83a-ef18f3b45a37" class="bulleted-list">
+				<li style="list-style-type:disc">neighbor 13.1.1.15 remote-as 400 - создаем соседей.</li>
+			</ul>
+			<p id="fffaa64c-9d0a-8106-a2e5-d25a2608a447" class=""><strong>Настройка на M-iBGP-101:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-8197-b982-f1dec138b734"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">[admin@M-iBGP-101] &gt; routing bgp instance
+[admin@M-iBGP-101] /routing bgp instance &gt; set default as=400 router-id=9.9.9.9
+[admin@M-iBGP-101] &gt; routing bgp network
+[admin@M-iBGP-101] /routing bgp network&gt; add network=13.1.2.0/24
+[admin@M-iBGP-101] /routing bgp network&gt; add network=13.1.5.0/24
+[admin@M-iBGP-101] /routing bgp network&gt; add network=13.1.8.0/24
+[admin@M-iBGP-101] /routing bgp network&gt; add network=13.1.9.0/24
+[admin@M-iBGP-101] /routing bgp network&gt; add network=13.1.6.0/24
+[admin@M-iBGP-101] &gt; routing bgp peer
+[admin@M-iBGP-101] /routing bgp peer&gt; add name=peer1 remote-address=13.1.2.102 remote-as=400 route-reflect=yes
+[admin@M-iBGP-101] /routing bgp peer&gt; add name=peer2 remote-address=13.1.6.28 remote-as=400 route-reflect=yes
+[admin@M-iBGP-101] /routing bgp peer&gt; add name=peer3 remote-address=13.1.5.15 remote-as=400 route-reflect=yes
+[admin@M-iBGP-101] /routing bgp peer&gt; add name=peer4 remote-address=13.1.8.23 remote-as=400 route-reflect=yes
+[admin@M-iBGP-101] /routing bgp peer&gt; add name=peer5 remote-address=13.1.9.33 remote-as=400 route-reflect=yes</code></pre>
+			<blockquote id="fffaa64c-9d0a-8113-a157-d583e39e5d2b" class="">Если настроить протокол BGP без
+				route-reflect, то все маршрутизаторы не будут видеть сети дальше чем 2 hop, данная настройка позволяет
+				решить эту проблему. В этом примере настройка route-reflect будет сделана только на MikroTik, это уже
+				позволяет всем маршрутизаторам получать все маршруты, но при отключении M-iBGP-101 маршрутизаторы снова
+				потеряют сети, располагающиеся за 2 hop. Вам стоит подумать над тем, как настроить сеть так, чтобы она
+				была более устойчива.</blockquote>
+			<p id="fffaa64c-9d0a-8171-baaf-c4fe8a8d168f" class=""><strong>Настройка на C-iBGP-23:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-8148-8289-c957e5e91336" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">C-iBGP-23(config)#router bgp 400
+C-iBGP-23(config-router))#network 13.1.4.0 mask 255.255.255.0
+C-iBGP-23(config-router))#network 13.1.8.0 mask 255.255.255.0
+C-iBGP-23(config-router))#network 13.1.10.0 mask 255.255.255.0
+C-iBGP-23(config-router))#neighbor 13.1.4.15 remote-as 400
+C-iBGP-23(config-router))#neighbor 13.1.8.101 remote-as 400
+C-iBGP-23(config-router))#neighbor 13.1.10.33 remote-as 400</code></pre>
+			<p id="fffaa64c-9d0a-817c-ba1a-ff564e29754d" class=""><strong>Посмотреть информацию о маршрутах можно при
+					помощи следующих команд:</strong> * show ip route - просмотр всех маршрутов. * show ip bgp summary -
+				просмотр соседей. * show ip route bgp - просмотр всех маршуров полученных по протоколу BGP.</p>
+			<h2 id="fffaa64c-9d0a-81d0-aef3-fea4bedcd806" class="">Проверка правильности настройки для iBGP</h2>
+			<ol type="1" id="fffaa64c-9d0a-8146-abe4-f8a352ff616c" class="numbered-list" start="1">
+				<li>В зоне iBGP каждый роутер должен видеть все внутренние сети и пинговать все роутеры во внутренней
+					сети.</li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-8146-b50b-c3152a4b2213" class="numbered-list" start="2">
+				<li>Не должно быть петель.</li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-8153-8849-db9701a7a9bd" class="numbered-list" start="3">
+				<li>Сеть должна быть устойчива, даже если отключено какое-либо устройство, сети должны быть видны за 2 и
+					более hop.</li>
+			</ol>
+			<h2 id="fffaa64c-9d0a-8115-b9b2-e286a715930d" class="">Настройка eBGP</h2>
+			<p id="fffaa64c-9d0a-81a0-b7e1-ffefe429353b" class="">Настройка ip-адресации приводиться в этом разделе не
+				будет. Перейдем сразу к настройке протокола BGP.</p>
+			<p id="fffaa64c-9d0a-8101-87b0-f290b239b106" class=""><strong>Настройка на M-OSPF-10:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-81c1-a26d-e0e1d3787b15" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">[admin@M-OSPF-10] /routing bgp instance&gt; set default as=300 redistribute-connected=yes redistribute-ospf=yes router-id=10.255.255.10
+[admin@M-OSPF-10] /routing ospf instance&gt; set default redistribute-bgp=as-type-1 redistribute-connected=as-type-1 router-id=10.255.255.10
+[admin@M-OSPF-10] /ip address&gt; add address=10.255.255.10 interface=loopback
+[admin@M-OSPF-10] /ip address&gt; add address=18.1.1.254/24 comment=C-RIP-1 interface=ether2
+[admin@M-OSPF-10] /ip address&gt; add address=14.1.1.254/24 comment=Router interface=ether1
+[admin@M-OSPF-10] /ip address&gt; add address=15.1.1.254/24 comment=C-iBGP-102 interface=ether6
+[admin@M-OSPF-10] /routing bgp peer&gt; add name=C-RIP-1 remote-address=18.1.1.1 remote-as=200
+[admin@M-OSPF-10] /routing bgp peer&gt; add name=Main-Router remote-address=14.1.1.1 remote-as=100
+[admin@M-OSPF-10] /routing bgp peer&gt; add name=C-iBGP-102 remote-address=15.1.1.1 remote-as=400</code></pre>
+			<ul id="fffaa64c-9d0a-8139-bf15-f4c206c6b1ae" class="bulleted-list">
+				<li style="list-style-type:disc">set default as=300 redistribute-connected=yes redistribute-ospf=yes
+					router-id=10.255.255.10 - устанавливаем в default instanse, зона bgp - 300, что раздается информация
+					о connected и ospf маршрутах, router-id - ip-адрес loopback.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8169-acc8-f48b0562a5b6" class="bulleted-list">
+				<li style="list-style-type:disc">set default redistribute-bgp=as-type-1 redistribute-connected=as-type-1
+					router-id=10.255.255.10 - устанавливаем в default instanse, раздается информация о connected и bgp
+					маршрутах, router-id - ip-адрес loopback.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-813a-a1b4-fe333f134094" class="bulleted-list">
+				<li style="list-style-type:disc">add name=C-RIP-1 remote-address=18.1.1.1 remote-as=200 - задется сосед
+					в BGP, где remote-address - адрес соседа, name - имя соседа, remote-as - зона, в которой
+					располагается сосед.</li>
+			</ul>
+			<p id="fffaa64c-9d0a-818f-96cd-fa2cefef8a58" class=""><strong>Настройка на C-RIP-1:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-817a-bcc0-ee90ce1052d4" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">C-RIP-1(config)#router rip
+C-RIP-1(config-router)#redistribute connected
+C-RIP-1(config-router)#redistribute bgp 200
+C-RIP-1(config-router)#default-metric 1
+C-RIP-1(config-router)#exit
+C-RIP-1(config)#router bgp 200
+C-RIP-1(config-router)#redistribute connected
+C-RIP-1(config-router)#redistribute rip
+C-RIP-1(config-router)#neighbor 17.1.1.1 remote-as 100
+C-RIP-1(config-router)#neighbor 18.1.1.254 remote-as 300
+C-RIP-1(config-router)#default-metric 1
+C-RIP-1(config-router)#exit
+C-RIP-1(config)#exit
+C-RIP-1#wr</code></pre>
+			<ul id="fffaa64c-9d0a-81a7-bcf9-c6ca2abe3ae4" class="bulleted-list">
+				<li style="list-style-type:disc">redistribute connected - раздается информация о подключенных маршрутах.
+				</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-814f-9b78-cb78dbc1072e" class="bulleted-list">
+				<li style="list-style-type:disc">redistribute bgp 200 - раздается информация о маршрутах BGP зоны 200.
+				</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8140-b9d1-ebb24d477acd" class="bulleted-list">
+				<li style="list-style-type:disc">redistribute rip - раздается информация о маршрутах RIP.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81ae-aa7c-ea2941fbd2b8" class="bulleted-list">
+				<li style="list-style-type:disc">default-metric 1 - метрика для раздаваемых маршрутов.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81ce-bf70-eb6f7b7f795e" class="bulleted-list">
+				<li style="list-style-type:disc">neighbor 17.1.1.1 remote-as 10 - создаем соседа и указываем его зону.
+				</li>
+			</ul>
+			<p id="fffaa64c-9d0a-8127-8c7c-dc8d3bf80d28" class=""><strong>Настройка на Main-Router:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-810a-8965-c5bd0dcbd57f" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Main-Router(config)#router bgp 100
+Main-Router(config-router)#redistribute connected
+Main-Router(config-router)#redistribute static
+Main-Router(config-router)#neighbor 14.1.1.254 remote-as 300
+Main-Router(config-router)#neighbor 16.1.1.254 remote-as 400
+Main-Router(config-router)#neighbor 17.1.1.254 remote-as 200
+Main-Router(config-router)#default-metric 1
+Main-Router(config-router)#exit
+Main-Router(config)#exit
+Main-Router#wr</code></pre>
+			<ul id="fffaa64c-9d0a-819e-a94f-e7bcd47a6421" class="bulleted-list">
+				<li style="list-style-type:disc">redistribute static - раздается информация о статических маршрутах.
+				</li>
+			</ul>
+			<p id="fffaa64c-9d0a-8100-bb9a-d74b2062ec81" class=""><strong>Настройка на C-iBGP-102:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-81a7-8eea-ff5c06e40bdf" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">C-iBGP-102(config)#router bgp 400
+C-iBGP-102(config-router)#network 16.1.1.0 mask 255.255.255.0
+C-iBGP-102(config-router)#network 15.1.1.0 mask 255.255.255.0
+C-iBGP-102(config-router)#redistribute connected
+C-iBGP-102(config-router)#neighbor 13.1.2.1 next-hop-self
+C-iBGP-102(config-router)# neighbor 15.1.1.254 remote-as 300
+C-iBGP-102(config-router)#neighbor 16.1.1.1 remote-as 100
+C-iBGP-102(config-router)#default-metric 1
+C-iBGP-102(config-router)#exit
+C-iBGP-102(config)#exit
+C-iBGP-102#wr</code></pre>
+			<ul id="fffaa64c-9d0a-8126-8a16-e0a5e95ce7b6" class="bulleted-list">
+				<li style="list-style-type:disc">neighbor 13.1.2.1 next-hop-self - эта команда позволяет решить проблему
+					с микротиком. Суть проблемы: при просмотре на MikroTik таблицы маршрутизации можно обнаружить, что
+					он знает о всех сетях, но все маршруты у него неактивны. Можете сами посмотреть и предложить сови
+					варианты решений.</li>
+			</ul>
+			<h2 id="fffaa64c-9d0a-817f-a11d-d851751d811e" class="">Проверка правильности настройки для eBGP</h2>
+			<ol type="1" id="fffaa64c-9d0a-81c7-b294-ce328d306dc8" class="numbered-list" start="1">
+				<li>Все устройства в лабораторной работе должны пинговать друг с друга.</li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-81e3-8d91-e527259f6f79" class="numbered-list" start="2">
+				<li>В области iBGP нужно посмотреть все роутеры на их знания о сетях. Убедиться в том, что все могут
+					пинговать маршрутизаторы из других зон.</li>
+			</ol>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

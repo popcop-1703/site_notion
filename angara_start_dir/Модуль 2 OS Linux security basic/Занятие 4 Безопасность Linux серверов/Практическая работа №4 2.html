@@ -1,0 +1,716 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Практическая работа №4.2</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="bd1cccba-4d73-46c3-b869-d6b86aa40e8f" class="page sans"><header><h1 class="page-title">Практическая работа №4.2</h1><p class="page-description"></p></header><div class="page-body"><hr id="48803ce5-60b4-456e-98e0-aa4c18c9076d"/><h2 id="29764381-aeb5-49f0-ac26-d5ef46f17b98" class="">Практическая работа &quot;Fail2Ban-SSH и Brute-force attack&quot;.</h2><h3 id="49be5f8c-2761-4790-9b36-5de988871409" class=""><strong>Цель работы:</strong></h3><ul id="73071846-2f6b-4d63-a626-61c7fb498812" class="bulleted-list"><li style="list-style-type:disc">Научиться конфигурировать Fail2Ban для отражения атак brute-force attack на SSH.</li></ul><p id="f119b14e-a041-4474-97a2-397a1041804f" class="">
+</p><h3 id="4df5c7a8-02c6-4a77-982b-4073c68f1410" class="">Задача:</h3><ul id="068bc7ee-6e80-47fd-a599-1feecd187a27" class="bulleted-list"><li style="list-style-type:disc">Настроить сервер SSH</li></ul><ul id="4f9a486e-a0d1-4298-bb6e-a5a7b5f1050b" class="bulleted-list"><li style="list-style-type:disc">Установить и настроить Fail2Ban</li></ul><ul id="e169d04b-a044-40fb-a9b6-e5f4a9e6e8d3" class="bulleted-list"><li style="list-style-type:disc">Научиться пользоваться Hydra</li></ul><ul id="3aeccc5b-8819-470b-8321-87a68e52ae39" class="bulleted-list"><li style="list-style-type:disc">Провести с помощью Hydra brute-force attack</li></ul><ul id="3ebc1458-6e79-48dc-aae3-4581bdda661d" class="bulleted-list"><li style="list-style-type:disc">Провести атаку с помощью Hydra при выключенном Fail2Ban и исключенном ip-адресе из ban листа.</li></ul><p id="e7efe2ab-39da-4db1-a8b1-fbe681e128ca" class="">
+</p><p id="6d3cf633-0f70-4b5c-b70c-f5f569f966d6" class="">
+</p><p id="141faea3-3e94-40bd-bbbb-00ad6ba05ee2" class=""><strong>Fail2ban</strong> — простой в использовании локальный сервис, который отслеживает log–файлы запущенных программ, и на основании различных условий блокирует по IP найденных нарушителей.</p><p id="3d2b68bb-e37b-4512-bcab-7025a0c673f8" class="">Программа умеет бороться с различными атаками на все популярные *NIX–сервисы, такие как Apache, Nginx, ProFTPD, vsftpd, Exim, Postfix, named, и т.д.</p><p id="84289bba-8a70-4f4e-8d3a-dc727bd6755f" class="">Но в первую очередь Fail2ban известен благодаря готовности «из коробки» к защите SSH–сервера от атак типа «bruteforce», то есть к защите SSH от перебора паролей.</p><p id="8017e892-187a-4696-9e82-ded79a71d43c" class="">С помощью Fail2Ban можно блокировать ip-адреса и также делать так, чтобы ip-адреса не блокировались (всегда имелся доступ до ssh, даже если введено большое количество неправильных паролей), самое удобное в Fail2Ban - это то, что он автоматизирует процесс защиты shh.</p><p id="e5b48a3f-3451-4668-8073-9fb49ebd6305" class=""><strong>Для начала давайте обновим ОС:</strong></p><p id="8da34bff-7c0e-469f-a310-0d32acb3ede8" class=""><code>sudo apt-get update</code></p><figure id="c754ff49-bce0-4dac-90b9-18c21ae44bc5" class="image"><a href="https://i.imgur.com/gGZ8Ooh.png"><img src="https://i.imgur.com/gGZ8Ooh.png"/></a></figure><p id="e6d92375-8d20-4423-bd50-5acb7e6b0fef" class=""><strong>Далее давайте установим Fail2Ban:</strong></p><p id="0dac1dc6-aa3d-4fc2-8bc6-7b7a1ac3b456" class=""><code>sudo apt-get install fail2ban</code></p><figure id="2990d293-5250-4e4b-97e4-acdb79411b14" class="image"><a href="https://i.imgur.com/9JyR1Oh.png"><img src="https://i.imgur.com/9JyR1Oh.png"/></a></figure><p id="6a1efbe1-5d9a-4920-936c-d451907d1891" class=""><strong>Так как Fail2Ban запускается после перезагрузке или старте ОС сделаем следующее:</strong></p><p id="ac25e790-f369-435c-b679-17993e630bd1" class=""><code>service fail2ban start</code></p><figure id="bddf4ea4-e560-44ed-8b30-2fca2ed9488b" class="image"><a href="https://i.imgur.com/OapAxVI.png"><img src="https://i.imgur.com/OapAxVI.png"/></a></figure><p id="a5fbef28-18b6-47c8-afae-583efe837fbc" class="">Теперь посмотрим файлы конфигурации</p><p id="0cf79f9b-2dd7-40ab-9236-c49b4081ed55" class=""><strong>Ознакомимся со всеми файлами в директории Fail2Ban:</strong></p><p id="ab84fcfb-1bf1-432f-b2e4-16cee7b7d165" class=""><code>ls -al /etc/Fail2Ban</code></p><figure id="463f9270-1238-4568-abc6-160fce8f2b95" class="image"><a href="https://i.imgur.com/avPloVW.png"><img src="https://i.imgur.com/avPloVW.png"/></a></figure><p id="eaaab9bb-1a2c-48d2-b5e2-428f23549d4d" class="">самый важный файл - это <strong>jail.conf</strong> (данный файл содержит фильтры по умолчанию для определенных служб)</p><p id="cd3ccf09-2ab3-4f57-87c7-bcddd8020c36" class=""><strong>Теперь давайте перейдём в нужную директорию и откроем файл конфигурации:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="543d345b-3313-4c45-8549-2dc3a92b6b9c" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">cd /etc/fail2ban
+
+nano jail.conf
+</code></pre><figure id="20dd6236-a2f9-42d0-8cd4-91bd5fa34587" class="image"><a href="https://i.imgur.com/ZOazxx9.png"><img src="https://i.imgur.com/ZOazxx9.png"/></a></figure><p id="659aa6d6-c022-4a1e-9a74-ae4edd220e13" class="">И первое, что мы видим - это то, что нам рекомендуют создать дополнительный файл с .local расширением так как при обновлении Fail2Ban файл jail.conf может тоже обновиться и настройки будут возвращены поумолчанию. (если нужно настраивать фильтры для многих сервисов, то можно использовать jail.conf (но следить за обновлениями) или скопировать его с разрешением .local)</p><p id="6c26c644-9dc2-4682-bada-d6bce594dd53" class="">Давайте приступим к этому</p><p id="ea0c934f-0dde-4585-a59e-31234e8756f4" class=""><code>sudo nano jail.local</code></p><p id="ee72e364-4a5d-4f59-8940-b5947b522ede" class=""><strong>Нам надо создать фильтр для ssh:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="08dcf3e2-81b7-4a2a-8845-a95e63bda9d3" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">[sshd] - указывает, что это сервис ssh
+enable = true - указывает на то, что данные фильтр включен, истина или ложь true
+укаем порт и log файл
+port = ssh
+</code></pre><p id="1f5f9b34-1241-4f4f-83e2-c1347f9b99b0" class=""><strong>Для того чтобы нам для fail2ban дать информацию куда смотреть, делаем следующее:</strong></p><p id="f09a84d0-9300-40dc-bddd-af2ffa9138f5" class=""><code>cat /var/log/auth.log</code></p><figure id="e7fd5b94-ac49-42db-a5ba-decd19aee699" class="image"><a href="https://i.imgur.com/cHUTDsZ.png"><img src="https://i.imgur.com/cHUTDsZ.png"/></a></figure><p id="1b63a358-e6fa-4732-8de9-e9f934763aec" class=""><strong>данный файл показывает все попытки аунтификации по sshd, т.е. нам надо указать в фильтре следующее:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11c8bccc-5023-4df4-94b2-1f1a392b62eb" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">filter = sshd
+logpath = /var/log/auth.log - указываем где брать информацию
+maxretry = 3 - указываем какое количество попыток ввода пароля сделает пользователь прежде чем его заблокирует fail2ban
+bantime = 3600 - указывает на какое количество времени заблокируется ip-адрес пользователя после неправильного ввода пароля 3 раза (вводится секундами т.е. 3600 сек. это 60 мин.) Также можно установить и больше, всё завист от того как часто атакуют сервер.
+ignoreip = 127.0.0.1 - белый список ip-адресов, которые не будут попадать под фильтр
+</code></pre><p id="b3f2b27c-346b-4adb-888b-a582ae683193" class=""><strong>В итоге мы получаем текст файла следующий:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="f96c631c-30be-4d4d-a6ba-38d487a8712d" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">[sshd]
+enable = true
+port = ssh
+filter = sshd
+logpath = /var/log/auth.log
+maxretry = 3
+bantime = 3600
+ignoreip = 127.0.0.1
+</code></pre><figure id="ee86a562-1b9f-4daa-be5f-31cb745bf0db" class="image"><a href="https://i.imgur.com/6AEGz4J.png"><img src="https://i.imgur.com/6AEGz4J.png"/></a></figure><p id="47318e9b-941c-4d88-bf33-a5dd03fe385e" class="">После сохраняем и выходим.</p><p id="5c9e3224-035a-4d30-ae97-9ce6a7ef697f" class=""><strong>Вводим:</strong></p><p id="79c6d7a3-278b-45b0-9d84-5680308f4de9" class=""><code>service fail2ban restart</code></p><figure id="4150e029-3a2c-4a77-8dc3-2d31033d36e6" class="image"><a href="https://i.imgur.com/rIk3u2M.png"><img src="https://i.imgur.com/rIk3u2M.png"/></a></figure><p id="305b6e98-c0ff-45c5-8fca-b8d7729efd5a" class="">для того, что применились новый конфигурационный файл.</p><p id="7b94a70c-2e44-4e64-9a82-ef83dfdd26c8" class=""><strong>Проверим, что fail2ban работает:</strong></p><p id="f8f5ed73-f72c-4a39-bcb9-be02ee23f9cb" class=""><code>service fail2ban status</code></p><figure id="7a904b60-3c76-4ff3-bd1f-b6dcb7934737" class="image"><a href="https://i.imgur.com/EfIg18z.png"><img src="https://i.imgur.com/EfIg18z.png"/></a></figure><ul id="a19c36fd-2e86-475f-b129-e50ab4aa5d44" class="bulleted-list"><li style="list-style-type:disc">Теперь давайте попробуем подключиться по ssh и ввести три раза неправильно пароль</li></ul><ul id="0f9e120a-d701-4ef5-9485-b0e4216230c9" class="bulleted-list"><li style="list-style-type:disc">После того как попробуем, можно убедиться ещё одним способом Hydra</li></ul><p id="54f03968-501b-4ca4-8da0-a83ec24d33b9" class=""><code>sudo hydra -l root -P /usr/share/hydra/dpl4hydra_local.csv ssh://ip-адресс -I -v</code></p><p id="a69c9dd7-cceb-4150-9828-5d2d78338f83" class=""><strong>где:</strong></p><ul id="dbcddc39-7768-4464-99fe-616d5093a112" class="bulleted-list"><li style="list-style-type:disc">R – восстановить ранее прерванную сессию Hydra;</li></ul><ul id="57149593-d0a2-48e0-942f-49229bb26976" class="bulleted-list"><li style="list-style-type:disc">S – использовать SSL для подключения;</li></ul><ul id="ed9be0fe-5a3e-4399-8eaa-f05fc4dad9ba" class="bulleted-list"><li style="list-style-type:disc">s – указать порт;</li></ul><ul id="1ecdd457-59fd-4ed6-9fc5-d29e4808fdad" class="bulleted-list"><li style="list-style-type:disc">l – использовать логин;</li></ul><ul id="ec70d8de-99c4-45cc-91d8-2eb8aaff70c4" class="bulleted-list"><li style="list-style-type:disc">L – выбирать логины из файла со списком;</li></ul><ul id="4d281f48-8413-4ab6-bc6c-433a2846cbf8" class="bulleted-list"><li style="list-style-type:disc">p – использовать пароль;</li></ul><ul id="70edde36-3863-49f7-b240-97988b40720c" class="bulleted-list"><li style="list-style-type:disc">P – использовать пароль из файла со списком;</li></ul><ul id="8082e179-01da-4b8c-806a-485989d5ffc1" class="bulleted-list"><li style="list-style-type:disc">M – взять список целей из файла;</li></ul><ul id="82641b7d-fc0e-4006-a7cb-31b14a7f4c13" class="bulleted-list"><li style="list-style-type:disc">x – генератор паролей;</li></ul><ul id="0e023c7b-8770-4905-82af-afc2fe011705" class="bulleted-list"><li style="list-style-type:disc">u – по умолчанию hydra проверяет все пароли для первого логина, эта опция позволяет проверить один пароль для всех логинов;</li></ul><ul id="1ccff612-cdf5-42d3-a7f0-6443f823be88" class="bulleted-list"><li style="list-style-type:disc">f – выйти, если правильный логин/пароль найден;</li></ul><ul id="60bb8c2e-a8da-4e50-b3a5-b8848aa49de4" class="bulleted-list"><li style="list-style-type:disc">o – сохранить результат в файл;</li></ul><ul id="a5b4d49f-1e10-4caa-a731-a5b325216ba4" class="bulleted-list"><li style="list-style-type:disc">t – количество потоков для программы;</li></ul><ul id="b5f219c1-75ff-4f52-9e7d-95bd6c0ad691" class="bulleted-list"><li style="list-style-type:disc">w – время между запросами в секундах;</li></ul><ul id="c4e9f348-4579-4cb6-8ada-9cebfa0bacef" class="bulleted-list"><li style="list-style-type:disc">v – подробный вывод;</li></ul><ul id="2258f0a9-f806-4114-a93b-9d9cab0f5638" class="bulleted-list"><li style="list-style-type:disc">V – выводить тестируемые логины и пароли.</li></ul><ul id="448090b6-e043-4839-aa20-2dd3ddd974af" class="bulleted-list"><li style="list-style-type:disc">4:4:1 - пароль размером четыре символа, состоящий только из цифр. А именно все пароли в диапазоне 0000-9999;</li></ul><ul id="bd24220e-dca0-4f0f-94b8-2c34381d9a3a" class="bulleted-list"><li style="list-style-type:disc">4:8:1 - пароль от четырех до восьми символов, только из цифр;</li></ul><ul id="d848f867-619a-45c3-9b3f-6e16564a5edf" class="bulleted-list"><li style="list-style-type:disc">4:5:aA1. - пароль, размером от 4 до 5 символов, состоит из цифр, букв верхнего и нижнего регистра или точки.</li></ul><p id="6515ab7d-1335-44b2-8366-c2ca7714be6e" class=""><strong>если hydra не установленна, то вводим:</strong></p><p id="6613a359-621e-4c74-85de-8d0a69708065" class=""><code>sudo apt-get install hydra</code></p><p id="493e04a0-eb8b-47ad-a766-127c9490074b" class=""><strong>и вводим ещё раз</strong></p><figure id="68eb1e60-eaa7-40a1-a155-b73c96be839c" class="image"><a href="https://i.imgur.com/W5QB2Zm.png"><img src="https://i.imgur.com/W5QB2Zm.png"/></a></figure><p id="296df519-d290-4239-967b-2d09d872f795" class=""><strong>Чтобы посмотреть журналы банов в fail2ban вводим:</strong></p><p id="9a327c57-b8e0-44b4-a274-15c475d54051" class=""><code>fail2ban-client status</code></p><figure id="4d1e608b-bc04-4095-8bd3-a30a032f95db" class="image"><a href="https://i.imgur.com/0hQi7SR.png"><img src="https://i.imgur.com/0hQi7SR.png"/></a></figure><p id="023d9b74-8d6a-46b2-9975-b3dd3fdda7f4" class=""><strong>и получить более подробно статистику:</strong></p><p id="e5f213a8-2d29-4e6f-858a-3489bd18a6e3" class=""><code>fail2ban-client status sshd</code></p><figure id="fee70cc0-67e2-4008-8b0c-bb456fc5b6a8" class="image"><a href="https://i.imgur.com/eCv9pLT.png"><img src="https://i.imgur.com/eCv9pLT.png"/></a></figure><p id="c1899cd5-0d34-4763-873e-875aa837f03a" class="">также можно запустить гидру и убедиться, что количество неудачных попыток ввода пароля увеличится.</p><p id="2e841070-3c6f-4fed-b5cb-015057d83ea3" class="">Если в конфигурационном файле поменять на false, то ssh начнёт работать корректно и будет давать возможность подключаться.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1659ca8c-d1aa-4353-8290-a320ca4f6937" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">[sshd]
+enable = false
+port = ssh
+filter = sshd
+logpath = /var/log/auth.log
+maxretry = 3
+bantime = 3600
+ignoreip = 127.0.0.1
+</code></pre><p id="96e40c5a-0a28-4c7f-8677-7cfa7782aa99" class=""><strong>Соответственно, если сбросить блокировку fail2ban, необходимо сделать следующее:</strong></p><p id="c8618134-6f6b-46a1-a595-e947df0c9229" class=""><code>service fail2ban restart</code></p><p id="e8029f29-dd80-4cc5-b96b-eb69569212b0" class=""><strong>и проверим, что никто в данный момент не блокируется:</strong></p><p id="c0c566d5-f3a2-4bf0-8991-fee6020c1698" class=""><code>fail2ban-client status sshd</code></p><figure id="20ba391c-7472-4a36-98ed-20950452bf85" class="image"><a href="https://i.imgur.com/AgN8c43.png"><img src="https://i.imgur.com/AgN8c43.png"/></a></figure><p id="66a32b5b-a195-471a-a2ec-ae0987d4f7a4" class="">далее запускаем hydra ещё раз:</p><p id="420d3ac0-2151-44f7-8a1d-4e18cd46a968" class=""><code>sudo hydra -l root -P /usr/share/hydra/dpl4hydra_local.csv ssh://ip-адресс -I -v</code></p><p id="7cfc30f3-af3e-4068-89ce-bf54ce21822d" class="">и проверим ещё раз список блокированных ip-адресов</p><p id="b70f194b-8641-445e-86d1-98c4a40ba585" class=""><code>fail2ban-client status sshd</code></p><p id="0cb60e8a-c763-4d4a-ac60-f8573fb0d0a8" class=""><strong>увидим что fail2ban отработал корректно и заблокировал ip-адрес:</strong></p><figure id="8e47cfea-44d1-44bb-8473-d15e90c73d04" class="image"><a href="https://i.imgur.com/SkMZUvh.png"><img src="https://i.imgur.com/SkMZUvh.png"/></a></figure><p id="8453f944-9dd1-4a66-a048-d330d603c654" class=""><strong>Проверим, что будет, если отключить fail2ban и запустить hydra:</strong></p><p id="58193238-22f0-4075-beda-68c46b865972" class=""><code>service fail2ban stop</code></p><figure id="276cdf63-6542-4aa4-8d8e-3340b0e447a1" class="image"><a href="https://i.imgur.com/VYZaXiH.png"><img src="https://i.imgur.com/VYZaXiH.png"/></a></figure><figure id="6c8d24da-aa9f-4505-bbf7-ce9f17166e35" class="image"><a href="https://i.imgur.com/96LmQJR.png"><img src="https://i.imgur.com/96LmQJR.png"/></a></figure><p id="970bd12b-e1d9-4c17-86cb-a6209e7251c0" class="">видим что происходит подбор.</p><p id="0ca19dac-4e43-4962-85c5-0c34cdf2dc8f" class=""><strong>Вывод: в этой практической работе вы научились настраивать фильтр fail2ban для ssh от Brute-force attack.</strong></p><p id="070c68ce-e536-4087-8e76-e38e7febd975" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

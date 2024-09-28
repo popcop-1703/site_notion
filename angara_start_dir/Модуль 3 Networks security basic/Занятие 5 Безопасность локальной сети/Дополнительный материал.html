@@ -1,0 +1,684 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Дополнительный материал</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="69cac6a4-144a-4ea3-886f-28c17b443c35" class="page sans"><header><h1 class="page-title">Дополнительный материал</h1><p class="page-description"></p></header><div class="page-body"><h1 id="fb7bc434-7801-4e9c-bdf3-460f3af27b24" class="">Защита коммутаторов</h1><h2 id="905db964-5382-42ff-86e4-0ac3dfec00d8" class="">Port Security</h2><p id="4a5203b9-215d-4ed3-9719-413e99804bf9" class="">Port security. Эта технология на основе мак адресов устройств регулирует, какие подключенные компьютеры могут передавать данные через конкретный сетевой интерфейс коммутатора.</p><p id="ebe98a77-1d50-4869-8261-a5292e3b2cf0" class=""><strong>Используется для:</strong></p><ul id="1ee625be-8c25-4865-b870-099e1f2b042a" class="bulleted-list"><li style="list-style-type:disc">Предотвращения несанкционированной смены MAC-адреса сетевого устройства или подключения к сети</li></ul><ul id="a569af35-9a38-4cb9-a63f-34acba52d77a" class="bulleted-list"><li style="list-style-type:disc">Предотвращения атак направленных на переполнение таблицы коммутации.</li></ul><p id="65241e81-f6df-4833-86dc-3a8a0ed245b9" class="">После настройки порт не передает пакеты, если MAC-адрес отправителя не указан как разрешенный. Кроме того, можно указывать не конкретные MAC-адреса, разрешенные на порту коммутатора, а ограничить количество MAC-адресов, которым разрешено передавать трафик через порт.</p><p id="49244432-603b-4fa2-b255-da24a6896cc1" class="">Технология работает на основе таблицы мак адресов коммутатора. Напомню, что в данную таблицу записываются мак адреса компьютеров, обменивающихся информацией в сети. Коммутатор сопоставляет эти мак адреса со своими физическими интерфейсами, благодаря чему происходит процесс коммутации.</p><p id="156cefdd-fb34-49a5-acb7-9f714de2a124" class="">Получается, что мы можем назначить список разрешенных мак адресов для конкретного интерфейса. В таком случае указанные мак адреса коммутатор допустит до процесса коммутации, а любые другие – нет.</p><p id="d5a8ce42-8ee6-4d9c-a0a8-1ba5d36ec87e" class=""><strong>Безопасные MAC-адреса</strong></p><p id="3610eb36-da58-41fc-b8bd-c1f16480e121" class="">Коммутатор поддерживает такие типы безопасных MAC-адресов:</p><ul id="86310059-0235-49b8-ad43-4e01a14c4c29" class="bulleted-list"><li style="list-style-type:disc">Статические MAC-адреса:<ul id="218e21bf-1482-471e-baa9-93b2e3111edc" class="bulleted-list"><li style="list-style-type:circle">задаются статически командой switchport port-security mac-address mac-address в режиме настройки интерфейса,</li></ul><ul id="820fa808-9e12-458c-b108-2c812c1fe37b" class="bulleted-list"><li style="list-style-type:circle">хранятся в таблице адресов,</li></ul><ul id="eda60326-4dcd-4ef6-842b-3c7088bef3d0" class="bulleted-list"><li style="list-style-type:circle">добавляются в текущую конфигурацию коммутатора;</li></ul></li></ul><ul id="1923b580-9a02-4ba5-ab74-7743305a5c98" class="bulleted-list"><li style="list-style-type:disc">Динамические MAC-адреса:<ul id="03a57e35-6602-4c03-8b9f-e7394040d8ce" class="bulleted-list"><li style="list-style-type:circle">динамически выучиваются,</li></ul><ul id="91678a67-c84c-4ddd-a52d-3ead6fcf0b52" class="bulleted-list"><li style="list-style-type:circle">хранятся только в таблице адресов,</li></ul><ul id="a18f1e8a-3ab1-4033-b9a2-f21e06a63e85" class="bulleted-list"><li style="list-style-type:circle">удаляются при перезагрузке коммутатора;</li></ul></li></ul><ul id="358c308b-133d-4cb0-aafa-42fe182fdb35" class="bulleted-list"><li style="list-style-type:disc">Sticky MAC-адреса:<ul id="653f1ff1-35ae-4ba6-b8c5-cfdcae6b06fd" class="bulleted-list"><li style="list-style-type:circle">могут быть статически настроены или динамически выучены,</li></ul><ul id="5fa81764-5370-4482-bde5-79e070f02aea" class="bulleted-list"><li style="list-style-type:circle">хранятся в таблице адресов,</li></ul><ul id="ed23b1d7-eea2-4206-8e17-4c8693e580a2" class="bulleted-list"><li style="list-style-type:circle">добавляются в текущую конфигурацию коммутатора. Если эти адреса сохранены в конфигурационном файле, после перезагрузки коммутатора, их не надо заново перенастраивать.</li></ul></li></ul><p id="6fbd7444-ca89-4a35-bc2b-23ff17888876" class=""><strong>Режимы реагирования</strong></p><p id="eaa92c59-c5a9-41ba-927d-119fa7abe349" class="">Нарушением безопасности для port security считаются ситуации:</p><ul id="f81a965a-877e-4f0d-9152-ab3fb27dc918" class="bulleted-list"><li style="list-style-type:disc">максимальное количество безопасных MAC-адресов было добавлено в таблицу адресов и хост, чей MAC-адрес не записан в таблице адресов пытается получить доступ через интерфейс,</li></ul><ul id="374f6583-b33d-45b9-986e-92c6d233effe" class="bulleted-list"><li style="list-style-type:disc">адрес, выученный или настроенный как безопасный на одном интерфейсе, появился на другом безопасном интерфейсе в том же VLAN&#x27;е.</li></ul><p id="594c0c1c-33ad-4e0f-aa09-6aa06d8d6632" class="">На интерфейсе могут быть настроены такие режимы реагирования на нарушения безопасности:</p><ul id="fdc9a1bc-78e8-42c6-9695-d567da3b40ab" class="bulleted-list"><li style="list-style-type:disc">Protect</li></ul><p id="dbd24d28-3b31-46cb-8986-8e861904df91" class="">В случае нарушения, кадры Ethernet с неавторизованным MAC-адресом источника отбрасываются. В этом режиме нарушения коммутатор не предоставляет уведомления о событии.</p><ul id="5977b0c8-214c-4e19-a5a7-e542089b4749" class="bulleted-list"><li style="list-style-type:disc">Restrict</li></ul><p id="6884dbf8-e1ad-4775-a679-4cbee6699bc0" class="">В случае нарушения кадры Ethernet с неразрешенными MAC-адресами источников отбрасываются. Коммутатор обеспечивает уведомление о нарушениях безопасности и ведет подсчет количества нарушений.</p><ul id="e460e21f-f7f1-4c0b-aee8-cf0584e122e0" class="bulleted-list"><li style="list-style-type:disc">Shutdown</li></ul><p id="8bdfd652-2436-45f1-9100-05192a1ebd2c" class="">Когда происходит нарушение, порт отключается и автоматически регистрируется в журнале. Для возобновления работы порт необходимо перезагрузить вручную.</p><p id="645bfca3-e49b-42d7-a01f-500320fff6fa" class=""><strong>Настройка Port Security</strong></p><p id="16553cc4-3704-4ad0-ba1a-91f497c42027" class="">Так как после команды switchport port-security, сразу включается Port security с настройками по умолчанию, то ее стоит давать вначале только если настройки по умолчанию подходят.</p><p id="fdb3bcbd-9071-42fb-9534-dbe7c60f3462" class="">Включается Port Security командной:</p><p id="668fb86f-cea9-4d5a-915f-31bd1ef46dca" class=""><em>switch(config-if)# switchport port-security</em></p><p id="24ebc0fe-50b5-4931-b266-718858e788e7" class=""><strong>Настройки по умолчанию</strong><br/>На коммутаторах Cisco такие настройки по умолчанию для функции port security:<br/></p><ul id="519f5a57-25fc-4d93-9c33-189fe9e8e78c" class="bulleted-list"><li style="list-style-type:disc">Port security — выключен.</li></ul><ul id="5a09199f-fc32-4bd2-958c-5151f42e8396" class="bulleted-list"><li style="list-style-type:disc">Запоминание sticky-адресов — выключено.</li></ul><ul id="586fc050-5f5c-4f42-a488-9b80eaedab54" class="bulleted-list"><li style="list-style-type:disc">Максимальное количество безопасных MAC-адресов на порту — 1.</li></ul><ul id="168bca6b-1189-4f58-aa82-ec0fa592b832" class="bulleted-list"><li style="list-style-type:disc">Режим реагирования на нарушения — shutdown.</li></ul><ul id="fe789b7c-a9fb-42e1-93c7-93303e67f4eb" class="bulleted-list"><li style="list-style-type:disc">Время хранения адресов:<br/>отключено. Значение aging time — 0,<br/>для статических адресов — отключено,<br/>тип времени — абсолютное.<br/></li></ul><p id="82a57f02-224a-4285-8695-5e245a419313" class="">При самостоятельной настройке видим поля:</p><ul id="4b46e409-a923-4263-bd4a-64e4b932a812" class="bulleted-list"><li style="list-style-type:disc"><strong>aging</strong> – задается временной интервал, после которого динамический МАС-адрес может быть переписан</li></ul><ul id="f1395408-5dd2-4690-862a-466fc2db5695" class="bulleted-list"><li style="list-style-type:disc"><strong>mac-address</strong>  - указываем безопасный MAC-адрес</li></ul><ul id="f165a21d-c767-4990-8fab-1efb05ef5c9c" class="bulleted-list"><li style="list-style-type:disc"><strong>maximum</strong> – указываем максимальное количество MAC-адресов, которые смогут подключиться</li></ul><ul id="bf2489dd-c512-4853-bb3e-4605efc2cdaf" class="bulleted-list"><li style="list-style-type:disc"><strong>violation</strong> – режим реагирования на нарушение</li></ul><p id="5f6aca69-04d6-42d3-a1dc-cc1e4ab0d045" class="">Рассмотрим их подробнее</p><p id="36212d9b-0a72-4e9f-9f93-39bebe1db2a9" class=""><strong>Aging.</strong> Имеет три параметра:</p><ul id="5c6e695d-5805-485e-8b0e-1cd2909580fc" class="bulleted-list"><li style="list-style-type:disc"><strong>Static </strong>– включить aging для настроенных безопасных адресов</li></ul><ul id="9cc4e941-f664-4a09-ab69-3bc41d415fb3" class="bulleted-list"><li style="list-style-type:disc"><strong>Time</strong> – время устаревания (в минутах от 1 до 1440)</li></ul><ul id="a258fe25-d271-4157-b354-98f4aaf17244" class="bulleted-list"><li style="list-style-type:disc"><strong>Type</strong> – тип устаревания (absolute – абсолютное (по умолчанию); inactivity – на основе периода бездействия)</li></ul><p id="12640d42-7dcf-4712-95da-443b3613cf36" class=""><strong>Mac-address</strong>. Можно указать:</p><ul id="db62fd3c-adbf-496e-94f7-a1fc69270054" class="bulleted-list"><li style="list-style-type:disc"><strong>H.H.H</strong> – разрешённый адрес</li></ul><ul id="5e25a91d-c151-4421-8bdb-af9b43d35104" class="bulleted-list"><li style="list-style-type:disc"><strong>Forbidden </strong>– запрещённый адрес</li></ul><ul id="25a21ef8-45f4-4592-8d63-81cafef5596f" class="bulleted-list"><li style="list-style-type:disc"><strong>Sticky</strong> – коммутатор будет учить новые адреса</li></ul><p id="411e68a6-f7ff-409a-bf28-816956eca8e9" class=""><strong>Maximum</strong> – указываем сколько адресов можно запомнить (1 - 4097) </p><p id="b1a3fa22-6ba2-49ab-8b17-88abc7d559fb" class=""><strong>Violation</strong> – упоминалось раньше</p><p id="7813d493-9af2-4ed7-b18a-b8bb37178594" class="">Устанавливаем что нужно, что не нужно пропускаем. Если до этого не включили настройки по умолчанию активируем технологию командой <em>switchport port-security</em> без опций.</p><p id="3c663feb-ade3-40f8-9a8a-0e09573a34bc" class=""><strong>Задача: </strong>на коммутаторе ввести один адрес вручную, остальные адреса запоминать динамически. При этом на инциденты реагировать отключением порта.</p><p id="c21d8f3f-f338-485c-996b-9e3d46b41537" class="">Тогда получаются следующие настройки:</p><p id="262641cf-5b51-4ce5-b32c-de1bfbfce7fb" class=""><em>Switch(config-if)#switchport port-security<br/>Switch(config-if)#switchport port-security maximum 4<br/>Switch(config-if)#switchport port-security mac-address 0005.5E80.22A3<br/>Switch(config-if)#switchport port-security mac-address sticky<br/>Switch(config-if)#switchport port-security violation shutdown<br/></em></p><h2 id="ea34cc1e-1c65-47dd-a73c-3d090a60d23c" class="">Защита от Rogue DHCP Server</h2><p id="7fb545b4-7de7-4378-a862-a58e5bbd874d" class="">Цель данной атаки – подмена DHCP-сервера. При одновременном нахождении в сети двух DHCP-серверов, один из которых «вражеский», некоторая часть клиентов сконфигурирует у себя неправильные адреса и прочие сетевые реквизиты.</p><p id="22ef9fbb-9a68-4883-bd54-8d3a64eb81ef" class="">Вследствие подмены шлюза по умолчанию неавторизованный DHCP-сервер получит возможность прослушивать весь трафик клиентов, перенаправляя в дальнейшем пакеты по назначению. Таким образом мы имеем простейшую реализацию атаки типа MitM (Man in the Middle), которая может быть осуществлена в большинстве современных сетей.</p><p id="b6812cb3-ca9f-440a-820a-45d09644a1e2" class="">Стоит отметить, что чаще всего атака с подменой DHCP-сервера не является атакой, как таковой. Распространены случаи, когда по незнанию в сеть подключается SOHO роутер с настроенным DHCP-сервером, причем подключается он LAN-портом. После этого у клиентов, успевших получить у него IP-адреса, наблюдаются как минимум существенные потери скорости, а чаще всего полная невозможность использования локальных и глобальных ресурсов.</p><p id="c40671e0-6dfc-4de7-9ecc-ff302f7c8b60" class="">Простейший способ защиты от атак подобного рода – включение на всех коммутаторах функции DHCP snooping. Далее необходимо определить два типа портов:</p><ul id="405630da-2eb1-4883-9e25-43ab97bf004c" class="bulleted-list"><li style="list-style-type:disc">Доверенные – порты коммутатора, к которым подключается DHCP-сервер, либо другой коммутатор.</li></ul><ul id="e55a19dd-d710-4e6e-9dad-5276a4a7a969" class="bulleted-list"><li style="list-style-type:disc">Недоверенные – порты для клиентских подключений, за которыми DHCP-сервер находиться не может, зато вполне может находиться атакующее устройство. </li></ul><p id="33fb9ab5-b83f-48d6-96c7-769899084039" class="">В данном случае DHCP snooping необходим для того, чтобы указать коммутатору, что следует обращать внимание на пакеты DHCP offer и acknowledgment, проходящие сквозь него, и не допускать прохождения данных пакетов с недоверенных портов. Также широковещательные запросы от клиента (discover и request) теперь будут перенаправляться только на доверенные порты.</p><p id="9d1232ba-2fea-40ac-a112-8e3b283652d6" class="">Для конфигурирования функции DHCP snooping необходимо:</p><ol type="1" id="8751d040-49ce-4f58-8f1b-a237470fbe2a" class="numbered-list" start="1"><li>Включить ее на коммутаторе:<br/><br/><em>SW(config)#ip dhcp snooping</em></li></ol><ol type="1" id="9b06946b-5815-4fd9-989c-dcde228a2c7f" class="numbered-list" start="2"><li>Указать для каких VLAN требуется отслеживать пакеты:<br/><br/><em>SW(config)#ip dhcp snooping vlan</em></li></ol><ol type="1" id="aaf0aa13-8892-43dc-9435-70cf21117b99" class="numbered-list" start="3"><li>Указать доверенные порты на коммутаторе (все остальные по умолчанию становятся недоверенными):<br/><br/><em>SW(config-if)#ip dhcp snooping trust</em></li></ol><h2 id="24cee580-844c-495d-a6b7-d5c833e499c7" class="">Защита от DHCP starvation</h2><p id="e1b72251-ec55-4708-9be3-b59dbf78865e" class="">Еще одна атака, осуществляемая при помощи протокола DHCP. DHCP-пул, из которого клиенты получают IP-адреса, ограничен. Например, это может быть 253 адреса (при маске 255.255.255.0). Для нормальной работы сети этого должно хватить всем клиентам, но атака DHCP starvation стремится изменить данную ситуацию. Как происходит действие:</p><ol type="1" id="413d1363-9f7f-4973-afde-7dcaebe6b9d9" class="numbered-list" start="1"><li>Атакующее устройство запрашивает себе IP-адрес у DHCP-сервера и получает его;</li></ol><ol type="1" id="837abe04-fc17-4971-985d-4af1f6d0cee9" class="numbered-list" start="2"><li>MAC-адрес атакующего устройства изменяется и оно запрашивает следующий, уже другой IP-адрес, маскируясь под нового клиента;</li></ol><ol type="1" id="73e80917-82b1-4463-8044-0984f13ce67b" class="numbered-list" start="3"><li>Такие действия повторяются до тех пор, пока весь пул IP-адресов на сервере не будет исчерпан.</li></ol><p id="88c8e001-a7ad-4ce8-963e-5a08d26206c6" class="">Далее возможны два последствия, в зависимости от того, что является целью атаки:</p><ul id="ee1ed030-7962-4d40-bdd7-dd0b22364b32" class="bulleted-list"><li style="list-style-type:disc">Отказ в обслуживании. IP-адреса исчерпаны, и новые хосты не могут получить их. Таким образом, их взаимодействие с сетью на этом закончится.</li></ul><ul id="c8069ce7-2660-4871-8854-f4b3ac4b37ae" class="bulleted-list"><li style="list-style-type:disc">Подмена DHCP-сервера. DHCP starvation отлично комбинируется с предыдущей атакой. Так как на основном DHCP-сервере свободных адресов не осталось, он выбывает из игры, и 100% клиентов достается вражескому атакующему DHCP-серверу.</li></ul><p id="34249d96-d4df-4c35-8d08-366af560d375" class="">Самый простой способ защиты – ограничение числа MAC-адресов на порту коммутатора. Реализуется это с помощью функции port-security:</p><ol type="1" id="4e985bfa-bd87-4532-8729-d6f48824c541" class="numbered-list" start="1"><li><em>Переводим порт в access режим:<br/>SW(config-if)#switchport mode access<br/></em></li></ol><ol type="1" id="ac2e9b20-aa44-4e54-8981-3b751d4b1464" class="numbered-list" start="2"><li><em>Включаем port-security на интерфейсе:<br/>SW(config-if)#switchport port-security<br/></em></li></ol><ol type="1" id="ea266a85-fbe1-4de4-bf68-5d85c440c09e" class="numbered-list" start="3"><li><em>Ограничиваем число MAC-адресов на интерфейсе:<br/>SW(config-if)switchport port-security maximum<br/></em></li></ol><ol type="1" id="1344739a-6310-4dab-b5cf-6c6ed189591c" class="numbered-list" start="4"><li>Выбираем способ изучения MAC-адресов коммутатором:<br/><br/><em>SW(config-if)#switchport port-security mac-address &lt;mac-address | sticky&gt;</em></li></ol><ol type="1" id="bed11bc5-80a1-4bfb-abaa-56b9aeb81237" class="numbered-list" start="5"><li>Задаем тип реагирования на превышение числа разрешенных MAC-адресов:<br/><br/><em>SW(config-if)#switchport port-security violation &lt;protect | restrict | shutdown&gt;</em></li></ol><p id="129380a6-349f-4b14-9996-2695970e20de" class="">Таким образом атакующее устройство просто не сможет исчерпать лимит IP-адресов DHCP-пула, так как коммутатор не позволит ему безнаказанно изменять свой MAC-адрес.</p><p id="c8ca503a-72f3-48a0-9f3f-f2b70993b1fc" class="">Также здесь может помочь все тот же DHCP snooping, а именно команда<br/><br/><em>SW(config-if)ip dhcp snooping limit rate</em></p><p id="5d071858-b50d-414b-ab4b-09225b9e6c2b" class="">Данная команда ограничивает количество DHCP пакетов в секунду на порт (рекомендуется не более 100 pps), а при превышении данного ограничения переводит порт в состояние err-disable, то есть временно выключает его. Обычный клиент не превысит данный лимит, а вот атакующее устройство, генерирующее сотни MAC-адресов в секунду, будет обнаружено.</p><h2 id="a45bb74b-0067-4f9e-9fd7-c39852e8a16d" class="">Защита от CAM-table overflow</h2><p id="8d1c4124-6d3f-4084-967c-7f12ab92d6ff" class="">Напомню, что данная атака заключается в следующем: генерируется большое количество адресов и коммутатор записывает их в свою таблицу, а реальные адреса реальных устройств постепенно выходят из нее. В таком случае коммутатор начнет, рассылать кадры, адресованные конкретному получателю на все порты, находящиеся в том же VLAN, следовательно у атакующего устройства появится возможность перехватить и прочитать их.</p><p id="5952a5d1-e746-42a6-ab24-7dc869c727f7" class="">Следует заметить, что все коммутаторы, подключенные к атакованному также подхватят фальшивые MAC-адреса и начнут вести широковещательную рассылку всех кадров.</p><p id="c0f11cd3-4b74-45a3-b92b-a58e243282ae" class="">Методы защиты</p><ol type="1" id="79f5fbb0-f37d-453f-95a3-0a3c2fc76022" class="numbered-list" start="1"><li>Port-security на всех access-портах с лимитированием максимального количество MAC-адресов.</li></ol><ol type="1" id="4fb67b93-4c0c-4604-9d2a-4362118f7127" class="numbered-list" start="2"><li>Шифрование трафика – в таком случае хоть все кадры и будут рассылаться широковещательно, а производительность сети сильно ухудшится, информация, попавшая в чужие руки, не будет прочитана.</li></ol><h2 id="b7ed5bc7-46bb-4912-bbcd-7875df34c8f5" class="">Защита от VLAN hopping</h2><p id="9e3400c9-8cb3-4074-ad73-4c316571bb70" class="">Напомню о двух атак типа Vlan Hopping, которые мы ранее рассматривали</p><p id="c2d05558-3562-4702-b8bc-19314a532aee" class=""><strong>Подмена коммутатора</strong></p><p id="58b59ef1-7f2b-4ce3-842a-d8e21c4d8f61" class="">Если злоумышленник может генерировать сообщения динамического транкового протокола (DTP) со своего компьютера, между его компьютером и коммутатором может быть сформирована магистральная линия. Как только магистральный канал сформирован, злоумышленник может получить трафик из всех VLAN. Злоумышленник теперь может прослушивать трафик из всех VLAN.</p><p id="bfa95152-5d00-45a4-b3e7-77dd737d960b" class=""><strong>Двойная маркировка</strong></p><p id="43f4ae74-d486-44b6-8842-489f8ec2411f" class="">Данный вид атаки основан на использовании принципов работы аппаратного обеспечения на большинстве коммутаторов. Большинство коммутаторов выполняют лишь один уровень деинкапсуляции 802.1Q, что позволяет злоумышленнику вставлять в кадр скрытую метку 802.1Q. Метка позволяет пересылать кадр в сеть VLAN, которая не указана первоначальной меткой 802.1Q. Важное свойство атаки с двойной инкапсуляцией заключается в том, что она действует, даже если транковые порты отключены, поскольку обычно узел отправляет кадр в сегменте, который не является транковым каналом.</p><p id="533374ec-211f-4c2d-8353-c1e5ae67ae22" class="">Методы защиты</p><ul id="49c03e28-7ad9-4547-8c65-f04a954793fd" class="bulleted-list"><li style="list-style-type:disc">Убедитесь, что порты не настроены на автоматическую работу в режиме транка</li></ul><ul id="2e2f9c87-e019-42aa-81db-25a7bc69d90a" class="bulleted-list"><li style="list-style-type:disc">Отключите протокол DTP</li></ul><ul id="91d495f8-9c37-43ca-b409-9b76b6c5ba8b" class="bulleted-list"><li style="list-style-type:disc">НИКОГДА не используйте VLAN 1</li></ul><ul id="a3585ed8-2f46-4181-89f5-2f2dc948394e" class="bulleted-list"><li style="list-style-type:disc">Отключите и перенесите в неиспользуемый VLAN неиспользуемые порты</li></ul><ul id="a2114316-9740-48be-ab61-981146c39329" class="bulleted-list"><li style="list-style-type:disc">Всегда используйте специальный VLAN ID для всех транковых портов</li></ul><h2 id="5ada914b-2144-4055-90b1-bb18d4dc3246" class="">Защита от MAC-spoofing</h2><p id="98a971f7-707d-4727-b3e8-f02bc5d440ac" class="">Суть данной атаки заключается в подмене MAC-адреса на сетевой карте компьютера, что позволяет ему перехватывать пакеты, адресованные другому устройству, находящемуся в том же широковещательном домене.</p><p id="09cb0d8e-9971-45b7-ac7f-f35cef89af80" class="">В таблице MAC-адресов коммутатора запись с атакованным MAC-адресом будет соотнесена с интерфейсом, на котором в последний раз был идентифицирован кадр с данным source MAC. Таким образом, до поступления кадра с атакуемого устройства, все данные коммутатор, на основании своей CAM-таблицы, будет пересылать на атакующий компьютер.</p><p id="c4e93e75-08f4-4516-b4a6-2d45a3a4a3bb" class="">Методы защиты</p><p id="7f4eff74-dd63-4965-a736-9ec4abca45a7" class="">Официально рекомендуемый метод – включение port-security на интерфейсе коммутатора, например:</p><p id="cea4812d-660d-49a9-a793-6b5aec22af17" class=""><em>SW(config-if)#switchport mode access</em></p><p id="519d101d-8193-4a89-817c-13ec787e5b74" class=""><em>SW(config-if)#switchport port-security</em></p><p id="8cc5a4d1-bc4a-4bd1-b8e1-66860c55ef1f" class=""><em>SW(config-if)#switchport port-security mac-address 0000.1111.1111</em></p><h1 id="5cc4886c-57e0-4ba0-8af5-2123fbed45b6" class="">Защита сегментов сети. ACL</h1><p id="8da9f660-39aa-4433-90d6-05aa5d19b6fd" class="">ACL - cписки контроля доступа , которые определяют, кто или что может получать доступ к объекту и какие именно операции разрешено или запрещено выполнять субъекту.</p><p id="8f6e0498-4083-4433-8cfc-b9835f24b929" class="">Благодаря этой технологии обеспечивается фильтрация на сетевом и транспортном уровне модели OSI, позволяя определить, могут ли компьютеры взаимодействовать друг с другом. Технология работает на основе ip адресов и номеров портов.</p><p id="ba1e574c-e96b-4492-9d25-0674c78d0dc3" class="">Обычно ACL разрешает или запрещает IP-пакеты, но помимо всего прочего он может заглядывать внутрь IP-пакета, просматривать тип пакета, TCP и UDP порты. Также ACL существует для различных сетевых протоколов (IP, IPX, AppleTalk и так далее).</p><p id="f36dabfd-cb3b-4d0c-b76c-2d8aba3abeb3" class=""><strong>Достоинства:</strong></p><ul id="11283f9d-62d1-482a-8abc-102e3a8108db" class="bulleted-list"><li style="list-style-type:disc">Производительность сети - можно повысить, разрешив только соответствующим службам обмениваться данными с устройствами сети</li></ul><ul id="0e325d51-fb3a-4f8d-846f-1254929df3a1" class="bulleted-list"><li style="list-style-type:disc">Защита сети - в сетевой среде пользователям может быть ограничен доступ к конфиденциальным службам</li></ul><ul id="a8a8aaab-90bd-405e-8294-f16def95b3ee" class="bulleted-list"><li style="list-style-type:disc">Контроль трафика - разрешает и запрещает трафик, в зависимости от потребностей сети</li></ul><p id="6e9b7036-5705-4787-b5d2-8b3709e3d0ac" class="">ACL разделяются на два типа:</p><p id="3e34737e-31cd-4137-b7b5-9b3b47de6b43" class=""><strong>Стандартные ACL</strong> - могут проверять только адреса источников</p><p id="13a20838-eff0-4b7c-9b90-9093e6cec26f" class=""><strong>Расширенные ACL</strong> - могут проверять адреса источников, а также адреса получателей, в случае IP ещё тип протокола и TCP/UDP порты</p><p id="747d1d38-6929-427c-84d1-6a32901b0889" class=""><strong>Настройка</strong></p><p id="d4a22f98-1292-4eeb-aa7b-665f2e98cb71" class="">Сами ACL создаются отдельно, то есть это просто некий список, который создается в глобальном конфиге, потом он присваивается к интерфейсу и только тогда он и начинает работать. Необходимо помнить некоторые моменты, для того, чтобы правильно настроить списки доступа:</p><ul id="d35a8f66-db20-4316-bcc6-a516e5a9301c" class="bulleted-list"><li style="list-style-type:disc">Обработка ведется строго в том порядке, в котором записаны условия</li></ul><ul id="66b11ae8-1b36-4d23-8286-79976c6fe207" class="bulleted-list"><li style="list-style-type:disc">Если пакет совпал с условием, дальше он не обрабатывается</li></ul><ul id="c3bf13f7-99f6-4195-ba14-4769f7d78421" class="bulleted-list"><li style="list-style-type:disc">В конце каждого списка доступа стоит неявный deny any (запретить всё)</li></ul><ul id="2ec7a56d-fd55-4ebd-8579-ec8d6ae802ab" class="bulleted-list"><li style="list-style-type:disc">Расширенные ACL нужно размещать как можно ближе к источнику, стандартные же как можно ближе к получателю</li></ul><ul id="6fbff6de-ae48-4117-9c7c-043ffafba58c" class="bulleted-list"><li style="list-style-type:disc">Нельзя разместить более 1 списка доступа на интерфейс, на протокол, на направление</li></ul><ul id="dbb217f1-80e2-4475-9af9-0776c807e9ba" class="bulleted-list"><li style="list-style-type:disc">ACL не действует на трафик, сгенерированный самим маршрутизатором</li></ul><ul id="41199257-046f-49ec-a44e-3acefb9b31b7" class="bulleted-list"><li style="list-style-type:disc">Для фильтрации адресов используется WildCard маска</li></ul><h2 id="a4787900-f604-4498-a9d9-7956c5a6026b" class="">Базовые списки контроля доступа</h2><p id="b8d3d258-7d48-435c-8760-109226f5a255" class=""><strong>Конфигурирование стандартных списков доступа</strong></p><p id="a1e3a588-9053-4072-8727-91f5fd54bde4" class="">Конфигурирование списков доступа производится в два этапа:</p><ol type="1" id="194982dc-54b7-42ad-867b-c546c53be8e3" class="numbered-list" start="1"><li><strong>Создание списка доступа</strong> в режиме глобального конфигурирования.</li></ol><ol type="1" id="fa3ff7ce-256c-46e1-9a3f-d61b22d27484" class="numbered-list" start="2"><li><strong>Привязка списка доступа к интерфейсу</strong> в режиме детального конфигурирования интерфейса.</li></ol><p id="131524c3-9383-407e-9cc4-549231389923" class=""><strong>Создание стандартного списка доступа</strong></p><p id="9b4d11f4-d931-48fa-94cf-86e8fbfeadf2" class="">Стандартный список доступа записывается следующим образом:</p><p id="e20f2d52-8705-4e99-8828-f9dad79f3383" class=""><em>Router(config)#access-list &lt;номер списка от 1 до 99&gt; {permit | deny | remark} {address | any | host} [source-wildcard] [log]</em></p><p id="75368f92-0403-41c5-8f2f-7ed7356a9cf6" class=""><strong>Параметры:</strong></p><ul id="8cbb769f-ab39-4d31-b4e5-0274b569f4b4" class="bulleted-list"><li style="list-style-type:disc">permit: <em>разрешить</em></li></ul><ul id="80bcf882-fc15-48af-89a6-9ef3d33e5416" class="bulleted-list"><li style="list-style-type:disc">deny: <em>запретит</em></li></ul><ul id="e28103cf-9162-4202-b965-d8c4462b91d8" class="bulleted-list"><li style="list-style-type:disc">remark: <em>комментарий о списке доступа</em></li></ul><ul id="20eee79c-8df4-4e0f-b6bc-794e95361500" class="bulleted-list"><li style="list-style-type:disc">address: <em>запрещаем или разрешаем сеть</em></li></ul><ul id="6b4758b2-f909-4315-b559-d62c8d3bf199" class="bulleted-list"><li style="list-style-type:disc">any: <em>разрешаем или запрещаем всё</em></li></ul><ul id="e2619ff1-3a85-490a-a1eb-4135dd5e77cb" class="bulleted-list"><li style="list-style-type:disc">host: <em>разрешаем или запрещаем хосту</em></li></ul><ul id="ccd957b2-96f1-4e87-b903-faf62d78dd9f" class="bulleted-list"><li style="list-style-type:disc">source-wildcard: <em>WildCard маска сети</em></li></ul><ul id="fa7fea60-ada3-4d34-962c-33c8bf16fad7" class="bulleted-list"><li style="list-style-type:disc">log: <em>включаем логгирование пакеты проходящие через данную запись ACL</em></li></ul><p id="37c26084-0fd3-4495-bb00-3303805b1735" class=""><strong>Прикрепляем к интерфейсу</strong></p><p id="1e50a0e3-0ba3-4275-81db-1dd61c197471" class=""><em>Router(config-if)#ip access-group &lt;номер списка или имя ACL&gt;{in | out}</em></p><ul id="b92948d3-a53c-4afa-84ec-5bad8152770c" class="bulleted-list"><li style="list-style-type:disc">in: <em>входящее направление</em></li></ul><ul id="e4c19e51-425a-4d71-bf55-82937d9071f5" class="bulleted-list"><li style="list-style-type:disc">out: <em>исходящее направление</em></li></ul><h2 id="11374fca-43ca-4373-8f1b-21efec27d291" class="">Расширенные списки контроля доступа</h2><p id="ba8b338b-4f42-4825-80d2-8abbe9bb8b7c" class=""><strong>Конфигурирование расшренных списков доступа</strong></p><p id="ab7a879d-910a-4518-bc86-164a18019c09" class=""><em>Router(config)#access-list &lt;номер списка от 100 до 199&gt;{permit | deny | remark} protocol source [source-wildcard] [operatoroperand] [port &lt;порт или название протокола&gt; [established]</em></p><p id="0c266625-c5d2-4270-b1ca-dda64a274401" class=""><strong>Параметры</strong></p><ul id="ea6efe4a-1e67-41f8-916f-3de933d1d6e8" class="bulleted-list"><li style="list-style-type:disc">protocol source: <em>какой протокол будем разрешать или закрывать (ICMP, TCP, UDP, IP, OSPF и т.д)</em></li></ul><ul id="222d1754-af46-422b-8764-905f969b57ba" class="bulleted-list"><li style="list-style-type:disc">deny: <em>запретить</em></li></ul><ul id="13bc3996-6b63-46c5-8459-c30aea2d5c06" class="bulleted-list"><li style="list-style-type:disc">operator:<ul id="ef4772f7-c1a4-431a-852f-dda9fe4d06cc" class="bulleted-list"><li style="list-style-type:circle"><em>A.B.C.D — адрес получателя</em></li></ul><ul id="3d137028-f0c1-4a5a-baef-042458a3605f" class="bulleted-list"><li style="list-style-type:circle"><em>any — любой конечный хост</em></li></ul><ul id="decd9686-8e1d-4458-8fda-72a4d0af1afb" class="bulleted-list"><li style="list-style-type:circle"><em>eq — только пакеты на этом порте</em></li></ul><ul id="723587e2-6213-4c01-a9f8-45bc46c4f0b6" class="bulleted-list"><li style="list-style-type:circle"><em>gt — только пакеты с большим номером порта</em></li></ul><ul id="e2a77105-019b-49ce-9710-14a13eabfbdb" class="bulleted-list"><li style="list-style-type:circle"><em>host — единственный конечный хост</em></li></ul><ul id="937fd036-8707-4d84-ad7c-aaa1d9cf6b84" class="bulleted-list"><li style="list-style-type:circle"><em>lt — только пакеты с более низким номером порта</em></li></ul><ul id="58707ff1-c3e0-47da-b6ff-beb7e6ca75e2" class="bulleted-list"><li style="list-style-type:circle"><em>neq — только пакеты не на данном номере порта</em></li></ul><ul id="80b6f547-81a5-4659-a451-d483e78c9eb5" class="bulleted-list"><li style="list-style-type:circle"><em>range — диапазон портов</em></li></ul></li></ul><ul id="23f8bcf1-9412-4598-ad71-79f4e796479d" class="bulleted-list"><li style="list-style-type:disc">port: <em>номер порта (TCP или UDP), можно указать имя</em></li></ul><ul id="c274b1c0-9de8-47a3-a8ae-d2a4038c7cbb" class="bulleted-list"><li style="list-style-type:disc">established: <em>разрешаем прохождение TCP-сегментов, которые являются частью уже созданной TCP-сессии</em></li></ul><p id="111b1087-4d75-4a01-9524-c62306b0f3bc" class=""><strong>Прикрепляем к интерфейсу</strong></p><p id="e6c9de60-fbaf-40f1-9a98-73679a322251" class=""><em>Router(config-if)#ip access-group &lt;номер списка или имя ACL&gt;{in | out}</em></p><ul id="7e1a5576-be42-415c-9d09-9c5e88ff79db" class="bulleted-list"><li style="list-style-type:disc">in: <em>входящее направление</em></li></ul><ul id="bf7634a2-6b57-46a9-b6c7-b3dce76562af" class="bulleted-list"><li style="list-style-type:disc">out: <em>исходящее направление</em></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

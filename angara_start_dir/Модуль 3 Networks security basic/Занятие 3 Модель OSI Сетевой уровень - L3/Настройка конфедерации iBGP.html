@@ -1,0 +1,1234 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Настройка конфедерации iBGP</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 237, 214, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 237, 214, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(249, 228, 188, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+
+		.checkbox-on {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+
+		.checkbox-off {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+	</style>
+</head>
+
+<body>
+	<article id="641f94c8-1fa1-49a1-b624-3177651f29f2" class="page sans">
+		<header>
+			<h1 class="page-title">Настройка конфедерации iBGP</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<h2 id="31631f76-1555-44ce-a963-60c13f0ff057" class="">Описание проблемы</h2>
+			<p id="9eb843bb-adc9-4a04-99ce-3f11237b674e" class="">Основная особенность настройки проткола BGP для
+				маршрутизации внутри автономной системы состоит в том, что роутеры не передают своим iBGP соседям
+				информацию о маршрутах, выученных по iBGP, без дополнительных настроек. Чтобы все маршрутизаторы выучили
+				маршруты до всех сетей и могли иметь максимально эффективные маршруты, требуется подключить друг к другу
+				все роутеры внутри автономной системы. По итогу, будет получено n * (n-1) / 2 подключений между
+				роутерами, при увеличении количества роутеров количество соединений будет расти многократно быстрее, что
+				не очень хорошо и для управления, и для мощностей роутеров.</p>
+			<h2 id="e54e8db5-3a4e-4c10-8591-b1a6b4be249a" class="">Конфедерации</h2>
+			<p id="fc4ea93f-3f12-4b03-bef1-00abad53e2b6" class="">Одно из решений этой проблемы - использование
+				конфедераций BGP. Решение состоит в том, чтобы разделить автономную систему на набор sub-AS
+				(подавтономных систем), внутри которых iBGP соседи будут вести себя как обычно. Но между подавтономными
+				системами маршруты, выученные по iBGP уже будут анонсироваться (при этом для сообщений используется
+				TTL=1, как и в eBGP), но в остальном поведение маршрутизаторов внутри автономной системы останется
+				похожим на поведение iBGP соседей (к примеру, атрибут next-hop по умолчанию не меняется при пересылке
+				маршрута). Саму же автономную зону можно будет называть конфедерацией.</p>
+			<p id="0dcb859e-1805-4231-a970-eb1d955aae04" class=""><strong>По итогу, соседи в автономной системе делятся
+					на два типа по отношению к отдельно взятому роутеру:</strong></p>
+			<ol type="1" id="ef73d6b6-dd2a-4b79-bbaa-e18111b4fdab" class="numbered-list" start="1">
+				<li>iBGP-сосед по конфедерации - принадлежит к одной подавтономной системе с роутером</li>
+			</ol>
+			<ol type="1" id="d8c81f73-79a3-47cd-b7eb-0f1a306c61b0" class="numbered-list" start="2">
+				<li>eBGP-сосед по конфедерации - принадлежит к другой подсистеме.</li>
+			</ol>
+			<p id="804b1c05-9476-4d91-ba04-04cd471b1509" class="">При этом, так как роутеры внутри каждой подавтономной
+				системы ведут себя как iBGP соседи, правило полносвязности между всеми членами подавтономной системы
+				сохраняется (при условии неиспользования других способов решения проблемы). </p>
+			<p id="ffd4fbe6-58bd-43d4-9ed8-55ad276fa99d" class="">Однако, нам уже не нужна полносвязность роутеров в
+				разных sub-AS. Каждый eBGP-сосед по конфедерации будет анонсировать все маршруты, выученные по iBGP,
+				своим eBGP-соседям по конфедерации.</p>
+			<figure id="856b375e-bbb6-4517-86d5-1deba3446c42" class="image"><a
+					href="Untitled3-1.png"><img
+						style="width:934px"
+						src="Untitled3-1.png" /></a>
+			</figure>
+			<p id="1e416f46-47e5-408b-890f-d133b2562e9b" class="">На рисунке описано распределение роутеров по
+				подавтономным системам в конфедерации. </p>
+			<p id="7b3533e0-9557-47a4-b4a8-56ecf5fdefd1" class="">В данной топологии мы не можем создать подавтономную
+				систему с более чем 3 роутерами (т.к. иначе будет утеряно полносвязное соединение между всеми членами
+				такой подавтономной системы). К тому же, всего можно создать не более 2 таких подавтономных зон (и
+				создание второй системы не уменьшит итоговое количество подавтономных систем т.к. придется создавать
+				систему только для одного роутера). Поэтому создана только одна подавтономная зона, которая включает в
+				себя 3 роутера. Остальные 3 зоны включают только по 2 роутера.</p>
+			<h3 id="b9b51388-b8ca-491b-8d41-f6c05da2558f" class="">Особенности конфедерации</h3>
+			<p id="f843655b-b740-4e1e-9ea7-875a4b84599d" class="">Маршруты внутри подавтономных систем благодаря
+				алгоритму выбора лучшего маршрута BGP не будут как-либо зацикливаться. Однако, свободная передача всех
+				выученных маршрутов между подавтономными системами создает опасность создания петель маршрутизации на
+				уровне конфедерации. </p>
+			<p id="49cec0aa-b601-4c34-93b8-98f044c5acb8" class="">Решается эта проблема через использование атрибута
+				AS_PATH (который должен передаваться во всех обновлениях, которые пересылаются BGP протоколом). Обычно,
+				в него включаются номера автономных систем, когда информация о маршруте перемещается между разными
+				автономными системами в Интернете. Но внутри конфедерации этот атрибут также заполняется номерами
+				подавтономных систем, через которые информация о маршруте успела пройти. Так как роутеры отклоняют
+				объявления маршрутов с повторяющимися номерами в AS_PATH, петли на уровне конфедерации просто не могут
+				образоваться (действует правило, похоже на управление информацией о маршрутизации для обычных eBGP
+				соседей в разных автономных системах). </p>
+			<p id="b3d0e10c-be1f-4c2e-8f74-60f9fa0a8b31" class="">Использование атрибута AS_PATH для выбора наилучшего
+				маршрута также позволяет включить случай конфедерации в алгоритм поиска наилучшего маршрута BGP (один из
+				пунктов алгоритма – выбор маршрута с наименьшим количеством автономных систем до сети назначения).</p>
+			<p id="aefcc6ab-cacd-4807-b8f7-c50ed0bbed10" class="">Пока информация о маршруте перемещается внутри
+				конфедерации заполнение атрибута AS_PATH не создает проблем. Но передача этого атрибута внешнему для
+				конфедерации eBGP соседу может создать огромное количество проблем. Поэтому маршрутизаторы чистят
+				атрибут AS_PATH от объявлений номеров подавтономных систем и после добавляют номер самой конфедерации в
+				самый конец атрибута AS_PATH. Это позволяет также скрыть от маршрутизаторов из других автономных систем
+				информацию о внутренней структуре конфедерации.</p>
+			<p id="62bb7d3e-22ac-4261-ad42-e6142c4cf385" class=""><strong>По итогу конфедерации становятся способом
+					упростить управление большим количеством маршрутизаторов внутри автономной системы с возможностью
+					точечного изменения правил маршрутизации внутри каждой подавтономной системы.</strong></p>
+			<h2 id="5dc87a0d-745e-49d9-82d2-871df0b140db" class="">Настройка оборудования</h2>
+			<figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex"
+				id="7217e8fa-5adf-4394-b2c5-185ff6039f3d">
+				<div style="font-size:1.5em"><span class="icon">ℹ️</span></div>
+				<div style="width:100%">Настройка интерфейсов на каждом маршрутизаторе пропущена.</div>
+			</figure>
+			<h3 id="72bd29a9-70b9-47ff-af39-ef108e452370" class="">Настройка оборудования Cisco</h3>
+			<ul id="b6714f72-dba2-4f62-a12a-747b7596bab6" class="toggle">
+				<li>
+					<details open="">
+						<summary><strong>C-iBGP-15</strong></summary>
+						<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+							integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+							crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+						<link rel="stylesheet"
+							href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+							integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+							crossorigin="anonymous" referrerPolicy="no-referrer" />
+						<pre id="f45a5c87-d9cb-45cc-a501-5594cb800e5e" class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">router bgp 402
+bgp log-neighbor-changes
+bgp confederation identifier 400
+bgp confederation peers 401 403 404
+network 13.1.1.0 mask 255.255.255.0
+network 13.1.4.0 mask 255.255.255.0
+network 13.1.5.0 mask 255.255.255.0
+network 13.1.11.0 mask 255.255.255.0
+redistribute connected
+neighbor 13.1.1.1 remote-as 401
+neighbor 13.1.1.1 next-hop-self
+neighbor 13.1.4.254 remote-as 402
+neighbor 13.1.5.254 remote-as 401
+neighbor 13.1.5.254 next-hop-self
+neighbor 13.1.11.254 remote-as 402
+neighbor 13.1.11.254 next-hop-self</code></pre>
+					</details>
+				</li>
+			</ul>
+			<ul id="c8f14d95-b3b7-4ecf-b2e3-eb3ea164c727" class="toggle">
+				<li>
+					<details open="">
+						<summary><strong>C-iBGP-23</strong></summary>
+						<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+							integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+							crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+						<link rel="stylesheet"
+							href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+							integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+							crossorigin="anonymous" referrerPolicy="no-referrer" />
+						<pre id="fddd1cc8-50db-4452-a040-bd718d1d7aff" class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">router bgp 402
+bgp log-neighbor-changes
+bgp confederation identifier 400
+bgp confederation peers 401 403 404
+network 13.1.4.0 mask 255.255.255.0
+network 13.1.8.0 mask 255.255.255.0
+network 13.1.10.0 mask 255.255.255.0
+network 13.1.13.0 mask 255.255.255.0
+network 13.1.14.0 mask 255.255.255.0
+network 13.1.16.0 mask 255.255.255.0
+redistribute connected
+neighbor 13.1.4.1 remote-as 402
+neighbor 13.1.8.254 remote-as 401
+neighbor 13.1.8.254 next-hop-self
+neighbor 13.1.10.254 remote-as 403
+neighbor 13.1.13.254 remote-as 402
+neighbor 13.1.13.254 next-hop-self
+neighbor 13.1.14.254 remote-as 404
+neighbor 13.1.14.254 next-hop-self
+neighbor 13.1.16.254 remote-as 404
+neighbor 13.1.16.254 next-hop-self</code></pre>
+					</details>
+				</li>
+			</ul>
+			<ul id="c66cc18c-b577-4958-a124-3fd3dbc1c703" class="toggle">
+				<li>
+					<details open="">
+						<summary><strong>C-iBGP-28</strong></summary>
+						<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+							integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+							crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+						<link rel="stylesheet"
+							href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+							integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+							crossorigin="anonymous" referrerPolicy="no-referrer" />
+						<pre id="5a0e1f18-6bdd-46c3-aa04-11213caa49bc" class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">router bgp 403
+bgp log-neighbor-changes
+bgp confederation identifier 400
+bgp confederation peers 401 402 404
+network 13.1.3.0 mask 255.255.255.0
+network 13.1.6.0 mask 255.255.255.0
+network 13.1.7.0 mask 255.255.255.0
+redistribute connected
+neighbor 13.1.3.1 remote-as 401
+neighbor 13.1.3.1 next-hop-self
+neighbor 13.1.6.254 remote-as 401
+neighbor 13.1.6.254 next-hop-self
+neighbor 13.1.7.1 remote-as 403</code></pre>
+					</details>
+				</li>
+			</ul>
+			<ul id="c29694af-d4bf-4db3-b4f5-bdc3211b434a" class="toggle">
+				<li>
+					<details open="">
+						<summary><strong>C-iBGP-33</strong></summary>
+						<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+							integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+							crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+						<link rel="stylesheet"
+							href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+							integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+							crossorigin="anonymous" referrerPolicy="no-referrer" />
+						<pre id="873228a9-64f6-481d-903e-1c084673d38d" class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">router bgp 403
+bgp log-neighbor-changes
+bgp confederation identifier 400
+bgp confederation peers 401 402 404
+network 13.1.7.0 mask 255.255.255.0
+network 13.1.9.0 mask 255.255.255.0
+network 13.1.10.0 mask 255.255.255.0
+network 13.1.17.0 mask 255.255.255.0
+redistribute connected
+neighbor 13.1.7.254 remote-as 403
+neighbor 13.1.9.254 remote-as 401
+neighbor 13.1.9.254 next-hop-self
+neighbor 13.1.10.1 remote-as 402
+neighbor 13.1.17.254 remote-as 404
+neighbor 13.1.17.254 next-hop-self</code></pre>
+					</details>
+				</li>
+			</ul>
+			<ul id="b5de7f8c-5b35-4da9-81e2-92b8c4dc8b9e" class="toggle">
+				<li>
+					<details open="">
+						<summary><strong>Особенности настройки:</strong></summary>
+						<ol type="1" id="fd6fcd85-c9cc-41f8-9438-a39890dfc8d4" class="numbered-list" start="1">
+							<li>Процесс BGP объявляется с номером подавтономной системы. Для объявления номера
+								конфедерации используется команда bgp confederation identifier &lt;AS&gt;. При этом, для
+								объявления номера подавтономной системы можно использовать любое из значений 1-65535,
+								т.к. эти номера не видны вне конфедерации.</li>
+						</ol>
+						<ol type="1" id="4c97a8bc-6d6b-4973-8daa-1d88dd2eb365" class="numbered-list" start="2">
+							<li>Также, для нормального выбора маршрутов следует объявить номера подавтономных систем,
+								включенных во всю конфедерацию (именно поэтому команда bgp confederation-peers
+								определяет 3 других подсистемы из всех 4, на которые разделена AS 400).</li>
+						</ol>
+						<ol type="1" id="35e4d709-bb93-4b4b-a4fb-b24eddf44c6f" class="numbered-list" start="3">
+							<li>Следует явно объявить подсети, к которым подключен каждый роутер. Это делается командой
+								network. Вместе с этим обязательно указывается маска подсети, т.к. иначе BGP не будет
+								передавать сети в обновлениях из-за несоответствия масок подсетей.</li>
+						</ol>
+						<ol type="1" id="377a4997-b837-4a0f-aad2-7c0b9dd50b2b" class="numbered-list" start="4">
+							<li>Соседи, находящиеся внутри автономной системы, должны указываться с атрибутом remote-as,
+								указывающим на номер подавтономной системы, к которой принадлежит сосед.</li>
+						</ol>
+						<ol type="1" id="27adfb50-989b-4752-a290-4d655db11bbf" class="numbered-list" start="5">
+							<li>Соседи- mikrotik должны также указываться с атрибутом next-hop-self чтобы передать
+								маршруты от Cisco к Mikrotik с правильным атрибутом next-hop.</li>
+						</ol>
+					</details>
+				</li>
+			</ul>
+			<h3 id="ede35719-6b2f-4b92-9579-e5ea1677d902" class="">Настройка маршрутизаторов Mikrotik</h3>
+			<ul id="71c1e501-a26b-492c-b0fb-65e0fa4c9282" class="toggle">
+				<li>
+					<details open="">
+						<summary>M-iBGP-101</summary>
+						<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+							integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+							crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+						<link rel="stylesheet"
+							href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+							integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+							crossorigin="anonymous" referrerPolicy="no-referrer" />
+						<pre id="63cd5714-ee97-4a82-85a3-33996933e517" class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">/routing bgp instance
+add as=401 confederation=400 confederation-peers=402-404 name=cas401
+redistribute-connected=yes router-id=105.1.1.101
+/routing bgp network
+add network=13.1.2.0/24
+add network=13.1.6.0/24
+add network=13.1.5.0/24
+add network=13.1.8.0/24
+add network=13.1.9.0/24
+/routing bgp peer
+add instance=cas401 nexthop-choice=force-self remote-address=13.1.2.1 remote-as=401
+add instance=cas401 remote-address=13.1.5.1 remote-as=402
+add instance=cas401 remote-address=13.1.8.1 remote-as=402
+add instance=cas401 remote-address=13.1.9.1 remote-as=403
+add instance=cas401 remote-address=13.1.6.1 remote-as=403</code></pre>
+					</details>
+				</li>
+			</ul>
+			<ul id="9cfbfb1e-bc50-4764-a3a9-b2e383aec709" class="toggle">
+				<li>
+					<details open="">
+						<summary>M-iBGP-102</summary>
+						<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+							integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+							crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+						<link rel="stylesheet"
+							href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+							integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+							crossorigin="anonymous" referrerPolicy="no-referrer" />
+						<pre id="cef052e6-1a16-4c37-a50b-1d99446e4aac" class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">/routing bgp instance
+add as=401 confederation=400 confederation-peers=402-404 name=cas401 redistribute-connected=yes router-id=105.1.1.102
+/routing bgp network
+add network=13.1.1.0/24
+add network=13.1.2.0/24
+add network=13.1.3.0/24
+/routing bgp peer
+add instance=cas401 remote-address=13.1.1.254 remote-as=402
+add instance=cas401 nexthop-choice=force-self remote-address=13.1.2.254 remote-as=401
+add instance=cas401 remote-address=13.1.3.254 remote-as=403</code></pre>
+					</details>
+				</li>
+			</ul>
+			<ul id="440daa97-52a9-482d-932d-4d648276ae78" class="toggle">
+				<li>
+					<details open="">
+						<summary>M-iBGP-103</summary>
+						<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+							integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+							crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+						<link rel="stylesheet"
+							href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+							integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+							crossorigin="anonymous" referrerPolicy="no-referrer" />
+						<pre id="96fb90c9-974b-4ec1-98aa-4cbbd54c7af4" class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">/routing bgp instance
+add as=402 confederation=400 confederation-peers=401,403-404 name=cas402 \
+redistribute-connected=yes router-id=105.1.1.103
+/routing bgp network
+add network=13.1.11.0/24
+add network=13.1.13.0/24
+add network=13.1.12.0/24
+/routing bgp peer
+add instance=cas402 remote-address=13.1.11.1 remote-as=402
+add instance=cas402 remote-address=13.1.13.1 remote-as=402
+add instance=cas402 nexthop-choice=force-self remote-address=13.1.12.1 remote-as=404</code></pre>
+					</details>
+				</li>
+			</ul>
+			<ul id="4d1d5706-ce44-448c-bef6-2b689ccd4dcd" class="toggle">
+				<li>
+					<details open="">
+						<summary>M-iBGP-104</summary>
+						<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+							integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+							crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+						<link rel="stylesheet"
+							href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+							integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+							crossorigin="anonymous" referrerPolicy="no-referrer" />
+						<pre id="23217848-0fba-44bd-86ad-d6167e2dc65a" class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">/routing bgp instance
+add as=404 confederation=400 confederation-peers=401-403 name=cas404 redistribute-connected=yes router-id=105.1.1.104
+/routing bgp network
+add network=13.1.14.0/24
+add network=13.1.12.0/24
+add network=13.1.15.0/24
+/routing bgp peer
+add instance=cas404 remote-address=13.1.14.1 remote-as=402
+add instance=cas404 nexthop-choice=force-self remote-address=13.1.12.254 remote-as=402
+add instance=cas404 nexthop-choice=force-self remote-address=13.1.15.254 remote-as=404</code></pre>
+					</details>
+				</li>
+			</ul>
+			<ul id="ae196093-a7e2-4c15-aa0e-e33c2a657929" class="toggle">
+				<li>
+					<details open="">
+						<summary>M-iBGP-105</summary>
+						<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+							integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+							crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+						<link rel="stylesheet"
+							href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+							integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+							crossorigin="anonymous" referrerPolicy="no-referrer" />
+						<pre id="b6d811ae-6abf-4cb5-a824-d7ab36c1ee7a" class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">/routing bgp instance
+add as=404 confederation=400 confederation-peers=401-403 name=cas404 redistribute-connected=yes router-id=105.1.1.105
+/routing bgp network
+add network=13.1.17.0/24
+add network=13.1.16.0/24
+add network=13.1.15.0/24
+/routing bgp peer
+add instance=cas404 remote-address=13.1.17.1 remote-as=403
+add instance=cas404 nexthop-choice=force-self remote-address=13.1.15.1 remote-as=404
+add instance=cas404 remote-address=13.1.16.1 remote-as=402</code></pre>
+					</details>
+				</li>
+			</ul>
+			<ul id="64f6f3cf-fc72-443a-a628-f591b4db04bf" class="toggle">
+				<li>
+					<details open="">
+						<summary><strong>Особенности настройки:</strong></summary>
+						<p id="1930c724-bd56-4abd-b2d0-7fcd102535bb" class="">Настройка маршрутизаторов Mikrotik похожа
+							на настройку маршрутизаторов Cisco. Однако, для bgp-процесса на Mikrotik требуется явно
+							указать идентификатор роутера. На Cisco этот идентификатор выбирается из ip-адресов его
+							физических интерфейсов. На Mikrotik понадобится создать дополнительный виртуальный интерфейс
+							и назначить ему ip-адрес. При этом, ip-адреса для идентификатора роутера должны быть
+							уникальными.</p>
+						<p id="0afee775-a525-49f9-944f-38ee0d1ab4a7" class="">В подпапке routing bgp instance мы
+							объявляем новый bgp-процесс с номером подавтономой системы (атрибут as), номером
+							конфедерации (атрибут confederation), все остальные подавтономные системы, входящие в
+							конфедерацию (атрибут confederation-peers, он может принимать диапазон значений, если ваши
+							номера подсистем заданы по порядку) и идентификатор роутера (атрибут router-id).</p>
+						<p id="d9b70019-dd5d-42c0-8ee7-b8b91a1a74cd" class="">Далее идет явное добавление подключенных
+							подсетей в подпапке routing bgp network (add network = &lt;ip/mask&gt;, также обязательно
+							указывается маска подсети, которая будет передаваться).</p>
+						<p id="87a7b2a1-99cc-48dc-bc40-a2354a64a14a" class="">После чего идет объявление соседей роутера
+							в подпапке routing bgp peer. <br />Обязательны атрибуты remote-address=&lt;ip&gt; и
+							remote-as=&lt;AS&gt; (при этом, в качестве AS указывается номер подавтономной зоны, в
+							которой находится маршрутизатор-сосед).  Т.к. мы уже добавили новый bgp-процесс, следует
+							указать, что соседи принадлежат созданному процессу (изначально выставляется значение
+							default).<br /></p>
+						<p id="e42a9358-777a-4630-9a7b-ed2667f04e53" class="">Для того, чтобы все маршрутизаторы
+							получили маршруты от маршрутизаторов Cisco, следует указать для каждого соседа mikrotik
+							атрибут nexthop-choice=force-self (эквивалентен атрибуту next-hop-self для оборудования
+							Cisco)</p>
+					</details>
+				</li>
+			</ul>
+			<p id="3a27ea5d-68ad-4fb9-871f-5e15b9430f58" class="">
+			</p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

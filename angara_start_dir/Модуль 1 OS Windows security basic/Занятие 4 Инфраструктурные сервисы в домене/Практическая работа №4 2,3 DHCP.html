@@ -1,0 +1,684 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Практическая работа №4.2,3 DHCP.</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="787e0f8d-344b-4a8e-98d0-5e261c5a4c7b" class="page sans"><header><h1 class="page-title">Практическая работа №4.2,3 DHCP.</h1><p class="page-description"></p></header><div class="page-body"><hr id="6188298e-1965-46e6-be4e-4cc5bc7f105a"/><h1 id="634e0f96-e6f9-4a63-b91b-a50ac8c905bb" class="">Занятие 4 - <em>Инфраструктурные сервисы в домене</em></h1><h1 id="6f5b520a-607d-4c2e-b762-d1ec49901224" class="">Задание:</h1><p id="b55463bf-43d0-4932-8cf3-9575daa7cc58" class="">1) Настроить сервис DHCP</p><p id="3ba276b0-7037-472f-9947-ded99d75d0bf" class="">2) Настроить отказоустойчивость DHCP</p><h1 id="cf7340b6-35f6-4983-85ed-6148b074f50b" class="">Методический материал:</h1><h2 id="fdaa7eb7-58cb-4c97-af38-4088962ac5d0" class="">Часть 2. DHCP</h2><p id="17ad6d2c-c764-4d4e-a07c-e8de53d16e6b" class="">==2.1 Откроем оснастку DHCP==</p><hr id="1f8891ee-8aa9-4609-a66d-d8e712bb29e6"/><figure id="245c0ef4-b552-476a-bc7a-8c33a34d3be3" class="image"><a href="https://i.imgur.com/UJhys8T.png"><img src="https://i.imgur.com/UJhys8T.png"/></a></figure><hr id="a8c42cfd-d338-45f7-9cb0-06956a8e0b47"/><p id="6ec7da32-372f-43dd-94e4-5a1f88b890db" class="">==2.2 Развернём меню DHCP и выделим IPv4==</p><hr id="20856dcd-65b3-4cd1-93d5-bf5ac2831717"/><figure id="87656914-2ce5-41e0-8a43-c61b34ab32de" class="image"><a href="https://i.imgur.com/qjWB6g1.png"><img src="https://i.imgur.com/qjWB6g1.png"/></a></figure><hr id="e13a6dec-2e46-4d75-947f-60511e5a1450"/><p id="cf4d36ab-f58b-42e3-8d76-35ceb11e8507" class="">==2.3 Нажмём на IPv4 ПКМ и выберем &quot;new scope&quot;==</p><hr id="a79862f5-4d5a-43dc-aa45-8d932565a5d2"/><figure id="001b8d72-8402-421b-ada0-4e4c902b7975" class="image"><a href="https://i.imgur.com/M5lPjGC.png"><img src="https://i.imgur.com/M5lPjGC.png"/></a></figure><hr id="059745ca-57e5-4f14-91b7-921afdf8cd11"/><p id="3f89511c-78be-4137-b655-97a337b47618" class="">==2.4 Приступим к созданию области DHCP. NEXT==</p><hr id="0bbbe274-11fc-4e42-9b4d-1422f40c76a4"/><figure id="f6f1e72b-10b2-4002-901d-934ef0cc1511" class="image"><a href="https://i.imgur.com/5bDuChr.png"><img src="https://i.imgur.com/5bDuChr.png"/></a></figure><hr id="90afe01b-0d0a-41ce-ae65-1901b2be0323"/><p id="237f9cb3-e568-4bb4-b29f-818c6e790e19" class="">==2.5 Введём имя области, например pool1. NEXT==</p><hr id="4f1d599a-71d2-4e3d-a8e9-686427c78ef7"/><figure id="ee53492c-e4e5-49a1-abef-621582dcc4e1" class="image"><a href="https://i.imgur.com/1xYTmyz.png"><img src="https://i.imgur.com/1xYTmyz.png"/></a></figure><hr id="378ccecb-2a6c-430f-ba16-b29812cfeafd"/><p id="aaab5ff6-c686-4eeb-94ca-d60648f2865c" class="">==2.6 Укажем диапазон выдаваемых адресов. NEXT==</p><hr id="8a29a426-e464-44ff-92a7-2f9a77c5ea9d"/><figure id="a854259b-a80e-436d-8a09-59fd597481b4" class="image"><a href="https://i.imgur.com/JJHXxX7.png"><img src="https://i.imgur.com/JJHXxX7.png"/></a></figure><hr id="a9ca2b5d-de8d-4394-bbb4-29bfeab84093"/><p id="82c50aba-b35f-42ec-afff-212d6ba9d577" class="">==2.7 Не будем указывать исключения из диапазона. NEXT==</p><hr id="988badb3-2039-40a0-a09f-67c0d7526664"/><figure id="23294aad-9abb-42c6-a19b-0e17a161d1a3" class="image"><a href="https://i.imgur.com/E7WSmEv.png"><img src="https://i.imgur.com/E7WSmEv.png"/></a></figure><hr id="f8438a5f-06f0-44bf-a556-43b5abca547f"/><p id="ca419ed2-7055-4232-b2a7-0dc0ad9eab4a" class="">==2.8 Оставим время аренды по умолчанию, 8 дней. NEXT==</p><hr id="09743d56-f143-4ed4-91df-6449c2f52568"/><figure id="b2a04af2-5d05-44db-8c99-12705d41eae8" class="image"><a href="https://i.imgur.com/OU1h75M.png"><img src="https://i.imgur.com/OU1h75M.png"/></a></figure><hr id="5619ad2c-eee3-4e0a-b7b2-ef137bf2bb0b"/><p id="89330d95-819d-44ac-a197-8b19156bdea7" class="">==2.9 Сконфигурируем область сейчас. NEXT==</p><hr id="69bd6e49-a0af-4ba1-a1b8-9956f74dfb27"/><figure id="29e16428-6795-4f5a-b828-4fb4b080d38c" class="image"><a href="https://i.imgur.com/gp0LUnA.png"><img src="https://i.imgur.com/gp0LUnA.png"/></a></figure><hr id="ecca1493-b79a-46d5-843f-71522fcb7abb"/><p id="0b9c7108-1225-4112-ab4d-b6e470e53c09" class="">==2.10 Введём адрес роутера и нажмём &quot;add&quot;. NEXT==</p><hr id="3d7e80cf-5352-45c8-91a6-1e72bd89b10d"/><figure id="90390ac3-36fe-4f0b-9e85-f3834da88377" class="image"><a href="https://i.imgur.com/D0CXL9U.png"><img src="https://i.imgur.com/D0CXL9U.png"/></a></figure><hr id="b55ef1d5-20b7-4963-aeea-2ab189409c34"/><p id="074600c5-b489-442f-8a3e-d88fdcd1a0e4" class="">==2.11 Введём адрес резервного контроллера домена, он же будет резервным DNS. Нажмём &quot;add&quot;==</p><hr id="15437a13-81e7-4eca-9640-de858e29e426"/><figure id="279a37eb-e18a-49b2-a784-20abdfa8fd9d" class="image"><a href="https://i.imgur.com/Ot4Wdha.png"><img src="https://i.imgur.com/Ot4Wdha.png"/></a></figure><hr id="06e1191f-c001-4e78-bbef-2d96234adee1"/><p id="f3ec89ba-85c2-41ca-be57-b93a1548b492" class="">Если dc2 включен, всё пройдёт хорошо. Если выключен, то вам высветится предупреждение о недоступности введённого адреса. Выберите YES, чтобы всё равно добавить его.</p><hr id="3b87badb-447f-4088-a782-a96582cb6f4f"/><p id="18f66a0d-3431-4882-86a4-b6eb78744a62" class="">==2.12 WINS серверов у нас не будет. NEXT==</p><hr id="16d1018f-7ae3-4937-98dc-29f0490eef0e"/><figure id="367ef99c-3c73-40fa-95f3-75d19546d91b" class="image"><a href="https://i.imgur.com/lYO05De.png"><img src="https://i.imgur.com/lYO05De.png"/></a></figure><hr id="6adf1296-a3a9-43cb-937a-b008a0215a7d"/><p id="0fb1efd0-d89d-41ea-a7f9-a78685ba9f47" class="">==2.13 Активируем область сейчас==</p><hr id="cb81eba4-3159-4c59-8475-abd1e5602f1f"/><figure id="f3e2573b-cad3-46a2-879b-71f342743ac7" class="image"><a href="https://i.imgur.com/6Lg8Uy1.png"><img src="https://i.imgur.com/6Lg8Uy1.png"/></a></figure><hr id="0941a833-f3d1-4fb6-8e2c-2e33bed56dff"/><p id="ab237de0-23e6-4f4d-8b56-c2b1ce0870ab" class="">==2.14 Завершим работу визарда==</p><hr id="a121f0d9-7554-47b7-beb1-dd154c4946fb"/><figure id="54ebb890-df11-4f49-8ff2-105301cc64d9" class="image"><a href="https://i.imgur.com/80ukdVY.png"><img src="https://i.imgur.com/80ukdVY.png"/></a></figure><hr id="c192f44f-7ce4-4112-8a64-90d1972d5850"/><p id="2b34f694-b4c1-4c8d-8679-2ef913a25389" class="">==2.15 Новая область появится в меню, можно будет просмотреть её параметры==</p><hr id="60516895-2b9c-464b-8362-8d4fc3b592a6"/><figure id="67ddfcb9-f87f-463a-9dbb-b8cbfc22578c" class="image"><a href="https://i.imgur.com/eRX0GIp.png"><img src="https://i.imgur.com/eRX0GIp.png"/></a></figure><hr id="8bd717cf-18cc-4d30-9108-cfbc2e5478f3"/><p id="9fafed4a-6fb5-4ed2-89b7-10463d7bf52f" class="">Если ранее вы настраивали DHCP на микротике, то отключите его там.</p><hr id="bf6e4919-f38a-4e54-b0d3-a9f17ce98993"/><p id="e621512b-918e-4109-bae6-4470ef6bcb79" class="">==2.16 Настроим Win10 на автоматическое получение параметров сети по DHCP==</p><hr id="d86cd907-49a9-4f74-84a3-9e9d2db3a00f"/><figure id="9400b316-d177-4b9d-8c65-14788e406cd9" class="image"><a href="https://i.imgur.com/AiAWLrq.png"><img src="https://i.imgur.com/AiAWLrq.png"/></a></figure><hr id="350ce1f0-9679-447e-828e-e3cdb5d47d7e"/><p id="c3367522-69d3-4cf8-a819-faac90040881" class="">==2.17 Настроим Kali Linux на автоматическое получение параметров сети по DHCP==</p><hr id="31c2e148-65ce-4282-9d57-0b9dc1e09bf7"/><figure id="36fe882e-f25f-4446-ac69-4b50ce0adb4f" class="image"><a href="https://i.imgur.com/bi2JzOn.png"><img src="https://i.imgur.com/bi2JzOn.png"/></a></figure><hr id="9954ce80-e498-4a84-9ba9-1cdb82f1a2c7"/><p id="26e05a63-ec4e-46b5-9816-2c2d97d0afec" class="">==2.18 Вы увидите информацию об аренде на dc1 в меню &quot;address leases&quot;==</p><hr id="0cc1ce97-b398-4bdf-85ef-2b5f4b3f93a8"/><figure id="9d7c7cd1-8c60-496b-b141-465d82887efe" class="image"><a href="https://i.imgur.com/cQflLqH.png"><img src="https://i.imgur.com/cQflLqH.png"/></a></figure><hr id="cc1aa65d-4f16-4b35-b346-710cd1252c37"/><h2 id="2878550f-7d7c-4f2a-8d2f-77d8a6131a6c" class="">Часть 3. Отказоустойчивый DHCP</h2><p id="68060d82-9dd4-42bd-90ac-f2e7ee049708" class="">Настроим резервирование по технологии Hot Standby</p><p id="651c48d1-5ce8-4e37-b4db-37a1cc56df0d" class="">==3.1 Нажмём ПКМ на scope и выберем &quot;configure failover&quot;==</p><hr id="863de655-aca5-454f-8af6-15ee34636ef3"/><figure id="978249de-da0d-48b0-af3e-5dfa25bcf2b6" class="image"><a href="https://i.imgur.com/GLlYYWG.png"><img src="https://i.imgur.com/GLlYYWG.png"/></a></figure><hr id="b7e1a9e5-a2d4-454d-89e4-2faed1eae254"/><p id="9db5d31f-f466-4cde-95dd-2cb3a9fbfe01" class="">==3.2 Выберем ip пулы для резервирования (он у нас один и будет выбран по умолчанию, так что NEXT)==</p><hr id="ed507d07-decf-4105-b5d3-86b290f7dae7"/><figure id="396bf39b-6737-449a-a54d-5867da05b028" class="image"><a href="https://i.imgur.com/njXfQTQ.png"><img src="https://i.imgur.com/njXfQTQ.png"/></a></figure><hr id="43b5ec53-c68f-4eff-8f33-a89aece00574"/><p id="209e3647-927e-4dda-bb6b-20c1e63f1804" class="">==3.3 Выберем сервер-партнёр.Нажмём &quot;add server&quot;==</p><hr id="87690778-b42a-46a5-843b-07a689d679c2"/><figure id="f47f4122-21c7-4d3d-b4e0-6e789a0caabe" class="image"><a href="https://i.imgur.com/uaFvxTQ.png"><img src="https://i.imgur.com/uaFvxTQ.png"/></a></figure><hr id="cee8a116-33b9-4ed0-8b34-4532b108303d"/><p id="2c9194fc-4316-41de-b328-a72ea0b2a68f" class="">==3.4 В меню добавления сервера выберем в качестве резервного dc2==</p><hr id="1d24ef39-2e1b-409d-a3e0-e01a6f474f1a"/><figure id="de5f5bb1-8729-4a0a-8b50-d2333cbfc63c" class="image"><a href="https://i.imgur.com/ZpVWuYS.png"><img src="https://i.imgur.com/ZpVWuYS.png"/></a></figure><hr id="f31f8bbb-1477-498b-8314-112905199b74"/><p id="f1d1a49e-8772-4f22-a93a-e8357601900c" class="">Если dc2 не отображается, значит вы не авторизовали dc2 как сервер dhcp. Проделайте это и вернитесь к настройке.</p><hr id="91684934-c9e8-4e25-911a-9075a58ff259"/><p id="ea736b9a-d027-466f-b45a-ae04f9f61b5d" class="">==3.5 После добавления идём дальше. NEXT==</p><hr id="291dea0b-3b7e-46e3-aa6d-8a86f68fbe54"/><figure id="2b8cdcbd-bb5a-46fe-b12c-be79d0c82990" class="image"><a href="https://i.imgur.com/BwrDM6l.png"><img src="https://i.imgur.com/BwrDM6l.png"/></a></figure><hr id="c9bbf914-7032-4f7e-a7b7-2e55ddd7ad2d"/><p id="1cf09282-a23b-429a-bac7-4bb059f80b04" class="">==3.6 Настроим failover. Выберем режим Hot Standby и снимем галочку с пункта аутентификации. Хоть это и не безопасно, но в рамках нашей работы не принципиально==</p><hr id="0a666a97-d202-4e27-ab06-5df956933ba4"/><figure id="591927e8-dd20-430c-9c27-dac3b39ad5e4" class="image"><a href="https://i.imgur.com/KgBTD9k.png"><img src="https://i.imgur.com/KgBTD9k.png"/></a></figure><hr id="5f731f69-aba8-4739-8088-82472d79d1ba"/><p id="d6732c1e-6518-47d8-a232-2407aa8fbe68" class="">==3.7 Подтвердим настройки==</p><hr id="ff83e609-cf69-4747-b3ea-d77435a95281"/><figure id="1e49c137-b41e-4561-ad27-1184dabdde3e" class="image"><a href="https://i.imgur.com/5gzIGSL.png"><img src="https://i.imgur.com/5gzIGSL.png"/></a></figure><hr id="890b4052-f6fe-4b47-b956-46870ae2c815"/><p id="62bab55d-c511-46b5-8c85-0b193de3f1d0" class="">==3.8 Увидим вывод успешного создания кластера и закроем меню==</p><hr id="52226ee8-c55c-4610-9e29-609456397240"/><figure id="8ce2dd8f-0880-4013-844f-1834513757af" class="image"><a href="https://i.imgur.com/kvLFiQt.png"><img src="https://i.imgur.com/kvLFiQt.png"/></a></figure><hr id="59914acc-7114-4368-b25e-f36cb87d739c"/><p id="22bb817b-a873-4f74-80e2-3d21ee7bc6b3" class="">==3.9 Проверим, что всё работает хорошо. Перейдём в dc2 в оснастку dhcp и просмотрим свойства области, которая там появилась==</p><hr id="abc5b2ce-da68-4bb4-be91-c43d176a0e39"/><figure id="5f96188a-0794-4aea-b7ad-10de2c826139" class="image"><a href="https://i.imgur.com/fTH7aaG.png"><img src="https://i.imgur.com/fTH7aaG.png"/></a></figure><hr id="19c19df0-e691-40f6-a6b2-cdb92ed4c103"/><p id="bd193692-c6ec-4678-a9dc-18ff7089574f" class="">==3.10 Перейдём в меню &quot;отработка отказа&quot; и увидим, что все настройки применились корректно==</p><hr id="4fea0d14-6957-4949-99f8-f21f513e2efb"/><figure id="90378b59-22b0-4d0d-a893-acd14992f979" class="image"><a href="https://i.imgur.com/9Lmguby.png"><img src="https://i.imgur.com/9Lmguby.png"/></a></figure><hr id="b71fded3-5991-495a-8eae-0ba85339ed9c"/><h2 id="f694b0a5-7841-4c4a-89dc-0d3f365da0cb" class="">Ссылки для закрепления материала и самостоятельного изучения:</h2><ul id="c7024775-aa76-4c5f-b043-ecff431f93e8" class="bulleted-list"><li style="list-style-type:disc"><a href="https://wiki.merionet.ru/seti/11/vse-chto-vam-nuzhno-znat-pro-dhcp/">Как работает DHCP</a></li></ul><ul id="90b06705-d0ab-42fa-80da-6f6825ba38b3" class="bulleted-list"><li style="list-style-type:disc"><a href="https://windowsnotes.ru/windows-server-2016/nastrojka-dhcp-failover-v-windows-server-2016">Настройка DHCP failover в Windows Server 2016</a></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

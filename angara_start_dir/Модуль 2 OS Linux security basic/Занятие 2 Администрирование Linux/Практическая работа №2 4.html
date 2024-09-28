@@ -1,0 +1,698 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Практическая работа №2.4</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="9321a815-4b57-4b25-9870-2429d90e68fc" class="page sans"><header><h1 class="page-title">Практическая работа №2.4</h1><p class="page-description"></p></header><div class="page-body"><hr id="6c7d28e2-ffb5-48ec-9087-3b3ae110df59"/><h2 id="b9d7e2de-e666-4b91-b1d0-58c7c3042a50" class="">Практическая работа &quot;Сбор информации о Linux и WGET&quot;</h2><h3 id="0d0f29c1-a556-4d6a-b28a-730af0062912" class=""><strong>Цель работы:</strong></h3><ul id="ffeffb83-2a06-4610-a44c-18bdd068294c" class="bulleted-list"><li style="list-style-type:disc">Научиться базовому сбору информации о Linux системах.</li></ul><h3 id="b77854f0-78e0-4d7d-a5d6-47e2ee96ac29" class=""><strong>Задача:</strong></h3><ul id="fd30bbe5-f4b0-4847-a616-145fb430634e" class="bulleted-list"><li style="list-style-type:disc">Научитесь скачивать файлы с помощью утилиты wget.</li></ul><ul id="4edcc7f0-b7c7-4d5e-ac51-b42174d1a150" class="bulleted-list"><li style="list-style-type:disc">Научиться проверять пакеты на целостность.</li></ul><p id="b46978ee-f865-4045-be32-3a374dfa85f7" class="">
+</p><h3 id="932225b1-0220-4439-b467-7456030e22d6" class="">1.Базовый сбор информации</h3><p id="6d64cfb4-b8ee-426c-8953-b29e8401a33d" class="">Начнём со сбора информации о дистрибутивах</p><p id="38b25208-aaa8-44f6-a098-9049147a5f37" class=""><em>cat /etc/release - информация о дистрибутиве и какая версия его</em></p><figure id="972f075a-7d68-43af-b283-b62c3f490a7e" class="image"><a href="https://i.imgur.com/6vikdrx.png"><img src="https://i.imgur.com/6vikdrx.png"/></a></figure><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="6cd75617-fe8a-4a9e-b02f-5f05c37ff446" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Показать Kali-релизы
+
+&lt;https://www.kali.org/releases/&gt;
+</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="f1c6f8b1-2844-4c90-b384-77d9ea2d0647" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Если смотреть дистрибутив debian можно обратить внимание, что тут как раз много веток пооддержек
+
+&lt;https://www.debian.org/index.ru.html&gt;
+</code></pre><p id="4d7b76b1-aa67-4e11-92a1-0317c586fd28" class=""><strong>По ядру linux можно понять следующее:</strong></p><p id="81905766-1c4c-49e8-9604-3a6076be1799" class=""><strong>uname -a</strong></p><figure id="595a1897-426a-4c7d-a1a0-d32eaec5f081" class="image"><a href="https://i.imgur.com/eesKudz.png"><img src="https://i.imgur.com/eesKudz.png"/></a></figure><p id="0e1ad97a-6d35-4b12-883d-6edcf5fb7912" class=""><strong>whoami</strong><br/>Как следует из названия, команда whoami выводит имя пользователя для эффективного идентификатора пользователя. Другими словами, он отображает имя текущего вошедшего в систему пользователя.<br/></p><figure id="51823fe3-a570-4f63-a37f-8610b62aeaf4" class="image"><a href="https://i.imgur.com/aIf3chN.png"><img src="https://i.imgur.com/aIf3chN.png"/></a></figure><p id="4eed5e7f-7cff-48bc-aef5-f3691ccd2d0c" class=""><strong>Команда uptime покажет, когда и сколько система работала и соответственно, если она работала без перерыва 3 года, то злоумышлинник может воспользоваться старыми уязвимостями для получения доступа или внедрения кода.</strong></p><figure id="95612c6a-3940-49b8-a1aa-8bfb8854e038" class="image"><a href="https://i.imgur.com/yYnux6Y.png"><img src="https://i.imgur.com/yYnux6Y.png"/></a></figure><p id="96a65165-4fd7-4e86-97c4-94471fb1784b" class=""><strong>Давайте посмотри права директории /home</strong></p><figure id="10819907-0034-4cb3-bf1a-e4355c5a945b" class="image"><a href="https://i.imgur.com/lzukbyO.png"><img src="https://i.imgur.com/lzukbyO.png"/></a></figure><p id="330e9ac5-f52d-4593-9b48-75c07ffb319a" class=""><strong>Чтобы ограничить права другим пользователям делаем следующее<br/>sudo chmod o-rx /home/kali<br/></strong></p><figure id="acf7894f-5c0b-4369-a414-32affa0bc62f" class="image"><a href="https://i.imgur.com/U63zOzb.png"><img src="https://i.imgur.com/U63zOzb.png"/></a></figure><p id="cd79b82c-93b0-463e-84f6-d2414c65baae" class=""><em>Давайте рассмотрим, почему нам надо изменять права. по умолчанию каждый из пользователей может попасть в директорию любого пользователя, т.е. пользователь kali может попасть в директорию любого пользователя.</em></p><p id="1dfe2e05-e651-48e5-be33-974391910051" class=""><strong>ip neigh - показывает с какими компьютерами происходит обмен данными</strong></p><figure id="5cafa96f-8682-4745-a8c8-2760e0e0b418" class="image"><a href="https://i.imgur.com/fl9D2dR.png"><img src="https://i.imgur.com/fl9D2dR.png"/></a></figure><p id="d5ff172f-120c-4491-9281-fc205777faeb" class=""><strong>sudo ss -tlnp - показывает какие сервисы и с какими портами запущены</strong></p><figure id="3f2e55aa-edc6-4b88-8d38-0d0dd937221c" class="image"><a href="https://i.imgur.com/qJBgHYm.png"><img src="https://i.imgur.com/qJBgHYm.png"/></a></figure><p id="afdc2a04-71b7-46e6-9cd5-bf570c6ed4a1" class=""><strong>sudo -l - позволяет нам понять, что есть в этом машинки и что пользователь может</strong></p><figure id="75cd1ac1-d983-4de0-9cb6-dd6594a418a2" class="image"><a href="https://i.imgur.com/8Q2LHoY.png"><img src="https://i.imgur.com/8Q2LHoY.png"/></a></figure><p id="612d3234-2720-4b6c-9bb2-54f9d6b5f740" class=""><code>в данном случае мы можем запускать любые команды от любого user</code></p><h3 id="45bc785c-bd78-4141-8f85-98e460aa4784" class="">2.Суидные файлы</h3><p id="c9e348eb-0e39-4a92-8b7f-ddaff11d633f" class=""><strong>Suid</strong></p><p id="49a28089-5815-48af-8fc0-9a6ec6195929" class=""><em>setuid и setgid являются флагами прав доступа в Unix, которые разрешают пользователям запускать исполняемые файлы с правами владельца или группы исполняемого файла. В Unix-подобных системах приложение запускается с правами пользователя, вызвавшего указанное приложение. Это обеспечивает дополнительную безопасность, так как процесс с правами пользователя не сможет получить доступ на запись к важным системным файлам, например /etc/passwd, который принадлежит суперпользователю root.</em></p><p id="3617ca33-4436-4205-a0f8-d8052a74840f" class=""><a href="https://ru.wikipedia.org/wiki/Suid">https://ru.wikipedia.org/wiki/Suid</a></p><p id="104620b5-85d0-4eb6-badc-5caaf7e8d803" class="">В системе могут быть различные закладки</p><p id="24020d7a-31f2-415c-805c-36df96833997" class=""><code>sudo find / -user root -perm -4000 -exec ls -ldb {} \\; 2&gt; /dev/null</code></p><figure id="b1de97f1-8ce6-44b3-a52e-720e8f962ec0" class="image"><a href="https://i.imgur.com/cqCVuak.png"><img src="https://i.imgur.com/cqCVuak.png"/></a></figure><p id="cd0f6d2d-5cd3-4b06-ba28-0447f52bf57d" class=""><strong>Базовый сбор информации может происходить не только вручную, давайте разберемся</strong></p><p id="6886c080-24a0-448e-bd37-ed53ebb5eda5" class=""><em>давайте разберем как это делать: переходим по ссылке и затем скачиваем утилиту</em></p><p id="476764c5-775f-4d0e-9840-a7461802e752" class=""><a href="https://cisofy.com/downloads/lynis/">https://cisofy.com/downloads/lynis/</a></p><ul id="73df13ca-8e13-4a9a-923d-600c60b0d744" class="bulleted-list"><li style="list-style-type:disc">*нам надо скопировать ссылку данной утилиты и скачать её с помощью wget например в директорию /tmp **</li></ul><p id="63b948ba-8420-4405-be22-e6090bf0aebd" class=""><code>wget &lt;https://downloads.cisofy.com/lynis/lynis-3.0.6.tar.gz</code>&gt;</p><figure id="931e6937-deca-46aa-89e3-870bb5d9f6ed" class="image"><a href="https://i.imgur.com/Sn2jEEl.png"><img src="https://i.imgur.com/Sn2jEEl.png"/></a></figure><p id="0fb08740-3dff-412f-95a4-1028458cdff0" class=""><code>если</code></p><figure id="279bff50-d5ce-4722-9a24-32f94e7e7b05" class="image"><a href="https://i.imgur.com/gXztrbs.png"><img src="https://i.imgur.com/gXztrbs.png"/></a></figure><p id="1b8a9e1b-dfdc-4eba-aa08-9a38dfebb33a" class=""><code>то sudo apt-get install wget</code></p><figure id="72debdfc-1942-471b-a67b-41afc9341bf8" class="image"><a href="https://i.imgur.com/KP9W7Hf.png"><img src="https://i.imgur.com/KP9W7Hf.png"/></a></figure><p id="52f0f424-3cdb-4c04-bcb8-28f50e530df7" class="">и далее <code>wget &lt;https://downloads.cisofy.com/lynis/lynis-3.0.6.tar.gz</code>&gt;</p><figure id="d1afdfb9-e39c-4bff-86e5-283a01c4e5c2" class="image"><a href="https://i.imgur.com/gU4p7Z1.png"><img src="https://i.imgur.com/gU4p7Z1.png"/></a></figure><p id="ec31a895-1ee7-41cf-92fe-6a96cc9595df" class=""><strong>далее необходимо разаархивировать вводим следующее:</strong></p><p id="fe09ef7d-ecd0-4749-b4cb-76bbee9a06bb" class="">tar xfv lynis-3.0.6.tar.gz</p><figure id="7d807d7b-479b-4a98-a37b-6b725e46e1ed" class="image"><a href="https://i.imgur.com/90jwT5F.png"><img src="https://i.imgur.com/90jwT5F.png"/></a></figure><p id="a246e1c1-089a-481f-b859-432979f0d142" class=""><em>где</em></p><p id="843540f6-7d92-4d08-8eec-1c783ef0605e" class=""><strong>Основные опции:</strong></p><ul id="e12939a2-5ee8-47b5-997c-fd3869fd3102" class="bulleted-list"><li style="list-style-type:disc">c, --create — создать архив;</li></ul><ul id="04cc7361-e834-4d01-9155-cf483547f191" class="bulleted-list"><li style="list-style-type:disc">a, --auto-compress — дополнительно сжать архив с компрессором который автоматически определить по расширению архива. Если имя архива заканчивается на *.tar.gz то с помощью GZip, если *.tar.xz то с помощью XZ, *.tar.zst для Zstandard и.т.п;</li></ul><ul id="9d0e0a47-c0ce-4853-bbbe-07ef3d7907db" class="bulleted-list"><li style="list-style-type:disc">r, --append — добавить файлы в конец существующего архива;</li></ul><ul id="93bb3c89-ea4d-473d-b47b-2e38c8b4152b" class="bulleted-list"><li style="list-style-type:disc">x, --extract, --get — извлечь файлы из архива;</li></ul><ul id="ee051ef7-75bd-450a-a811-68144fbeb030" class="bulleted-list"><li style="list-style-type:disc">f, --file — указать имя архива;</li></ul><ul id="88706f2f-955b-48a6-a206-b7e211548544" class="bulleted-list"><li style="list-style-type:disc">t, --list — отобразить список файлов и папок в архиве;</li></ul><ul id="2626416d-96fb-45eb-9180-419bdd5c7dd9" class="bulleted-list"><li style="list-style-type:disc">v, --verbose — выводить список обработанных файлов.</li></ul><figure id="569be3e6-2456-4c03-a190-b2f47f182179" class="image"><a href="https://i.imgur.com/9C1eEFR.png"><img src="https://i.imgur.com/9C1eEFR.png"/></a></figure><p id="28fad2b4-35f9-4db3-b0a4-4962fa081b00" class="">затем давайте проверим контрольную сумму с сайта и то, что мы скачали</p><figure id="180e7dd9-5bca-4a69-ae9c-72781b53f765" class="image"><a href="https://i.imgur.com/eytkmHj.png"><img src="https://i.imgur.com/eytkmHj.png"/></a></figure><p id="773f76a1-c247-4f3d-bdb6-0c5b4c0e8a13" class=""><code>3005346e90339c18a4c626169c6f1d9fb8643bb0d0a049bcaf64b7ccb4fd272c</code></p><p id="92f45012-0079-42de-a232-4920a761ceb7" class=""><em>делается это следующей командой</em></p><p id="d7f8857e-955b-44dc-a6b0-e498787abf92" class=""><code>sha256sum lynis-3.0.6.tar.gz</code></p><figure id="c3d1497b-e4e1-435e-b36b-1362b21a7745" class="image"><a href="https://i.imgur.com/t8Lp4lz.png"><img src="https://i.imgur.com/t8Lp4lz.png"/></a></figure><p id="7fd8bb96-7b35-41ec-8482-77bcdb6e5d59" class=""><strong>также есть статья для рассчета контрольной суммы</strong></p><p id="952f81ad-9fe3-4fa1-ad1a-455aab59f23e" class=""><a href="https://jakondo.ru/kak-raschitat-kontrolnye-summy-md5-sha1-sha256-sha384-sha512-crc-v-linux/">https://jakondo.ru/kak-raschitat-kontrolnye-summy-md5-sha1-sha256-sha384-sha512-crc-v-linux/</a></p><p id="30edf79d-b932-492b-b673-bf304b9ef4e7" class=""><strong>далее переходим в директорию lynis</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="e676712b-acf1-4fe5-b242-d9c7d74df90b" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">cd lynis
+
+ls
+</code></pre><figure id="d414a9d6-500e-4c58-b235-ec72dfb8fc7c" class="image"><a href="https://i.imgur.com/egVibje.png"><img src="https://i.imgur.com/egVibje.png"/></a></figure><p id="ac3c1b11-3c4b-40b8-98b6-48d78c05681c" class=""><strong>далее запускаем утилиту lynis</strong></p><p id="a16a76e1-c2a7-42c4-934d-95b8e43622ac" class=""><code>sudo ./lynis audit system</code></p><figure id="172deeb2-619e-4ef6-b89f-600899ab56eb" class="image"><a href="https://i.imgur.com/jd8NQer.png"><img src="https://i.imgur.com/jd8NQer.png"/></a></figure><figure id="a745b47d-4799-4450-bec2-e2bdbda2ca6e" class="image"><a href="https://i.imgur.com/kZgkBjC.png"><img src="https://i.imgur.com/kZgkBjC.png"/></a></figure><p id="06d306be-1b7b-4e4a-b981-297a84188414" class=""><em>нажимаем Enter</em></p><figure id="ad45e763-aafa-4983-987d-566c2cdf8da2" class="image"><a href="https://i.imgur.com/m0vi5yo.png"><img src="https://i.imgur.com/m0vi5yo.png"/></a></figure><p id="b266adc4-11cb-4c10-982f-5d6e47238cf5" class=""><em>Это вывод report-отчёт</em></p><figure id="3dd17c0d-52b9-4a2f-b76e-3b9a6ae2be5f" class="image"><a href="https://i.imgur.com/RRnf3JH.png"><img src="https://i.imgur.com/RRnf3JH.png"/></a></figure><p id="89f9979a-6fae-4d34-a3a1-da2108613043" class=""><em>также я подобрал несколько ссылок для более подробного разбора данной утилиты:</em></p><ul id="14c57075-3533-448f-9523-d1ee06e0478c" class="bulleted-list"><li style="list-style-type:disc"><a href="https://codeby.net/threads/lynis-instrument-dlja-proverki-bezopasnosti-i-provedenija-pentesta-s-otkrytym-isxodnym-kodom-detalnoe-razjasnenie.64501/">https://codeby.net/threads/lynis-instrument-dlja-proverki-bezopasnosti-i-provedenija-pentesta-s-otkrytym-isxodnym-kodom-detalnoe-razjasnenie.64501/</a></li></ul><ul id="e4f92ca1-9368-447b-b076-f9d2e0a21e4d" class="bulleted-list"><li style="list-style-type:disc"><a href="https://cisofy.com/documentation/lynis/">https://cisofy.com/documentation/lynis/</a></li></ul><ul id="109818cf-ef3c-47b3-afa5-e1820676e389" class="bulleted-list"><li style="list-style-type:disc"><a href="https://cisofy.com/documentation/lynis/get-started/">https://cisofy.com/documentation/lynis/get-started/</a></li></ul><p id="176ed9cd-c807-472c-877f-6b1dbeeccb55" class=""><strong>ещё можно набрать команду</strong> <code>./lynis show options</code></p><figure id="3ce63f71-05f2-484a-a45e-74a455c71549" class="image"><a href="https://i.imgur.com/SZb8hCB.png"><img src="https://i.imgur.com/SZb8hCB.png"/></a></figure><p id="368aa4b5-f679-4855-89c0-519ec0cdcf17" class=""><strong>Перенаправлять файлы лучше через стандартный report утилиты:</strong></p><p id="7b8f06bb-9e97-4a98-a8a9-8ba62bbbd402" class=""><code>/var/log/lynis-report.dat</code></p><figure id="d4281e6d-723a-4d3b-b733-54b1a118c0e9" class="image"><a href="https://i.imgur.com/Mj6tGkO.png"><img src="https://i.imgur.com/Mj6tGkO.png"/></a></figure><figure id="dc9f5092-91d1-4943-bfc3-850dae44ba98" class="image"><a href="https://i.imgur.com/E9R35FA.png"><img src="https://i.imgur.com/E9R35FA.png"/></a></figure><p id="21801c7f-8334-42d2-b7aa-2a47fba6b046" class="">есть и другие утилиты, но они уже используются больше для pintesta и о них вам будут объяснять на модуле повышения привелегий.</p><p id="20b5ca20-7dda-43dc-a9c1-f0685fb3773b" class="">Linux exploit suggester<br/>Inspector<br/></p><h3 id="e60dee79-5391-412e-ac82-bd8fddd9d0e3" class="">3. Проверка целостностей пакетов</h3><p id="8d68191e-c711-458a-a4ce-cdf032798435" class=""><strong>Как проверить целостность системы, что никто не поменял, есть способа проверить</strong><br/>dpkg — это программное обеспечение, являющееся основой системы управления пакетами в Debian и ряде других операционных систем, основанных на Debian, например Ubuntu. dpkg используется для установки, удаления, и получения информации о .deb пакетах.<br/></p><p id="f5291f70-104c-4f6c-b83e-cab20f27a491" class=""><strong>dpkg</strong> является довольно низкоуровневой утилитой. Существуют более высокоуровневые утилиты, например APT, которые могут загружать пакеты из сетевого репозитория и отслеживать зависимости между пакетами. Конечным пользователям следует использовать утилиты с более дружественным интерфейсом, такие как Aptitude или Synaptic, предоставляющие лёгкий способ просмотра списка пакетов, их описания и зависимостей.</p><p id="bd8558c9-0503-42d8-b382-d4fb0d29f534" class=""><strong>debsums</strong> служит, в первую очередь, для нахождения изменённых администратором файлов установленных в системе пакетов или повреждённых файлов из-за некачественного носителя и в какой-то мере используется в качестве инструмента обеспечения безопасности.</p><p id="a8030480-1955-4793-af26-9c6b076b3ad2" class=""><a href="https://parallel.uran.ru/book/export/html/472">https://parallel.uran.ru/book/export/html/472</a></p><p id="d7255a36-75e0-4d8a-9fb2-a4ca445391ea" class="">для просмотра пакетов в системе</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="f1712ff9-fa4c-4a04-850d-1d76ce2fb054" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">dpkg -l</code></pre><figure id="3256cdc1-ee2a-4457-ad02-9a1d2ca172c9" class="image"><a href="https://i.imgur.com/p2kVGku.png"><img src="https://i.imgur.com/p2kVGku.png"/></a></figure><p id="0bb61c50-ead2-4c5a-bc80-d9e34bb07e2a" class="">для просмотра установленных утилит необходимо набрать следующую команду</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="07118c3e-25a6-4cff-95dc-70de0d4f20b8" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">dpkg -L coreutils</code></pre><p id="f464507c-e393-4643-8cb0-0364d6135003" class="">- она покажет все штатные утилиты</p><figure id="b4f3ca44-53ba-4439-ad91-13d883c7bce3" class="image"><a href="https://i.imgur.com/bwlyh1x.png"><img src="https://i.imgur.com/bwlyh1x.png"/></a></figure><p id="13c2d7bf-5380-4ec1-9b6e-fef7e6b7e6cd" class="">например, рассмотрим утилиту /bin/dir<br/>/bin/dir --help<br/>которая позволяет нам работать по сути как ls<br/></p><figure id="8f24e879-607d-4b1d-bd4d-37f9f7134189" class="image"><a href="https://i.imgur.com/R7PmWg7.png"><img src="https://i.imgur.com/R7PmWg7.png"/></a></figure><p id="ab15531d-bad7-414d-bc0f-3cd46dfb9768" class="">что будет, если мы поменяем /bin/false на /bin/dir, тем самым сымитируем подмену или правку кода программы<br/>сделаем backup sudo mv /bin/dir /bin/dir.bak<br/></p><figure id="14aa03e1-f15b-4b11-b7ef-451bd650f37d" class="image"><a href="https://i.imgur.com/WG7amt9.png"><img src="https://i.imgur.com/WG7amt9.png"/></a></figure><p id="c9d9e5ca-0f09-4f1a-b302-466ff09a7cc5" class="">вводим команду sudo cp /bin/false /bin/dir</p><figure id="703e671f-3401-4a58-ac56-f0b771cae560" class="image"><a href="https://i.imgur.com/LTyLoK2.png"><img src="https://i.imgur.com/LTyLoK2.png"/></a></figure><p id="295b4b57-b18f-4c72-89d3-78de582ac9b3" class="">теперь при запуске dir мы можем увидеть, что ничего не будет происходить, кроме как если посмотреть логическую ложь, то будет ошибка</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="4da38069-aa69-48f8-9a6b-c768f8730e93" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">echo $?</code></pre><figure id="3e600326-2fb7-4cac-b7e2-d5e70c25fa07" class="image"><a href="https://i.imgur.com/xHm4av1.png"><img src="https://i.imgur.com/xHm4av1.png"/></a></figure><p id="5acb0617-ca36-4a95-a35f-13c608aa9588" class="">соответственно, чтобы нам быстро проверить этот пакет, мы можем выполнить команду</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="14d0de1e-0b4a-46ee-b38c-2244ba4dc262" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">debsums</code></pre><p id="73fd8e91-ea73-48a0-bbd3-f2dfd0202278" class="">и если она не установленна, то необходимо её установить через команду</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="c08cb1ec-6512-4198-930e-77fc8f5b030a" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">sudo apt install debsums</code></pre><figure id="a3bd20f9-6e62-4d1c-b983-b77fecc17aa7" class="image"><a href="https://i.imgur.com/12O18vo.png"><img src="https://i.imgur.com/12O18vo.png"/></a></figure><p id="43e8df75-a4b1-464e-883e-3692c64afd8b" class=""><strong>debsums</strong> служит,  в  первую  очередь,  для  нахождения  изменённых  администратором  файлов установленных в системе пакетов или повреждённых файлов из-за некачественного носителя и в какой-то мере используется в качестве инструмента обеспечения безопасности.</p><ul id="4e1d3745-e80b-4c5f-bd1f-db6049b57b36" class="bulleted-list"><li style="list-style-type:disc">debsums -a - Проверяет все файлы (включая конфигурационные, которые обычно располагаются слева)</li></ul><ul id="e2e8a6b1-367b-4d25-a8f8-b2d8a0acbba8" class="bulleted-list"><li style="list-style-type:disc">debsums -e - Проверяет только конфигурационные файлы пакетов</li></ul><ul id="c73d1955-f696-4ec0-a064-b653b2b54341" class="bulleted-list"><li style="list-style-type:disc">debsums -с - Выводит список измененных на stdout файлов</li></ul><ul id="de859e48-9edf-45ba-935f-272a90035900" class="bulleted-list"><li style="list-style-type:disc">debsums -I - Отображает файлы, в которых отсутствует информация о md5sum</li></ul><ul id="7ce6fe90-40b9-4695-be96-8e478f014d40" class="bulleted-list"><li style="list-style-type:disc">debsums -s - Выводит только ошибки; при их отсутствии не производит никаких действий</li></ul><p id="43939b12-1574-4622-8f37-8913ebc00953" class="">debsums &lt;название программного пакета&gt; - Отображает пакеты, которые необходимо проверить с помощью debsums</p><ul id="7422a36b-220a-4b21-b544-6123b38f7c20" class="bulleted-list"><li style="list-style-type:disc"><code>debsums -ac coreutils</code> - запуск проверки</li></ul><ul id="4c93e0e2-bc07-4c26-a3dd-f03ef43ca7d0" class="bulleted-list"><li style="list-style-type:disc"><code>debsums -cs coreutils</code> - запуск проверки</li></ul><figure id="75b8d62c-7eca-432b-a29f-641f3d13beb4" class="image"><a href="https://i.imgur.com/F7sWy3A.png"><img src="https://i.imgur.com/F7sWy3A.png"/></a></figure><p id="fafbf3dc-e4cb-490d-aa53-e75b50006edd" class="">можно также проверить утилитой</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="7e19794d-aa60-4800-962e-55018c82768d" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">dpkg --verify coreutils</code></pre><figure id="381633ae-d21b-4ff5-b2df-52e102cb7bf0" class="image"><a href="https://i.imgur.com/Ij0d1D4.png"><img src="https://i.imgur.com/Ij0d1D4.png"/></a></figure><p id="98353cff-6509-4f44-9fec-7023bf34c63c" class="">но он будет более загадачным</p><p id="05034b37-982a-401b-9ff1-40e2f1cb851c" class="">в RedHat используется немного подругому</p><ul id="47273021-40dc-4ff5-b0e4-208dd8020f0f" class="bulleted-list"><li style="list-style-type:disc">rpm -V openssh-server $ <code>rpm -q -dump openssh-server</code><br/>и находятся контрольные суммы тут <br/><code>/var/lib/rpm/Packages</code></li></ul><ul id="f453bc48-be0a-4563-8c54-48d8aa4a42d1" class="bulleted-list"><li style="list-style-type:disc">в Debian тут <code>/var/lib/dpkg/info/*.md5sums</code></li></ul><p id="dddcd65b-bc2a-4dba-9a92-d331d05a94c9" class="">Если кто-то смог проникнуть в систему и что-то деал в ней нам поможет команда find<br/>Например, если нам надо рассмотреть какой либо инцидент:<br/><br/><code>sudo find / -printf &quot;%T@;%Tc;%p\\n&quot;</code></p><p id="2cbd2c69-3d87-4693-ba14-43d0cc91c02a" class="">можно указать через пробел, но тогда будет сложно работать с выводом данных:<br/><br/><code>sudo find / -printf &quot;%T@ %Tc %p\\n&quot;</code></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="8141c28a-b286-4296-ac1d-48a86f145997" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">-prinf - то где мы будем искать
+%T@ - время ввиде числа
+%Tc - время человека читаемое
+%p\\n - путь до файла
+</code></pre><figure id="a529af0e-add9-409d-b381-4a933d97577b" class="image"><a href="https://i.imgur.com/ntlzZME.png"><img src="https://i.imgur.com/ntlzZME.png"/></a></figure><p id="d9573993-5757-4b52-95ab-9a9628604c04" class="">Далее если надо сделать по одному конкретному пользователю необходиму следующие:</p><p id="a6062a5e-5a18-4298-b110-18345a19ed29" class=""><code>sudo find /home/kali/ -printf &quot;%T@;%Tc;%p\\n&quot; &gt; timeline.csv</code></p><figure id="7c9be5e5-b189-4632-8d3e-2279e52c3e56" class="image"><a href="https://i.imgur.com/Hm7Cyr2.png"><img src="https://i.imgur.com/Hm7Cyr2.png"/></a></figure><p id="e6aee24c-fda1-4916-836f-d24e68be7e3d" class="">Затем желательно это отсортировать, например:</p><p id="665d9331-3a76-4f7c-a694-faa9d74b6c26" class=""><code>head timeline.csv</code> сейчас никак не отсортированно</p><figure id="276ef863-b39f-4e9a-9f8d-5af1e8515139" class="image"><a href="https://i.imgur.com/KDa3Z4G.png"><img src="https://i.imgur.com/KDa3Z4G.png"/></a></figure><p id="88329cf7-f436-40bc-86a6-11417fdbc782" class="">Но давайте отсортируем данный файл с помощью команды:</p><p id="09d34ef3-0272-4261-b5ef-d8755016904e" class=""><code>sort -rn timeline.csv | less</code></p><p id="c6fa899c-6f77-4375-a4f5-593a85b3c8bf" class="">где флаг <code>-r</code> как раз будет указывать, что последнее изменение будет первым</p><figure id="cb18a0b9-3004-493a-bcc2-ed939b2269d4" class="image"><a href="https://i.imgur.com/QKiu2wP.png"><img src="https://i.imgur.com/QKiu2wP.png"/></a></figure><p id="a581ed64-5f7a-4cdf-bbf5-0913e47438fa" class=""><strong>Мы можем видеть, что менялось и в какое время, что позволит увидеть все изменения.</strong></p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

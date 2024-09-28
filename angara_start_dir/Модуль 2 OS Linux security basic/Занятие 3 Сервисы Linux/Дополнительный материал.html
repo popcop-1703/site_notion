@@ -1,0 +1,732 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Дополнительный материал</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="ebf60870-1e08-4bf3-b235-0d54efbf4bc5" class="page sans"><header><h1 class="page-title">Дополнительный материал</h1><p class="page-description"></p></header><div class="page-body"><h1 id="eb140122-96a7-4244-aba5-3d9cbff37da2" class="">Лекционный материал:</h1><h2 id="521d0194-aa11-4af8-81b1-b8e17b0e3c4f" class="">1. Работа с сервисами</h2><p id="cf09b3c2-8625-412a-a511-e18917b2edb7" class="">Сервисы или службы — это программы, которые работают в системе Linux <br/>в фоновом режиме.  Большинство сервисов необходимы для полноценной работы системы, они следят за состоянием системы, обеспечивают автоматическое подключение внешних устройств и сети, позволяют процессам взаимодействовать с оборудованием, а также в виде служб реализованы различные веб-серверы и серверы баз данных.<br/></p><p id="8b1e0353-deb1-409c-b650-d32e9e00665e" class="">При запуске системы загружается целый ряд сервисов, которые включены для автозагрузки, то есть пользователь еще не вошел в систему, а основные службы уже запущенны и работают. Сервисы работают пока система запущена, и выгружаются при выключении системы.</p><p id="0ecf5842-304b-4653-a047-f8099fa7ccc8" class="">Чаще всего в Linux дистрибутивах для инициализации сервисов используется демон <strong>Systemd</strong>. К Systemd-дистрибутивам относятся Ubuntu, Debian, Linux Mint, Fedora, openSUSE, Solus и другие.</p><p id="89453d93-f4ca-43c4-92f1-600bb54b5818" class="">В качестве примеров сервисов можно привести: веб-сервер Apache, Network Manager, файрвол Ufw и другие.</p><p id="7c4b4e3a-9aff-4cbf-8e9d-d420d2cebe42" class="">Чтобы всем этим управлять нужна основная служба - система инициализации, которая будет запускать службы Linux в нужный момент, следить чтобы они нормально работали, записывать сообщения логов, и самое главное позволять останавливать службы.</p><p id="fb9ebeda-96fa-4348-b517-bf6613f186f8" class="">Система инициализации запускается и начинает свою работу (инициализировать службы) сразу после загрузки ядра. После запуска systemd собирает весь вывод службы в лог, и следит за ее работой, если служба аварийно завершилась, то автоматически ее перезапускает.</p><p id="be775bdc-971e-433e-8353-de90ca89fcda" class="">Служба в Systemd описывается файлом юнита, в нем описано что с ней нужно делать и как себя вести. Существуют такие типы служб:</p><ul id="dc184dfa-9fff-42e0-9934-9710d119783d" class="bulleted-list"><li style="list-style-type:disc"><strong>service</strong> - обычная служба, программа</li></ul><ul id="c91acac2-0db9-4426-9595-12449b7d7823" class="bulleted-list"><li style="list-style-type:disc"><strong>target</strong> - группа служб</li></ul><ul id="87bff5b8-943b-43d1-b47a-0e2c169cb595" class="bulleted-list"><li style="list-style-type:disc"><strong>automount</strong> - точка автоматического монтирования</li></ul><ul id="33e06e58-ed42-4dd7-9dc5-737322d34d39" class="bulleted-list"><li style="list-style-type:disc"><strong>device</strong> - файл устройства, генерируется на этапе загрузки</li></ul><ul id="c9c4f0f9-fe8f-4a5f-92f3-9c2692e8e6fe" class="bulleted-list"><li style="list-style-type:disc"><strong>mount</strong> - точка монтирования</li></ul><ul id="3e12f76d-ec93-4cde-8f7a-f6a0bf61e0be" class="bulleted-list"><li style="list-style-type:disc"><strong>path</strong> - файл или папка</li></ul><ul id="7eb44020-300c-4978-a25a-4b5979edcf4d" class="bulleted-list"><li style="list-style-type:disc"><strong>scope</strong> - процесс</li></ul><ul id="812220a9-9eb9-4b0f-90df-d8254594e154" class="bulleted-list"><li style="list-style-type:disc"><strong>slice</strong> - группа системных служб systemd</li></ul><ul id="9fbcf212-5b96-4056-afd2-6712c458bb3b" class="bulleted-list"><li style="list-style-type:disc"><strong>snapshot</strong> - сохраненное состояние запущенных служб</li></ul><ul id="6e7c8a8e-198f-4ec3-a984-5101614d0541" class="bulleted-list"><li style="list-style-type:disc"><strong>socket</strong> - сокет для взаимодействия между процессами.</li></ul><p id="6da9ea9b-bf05-490b-8ef4-3fb6b8ba8726" class="">Нас будут интересовать только service, и совсем немного target, но мы рассмотрели все остальные, чтобы вы смогли взглянуть на картину немного шире.</p><h3 id="d59cf9c5-885a-49dd-a570-953baa13fcfd" class="">1.2 Systemctl</h3><p id="fd32f398-bd58-4823-8193-aaf98d738b69" class="">В Systemd есть специальный инструмент для управления службами в Linux - systemctl. Эта утилита позволяет делать очень много вещей, начиная от перезапуска службы и проверки ее состояния, до анализа эффективности загрузки службы.</p><p id="71a2720f-09bd-473e-bdf6-f2b4fe097be9" class="">Синтаксис systemctl следующий:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="67a4a0bf-44a7-4f8c-90b4-9d5e2df94c84" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all"> $ systemctl опции команда служба</code></pre><p id="0812745b-d106-4b9d-8e19-673b3263df79" class="">Для начала рассмотрим доступные команды:</p><ul id="cb017c0a-8f4c-48e7-9e68-807400b17372" class="bulleted-list"><li style="list-style-type:disc"><strong>list-units</strong> - посмотреть все службы (юниты), аналог - опция -t</li></ul><ul id="7568251a-a2b0-4811-9708-8dea3e09b54c" class="bulleted-list"><li style="list-style-type:disc"><strong>list-sockets</strong> - посмотреть все службы сокетов</li></ul><ul id="4af96849-8902-434b-9278-769bee2c3952" class="bulleted-list"><li style="list-style-type:disc"><strong>start</strong> - запустить службу linux</li></ul><ul id="955dd829-3984-4f2b-9b02-c36cfbd60bb0" class="bulleted-list"><li style="list-style-type:disc"><strong>stop</strong> - остановить службу linux</li></ul><ul id="1d37d9d4-9f2a-46a3-8bcd-26559400c759" class="bulleted-list"><li style="list-style-type:disc"><strong>reload</strong> - обновить конфигурацию службы из файла юнита</li></ul><ul id="e5c71432-c502-40c5-8d3d-0920654646ae" class="bulleted-list"><li style="list-style-type:disc"><strong>restart</strong> - перезапустить службу</li></ul><ul id="2f0c89fc-c632-4ad8-9680-736f7f6f2d95" class="bulleted-list"><li style="list-style-type:disc"><strong>try-restart</strong> - перезапустить службу, только если она запущена</li></ul><ul id="4f9635e1-4a2c-4d74-bf9b-5f66573a2525" class="bulleted-list"><li style="list-style-type:disc"><strong>reload-or-restart</strong> - обновить конфигурацию затем выполнить перезапуск службы linux, если не поддерживается - только перезапустить</li></ul><ul id="e93b94c9-4a41-423b-9938-ce80b2408bb1" class="bulleted-list"><li style="list-style-type:disc"><strong>isolate</strong> - запустить только одну службу вместе с ее зависимостями, все остальные остановить</li></ul><ul id="7f740b74-40c4-4905-a962-3ee32cca8d87" class="bulleted-list"><li style="list-style-type:disc"><strong>kill</strong> - отправить сигнал завершения процессу используется вместе с опциями --signal и --kill-who</li></ul><ul id="d8ac9ad8-ee14-4aca-91e2-2721aacef799" class="bulleted-list"><li style="list-style-type:disc"><strong>is-active</strong> - проверить запущена ли служба linux</li></ul><ul id="c7ffd739-a007-4c15-a2b8-29a81717091b" class="bulleted-list"><li style="list-style-type:disc"><strong>is-failed</strong> - проверить не завершилась ли служба с ошибкой</li></ul><ul id="2eb53490-98b4-4333-a77f-3c2a1c927d52" class="bulleted-list"><li style="list-style-type:disc"><strong>status</strong> - посмотреть состояние и вывод службы</li></ul><ul id="4fd010f3-38f8-4f06-ba6e-28c0ac631a01" class="bulleted-list"><li style="list-style-type:disc"><strong>show</strong> - посмотреть параметры управления службой в Linux</li></ul><ul id="810d75e1-14c6-44aa-be5b-07561c85bccd" class="bulleted-list"><li style="list-style-type:disc"><strong>reset-failed</strong> - перезапустить службы linux, завершившиеся с ошибкой</li></ul><ul id="0532211e-f5f3-4257-9e8e-b31a66c63c5c" class="bulleted-list"><li style="list-style-type:disc"><strong>list-dependencies</strong> - посмотреть зависимости службы linux</li></ul><ul id="f255d5cc-abd9-4bb9-9372-5d7c4d5e0a80" class="bulleted-list"><li style="list-style-type:disc"><strong>list-unit-files</strong> - вывести все установленные файлы служб</li></ul><ul id="3980de1e-a583-4aae-9a69-e6ebff3c2c01" class="bulleted-list"><li style="list-style-type:disc"><strong>enable</strong> - добавить службу в автозагрузку</li></ul><ul id="1d5a82d4-ecf6-412d-81ba-4d943f272976" class="bulleted-list"><li style="list-style-type:disc"><strong>disable</strong> - удалить службу из автозагрузки</li></ul><ul id="9307c30f-df97-48ea-9a51-4e8384e529c8" class="bulleted-list"><li style="list-style-type:disc"><strong>is-enabled</strong> - проверить если ли уже служба в автозагрузке</li></ul><ul id="1e1fe4cd-2667-4aa5-883b-ec206e8df7c0" class="bulleted-list"><li style="list-style-type:disc"><strong>reenable</strong> - сначала выполнить disable потом enable для службы</li></ul><ul id="e5b37619-14f8-4f3a-9415-e5e0bf659ecb" class="bulleted-list"><li style="list-style-type:disc"><strong>list-jobs</strong> - все запущенные службы linux независимо от типа</li></ul><ul id="351a2e95-d373-44ce-bbd2-983a725a8865" class="bulleted-list"><li style="list-style-type:disc"><strong>snapsot</strong> - сохранить состояние служб, чтобы потом восстановить</li></ul><ul id="616ee1b2-938e-4d77-9493-187d7675e141" class="bulleted-list"><li style="list-style-type:disc"><strong>daemon-reload</strong> - обновить конфигурацию всех служб</li></ul><ul id="d4abc32f-10b0-48d6-9039-e6090f4a2c14" class="bulleted-list"><li style="list-style-type:disc"><strong>mask - </strong>сделать юнит недоступным</li></ul><ul id="41b62d16-8602-4a41-b908-d871645c21dc" class="bulleted-list"><li style="list-style-type:disc"><strong>unmask</strong> - вернуть файл службы linux</li></ul><p id="2e013114-664b-447e-aa9b-e78b38817680" class="">А теперь основные опции:</p><ul id="f2c7016a-d631-4fec-a72e-38d3b58107c2" class="bulleted-list"><li style="list-style-type:disc"><strong>t, --type</strong> - тип служб для вывода</li></ul><ul id="d7281d57-6f13-4ca4-ab13-50645e54ed14" class="bulleted-list"><li style="list-style-type:disc"><strong>a, --all</strong> - показать все известные службы, даже не запущенные</li></ul><ul id="d379ef3d-0d93-4115-98df-6a72edf7f004" class="bulleted-list"><li style="list-style-type:disc"><strong>q</strong> - минимальный вывод</li></ul><ul id="d55604ba-babf-40c3-9567-8ae4f9d94892" class="bulleted-list"><li style="list-style-type:disc"><strong>-version</strong> - версия программы</li></ul><ul id="cdc70263-11a4-4f4e-8372-71ab699858a0" class="bulleted-list"><li style="list-style-type:disc"><strong>-no-pager</strong> - не использовать постраничную навигацию</li></ul><ul id="c60e6ccb-d319-44d3-983f-a248cad853b5" class="bulleted-list"><li style="list-style-type:disc"><strong>-no-legend</strong> - не выводить подробное описание</li></ul><ul id="1df6deaf-61f5-4f04-b50e-9e585bc6ffff" class="bulleted-list"><li style="list-style-type:disc"><strong>f</strong> - принудительное выполнение команды</li></ul><ul id="0fa7a1f1-0650-479c-b1ad-1f4e0396ebd2" class="bulleted-list"><li style="list-style-type:disc"><strong>-runtime</strong> - не сохранять вносимые изменения после перезагрузки</li></ul><ul id="aa0d178e-5932-42b9-82cb-f8a29f614052" class="bulleted-list"><li style="list-style-type:disc"><strong>n</strong> - количество строк вывода лога для команды status</li></ul><ul id="ca1ed65f-2fc6-4b38-b489-697a1bb0ce99" class="bulleted-list"><li style="list-style-type:disc"><strong>--plain</strong> - использовать обычный текстовый режим вместо деревьев</li></ul><ul id="563e426d-b2d0-4a2b-b2e1-2750f6543c20" class="bulleted-list"><li style="list-style-type:disc"><strong>-kill-who</strong> - задать процесс, которому нужно отправить сигнал</li></ul><ul id="0b0ff0a5-06ed-40c6-90ef-2dd2e402b237" class="bulleted-list"><li style="list-style-type:disc"><strong>-signal</strong> - сигнал, который нужно отправить.</li></ul><ul id="d8b24409-dfbc-4c67-8baa-e1ac3f7fe838" class="bulleted-list"><li style="list-style-type:disc">-state - отфильтровать список служб по состоянию.</li></ul><p id="976ec5d4-1406-4a67-82ba-93db32b8912b" class="">Для большинства повседневных задач вы будете использовать команды <strong>start, stop, reload, restart, enable и disable</strong>. </p><p id="b6c2700a-7382-46c8-abd1-65fc134ae4ae" class="">Чтобы запустить тот или иной сервис, воспользуйтесь следующей командой:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="26444c61-56cb-4ce8-97c2-8e2d89ebbff0" class="code"><code class="language-JavaScript">$ sudo systemctl start application.service</code></pre><p id="5df77a4a-6b3b-4199-afdb-b5124d5345ec" class="">Вместо “application” укажите сервис, который вы хотите запустить.</p><p id="9ab1af52-3ccf-49c2-b674-9473244ae240" class="">Суффикс .service указывает на то, чтобы вы работаете  со службой, однако systemd достаточно умна чтобы знать, что вы хотите работать со службой при использовании команд по управлению службами, следовательно его можно опустить. </p><p id="2cc5ef4c-2212-459c-828c-6c7051d01f47" class="">В следующем примере демонстрируется остановка службы, обратите внимание что суффикс отсутсвтует:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="7f64fa4f-7212-4eb0-b8b1-067aa1990e11" class="code"><code class="language-JavaScript">$ sudo systemctl stop application</code></pre><p id="31a80679-5675-4c08-8252-f6970ce95227" class="">Чтобы перезапустить работающую службу, можно использовать команду <code>restart</code>:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="762a4429-546a-4698-af15-0f14b02f897f" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ sudo systemctl restart application</code></pre><p id="9ba5c9a5-34e8-4824-8107-3a24605c82a4" class="">Если данное приложение может перезагрузить файлы конфигурации (без перезапуска), вы можете выдать команду <code>reload</code> для инициализации этого процесса:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="8fe0dc9a-c2cf-426d-a29c-5378252dc8ca" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ sudo systemctl reload application</code></pre><p id="ff951973-272b-4c0d-8fec-ac0213786b81" class="">Если вы не уверены, есть ли у службы функция перезагрузки своей конфигурации, можно использовать команду <code>reload-or-restart</code>. Это перезагрузит необходимую конфигурацию при наличии. В противном случае будет перезагружена служба для выбора новой конфигурации:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="0732d233-34ec-4515-9751-1a0ef3e5463c" class="code"><code class="language-JavaScript">$ sudo systemctl reload-or-restart application</code></pre><p id="c40f3675-bc15-44e3-beb2-b96f639801ea" class="">Указанные выше команды полезны для запуска или остановки служб во время текущего сеанса. Чтобы дать команду <code>systemd</code> автоматически запускать службы при загрузке, их необходимо включить. Для запуска службы во время загрузки используйте команду <code>enable</code>:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="5f541b8b-402b-46c0-9e4e-29fb6cb28e69" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ sudo systemctl enable application</code></pre><p id="2f1372fb-3a97-476e-9a79-422de2746ca4" class="">При этом будет создана символическая ссылка из системной копии служебного файла (обычно в <code>/lib/systemd/system</code> или <code>/etc/systemd/system</code>) в месте на диске, где <code>systemd</code> ищет файлы для автозапуска.</p><p id="8538d99d-51fc-4350-957b-ccfe147b6699" class="">Чтобы отключить автоматический запуск службы, можно ввести следующее:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="c3d6d5fb-43a9-41f9-bdb4-192fa3d8f427" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ sudo systemctl disable application</code></pre><p id="e4a5b7c2-2c4b-4e06-a1f4-8bb106fac187" class="">При этом будет удалена символическая ссылка, что укажет на то, что служба не должна запускаться автоматически.</p><p id="9c19a482-0291-436f-96b9-821658de7eed" class="">Помните, что включение службы не запустит ее в текущем сеансе. Если <br/>вы хотите запустить службу и включить ее при загрузке, необходимо дать <br/>обе команды, <br/><code>start</code> и <code>enable</code>.</p><h3 id="b2c50b2e-7b85-4567-8a52-fe0dea84309a" class="">Проверка статуса служб</h3><p id="a37dd2cc-e6e0-45c3-aadc-dd2fcfc42019" class="">Чтобы проверить статус службы в вашей системе, можно использовать команду <code>status</code>:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="7b31676a-2743-4f7a-9cb8-56eb975f2458" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ systemctl status application.service</code></pre><p id="94ea3135-761b-4e26-ba9c-9a29635c5ec8" class="">При этом вы получите статус службы, иерархию контрольных групп и первые несколько строк журнала.</p><p id="e121417d-034f-4369-b92e-4fc33ff8601c" class="">Например, при проверке статуса сервера Nginx вы можете видеть следующий вывод:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="f4da33a2-6eae-4b1e-ab42-35156e8b81d8" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Output
+● nginx.service - A high performance web server and a reverse proxy server
+   Loaded: loaded (/usr/lib/systemd/system/nginx.service; enabled; vendor preset: disabled)
+   Active: active (running) since Tue 2015-01-27 19:41:23 EST; 22h ago
+ Main PID: 495 (nginx)
+   CGroup: /system.slice/nginx.service
+           ├─495 nginx: master process /usr/bin/nginx -g pid /run/nginx.pid; error_log stderr;
+           └─496 nginx: worker process
+Jan 27 19:41:23 desktop systemd[1]: Starting A high performance web server and a reverse proxy server...
+Jan 27 19:41:23 desktop systemd[1]: Started A high performance web server and a reverse proxy server.
+</code></pre><p id="f0f9f243-d0ec-4ee7-b737-6f7ff75cfb81" class="">Это дает вам хороший обзор текущего статуса приложения и уведомляет о наличии каких-либо проблем или необходимости выполнения каких-либо действий.</p><h3 id="124c90d0-00e2-4f8f-8a24-2f9dca4883c2" class="">Обзор состояния системы</h3><p id="21a7b57e-f1db-46a3-b3e1-fc28c6c61e2d" class="">Команды до сих пор были полезны для управления отдельными службами, <br/>но они не очень подходят для понимания текущего состояния системы. Существует ряд команд <br/><code>systemctl</code>, предоставляющих эту информацию.</p><p id="0a44171e-af34-4732-9e9b-fd8ed6df91c7" class="">Чтобы увидеть список всех активных модулей, о которых знает <code>systemd</code>, можно использовать команду <code>list-units</code>:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="6e956d12-45a1-4a77-8c11-132ac622beb6" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ systemctl list-units</code></pre><p id="8a19f3ab-342a-4a5e-be22-be8656387dc9" class="">Это покажет вам список всех модулей, которые у <code>systemd</code> активны в системе. Результат будет выглядеть примерно так:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="ef872017-db0e-483c-b423-e6efdb2ef967" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Output
+UNIT                                      LOAD   ACTIVE SUB     DESCRIPTION
+atd.service                               loaded active running ATD daemon
+avahi-daemon.service                      loaded active running Avahi mDNS/DNS-SD Stack
+dbus.service                              loaded active running D-Bus System Message Bus
+dcron.service                             loaded active running Periodic Command Scheduler
+dkms.service                              loaded active exited  Dynamic Kernel Modules System
+getty@tty1.service                        loaded active running Getty on tty1
+. . .
+</code></pre><p id="29964d13-9306-4197-9e54-aea5867da1bb" class="">Вывод содержит следующие столбцы:</p><ul id="c1562f20-f90e-4639-8611-a20579de8105" class="bulleted-list"><li style="list-style-type:disc"><strong>UNIT</strong>: имя модуля <code>systemd</code></li></ul><ul id="0fc45601-bb11-48e0-9054-79088d7271ba" class="bulleted-list"><li style="list-style-type:disc"><strong>LOAD</strong>: указывает на то, парсила ли <code>systemd</code> конфигурацию модуля. Конфигурация загруженных модулей сохраняется в памяти.</li></ul><ul id="1f0dda06-53ca-44a5-a7fd-106f05e8b915" class="bulleted-list"><li style="list-style-type:disc"><strong>ACTIVE</strong>: краткое состояние активности модуля. Обычно это довольно стандартный способ сообщить, запущен модуль или нет.</li></ul><ul id="85e312f0-b689-4f3d-9836-7b73f63b808b" class="bulleted-list"><li style="list-style-type:disc"><strong>SUB</strong>: это состояние более низкого уровня, которое<br/>указывает более подробную информацию о модуле. Это часто зависит от типа модуля, состояния и фактического метода работы модуля.<br/></li></ul><ul id="23aedc49-1ccc-4e25-b70e-4dad75ec625e" class="bulleted-list"><li style="list-style-type:disc"><strong>DESCRIPTION</strong>: краткое текстовое описание того, чем является модуль/что делает.</li></ul><p id="52aea3dc-2ccf-4c8b-9f25-a8d19996d5be" class="">Поскольку команда <code>list-units</code> показывает по умолчанию только активные модули, для всех вводов выше отобразится <code>loaded</code> в столбце LOAD и <code>active</code> в столбце ACTIVE. Это отображение фактически является поведением по умолчанию <code>systemctl</code> при вызове без дополнительных команд, поэтому вы увидите то же, что и при вызове <code>systemctl</code> без аргументов. </p><p id="3b47c3b4-553c-4462-bbe6-fd1d02f2799f" class="">
+</p><h3 id="5b6988b9-65a9-42e0-a534-d81a6859a237" class="">Команда <strong>service</strong></h3><p id="a9a54d23-7bda-4b08-8b53-8c4eeca1236d" class="">Вы также можете использовать другой способ мониторинга служб Linux - команду service. Однако systemctl является основным инструментом в инструменте управления сервисами и содержит в себе функцию service, другими словами принципиальной разницы в вышеописанных способах нет, это лишь разные обращения к одному и тому же инструменту. Тем не менее Вы должны владеть разными подходами, поэтому ниже представлены основные варианты использования команды service на примере работы с некоторыми распространеннными сервисами.</p><p id="c2072542-aaed-4032-ac78-f9b72bf877dd" class="">Чтобы посмотреть какие сервисы у нас работают, необходимо ввести команду </p><p id="289e7cd1-e057-43bb-91ce-d5107d81559f" class=""><code>service --status-all</code></p><figure id="5b91d4fa-3fbe-4b53-a45e-31ec67312599" class="image"><a href="../%D0%97%D0%B0%D0%BD%D1%8F%D1%82%D0%B8%D0%B5%202%20%D0%90%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Linux%20d6d35d1e6d144e12895cd52702c806db/%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20fdab289de02c400285892678f47b8d18/Untitled%205.png"><img style="width:582px" src="../%D0%97%D0%B0%D0%BD%D1%8F%D1%82%D0%B8%D0%B5%202%20%D0%90%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Linux%20d6d35d1e6d144e12895cd52702c806db/%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20fdab289de02c400285892678f47b8d18/Untitled%205.png"/></a></figure><p id="0677ef02-f035-47be-89ca-99c775b96bb8" class="">
+</p><p id="a9fb2b7e-5433-41d6-ada7-555dfe86f771" class=""><strong>Мониторинг Apache с помощью service</strong></p><p id="64332384-7ebe-46f7-bb5a-1228421b8c50" class="">Прежде всего установим Apache:</p><figure id="bfe39fbc-8ec2-4024-8ea3-98a5844a2274" class="image"><a href="../%D0%97%D0%B0%D0%BD%D1%8F%D1%82%D0%B8%D0%B5%202%20%D0%90%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Linux%20d6d35d1e6d144e12895cd52702c806db/%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20fdab289de02c400285892678f47b8d18/Untitled%206.png"><img style="width:649px" src="../%D0%97%D0%B0%D0%BD%D1%8F%D1%82%D0%B8%D0%B5%202%20%D0%90%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Linux%20d6d35d1e6d144e12895cd52702c806db/%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20fdab289de02c400285892678f47b8d18/Untitled%206.png"/></a></figure><p id="eaef71c4-8142-4349-859a-e74739d4ad68" class="">Просмотр статуса:</p><figure id="a8849411-ab96-46f5-9ec1-61960bf83e79" class="image"><a href="../%D0%97%D0%B0%D0%BD%D1%8F%D1%82%D0%B8%D0%B5%202%20%D0%90%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Linux%20d6d35d1e6d144e12895cd52702c806db/%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20fdab289de02c400285892678f47b8d18/Untitled%207.png"><img style="width:633px" src="../%D0%97%D0%B0%D0%BD%D1%8F%D1%82%D0%B8%D0%B5%202%20%D0%90%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Linux%20d6d35d1e6d144e12895cd52702c806db/%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20fdab289de02c400285892678f47b8d18/Untitled%207.png"/></a></figure><p id="ffd89a35-b585-422a-be2b-124ffc7df079" class="">Как видим, в данный момент сервис не активен, следует его запустить:</p><figure id="c52d608b-3b54-421e-b860-0385811bb3d7" class="image"><a href="../%D0%97%D0%B0%D0%BD%D1%8F%D1%82%D0%B8%D0%B5%202%20%D0%90%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Linux%20d6d35d1e6d144e12895cd52702c806db/%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20fdab289de02c400285892678f47b8d18/Untitled%208.png"><img style="width:326px" src="../%D0%97%D0%B0%D0%BD%D1%8F%D1%82%D0%B8%D0%B5%202%20%D0%90%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Linux%20d6d35d1e6d144e12895cd52702c806db/%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20fdab289de02c400285892678f47b8d18/Untitled%208.png"/></a></figure><p id="4690513e-fadc-46fb-9e88-83131d104007" class="">Снова проверим статус:</p><figure id="fe489a58-71e4-444f-bcf1-0d10fb7722e0" class="image"><a href="../%D0%97%D0%B0%D0%BD%D1%8F%D1%82%D0%B8%D0%B5%202%20%D0%90%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Linux%20d6d35d1e6d144e12895cd52702c806db/%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20fdab289de02c400285892678f47b8d18/Untitled%209.png"><img style="width:646px" src="../%D0%97%D0%B0%D0%BD%D1%8F%D1%82%D0%B8%D0%B5%202%20%D0%90%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Linux%20d6d35d1e6d144e12895cd52702c806db/%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20fdab289de02c400285892678f47b8d18/Untitled%209.png"/></a></figure><p id="c5e753cf-1ea3-47f4-8b76-d836f561d78f" class="">Отлично, Apache присвоен статус <em>active. </em>Давайте убедимся в этом, зайдя на старницу сервиса в браузере. Для этого перейдем по адресу 127.0.0.1 (это так называемый локальный адрес):</p><figure id="3102a8a8-a354-4279-a232-87efbe096c65" class="image"><a href="../%D0%97%D0%B0%D0%BD%D1%8F%D1%82%D0%B8%D0%B5%202%20%D0%90%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Linux%20d6d35d1e6d144e12895cd52702c806db/%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20fdab289de02c400285892678f47b8d18/Untitled%2010.png"><img style="width:787px" src="../%D0%97%D0%B0%D0%BD%D1%8F%D1%82%D0%B8%D0%B5%202%20%D0%90%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Linux%20d6d35d1e6d144e12895cd52702c806db/%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20fdab289de02c400285892678f47b8d18/Untitled%2010.png"/></a></figure><p id="c24664e3-aa52-447c-bd22-f7422803d7ff" class="">Такая страница свидетельствует о том, что мы всё сделали правильно.</p><p id="ed0d524e-16cd-4319-b372-1961885871a2" class="">Теперь давайте отключим web-сервер и посмотрим какой вывод нам даст браузер</p><figure id="5c27a8db-8b33-4bed-afa8-88234acec964" class="image"><a href="../%D0%97%D0%B0%D0%BD%D1%8F%D1%82%D0%B8%D0%B5%202%20%D0%90%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Linux%20d6d35d1e6d144e12895cd52702c806db/%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20fdab289de02c400285892678f47b8d18/Untitled%2011.png"><img style="width:375px" src="../%D0%97%D0%B0%D0%BD%D1%8F%D1%82%D0%B8%D0%B5%202%20%D0%90%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Linux%20d6d35d1e6d144e12895cd52702c806db/%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20fdab289de02c400285892678f47b8d18/Untitled%2011.png"/></a></figure><figure id="f4761971-e5f4-4635-b946-6948d0ce74d7" class="image"><a href="../%D0%97%D0%B0%D0%BD%D1%8F%D1%82%D0%B8%D0%B5%202%20%D0%90%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Linux%20d6d35d1e6d144e12895cd52702c806db/%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20fdab289de02c400285892678f47b8d18/Untitled%2012.png"><img style="width:791px" src="../%D0%97%D0%B0%D0%BD%D1%8F%D1%82%D0%B8%D0%B5%202%20%D0%90%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Linux%20d6d35d1e6d144e12895cd52702c806db/%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20fdab289de02c400285892678f47b8d18/Untitled%2012.png"/></a></figure><h2 id="db4c2a25-bb48-44a1-bbbe-a8a86b0932a6" class="">2. Передача файлов</h2><h3 id="5112b9dc-2f56-464b-b8f9-2f87f6033e66" class="">2.1 SFTP</h3><p id="7d225c58-37d6-4410-879a-0f623e24da51" class=""><strong>FTP (File Transfer Protocol)</strong>, или протокол передачи файлов, был популярным методом незашифрованной передачи файлов между двумя удаленными системами.</p><p id="16d1f0a6-887d-4e8c-8f0e-91ae867bde0e" class=""><strong>SFTP (Secure FTP)</strong>, протокол передачи файлов по <strong>SSH</strong>, или безопасный протокол передачи файлов, — это отдельный протокол, поддерживающий SSH, который работает схожим образом, но использует защищенное подключение. Его преимуществом является возможность использования защищенного подключения для передачи файлов и просмотра файловой системы как на локальной, так и на удаленной системе.</p><p id="82023f9c-5b65-4c99-895c-937a474305f9" class="">Практически во всех случаях использование SFTP будет более предпочтительным по сравнению с FTP из-за имеющихся у первого функций безопасности и возможности использования подключения SSH. FTP — это небезопасный протокол, который следует использовать в ограниченных случаях или в сетях, которым вы доверяете.</p><p id="5a8d620b-f891-4719-bb6d-544a0f09711d" class="">По умолчанию SFTP использует протокол SSH для аутентификации и установки защищенного подключения. По этой причине протокол использует те же методы аутентификации, что и SSH.</p><p id="e236fe80-8366-442c-adc2-3664ae234959" class="">Так как SFTP работает поверх SSH, первым делом необходимо установить OpenSSH как со стороны сервера (хранилища):</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="9c688c30-83e9-4c18-889c-a17f49deb611" class="code"><code class="language-HTML">$ sudo apt install openssh-server</code></pre><p id="02442979-d9d3-476b-88f1-a843bed81ddf" class="">Также необходимо установить ssh на стороне клиента (устройства, с которого планируется доступ к хранилищу):</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="54ac23e4-be88-4d7f-8d45-a5b28a27135c" class="code"><code class="language-HTML">$ sudo apt install ssh</code></pre><p id="60103469-1d98-49d8-8e74-18926ba6e04c" class="">Для безопасного использования SFTP, лучше всего создать группы и пользователей, которые будут использовать только эту службу:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="820fe469-5ac6-48b9-9635-37a5da4c5f50" class="code"><code class="language-HTML">$ sudo useradd -g sftpgroup sftpuser
+$ sudo passwd sftpuser</code></pre><p id="26c33ddf-c9de-45ca-b921-469acf07e09f" class="">Cоздадим каталоги и изменим их доступ:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="fc45e4e4-b78c-408c-bc82-181f7e79f4a3" class="code"><code class="language-HTML">$ sudo mkdir -p /data/sftpuser/upload 
+$ chown -R root.sftpgroup /data/sftp 
+$ chown -R sftpuser.sftpgroup /data/sftp/upload</code></pre><p id="0324bb58-a344-43cb-badf-84ad305ae39e" class=""><em>Важно: убедитесь, что владелец /data/sftpuser - root, это обязательно для изменения корневого каталога в SFTP.</em></p><p id="f148ce58-9041-4a6f-b782-5724a1644d62" class="">Далее нужно настроить сервер так, чтобы когда пользователь, из группы <strong>sftpgroup</strong>, входил в систему, он попадал в <strong>sftp</strong> вместо обычной оболочки, в которую попадает через <strong>ssh</strong>. Для этого нужно добавьте фрагмент кода в файл /etc/ssh/sshd_config. Для редактирования файлов в Linux существует текстовый редактор nano. Чтобы воспользоваться им достаточно выполнить команду nano “путь к файлу”:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="559d2e32-a768-4030-8b60-6c88356515ee" class="code"><code class="language-HTML">$ nano /etc/ssh/sshd_config</code></pre><p id="dbd2d8c7-2b96-4a9b-bf9e-f364a61229f2" class="">Добавляем следующее:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="212b091b-f801-4fce-b113-0afd3cfce812" class="code"><code class="language-HTML">Match Group sftpgroup
+ChrootDirectory /data/%u
+ForceCommand internal-sftp</code></pre><p id="0071ac96-b67f-4be6-9588-d916b4d6b630" class="">ChrootDirectory позволяет создать необходимый каталог в качестве корневого узла (/ каталог) в дереве каталогов. Вошедший в систему пользователь не сможет увидеть ничего выше этого каталога и это не даст ему получить доступ к файлам других пользователей. %u - это код для заполнения текущим именем пользователя во время входа в систему.</p><p id="62bcb86c-ae5a-4ff0-a5a9-9d182052eab0" class="">Для сохранения файла нажимаем ctrl + O, и выходим из редактора с помощью ctrl + X.</p><p id="d4ceddd3-a1c3-4c84-acec-fc37630368c3" class="">Чтобы выполнить внесенные в sshd_config изменения, перезапустите службу:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="801a1db1-b130-41f6-8ceb-3ec1156c0c42" class="code"><code class="language-HTML">$ sudo systemctl restart sshd</code></pre><p id="021dc10a-9a28-4bac-9598-958eb4e627b5" class="">Доступ по sftp осуществляется аналогично с ssh → <strong>sftp username@host</strong> (чтобы узнать ip-адрес хоста выполните команду <strong>ip a</strong>) :</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="891460ef-d30a-46cf-9759-9c6719a8a358" class="code"><code class="language-HTML">$ sftp sftpuser@192.168.183.128</code></pre><p id="f2c1645a-4ac2-4813-9a62-850a520085da" class="">После успшеного подключения при необходимости загрузки файлов с удаленного хоста мы можем воспользоваться следующей командой для выполнения этой задачи:<code><br/>sftp&gt; get FileName<br/></code></p><p id="b8818950-6ac0-45e7-af64-64a640f36fd9" class="">По умолчанию команда get загружает удаленный файл и сохраняет файл с тем же именем в локальной файловой системе. Мы можем указать имя, с которым сохранится файл, добавив его в вышеуказанную команду:</p><p id="dc80623b-73c9-4878-94cc-66936eaa4cae" class=""><code>sftp&gt; get FileName NewName</code></p><p id="f83789cd-4786-4201-8a8c-eebcdd89d9d0" class="">Команда <code>get</code> также имеет несколько флагов. Например, мы можем скопировать каталог и все его содержимое с помощью рекурсивной опции:<code><br/>sgtp&gt; get -r DirectoryName<br/></code></p><p id="8bce0fc3-01f7-489f-8ce4-ae7618d67bed" class="">Передача файлов в удаленную систему осуществляется таким же удобным образом с помощью команды с именем «put»:</p><p id="37c9e4c1-2320-452f-bfe7-7980eb4563d2" class=""><code>sftp&gt; put FileName</code></p><p id="91731743-7849-494e-b99d-17a0c438bb77" class="">Директории передаются аналогичным с получением образом:</p><p id="6b434d79-8ed2-44a2-8f02-9d2112c9f7aa" class=""><code>sgtp&gt; put -r DirectoryName</code></p><p id="60f67688-d7f2-43ff-b243-76cfc6d47873" class="">Одним из хорошо знакомых инструментов, который может быть полезен при скачивании и загрузке файлов, является команда <code>df</code>,<br/> которая работает схожим образом с используемой в командной строке <br/>версией данной инструкции. Она позволяет убедиться, что у вас в <br/>распоряжении есть достаточное количество места для передачи данных, <br/>которые вас интересуют:<br/></p><p id="2d231294-cb52-4ed6-a580-4bc1f0a05477" class=""><code>sftp&gt; df -h</code></p><p id="a4a32c7d-7476-422e-b713-8472071785b7" class="">Вывод команды:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2fb56792-f370-4192-8792-abd2eba7a0cb" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Output
+    Size     Used    Avail   (root)    %Capacity
+  19.9GB   1016MB   17.9GB   18.9GB           4%</code></pre><p id="3e62b223-5071-4f55-9a9d-475c4b48c20d" class="">Обратите внимание, что локального варианта этой команды нет, но мы можем обойти это ограничение, воспользовавшись <code>!</code> в качестве команды.</p><p id="d7f08fe0-114a-4048-922f-7298d05d8c94" class="">Команда <code>!</code> перемещает нас в локальную оболочку, где можно<br/>запустить любую команду в локальной системе.  Выполнив её, мы можем проверить <br/>использование диска также с помощью <br/><code>df -h</code>. Чтобы вернуться в сеанс SFTP, введите <code>exit</code> .</p><p id="6d1ef72f-702d-49f5-9ac6-c010c3e19aa1" class="">Для удаления файлов в удаленной системе используется команда <strong>rm</strong>:</p><p id="31856a12-0d67-4bca-a57b-543169c3a242" class=""><code>sftp&gt; rm FileName</code></p><h3 id="b20d40e7-65ba-4a8b-ae7d-7bfa5b35e4b2" class="">2.2 WinSCP</h3><p id="f2918368-44f6-4160-9740-35adab58581b" class="">Для передачи файлов с клиента под управлением Windows существует FTP-клиент WinSCP. Это свободный графический клиент протоколов SFTP и SCP, предназначенный для Windows. Благодаря графическому интерфейсу воспользоваться им не составит труда даже начинающему пользователю. Первым делом нужно скачать установщик с официального сайта (<a href="http://winscp.net/">winscp.net</a>) и, следуя его указаниям, выполнить установку программы. При открытии пользователя встречает окно подключения к серверу:</p><figure id="2fefce54-739d-44f1-8019-b5aa7bc585ca" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%206.png"><img style="width:729px" src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%206.png"/></a></figure><p id="c273af06-350f-42e3-a545-bc20c134a0ee" class="">Для подключения к нашем sftp-серверу введите ip-адрес в поле имя хоста, укажите порт 22 (если не меняли), имя пользователя и пароль.</p><p id="2845cf91-05c5-427f-9207-d660efae0255" class="">При успешном подключении увидим следующую картину:</p><figure id="1fb5edb9-ade0-4258-bfc7-ef4a1ace4010" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20ebf608701e084bf3b2350d54efbf4bc5/Untitled.png"><img style="width:1134px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20ebf608701e084bf3b2350d54efbf4bc5/Untitled.png"/></a></figure><p id="02e4d7d0-0706-4db8-a139-0523cdef9be1" class="">Для получения файла с сервера нажмите на соответствующий пункт и укажите путь, куда вы хотите сохранить файл:</p><figure id="7f5a2723-653d-4031-b8a6-c0cb6d44969f" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20ebf608701e084bf3b2350d54efbf4bc5/Untitled%201.png"><img style="width:544px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20ebf608701e084bf3b2350d54efbf4bc5/Untitled%201.png"/></a></figure><p id="486a93d3-0de8-455e-ad3a-0f8cfa57ebd8" class="">Для загрузки файла на сервер достаточно перетащить его из папки на клиенте в нужный каталог, открытый в WinSCP:</p><figure id="5f1640b3-68b3-4aaf-b8f9-3a10b4cd62a4" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20ebf608701e084bf3b2350d54efbf4bc5/Untitled%202.png"><img style="width:939px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20ebf608701e084bf3b2350d54efbf4bc5/Untitled%202.png"/></a></figure><figure id="5cd336ca-11c9-46dd-bc19-08c35649d7be" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20ebf608701e084bf3b2350d54efbf4bc5/Untitled%203.png"><img style="width:885px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20ebf608701e084bf3b2350d54efbf4bc5/Untitled%203.png"/></a></figure><h3 id="dc05bf3d-a858-4698-b235-f2292b420910" class="">2.3 Samba</h3><p id="18a35dec-b063-42f2-b231-92b23839e45b" class="">Samba – это программное обеспечение для реализации файлового сервера. Данный сервис дает возможность обращаться к сетевым дискам и принтерам по протоколу SMB/CIFS. Имеет клиентскую и серверную части. Samba – свободно распространяемое ПО. Начиная с версии 4 в Samba была реализована возможность выступать в роли контроллера домена и аналога сервиса Active Directory.</p><p id="a6b39c4d-5d89-49bd-be16-0b0f48ef0d68" class="">Устанавливая Samba и базовые сетевые службы (DNS, NTP, Kerberos) на один из Linux-дистрибутивов вы получаете следующую функциональность:</p><ol type="1" id="0e166cc8-a480-4db2-bae3-44f18fd57614" class="numbered-list" start="1"><li>Контроллер домена Active Directory: </li></ol><ul id="45b44337-3bfa-437e-9eb7-ca34ce103ade" class="bulleted-list"><li style="list-style-type:disc">Служба Аутентификации на базе Kerberos v5 </li></ul><ul id="7efc9267-ef58-48e0-99ae-2a5785e484b4" class="bulleted-list"><li style="list-style-type:disc">LDAP-совместимая служба каталогов c возможностью репликации по DRS </li></ul><ul id="bc2c4023-bc2f-4374-beda-f6649eeeb99b" class="bulleted-list"><li style="list-style-type:disc">Сервер управления групповыми политиками </li></ul><ul id="b1c36f8b-309d-486d-9790-603e177fe124" class="bulleted-list"><li style="list-style-type:disc">DNS-сервер на базе BIND </li></ul><ol type="1" id="95c21d32-ca7b-4976-80ed-12c1f80b977b" class="numbered-list" start="2"><li>Файловый сервер</li></ol><ol type="1" id="b255bf2a-1c77-44dc-9f70-9edb0360b8c6" class="numbered-list" start="3"><li> Сервер печати</li></ol><p id="b7b04f71-01bb-4e9b-9c7e-6cbe12c8a8b8" class="">
+</p><p id="45fda5bf-38b6-42b8-bef3-18a4b0df2b2a" class=""><em>Прежде чем приступить к установке, убедитесь, что вы вошли в систему как пользователь с правами суперпользователя, а также обновите пакеты (apt update и apt upgrade)</em>.</p><p id="a3697ad4-a416-4f14-98bb-78e764f9b556" class="">
+</p><p id="db59e056-7530-4ce6-90d3-25c96cd4ff3e" class="">Для установки выполните:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="7120a9df-de6e-4588-ac84-90c837e978d4" class="code"><code class="language-HTML">$ apt install samba </code></pre><p id="d0966844-89f1-4c33-821a-f3227d74a7ea" class="">Проверим корректность установки:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="b74940bb-b8e6-4a84-8eb4-d4c09bc216f0" class="code"><code class="language-HTML">$ systemctl status smbd</code></pre><p id="7e654447-ecf0-4db4-9d90-09e3d92b6535" class="">Создадим директорию, в которую будем организовывать общий доступ, и в ней тестовый текстовый файл:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15fbb4bc-6409-4046-a091-36e9ffb7b622" class="code"><code class="language-HTML">$ mkdir /Samba_Dir
+$ touch /Samb_Dir/FileToShare</code></pre><p id="62a66e95-732f-4c3c-869a-307431ac3fd7" class="">Установм полные права доступа всем пользователям на созданный только что каталог Samba_Dir: </p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="8396b16b-c740-4e8b-9dfb-379aa657593c" class="code"><code class="language-HTML">$ chmod 777 /Samba_Dir</code></pre><p id="60eb3c59-5837-4d46-afe2-4b25036b49a3" class="">Откроем файл конфигурации samba /etc/samba/smb.conf и пропишем там следующие настройки:</p><figure id="5ffc9816-8874-43c8-b92d-da9ae15fc690" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20ebf608701e084bf3b2350d54efbf4bc5/Untitled%204.png"><img style="width:1146px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20ebf608701e084bf3b2350d54efbf4bc5/Untitled%204.png"/></a></figure><p id="0c8439b0-f1a9-471e-8825-407285bcb066" class="">В случае, если samba-сервер не работает, одной из причин может быть ошибка в конфигурационном файле. Чтобы не искать её вручную, была создана утилита testparm. После анализа заданного конфигурационного файла testparm выводит все значения файла smb.conf, включая значения по умолчанию. Это помогает убедиться, что используются ожидаемые значения параметров конфигурации.Стоит отметить, что значения по умолчанию меняются от версии к версии, так что необходимо использовать версию Samba, соответствующую версии testparm.</p><p id="bd63a442-eaf0-4603-9a2e-3f198b4e8e0f" class="">Использование:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="435ef976-937b-41f6-b6b6-d33d046e5db8" class="code"><code class="language-HTML">$ testparm /etc/samba/smb.conf</code></pre><p id="ebef340f-9805-465e-a303-552bda85929e" class="">Теперь перезапустим samba командой systemctl restart smbd и убедимся в том, что все работает, зайдя в нашу папку со сторонней windows машины. Для этого в проводнике вместо пути пропишите ip-адрес файлового сервера (узнать его можно с помощью команды ip a):</p><figure id="ea852a62-d5d1-41a4-9318-23512e8db54c" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20ebf608701e084bf3b2350d54efbf4bc5/Untitled%205.png"><img style="width:600px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20ebf608701e084bf3b2350d54efbf4bc5/Untitled%205.png"/></a></figure><h3 id="395dddec-c715-4d76-b6a7-cb7df56840c0" class="">2.4 Filezilla</h3><p id="da4b28c0-784e-42d7-a75c-edaab5789c6e" class="">Протокол FTP в наши дни очень часто используется многими веб-мастерами и разработчиками для загрузки файлов на сервера, управления файлами сайтов и решения других подобных задач. Такой популярности этот протокол набрал потому, что он прост в использовании и не требует особых знаний устройства и команд операционных систем Linux. </p><p id="6e725e43-554e-4ba9-862e-d9feac1b2f52" class="">Для демонстрации развернем на виртуальной машине FTP-сервер. Будем использовать FTP-сервер VSFTPD (Very Secure FTP Daemon), который обеспечивает самую надёжную защиту от уязвимостей.</p><p id="1ba0aec4-af9d-498c-8705-d39c7d6fdaea" class=""><strong>Установка vsftpd</strong>:</p><p id="eb88e3f5-c631-4008-bdb6-ee9c84b00a1d" class=""><code>$ sudo apt install vsftpd</code></p><p id="662879d5-8859-4999-87f9-7b866e709532" class="">Заранее создадим файл со списком пользователей vsftpd:</p><p id="b7b01358-5989-4a52-b2ea-dafba47602e0" class=""><code>$ sudo nano /etc/vsftpd.userlist</code></p><p id="717fdecc-4a94-4344-94d4-625c77a48f5d" class="">И добавим пользователя ftpu:</p><p id="0a42d076-aec0-4da3-b0a3-40e659d71ce4" class=""><code>$ sudo useradd ftpu</code></p><p id="3a060d62-302a-4cf8-a523-920d4da77883" class=""><code>$ sudo passwd ***</code></p><p id="ae07fd95-5df7-4ea0-8c0a-7021c736eafc" class="">Добавьте его имя в файл <strong>/etc/vsftpd.userlist, </strong>чтобы<strong> </strong>предоставить FTP-доступ пользователю:</p><p id="0d58776f-3010-45ed-be50-73b3caec0346" class=""><code>$ echo &quot;ftpu&quot; | sudo tee -a /etc/vsftpd.userlist</code></p><p id="4d6cba37-6bc8-4bf4-a973-672d91295a06" class="">
+</p><p id="85f166a7-d98e-4669-8101-a9f024df433f" class="">Сами <strong>настройки vsftpd</strong> хранятся в конфигурационном файле <strong>/etc/vsftpd.conf</strong></p><p id="68fe22b7-7fcc-48f4-8153-e950ec5e8cdd" class="">Прежде чем вносить в него изменения создадим резервную копию:</p><p id="52d57789-a880-4561-9be6-0a9b83a971cc" class=""><code>$ sudo cp /etc/vsftpd.conf /etc/vsftpd.conf.orig</code></p><p id="51e270fa-8287-4eae-a40a-18ede163c83c" class="">Теперь откроем файл:</p><p id="023ce00f-5765-439a-81ec-13a9d2bf3398" class=""><code>$ sudo nano /etc/vsftpd.conf</code></p><p id="d832c2e2-9dfe-48ff-9cd8-e48f82708086" class="">Добавьте такие настройки. Вам нужно будет найти и изменить значения указанных строк, или, если таковые отсутствуют, добавить новые.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="9d6aa370-8b2a-4f68-b33b-a1c66ee44ef7" class="code"><code class="language-HTML">listen=YES  #Указываем, что нужно ожидать входящих соединений</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="85e1a0e8-7ba6-4209-910c-5874fa6fcefd" class="code"><code class="language-HTML">listen_ipv6=NO</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="b23daf2d-0eca-4a79-a852-24e44af395ef" class="code"><code class="language-HTML">connect_from_port_20=YES #Использовать порт 20 для передачи данных вместо случайного</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="cc6c4176-0970-4a3d-8d8e-47f39dc78591" class="code"><code class="language-HTML">anonymous_enable=NO #отключаем анонимный вход</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="03bdf17b-938b-4453-a9f3-96b337bfae4d" class="code"><code class="language-HTML">local_enable=YES #Разрешаем использовать имена локальных пользователей для входа</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="a87d74ac-a7d5-4cd4-a0b4-348fadcae9a0" class="code"><code class="language-HTML">write_enable=YES #Для авторизованных пользователей разрешаем команды, позволяющие изменять файловую систему</code></pre><p id="f5a0a5c8-46a0-460c-b97b-875f5af6e73c" class="">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="173f2262-9b25-4135-98da-4562d5921a33" class="code"><code class="language-HTML">chroot_local_user=YES
+allow_writeable_chroot=YES
+#При входе пользователей на FTP-сервер, они могут работать
+#только в корневом каталоге FTP.
+#Если вы хотите, чтобы пользователи были ограничены только своей домашней папкой,
+#то необходимо раскомментировать эти строчки:</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="a57d2e4f-4b55-44aa-8db8-45e74ca2ffd6" class="code"><code class="language-HTML">secure_chroot_dir=/var/run/vsftpd/empty</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11e14e7c-cc2c-4566-afaa-e9b8594a1d13" class="code"><code class="language-HTML">pam_service_name=vsftpd #Использовать PAM-библиотеки</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="167a35b1-fb29-4e47-976b-f17596273a4f" class="code"><code class="language-HTML">userlist_enable=YES #разрешим аутентификацию только пользователей, перечисленных в файле userlist:</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="9d54d288-24e0-43fa-8b9c-1e64e37ee3ed" class="code"><code class="language-HTML">userlist_file=/etc/vsftpd.userlist #Указываем файл с виртуальными пользователями</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="45791d0a-5e2e-4d9a-9a5e-dfa1536e4dfd" class="code"><code class="language-HTML">userlist_deny=NO #По умолчанию пользователям из userlist запрещён вход в систему, данная настройка делает наоборот</code></pre><p id="90db965b-58b0-4d0e-9fba-1eec46391552" class="">
+</p><p id="d64704bb-269b-4438-a943-ec9e092e3d32" class="">Затем необходимо <strong>включить</strong> сервис <strong>vsftpd</strong>, поскольку он не будет запущен по умолчанию, а также добавить службу в автозагрузку:</p><p id="93254fed-e912-4156-87dd-2a6ad74d88da" class=""><code>$ sudo systemctl start vsftpd</code></p><p id="c21b8f1a-33f7-40e1-b704-dab0df81b489" class=""><code>$ sudo systemctl enable vsftpd</code></p><p id="a4f481b4-8cec-4dfa-bc20-f96f1b4ba3ba" class="">Проверим статус сервиса:</p><figure id="8e830a45-ff97-460d-a8c2-9261437fdd38" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20ebf608701e084bf3b2350d54efbf4bc5/Untitled%206.png"><img style="width:735px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20ebf608701e084bf3b2350d54efbf4bc5/Untitled%206.png"/></a></figure><p id="54993624-a494-46ed-b5db-dbac87a47459" class="">
+</p><p id="f8f7fc55-2163-4c74-b60e-bd01b9528e9f" class="">Теперь, когда мы настроили FTP-сервер, посмотрим как можно к нему обращаться. </p><p id="a92ce914-8dd7-463f-a416-fb82df35ae6e" class="">Один из самых популярных FTP клиентов, который используется множеством пользователей различных платформ, включая Windows, MacOS и даже Linux. Эта программа позволяет очень просто подключаться к удаленному серверу, выполнять там нужные действия, например, редактировать файлы, загружать их или скачивать, а также удобно просматривать файловую систему. В этой статье мы рассмотрим как пользоваться FileZilla для решения своих задач.</p><p id="17c67985-c40f-463b-b15d-c34a126f2842" class="">Для установки программы используйте такую команду:</p><p id="d7558e05-03c3-4f9a-a97f-18ae1b9bdc93" class=""><code>$ sudo apt install filezilla</code></p><p id="e08e3869-52b3-4c1f-9654-ade68c190464" class="">Откроем программу через графический интерфейс:</p><figure id="d4c1dee4-8996-4d2c-90d3-18d133e90071" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20ebf608701e084bf3b2350d54efbf4bc5/Untitled%207.png"><img style="width:840px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20ebf608701e084bf3b2350d54efbf4bc5/Untitled%207.png"/></a></figure><p id="b4540099-8ad5-459b-95e3-0edc2b10435e" class="">Для подключения к удаленному серверу введите ip-адрес сервера в поле Host, имя созданного пользователя в поле Username и пароль пользователя в поле Password. Нажмите quickconnect.</p><p id="6874a464-58d9-427c-98f5-b596e49329e6" class="">После подключения у Вас в одной части экрана будут видны локальные <br/>файлы, а в другой части будут файлы и директории на удаленном сервере. <br/>Вы можете <br/><em>копировать </em>их в любую сторону простым перетаскиванием из одной части рабочей области в другую, точно так же, как и в обычном проводнике <strong>Windows</strong>. Вы также можете <em>удалять </em>файлы, <em>перемещать (переименовывать)</em>, <em>редактировать </em>их и <em>изменять права доступа </em>(chmod) к файлам и директориям на сервере.</p><p id="db242fc0-15f4-4d6f-8e67-2d32363223e4" class="">
+</p><h2 id="957a15c2-03fc-4a3a-afc2-8fb3e2ac1b28" class="">3. Web-сервисы</h2><p id="2e7f536e-6b96-45cb-b134-5618e89700b0" class="">Веб-сервис (служба) – программа, которая организовывает взаимодействие между сайтами и клиентами. Apache и Nginx – самые распространенные представители.</p><h3 id="25ec4876-e910-4186-8632-4ffbeb9c6343" class="">3.1 Apache</h3><p id="77a6cfbb-e023-4086-aca5-8e4684d84f2c" class="">Apache – это свободное программное обеспечение для размещения веб-сервера. Он хорошо показывает себя в работе с масштабными проектами, поэтому заслуженно считается одним из самых популярных веб-серверов. Кроме того, Apache очень гибок в плане настройки, что даёт возможность реализовать все особенности размещаемого веб-ресурса.</p><p id="356bf4e0-ee15-4783-acc1-ef8072e356a5" class="">Apache состоит из ядра и динамической модульной системы. Параметры системы изменяются с помощью конфигурационных файлов.</p><h3 id="bb9db464-96f4-438e-b4d3-b0a36e5857e5" class="">Ядро</h3><p id="58ef9e13-a2d7-404a-bb67-7367bc50be31" class="">Ядро Apache разработано Apache Software Foundation на языке C. <br/>Основные функции — обработка конфигурационных файлов, протокол HTTP/HTTPS и загрузка модулей. Ядро может работать без модулей, но будет иметь ограниченный функционал.<br/></p><h3 id="e835b556-cf12-4ae8-96a1-2038be029317" class="">Модульная система</h3><p id="3976a1d6-183f-4c55-b72c-9790f9c7c8b3" class="">Модуль – отдельный файл, подключение которого расширяет изначальный функционал ядра. Они могут включаться в состав ПО при первоначальной установке или подгружаться позже через изменение конфигурационного файла.</p><p id="6d744f49-64e2-4d5f-9653-cd5d8a2f42c6" class="">Большинство из них отвечает за определенный аспект обработки <br/>клиентского запроса – поддержку различных языков программирования, безопасность, кэширование, аутентификацию и т.д. Таким образом, большая задача разбивается на несколько фаз, каждую из которых решает отдельный, узкоспециализированный модуль.<br/></p><p id="1caa99e7-8af6-47e9-a000-bf6279b41b9a" class="">Для Apache существует больше 500 модулей. Многие популярные <br/>веб-приложения сразу выпускаются в виде модуля к Apache. Например, ISPmanager и VDSmanager.<br/></p><h3 id="9698761f-298f-4942-998c-3440ffaaac7c" class="">Виртуальные хосты</h3><p id="dd34d481-0706-42b9-b3b4-1651a5bb4e1a" class="">Веб-хост – это компонент сервера, отвечающий за обслуживание одного размещенного на нем объекта (сайта, виртуального сервера). Система виртуальных хостов Apache позволяет одновременно запускать несколько проектов с одного IP-адреса.</p><p id="8586f03d-e8d0-47ac-bfbd-0a53651c9586" class="">В Apache можно установить настройки модуля и ядра, а также вводить лимиты на потребление серверных ресурсов (трафик, RAM, CPU) для каждого виртуального хоста в отдельности. Это технологическая основа всего механизма веб-хостинга.</p><h3 id="4c8bae41-d806-433a-ade6-4ae48f4bb793" class="">Установка</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="97e4ac52-013f-4d09-8931-ab271c2f0634" class="code"><code class="language-HTML">$ sudo apt install apache2</code></pre><p id="5e8fbb6e-5ff0-40e0-80db-c4225d13e60f" class="">Зайдем на <a href="http://localhost">localhost</a> чтобы убедиться что все работает:</p><figure id="8a27ff56-b329-470a-af37-833ff0df1872" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20ebf608701e084bf3b2350d54efbf4bc5/Untitled%208.png"><img style="width:412px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20ebf608701e084bf3b2350d54efbf4bc5/Untitled%208.png"/></a></figure><p id="7bbc359a-ce86-43d3-be7a-cfc8c07984d6" class="">Добавим сервис в автозагрузку:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="b0829888-4777-4ada-bd5e-3006e6c8ba26" class="code"><code class="language-HTML">$ systemctl enable apache2</code></pre><p id="96a1d0ce-ec12-4764-af7e-84f0006627cf" class="">
+</p><h3 id="c9124b56-d4db-4878-a085-8d1c61e9485f" class="">Конфигурация</h3><p id="fe47e5af-3ca6-4e76-b0af-e0f111095bec" class="">Все настройки содержатся в папке /etc/apache2/:</p><figure id="4932cbe9-cac3-495d-8d74-a56bc07819ce" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20ebf608701e084bf3b2350d54efbf4bc5/Untitled%209.png"><img style="width:843px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20ebf608701e084bf3b2350d54efbf4bc5/Untitled%209.png"/></a></figure><p id="22893fb7-72c9-4823-8d60-83cfaeeaa63c" class="">Внести изменения можно как через редактирование самого файла, так и через командную строку.</p><p id="a852af28-56bd-464d-b9c5-6c216b8e08a8" class="">Веб-сервер Apache может запускать несколько веб-сайтов на одном компьютере. Каждый запущенный сайт («виртуальный хост») должен иметь свою собственную конфигурацию. Дефолный виртуальный хост описывается в файле /etc/apache2/sites-available/000-default.conf. Давайте посмотрим на него:</p><figure id="c71b72df-8a7e-4d42-b5e2-47c11e05d2d0" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%203.png"><img style="width:1253px" src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%203.png"/></a></figure><p id="b0b97750-0dd9-4b80-a364-f0f65397977a" class="">Чтобы сделать свой хост, нужно создать корневую директорию, а также создать базовую страницу, которая будет отображаться при открытии сайта:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="43571fc4-6b4a-485a-817d-d7e382a83ebe" class="code"><code class="language-HTML">$ mkdir /var/www/example1
+$ echo “Hello” &gt; /var/www/example1/index.html</code></pre><p id="1dbf16b7-336f-44d5-8569-57121ebc6e25" class="">Затем создаем конфигурационный файл:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="8a80dc8e-2f64-4297-80e0-02503d0df221" class="code"><code class="language-HTML">$ nano /etc/apache2/sites-available/example1.conf</code></pre><p id="99096dea-cf6e-41ae-8189-155ac1ac764a" class="">И вставляем туда базовые настройки:</p><figure id="065ae78b-b396-4a71-92b3-77d601461ecb" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20ebf608701e084bf3b2350d54efbf4bc5/Untitled%2010.png"><img style="width:536px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20ebf608701e084bf3b2350d54efbf4bc5/Untitled%2010.png"/></a></figure><p id="0087efa3-22f9-4cf8-bf07-cf50f3acde3e" class="">Чтобы активировать ваш виртуальный хост, используйте команду a2ensite. Эта команда создаёт символическую ссылку файла в каталоге /etc/apache2/sites-enabled. Затем перезапустите веб-сервер:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="b7a497c9-0c7c-4cb7-8fca-215eaddd9ca5" class="code"><code class="language-HTML">$ sudo a2ensite example1.conf
+$ systemctl reload apache2</code></pre><p id="a647bad2-ae2e-4cfd-ad5f-cd8c94eea4f5" class="">Осталось прописать доменное имя в файле /etc/hosts:</p><figure id="f59ca451-5dfa-498f-bd42-2b9f8a87f3a3" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20ebf608701e084bf3b2350d54efbf4bc5/Untitled%2011.png"><img style="width:445px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20ebf608701e084bf3b2350d54efbf4bc5/Untitled%2011.png"/></a></figure><p id="da657907-0610-49bb-9d50-f2a7f9827019" class="">И перейти по нему в браузере для проверки:</p><figure id="52e47dcd-9720-40b7-83cb-b63c26cd312c" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20ebf608701e084bf3b2350d54efbf4bc5/Untitled%2012.png"><img style="width:539px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20ebf608701e084bf3b2350d54efbf4bc5/Untitled%2012.png"/></a></figure><p id="f0993ce8-1551-41ec-be65-38bc213ea828" class="">
+</p><h3 id="b2dc40b7-f89c-465c-8e92-7b2a5fb3b76c" class="">3.2 Nginx</h3><p id="5b7859f3-eba1-4fcb-b41d-92b154282760" class="">Nginx — это веб-сервер с открытым исходным кодом, созданный работать под высокой нагрузкой, чаще всего используемый для отдачи статического контента, например, html страниц, медиафайлов, документов, архивов, картинок и т.д.</p><p id="c890d813-9d5d-4bbb-b2c3-a6ee9f6df0b4" class="">В отличие от других продуктов данного сегмента, Nginx использует иной принцип обработки входящих данных. ПО разбивает каждый запрос пользователя на несколько мелких, упрощая таким образом обработку каждого. В терминологии Nginx они получили название рабочее соединение.</p><p id="ff6136b1-d2b4-4c69-8002-9d0ba7739859" class="">После обработки каждое соединение собирается в одном виртуальном контейнере, чтобы трансформироваться в единый первоначальный запрос, а после отправляется пользователю. Одно соединение может одновременно обрабатывать до 1024 запросов конечного пользователя.</p><p id="95bef53a-7ffb-4cc9-aff4-491920df580b" class="">Для уменьшения нагрузки на оперативную память веб-сервер использует выделенный сегмент памяти, который называется «пул» (pool). Он динамический и расширяется при увеличении длины запроса.</p><h3 id="b36dd654-1fcb-417a-a3f3-9a7181a7bcc8" class="">Установка</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="a038dbed-fa5b-40dc-8873-431f02a0cc2c" class="code"><code class="language-HTML">$ sudo apt install nginx</code></pre><h3 id="6bbb5e09-1f3c-4311-9ca7-a272d52f8c17" class="">Конфигурация</h3><p id="cf7ca298-edf5-460d-b8ea-8e12198010c6" class="">Файлы конфигурации nginx находятся в папке /etc/nginx. Рассмотрим их: </p><ul id="65b96d59-1a90-4c31-8ba6-1cf74bb1acd0" class="bulleted-list"><li style="list-style-type:disc"><strong>/etc/nginx/nginx.conf</strong> – главный файл конфигурации nginx. </li></ul><ul id="2ae0b1f4-8507-4533-8fb4-5e9683f85bc6" class="bulleted-list"><li style="list-style-type:disc"><strong>/etc/nginx/sites-available</strong> – каталог с конфигурациями виртуальных хостов, т.е. каждый файл, находящийся в этом каталоге, содержит информацию о конкретном сайте – его имени, IP адресе, рабочей директории и т.д. </li></ul><ul id="6a96f227-7b35-45e0-8256-e4cda5e109b0" class="bulleted-list"><li style="list-style-type:disc"><strong>/etc/nginx/sites-enabled</strong> – в этом каталоге содержаться конфигурации сайтов, обслуживаемых nginx, т.е. активных, как правило, это символические ссылки sites-available конфигураций, что очень удобно для оперативного включения и отключения сайтов</li></ul><p id="c451eb80-d295-48dd-83fa-96954addbf2f" class="">
+</p><p id="5f4eb430-772d-4a27-b4b2-08b30d2e87d1" class="">Теперь мы создадим виртуальный хост для Nginx, используя ту же процедуру, что использовалась для Apache. Вначале необходимо создать корневой каталог. По умолчанию Nginx требует хранить сайты в каталоге /usr/share/nginx. Назовем веб-проект example1 и положим туда html файл, содержащий в себе заголовок example.com:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="260cd16b-8420-47fe-9d6a-5b26db2c4848" class="code"><code class="language-HTML">$ sudo mkdir -v /usr/share/nginx/example1.com
+$ echo &quot;&lt;h1&gt;Hello&lt;/h1&gt;&quot; | sudo tee /usr/share/nginx/example1.com/index.html</code></pre><p id="b6f7245d-742e-4c9b-86c2-403571c85fa7" class="">Удалим виртуальный хост по умолчанию, так как далее заменим его своим:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="c8d6026c-4826-4756-a72e-a008ee2ee1d7" class="code"><code class="language-HTML">$ sudo rm /etc/nginx/sites-enabled/default</code></pre><p id="a2644860-368e-4464-9a93-ccbe2b60bc8f" class="">Теперь создаем файл виртуального хоста для домена example1.com и внесем туда настройки</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="635c6cca-fbb7-4257-9dc4-9c3965e8496a" class="code"><code class="language-HTML">$ sudo nano /etc/nginx/sites-available/example1.com</code></pre><figure id="de9b3b35-cd9f-4811-8323-102f3476db7c" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%204.png"><img style="width:889px" src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%204.png"/></a></figure><p id="b7a36726-d533-47f6-b9c3-4f6bbd94b953" class="">
+</p><p id="4fd9f7c5-1eaf-4d04-a7e6-a18f91f7e42e" class="">Убедимся в отсутствии ошибок в конфигурации:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="5a00f1d3-d848-416a-a390-686f07f7eea5" class="code"><code class="language-HTML">$ sudo nginx -t</code></pre><p id="0c42d198-c3a7-4ac1-a791-69563fb7c0d9" class="">Активируем сайт, создав символическую ссылку на каталог sites-enabled:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="fad94d87-6c16-4f50-afb1-165c6b03cd6d" class="code"><code class="language-HTML">$sudo ln -s /etc/nginx/sites-available/example1.com /etc/nginx/sites-enabled/example1.com</code></pre><p id="55858972-dfb8-45c5-934b-4c0408ce244e" class="">Посмотрим на результат нашей работы, перейдя по адресу нашего хоста в браузере:</p><figure id="f8b8f948-04a5-4da4-9854-6f7b47949541" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20ebf608701e084bf3b2350d54efbf4bc5/Untitled%2013.png"><img style="width:418px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20ebf608701e084bf3b2350d54efbf4bc5/Untitled%2013.png"/></a></figure><h2 id="c5fad00c-e8e7-48d2-bf5a-9fd151d1f0dd" class="">4. Cron</h2><p id="5c9b349c-b50f-4942-94c4-1617d540e7d4" class="">Системным администраторам, да и обычным пользователям часто приходится автоматизировать различные задачи по обслуживанию и работе с Linux с помощью скриптов. Это очень удобно, вы просто запускаете скрипт, и он делает все что необходимо без вашего вмешательства. Следующий шаг в этом пути - настроить автоматически запуск нужного скрипта в нужное время. Именно для этих задач в Linux используется системный сервис <strong>cron</strong>. Это планировщик, который позволяет выполнять нужные вам скрипты раз в час, раз в день, неделю или месяц, а также в любое заданное вами время или через любой интервал. Программа часто используется даже другими службами операционной системы.</p><p id="f5bb5311-3ec7-45fa-9287-9b42cc6f01d7" class="">Фактически, Cron - это сервис, как и большинство других сервисов <br/>Linux, он запускается при старте системы и работает в фоновом режиме. <br/>Его основная задача выполнять нужные процессы в нужное время. Существует<br/> несколько конфигурационных файлов, из которых он берет информацию о том<br/> что и когда нужно выполнять. Сервис открывает файл /etc/crontab, в <br/>котором указаны все нужные данные. Часто, в современных дистрибутивах <br/>там прописан запуск утилиты run-parts, которая запускает нужные скрипты <br/>из следующих папок:<br/></p><ul id="9d7ee408-09dc-464c-9dc1-c6afa0434a9a" class="bulleted-list"><li style="list-style-type:disc"><strong>/etc/cron.minutely</strong> - каждую минуту;</li></ul><ul id="4c3ea60b-b169-4051-91dd-b5b58f00ef14" class="bulleted-list"><li style="list-style-type:disc"><strong>/etc/cron.hourly</strong> - каждый час;</li></ul><ul id="e1c000f5-6051-4be3-9ad4-25d870b6ce90" class="bulleted-list"><li style="list-style-type:disc"><strong>/etc/cron.daily</strong> - каждый день;</li></ul><ul id="4b9df2e5-0743-4861-b433-96730dd755a3" class="bulleted-list"><li style="list-style-type:disc"><strong>/etc/cron.weekly</strong> - каждую неделю;</li></ul><ul id="382b24a5-5a53-4dec-991e-d1e3e6f8d03c" class="bulleted-list"><li style="list-style-type:disc"><strong>/etc/cron.monthly</strong> - каждый месяц.</li></ul><p id="b4846e90-33c5-4fe6-9f19-207d3539e18d" class="">В этих папках должны находиться скрипты, которые нужно выполнять с <br/>указанным интервалом. Скрипты должны иметь права на выполнение и их имя <br/>не должно содержать точки. Это очень сильно облегчает работу с <br/>планировщиком для новых пользователей. Также в файле crontab прописан <br/>запуск команды anacron, которая работает так же как и cron, только <br/>предназначена для задач, которые нужно выполнять раз в длительный <br/>период, например, раз в день, неделю, месяц, год.<br/></p><p id="0e606207-8924-427e-80f0-38b1dabb608e" class="">Она позволяет выполнять их даже если компьютер работает не всегда и <br/>время от времени выключается. Дата выполнения задания последний раз <br/>записывается в файл /var/spool/anacron, а затем, при следующем запуске <br/>anacron проверяет был ли запущен нужный процесс в нужное время, и если <br/>нет, то запускает его. Сам же сервис cron больше рассчитан на выполнение<br/> задач в течение дня или с точно расписанным временем и датой.<br/></p><p id="1bc7db99-a1d2-4bd9-ba51-57292a14955f" class="">Для настройки времени, даты и интервала когда нужно выполнять задание<br/> используется специальный синтаксис файла cron и специальная команда. <br/>Конечно, вы всегда можете отредактировать файл /etc/crontab, но этого <br/>делать не рекомендуется. Вместо этого, есть команда crontab:<br/></p><p id="b52b6fb7-6841-4b05-8136-7cb8c17d5bca" class=""><code>$ crontab -e</code></p><p id="e431d907-38ce-48b7-b6e5-3953de4cb0f1" class="">Ее всегда желательно выполнять с опцией -e, тогда для редактирования <br/>правил будет использован ваш текстовый редактор по умолчанию. Команда <br/>открывает вам временный файл, в котором уже представлены все текущие <br/>правила cron и вы можете добавить новые. При первом запуске вам будет предложено выбрать желаемый текстовый редактор (nano, vim).<br/></p><figure id="b2fec5c2-6f26-4495-ac16-e594ce6ef8dd" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20ebf608701e084bf3b2350d54efbf4bc5/Untitled%2014.png"><img style="width:827px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20ebf608701e084bf3b2350d54efbf4bc5/Untitled%2014.png"/></a></figure><p id="b0e380bd-5041-4fa3-9103-0c2f7d229c15" class="">Где </p><figure id="43ac0bb1-a154-438a-96a4-70183347ef70" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20ebf608701e084bf3b2350d54efbf4bc5/Untitled%2015.png"><img style="width:522px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20ebf608701e084bf3b2350d54efbf4bc5/Untitled%2015.png"/></a></figure><p id="c1163d90-85f2-4dc5-adb6-25234889be86" class="">Чтобы стало понятнее, давайте разберем на примере. Создадим инструкцию на выполнение скрипта /usr/local/bin/script.sh (cкрипт выводит в терминал сообщение) каждую среду в 15 часов 30 минут:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11d02a65-a708-4874-ac28-173014193e96" class="code"><code class="language-HTML">30 15 * * 3 /usr/local/bin/script.sh</code></pre><p id="4b6c7e23-44e9-425f-a511-6df0cea522bc" class="">Символ * означает что инстуркция выполняется во все возможные значения аргумента. В нашем случае каждую тридцатую минуту пятнадцатого часа во все дни и все месяцы, которые являются третьим днем недели (то есть средой). Можно писать сокращенное название дня недели вместо его порядкового номера, например sun - воскресенье.</p><p id="fdd0b1b7-0f16-4cc4-9684-7023b57f70dd" class="">Для того чтобы указать определенный интервал нужно использовать символ &quot;-&quot;, например, каждый час, с семи утра до семи вечера:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="17546d28-7469-4b55-91b7-85aaa8788208" class="code"><code class="language-HTML">0 7-19  * * * /usr/local/bin/script.sh</code></pre><p id="9bc28dbd-7472-4f43-bcea-570a7e896cf5" class="">Если нужно запустить команду несколько раз, можно использовать <br/>разделитель &quot;,&quot;. Например, запустим скрипт в 5 и 35 минут пятого (16:05 и<br/> 16:35), каждый день:<br/></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="f740168b-1529-4fb7-ad42-2793f9a7258c" class="code"><code class="language-HTML">5,35 16  * * * /usr/local/bin/script.sh</code></pre><p id="0d14b152-a580-46c4-a5e1-c8ed6d2f373e" class="">Вы можете захотеть не указывать отдельно время, а просто указать <br/>интервал, с которым нужно запускать скрипт, например, раз в 10 минут. <br/>Для этого используется разделитель косая черта - &quot;/&quot;:<br/></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="f597bcd9-d989-4053-b05a-19a42fe965ea" class="code"><code class="language-HTML">/10 * * * * /usr/local/bin/script.sh</code></pre><p id="363ad488-7c45-4830-aff8-85472cec9baf" class="">Кроме того, для некоторых часто используемых наборов были придуманы переменные, вот они:</p><p id="a4ab9903-ba9b-487f-947b-7ed1f1b33655" class=""><strong>@reboot</strong> - при загрузке, только один раз;</p><p id="4f7f95dd-a56e-44a6-8a0d-e772d2818f94" class=""><strong>@yearly, @annually</strong> - раз год;</p><p id="fed0e1dd-1c51-461a-aa5e-0df1d5360d93" class=""><strong>@monthly</strong> - раз в месяц;</p><p id="5de5c4bf-e5c1-4c8f-8db6-3d38fe886c74" class=""><strong>@weekly</strong> - раз в неделю;</p><p id="65cc30b2-52d3-4818-81ee-c95f4503531a" class=""><strong>@daily, @midnight</strong> - каждый день;</p><p id="fef11d2a-40f8-4f4c-acaa-e31c922dc704" class=""><strong>@hourly</strong> - каждый час.</p><p id="d39d1402-5917-4eae-9875-307594b33dc1" class="">Например, вот так просто будет выглядеть команда запуска скрипта раз в час:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="ac10cc4f-4289-4925-aef8-f02cbbae9558" class="code"><code class="language-HTML">@hourly /usr/local/bin/script.sh</code></pre><p id="c47cb062-0f77-465b-97ff-1b5e2f2a583b" class="">После завершения работы команды cron файл будет обработан и все правила будут добавлены в  /var/spool/cron/crontabs/имя_пользователя причем добавленные процессы <br/>будут запускаться именно от того пользователя, от которого вы их добавляли.<br/></p><p id="dcc24170-add9-469b-85f7-933b32c9b01f" class="">Поэтому тут нужно быть аккуратным, и если вам нужно выполнять скрипты<br/>от рута, то и crontab нужно выполнить от рута, а не от пользователя. Это часто становится причиной проблем.<br/></p><p id="2a5bce52-bb90-4389-84fe-308da1aebddd" class="">Можно посмотреть задачи cron для суперпользователя, для этого можно воспользоваться опцией -l:</p><p id="c92dea3b-631e-4aae-ba57-14d6a91ba700" class=""><code>$ crontab -l</code></p><p id="37a67a29-c9f0-40fb-aa15-9ca84ddc2cec" class="">Вы можете удалить все существующие задачи командой -r:</p><p id="0d54debb-ec50-4c13-a475-fc0ce806b686" class=""><code>$ crontab -r</code></p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

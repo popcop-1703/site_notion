@@ -1,0 +1,687 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Практическая работа №2.5</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="0517267f-6cf0-42a3-9d38-cbcfe65efcf4" class="page sans"><header><h1 class="page-title">Практическая работа №2.5</h1><p class="page-description"></p></header><div class="page-body"><hr id="7938e14a-d397-4f93-aa01-b02749a421cc"/><h2 id="6f968931-822a-4e97-be9b-8582c13eba54" class="">Практическая работа &quot;Переменные окружения в Linux .bashrc, .bash_profile и .bash_login&quot;</h2><p id="7b6a0fe8-e431-47ef-b943-5f3916b97d61" class="">
+</p><h3 id="b396540e-af60-4e36-a3e4-e0ee7dc52379" class=""><strong>Цель работы:</strong></h3><ul id="2f295ee0-3562-4810-8654-d1efe243dbba" class="bulleted-list"><li style="list-style-type:disc">Научиться работать с переменным окружением в linux.</li></ul><h3 id="18ad6dad-4976-4944-8842-e586cd355d14" class=""><strong>Задача:</strong></h3><ul id="cd5dfb25-4445-4391-8761-7e8618e7ce98" class="bulleted-list"><li style="list-style-type:disc">Научиться работать c .bashrc, .bash_profile и .bash_login.</li></ul><p id="0f250b1b-2d6d-479f-a355-0afd853a83f9" class="">
+</p><p id="2ae1aaec-8490-4c43-92ec-4bff9a282e5d" class="">
+</p><p id="c24b9425-3c15-4c81-9de1-3f2b3a074a0c" class=""><strong>Переменные окружения в Linux</strong> - это специальные переменные, определенные оболочкой и используемые программами во время выполнения.</p><p id="a31781a4-ad3c-48dd-a389-f9f04a279775" class="">Переменными окружения в операционных системах на базе ядра Linux называются те переменные, которые содержат текстовую информацию, используемую другими программами во время запуска. Обычно они включают общие системные параметры как графической, так и командной оболочки, данные о настройках пользователя, расположении определенных файлов и многое другое. Значения таких переменных указываются, например, цифрами, символами, путями к директориям или файлам. Благодаря этому множество приложений быстро получают доступ к определенным настройкам, а также появляется возможность для пользователя изменять или создавать новые опции.</p><p id="209bacc0-912c-4697-93cc-4f6cbc3737b8" class=""><strong>Cамые важные параметры</strong> - бы рассказать о разделении их на классы. Такое группирование определяется следующим образом:</p><ul id="6ebf93a4-8d64-4e16-a997-67a09fdb3b6c" class="bulleted-list"><li style="list-style-type:disc">Системные переменные. Эти опции загружаются сразу же при старте операционной системы, хранятся в определенных конфигурационных файлах (речь о них будет идти ниже), а также доступны для всех пользователей и всей ОС в целом. Обычно такие параметры считаются самыми главными и часто используемыми во время старта самых различных приложений.</li></ul><ul id="dde9a9b8-f06a-4fb9-ad13-f846f14f6913" class="bulleted-list"><li style="list-style-type:disc">Пользовательские переменные. Каждый пользователь имеет свою домашнюю директорию, где хранятся все важные объекты, к их числу относятся и конфигурационные файлы пользовательских переменных. Из их названия уже понятно, что применяются они под конкретного юзера в то время, когда он авторизован через локальный «Терминал». Действуют они и при удаленном соединении.</li></ul><ul id="06c07cb9-b702-414c-85aa-6d161ef43b3c" class="bulleted-list"><li style="list-style-type:disc">Локальные переменные. Существуют параметры, применяемые только в рамках одной сессии. При ее завершении они будут навсегда удалены и для повторного старта все придется создавать вручную. Они не сохраняются в отдельных файлах, а создаются, редактируются и удаляются при помощи соответствующих консольных команд.</li></ul><p id="dc7931ff-6688-44c6-b048-f894b21ef096" class=""><strong>Конфигурационные файлы для пользовательских и системных переменных</strong></p><p id="e43ac5f5-b243-423b-8a35-779704a58769" class="">Два из трех классов переменных Linux хранятся в отдельных файлах, где собраны общие конфигурации и дополнительные параметры. Каждый такой объект загружается только при подходящих условиях и используется для разных целей. Отдельно бы хотелось выделить такие элементы:</p><ul id="2ca0adca-aa3f-44f0-a2d7-bb9f071ffc63" class="bulleted-list"><li style="list-style-type:disc">/ETC/PROFILE — один из системных файлов. Доступен для всех пользователей и всей системы даже при удаленном входе. Единственное ограничение для него — параметры не принимаются при открытии стандартного «Терминала», то есть в этом расположении никакие значения из этой конфигурации работать не будут.</li></ul><ul id="20bcc9a0-03dd-454e-82ed-e1bd1fb0e72e" class="bulleted-list"><li style="list-style-type:disc">/ETC/ENVIRONMENT — более широкий аналог предыдущей конфигурации. Он функционирует на системном уровне, имеет те же опции, что и предыдущий файл, но теперь без каких-либо ограничений даже при удаленном подключении.</li></ul><ul id="1ee57e8e-f33a-4da5-bbd3-6eb59b8d6389" class="bulleted-list"><li style="list-style-type:disc">/ETC/BASH.BASHRC — файл только для локального использования, при удаленной сессии или соединении через интернет функционировать он не будет. Выполняется для каждого юзера отдельно при создании новой терминальной сессии.</li></ul><ul id="c45510c7-eb7a-4ab2-9d03-02102175337f" class="bulleted-list"><li style="list-style-type:disc">.BASHRC— относится к конкретному юзеру, хранится в его домашней директории и выполняется каждый раз при новом запуске терминала.</li></ul><ul id="abb185f9-d9f0-418a-a1ac-167c3698911f" class="bulleted-list"><li style="list-style-type:disc">.BASH_PROFILE — то же, что .BASHRC, только для удаленного взаимодействия, например, при использовании SSH.</li></ul><h3 id="0c66d214-8cf1-461f-b80e-78ffe0499822" class="">1. Просмотр списка системных переменных окружения</h3><p id="faa1b930-a24f-4531-9895-98fbf34276e4" class="">Вы можете без проблем самостоятельно просмотреть все присутствующие в Linux системные и пользовательские переменные и их понятия с помощью всего лишь одной команды, которая отобразит список. Для этого потребуется выполнить всего несколько простых действий через стандартную консоль.</p><p id="67819fa1-700e-498b-acb0-9a16ff312b8a" class="">Пропишем команду sudo <code>apt-get install coreutils</code>, чтобы проверить наличие данной утилиты у вас в системе и сразу же установить ее при надобности.</p><p id="b455313d-5b65-4e45-b666-fcbdd5c9769c" class=""><em>Процесс укажет какие добавлены новые файлы или их наличии в библиотеках.</em></p><figure id="e568ab98-2eed-4259-b21a-7aa1318e81c6" class="image"><a href="https://i.imgur.com/rEsA1Ql.png"><img src="https://i.imgur.com/rEsA1Ql.png"/></a></figure><p id="51e22d8e-68d2-43b2-9563-e935d5f1d6ac" class="">Теперь воспользуемся командой</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="d400f351-30c0-4d56-aa85-c9f2981025b8" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Coreutils</code></pre><p id="cd8f1842-7fb2-481c-a201-6e17537b8fc9" class="">, чтобы раскрыть список всех переменных окружения.</p><figure id="e8e2650d-b95a-4923-ac33-b80996bf4668" class="image"><a href="https://i.imgur.com/i77a5qB.png"><img src="https://i.imgur.com/i77a5qB.png"/></a></figure><p id="fe1fc379-c970-4dc5-ae63-4bf0609bf24e" class=""><em>Выражение до знака = — название переменной, а после — ее значение.</em></p><figure id="778c7231-1985-46d3-97fb-5da3463ac2fe" class="image"><a href="https://i.imgur.com/FqOAxkB.png"><img src="https://i.imgur.com/FqOAxkB.png"/></a></figure><h3 id="6cba753b-34c6-4253-9465-0f635973884a" class="">1.1 Список основных системных и пользовательских переменных окружения.</h3><p id="e9240d54-733b-4bbf-9296-cc9f989db4af" class=""><strong>Обратить внимание хотелось бы на такие пункты:</strong></p><ul id="0e7ed4ee-60ae-469e-ab25-c4aa9edf9e5f" class="bulleted-list"><li style="list-style-type:disc">DE. Полное название — Desktop Environment. Содержит имя текущего окружения рабочего стола. В операционных системах на ядре Linux используются различные графические оболочки, поэтому приложениям важно понимать, какая сейчас активна. В этом и помогает переменная DE. Пример ее значений — gnome, mint, kde и так далее.</li></ul><ul id="f8049d45-4b58-4813-b3b7-668a3b1d1771" class="bulleted-list"><li style="list-style-type:disc">PATH — определяет список директорий, в которых происходит поиск различных исполняемых файлов. Например, при действии одной из команд по поиску и доступу к объектам они обращаются к этим папкам для быстрого поиска и передачи исполняемых файлов с указанными аргументами.</li></ul><ul id="5364ae57-b2f4-4190-923c-7e2b6b8af0fe" class="bulleted-list"><li style="list-style-type:disc">SHELL — хранит в себе опцию активной командной оболочки. Такие оболочки позволяют пользователю самостоятельно прописывать определенные скрипты и запускать различные процессы с помощью синтаксисов. Самой популярной оболочкой считается bash. Список остальных распространенных команд для ознакомления вы найдете в другой нашей статье по следующей ссылке.</li></ul><ul id="be8a29a8-3f6d-4e25-8860-65c1aa7cf2b4" class="bulleted-list"><li style="list-style-type:disc">HOME — здесь все достаточно просто. Данный параметр указывает путь к домашней папке активного юзера. У каждого юзера он разный и имеет вид: /home/user. Объяснение этому значению тоже легкое — эта переменная, например, используется программами для установления стандартного места расположения их файлов. Конечно, примеров существует еще огромное количество, но для ознакомления этого достаточно.</li></ul><ul id="49e49624-7694-4846-aef5-d232109a4cc2" class="bulleted-list"><li style="list-style-type:disc">BROWSER — содержит в себе команду для открытия веб-обозревателя. Именно эта переменная чаще всего и определяет браузер по умолчанию, а все остальные утилиты и ПО обращаются к указанной информации для открытия новых вкладок.</li></ul><ul id="e160b9fb-fba0-4be6-8152-9c7e941ad6c1" class="bulleted-list"><li style="list-style-type:disc">PWD и OLDPWD. Все действия из консоли или графической оболочки происходят из определенного расположения в системе. Первый параметр отвечает за текущее нахождение, а второй показывает предыдущее. Соответственно, их значения меняются достаточно часто и хранятся как в пользовательских конфигурациях, так и в системных.</li></ul><ul id="c87cc52a-9745-4724-b963-0af6fbdf384d" class="bulleted-list"><li style="list-style-type:disc">TERM. Программ-терминалов для Linux существует большое количество. Упомянутая переменная хранит в себе информацию о названии активной консоли.</li></ul><ul id="be7f9109-1b8d-4d90-94d6-89b1ed40bde1" class="bulleted-list"><li style="list-style-type:disc">RANDOM — содержит в себе скрипт, генерирующий каждый раз случайное число от 0 до 32767 при обращении к этой переменной. Такая опция позволяет другому софту обходиться без собственного генератора случайных чисел.</li></ul><ul id="a689807b-a090-4308-9aa2-8ab03f0b0ba1" class="bulleted-list"><li style="list-style-type:disc">EDITOR — отвечает за открытие редактора текстовых файлов. Например, по умолчанию вы можете встретить там путь /usr/bin/nano, но ничего вам не мешает изменить его на любой другой. За более сложные действия с тестом отвечает VISUAL и запускает, например, редактор vi.</li></ul><ul id="1e18336e-eb0d-4a6e-83c8-6598cf67b0bd" class="bulleted-list"><li style="list-style-type:disc">HOSTNAME — имя компьютера, а USER — имя текущей учетной записи.</li></ul><h3 id="5b82786a-1ad5-494c-a6f8-ea37a6fece0f" class="">2. Запуск команд с указанием нового значения переменной окружения</h3><p id="bd3b849a-cb2e-4004-bfc8-4a20dac7017b" class="">Можно самостоятельно на время изменить опцию любого параметра, чтобы запустить с ним определенную программу или выполнить любые другие действия. В таком случае в консоли вам будет достаточно прописать <code>env VAR=VALUE</code>, где <code>VAR</code> — название переменной, а <code>VALUE</code> — ее значение, например, путь к папке <code>/home/kali</code>.</p><figure id="f41136ab-80d2-4c9f-83f0-b5de4c620966" class="image"><a href="https://i.imgur.com/UVSHe9K.png"><img src="https://i.imgur.com/UVSHe9K.png"/></a></figure><p id="92f42aa9-3491-44ae-9148-6dac7048996b" class=""><em>При следующем просмотре всех параметров через упомянутую выше команду </em><em><code>printenv</code></em><em> вы увидите, что указанное вами значение было изменено. Однако оно станет таким, как было по умолчанию, сразу же после следующего обращения к ней, а также функционирует только в пределах активного терминала.</em></p><h3 id="c50579b5-9332-4ed9-aa3f-f07dfc298051" class="">2.1 Установка и удаление локальных переменных окружения</h3><p id="28103ef6-c250-41ce-a90d-9aba26b43d7b" class="">Из проделанного выше вы уже знаете о том, что локальные параметры не сохраняются в файлах и активны только в рамках текущей сессии, а после ее завершения удаляются. Если вас интересует собственное создание и удаление таких опций, сделать нужно следующее:</p><p id="7e6e62af-b3d0-4362-a197-00f01038e95f" class="">Запустите «Терминал» и напишите команду <code>VAR=VALUE</code>, после чего нажмите на клавишу <code>Enter</code>. Как обычно, VAR — любое удобное название переменной одним словом, а <code>VALUE</code> — значение.</p><figure id="9af62d4d-202d-4e3f-b661-39c3b4662bd5" class="image"><a href="https://i.imgur.com/8vMweBZ.png"><img src="https://i.imgur.com/8vMweBZ.png"/></a></figure><p id="643af535-4fbe-4349-beee-b645dc8b92bb" class="">Проверьте действенность произведенных действий, введя <code>echo $TESTKALI</code>. Строчкой ниже вы должны получить опцию переменной.</p><figure id="323ae122-12c2-4791-a010-ff175d6213f5" class="image"><a href="https://i.imgur.com/xc5prMN.png"><img src="https://i.imgur.com/xc5prMN.png"/></a></figure><p id="451e0ef1-f427-40a4-a935-d24c6c9b9b80" class="">Удаляется любой параметр командой <code>unset TESTKALI</code>.</p><figure id="475974ea-efb1-4696-9602-88872b1473bb" class="image"><a href="https://i.imgur.com/oByaQhL.png"><img src="https://i.imgur.com/oByaQhL.png"/></a></figure><p id="fc57f2f2-a13f-4249-840f-b401ab8b2100" class="">Проверить удаление можно также через</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="a7bbc15e-6dfd-4f49-8399-ccf03febfb75" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">echo $TESTKALI</code></pre><p id="4158e13e-50cd-43d9-905e-283fac1de0b1" class="">(следующая строка должна быть пустой).</p><figure id="d14d1be1-b6d2-4112-89fb-fc3e41c772f8" class="image"><a href="https://i.imgur.com/gFcRMKX.png"><img src="https://i.imgur.com/gFcRMKX.png"/></a></figure><p id="7c2004d5-24e2-4824-95ef-5ed68bcbcefc" class="">Таким нехитрым образом добавляются любые локальные параметры в неограниченном количестве.</p><h3 id="7d5f373f-334e-4cb0-bf09-66f6a891c777" class="">2.2 Добавление и удаление пользовательских переменных</h3><p id="8c102da4-9b8d-4ac0-a56b-beb8aeac3321" class="">Рассмотрим классы переменных, которые хранятся в конфигурационных файлах, а из этого выплывает то, что придется редактировать сами файлы. Делается это с помощью любого стандартного текстового редактора.</p><figure id="e43bc593-b168-42db-9067-323cbf08a162" class="image"><a href="https://i.imgur.com/Mn1g4kx.png"><img src="https://i.imgur.com/Mn1g4kx.png"/></a></figure><p id="c07e0eca-2ad1-4abc-938d-33131bf2b30c" class=""><em>Пользовательскую конфигурацию можно редактировать через</em> <code>sudo nano .bashrc.</code></p><figure id="23c0923f-dffa-4c27-8cef-e5aa0b4eb22f" class="image"><a href="https://i.imgur.com/86EZVqb.png"><img src="https://i.imgur.com/86EZVqb.png"/></a></figure><p id="b17bd4e1-574a-42d7-8f2a-0bccfe7dab84" class=""><em>Обновление конфигурации произойдет после повторного старта файла, а делается это через</em> <code>source .bashrc.</code></p><figure id="166b7958-8840-415e-8c44-74165d44e627" class="image"><a href="https://i.imgur.com/F98bfyw.png"><img src="https://i.imgur.com/F98bfyw.png"/></a></figure><p id="f769d790-3837-4c82-b63e-08634d68b58d" class=""><em>Проверить активность переменной можно через ту же опцию</em> <code>echo $TESTKALI</code>.</p><figure id="523389c3-8d21-44af-b5a6-5a6c321fa862" class="image"><a href="https://i.imgur.com/DCbFw7A.png"><img src="https://i.imgur.com/DCbFw7A.png"/></a></figure><p id="a139853e-e524-42a5-a4f9-7fd0e89dd522" class=""><strong>Что касается удаления параметров, то происходит оно тоже через конфигурационный файл. Достаточно полностью удалить строку или закомментировать ее, добавив в начале знак #.</strong></p><h3 id="a332eb46-a6b0-43e8-9974-070090926601" class="">2.3 Создание и удаление системных переменных окружения</h3><p id="c3873d9b-ee15-4902-9395-4028215ad121" class=""><strong>Осталось только затронуть третий класс переменных — системные.</strong><br/>Редактироваться для этого будет файл /ETC/PROFILE, который остается активным даже при удаленном подключении, например, через известный многим менеджер SSH. Открытие конфигурационного элемента осуществляется примерно так же, как и в предыдущем варианте:<br/></p><p id="11ff2a85-4763-4b3e-ac71-5999dddbdcc6" class="">введите <code>nano /etc/profile</code></p><figure id="5196b472-085c-4b97-acf7-e7c8f531b7c3" class="image"><a href="https://i.imgur.com/VPqHpgl.png"><img src="https://i.imgur.com/VPqHpgl.png"/></a></figure><p id="dc9b08b1-95af-448b-851f-4d4642db701a" class="">Внесём <code>TESTKALI2=/home/kali12345</code></p><p id="de8aea88-7635-4a0e-8f02-a8650b303e47" class="">Сохраняем и выходим.</p><p id="0da12752-c3f0-4de9-8302-0e52bf71171e" class="">Пишем команду <code>source /etc/profile</code> - чтобы изменения вступили в силу.</p><p id="96bda15b-0a8b-4770-99d9-7ba5d59dab45" class="">Проверяем:</p><p id="a416f4b7-3c03-4cbd-b658-8aa1d205bf04" class=""><code>echo $TESTKALI2=/home/kali12345</code></p><figure id="efaceae9-f7cd-48d0-9a2d-e5d8d5daaad7" class="image"><a href="https://i.imgur.com/EcsGyq4.png"><img src="https://i.imgur.com/EcsGyq4.png"/></a></figure><p id="1e724a5d-a0c8-4ae6-af7e-5110faae089f" class=""><strong>Изменения в файле сохранятся даже после перезагрузки сессии, а каждый юзер и приложение смогут без каких-либо проблем получать доступ к новым данным.</strong></p><p id="43353bfd-71be-4b6e-ac74-dae91f1dcdeb" class=""><em>Даже если практическая работа кажется сложной, настоятельно рекомендую разобраться в ней и понять как можно больше аспектов. Применение подобных инструментов ОС поможет избежать накопления дополнительных файлов настроек для каждого приложения, поскольку все они будут обращаться к переменным. Это также обеспечивает защиту всех параметров и группировку их в пределах одного расположения.</em></p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

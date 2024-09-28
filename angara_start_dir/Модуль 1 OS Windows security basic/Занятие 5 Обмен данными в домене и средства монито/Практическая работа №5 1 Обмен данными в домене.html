@@ -1,0 +1,684 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Практическая работа №5.1 Обмен данными в домене.</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="d01a3f1d-ac1f-441a-9df0-44940e89b436" class="page sans"><header><h1 class="page-title">Практическая работа №5.1 Обмен данными в домене.</h1><p class="page-description"></p></header><div class="page-body"><hr id="83a72cd4-7ea2-4a20-9885-4c26ab6f6757"/><h1 id="fa535041-a283-41a8-b2b9-5b4345313c75" class="">Занятие 5 - <em>Обмен данными в домене и средства мониторинга Windows</em></h1><h1 id="a830d88e-d911-4f20-803d-d4dbb329ba68" class="">Задание:</h1><p id="85a95f8c-6aa0-4b22-977b-2fc6269403be" class="">1) Настроить инстанс обмена данными</p><h1 id="6d4ff336-0af7-4290-a1bb-5f1b1f9add7c" class="">Методический материал:</h1><h2 id="4ee47db8-3827-4586-88fa-0fd3ad3faac4" class="">Часть 1. Настройка инстанса обмена данными.</h2><p id="da489862-6eda-4574-88f0-a86291831622" class="">==1.1 Для начала установим роль DFS на dc1. Перейдём в установку ролей и компонентов==</p><hr id="336ab58d-0515-4e3e-a2d9-554aba76cb55"/><figure id="d0277650-d1b3-4481-85f1-dc0c2e282526" class="image"><a href="https://i.imgur.com/pfN4w3r.png"><img src="https://i.imgur.com/pfN4w3r.png"/></a></figure><hr id="e55739fa-d361-4e10-9e90-85cbb370efaf"/><p id="26e6073b-6ae8-495f-8a11-b0b50afa52d4" class="">==1.2 Отметим роли DFS Namespases и DFS Replication==</p><hr id="9b5b56b3-dfc4-4436-ad5f-617ffdeac37e"/><figure id="11a095c2-7ed3-471c-b5d6-92c5195d64c3" class="image"><a href="https://i.imgur.com/GprD8AZ.png"><img src="https://i.imgur.com/GprD8AZ.png"/></a></figure><hr id="1795584a-b5bf-4424-8d11-4023b603765e"/><p id="9cacf8a8-df31-489e-a54e-4a69336bd7cb" class="">==1.3 Установим роли==</p><hr id="3acb4976-959f-42fe-bc5e-0b29b20bb222"/><figure id="f12f4dbc-5b94-4192-983c-0f829b1ec12b" class="image"><a href="https://i.imgur.com/Z1RuCPx.png"><img src="https://i.imgur.com/Z1RuCPx.png"/></a></figure><hr id="4e1b6313-3d1a-4a7d-bfad-e7d095d347d4"/><p id="21d87539-a1f6-4efe-8e49-d4421b7d7f14" class="">Выполните аналогичную установку на dc2.</p><p id="c93a9ee6-42c9-460b-8cb8-60bc532603b1" class="">==1.4 Зайдём в управление DFS==</p><hr id="695761a4-fe9d-46ff-a657-1f51a9d24393"/><figure id="54672ae8-a1cb-41d8-a4a6-2dccdb7909ff" class="image"><a href="https://i.imgur.com/LPtCzrN.png"><img src="https://i.imgur.com/LPtCzrN.png"/></a></figure><hr id="e6e6cba5-994f-4b41-bff0-cf53ce4e380e"/><p id="dc562ae6-eaa8-4e34-b4a8-76ba32a6dedb" class="">==1.5 Создадим новый namespace==</p><hr id="766400a3-316c-4173-aba1-2f3aed66543c"/><figure id="bb19ae56-8996-45a9-926b-d14d10f01785" class="image"><a href="https://i.imgur.com/tM6m7lQ.png"><img src="https://i.imgur.com/tM6m7lQ.png"/></a></figure><hr id="97247abc-ea62-46a4-b5d7-a67a44ca7121"/><p id="f1758351-f1f5-43c4-9d46-428e4f9b28eb" class="">==1.6 Укажем сервер, являющийся сервером имён для DFS. Это будет наш dc1==</p><hr id="e4faf16c-7e0d-42d2-90f1-aed22932e108"/><figure id="554a567f-234a-44dc-b7dd-76b97157f07f" class="image"><a href="https://i.imgur.com/jiz3qAN.png"><img src="https://i.imgur.com/jiz3qAN.png"/></a></figure><hr id="1e36965e-9916-43dd-914c-4f308e4c94de"/><p id="4362321d-4d8f-4956-b72d-3461e3c6ba32" class="">==1.7 Укажем имя создаваемого пространства и перейдём в edit settings==</p><hr id="81641869-b0b4-4e1a-84d3-2d775c62581a"/><figure id="322f5755-76ae-4d8b-9dab-4d2914d597e9" class="image"><a href="https://i.imgur.com/1fYXzDv.png"><img src="https://i.imgur.com/1fYXzDv.png"/></a></figure><p id="f4e29d72-7d3b-416f-b74d-91e619fd7954" class="">==1.8 Настроим кастомные права, указав возможность чтения и записи для всех пользователей==</p><hr id="9e976bf2-6a5f-4797-8ede-bb5f96c0f0bd"/><hr id="503c8f5c-9da1-4d45-b9d9-28871e721ace"/><figure id="70b3c5c2-17fb-4c8e-b38d-2ac3539a29f2" class="image"><a href="https://i.imgur.com/PR60oqy.png"><img src="https://i.imgur.com/PR60oqy.png"/></a></figure><hr id="f95572f8-5039-42a6-8f15-bba4632f511d"/><p id="69194dbc-a174-4c51-ba4d-63772dbedbbd" class="">==1.9 Оставим настройки по умолчанию (domain namespase)==</p><hr id="3b9f915f-06b2-44a1-8d66-c8ff55865b38"/><figure id="2bc523e1-dd8c-4241-98dd-ea7f284b8468" class="image"><a href="https://i.imgur.com/N0bEjBA.png"><img src="https://i.imgur.com/N0bEjBA.png"/></a></figure><hr id="5ffb7d43-1cec-48b1-8a1f-b411520229d2"/><p id="1bc4cb49-57bd-4058-a7de-f42fb5598a29" class="">==1.10 Создадим пространство имён==</p><hr id="5587213a-16d3-496d-9b7a-53d372a2b3b4"/><figure id="dc2d37e0-73ef-48e1-9b2f-a7539d1287f3" class="image"><a href="https://i.imgur.com/j9oexg0.png"><img src="https://i.imgur.com/j9oexg0.png"/></a></figure><hr id="e863260d-8319-4f54-b9ee-944a3a3d6ec7"/><p id="1a34a0b3-3747-413e-b90a-7481167998f2" class="">==1.11 Успех==</p><hr id="22afda82-0ee7-45ee-8838-379e2599c7ac"/><figure id="4acc98ac-5e65-435e-a640-985fac04d4fb" class="image"><a href="https://i.imgur.com/0ItwVth.png"><img src="https://i.imgur.com/0ItwVth.png"/></a></figure><hr id="7d87611d-11d8-4d6d-abd6-d5d91850c01b"/><p id="f84f64c9-8ce1-4399-bd3e-f8f526668c2a" class="">==1.12 Можно проверить, что инстанс создан, пройдя по пути ==</p><hr id="9d3ae0d9-3e61-4273-9fe2-82b8a6a585b3"/><figure id="787336e3-f05e-4d95-9918-f62f5e20263a" class="image"><a href="https://i.imgur.com/Q1aSw71.png"><img src="https://i.imgur.com/Q1aSw71.png"/></a></figure><hr id="77776855-4e40-4c60-aa06-e6853ee4b64f"/><p id="08f8971b-efc8-49c1-8095-438568b1e0b8" class="">DFS работает таким образом, что абстрагирует пользователя от прямого пути до папки. Для начала создадим обычные сетевые папки, а потом соотнесём их с DFS путями.</p><p id="aa27894d-912a-4e01-817d-b10891a1fc06" class="">==1.13 Создадим папку share==</p><hr id="7c323c16-2e8e-4423-bc3f-8d66a91710de"/><figure id="07bfbbb7-22d0-4a17-8601-4c53834acd78" class="image"><a href="https://i.imgur.com/gqtYXP2.png"><img src="https://i.imgur.com/gqtYXP2.png"/></a></figure><hr id="02e5827e-6539-4866-ae6b-719bd61f8337"/><p id="bcd8d394-2178-41ec-ae43-23e7b1c6cece" class="">==1.14 И папки отделов внутри, + папку all_share==</p><hr id="4a825da6-0030-4710-8ec8-604e2984fe3e"/><figure id="2ff20660-63e3-4a52-9190-8ef2f9298041" class="image"><a href="https://i.imgur.com/CIUkXO5.png"><img src="https://i.imgur.com/CIUkXO5.png"/></a></figure><hr id="e108c4f2-1b53-4bcc-b29a-f73b523fce0d"/><p id="cdc3c0ec-97a5-47fe-8871-5c12d38d4d43" class="">==1.15 Каждую эту папку нужно сделать сетевой. Идём в настройки папки (сделаем на примере buhg)==</p><hr id="38335051-3c64-4c67-b5f8-ac18be852505"/><figure id="27481ddb-e6d2-4c88-8d1c-648d5265e1f4" class="image"><a href="https://i.imgur.com/2cd28nt.png"><img src="https://i.imgur.com/2cd28nt.png"/></a></figure><hr id="d568c009-29e5-4014-b3fd-8eba13597ea8"/><p id="d062a73c-1d24-4414-a987-026b249275a6" class="">==1.16 Вкладка sharing, пунк advanced sharing==</p><hr id="8f4bf914-0b34-4d6b-9a25-743f4e3e3257"/><figure id="50ae5261-2761-428d-99dc-3c55fd8d8974" class="image"><a href="https://i.imgur.com/4mNAMxD.png"><img src="https://i.imgur.com/4mNAMxD.png"/></a></figure><hr id="bccf52dc-8e5b-4104-b306-e87804539449"/><p id="46640283-ef5b-45e3-9daf-05edb86ef651" class="">==1.17 Активируем галочку шаринга, а вконце имени сетевой папки ставим знак . После идём в permissions==</p><hr id="d74efdc7-9632-45c8-b214-2296af1a0505"/><figure id="cc514bc9-d00e-4940-89e5-cc84a1bf7184" class="image"><a href="https://i.imgur.com/LML19na.png"><img src="https://i.imgur.com/LML19na.png"/></a></figure><hr id="31470142-fb48-4f6a-8e5a-45e01ad593e5"/><p id="680ee249-4a37-4571-8045-314cafae7bea" class="">Знак доллара нужен, чтобы скрыть папку от посторонних</p><hr id="aa9ffc2a-bd73-4ac7-99a5-f3faf4622dd2"/><p id="277b3242-76cd-4326-aee6-38e694fe0630" class="">==1.18 Выставляем права на чтение и запись для buhg-sec (права -- change, read) и domain admins (права -- full control), а группу everyone удаляем. После нажимаем apply==</p><hr id="2525911d-1ee8-408a-9cfe-27d2adc4fb0b"/><figure id="71039fd8-af69-4f2c-be8c-a1a158068746" class="image"><a href="https://i.imgur.com/vRiIekP.png"><img src="https://i.imgur.com/vRiIekP.png"/></a></figure><hr id="80bc5123-48bc-4716-9d45-d96110a5f626"/><p id="c2be2305-bd4d-4e86-b242-ab4e85edf7d4" class="">==1.19 Нам покажут относительный dc1 путь до папки по сети. Закрываем меню==</p><hr id="4533752a-1696-47b8-b6e9-20820d96ec01"/><figure id="b13ef597-4269-4f60-a4a1-047c822bfa3a" class="image"><a href="https://i.imgur.com/PqHqd9h.png"><img src="https://i.imgur.com/PqHqd9h.png"/></a></figure><hr id="9c854425-3e9e-4c67-8dc9-5830c0004794"/><p id="73d4032a-4a4a-40a8-a6ac-7b65c6a47285" class="">:::info<br/>Аналогичные действия нужно сделать для остальных папок, но выдавая права на группы безопасности отделов (папке HR -- группу HR-sec на чтение запись и т.п.). Для all_share выдать доступ на read write для группы everyone<br/>:::<br/></p><p id="2cc75bb5-6ec6-4c13-8d12-80d84f177cb5" class="">==1.20 Вот так будет выглядеть настройка all_share. Доллар ставить не обязательно, всё равно группа everyone увидит ресурс==</p><hr id="f8c38096-723a-48ab-82a0-02da4ff7e8b9"/><figure id="b2fa8f24-f55b-411e-b743-37bb03beaf7b" class="image"><a href="https://i.imgur.com/h20NPnb.png"><img src="https://i.imgur.com/h20NPnb.png"/></a></figure><hr id="dd928658-0ebe-4f6e-a2b8-51215fbb0037"/><p id="ee543fc2-c4c8-4a99-9c2c-da39d75adaf1" class="">==1.21 После создания папок они отобразятся в сетевом пути до dc1. Но мы преследуем другую цель. Теперь создадим папки в DFS. В меню DFS нажмём кнопку &quot;new folder&quot;==</p><hr id="31eab17c-9761-4be5-9c91-f83b4dcbf620"/><figure id="49898f92-3088-4a97-9b58-a4e5a1c342a8" class="image"><a href="https://i.imgur.com/nA3q2fe.png"><img src="https://i.imgur.com/nA3q2fe.png"/></a></figure><hr id="c5e5b4e4-a497-4a43-a3ba-42a17ac90da7"/><p id="8981f2b1-2008-42b0-a5c4-d64aa2654501" class="">==1.22 Укажем имя папки (именно с этим именем она отобразится в dfs-пути)==</p><hr id="9e42aa9a-71c5-431b-a66f-fbb4b45fc61b"/><figure id="46c67ff7-d521-4a9c-9ee5-ba7231bf77ca" class="image"><a href="https://i.imgur.com/CCjwP9B.png"><img src="https://i.imgur.com/CCjwP9B.png"/></a></figure><hr id="fd28e411-4eda-40eb-a71c-4a6e7e134bfb"/><p id="7e851529-732e-4231-80df-bed229a889c1" class="">==1.23 Добавим target. Имеется ввиду то, что мы по сути создаем всего лишь ярлык, который будет ссылаться на папку, которую мы укажем в target==</p><hr id="a3c641fa-6f74-4a27-9259-62c3c3619a51"/><figure id="7fbf13cd-4790-4736-8d85-ca1d98b4f2c1" class="image"><a href="https://i.imgur.com/5a9uZRr.png"><img src="https://i.imgur.com/5a9uZRr.png"/></a></figure><hr id="7a64684e-d478-4e8e-ab69-78b17a4a4de0"/><p id="d5894424-c52b-42c3-9519-8b269f13a035" class="">==1.24 Можно либо сразу указать сетевой путь до папки, либо воспользоваться browse==</p><hr id="16d362ba-eff5-4721-adcb-3e92ee1f6544"/><figure id="18004cc4-fcb2-4cb4-9a05-d7ca7ccef3a5" class="image"><a href="https://i.imgur.com/mU1Rdhf.png"><img src="https://i.imgur.com/mU1Rdhf.png"/></a></figure><hr id="994554ec-1511-47a6-b0d9-6fb397c753da"/><p id="ff90af16-51d5-42a6-a435-5a1fbe74663a" class="">==1.25 Увидим список всех расшаренных папок на dc1. Выберем нужную==</p><hr id="6a86c5b0-e3e6-4705-ab81-d08efd731c86"/><figure id="4d858154-6903-4743-b580-04bff2f6ea1e" class="image"><a href="https://i.imgur.com/cZ89JcL.png"><img src="https://i.imgur.com/cZ89JcL.png"/></a></figure><hr id="120d3c65-0741-4035-b117-e11f0ecffe8e"/><p id="5b8e9d9d-bbd8-417e-bd0c-55a2f6eac670" class="">==1.26 Сетевой путь до папки отобразится, можно подтверждать и применять настройки==</p><hr id="97d80540-e2db-432e-a78b-faf0a669588a"/><figure id="887f4b01-efdf-4def-b3a0-a0c0dc5e9551" class="image"><a href="https://i.imgur.com/xBKYfZc.png"><img src="https://i.imgur.com/xBKYfZc.png"/></a></figure><hr id="73eaa4b0-2648-48bd-a0ee-65904702466c"/><p id="52de1f7f-4c8a-4033-90a3-880d1eb43706" class="">==1.27 Теперь по сетевому пути  видны сетевые папки, ==</p><hr id="efb66c28-1cf4-4019-b898-de71c7357e90"/><figure id="611ea6a9-d93d-405d-a0da-793e516ec8fd" class="image"><a href="https://i.imgur.com/RiOHFHk.png"><img src="https://i.imgur.com/RiOHFHk.png"/></a></figure><hr id="3b92f8b9-2cc4-4363-aa4a-2273df97db64"/><p id="154650e2-7904-4166-a08d-5fa121be3372" class="">:::info<br/>У пользователей ещё нет прав на уровне NTFS на редактирование файлов в них. Если пользователь из группы Buhg-sec расположит в папке Buhg файл, то пользователь будет являться его владельцем и сможет сделать с файлом всё, что захочет. Но вот другие пользователи группы Buhg-sec не смогут проводить операции с файлом.<br/>:::<br/></p><p id="5b3f1fdc-2806-45ab-a33c-9e506e7db377" class="">==1.28 Изменим права security у папки Buhg. Нажмём кнопку Edit==</p><hr id="5e7b744f-f013-48ba-9dc3-02672b00aec8"/><figure id="40107825-23fc-4c93-9f51-2f1f8489fe4e" class="image"><a href="https://i.imgur.com/DC1bs5I.png"><img src="https://i.imgur.com/DC1bs5I.png"/></a></figure><hr id="82ba26bf-5b05-481b-95fc-e286385a5135"/><p id="0c7b1bc1-9440-4190-9faa-4d61bb4eacd4" class="">==1.29 Нажмём кнопку Add, чтобы добавить группу Buhg-sec==</p><hr id="69dffd86-f009-427a-af5d-743bc53f228f"/><figure id="b8e5e700-9bc1-4ecd-88a8-cf6fe85dabf3" class="image"><a href="https://i.imgur.com/b1vARZW.png"><img src="https://i.imgur.com/b1vARZW.png"/></a></figure><hr id="434cf21d-1308-4dcb-b7fc-949c98505cda"/><p id="ff892aed-203d-41d9-bc03-fae3278cf275" class="">==1.30 Дадим права в том числе и на midify==</p><hr id="f49c5e69-0d16-434e-b046-7a1668a6ed70"/><figure id="6081304c-1fa7-4162-b5e2-588e09d37f0c" class="image"><a href="https://i.imgur.com/Ztziewd.png"><img src="https://i.imgur.com/Ztziewd.png"/></a></figure><hr id="6292e9dc-06e7-4a4c-876f-918aea2b996f"/><p id="635bcdfc-ffee-44a7-bafd-6d4b469f4a5e" class="">Нужно проделать по аналогии со всем другими папками. Для папки all_share выставить в параметрах доступ для группы everyone (аналогично, в т.ч. и на modify).</p><p id="f5a5b6c7-6636-45aa-bb6f-17c9e58f5764" class="">В качестве дополнительного самостоятельного задания вы можете настроить репликацию DFS на dc2. Для этого понадобится настроить там аналогичные папки, расшарить их, а после создать для каждой существующей на dc1 dfs папки резервирование с указанием сетевого пути до аналогичной папки dc2.</p><h2 id="ed860403-a598-4b09-b9f2-e919c94c3e1c" class="">Ссылки для закрепления материала и самостоятельного изучения:</h2><ul id="d3ff6031-b4df-4ce4-ba92-3012e044c034" class="bulleted-list"><li style="list-style-type:disc"><a href="https://winitpro.ru/index.php/2013/09/25/ustanovka-i-nastrojka-dfs-i-replikacii-fajlov-v-windows-server-2012/">DFS</a></li></ul><ul id="34602700-fe1f-4bac-a2b4-a2d5464ad226" class="bulleted-list"><li style="list-style-type:disc"><a href="https://winnote.ru/security/93-razresheniya-ntfs.html">Разрешения NTFS</a></li></ul><ul id="4afbbaaf-dae3-4e6f-8167-d0e196c52de2" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.white-windows.ru/sekrety-ntfs-prava-razresheniya-i-ih-nasledovanie/">Секреты NTFS - права, разрешения и их наследование</a></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

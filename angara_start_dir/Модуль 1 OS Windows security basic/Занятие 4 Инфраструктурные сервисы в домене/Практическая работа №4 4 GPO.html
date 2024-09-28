@@ -1,0 +1,685 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Практическая работа №4.4 GPO.</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="55f93b8b-142b-4ed5-9e31-3a9b435d0c80" class="page sans"><header><h1 class="page-title">Практическая работа №4.4 GPO.</h1><p class="page-description"></p></header><div class="page-body"><hr id="fe6189f0-483e-4709-bc4b-bec15011dc00"/><h1 id="9291438b-7912-4d06-8952-387bfbe1b967" class="">Занятие 4 - <em>Инфраструктурные сервисы в домене</em></h1><h1 id="b3ba0305-14b6-4b78-8ace-d82cd0b9cc28" class="">Задание:</h1><p id="ccb9f9b0-706d-4c5d-a48e-583d4f25bea5" class="">1) Создать и настроить политику аудита файловой системы</p><p id="18994644-d11e-4edb-86e7-8a140744cc1b" class="">2) Создать и настроить политики защиты от mimikatz</p><p id="2808692e-ad7a-4f3b-8f6f-73f09923b4dd" class="">3) Провести настройки политик для SIEM</p><p id="3bbd6054-4e1c-4f7a-b4f1-6d0d16907533" class="">
+</p><h1 id="82f5a140-9241-4189-abf7-674019899978" class="">Методический материал:</h1><h2 id="ce6f0ff1-0541-4794-b32d-f7526d448576" class="">Часть 4. Групповые политики</h2><p id="e3ece082-ca08-4ca5-9037-e9e90ad1b795" class="">С помощью групповых политик решим следующие задачи:</p><ul id="805b18c4-b709-4c6f-82a0-d8921d085863" class="bulleted-list"><li style="list-style-type:disc">Включим возможность логирования сетевых файловых ресурсов</li></ul><ul id="c416154e-866b-4560-98b0-05247b1d12cb" class="bulleted-list"><li style="list-style-type:disc">Настроим набор политик для защиты от mimikatz</li></ul><ul id="5ffbe518-f10c-4bc0-8946-45337ad6e436" class="bulleted-list"><li style="list-style-type:disc">Применим политики для генерации событий, необходимых SIEM</li></ul><h3 id="82d1cb93-a3fe-445a-aa39-bd2884c2c171" class="">Политика аудита</h3><p id="9ba8154d-72bf-4a2b-8f5d-c5a1071ccc32" class="">==4.1 Зайдём в Group policy management==</p><hr id="134c2b5b-3a2c-443b-967a-9403b0744bcc"/><figure id="a6c556f1-5448-4523-bf71-1bdccb5af73c" class="image"><a href="https://i.imgur.com/wZNzgeu.png"><img src="https://i.imgur.com/wZNzgeu.png"/></a></figure><hr id="60876cd8-c4f5-4d5a-b2b1-f7cd2d01a320"/><p id="28787016-843e-49b7-8e8d-a3a8267d9de6" class="">==4.2 Развернём вложенные меню, увидим две базовые политики в папке &quot;Group policy object&quot; и ссылки на них в OU, куда они были применены==</p><hr id="6849a5c0-094e-42a3-8664-a27bd200e166"/><figure id="1ce1bb53-39e3-4753-9932-ffd27021f511" class="image"><a href="https://i.imgur.com/1XX5Nty.png"><img src="https://i.imgur.com/1XX5Nty.png"/></a></figure><hr id="4b3ba798-b787-485e-9156-826853981d4e"/><p id="b4843f57-cad7-4e65-b99a-bfec5eae4b2c" class="">==4.3 Отредактируем политику контроллеров домена==</p><hr id="576c13e0-167c-468d-bc6b-b83a06eb5045"/><figure id="5f34a4fc-84f2-46a6-b06f-426966a3fd84" class="image"><a href="https://i.imgur.com/qahQGmO.png"><img src="https://i.imgur.com/qahQGmO.png"/></a></figure><hr id="9eff2792-39ae-4b56-a244-8018c3ee34f5"/><p id="63c6233c-d481-473f-af3e-3fe621065dd8" class="">==4.4 Настроим политику компьютера Object Access==</p><hr id="da25ff25-17f7-4de9-9133-54aa4372faba"/><figure id="1aabdb38-d615-48d1-9d1d-0c9858fcef13" class="image"><a href="https://i.imgur.com/gI6kRof.png"><img src="https://i.imgur.com/gI6kRof.png"/></a></figure><hr id="6689d052-7207-4d32-a654-56b0a505615f"/><p id="6cd4c01a-1da0-48d0-a4d9-bcda0b827738" class="">Путь до политики выглядит следующим образом: Computer Configuration/Policies/Windows Settings/Security Settings/Advanced Audit Policy Configuration/Audit Policies/Object Access</p><hr id="67024223-61d0-4573-859d-bfe4363defde"/><p id="ffa5bf53-9eea-4032-9877-f780b75c4cb6" class="">==4.5 Включим аудит сетевых папок==</p><hr id="5cdda0aa-e5d8-493b-a8e8-1e8fe476ff1c"/><figure id="e6083476-2e76-4cf9-bc09-67ca6ecc3cb5" class="image"><a href="https://i.imgur.com/br2amux.png"><img src="https://i.imgur.com/br2amux.png"/></a></figure><hr id="6f3af087-2050-43f5-a3d5-78f98d3168ea"/><p id="45de1293-f68b-41b7-a160-bd92364b1052" class="">==4.6 Включим аудит файловой системы==</p><hr id="3745682c-cef2-4bd8-b3ef-5d0e0ed9dacb"/><figure id="31c9a6bd-5dd4-47cb-8f8a-293c0493abe4" class="image"><a href="https://i.imgur.com/pLZyAze.png"><img src="https://i.imgur.com/pLZyAze.png"/></a></figure><hr id="fdfee776-21e1-44b4-b68f-b84b884c044e"/><p id="2b78b99d-5e9f-446f-8e49-ab8024c4d6cf" class="">Данная политика применима к dc1 и dc2. В дальнейшем мы создадим на них файловый сетевой ресурс и сможем увидеть, например, события удаления файлов</p><hr id="898e1008-44f5-4f9d-a8ca-0b572ad2aff9"/><hr id="873a81d0-5ad4-40a2-80ce-22100f89189e"/><h3 id="5bb9e230-0ef6-4f67-ac21-ab83abc418f5" class="">Политики защиты от mimikatz</h3><h3 id="1069f069-bed8-4385-a0a4-8e682b5abba3" class="">Запрет Debug</h3><p id="795b33d7-5968-4b27-888c-a49d9e49e17a" class="">==4.7 Создадим новую политику в папке GPO==</p><hr id="6b6ce761-119c-4b77-99dc-1abdbca978a7"/><figure id="fc6452d9-9326-4f91-ade4-3fc303da130e" class="image"><a href="https://i.imgur.com/DwaIr2w.png"><img src="https://i.imgur.com/DwaIr2w.png"/></a></figure><hr id="48e94f7c-8b37-44dd-80cc-6a2d81377321"/><p id="36d9f7c6-9e58-4b1f-a271-37deeeed4f84" class="">==4.8 Назовём её mimikatz_block_debug==</p><hr id="3404ab5a-2bde-43ae-89ed-ee9e42044b3d"/><figure id="75deabc8-ee9d-4b39-baf5-a6528dc4cc40" class="image"><a href="https://i.imgur.com/cUqFwlM.png"><img src="https://i.imgur.com/cUqFwlM.png"/></a></figure><hr id="d92faf25-f3ed-4fe7-879d-f9f1c35ce529"/><p id="aab20351-6627-4e67-9a73-b8a96cb9b8f2" class="">==4.9 Перейдём в настройки политики==</p><hr id="45524b3e-629e-4da6-acd4-f88f313540e2"/><figure id="a41ceb3e-9782-4fa3-b52a-ca6d1fa826f5" class="image"><a href="https://i.imgur.com/5RCIrE9.png"><img src="https://i.imgur.com/5RCIrE9.png"/></a></figure><hr id="cdd54b88-67c3-4bcf-823a-b238d733d5e3"/><p id="d26f147b-e6f6-41ae-9fb5-a56c102d0748" class="">==4.10 Найдём политику debug==</p><hr id="5e9cab52-aaaa-4d5d-a5d9-8b07f2ac887f"/><figure id="666f05d0-229c-4fcc-aa00-61a74a7c36f5" class="image"><a href="https://i.imgur.com/OwpO2h9.png"><img src="https://i.imgur.com/OwpO2h9.png"/></a></figure><hr id="6a4a30f3-a7fc-4acd-92ee-49a7fc043275"/><p id="52bace5a-f3b6-4a0d-aa3f-52fa9088d69c" class="">Путь до политики выглядит следующим образом: Computer Configuration/Policies/Windows Settings/Security Settings/User rights Assignment</p><hr id="f646a872-9364-41bb-baec-0ea607daf41c"/><p id="63477a11-2b59-494a-bf3e-86be8c70ed06" class="">==4.11 Настроим политику так, чтобы только у администратора и ADMPetr были права отладки==</p><hr id="e475fe75-2da0-4d6b-88f2-8b243f6830f2"/><figure id="904faeb1-2848-435e-9a64-f4528e65de26" class="image"><a href="https://i.imgur.com/RrJMbqQ.png"><img src="https://i.imgur.com/RrJMbqQ.png"/></a></figure><hr id="65060191-5278-4663-a1e4-127e8bb9455a"/><p id="b148b467-e890-4e42-9c36-48ef34f02ea2" class="">==4.12 Применим политику к домену, чтобы она сработала на всех ПК домена==</p><hr id="6f37f286-77e1-49b8-b4a3-0548b1511a90"/><figure id="78328113-3e8c-4d05-9345-29cd3ae6a1ad" class="image"><a href="https://i.imgur.com/rrCDSNB.png"><img src="https://i.imgur.com/rrCDSNB.png"/></a></figure><hr id="15df1e1c-407d-492f-981b-31392c6c3fe4"/><figure id="5d43b3a4-b7ba-475d-a900-4c3bd3d23df4" class="image"><a href="https://i.imgur.com/S7tVukq.png"><img src="https://i.imgur.com/S7tVukq.png"/></a></figure><hr id="77a0c5d0-8d71-497b-9d61-f3103fb2f476"/><p id="4d3f777f-0324-4bde-babf-015e247db7ed" class="">==4.13 Пункт для проверки(выполнять не обязательно): На pc1 можно проверить, срабатывает ли mimikatz. Скачать его можно с <a href="https://github.com/ParrotSec/mimikatz">github</a>, но на pc1 нужно выключить защитник windows==</p><hr id="007a7b65-f1d5-474a-b310-661ed9531131"/><figure id="72c0631b-be3f-4c7a-8a44-36c8c42094ee" class="image"><a href="https://i.imgur.com/EaEdj0p.png"><img src="https://i.imgur.com/EaEdj0p.png"/></a></figure><hr id="b95f8861-8f2a-4164-ad1d-7c22d51236e8"/><figure id="d5de316a-025c-4549-8d8e-56d82cf6985e" class="image"><a href="https://i.imgur.com/qU425Q1.png"><img src="https://i.imgur.com/qU425Q1.png"/></a></figure><hr id="e6915d30-ef7d-44fe-b4bd-4f9c43a2436c"/><p id="0dd63c7f-d490-410f-a5ef-68a1a50c3110" class="">Жаль, что эту настройку <a href="https://winitpro.ru/index.php/2017/09/15/poluchenie-privilegii-sedebugprivilege-pri-vklyuchennoj-politike-debug-program/">можно обойти</a></p><hr id="3c04bfcd-b990-4779-b71b-6793d46ea373"/><h3 id="c6204b84-efc6-42b2-915e-3b7fa552555a" class="">Отключение WDigest (не обязательно проделывать в рамках практики)</h3><p id="65aca39d-0ae2-4604-9bff-ccfddc7a4cf3" class="">На современных системах уже не актуально, так как хранение пароля в открытом виде по умолчанию запрещается для WDigest начиная с Windows 8.1 и Server 2012 R2.<br/>Если используются более старые системы, то необходимо установить специальное обновление — KB2871997, а после с помощью политики выставить параметры реестра для запрета хранения открытых паролей WDigest.<br/>Если всё же необходимо это сделать, ниже приведены шаги:<br/></p><p id="6d3d5a3e-f300-49aa-8a6c-351f63d9567d" class="">==4.14 Редактируем существующую политику mimikatz_block_debug, так как WDigest нужно аналогично отключить на всех ПК. Находим пункт правки реестра==</p><hr id="d64f1e4c-8549-416a-a60f-212da39ef7e3"/><figure id="d493049b-5bd9-46b8-b7bb-56c88115df0d" class="image"><a href="https://i.imgur.com/3rkKKlu.png"><img src="https://i.imgur.com/3rkKKlu.png"/></a></figure><hr id="db1ac7f1-9af5-45cb-9308-58b18d818920"/><p id="a2f51718-e597-4602-a15d-ec227487dc4f" class="">==4.15 Создаем новый элемент реестра==</p><hr id="0481d89f-e101-4fc1-9c91-81e8bc9013b3"/><figure id="33f55b72-96fc-41da-861c-3a2f7a23d9c0" class="image"><a href="https://i.imgur.com/0L27CxN.png"><img src="https://i.imgur.com/0L27CxN.png"/></a></figure><hr id="5b502aa3-7336-4267-bf5b-bee4d91db124"/><p id="22eaa129-aa75-4237-9782-ff8baeca4904" class="">==4.16 ==</p><hr id="5d9c5736-4b26-4834-84d0-053e049b8316"/><figure id="c42e7da9-ceba-4b84-87bf-b66a9da80693" class="image"><a href="https://i.imgur.com/wC2bkCT.png"><img src="https://i.imgur.com/wC2bkCT.png"/></a></figure><hr id="4b6e7cae-a5c9-4bd1-bef9-2ec2c6cddb74"/><p id="b5e2deea-f24d-4e48-ae1d-008dae652e39" class="">ветка реестра: <strong>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest</strong></p><hr id="0315d687-6f22-4916-bf64-836cbde8e5ee"/><p id="a398f588-81ae-4420-b97e-5c0c76ad504a" class="">имя параметра: <strong>UseLogonCredential</strong></p><hr id="c7e213a5-5d2a-4383-a913-8603d200cb3c"/><p id="aa92d929-01ce-48ef-89d9-8ae1861607ea" class="">Значение  выставляем в 0. Внимание! Изменяем decimal значение</p><hr id="fa5e0d65-6fef-4f93-b8f2-f5d89869a257"/><p id="b9f80c99-ed3c-4f57-89b7-4210e3b96acf" class="">==4.17 Применяем. Данная настройка применится ко всем компьютерам домена и пропишет в реестр нужный параметр, отключающий хранение в открытом виде пароля для авторизации в IIS==</p><hr id="0949f54f-c841-4b21-ba85-d80c0fb1ec41"/><figure id="9230747b-9bb5-476a-a670-34adacc9e81c" class="image"><a href="https://i.imgur.com/zx907CQ.png"><img src="https://i.imgur.com/zx907CQ.png"/></a></figure><hr id="12c77208-4601-4e6c-9854-ef4569fab814"/><h3 id="6b6d8e35-d86e-42fa-bae8-f278e9c4a03d" class="">Защита LSA от подключения сторонних модулей</h3><p id="8c8bbf52-a6f5-4541-a802-0d94a694380f" class="">В Windows 8.1 и Windows Server 2012 R2 появилась возможность включить защиту LSA, которая защищает память LSA и предотвращает подключение к ней незащищенных процессов.<br/>Чтобы включить эту защиту, вам необходимо создать параметр RunAsPPL со значением 1 в разделе реестра HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\LSA.<br/></p><p id="f99bff2d-2924-41f6-82f3-48801d74d6fb" class="">==4.18 Добавим в политику mimikatz_block_debug новый параметр реестра==</p><hr id="a0848272-e61b-4743-8ca4-38c8b5be8a94"/><figure id="3fdb49d0-b25c-4f7a-ba39-884b398cf84c" class="image"><a href="https://i.imgur.com/a1rbRwp.png"><img src="https://i.imgur.com/a1rbRwp.png"/></a></figure><hr id="7c5e932c-ae50-4664-aca4-68a91a08fced"/><p id="9c2678b9-4ae7-40ee-9754-577470f073d1" class="">==4.19 Настроим параметр, активирущий защиту LSA==</p><hr id="014a4644-9b53-44b4-9bc3-1b7294e79dda"/><figure id="2e020494-726f-4437-ad8f-c44a91ff3f43" class="image"><a href="https://i.imgur.com/UgcSIuI.png"><img src="https://i.imgur.com/UgcSIuI.png"/></a></figure><hr id="0178d8cb-8941-45e6-a033-30e0fb689e79"/><p id="249dd0a2-341f-419a-8dce-1f8304c818bf" class="">ветка реестра: <strong>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\LSA</strong></p><hr id="ed5f49f9-d8db-4386-8ce1-5448a716b439"/><p id="6a3cb74e-4a26-4d52-9eed-89e5f5b49e13" class="">имя параметра: <strong>RunAsPPL</strong></p><hr id="c9f48e6c-6f94-49d0-8bf5-37743bafef6a"/><p id="66642dd9-fe07-4b39-97af-5be4a0f1f0d6" class="">Значение  выставляем в 1. Внимание! Изменяем decimal значение</p><p id="8890b8e6-56ed-40b8-ac79-0b4dbccfd031" class="">Теперь подключаемые модули без подписи, а также модули, не имеющие подписи Майкрософт, не будут загружаться в LSA</p><hr id="04c59efd-2300-4c86-b8c3-ed37c387af31"/><hr id="766f981c-65c8-4406-8fbe-6ba1b857a77b"/><h3 id="fadb5273-2786-4727-ad8b-a2f2650b509e" class="">Настройки политик для SIEM</h3><p id="a6738c8e-d401-4a06-b049-3ee51a21fa0b" class="">Для полноценного логирование домена необходимо провести настройки политик. Без этих логов SIEM не сможет обнаружить множество атак на домен.</p><h3 id="209b6c3c-c4a1-4881-94a3-030f90f4a3ef" class="">Включение аудита командной строки и powershell</h3><p id="3efbccb5-fcf6-4322-ae38-270e6b428ea1" class="">==4.20 Создадим политику аудита audit_services_cmd_posh==</p><hr id="ecd03355-8ddf-450a-8f33-2bdb96d10fcb"/><figure id="fdefad66-e428-4df7-8d89-43ca6c70d14a" class="image"><a href="https://i.imgur.com/ZvcAk1K.png"><img src="https://i.imgur.com/ZvcAk1K.png"/></a></figure><hr id="f9e66461-9876-4374-8fe0-4f97eb23c07a"/><p id="1c998ba0-6792-4294-8dfe-261571a07f13" class="">==4.21 Перейдём в ветку &quot;Административные шаблоны&quot;/&quot;Система&quot;/&quot;Аудит создания процессов&quot;==</p><hr id="acfcd26f-2e28-48fd-99e4-771ce777eae1"/><figure id="72592590-5a38-4905-8bc1-69b201fd634f" class="image"><a href="https://i.imgur.com/RdOYctk.png"><img src="https://i.imgur.com/RdOYctk.png"/></a></figure><hr id="b8659bea-44aa-408e-8d49-57a55e483513"/><p id="e17f0620-c960-4aca-8fa2-403b1ef5232e" class="">==4.22 Активируем параметр &quot;Включить командную строку в события создания процессов&quot;==</p><hr id="1cb70048-7c9e-4c06-bd39-a317e6a97c32"/><figure id="7334ca35-f032-4105-a698-3952a575bb17" class="image"><a href="https://i.imgur.com/rpv4Xds.png"><img src="https://i.imgur.com/rpv4Xds.png"/></a></figure><hr id="f5f62062-24f1-4d66-aaa7-f470d9332d5c"/><p id="27ca8e54-f5cd-4ad7-8b90-40bcaa2e3266" class="">==4.23 Перейдём в ветку &quot;Административные шаблоны&quot;/&quot;Компоненты Windows&quot;/&quot;Windows PowerShell&quot;==</p><hr id="509db3ec-00f8-4442-b7bc-d9f5685443c4"/><figure id="d39ca801-2d38-49c0-b779-e1bc80c0fb8f" class="image"><a href="https://i.imgur.com/5jJtBBm.png"><img src="https://i.imgur.com/5jJtBBm.png"/></a></figure><hr id="0c257cbe-3a31-46fe-89ec-67a18305f0c8"/><p id="df22e265-646c-498d-806e-3e6a5812d05f" class="">==4.24 Выберем пункт &quot;Включить ведение журнала и модулей&quot;==</p><hr id="1d32eb88-fed3-4c88-b052-0889eccbbad1"/><figure id="0fbf9b56-2d72-4285-a4a0-067ece0ec41a" class="image"><a href="https://i.imgur.com/8Ljuk86.png"><img src="https://i.imgur.com/8Ljuk86.png"/></a></figure><hr id="e3924f1e-57dc-44d7-9be5-95610a47fbd6"/><p id="4f83588a-e6c7-4c72-a60b-a6280bbd3ee4" class="">==4.25 Включим этот параметр для содержимого ==</p><hr id="37dd5f7c-72ae-4b62-b5b6-58cc46f6191e"/><figure id="380d9eda-9a20-46c6-821c-c81349e69d07" class="image"><a href="https://i.imgur.com/UbN7p1C.png"><img src="https://i.imgur.com/UbN7p1C.png"/></a></figure><hr id="aca3836a-6ccc-4f93-b823-50b911591bc6"/><p id="0f2a730a-129c-44c3-ab66-925a48bb1b5c" class="">==4.26 Применим политику на домен==</p><hr id="3bc58db4-0e01-40c4-a918-8e53294adcaa"/><figure id="271b23a4-2f78-4cef-9053-1589f41126b1" class="image"><a href="https://i.imgur.com/QuVRSFm.png"><img src="https://i.imgur.com/QuVRSFm.png"/></a></figure><hr id="4b188f90-8a33-478f-94c5-0f37978b0a45"/><figure id="f453ebd8-3fd4-4bbb-a8b9-868448a4fc5c" class="image"><a href="https://i.imgur.com/NHOHdW4.png"><img src="https://i.imgur.com/NHOHdW4.png"/></a></figure><hr id="a456df74-e8fe-4ab7-b4ef-f36bece63f40"/><h3 id="de9ce202-4f69-435f-abdb-b65cab3a886a" class="">Активация журналирования контроллерах домена</h3><p id="bde49b3b-f509-4b66-baf8-27b737c815df" class="">Настроим журналирование LDAP запросов и неудачные попытки выгрузки членов доменных групп через протокол SAMRPC</p><p id="84d1368c-d6fc-41a5-aad1-fb3ab48cf852" class="">==4.27 Отредактируем политику контроллеров домена==</p><hr id="14527c93-5c78-46ef-bf0e-c5d6b438bb76"/><figure id="eaef99ba-d04a-462f-88b0-df01dd20cb8b" class="image"><a href="https://i.imgur.com/q3eHALI.png"><img src="https://i.imgur.com/q3eHALI.png"/></a></figure><hr id="a9fff274-143b-4fe3-8371-0147fcf0a855"/><p id="31364e09-87b7-4d3f-89f7-9b0a7db2cd53" class="">==4.28 Создадим новый объект правки реестра==</p><hr id="4109ff22-2986-4162-b6ff-1439c93938a6"/><figure id="f04bd732-5abd-4dc8-9964-d8736253bf5e" class="image"><a href="https://i.imgur.com/Cr4KxG6.png"><img src="https://i.imgur.com/Cr4KxG6.png"/></a></figure><hr id="89be1d88-5454-49ab-8b14-baf1518a9c2e"/><hr id="0936abd6-a1eb-4566-a4c3-6a37097bd56c"/><p id="fb72007e-b13c-46d0-a17a-603a501573cf" class="">==4.29 Изменим параметр реестра . Этот параметр уже существует, мы же его изменяем==</p><hr id="e488880f-4089-4257-b5ab-c2931b1f7518"/><figure id="fa9a363f-c99f-436c-8b72-c27b5615479b" class="image"><a href="https://i.imgur.com/efrgnKk.png"><img src="https://i.imgur.com/efrgnKk.png"/></a></figure><hr id="79c4a9e0-971c-4afc-9e75-a6bbdf58ac99"/><p id="629c6d42-8ed4-4856-878e-9a93684e8237" class="">ветка реестра: <strong>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NTDS\Diagnostics</strong></p><hr id="bd3f525f-0d96-43c6-87fd-6e51350e41b4"/><p id="8a5305cf-cb6a-4eec-9341-56666b1996ce" class="">имя параметра: <strong>15 Field Engineering</strong></p><hr id="42dcd3b9-7900-470f-b1a1-f1de42e3215e"/><hr id="67838189-1ca6-48a0-b90c-6ef3e010349b"/><p id="b4e45447-4e97-4e56-aa5e-c083d4020928" class="">==4.30 Изменим значение на 5. Внимание -- изменяем decimal значение==</p><hr id="f9b5093f-a345-4dc3-9ca0-3dcc27154866"/><figure id="6ddeee45-7ea1-44ac-b155-43b6c119317a" class="image"><a href="https://i.imgur.com/LPNW5Y3.png"><img src="https://i.imgur.com/LPNW5Y3.png"/></a></figure><hr id="95070800-10ba-4dfd-84c8-8a77681094e4"/><p id="c9df4159-9979-427d-9e8b-10e8d497001e" class="">==4.31 Создадим 2 новых параметра реестра==</p><hr id="91862119-6c75-46a8-9038-173eb5ec9e6e"/><figure id="739046d7-d487-46be-84f7-d3f262bdd989" class="image"><a href="https://i.imgur.com/bxXuezV.png"><img src="https://i.imgur.com/bxXuezV.png"/></a></figure><hr id="95967208-ece5-45a3-8e65-0f3ba8c041e5"/><figure id="c97db326-6ead-47a0-a9d7-351b9dd6d6ce" class="image"><a href="https://i.imgur.com/4daumFP.png"><img src="https://i.imgur.com/4daumFP.png"/></a></figure><hr id="9a2f4187-b0f8-470c-818e-833cd89bdbab"/><p id="e92d7a2c-4c5e-4d31-8860-a09e83d6f236" class="">Имена параметров <strong>Expensive Search Results Threshold</strong> и <strong>Inefficient Search Result Threshold</strong>, Decimal-значение REG_DWORD 1</p><hr id="41df7667-29f6-4b89-97e9-3dd93ff2695d"/><p id="9085a891-de3f-4abd-8257-95b228a0406a" class="">Ветка реестра: <strong>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NTDS\Parameters</strong></p><hr id="2d0690f8-3726-42db-a6f6-620fc69c6638"/><p id="b83d63be-acad-4abd-8f8a-025383de6c45" class="">:::info</p><hr id="67c0d28b-7f27-48c8-ad66-cfa8d74bb293"/><p id="02bf1669-9592-4f12-aa8f-147e7758bf0c" class="">После выполнения этих действий в журнале Directory Service будут создаваться события с идентификатором 1644 для каждого LDAP запроса</p><hr id="4c4d6ac5-c37e-47ad-8650-11484896030c"/><p id="26cc25c3-c935-45ad-96c3-1b24172c756e" class="">:::</p><hr id="3ee35a18-a310-420a-969d-2af725dd4f04"/><p id="0f173ebe-7ecd-4980-9ec8-445f5153d493" class="">==4.32 Настроим параметр для контроллеров домена, разрешающий только определенным пользователям выгружать членов доменных групп==</p><hr id="a071e0d1-fec1-49a6-ae51-9c2eeedbb397"/><figure id="2563d2ac-7298-48bf-b404-ccca136dc9d2" class="image"><a href="https://i.imgur.com/KFn05Lj.png"><img src="https://i.imgur.com/KFn05Lj.png"/></a></figure><hr id="b1a7369b-2b6b-4959-bdb4-d12ccea234e9"/><p id="cc7e3552-8859-4fb1-b673-d51681fc4845" class="">Параметр расположен по пути `Computer Configuration\Policies\Windows Settings\Security Settings\Local Settings\Security Options&#x27;</p><hr id="6293b2f6-9097-450e-b764-ff176d19ffc7"/><p id="3ffd8d92-2df3-48ab-a60f-9bb09f032fab" class="">==4.33 Дадим доступ на выгрузку для группы пользователей Administrators и пользователю ADMPetr==</p><hr id="4bcad120-f69c-421a-ac4a-ae0e5ef3a203"/><figure id="93b1d5b0-c1ab-409e-9d5c-791fb120401d" class="image"><a href="https://i.imgur.com/sGWaxRy.png"><img src="https://i.imgur.com/sGWaxRy.png"/></a></figure><hr id="d24fb41a-6047-4b5a-95d0-880fd1b465dd"/><hr id="43555ed6-6536-4d95-9ee9-2d92b8ff91a5"/><p id="527cb874-3037-41e5-b881-10fa7c33c11f" class="">==4.34 В заключение настроим журналирование попыток выгрузки, добавим ещё один параметр в реестр==</p><figure id="be1ad238-405f-4db6-b742-1d798c49ed0c" class="image"><a href="https://i.imgur.com/jHVk4ZP.png"><img src="https://i.imgur.com/jHVk4ZP.png"/></a></figure><hr id="7fe080e4-6279-47d0-beb4-4d4be8392415"/><p id="1dd5d2b3-151e-482b-b8eb-7ff075ec2314" class="">Ветка реестра: <strong>SYSTEM\CurrentControlSet\Control\Lsa</strong></p><hr id="77fba195-5717-4af2-a639-cd02ba172169"/><p id="d936b84b-9b80-47e5-bf1a-6f1193891e05" class="">Имя параметра <strong>RestrictRemoteSamAuditOnlyMode</strong>, Decimal-значение REG_DWORD 1</p><hr id="c8608daa-3954-40c5-bb92-a1267027472e"/><h2 id="83282977-e539-44ca-b89c-b29d8362c070" class="">Ссылки для закрепления материала и самостоятельного изучения:</h2><p id="2ac39fb7-a595-4f62-a643-1c044836163b" class="">Про групповые политики -- описание и примеры решения конкретных задач</p><ul id="f7cca136-3d7f-46ea-a38b-79b99ba8208d" class="bulleted-list"><li style="list-style-type:disc"><a href="https://habr.com/ru/company/galssoftware/blog/543588/">Групповые политики (GPO) Active Directory</a></li></ul><ul id="5bd0ad21-093b-41d0-a58a-4ac35d437d71" class="bulleted-list"><li style="list-style-type:disc"><a href="https://winitpro.ru/index.php/2019/03/18/primenenie-gpo-spravka-admina/">Применение GPO</a></li></ul><ul id="632ed601-d87b-429c-aae1-a692ea21b979" class="bulleted-list"><li style="list-style-type:disc"><a href="https://winitpro.ru/index.php/2020/07/09/obnovlenie-gruppovyx-politik-windows/">Обновление GPO</a></li></ul><ul id="9dfcab37-730a-4e01-a2ed-033eadaf657d" class="bulleted-list"><li style="list-style-type:disc"><a href="https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/audit-policy-recommendations">Рекомендации MS по включению логирования в домене</a></li></ul><ul id="9a6f548f-b867-4645-8a0c-9c2c0f8126d4" class="bulleted-list"><li style="list-style-type:disc"><a href="https://winitpro.ru/index.php/2019/03/13/otklyuchenie-ntlm-autentifikacii-v-domene-ad/">Отключение NTLMv1 аутентификации в домене Windows</a></li></ul><ul id="0e01721f-f383-4382-a45d-897d7b1ce488" class="bulleted-list"><li style="list-style-type:disc"><a href="https://winitpro.ru/index.php/2017/08/24/metody-zashhity-ot-mimikatz-v-domene-windows/">Методы защиты от mimikatz в домене Windows</a></li></ul><ul id="91eada01-99d1-4083-88ae-5a339df9ddd0" class="bulleted-list"><li style="list-style-type:disc"><a href="https://winitpro.ru/index.php/2017/03/20/obnovlenie-kornevyx-sertifikatov-v-windows/">Обновление корневых сертификатов в Windows 10 / Windows Server 2016</a></li></ul><ul id="8d630ea3-7b58-41cb-bfc7-9606fd345465" class="bulleted-list"><li style="list-style-type:disc"><a href="https://winitpro.ru/index.php/2017/02/01/zapret-izmeneniya-nastroek-proksi-servera-s-pomoshhyu-gruppovoj-politiki/">Запрет изменения настроек прокси-сервера с помощью групповой политики</a></li></ul><ul id="da93877e-aa68-4426-81fb-ec59ee942a46" class="bulleted-list"><li style="list-style-type:disc"><a href="https://winitpro.ru/index.php/2017/01/11/ispolzuem-wmi-filtr-dlya-privyazki-gpo-k-ip-podseti/">Используем WMI фильтр для привязки GPO к IP подсети</a></li></ul><ul id="40422911-2e5b-458d-9e73-4d9781c73406" class="bulleted-list"><li style="list-style-type:disc"><a href="http://windows.mixed-spb.ru/domain/join_domain_groups_to_local_admins_using_gpo.php">Как дать пользователям домена права локального администратора через групповые политики</a></li></ul><ul id="8e30bb4c-0b55-42bb-9541-9a216f589004" class="bulleted-list"><li style="list-style-type:disc"><a href="https://docs.microsoft.com/ru-ru/windows-server/identity/ad-ds/plan/security-best-practices/monitoring-active-directory-for-signs-of-compromise">Аудит изменений в домене для выявления компрометации: документация MS</a></li></ul><ul id="c54764eb-367c-47dc-aadf-a01d3ccae395" class="bulleted-list"><li style="list-style-type:disc"><a href="https://winitpro.ru/index.php/2015/01/30/otslezhivanie-izmenenij-v-gruppax-active-directory/">Аудит изменений в домене для выявления компрометации: гайд по настройке</a></li></ul><ul id="37e986a0-651b-4cbc-b906-616bed42b985" class="bulleted-list"><li style="list-style-type:disc"><a href="https://winitpro.ru/index.php/2013/06/11/audit-izmeneniya-v-active-directory/">Политики аудита изменений в Active Directory</a></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

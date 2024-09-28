@@ -1,0 +1,685 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Практическая работа №2 </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="bc799d07-7dfe-4e2f-9e30-150b73f7b5bc" class="page sans"><header><h1 class="page-title">Практическая работа №2 </h1><p class="page-description"></p></header><div class="page-body"><h1 id="5a4ecd32-c650-4dbf-a556-98c6304466ab" class="">L2. Основные атаки на L2</h1><hr id="f9b8762a-1004-4d3d-9d41-0e14c86837f4"/><h3 id="75d00a15-88a6-477d-86c8-1b089428dcc8" class="">Задание:</h3><p id="36731697-11f0-4ce6-bac8-a748bebdc2ab" class="">1) Провести атаки на канальном уровне модели OSI (L2)</p><p id="c5da49b8-a40c-4f96-a231-91a96ebc5afa" class="">2) Для формирования отчета - необходимо:</p><ul id="b131e669-d818-494a-ba9a-43d48856931a" class="bulleted-list"><li style="list-style-type:disc">Провести атаку и в отчете отразить команды, необходимы для выполнения данной атаки</li></ul><ul id="ff70e9b3-b03c-4a63-bb8e-b1e336130a7c" class="bulleted-list"><li style="list-style-type:disc">Приложить скриншот выполнения атаки, при возможности - результат атаки</li></ul><h1 id="9be4b3d7-01b7-485d-9f18-dc75a807e950" class="">Методический материал:</h1><h2 id="862557e1-cb12-4a68-a25e-ec9215937183" class="">Часть 1. Переполнение таблицы коммутации</h2><p id="0822f1e2-74a8-4dd2-9d21-256675a477fc" class="">==1.1 Установим на kali linux необходимую утилиту==</p><hr id="8f6c4260-1465-4ebe-9aa1-e2400e2ebc3c"/><p id="a688fd82-afd3-4af6-bea4-a4c75d6764de" class="">apt update</p><hr id="0a811786-73d4-4a0a-be6c-e7e8fb8ed0e7"/><p id="ea4e7a2f-1c9c-4451-b228-ae0a1a285851" class="">apt install dsniff -y</p><hr id="d0b0535d-a139-4370-818b-c76add5ac64b"/><p id="fd36362d-dc81-48c9-a80e-f142ec9a907b" class="">==1.2 Включим атаку и через несколько секунд остановим её с помощью ctrl+c==</p><hr id="733898e6-98bb-43a6-8d55-2251483cafee"/><figure id="6a9715c9-5924-4cb1-bb6f-91579f7c39d8" class="image"><a href="https://i.imgur.com/boTkzfk.png"><img src="https://i.imgur.com/boTkzfk.png"/></a></figure><hr id="9c8338dc-1469-4736-abdc-a3f22035d68d"/><p id="89b16f8c-6f6c-43bb-9f5b-4d778e7e0bf4" class="">macof</p><hr id="4c967d3f-1e3a-4c6d-8c22-ded0b552bd57"/><p id="b6b40b55-b8d0-44f8-8f79-391cc080b630" class="">==1.3 Увидим, что таблица коммутации switch7 переполнена==</p><hr id="6d73ea74-33e7-44cc-b150-e5857ebfdb67"/><figure id="4c6b10e5-8d06-4577-9250-2d14cea61f33" class="image"><a href="https://i.imgur.com/UeNwkgi.png"><img src="https://i.imgur.com/UeNwkgi.png"/></a></figure><hr id="2331e1dc-e8a5-4b79-bb0b-6d9c19a97faa"/><p id="d4723181-c7b1-4389-9640-577db9c159cc" class="">При этом другие устройства будут испытывать проблемы с сетью -- это можно проверить, запустив во время атаки обычный пинг.</p><hr id="31eb487a-6dcc-45ac-bdbc-105a1cb12b3f"/><h2 id="98d8aad3-58a2-44c8-8307-843b6b9777db" class="">Часть 2. Arp-Spoofing</h2><p id="ddc36d91-0a9c-47a6-9dd8-34fca8fa190a" class="">==2.1 Установим на Win7 Telnet==</p><hr id="7a99c07d-d59c-455a-a41e-be0ee3268d79"/><figure id="62cebec1-9d6e-4de4-867f-72f6f1918dcf" class="image"><a href="https://i.imgur.com/Iqd7j1D.png"><img src="https://i.imgur.com/Iqd7j1D.png"/></a></figure><hr id="6fd97a3b-f832-4a34-a4f1-04913a22c3cd"/><p id="e3c143a2-22a2-40ff-91e7-b0f3888b2477" class="">==2.1 Проверим, может ли win7 подключаться по telnet к switch7==</p><hr id="e40d0126-c88d-4abf-b78d-53bbd063017e"/><figure id="102cff99-a05f-4f3e-a01f-1a026b8da850" class="image"><a href="https://i.imgur.com/afR3m7k.png"><img src="https://i.imgur.com/afR3m7k.png"/></a></figure><hr id="2d9a7256-239d-4b26-a990-83112cd3173e"/><figure id="d85c2fc7-265e-4ef9-8fe3-aa92ca9fba0c" class="image"><a href="https://i.imgur.com/6S0rYRV.png"><img src="https://i.imgur.com/6S0rYRV.png"/></a></figure><hr id="75100265-3e9a-415d-a000-a31fd152e86a"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="286b4457-3c4b-415a-86d4-0f68decf1a4d" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">telnet 192.168.1.100</code></pre><hr id="746c469f-736b-48f4-8c30-dfc95c50f9c3"/><p id="65519ebc-c1ba-49ee-ae34-c5f68bb97627" class="">==2.1 Настроим kali для атаки. Изменим параметры маршрутизации==</p><hr id="bd2dc2ce-81d7-40c2-980b-178998c5b530"/><figure id="9b9c8cca-4e89-48c5-a8c4-7e0e75aa616c" class="image"><a href="https://i.imgur.com/eSQUXeP.png"><img src="https://i.imgur.com/eSQUXeP.png"/></a></figure><hr id="5471549d-8fb9-4cf3-a887-5ea46a689de7"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="f2ea8e6a-3a46-4c6c-8d86-cbc211be004f" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">nano /etc/sysctf.conf</code></pre><hr id="26dffbcc-3098-4d3a-818e-28df82edca80"/><p id="db7dd961-950d-4ffd-aabd-f67e25eb5044" class="">Нужно раскомментировать строку  и сохранить файл</p><hr id="5c1bd027-21c9-4f0a-81f0-bd5d7faff365"/><p id="6e9cf8c9-846c-41f2-aff1-fce446ecba87" class="">==2.1 Применим изменения==</p><hr id="02614ec8-9c93-4bc7-9158-84aa1e4cf35d"/><figure id="18c81f28-59bd-44af-9190-cf1712c86012" class="image"><a href="https://i.imgur.com/C8vD6KE.png"><img src="https://i.imgur.com/C8vD6KE.png"/></a></figure><hr id="317cb101-caac-46e4-ad6e-4d2651a2e966"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="f2c68354-16d5-4894-bdc8-0f03485e34c8" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">sysctl -p /etc/sysctl.conf</code></pre><hr id="7e78a694-0da5-48c7-9640-f7bbe43ca03d"/><p id="921fd4c9-dea1-4b72-a07c-8f34dbb1df45" class="">==2.1 Начнём атаку==</p><hr id="402f2a3b-e26f-47cd-9423-02126bbe13c0"/><figure id="9cb1913d-1f47-462f-9dcd-53b97998e521" class="image"><a href="https://i.imgur.com/7rFcGEg.png"><img src="https://i.imgur.com/7rFcGEg.png"/></a></figure><hr id="3d789ffa-4f09-4d74-90cf-532426cf7033"/><p id="2d590cf8-e70f-4ab9-9f33-ef5fd478c916" class="">arpspoof -i eth0 -t 192.168.1.50 -r 192.168.1.100</p><hr id="21b6f0ed-afea-4718-aa6f-343126a33fff"/><p id="efcb1b57-ee9f-49af-89b6-3ca72b135b78" class="">где 50 -- адрес win7, 100 -- адрес switch7, eth0 -- сетевой интерфейс kali</p><hr id="1db5ed07-d3a3-4d15-ac89-dbe05036c052"/><p id="0a2f4873-6102-41ab-91c3-fa6e49195e26" class="">:::info<br/>Включите Wireshark на kali, после чего зайдите с win7 по telnet на switch7<br/><br/><strong>Задача</strong>: Найдите Telnet трафик. Обнаружте в трафике аутентификационные данные пользователя.<br/>:::<br/></p><h2 id="a50eb0e3-8fbd-4790-a6ea-fc34751e2f20" class="">Часть 3. VLAN hopping</h2><p id="daf8f559-6daf-4e11-8658-07dcd12254e8" class="">==3.1 Поместим win10 в vlan10==</p><hr id="017bf5be-db65-42cb-b5de-5c9ca05479b2"/><figure id="718c57da-aef5-49d2-ad59-6b53cf7d60f2" class="image"><a href="https://i.imgur.com/DHciQA1.png"><img src="https://i.imgur.com/DHciQA1.png"/></a></figure><hr id="6f14c813-27e5-4eda-b35c-0c155fd05c2a"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="0472914e-c3d6-490e-80aa-ad0bcb53f91e" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Switch7(config)#int e1/2</code></pre><hr id="e4f908f4-3bc6-4bb6-a1f1-9d25df638982"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="4acf4bc5-4fca-4b57-ba78-8a589f6cba5f" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Switch7(config-if)#switchport mode access</code></pre><hr id="a111fe28-656c-4615-a830-29b7ddfb53b1"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2bb1cb69-883b-4c67-8c1b-fd9865e0972c" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Switch7(config-if)#switchport access vlan 10</code></pre><hr id="1461267b-a760-4b91-80e7-e395c535464e"/><p id="d42e8167-cde9-4be0-84a6-d5ef1e2222e8" class="">где е1/2 -- интерфейс, подключенный к win10</p><hr id="c250d382-2748-49b3-85fc-286aad96fdd0"/><p id="431fccbb-0c74-4b8f-80f1-6e5e7d900a37" class="">==3.2 Сконфигурируем trunk port на switch7==</p><hr id="0102a920-74d0-4250-bf2c-edfeff496c41"/><figure id="d5cac4b5-5621-4f07-807a-008630aceedb" class="image"><a href="https://i.imgur.com/arrTvx6.png"><img src="https://i.imgur.com/arrTvx6.png"/></a></figure><hr id="83f6cddd-c7b2-402f-a336-092b9c3cc949"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="dc1da2c2-5cc9-4460-bc2a-88d20b10dbea" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Switch7(config)#int e0/0</code></pre><hr id="4f54b85a-799e-4949-85d8-c9a8c767358d"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="72e05e96-c66b-4967-8819-597f9525f0d1" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Switch7(config-if)#switchport trunk encapsulation dot1q</code></pre><hr id="500b568b-47ef-4bee-a835-d165086cd349"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="9a303a15-3df7-4f7b-a92a-1f112564e67f" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Switch7(config-if)#switchport mode trunk</code></pre><hr id="1b058868-dfe6-40ac-b0be-35971ba34978"/><p id="e6384ca6-de50-44e4-8a39-5c01a1658246" class="">где е0/0 -- интерфейс, подключенный к switch9</p><hr id="9c1d81da-a298-4a6a-babd-4623004c7f0b"/><p id="24535174-1573-43c9-9f4e-d9fcdd71b656" class="">:::info<br/><br/><strong>Задача</strong>: Настроить на switch9 интерфейсы е0/0, e0/1, e0/2 в trunk.<br/>:::<br/></p><p id="bb1007cb-4690-4d29-8aed-41f831630518" class="">==3.3 Настроим на роутере шлюз для vlan 10==</p><hr id="f6735f46-b43e-42dc-beaa-314b9288e2d3"/><figure id="466cea07-76a3-45f8-b1cf-198b075094e5" class="image"><a href="https://i.imgur.com/BZXyBDd.png"><img src="https://i.imgur.com/BZXyBDd.png"/></a></figure><hr id="910a7d43-59a5-4a51-bf3c-91b1a59dfced"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="42b6b154-64d4-4f37-97fd-beac5700127c" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Router(config)#int e0/1.10</code></pre><hr id="7421060a-22e8-4a18-b150-1f04ddfde284"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="23cad9d7-88d2-40b1-b45d-724436e550d0" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Router(config-subif)#encapsulation dot1q 10</code></pre><hr id="de5b6bb7-a427-4447-8f17-3c0c29d2e9a2"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="8e2d90f9-c8a4-4251-a448-7028e8be066b" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Router(config-subif)#ip address 192.168.10.1 255.255.255.0</code></pre><hr id="63efb70b-8789-4565-aa05-13dc55b852e1"/><p id="121a1dcc-a354-4597-922a-0a9ebbff0a50" class="">:::info<br/>После этих настроек Kali и Win10 будут доступны по сети, но трафик между ними будет проходить через маршрутизацию роутером. Используем атаку VLAN hopping, чтобы получить доступ в рамках широковещательного домена из Kali до win10.<br/>:::<br/></p><p id="15260ab9-6743-494e-9e71-c681ec89fb14" class="">==3.4 Установим yersinia==</p><hr id="e7913648-7afb-435d-999b-af58da0683ae"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="0e9e87c9-17a3-428e-a4c3-7910194d9d7a" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">apt install yersinia -y</code></pre><hr id="99240166-5883-4989-bce7-3f9b02557538"/><p id="12ebc0cb-f1d0-4f78-acd7-424e284a8021" class="">==3.5 Запустим yersinia==</p><hr id="1abb935c-ee2d-4ea7-b95c-34760b82e850"/><figure id="3ac0e617-53af-468e-a6de-2b11ffb3a498" class="image"><a href="https://i.imgur.com/vn4nkKX.png"><img src="https://i.imgur.com/vn4nkKX.png"/></a></figure><hr id="53e38541-9ca4-4bf9-acea-4cc010798d9f"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="8c8d6e74-9fbe-4f5e-98ad-9a84b7bd984e" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">yersinia -G</code></pre><hr id="b0ac60e8-d73c-434f-b13d-6533b5704307"/><p id="eeb7d5bb-aa78-4687-adb2-3b4b5fe3e243" class="">==3.6 Проведем атаку на протокол DTP==</p><hr id="e87371ae-9e09-43b8-aea0-75a22525886e"/><figure id="b2bbd662-03c1-4547-999f-cffbd6d587e1" class="image"><a href="https://i.imgur.com/kDBZW60.png"><img src="https://i.imgur.com/kDBZW60.png"/></a></figure><hr id="1394f6c5-d39c-4256-9330-1fdd4e3acd9d"/><p id="a11b3389-32e8-48b4-85fd-1c904d7e6a08" class="">==3.7 Подготовим интерфейсы Kali==</p><hr id="a36bf185-f052-44c5-a1e4-bfd089ae6eef"/><p id="9cfb3cf9-1a1d-48f7-8e17-73780169195b" class="">root@kali:# <em>modprobe 8021q</em></p><hr id="9ce5f14b-5ec1-4723-9c17-76ee8639b02e"/><p id="cc97e8f6-f2df-4c8e-b8ef-ee1b34c76089" class="">root@kali:# <em>vconfig add eth0 10</em></p><hr id="e3c233d7-4173-44a7-a2e1-78417a172b34"/><p id="c557f3e4-5a55-459e-bc27-ed82241b6135" class="">root@kali:# <em>ifconfig eth0.10 up</em></p><hr id="02345df5-e2ea-4844-92bc-3835438a77ab"/><p id="aa4bc61a-0e1c-455d-81e2-2fb4a044c00e" class="">где 10 -- vlan id</p><hr id="f6e8dd2a-5b10-4af3-b631-546ceebed0ba"/><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="94aac49d-9543-41c0-82cd-055098316ec9"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><p id="d9ebe1de-bbd3-4cf3-ac80-0973bcc33033" class="">Далее можно выдать ip адрес на интерфейс eth0.10 из сети win10 и попробовать сгенерировать трафик к win10.<br/><br/><strong>Задача</strong>: С помощью Wireshark проанализируйте исходящий трафик от Kali и найдите трафик с vlan id 10.</p></div></figure><p id="5ae7bf61-7dc8-465f-87ee-13bd0d2b3c24" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

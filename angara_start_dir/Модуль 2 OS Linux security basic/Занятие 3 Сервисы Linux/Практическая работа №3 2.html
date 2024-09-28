@@ -1,0 +1,687 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Практическая работа №3.2</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="a1fe27fc-1b81-46b7-9fd4-342503e44dcf" class="page sans"><header><h1 class="page-title">Практическая работа №3.2</h1><p class="page-description"></p></header><div class="page-body"><hr id="ba54ebf3-e668-4a79-ac6e-cf7b3702193f"/><h2 id="d6461d2f-240a-490a-8ebb-2ee41363e1f3" class="">Практическая работа по настройке SFTP и FileZilla</h2><h3 id="98ebe61d-263b-4461-b078-567c8f626e18" class="">Цель работы:</h3><ul id="26304e7f-26c9-4262-84f5-c902644dff5c" class="bulleted-list"><li style="list-style-type:disc">Научиться настраивать SFTP (Secure File Transfer Protocol) и работать с FileZilla.</li></ul><p id="30c40d50-7590-4381-8da4-c9f626381615" class="">
+</p><h3 id="1793fc35-04fd-4225-9037-142f619d83cc" class="">Задача:</h3><ul id="b50e0d20-d8e8-4460-a5b9-275f165db089" class="bulleted-list"><li style="list-style-type:disc">Установить и настроить SFTP</li></ul><ul id="ab58442f-49e7-4af5-9f01-2b378e5e8a58" class="bulleted-list"><li style="list-style-type:disc">Научиться работать с SFTP</li></ul><ul id="beba73fc-68cd-41ef-ba32-08d64531e448" class="bulleted-list"><li style="list-style-type:disc">Научиться работать filezilla</li></ul><p id="3846924d-ff67-40c0-9777-96efe6ec1029" class="">
+</p><p id="32b8304e-1a73-49a2-a3cc-763ef6952327" class="">
+</p><h3 id="7a1dd943-5f11-4dfa-862a-005345519a5f" class="">SFTP</h3><p id="f984903a-12e3-4f13-adb2-af5bb757bb49" class=""><strong>SFTP</strong> (Secure File Transfer Protocol) – протокол прикладного уровня передачи файлов, работающий поверх безопасного канала. Не следует путать с (Simple File Transfer Protocol), имеющим такую же аббревиатуру. Если FTPS является просто расширением FTP, то SFTP это отдельный и никак не связанный с ним протокол, который в качестве основы использует SSH (Secure Shell – безопасная оболочка).</p><p id="f436d294-84cd-4964-b21d-13b228030777" class=""><strong>Secure Shell</strong></p><p id="c0ece9b0-5ce9-410b-881f-d8c37a9a585d" class="">Разработкой протокола занималась одна из групп IETF под названием Secsh. Рабочая документация к новому протоколу SFTP не стала официальным стандартом, однако начала активно применяться для разработки приложений. В дальнейшем было выпущено шесть версий протокола. Однако, постепенное наращивание в нём функциональности привело к тому, что 14 августа 2006 года было принято решение о прекращении работы над развитием протокола в связи с выполнением основной задачи проекта (разработка SSH) и отсутствием достаточного экспертного уровня для перехода к разработке полноценного протокола удалённой файловой системы.</p><p id="73fafddd-25ee-4055-b9bf-c2fbdf32803a" class=""><strong>SSH</strong> – это сетевой протокол, позволяющий производить удалённое управление операционной системой и туннелирование TCP-соединений (например, для передачи файлов). Схож по функциональности с протоколами Telnet и rlogin, но, в отличие от них, шифрует весь трафик, включая и передаваемые пароли. SSH допускает выбор различных алгоритмов шифрования. SSH-клиенты и SSH-серверы доступны для большинства сетевых операционных систем.</p><p id="d8cd5400-3960-41e9-a292-98054c07d2fd" class="">SSH позволяет безопасно передавать в незащищённой среде практически любой другой сетевой протокол. Таким образом, можно не только удалённо работать на компьютере через командную оболочку, но и передавать по шифрованному каналу звуковой поток или видео (например, с веб-камеры). Также SSH может использовать сжатие передаваемых данных для последующего их шифрования, что удобно, например, для удалённого запуска клиентов X WindowSystem.</p><p id="663f7800-4b32-4b19-95fc-d2e222de4edf" class="">Первая версия протокола, SSH-1, была разработана в 1995 году исследователем Тату Улёненом из Технологического университета Хельсинки (Финляндия). SSH-1 был написан для обеспечения большей конфиденциальности, чем протоколы rlogin, telnet и rsh. В 1996 году была разработана более безопасная версия протокола, SSH-2, несовместимая с SSH-1. Протокол приобрел ещё большую популярность, и к 2000 году у него было около двух миллионов пользователей. В настоящее время под термином «SSH» обычно подразумевается именно SSH-2, т.к. первая версия протокола ввиду существенных недостатков сейчас практически не применяется. В 2006 году протокол был утвержден рабочей группой IETF в качестве Интернет-стандарта.</p><p id="36701743-2350-4438-b86a-df291eaad887" class="">Распространены две реализации SSH: частная коммерческая и бесплатная свободная. Свободная реализация называется OpenSSH. К 2006 году 80 % компьютеров сети Интернет использовало именно OpenSSH. Частная реализация разрабатывается организацией SSH Communications Security, которая является стопроцентным подразделением корпорации Tectia, она бесплатна для некоммерческого использования. Эти реализации содержат практически одинаковый набор команд.</p><p id="46816a87-ed2b-43a7-9200-40b94f0cb7dd" class="">Протокол SSH-2, в отличие от протокола telnet, устойчив к атакам прослушивания трафика («снифинг»), но неустойчив к атакам «человек посередине». Протокол SSH-2 также устойчив к атакам путем присоединения посредине (англ. sessionhijacking), так как невозможно включиться в уже установленную сессию или перехватить её.</p><p id="ab9f3837-2394-4c55-ab6f-28d03c78f1cf" class="">Для предотвращения атак «человек посередине» при подключении к хосту, ключ которого ещё не известен клиенту, клиентское ПО показывает пользователю «слепок ключа» (англ. keyfingerprint). Рекомендуется тщательно проверять показываемый клиентским ПО «слепок ключа» со слепком ключа сервера, желательно полученным по надёжным каналам связи или лично.</p><p id="ee385ee1-2ad2-4e77-a068-ee7e7b85081e" class="">Поддержка SSH реализована во всех UNIX-подобных системах, и на большинстве из них в числе стандартных утилит присутствуют клиент и сервер ssh. Существует множество реализаций SSH-клиентов и для не-UNIX ОС. Большую популярность протокол получил после широкого развития анализаторов трафика и способов нарушения работы локальных сетей, как альтернативное небезопасному протоколу Telnet решение для управления важными узлами.</p><p id="5fbb85f6-52e0-46e6-9edc-69f5277b7f90" class=""><strong>Связь с использованием SSH</strong></p><p id="65bba569-c763-4c26-a7e3-cdf0266b85c1" class="">Для работы по SSH нужен SSH-сервер и SSH-клиент. Сервер прослушивает соединения от клиентских машин и при установлении связи производит аутентификацию, после чего начинает обслуживание клиента. Клиент используется для входа на удалённую машину и выполнения команд.</p><p id="f8735d0f-329f-4ac7-957d-0e86eac936c4" class="">Мы будем настраивать SFTP следующим образом</p><p id="2e86e71a-b3ba-4634-b8c9-dcc8ba6de8cf" class="">для того чтобы настроить SFTP нам необходимо следующие:</p><p id="bb110861-1d82-4a26-a6df-b11fb007ac86" class="">мы будем указывать группу, которая будет предоставлять доступ определённым образом</p><p id="41d14aab-5d41-4199-9dd3-b26cd5df9154" class=""><strong>установим</strong><code>apt-get install openssh</code></p><p id="8f71d5ad-14e7-4fe1-86fb-eb6245132c97" class=""><strong>настроим:</strong></p><p id="64a1ae5d-bdcd-4d3a-9977-d00f976c1997" class=""><code>sudo nano /etc/ssh/sshd_config</code></p><p id="c5dbd5aa-f711-405c-b8ae-ab02adaac618" class="">и добавим следующие строки в конец конфигурационного файла</p><ul id="63580110-1343-4a01-9e77-e9d7068ecc02" class="bulleted-list"><li style="list-style-type:disc">Match group sftp - все user не смогут выполнять команды с помощью ssh</li></ul><ul id="ab7cce7c-3b8d-4278-b2ea-202382748dae" class="bulleted-list"><li style="list-style-type:disc">ChrootDirectory /home - это директория в которой пользователь будет работать</li></ul><ul id="adeed1cd-67b9-4350-bb6d-1e6740794114" class="bulleted-list"><li style="list-style-type:disc">X11Forwarding no - чтобы не давать доступ к рабочему окружению</li></ul><ul id="ca81a927-c94a-4e1f-bcff-9cb48fc331b8" class="bulleted-list"><li style="list-style-type:disc">AllowTCPForwarding no - чтобы пользователь не смог использовать как proxy-сервер</li></ul><ul id="dc13764f-e4cb-4673-8a43-5b61142d14ad" class="bulleted-list"><li style="list-style-type:disc">ForceCommand internal-sftp - ForceCommand internal-sftp — использовать только sftp, встроенный в ssh</li></ul><p id="c4426b5a-05ad-4007-8482-99f593de3188" class=""><strong>сохраняем и выходим</strong></p><p id="f93f9d6b-088d-4cab-b863-613298e650c9" class=""><em>проверяем конфигурацию командой</em><code>sshd -t</code></p><p id="e108f519-17b8-4687-b400-c209d9ccc06b" class=""><em>и перезапускаем сервис</em><code>sudo service ssh restart</code></p><p id="334f4840-e23a-46d0-a923-8a514f08c186" class=""><em>создадим пользователя sftpuser</em><br/>с паролем 123456<br/></p><p id="b16cd4a9-e031-4d38-80ff-38dd03bff9bf" class=""><em>проверяем наличие группы sftp</em></p><p id="37736025-c934-4ad7-b897-758fada8305d" class=""><code>grep sftp /etc/group</code></p><figure id="de454c4a-ca50-47df-a3e1-784f9643e5ef" class="image"><a href="https://i.imgur.com/NrOqI7U.png"><img src="https://i.imgur.com/NrOqI7U.png"/></a></figure><p id="792c8962-d0b6-4ad7-871a-c9c5ce118601" class=""><em>если нет, то добовляем её</em></p><p id="27887107-fd77-4930-8eb5-c7b5016ca452" class=""><code>sudo addgroup sftp</code></p><figure id="fda715a2-9277-4538-a216-2cecf84bcc32" class="image"><a href="https://i.imgur.com/EwnhI5g.png"><img src="https://i.imgur.com/EwnhI5g.png"/></a></figure><p id="cfefc66e-6f0d-40ea-9b38-e63a6946ff2f" class=""><em>далее делаем следующие:<br/>добовляем пользователя в группу sf<br/></em>tp</p><p id="f9bd92c4-cb49-4b30-8ec9-14d11a2e1614" class=""><code>sudo usermod -aG sftp username</code></p><figure id="90c6a45a-dffc-4837-9cd9-b14ce69a8122" class="image"><a href="https://i.imgur.com/WMGSXVj.png"><img src="https://i.imgur.com/WMGSXVj.png"/></a></figure><p id="b3371e71-a182-4be7-887c-82e0b3e7bfaf" class="">проверяем наличие пользователя в группе sftp</p><figure id="4da3daab-a340-4565-9cd7-bd1bbbeca132" class="image"><a href="https://i.imgur.com/tiihmVo.png"><img src="https://i.imgur.com/tiihmVo.png"/></a></figure><p id="c74e6fa2-05b8-4370-a941-2d9784c0f054" class="">и теперь мы можем подключиться к нему c помощью winscp</p><p id="81689c10-f76b-4ce3-a9a0-f7bc035db526" class=""><a href="https://winscp.net/eng/download.php">https://winscp.net/eng/download.php</a></p><p id="89615c8d-4d25-40de-afb3-53fa504a7287" class="">запускаем и вводим параметры</p><figure id="e3c6e841-b736-4540-8510-0fe81ba87ec8" class="image"><a href="https://i.imgur.com/twGWC29.png"><img src="https://i.imgur.com/twGWC29.png"/></a></figure><p id="f507a42a-3702-4d47-bd79-ab2af98f9b5a" class=""><strong>убеждаемся, что он работает и выходим</strong></p><p id="9ff81639-492b-4064-b2bb-572d5acbf001" class="">Проверяем ip-адрес linux куда нам надо подключиться</p><figure id="39e8bab0-9d8d-4058-a836-1cc28054098a" class="image"><a href="https://i.imgur.com/fGcPxnn.png"><img src="https://i.imgur.com/fGcPxnn.png"/></a></figure><p id="b23a20cb-2e2b-457d-a7c6-1c4b347f3413" class="">Далее переходим в linux с которого мы будет подключаться, запускаем filezilla</p><figure id="15eff87f-ff39-421c-bef8-e00e9f7cd010" class="image"><a href="https://i.imgur.com/6jRU51t.png"><img src="https://i.imgur.com/6jRU51t.png"/></a></figure><figure id="f687d125-b49b-4047-8839-22d85d2efdde" class="image"><a href="https://i.imgur.com/yMLkJPb.png"><img src="https://i.imgur.com/yMLkJPb.png"/></a></figure><p id="516cff04-a9e1-49a1-bf33-13de1ffc083b" class=""><strong>вносим параметры для входа:</strong></p><figure id="5eb48538-d9f4-4cce-9d2b-dd9d603469b4" class="image"><a href="https://i.imgur.com/L4RpYEr.png"><img src="https://i.imgur.com/L4RpYEr.png"/></a></figure><figure id="78c36153-59b5-40e4-8384-644728b0dfdd" class="image"><a href="https://i.imgur.com/bDgdtwl.png"><img src="https://i.imgur.com/bDgdtwl.png"/></a></figure><p id="86dd409f-eab4-40a2-a50d-9b1db5221068" class=""><em>нажимаем кнопку быстрое соединение и получаем список файлов от OS к которой подключились.</em></p><h3 id="c6303687-5fc8-40bd-a416-e3c62a9ef9ff" class="">Теперь как это сделать из командной строки - заходим в другой linux и вводим команду</h3><p id="b3ed47e5-c763-4f18-94a5-dee1df592ea8" class=""><code>ssh kali12345@192.168.1.80</code></p><p id="60d615da-ccf1-4848-8f9e-6d1778b1ce70" class="">получаем результат, что пользователю разрешено подключаться только по sftp</p><figure id="8e8bc937-90be-4954-8d52-b4bee6637549" class="image"><a href="https://i.imgur.com/iOgMCtw.png"><img src="https://i.imgur.com/iOgMCtw.png"/></a></figure><p id="ced471c7-e626-4afa-b1c0-a22e566dd8c5" class=""><em>после этого мы можем запустить удаленное подключение по sftp:</em></p><p id="47cd18f5-764f-4720-89f3-5fff45e55e42" class=""><code>sftp kali12345@192.168.1.80</code></p><p id="249c4512-b2fc-4b22-aee4-d3ff2416fef4" class="">вводим пароль и получаем следующий вид</p><figure id="e532a992-3eee-4e54-b2b2-547775ec49f6" class="image"><a href="https://i.imgur.com/6ldKCnH.png"><img src="https://i.imgur.com/6ldKCnH.png"/></a></figure><p id="bc6a7cb7-327d-4211-bc02-77dbe56adaf6" class=""><em>тут мы можем вводить следующие команды, например:</em></p><p id="48e6672f-d660-4a81-b3a3-435e10be25f3" class=""><code>ls</code></p><figure id="637868b9-a15a-4705-8a55-f939f203bb7c" class="image"><a href="https://i.imgur.com/LiZ3nPG.png"><img src="https://i.imgur.com/LiZ3nPG.png"/></a></figure><p id="8b0c6e3a-bcc8-45e1-9255-1c3866c33fa3" class=""><em>далее: можно положить файлик</em></p><p id="601ade85-d64f-43d6-ad7b-c5b0c138970c" class=""><code>put /etc/passwd</code></p><figure id="6f5e09ff-a9d5-40e0-8df0-66183d5e9b3b" class="image"><a href="https://i.imgur.com/XDgc7yl.png"><img src="https://i.imgur.com/XDgc7yl.png"/></a></figure><p id="dcdc2bbb-2e4f-4827-8d9f-dd87bb643723" class=""><em>далее посмотреть права</em></p><p id="dfd4f7aa-7a57-45c6-a009-6ce71e0737bc" class=""><code>ls -la</code></p><figure id="3751d1bc-a4b1-4c85-9cc1-0728ae27e28e" class="image"><a href="https://i.imgur.com/KFxU1wv.png"><img src="https://i.imgur.com/KFxU1wv.png"/></a></figure><p id="cfc9483f-4050-4b71-b8e5-046c2c9dcaab" class=""><em>и что-нибудь скачать, например:</em></p><p id="3ef16218-4c59-4ddd-a3ee-edd122dac3f9" class=""><code>get .bashrc /tmp/.bashrc</code></p><figure id="8a4b5b78-e99a-48a1-b801-a4ef8a6461ae" class="image"><a href="https://i.imgur.com/Rb3cxJP.png"><img src="https://i.imgur.com/Rb3cxJP.png"/></a></figure><p id="158fc4e4-3dda-4c5b-bb86-3c1a7ecc0fab" class=""><em>далее можно проверить видимость данных через wireshark</em></p><p id="35e503eb-dcd5-45b8-891f-a9d85d5b2d47" class=""><em>на linux запускаем wireshark и на windows подключаемся через filezilla и смотрим вывод wireshark - </em><em><strong>поясните вывод</strong></em></p><figure id="bd22170a-28b2-43e3-8a1d-b5b4e3ae86a5" class="image"><a href="https://i.imgur.com/W516Z1f.png"><img src="https://i.imgur.com/W516Z1f.png"/></a></figure><figure id="68cfa0f4-c892-4b84-a723-5747116da6cb" class="image"><a href="https://i.imgur.com/hjj9Bdy.png"><img src="https://i.imgur.com/hjj9Bdy.png"/></a></figure></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

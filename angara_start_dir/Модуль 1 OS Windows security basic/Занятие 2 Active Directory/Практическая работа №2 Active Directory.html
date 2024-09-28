@@ -1,0 +1,685 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Практическая работа №2 Active Directory.</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="fcee3a08-e91a-4eac-a411-d57b7487c939" class="page sans"><header><h1 class="page-title">Практическая работа №2 Active Directory.</h1><p class="page-description"></p></header><div class="page-body"><hr id="55106a67-b3d7-4d97-8a26-0d8b5dd83dd7"/><h1 id="fa70d325-b995-4310-b3f8-7e11927b752d" class="">Занятие 2 - <em>Active Directory</em></h1><h1 id="eeb0d038-6052-4db6-ba18-c8d8bd16ba63" class="">Задание:</h1><p id="07c2f4a2-ca94-4bd5-b61b-878588073444" class="">1) Установить роли и компоненты на оба Windows Server</p><p id="56465bcc-9a81-444d-bf16-1795e996e53b" class="">2) Повысить роль первого WS до роли контроллера домена</p><p id="2de7b13b-efb9-4939-99a1-83b0e4595c1d" class="">3) Сконфигурировать второй WS как второстепенный (резервный) контроллер домена</p><p id="a4fc3460-2008-45e9-82d7-cf0523ae4451" class="">4) Ввести Win10 в домен</p><p id="06df46ec-c0ae-4d79-bd03-5311b3f0d9dd" class="">5) Применить скрипт создания пользователей</p><p id="6958271b-a4fe-467d-8494-cfc33db13668" class="">
+</p><h1 id="a4b8f83a-d5a8-4520-a12c-579f6e95b416" class="">Методический материал:</h1><h2 id="5e2d588f-9d8e-47eb-b384-582e0cb3e4de" class="">Часть 1. Установка ролей и компонент</h2><p id="61bc5570-df18-497c-9f76-720673eda9d2" class="">Роли и компоненты -- дополнительные программы, обеспечивающие фунциональность сервера. Для реализации контроллера домена понадобится некоторые роли.</p><p id="7b3f8fb7-cb6c-4b53-8e59-825e64d8bd66" class="">==1.1 Нажмите на меню (2) Add roles and features==</p><hr id="6b2ffd42-adb7-4840-9252-b1b6cd677760"/><figure id="73a9c4b5-dd21-4163-b91f-e27211b93389" class="image"><a href="https://i.imgur.com/UhZ08eS.png"><img src="https://i.imgur.com/UhZ08eS.png"/></a></figure><hr id="ba576528-7b1e-40db-86d1-0dbfd86e2f50"/><p id="d348791b-4b8f-4405-8712-51baada85417" class="">==1.2 Первые 3 меню -- сводная информация для чтения. Нажимаем NEXT==</p><hr id="37040aa9-520d-443b-832c-0e7e562e91bd"/><figure id="3869d02a-31b3-434a-8388-1aed3a96e283" class="image"><a href="https://i.imgur.com/V5ws6m7.png"><img src="https://i.imgur.com/V5ws6m7.png"/></a></figure><hr id="800c0400-2ad2-4e6d-9844-11ceb9050cb0"/><p id="b24b4235-ec41-49ef-890d-d33d5af26395" class="">==1.3 Оставляем пункт Role-based. NEXT==</p><hr id="7c64f4d0-cee1-4961-ab88-dd8f45e5426d"/><figure id="01c3dcb9-ed6b-425d-9c01-8b5c5b14757d" class="image"><a href="https://i.imgur.com/GpkPCZ8.png"><img src="https://i.imgur.com/GpkPCZ8.png"/></a></figure><hr id="c183c553-1c18-4384-bde1-17b3d3651200"/><p id="14ea99c6-737d-4aa6-a974-fc32dbf84cad" class="">==1.4 Проверяем корректность ip и имени сервера. NEXT==</p><hr id="126d1fcb-b1d1-4153-ac9a-7685ad3b1ff9"/><figure id="ce01a45f-96a9-4c7b-ad94-5782a513c05e" class="image"><a href="https://i.imgur.com/Vy2pQns.png"><img src="https://i.imgur.com/Vy2pQns.png"/></a></figure><hr id="e8097d23-7c4b-496c-9d00-edb8b3a4684c"/><p id="87c3276a-b7f4-4061-aee8-2e3b433b2115" class="">==1.5 Это меню для выбора устанавливаемых ролей. Нам нужны Active Directory Domain Services, DNS, DHCP. Выберем их==</p><hr id="0c6e1ccb-cb28-4442-9116-1921d5b2dc24"/><figure id="7ae63a60-fd38-4217-8df2-797ab451dbf1" class="image"><a href="https://i.imgur.com/wAcISh1.png"><img src="https://i.imgur.com/wAcISh1.png"/></a></figure><hr id="d4e06188-4d2b-4fee-a5d5-24bb9e0de129"/><p id="d245abbe-88d2-4833-93d7-e8535907c70a" class="">==1.6 При выборе ADDS нам предлагают установить дополнительные компоненты. Соглашаемся (Add Featured)==</p><hr id="f73c3160-5d89-4972-8dd9-5976c3a28d74"/><figure id="5dfcc018-ceb8-475b-a282-e317d27c84b8" class="image"><a href="https://i.imgur.com/NwJa2c4.png"><img src="https://i.imgur.com/NwJa2c4.png"/></a></figure><hr id="4e22cad9-d5ac-46c3-ade4-3e5859e80ea4"/><p id="74c5b8a0-6717-4e40-8093-641c26aa7268" class="">==1.7 Выбираем пункт DHCP==</p><hr id="c12a9731-75f6-4bb7-b321-ee911b4d11fe"/><figure id="62c38de7-f83a-4809-9a3e-7b1bc010254a" class="image"><a href="https://i.imgur.com/iSmmCc5.png"><img src="https://i.imgur.com/iSmmCc5.png"/></a></figure><hr id="3d635409-86e7-43bd-94db-94006e8fb677"/><p id="b6e6f1a4-d61b-4490-a108-c4bc51766437" class="">==1.8 Устанавливаем компоненты==</p><hr id="cda1206d-4c87-49ce-8ce2-ed5cd4bcb7c8"/><figure id="dfa6d09e-582a-47c7-b8b7-1b3cbef7c6f7" class="image"><a href="https://i.imgur.com/psvJqI6.png"><img src="https://i.imgur.com/psvJqI6.png"/></a></figure><hr id="59b72b60-f6a8-423d-85b4-ccb30b494255"/><p id="444f8947-0262-4bf0-bb5e-424957a61606" class="">==1.9 Выбираем пункт DNS==</p><hr id="4f5649e4-d802-4fd3-927b-bb4c0b959283"/><figure id="31a50e66-a426-4bca-abc5-3af090df953b" class="image"><a href="https://i.imgur.com/EfUMgqh.png"><img src="https://i.imgur.com/EfUMgqh.png"/></a></figure><hr id="6a0c851a-efda-4034-9593-c57c77a1c2ed"/><p id="cf9f94ee-5da3-496c-945c-10dd10d00741" class="">==1.10 Устанавливаем компоненты==</p><hr id="ccdc36b9-b582-4bff-8fcb-25a98abbc9b3"/><figure id="6270af7c-77b6-4fd4-90da-c3d6f6b05a42" class="image"><a href="https://i.imgur.com/oiUpYOF.png"><img src="https://i.imgur.com/oiUpYOF.png"/></a></figure><hr id="806fe234-d0b1-4717-9aaa-18dd9298e32e"/><p id="e7f7a402-1899-4c1d-8617-b74ed998831c" class="">==1.11 Выбрав нужые роли, идём далее. NEXT==</p><hr id="df1c0b7b-0f9d-4c97-ac36-018a72f915eb"/><figure id="2e49d2de-9337-4a26-9dee-209978f767b3" class="image"><a href="https://i.imgur.com/JwJibWq.png"><img src="https://i.imgur.com/JwJibWq.png"/></a></figure><hr id="8d4b53f6-d3bc-4f06-84a7-76d013af7a20"/><p id="22b9a0e5-ac0d-408a-a773-b1f911d52462" class="">==1.12 Нужные компоненты мы уже выбрали. NEXT==</p><hr id="2b8d908a-54b9-44ab-af84-20284c582a5a"/><figure id="5eaf37bb-2be2-422c-ba7f-a90b8f0470c7" class="image"><a href="https://i.imgur.com/defjAv2.png"><img src="https://i.imgur.com/defjAv2.png"/></a></figure><hr id="78c56707-9a6e-4e16-b97a-34d958750f01"/><p id="e6168506-ed6d-488b-beed-02adbdc14d20" class="">==1.13 Далее идет описание устанавливаемых ролей. NEXT==</p><hr id="d113dd81-5ec9-4b18-b9bc-2ab25331e0db"/><figure id="ca06a7d3-c504-4352-a6e8-8865e4d79829" class="image"><a href="https://i.imgur.com/TQfBnpG.png"><img src="https://i.imgur.com/TQfBnpG.png"/></a></figure><hr id="bed69adc-e142-406f-a87e-0cd6227f3048"/><p id="87754f75-dd29-49c4-9e68-939026b52330" class="">==1.14 NEXT==</p><hr id="29f23e3a-d62d-49b5-9329-bc8540d4b666"/><figure id="94a98f01-559b-4fc9-95d1-b596d8a762b9" class="image"><a href="https://i.imgur.com/32knXVb.png"><img src="https://i.imgur.com/32knXVb.png"/></a></figure><hr id="74d9a342-a686-4e5d-89eb-3c141ab41960"/><p id="78df0f09-85d4-4365-8476-81d80dd75ee4" class="">==1.15 NEXT==</p><hr id="b2061048-df0e-4362-ba34-1117000d52e0"/><figure id="5a3d11a7-3660-4c73-8450-23865d2aec4e" class="image"><a href="https://i.imgur.com/LaeR5sc.png"><img src="https://i.imgur.com/LaeR5sc.png"/></a></figure><hr id="0e74d83f-8e1d-4de4-8c68-649462b8a680"/><p id="ca6d472d-fc3c-4947-9b74-1d0fc7a16d20" class="">==1.16 Подтверждение установки. NEXT==</p><hr id="21b54659-870d-4c66-a8d7-d503efd6aaf9"/><figure id="901d3fc5-9ede-481d-b0ce-172d1e6691bd" class="image"><a href="https://i.imgur.com/i3waRdd.png"><img src="https://i.imgur.com/i3waRdd.png"/></a></figure><hr id="d5e854cb-0daa-4525-9cce-225ec71c59ef"/><p id="f3c45982-42b1-4154-9f4d-ec5637e74856" class="">==1.17 Установка началась==</p><hr id="5cf0038e-c619-4476-9270-45114c922c58"/><figure id="48d7eff8-236d-466d-8611-80ce86b74cf6" class="image"><a href="https://i.imgur.com/aqd5NBL.png"><img src="https://i.imgur.com/aqd5NBL.png"/></a></figure><hr id="7798c935-17b9-4c3d-877a-2618d287fa3e"/><p id="6744dff9-ceb6-4b95-9d43-c24a3bcda29d" class="">==1.18 После завершения установки появится кнопки для настройки сервера как контроллера домена==</p><hr id="a2e70afc-3e65-4df5-854b-d0cd04b7b6ce"/><figure id="2934de4d-83a0-44c0-8537-4f471780434c" class="image"><a href="https://i.imgur.com/iW8e2Y2.png"><img src="https://i.imgur.com/iW8e2Y2.png"/></a></figure><hr id="38a78a78-f5cc-43d8-8332-4dfefd4e2bd1"/><p id="213870fb-8abb-4c17-b160-422240460556" class="">В данном меню можно сразу нажать &quot;promote this servet to a domain controller&quot;, чтобы открыть окно повышения роли.</p><hr id="8a81c736-b20b-49d9-b05c-4ec1a514122d"/><h2 id="1220c49c-8ab8-4586-ac00-f735b602cc23" class="">Часть 2. Повышение роли dc1 до контроллера домена</h2><p id="948d0c28-edbc-447a-8da8-7d875a93ff82" class="">==2.1 Откроется меню настройки домена==</p><hr id="22e5050d-cfed-4d72-b653-0c15f621dc4c"/><figure id="20aa21d9-1eb7-4b91-a95c-34854a69c6ef" class="image"><a href="https://i.imgur.com/Zo9JHm5.png"><img src="https://i.imgur.com/Zo9JHm5.png"/></a></figure><hr id="f399d15a-9a80-4056-a7dc-2bad84ee2810"/><p id="3453fdfe-b179-495b-b109-0e4afba62069" class="">==2.2 Выберем создание нового леса, назовём домен pt.local и пройдём далее==</p><hr id="dd9dec7b-974d-46bd-9c0c-ac4eb309d6ad"/><figure id="2404a52c-da40-4963-b8e6-fc6abd522271" class="image"><a href="https://i.imgur.com/bTlvcpI.png"><img src="https://i.imgur.com/bTlvcpI.png"/></a></figure><hr id="1808cf08-ea7d-4c1c-b71d-af6808ad04dd"/><p id="ff6b2a49-c2f4-47bf-8660-614ebfac8702" class="">==2.3 Введём пароль для DSRM службы (на ваш выбор). Далее он нам не пригодится==</p><hr id="a8e8cfeb-229e-4785-87a9-8ae118a60864"/><figure id="52c85157-b610-44be-84f4-bc87aad01601" class="image"><a href="https://i.imgur.com/06F1TZ0.png"><img src="https://i.imgur.com/06F1TZ0.png"/></a></figure><hr id="4b784ae5-5df2-4d04-a36d-6eb1937a5af7"/><p id="dbb1c0bb-7e1c-4c75-bbe4-75252c795f13" class="">==2.4 Пропустим делегирование DNS==</p><hr id="99a4f431-a7e1-472a-a2a7-5d64c8b3b09d"/><figure id="f01ee579-a62c-4d35-b489-3f029d4c9c51" class="image"><a href="https://i.imgur.com/2HRB3ob.png"><img src="https://i.imgur.com/2HRB3ob.png"/></a></figure><hr id="5fb0cf44-2e79-4a31-bd83-2dcec1cc97f6"/><p id="d0e0ff8b-eb96-4e6a-a942-cca5122b96ae" class="">==2.5 Оставим NetBIOS имя как есть==</p><hr id="f67e774a-7cca-466f-8a1f-8593b78f0997"/><figure id="9ac55600-3022-4e81-83ae-95585577bbbf" class="image"><a href="https://i.imgur.com/z5kalOg.png"><img src="https://i.imgur.com/z5kalOg.png"/></a></figure><hr id="a8a6b204-b822-4d75-a025-b5d07c4d7f37"/><p id="f31f41c9-77bf-4bd9-b714-83798d23abbf" class="">==2.6 Увидим пути для логов, файла NTDS и SYSVOL. Не изменяя их пройдём далее==</p><figure id="514203fe-1b39-44ce-b0c3-d010f584451e" class="image"><a href="https://i.imgur.com/d2KTV6e.png"><img src="https://i.imgur.com/d2KTV6e.png"/></a></figure><hr id="dff85088-78f3-4a30-8a8e-a5a6d3b5bb13"/><hr id="b9f9abc0-480c-4719-87d3-7afe31b9a46d"/><p id="57162cab-c176-4315-8449-46764a1fa0eb" class="">==2.7 Проверим конфигурацию. NEXT==</p><hr id="5a3f4378-3901-4056-8c77-132462187733"/><figure id="b4251907-fb8d-464b-b8e5-42e5b8583f85" class="image"><a href="https://i.imgur.com/KMhCOkU.png"><img src="https://i.imgur.com/KMhCOkU.png"/></a></figure><hr id="e43cddd6-ae52-4d15-8e90-17dcd9a3043b"/><p id="fb6996bf-d902-4ca1-ba45-b4777b5aedfe" class="">==2.8 Ознакомимся с предупреждениями. Нам говорят, что в текущей инсталяции отключены устаревшие методы аутентификации, а делегирование DNS невозможно. NEXT==</p><hr id="9f752842-7055-47f7-85b5-6e043b4cb7cd"/><figure id="833172e4-31dc-4bed-b352-658f0d26bf1c" class="image"><a href="https://i.imgur.com/XrhhsQP.png"><img src="https://i.imgur.com/XrhhsQP.png"/></a></figure><hr id="ed76eabd-8d6f-47d7-8404-bec7ff38f052"/><p id="70086251-a3c4-4691-9480-933860c164af" class="">==2.9 Начнется процесс повышения роли==</p><hr id="5ffd2f99-a96e-4d6c-ad4d-ae8e64e60a77"/><figure id="b9e9bbd4-4ac9-4506-a09f-e5a4f8d8c1fd" class="image"><a href="https://i.imgur.com/Z71UJbf.png"><img src="https://i.imgur.com/Z71UJbf.png"/></a></figure><hr id="5236c203-ad09-4c67-b6d9-31add6cc2dd7"/><p id="c55df06c-d971-46ad-b92c-0b77f28b7566" class="">==2.10 После завершения процесса система заставит учетную запись выйти из системы автоматически. После применения настроек откроется экран логина, где мы войдем в учетную запись как и раньше==</p><hr id="9b8ee684-efa7-41dd-a581-2f7301f4ab89"/><figure id="22901b6a-31ff-4483-af9f-a27562ba7b10" class="image"><a href="https://i.imgur.com/OxaVksh.png"><img src="https://i.imgur.com/OxaVksh.png"/></a></figure><hr id="b1759f74-97d0-4d3c-a5dc-74cd469280f1"/><p id="219ae0dd-1170-42dd-824b-f42996deae85" class="">==2.11 После успешного входа зарегистрируем роль DHCP. Нажмем флаг вверху и пункт &quot;Complete DHCP configuration&quot;==</p><hr id="c343f4ba-2fdc-416d-9f08-c19586bb32ba"/><figure id="dfa482e7-875c-49fd-a2ac-12bc54382214" class="image"><a href="https://i.imgur.com/S3qF5nq.png"><img src="https://i.imgur.com/S3qF5nq.png"/></a></figure><hr id="11d4fbb1-bc0a-4b81-9747-f633bfab625c"/><p id="4a2de944-385f-4e0a-8d4c-f9d613243cf1" class="">==2.12 Откроется визард windows. NEXT==</p><hr id="a0828c6f-8c73-41ce-b9b0-554d19db5cb9"/><figure id="85d20ea2-3c97-4666-b05a-302fded5356c" class="image"><a href="https://i.imgur.com/r4Rul2y.png"><img src="https://i.imgur.com/r4Rul2y.png"/></a></figure><hr id="a217a3fb-f485-4019-b858-54eb70e28c37"/><p id="b0bacab4-734a-491e-8105-f964f3cad653" class="">==2.13 Учетные данные взяты с нашей текущей сессии. NEXT==</p><hr id="5b8a81f9-a23f-4904-9104-c431c0f2f109"/><figure id="fdabcdfb-65e7-469e-9036-2af892a57a35" class="image"><a href="https://i.imgur.com/LJo6GR6.png"><img src="https://i.imgur.com/LJo6GR6.png"/></a></figure><hr id="fff1fa5e-0b01-4192-99e3-f8b35aa10598"/><p id="d3d5c345-9e54-40eb-a36f-4090c690d8d9" class="">==2.14 Закроем окно после успеха==</p><hr id="1e1fcf53-194c-4a48-945e-0e265fe8244b"/><figure id="8e0033d1-ecba-4133-97e1-a27b6666b3c5" class="image"><a href="https://i.imgur.com/x1bQdYp.png"><img src="https://i.imgur.com/x1bQdYp.png"/></a></figure><hr id="c06781ea-b185-465c-83b9-e43722bb34f9"/><h2 id="1c0b3d85-2ce9-44e1-93cf-78271ce49a5f" class="">Часть 3. Настройка резервного dc2</h2><p id="bbeef7a6-c5d2-4c65-9633-f1a7abdd3c71" class="">Установите роли и компоненты, аналогичные dc1. На скрине ниже уточнено, какие именно.</p><p id="ad83a4ec-6b6d-4fae-8d11-03d11b3e15a8" class="">==3.1 Как и раньше, установим 3 роли==</p><hr id="b0f00465-241b-4970-97a8-a05f70662811"/><figure id="5de54938-2f0b-41fb-9567-838c598f2e48" class="image"><a href="https://i.imgur.com/Qb2gqCp.png"><img src="https://i.imgur.com/Qb2gqCp.png"/></a></figure><hr id="a454d38a-62a9-4816-bd1f-d766f5fb777c"/><p id="0602fb32-4ce0-472f-be9f-3e784fd8f92c" class="">Теперь процесс создания dc2 как резервного DC</p><p id="5c09056d-f64f-4ff6-b5e7-45b7bc875b69" class="">==3.2 Укажите dc1 как основной dns сервер для dc2==</p><hr id="fbc33422-af4a-4093-92cf-7ea3a4da9f75"/><figure id="1c12b2f7-1d99-4773-ad65-b1f4b3a48a17" class="image"><a href="https://i.imgur.com/uOzsNdU.png"><img src="https://i.imgur.com/uOzsNdU.png"/></a></figure><hr id="4e1069d4-1587-493a-b61c-790e986db261"/><p id="8a59cb6c-51a4-402c-9bd9-c172904337d2" class="">==3.3 Откройте меню повышения до роли контроллера домена. Это можно сделать через флаг с восклицательным знаком справа вверху==</p><hr id="ff524eca-3714-44ae-84e0-a0dc510d4656"/><figure id="7b1f8dbd-f3b4-4507-9008-d0d5207206b6" class="image"><a href="https://i.imgur.com/0dDUoC2.png"><img src="https://i.imgur.com/0dDUoC2.png"/></a></figure><hr id="c4db468c-c85b-4c55-8c0e-5f9dc3bc69af"/><p id="911d12d0-6380-4018-b2b3-910e8f460349" class="">==3.4 Укажите созданный ранее домен==</p><figure id="852e8624-a235-40db-8401-3b29c27cff1b" class="image"><a href="https://i.imgur.com/8xx94VZ.png"><img src="https://i.imgur.com/8xx94VZ.png"/></a></figure><hr id="38831476-936d-4805-b51a-e1ae4bd7e9d3"/><hr id="559e527f-4428-45e1-a59b-1cb39b3a5f44"/><p id="8a116c59-9a6c-473e-a7ff-d9bd35ea46d3" class="">==3.5 И укажите учетные данные этого домена. Будьте внимательны -- учетную запись нужно вводить с указанием домена==</p><hr id="be25a8c6-e31e-4178-9a6d-780175c02196"/><figure id="b60954a3-559c-4ae8-8127-39a434c599fa" class="image"><a href="https://i.imgur.com/8EbHWwS.png"><img src="https://i.imgur.com/8EbHWwS.png"/></a></figure><hr id="42388272-9e45-4017-99f5-dda8b89f68db"/><p id="52eb51d8-594c-4267-8572-13a608f98858" class="">==3.6 После ввода учетных данных пройдите далее. Введите пароль DSRM. NEXT==</p><hr id="17ad4220-a5a4-4ba8-b9cb-d510af21320c"/><figure id="6146230a-fd36-4479-b66d-3be2ad85438a" class="image"><a href="https://i.imgur.com/uNjD2NK.png"><img src="https://i.imgur.com/uNjD2NK.png"/></a></figure><hr id="66783555-d9f3-4c2c-894e-a888278619e3"/><p id="80ea0ac2-9370-4275-b300-d2a2873cc4cb" class="">==3.7 NEXT==</p><hr id="717683dc-2714-4b95-9041-a40aee722a57"/><figure id="039ea65b-b90b-4c14-a7e4-d05518761cdd" class="image"><a href="https://i.imgur.com/54yopi7.png"><img src="https://i.imgur.com/54yopi7.png"/></a></figure><hr id="22912057-3f55-4a8b-b4bb-780d94f3e6ba"/><p id="f8111670-4336-47a1-8083-60e926f6efc2" class="">==3.8 Здесь можно указать, откуда будет синхронизирована база NTDS. Оставляем по умолчанию. NEXT==</p><hr id="448d4293-87c9-47ff-8298-c3ae313fe1e5"/><figure id="c5ff8f54-89cf-4aae-844c-e4cd8addb547" class="image"><a href="https://i.imgur.com/vH7nIPz.png"><img src="https://i.imgur.com/vH7nIPz.png"/></a></figure><hr id="6e5bf152-4f0c-4be7-9be7-6960bc1b356e"/><p id="47cf4cd7-0407-4f53-b7ca-1ab7e3bc8e66" class="">==3.9 Пути оставим по умолчанию. NEXT==</p><hr id="d57e2ea4-d22f-4665-b548-d01fa62e217d"/><figure id="0166f764-ed86-45b6-84d7-394d1c91c95d" class="image"><a href="https://i.imgur.com/rtIOvkT.png"><img src="https://i.imgur.com/rtIOvkT.png"/></a></figure><hr id="d86ff816-919c-41f3-8ac3-9cbdb43bcf0b"/><p id="39087a1e-7216-4c57-8af0-2228c9b94557" class="">==3.10 Проверим правильность всех параметров. NEXT==</p><hr id="c9c9c605-aea9-44f5-820f-bd4eb593e593"/><figure id="618c4c25-262d-42c2-83db-a25419db36e6" class="image"><a href="https://i.imgur.com/fM5M3pb.png"><img src="https://i.imgur.com/fM5M3pb.png"/></a></figure><hr id="f84d271c-1988-4d16-ac04-fc80dbb4baf7"/><p id="591d5f88-9826-4f2a-8527-4df03f31787a" class="">==3.11 Увидим стандартные предупреждения. NEXT==</p><hr id="c6fb3b03-fbd7-4223-87da-94c410ac7e9f"/><figure id="da813cc8-4731-445d-8a1a-277e478abe04" class="image"><a href="https://i.imgur.com/f9mafLI.png"><img src="https://i.imgur.com/f9mafLI.png"/></a></figure><hr id="8c5ee2ad-0992-4d2f-bc36-c0dd661a7dde"/><p id="5bc539c3-407e-4537-822f-a550d916de3d" class="">==3.12 Начнётся установка==</p><hr id="11b88e6c-ece5-4760-8b14-12b81c08317b"/><figure id="2f0847b0-b4c3-4112-ba1c-ba49d7515ce7" class="image"><a href="https://i.imgur.com/yIdBToa.png"><img src="https://i.imgur.com/yIdBToa.png"/></a></figure><hr id="e7270dd4-9638-4acd-8493-88f9074bed35"/><p id="aea190fe-5c2d-4596-8f79-072723d19fb4" class="">==3.13 После установки нас разлогинят, сервер перезагрузится==</p><hr id="17b36e52-88ce-4d40-934d-c49e544b61ac"/><figure id="36ca22cc-520b-49d3-9fcb-efdbff39f0c2" class="image"><a href="https://i.imgur.com/OI4GlOB.png"><img src="https://i.imgur.com/OI4GlOB.png"/></a></figure><hr id="8416627c-2914-4bfe-9e30-fb7a0a88b64d"/><p id="e993f9b1-5924-4770-8de9-ae65265f526a" class="">==3.14 После перезагрузки отобразится старый пользователь, являющийся локальным для dc2. С его помощью нам не удастся зайти в систему==</p><hr id="3a6797c9-2b66-42f6-a6cb-17708d9e0391"/><figure id="13de4873-3a2a-4b5d-bac5-2f47c04da5f9" class="image"><a href="https://i.imgur.com/W2W8n9R.png"><img src="https://i.imgur.com/W2W8n9R.png"/></a></figure><hr id="49a4e866-cecf-4310-8eef-f2f22edd7da6"/><p id="88cc15bb-8a6b-4828-a7f9-0cad4f4f7ee9" class="">==3.15 Поэтому нужно нажать на меню &quot;другой пользователь&quot; и ввести данные основного администратора домена==</p><hr id="021eb463-bfdb-403a-8c0b-d6ade0229ebe"/><figure id="e3e9d73b-28d5-468a-a620-ad3e21b3a84f" class="image"><a href="https://i.imgur.com/iH5WFgP.png"><img src="https://i.imgur.com/iH5WFgP.png"/></a></figure><hr id="b824d620-bf63-44c7-8588-6a9bf814d1f8"/><p id="5c4ea584-aa81-493d-be40-756c062a5a6f" class="">==3.16 Завершим настройку DCHP==</p><hr id="414ad65f-8e84-4ebe-9448-4b115d1f0925"/><figure id="26bffde4-ad03-4499-adb5-eeb565e2156b" class="image"><a href="https://i.imgur.com/t9eIaZj.png"><img src="https://i.imgur.com/t9eIaZj.png"/></a></figure><hr id="d056ce58-4625-41cc-9260-4ca9bd1466ed"/><p id="6607217b-779c-4f6e-91e8-8dbe60c53bfb" class="">==3.17 Далее==</p><hr id="151fef7d-ab21-41f3-a63a-37babbe40774"/><figure id="60023c31-f5d4-4892-9cf8-ef7ac34a8f2e" class="image"><a href="https://i.imgur.com/psljTXd.png"><img src="https://i.imgur.com/psljTXd.png"/></a></figure><hr id="1ea390d5-3962-470d-b8a1-f7849949e0c9"/><p id="bc04dac1-f293-4c39-b4fe-60111c803962" class="">==3.18 &quot;Фиксировать&quot;==</p><hr id="2f8580cd-b63f-4631-8940-325b4eb464ea"/><figure id="1a2d4765-e564-48f5-ae04-28f6908e1556" class="image"><a href="https://i.imgur.com/LiajYD6.png"><img src="https://i.imgur.com/LiajYD6.png"/></a></figure><hr id="45b06a50-e271-4269-98d6-49340da8178d"/><p id="c4d7f7a0-91d8-45b8-8f94-bf385e4ee3d2" class="">==3.19 Закрыть==</p><hr id="ad854dca-8358-486d-82be-b7cd3488beae"/><figure id="2951e827-5b96-4830-afe6-edc745664132" class="image"><a href="https://i.imgur.com/LDXcsgZ.png"><img src="https://i.imgur.com/LDXcsgZ.png"/></a></figure><hr id="82586c11-fcbd-42af-818d-0cbb8f02c76f"/><h2 id="141e42c5-ed88-4141-abfa-57023300fe9c" class="">Часть 4. Введение Windows 10 в домен</h2><p id="035001dc-3117-4d62-8cd2-61883ba76f44" class="">==4.1 Зайдите в параметры==</p><hr id="a22c6d67-5d6a-4752-9174-cb9a9bf289aa"/><figure id="bc0963bb-d360-4236-85d4-da6a2f34faec" class="image"><a href="https://i.imgur.com/1FODpeX.png"><img src="https://i.imgur.com/1FODpeX.png"/></a></figure><hr id="0ea4fe1d-95b3-4aaa-9873-56d8e2476bd2"/><p id="eae3a885-bb53-48a3-a25e-b47e162c957f" class="">==4.2 Вкладка &quot;система&quot;==</p><hr id="13578823-1aba-4281-83de-0676b9f9daf9"/><figure id="0be63bb4-1965-4d63-9f00-888c5f64ac05" class="image"><a href="https://i.imgur.com/ujqFdTS.png"><img src="https://i.imgur.com/ujqFdTS.png"/></a></figure><hr id="115e0ffa-4905-4e25-bc4e-a4da3839298f"/><p id="8d38e377-c7f6-47ca-b62f-9f9e9b88404c" class="">==4.3 Прокрутите меню вниз, нажмите &quot;о системе&quot;, вызванное меню тоже прокрутите вниз, нажмите &quot;сведения о системе&quot;==</p><hr id="69264a0a-1121-4742-80cf-2fa6efad5e44"/><figure id="54a74673-d09d-4062-8828-7989d48947d3" class="image"><a href="https://i.imgur.com/9UNmMl1.png"><img src="https://i.imgur.com/9UNmMl1.png"/></a></figure><hr id="958ba5bf-79da-4035-aee8-4c0d5fc5df76"/><p id="e6320abe-efb0-480d-b139-c0289f4fb9c1" class="">==4.4 Нажмите &quot;изменить параметры&quot;==</p><hr id="434063df-5454-4b36-8674-c9aea1cc5dd3"/><figure id="30aea8c7-90c1-46ed-8b64-8d90c819dddc" class="image"><a href="https://i.imgur.com/0PmV2p8.png"><img src="https://i.imgur.com/0PmV2p8.png"/></a></figure><hr id="e7248fd1-298c-4bcb-8c26-a2f826d3c455"/><p id="d1f25e53-9408-4a8a-84fb-8bfdfaa5afcf" class="">==4.5 Нажмите &quot;изменить&quot;==</p><hr id="d21905d5-721f-41bf-95c5-3fb6fc5e75a7"/><figure id="c9a47732-7db7-4012-bc03-3fa153ee8a92" class="image"><a href="https://i.imgur.com/724n5ce.png"><img src="https://i.imgur.com/724n5ce.png"/></a></figure><hr id="b51f6b5b-358c-43e0-a62f-23b92c1bbc01"/><p id="5b8f9620-8286-4b04-ade9-f2f49662a341" class="">==4.6 Измените имя домена==</p><hr id="56b93443-619d-4be0-be77-4b73a8ba7bfa"/><figure id="f6f939c2-331e-40d6-96d1-8a21ad7eb3e7" class="image"><a href="https://i.imgur.com/qJYBh2a.png"><img src="https://i.imgur.com/qJYBh2a.png"/></a></figure><hr id="27104361-01d8-4432-8a59-554cd50c57f2"/><p id="623fcc80-343d-480a-b675-937c8d2fe36a" class="">==4.7 Введите учетные данные администратора домена==</p><hr id="8fe99fc7-2c33-49da-9291-57b89cd2b1bf"/><figure id="737d59bd-75d3-445b-acd1-d36f4d39d881" class="image"><a href="https://i.imgur.com/jprkgua.png"><img src="https://i.imgur.com/jprkgua.png"/></a></figure><hr id="b59648e7-9ccd-48bf-8b67-a91a93631c02"/><p id="155f4f57-2931-4f29-9ccc-243395dad067" class="">==4.8 Отобразится приветствующее окно. Закройте его и меню настроек==</p><hr id="fbf3565a-0cc3-464b-9ece-56f4ee049ef7"/><figure id="beb9c3f6-d1fa-462c-a237-f61ae0cb1470" class="image"><a href="https://i.imgur.com/nV7qUqG.png"><img src="https://i.imgur.com/nV7qUqG.png"/></a></figure><hr id="fa052cc5-b61b-4f37-a69b-8fa6e27ae960"/><hr id="55042b0b-d713-49d4-a07f-07f4779b8dd5"/><p id="ebd2a559-c6f3-454e-a81f-668c5291db4c" class="">==4.9 Согласитесь на перезагрузку==</p><hr id="19d99678-dbb6-457d-888b-25bf84944afb"/><figure id="13369d0e-1dca-45dd-ac81-1ea0d1fa89f4" class="image"><a href="https://i.imgur.com/P91sFbJ.png"><img src="https://i.imgur.com/P91sFbJ.png"/></a></figure><hr id="f6b5a614-0fa8-4794-b851-ebd6830599ee"/><p id="f87f8e2d-444a-4f53-96de-e2712f42af5a" class="">==4.10 После перезагрузки система предложит зайти от пользователя user. Это локальный пользователь, у него нет доступа до ресурсов домена==</p><hr id="579d83da-8bcd-4831-93ab-616119125914"/><figure id="b5c097ab-b475-43a7-b982-8de1f0843723" class="image"><a href="https://i.imgur.com/WDF3odk.png"><img src="https://i.imgur.com/WDF3odk.png"/></a></figure><hr id="b32d7afc-eed7-48b8-8c89-06e2ed2a9d2e"/><p id="9961f45a-5c91-4092-bc6f-fe18b9691fb1" class="">==4.11 Зайдем от имени доменного пользователя==</p><hr id="a0548926-57b4-4421-924e-8dcad50377d1"/><figure id="927bb479-53b3-44ae-bcbe-ecefbc59cc70" class="image"><a href="https://i.imgur.com/ENQbZS0.png"><img src="https://i.imgur.com/ENQbZS0.png"/></a></figure><hr id="46b35029-5fcd-4d10-b0d6-7b15e1a8fa6d"/><p id="163ff8a6-a221-433d-80dc-d4993de76b6e" class="">==4.12 Проверим доступ до ресурсов домена==</p><hr id="49b9ec53-c761-4266-adf1-cc9e4c32cf97"/><figure id="93522e60-42c3-4580-bb74-f2c61041ea48" class="image"><a href="https://i.imgur.com/R2fAG9p.png"><img src="https://i.imgur.com/R2fAG9p.png"/></a></figure><hr id="aff21cef-ce04-4d82-a04e-12386451a09d"/><h2 id="5009618f-4e50-484a-86a0-2c67d87bb5d3" class="">Часть 5. Применение скриптов</h2><p id="448037e2-a541-4a59-aab9-32ec531c1a8e" class="">Скачайте скрипт .<a href="https://disk.yandex.ru/d/sC2jjnK46ey6rA">https://disk.yandex.ru/d/sC2jjnK46ey6rA</a> Это PoSH скрипт, который необходимо применить на первом контроллере домена (dc1).</p><p id="fe950c34-8cb9-4d21-8dd0-c647ca36aaf3" class="">==5.1 Откройте PowerShell ISE==</p><hr id="116b6b27-9d5f-458c-8494-599c958e090f"/><figure id="34b822c9-98d8-421b-b3a7-28a03b68ee2c" class="image"><a href="https://i.imgur.com/vNwOUMm.png"><img src="https://i.imgur.com/vNwOUMm.png"/></a></figure><hr id="0429ecfd-dd88-4c71-89d9-5e7ac1885ae8"/><hr id="2aa46da0-e712-4e03-8dc8-371d1c42341a"/><p id="a1196bc3-d790-40e0-ac07-88a01c85a58f" class="">==5.2  Откройте скачанный файл==</p><hr id="4899aaf7-03bc-4b03-b061-bb44a10dea23"/><figure id="2e2ce18f-002d-455e-92fc-3d24c709800e" class="image"><a href="https://i.imgur.com/HMRYcwX.png"><img src="https://i.imgur.com/HMRYcwX.png"/></a></figure><hr id="a58f2b20-30c8-4a22-8ffa-e6d42f3b2880"/><hr id="249459d4-f051-4a39-8868-63c64b03dcb4"/><p id="aa74b218-a876-4394-aad0-0cb3c8d8ee3b" class="">==5.3 Выполните скрипт (F5)==</p><hr id="ae5cae27-6618-4ca0-89d1-c232de8870d9"/><figure id="c2abe7d9-6528-4a58-9aa8-d224ebe62b4c" class="image"><a href="https://i.imgur.com/OecohTn.png"><img src="https://i.imgur.com/OecohTn.png"/></a></figure><hr id="87067c97-bf8c-4ca7-adfc-4397f8ce321e"/><hr id="83ddc80b-20b7-4586-824c-12957d42047e"/><p id="b7823450-dff3-4cf3-a2b0-e757b089ef7a" class="">==5.4 В нижнем меню ошибок появляться не должно. В случае возникновения текста проверяйте, на что именно ругается ISE==</p><hr id="a1b53dda-9757-4f0a-aa83-1568582ec628"/><figure id="40afb692-3e5a-4b83-a5ba-bdcdc650ea15" class="image"><a href="https://i.imgur.com/z98qI0n.png"><img src="https://i.imgur.com/z98qI0n.png"/></a></figure><hr id="63268583-8bf9-4d85-9295-7b16e2c752a4"/><hr id="ec884212-e90e-4505-941c-bf271445872b"/><p id="395aed2b-c63d-4e89-9d8f-8d81c5ce9730" class="">==5.5 Проверьте наполнение NTDS с помощью ADUC. Должны появиться новые OU, группы и пользователи==</p><hr id="6df003a0-b608-4f06-b937-656be2775bb5"/><figure id="01cddd3f-2622-4e93-b9f4-1cfedc840f42" class="image"><a href="https://i.imgur.com/uCA3OkA.png"><img src="https://i.imgur.com/uCA3OkA.png"/></a></figure><hr id="c31787f3-82f8-4ec9-8aae-66489588d800"/><hr id="3311cc52-a8b8-4519-8fe8-09bee332601a"/><p id="92c1de80-0682-4104-a09e-8a48e2e7e5df" class="">Не забывайте, что оснастки не обновляются самостоятельно. Чтобы увидеть изменения в случае, если при применении скрипта ADUC уже был запущен, нажмите ПКМ на pt.local и нажмите &quot;refresh&quot;, чтобы обновить представление.</p><h2 id="f0002714-3377-4b72-8161-e7597a12ab86" class=""></h2></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

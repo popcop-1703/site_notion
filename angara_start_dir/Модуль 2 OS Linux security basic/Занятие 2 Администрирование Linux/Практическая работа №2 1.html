@@ -1,0 +1,798 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Практическая работа №2.1</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="8d090650-5ba0-4a84-ac9d-4d82409b89f4" class="page sans"><header><h1 class="page-title">Практическая работа №2.1</h1><p class="page-description"></p></header><div class="page-body"><hr id="3721e6e2-596c-4e54-af19-1486272d2c03"/><h2 id="92841009-b838-495c-8cdb-92085b477996" class="">Практическая работа. Основы мониторинга OS Linux с помощью утилит df, du, free, iostat, mpstat, vmstat, w, htop.</h2><h3 id="53b5f4ca-2081-4520-a03f-618351ddf142" class=""><strong>Цель работы:</strong></h3><ul id="537944b0-b445-4785-8c73-cd1f5c3ade29" class="bulleted-list"><li style="list-style-type:disc">Изучить работу утилит df, du, free, iostat, mpstat, vmstat, w, htop.</li></ul><h3 id="afce11ed-d541-4832-adad-8f4f1cee3529" class=""><strong>Задача:</strong></h3><ul id="33907f57-71e1-48c9-975d-efcb758095c0" class="bulleted-list"><li style="list-style-type:disc">Изучить работу всех утилит.</li></ul><ul id="6f56a8ad-c012-490d-9ace-a6734f0a2c69" class="bulleted-list"><li style="list-style-type:disc">Использовать при работе исключительно терминал.</li></ul><ul id="41cf0fd4-8b2a-460c-be61-e7c33e488f6e" class="bulleted-list"><li style="list-style-type:disc">Необходимо включить в отчёт скриншоты всех указанных команд и опций в практической работе.</li></ul><p id="6e6e98bf-d63d-48c6-a965-03435ccec98d" class="">
+</p><h3 id="a2aa18f2-8447-41bf-be3a-b25989fddf0c" class="">1. Команда df в linux</h3><p id="3204c261-a682-467f-bbbc-a31cecd3650c" class="">Утилита df поставляется по умолчанию во всех дистрибутивах Linux и имеет очень простой синтаксис. Фактически вы можете просто набрать df и уже получить результат, но чтобы сделать вывод более читаемым используются дополнительные опции. Вот основной синтаксис:</p><p id="4bd9d8b3-5cff-4c47-a8d3-74a49126617f" class=""><code>$ df опции устройство</code></p><p id="6b7b23d2-8870-43a6-9d59-a12e4308317e" class="">Устройство указывать необязательно, но можно указать раздел диска, о котором мы хотим посмотреть информацию. А теперь рассмотрим основные опции утилиты:</p><ul id="fd6ecc29-71cb-4e85-a403-63315dd918f1" class="bulleted-list"><li style="list-style-type:disc">a, –all – отобразить все файловые системы, в том числе виртуальные, псевдо и недоступные;</li></ul><ul id="6e02d95d-f7f0-4e61-8f9a-3a29080f74ea" class="bulleted-list"><li style="list-style-type:disc">B – изменить размер одного блока перед выводом данных, например, можно использовать BM, чтобы вывести все данные в мегабайтах;</li></ul><ul id="3bf0f14c-79d5-4409-a263-8202b3c2a814" class="bulleted-list"><li style="list-style-type:disc">h – выводить размеры в читаемом виде, в мегабайтах или гигабайтах;</li></ul><ul id="4bdc7a99-02be-435a-af95-cab20745fc5a" class="bulleted-list"><li style="list-style-type:disc">H – выводить все размеры в гигабайтах;</li></ul><ul id="618e0340-77d2-4f3c-8ee2-ac9ac61b5bf9" class="bulleted-list"><li style="list-style-type:disc">i – выводить информацию об inode;</li></ul><ul id="829be5d9-bad4-43b5-92b4-f96a639114c4" class="bulleted-list"><li style="list-style-type:disc">k – выводить размеры в килобайтах;</li></ul><ul id="2f107d5f-aa04-4e00-8037-a5cb3611f8f7" class="bulleted-list"><li style="list-style-type:disc">–output – использовать специальный формат вывода, если не задано, выводит все поля. Доступны такие варианты: ‘source’, ‘fstype’, ‘itotal’, ‘iused’, ‘iavail’, ‘ipcent’, ‘size’, ‘used’, ‘avail’, ‘pcent’, ‘file’ и ‘target’;</li></ul><ul id="94c2ed26-463a-45a8-954d-410c86e879b4" class="bulleted-list"><li style="list-style-type:disc">P – использовать формат вывода POSIX;</li></ul><ul id="893ea9af-d1cd-4dfb-9a89-33973b1efecc" class="bulleted-list"><li style="list-style-type:disc">–total – выводить всю информацию про использованное и доступное место;</li></ul><ul id="e014f147-cb26-4a90-85b1-ad42b01662b7" class="bulleted-list"><li style="list-style-type:disc">t, –type – выводить информацию только про указанные файловые системы;</li></ul><ul id="179be1ab-e48a-4c17-b02d-b9e46a6836dd" class="bulleted-list"><li style="list-style-type:disc">x – выводить информацию обо всех, кроме указанных файловых систем;</li></ul><ul id="8dad46de-6715-4ac7-b18f-a04cf126c184" class="bulleted-list"><li style="list-style-type:disc">Теперь, после основных опций рассмотрим подробнее как примеры df linux.</li></ul><p id="6a4db5ae-68d5-4d8c-9dda-557b57fb5b93" class=""><strong>Посмотрим, что говорит справка. Результат выполнения df –help</strong></p><p id="8777d743-cab3-4e34-b1a9-e51590f8d56f" class=""><em>Основные параметры:</em></p><ul id="7c65d17e-f43e-472a-b766-032e44152f1e" class="bulleted-list"><li style="list-style-type:disc">a, –all. показать все файловые системы.</li></ul><ul id="060e492d-fa33-4b2e-b639-3022026d95fb" class="bulleted-list"><li style="list-style-type:disc">h. Опция позволяет показать информацию более наглядной. Размеры выводятся в мегабайтах и гигабайтах.</li></ul><ul id="c7b869f0-d314-4c8c-8dbb-48dcd65ce820" class="bulleted-list"><li style="list-style-type:disc">H. Размеры показываются в гигабайтах.</li></ul><ul id="6347a49c-7b81-46af-8b7c-93f67b03363c" class="bulleted-list"><li style="list-style-type:disc">k. Данная опция показывает на экране терминала размеры в килобайтах.</li></ul><ul id="245512fe-c3de-4e3e-8572-1288faac4443" class="bulleted-list"><li style="list-style-type:disc">t, –type. Выводит информацию только про указанную файловую систему.</li></ul><ul id="478f0684-cd21-4d33-a5a7-4a11ddcd36e9" class="bulleted-list"><li style="list-style-type:disc">–total. Опция показывает всю информация о дисковом пространстве.</li></ul><ul id="65509d49-49ec-41bd-be9d-73a29b7fa557" class="bulleted-list"><li style="list-style-type:disc">Как пользоваться df</li></ul><p id="8b43c2bc-b1f1-4e85-b5ee-f064a3e1fbea" class="">Чтобы посмотреть доступное пространство на всех примонтированных разделах и информацию о них достаточно набрать:</p><p id="4a5cf497-6be2-4267-a34a-2e9a3c1eabb2" class=""><code>df</code></p><p id="6fb264a4-c352-4bfb-82cc-f043af69a95f" class="">Утилита отображает стандартный набор колонок, но понять в ее выводе что-то с первого раза сложно. Все данные выводятся в килобайтах. Теперь давайте попросим утилиту выводить данные в более читаемом формате:</p><p id="488828ca-d8c5-439d-8fde-5a2c12c0dab7" class=""><code>df -h</code></p><p id="66037644-bcfd-423c-aeef-96c5ceb10f27" class="">Это самое популярное сочетание опций, потому что оно дает максимально понятную информацию и уже можно судить о том, что происходит на диске. Например, мы видим, что в домашней папке уже занято 87% места и, возможно, пора что-то удалить. Если задать опцию -a, вы можете получить информацию обо всех файловых системах известных ядру, которые были смонтированы:</p><p id="935a6bd3-6ff5-45b3-aa12-12cadbf71553" class=""><code>df -a</code></p><p id="7195fc92-ef2f-414f-baab-0873a2939a63" class="">Здесь отображается огромное количество виртуальных файловых систем ядра. Если вы хотите вывести только информацию про реальные файловые системы на жестком диске можно использовать опцию -x чтобы отфильтровать все tmpfs:</p><p id="a87d9520-0954-49a9-9e7d-ef8bc7d152d1" class=""><code>df -x tmpfs</code></p><p id="4b66c223-8109-4a95-875c-f167bc4aad45" class="">Также можно отфильтровать две файловые системы:</p><p id="9cb58b34-f2ec-4278-bfe7-bd93fedb3cd0" class=""><code>df -x devtmpfs -x tmpfs</code></p><p id="40ee9053-cd7d-4adb-80b1-92b66c6000f3" class="">Или же указать файловую систему, которую нужно отображать:</p><p id="4993c20e-3301-48ea-bdc9-dbeb728b85b1" class=""><code>df -t ext4</code></p><p id="11854585-58b2-410e-b6ce-95b2dec92642" class="">Также можно указать интересующий вас раздел, как вы видели в синтаксисе команды:</p><p id="aa1a7ba0-596f-4ac4-ab3f-443c7ac63e42" class=""><code>df -h /dev/sdb6</code></p><p id="514eb4a0-b998-403d-a788-3f9c6c1ac9d1" class="">С помощью опции -i вы можете посмотреть информацию про состояние inode в вашей файловой системе:</p><p id="d1090d9c-7b90-41e3-9256-273ac67d683a" class=""><code>df -hi /dev/sdb6</code></p><p id="aa53513a-7c73-4bde-a171-085fe583b7bf" class="">Вывести объем доступного пространства в каталоге:</p><p id="47a2f181-6104-419f-ada6-b840841e18bc" class=""><code>df -h /home</code></p><p id="f563a35f-985e-4d09-a541-4da4307392ae" class="">Команда df – очень простой в освоении, но эффективный инструмент, позволяющий всегда быть в курсе использования дискового пространства в ваших системах.</p><h3 id="cda808bf-5aae-4e33-84c8-95f44895d33b" class="">2. Команда du в Linux</h3><p id="8fdbe22e-ad54-4f1c-8200-d35d7c33a280" class=""><strong>Команда du</strong> , сокращение от «использование диска», сообщает приблизительный объем дискового пространства, используемого данными файлами или каталогами. Это практически полезно для поиска файлов и каталогов, занимающих большие объемы дискового пространства.</p><p id="d37faa50-f007-4e08-8b38-554aa7c2bfde" class=""><code>du [OPTIONS]... FILE...</code></p><p id="f6e492c9-9bdd-496b-947c-8f2fa87f7efd" class="">Если данный FILE является каталогом, du будет суммировать использование диска для каждого файла и подкаталога в этом каталоге. Если <em>FILE</em> не указан, <em>du</em> сообщит об использовании диска в текущем рабочем каталоге .</p><p id="17b632cd-3f34-4710-9500-1d3075c9ea3b" class="">При выполнении без какой-либо опции du отображает использование диска для данного файла или каталога и каждого из его подкаталогов в байтах.</p><p id="410ea59a-40ed-4165-9cd5-d6e4666c0848" class=""><code>du ~/Documents</code></p><p id="ff672697-8d41-4a1a-bbd3-30149cbaa41c" class="">Вы также можете передать команде du несколько файлов и каталогов в качестве аргументов:</p><p id="131d338a-1599-455f-bcd4-3d997be12302" class=""><code>du ~/Documents ~/Pictures ~/.zshrc</code></p><p id="4e1d813e-e481-43a5-95ca-00379013620d" class="">Если вы запустите du для файла или каталога, для которого у вас нет прав, вы получите что-то вроде «du: невозможно прочитать каталог». В этой ситуации вам нужно будет добавить к команде sudo .</p><p id="4d7d4ebf-25ed-4960-ab2b-87c51a91d4ef" class=""><strong>du много опций, я выделю только наиболее часто используемые.</strong></p><p id="e488f29b-6348-4790-946d-b33499f02501" class="">Параметр -a указывает du сообщать об использовании дискового пространства каждым файлом в каталоге.</p><p id="4b91ccae-2571-46ea-8502-414a24345c4a" class=""><code>du -a ~/Documents</code></p><p id="6382cdc1-2557-4a12-bfc4-8cdfd58eb159" class="">Обычно вы хотите отображать только пространство, занимаемое данным каталогом, в удобочитаемом формате. Для этого используйте параметр <em>-h</em> .</p><p id="623b4b03-f78f-4437-ab92-8167ed26a40b" class="">Например, чтобы получить общий размер <em>/var/lib</em> и всех его подкаталогов, вы должны выполнить следующую команду:</p><p id="e6e37556-764c-4527-bfb9-d5277f9e5330" class=""><code>sudo du -h /var</code></p><p id="9419216f-8c13-42d0-9c1e-279a60847548" class="">Мы используем sudo потому что большинство файлов и каталогов внутри каталога /var/lib принадлежат пользователю root и не доступны для чтения обычным пользователям. Результат будет выглядеть примерно так:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1ca70a08-9692-483c-9b75-05e6f4ee23f8" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">...
+4.0K	/var/lib/apt/mirrors/partial
+8.0K	/var/lib/apt/mirrors
+205M	/var/lib/apt
+2.9G	/var/lib/
+</code></pre><p id="57e5ec31-f9a4-46ad-a8d7-7503fd230ac2" class="">Чтобы сообщить только общий размер указанного каталога, а не подкаталогов, используйте параметр <em>-s</em> :</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="7a5934b1-85c1-4dee-b813-a4801358a55c" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">sudo du -sh /var
+2.9G	/var
+</code></pre><p id="443879f2-f724-47c0-821d-d42fa5f6e895" class="">Параметр <em>-c</em> указывает <em>du</em> сообщать общую сумму. Это полезно, когда вы хотите получить объединенный размер двух или более каталогов.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="c13a8cf9-811f-466f-b7ed-24c2215f41d2" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">sudo du -csh /var/log /var/lib
+1.2G	/var/log
+2.9G	/var/lib
+4.1G	total
+</code></pre><p id="78b20397-4a3b-4209-9472-2e8c282b0ebc" class="">Если вы хотите отобразить использование диска подкаталогами <em>n-уровня</em>, используйте параметр <em>--max-depth</em> и укажите уровень подкаталогов. Например, чтобы получить отчет о каталогах первого уровня, вы должны использовать:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="cb301fff-f549-4da4-883d-bd24d6c4c90c" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">sudo du -h --max-depth=1 /var/lib
+...
+544K	/var/lib/usbutils
+4.0K	/var/lib/acpi-support
+205M	/var/lib/apt
+2.9G	/var/lib
+</code></pre><p id="117a8848-9a21-473d-b167-0201697cdc87" class="">По умолчанию утилита <em>du</em> повторно использует дисковое пространство, используемое каталогом или файлом. Чтобы узнать очевидный размер файла, используйте переключатель <em>--apparent-size</em> . «Видимый размер» файла — это фактический объем данных в файле.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="10b1f666-659a-4b2f-a4b2-d541e1905f73" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">sudo du -sh --apparent-size /var/lib
+2.9G	/var/lib
+</code></pre><p id="a9049dfb-44e2-4bf3-b62e-b6f457242b1a" class="">du также позволяет использовать шаблон оболочки. Например, чтобы получить размер всех каталогов, начинающихся с «Do» в вашем домашнем каталоге, вы должны запустить:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="c854e5a8-bda4-4e17-847f-56dfa8d6984b" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">sudo du -csh ~/Do*
+102M	/home/linuxize/Documents
+358M	/home/linuxize/Downloads
+460M	total
+</code></pre><p id="b40d74c1-8b9b-4e5a-bdfd-586798efbaa0" class=""><strong>Использование du с другими командами</strong></p><p id="e3417763-6b21-4635-bf94-78b5edb231e5" class="">Команду <em>du</em> можно комбинировать с другими командами с конвейерами.<br/>Например, чтобы напечатать 5 самых больших каталогов внутри каталога <br/><em>/var</em> вы должны передать вывод du в команду sort чтобы отсортировать каталоги по их размеру, а затем передать результат в команду head которая распечатает только 5 верхних каталогов:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="d6bdf5d3-bd96-417e-893f-0a63f7579881" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">sudo du -h /var/ | sort -rh | head -5
+4.6G	/var/
+2.9G	/var/lib
+2.6G	/var/lib/snapd
+1.7G	/var/lib/snapd/snaps
+1.2G	/var/log/journal/af8ce1d394b844fea8c19ea5c6a9bd09
+</code></pre><p id="9e2b0efa-57c0-40ac-85ae-843f5f843e04" class=""><strong>Выводы</strong></p><p id="8e7dca7f-0aba-40e6-a90a-031c1e5cd624" class="">К настоящему моменту вы должны хорошо понимать, как использовать команду <em>du</em> .<br/>В отличие от <br/><em>df</em> который выводит информацию об использовании диска смонтированными файловыми системами , команда <em>du</em> дает вам оценку дискового пространства, используемого данными файлами или каталогами.</p><h3 id="7bd656a3-7b91-4f7e-b152-2dde135540d3" class="">3. Команда free в Linux</h3><p id="721d1c0b-2c02-4cd0-8a6d-7094a1cd892a" class="">Сколько свободной оперативной памяти доступно в моей системе Linux? Достаточно ли свободной памяти для установки и запуска новых приложений?</p><p id="5783b051-b235-47b8-8dc8-398d98cfd3c7" class="">В системах Linux вы можете использовать команду free чтобы получить подробный отчет об использовании памяти системой.</p><p id="2305dd34-fab3-4f29-a306-fbdb87b10fff" class="">Команда free предоставляет информацию об общем объеме физической памяти и памяти подкачки , а также о свободной и используемой памяти.</p><p id="de9b01df-4341-40da-927c-1309294bf701" class=""><strong>Содержание</strong></p><ul id="7294206e-cf35-4f4e-989c-4493cf6dd57a" class="bulleted-list"><li style="list-style-type:disc">Как использовать команду free</li></ul><ul id="6dcb1d84-4495-48b3-8db2-d37ea1a76548" class="bulleted-list"><li style="list-style-type:disc">Отображение использования памяти в удобочитаемом формате</li></ul><ul id="6de0299c-b934-40e4-a270-f676cac39517" class="bulleted-list"><li style="list-style-type:disc">Отображение использования памяти в других показателях</li></ul><ul id="ca7365c0-1d03-489a-bd57-21849762dc46" class="bulleted-list"><li style="list-style-type:disc">Отображение итоговых значений столбца</li></ul><ul id="e58650a2-b336-422c-8a69-1171ca5da63c" class="bulleted-list"><li style="list-style-type:disc">Непрерывно печатать результат</li></ul><ul id="82cdeb2a-725e-4a1c-806e-cf8f2b9e5b8b" class="bulleted-list"><li style="list-style-type:disc">Как использовать команду free</li></ul><p id="98059f4d-1dba-43b2-9539-c0c547d18830" class="">Синтаксис free команды следующий:</p><p id="12f09fef-62cc-4272-84d0-485c2bf4e1d5" class=""><code>free [OPTIONS]</code><br/>При использовании без какой-либо опции команда free будет отображать информацию о памяти и подкачке в килобайтах. 1 килобайт (КиБ) равен 1024 байтам.<br/></p><p id="e4845552-689c-4657-b6f1-1ce632b23315" class=""><strong>free</strong><br/>Вывод будет включать три строки, заголовок, одну строку для памяти и одну для свопа:<br/></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="5c561dcd-f4e9-41e9-879a-9ea4675dfff5" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">
+              total        used        free      shared  buff/cache   available
+Mem:        8075208     3204964     1310540      551232     3559704     4198340
+Swap:       2097148           0     2097148
+</code></pre><p id="3f5185fb-21f7-4742-83c3-7cc75dab0dbc" class="">В более старых версиях Linux вывод может немного отличаться.</p><p id="1ad9e4e6-9d19-40e5-a5f5-9f704038bb1c" class="">Вот что означает каждый столбец:</p><ul id="69316c08-7774-4301-8452-bda20a474846" class="bulleted-list"><li style="list-style-type:disc">total — это число представляет общий объем памяти, который может быть использован приложениями.</li></ul><ul id="337d39f5-bf4c-4f2a-b639-7eac8d2e5c0f" class="bulleted-list"><li style="list-style-type:disc">used — Используемая память. Он рассчитывается как: used = total - free - buffers - cache</li></ul><ul id="1a8197b5-08ee-4ba2-ab0b-d9a315b4a1a4" class="bulleted-list"><li style="list-style-type:disc">бесплатно — Свободная / неиспользуемая память.</li></ul><ul id="a598ae02-3266-448a-82ca-6fc6063b6568" class="bulleted-list"><li style="list-style-type:disc">общий — этот столбец можно игнорировать, поскольку он не имеет значения. Это здесь только для обратной совместимости.</li></ul><ul id="b1d64511-0746-4dce-bb56-ad2976547e89" class="bulleted-list"><li style="list-style-type:disc">buff / cache — объединенная память, используемая буферами ядра, а также страничным кешем и блоками. Эта память может быть освобождена в любое время, если это необходимо приложениям.</li></ul><p id="70c16deb-7cd7-466a-9be9-b0c132386237" class="">Если вы хотите, чтобы буферы и кеш отображались в двух отдельных столбцах, используйте параметр -w .</p><p id="744057ad-73ea-4860-9ecd-a05678379706" class="">Доступно — оценка объема памяти, доступного для запуска новых приложений без подкачки.<br/>По умолчанию команда free показывает информацию о памяти в килобайтах. Чтобы просмотреть информацию в удобочитаемом формате (обычно в мегабайтах и гигабайтах), используйте параметр <br/><strong>-h :</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="94d88f1d-787b-402f-8156-a51bfb7c86e8" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">free -h
+              total        used        free      shared  buff/cache   available
+Mem:           487M        219M         54M        4.5M        214M        228M
+Swap:          1.5G          0B        1.5G
+</code></pre><p id="a0af9f17-aef0-4bd0-9195-7335066811f5" class="">Отображение использования памяти в других показателях<br/>Команда free также позволяет вам указать единицы измерения памяти. Допустимые варианты:<br/></p><ul id="6e897944-5350-426a-a55c-38a6cd7e7e27" class="bulleted-list"><li style="list-style-type:disc">b , --bytes — отображать вывод в байтах.</li></ul><ul id="34b2cb32-0ca2-4b4d-980f-63e72b620872" class="bulleted-list"><li style="list-style-type:disc">-kilo — отображать вывод в килобайтах (1 КБ = 1000 байт).</li></ul><ul id="be973ae3-e9b5-4607-8afd-4fe6aa24a838" class="bulleted-list"><li style="list-style-type:disc">-mega — отображать вывод в мегабайтах.</li></ul><ul id="3fddecf2-0760-4096-a6ad-0171c6c7ac57" class="bulleted-list"><li style="list-style-type:disc">-giga — Показать вывод в гигабайтах.</li></ul><ul id="103a4fab-1c62-4331-8e22-2d645737c3a1" class="bulleted-list"><li style="list-style-type:disc">-tera — Показать вывод в терабайтах.</li></ul><ul id="f0a67cfc-d338-41ac-ad8a-e6e4037d3e81" class="bulleted-list"><li style="list-style-type:disc">k , --kibi — Показать вывод в килобайтах. (1 КБ = 1024 байта). Это единица измерения по умолчанию.</li></ul><ul id="99905013-7cd6-4699-8670-57bb51ae23e5" class="bulleted-list"><li style="list-style-type:disc">m , --mebi — Показать вывод в мегабайтах.</li></ul><ul id="8b05ddb0-1bed-4e0c-a0fd-35dcfe1ecb96" class="bulleted-list"><li style="list-style-type:disc">g , --gibi — Показать вывод в гигабайтах.</li></ul><ul id="f2aec76b-55d8-42b0-b9be-e720c7e82a00" class="bulleted-list"><li style="list-style-type:disc">-tebi — отображать вывод в теробайтах.</li></ul><ul id="0e6d29d9-a2d3-41d1-aa58-b61143c289df" class="bulleted-list"><li style="list-style-type:disc">-pebi — Показать вывод в перобайтах.</li></ul><ul id="382c74ae-2bc3-48f3-9277-2406bd8f7a07" class="bulleted-list"><li style="list-style-type:disc">-si — вместо 1024 используйте --mebi --si 1000. Например, --mebi --si равно --mega .</li></ul><p id="1ded1e2c-1e96-4aac-8309-ed63165aeb27" class=""><strong>Например, чтобы отобразить результат в мегабайтах, введите:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="8039ba03-d1ad-4f9e-a7a5-3a9bdbb5efce" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">free --mega
+              total        used        free      shared  buff/cache   available
+Mem:           8075        4022         233         614        3819        3336
+Swap:          2097           0        2097
+</code></pre><p id="f2219b73-c31c-423d-9ca0-1568ef4a39f0" class=""><strong>Отображение итоговых значений столбца</strong></p><p id="c3b4bed1-5f26-4806-bc8a-52a71a1ec70f" class="">Чтобы отобразить строку, показывающую итоги столбца, используйте параметр -t . Это дает вам сумму памяти и свопа в столбцах total, used и free.</p><p id="8019a48a-3df4-4694-a98e-c3cd645eca5d" class="">free -h -t<br/>total        used        free      shared  buff/cache   available<br/>Mem:           7.7G        3.9G        483M        526M        3.4G        3.2G<br/>Swap:          2.0G          0B        2.0G<br/>Total:         9.7G        3.9G        2.5G<br/></p><p id="e6e064f3-3d6a-4808-a834-67e6b37822b4" class=""><strong>Непрерывно печатать результат</strong></p><p id="d3c7d47e-862c-4433-97d3-0a847a699c35" class="">Чтобы постоянно отображать информацию о памяти на экране, вызовите free с параметром -s ( --seconds ), за которым следует число, определяющее задержку.</p><p id="ce3b876b-8f89-44fd-9fd5-49611600121f" class="">Например, чтобы распечатывать информацию о памяти каждые пять секунд, вы должны выполнить:</p><p id="fe4e11d0-f3e3-40d3-badc-2a7cb44fff53" class=""><code>free -s 5</code></p><p id="2679a0d5-a3bd-4e1e-a82d-22d597956b14" class="">free команда будет продолжать отображать результат, пока вы не нажмете CTRL+C Это похоже на поведение команды watch .</p><p id="fc4d0ff1-2ac6-47cd-b10d-3845d8e42a28" class="">Чтобы отображать результат определенное количество раз, используйте параметр -c ( --count ). В примере ниже команда выведет результат десять раз:</p><p id="fc5d112b-84fa-4e5f-9b77-e6a466dd935f" class=""><code>free -s 5 -c 10</code></p><h3 id="a4105ad9-59db-4b53-bee7-b381735e1536" class="">3.1 Команда free в Linux с примерами</h3><p id="6ffd9a88-02fc-4139-91c5-a123e8f3b90f" class="">Автоматизируйте команду free и запускайте ее непрерывно или периодически<br/>Еще одна отличная особенность – возможность автоматизировать команду. Есть два варианта, которые помогают нам настроить этот инструмент:<br/></p><p id="dcf4b154-9be1-44c7-9dea-69a755a0de0d" class="">Есть параметр ‘-s’, которая запускает команду free в течение заданного интервала секунд, пока пользователь не закроет программу (^ + C).<br/>Существует также «-c», который можно использовать отдельно или в сочетании с параметром секунд. Если вы введете только «-c» и целое число (n), команда будет запускаться n раз. По умолчанию используются интервалы в одну секунду.<br/>Допустим, вы хотите открыть серию приложений и посмотреть, как влияет ваша память. Для тестового вывода мы будем использовать читаемый человеком формат, используя степени 1000 (Gb) вместо 1024 (GiB). Мы собираемся записать в течение 20 секунд, чтобы проанализировать воздействие. Мы собираем данные каждые 5 секунд, и будем делать это за 4 цикла. Вот этот пример, отформатированный для командной строки и ее вывода:<br/></p><p id="19fd752e-301f-48e6-935d-3922d0461de0" class=""><code>root@kali:~# free -h --si -s 5 -c 4</code></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="b301e564-cb02-408f-976b-0a46349d50d2" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">total     used     free   shared  buff/cache   available
+Mem:        2.9G     2.8G     156M      50M      380M     402M
+Swap:         0B       0B       0B
+total     used     free   shared  buff/cache   available
+Mem:        2.9G     2.8G     156M      50M      380M     402M
+Swap:         0B       0B       0B
+total     used     free   shared  buff/cache   available
+Mem:        2.9G     2.9G     100M      54M      390M     401M
+Swap:         0B       0B       0B
+total     used     free   shared  buff/cache   available
+Mem:        2.9G     3.0G      98M      55M      390M     400M
+Swap:         0B       0B       0B
+</code></pre><p id="f3a48727-5871-4925-a5e7-96effee5a20c" class="">Мы подождали несколько секунд, а затем открыли несколько вкладок браузера и получил доступ к некоторым закладкам. Стресс этих видов деятельности отмечен колебаниями объема производства. Обратите внимание, что эффект будет более выраженным при использовании выходного формата с меньшим округлением. В наших чисто демонстрационных целях это не нужно.</p><p id="f7fcfdab-3588-4357-aa65-e8b5abc3d778" class="">Если вы хотите постоянно отслеживать использование памяти командой free, но не хотите, чтобы ее вывод загромождал экран, вы можете использовать команду watch вместе с командой free.</p><p id="d0b28f3a-b121-45c9-b04a-3823a0790a66" class="">Это покажет вам только один вывод для команды free, но этот вывод будет изменяться через регулярные промежутки времени.</p><p id="fa179442-51c8-4442-ab84-5709eb5806e0" class=""><code>watch free -h</code></p><h3 id="a5e8815b-670b-4f1f-a4c0-14af71a48528" class="">4. iostat</h3><p id="3ad8448a-8738-4d97-97ca-0192cbcbf378" class="">Процесс установки iostat очень прост. iostat является частью пакета sysstat, который можно установить на вашей соответствующей системе одной из команд ниже:</p><p id="31501643-b937-42df-ab25-db9784b02f1a" class="">CentOS</p><p id="5c8a5815-518a-4844-a0d1-3573338bc3ff" class=""><code>yum install sysstat</code></p><p id="4ccd9690-8279-467f-ae2a-eb2c7be0c690" class="">Ubuntu / Debian</p><p id="b629b8f9-31af-44fc-ba48-469be43e35d9" class=""><code>sudo apt-get install sysstat</code></p><p id="38ebd113-438a-40b1-8092-2216b67e1318" class=""><strong>Запуск IOSTAT</strong></p><p id="c0f37c2b-8001-49f7-bb52-9bcedb3ebde0" class="">IOSTAT инструмент, который доступен через команду iostat. Введите эту команду, чтобы увидеть, как она работает:</p><p id="9cc76dc9-c19c-4fd2-8196-aa2897caa163" class=""><code>iostat</code></p><p id="dc669cbd-4156-40da-9909-1ffeb2f266f1" class=""><strong>Синтаксис iostat очень простой. Вам достаточно выполнить:</strong></p><p id="988a8cb0-70d1-4a80-9049-bfa39c5b86dc" class=""><code>$ iostat опции устройство интервал</code></p><p id="d8a44dec-a6f1-4242-aea5-aada541643d5" class="">Параметры устройство и интервал необязательные. Первый указывает по какому устройству показывать статистику, а второй, с каким интервалом обновлять данные. Давайте сначала рассмотрим опции программы, которые могут вам пригодится:</p><ul id="ff17e8c2-3375-456d-bf82-7fd7375678b5" class="bulleted-list"><li style="list-style-type:disc">с - отобразить только информацию об использовании процессора;</li></ul><ul id="c1d27a5f-b99b-498c-8f16-3b2d458c530e" class="bulleted-list"><li style="list-style-type:disc">d - отобразить только информацию об использовании устройств;</li></ul><ul id="a93bd5dd-1155-4b2d-b0a0-0b93c51c0635" class="bulleted-list"><li style="list-style-type:disc">h - выводить данные в отчёте в удобном для чтения формате;</li></ul><ul id="a8942c30-7189-4960-999e-ec35ba953443" class="bulleted-list"><li style="list-style-type:disc">k - выводить статистику в килобайтах;</li></ul><ul id="fa21e051-4abc-407e-ac6c-cbabda706832" class="bulleted-list"><li style="list-style-type:disc">m - выводить статистику в мегабайтах;</li></ul><ul id="80de0ca7-d5ea-483d-b9da-f93aba7d7f1d" class="bulleted-list"><li style="list-style-type:disc">o JSON - выводить статистику в формате JSON;</li></ul><ul id="41f3379a-903b-4e50-a6f6-2b13bcee9b74" class="bulleted-list"><li style="list-style-type:disc">p - вывести статистику по устройству и всех его разделам;</li></ul><ul id="41143e50-abff-49d5-b946-5af50f805dd3" class="bulleted-list"><li style="list-style-type:disc">x - вывести расширенную статистику;</li></ul><ul id="59ffce3c-acd0-4045-9d56-9f691a6a925b" class="bulleted-list"><li style="list-style-type:disc">y - отображать статистику с момента запуска утилиты, а не системы;</li></ul><ul id="aaa60f04-b5f4-4379-ad5e-fffeb231348d" class="bulleted-list"><li style="list-style-type:disc">z - спрятать информацию о дисках, у которых нет активности.</li></ul><p id="0b0cc9a7-5d10-410b-8e6c-e9466adbc755" class="">Самый простой пример использования утилиты, это запустить её без параметров. Она выведет отчёт с со средней статистикой с момента включения системы до момента запуска программы:</p><p id="529a86fd-7925-4684-a7bb-c5e551425d2e" class=""><code>sudo iostat</code></p><p id="f1ce46f9-1670-45b0-9a45-f6051eaa2fd8" class="">В первой части отчёта находится информация о загруженности процессора. Тут есть такие колонки:</p><ul id="9afd5f51-cfa0-4cb6-bda4-6301234b75e0" class="bulleted-list"><li style="list-style-type:disc">%user - процент использования процессора программами, запущенными на уровне пользователя;</li></ul><ul id="fe2ab63c-58df-444c-a016-19c70aeceecc" class="bulleted-list"><li style="list-style-type:disc">%nice - процент использования процессора программами запущенными тоже в пространстве пользователя, но только с изменённым приоритетом;</li></ul><ul id="700f8f36-6cb6-484a-ab47-a667fa1242cf" class="bulleted-list"><li style="list-style-type:disc">%system - процент использования процессора ядром;</li></ul><ul id="7263c99f-3719-400b-add7-ab2c7c307603" class="bulleted-list"><li style="list-style-type:disc">%iowait - процент времени затраченного на ожидание завершения операций ввода/вывода;</li></ul><ul id="7d360a70-eea4-47f2-b5bc-a14c27097486" class="bulleted-list"><li style="list-style-type:disc">%steal - процент простоя виртуального процессора, пока гипервизор отдаёт мощность другому виртуальному процессору;</li></ul><ul id="7f5d44d4-8439-417f-8cd4-df9ea9259b82" class="bulleted-list"><li style="list-style-type:disc">%idle - процент времени пока процессор не занят ничем.</li></ul><p id="235e4d5f-afd1-443e-8eb5-454a2df869ef" class="">Если значение параметра %iowait слишком большое, то это может означать, что у вас проблема с производительностью диска и слишком много времени тратится на ожидание завершения ввода/вывода. Для устройств ввода/вывода тоже отображается ряд колонок с информацией. Разберемся что они означают:</p><ul id="849632db-c39b-43da-97f7-145ea42f76e1" class="bulleted-list"><li style="list-style-type:disc">tps - означает количество запросов на чтение или запись к устройству в секунду;</li></ul><ul id="47c0ba1a-f718-426a-aa7e-3aa7d81779db" class="bulleted-list"><li style="list-style-type:disc">KB_read/s, MB_read/s - количество килобайт или мегабайт, прочитанных с устройства за секунду;</li></ul><ul id="b15fcf26-f028-46a7-b4c4-d9d74dfeb302" class="bulleted-list"><li style="list-style-type:disc">KB_wrtn/s, MB_wrtn/s - количество килобайт или мегабайт записанных на устройство в секунду;</li></ul><ul id="69fbdc74-9f5c-419a-954e-003148f98084" class="bulleted-list"><li style="list-style-type:disc">KB_dscd/s, MB_dscd/s - скорость освобождения блоков данных на устройстве, килобайт или мегабайт в секунду;</li></ul><ul id="ef6c0766-e545-40b1-8269-588e00302ad1" class="bulleted-list"><li style="list-style-type:disc">KB_read, MB_read - общее количество прочитанных данных с диска с момента загрузки системы;</li></ul><ul id="2b77d3ba-852e-4009-a140-8863049162b4" class="bulleted-list"><li style="list-style-type:disc">KB_wrtn, MB_wrtn - количество записанных данных с момента загрузки системы;</li></ul><ul id="16228de0-134c-468c-beb5-a4aeb640f301" class="bulleted-list"><li style="list-style-type:disc">KB_dscd, MB_dscd - количество освобождённых блоков на диске в результате выполнения операции trim в килобайтах или мегабайтах.</li></ul><p id="f06a0a0b-080c-40b5-bfe1-3beccb45e911" class="">С чтением и записью, я думаю, что всё понятно. Освобождение блоков с данными с помощью операции trim или discard актуально для SSD дисков. Этой операцией файловая система сообщает какие блоки больше хранить физически не нужно и можно использовать для других целей. Утилита отображает с какой скоростью эти блоки освобождаются, а также сколько блоков или мегабайт данных было освобождено. Рассмотрим ещё несколько примеров. Для просмотра данных в удобном формате выполните:</p><p id="a3ecdb33-7976-4185-96d1-be59c36d339a" class=""><code>sudo iostat -h</code></p><p id="8ea7d58b-0b66-43e2-b883-de2351f5a6d3" class="">Чтобы посмотреть данные по нужному устройству просто укажите это устройство:</p><p id="9250cf2d-9192-4312-891d-561cfc98f748" class=""><code>sudo iostat /dev/nvme0n1</code></p><p id="0683c4b0-5185-4da9-9938-dc7a084e9650" class="">Можно посмотреть статистику по каждому разделу устройства, тогда надо воспользоваться опцией -p:</p><p id="e84eda0e-9375-495d-afa3-fd1305d84e57" class=""><code>sudo iostat -p /dev/nvme0n1</code></p><p id="ce58186a-fd8e-41c4-88ee-9e76616e3f2f" class="">Чтобы утилита автоматически обновляла данные каждую секунду просто добавьте интервал. Например:</p><p id="8b664de0-d383-41d2-8f8e-3b8cb62f86da" class=""><code>sudo iostat -p /dev/nvme0n1 1</code></p><p id="e28bfb85-5278-4f7b-8294-99816dce13c0" class="">Если вы не хотите чтобы утилита суммировала все данные с момента запуска операционной системы, то можно использовать опцию -y. Но работает она только если задан интервал:</p><p id="8c2ccbc3-369f-4de3-8825-fc1bdf14148b" class=""><code>sudo iostat -y -p /dev/nvme0n1 1</code></p><h3 id="52ff4abf-1aa9-41fb-a0df-14f554647a83" class="">4.1 Профилирование нагрузки на файловую систему с помощью iostat</h3><p id="9030d628-09a8-4c2c-a2b0-bfdf61f143b4" class="">Зачастую работа «в поле» требует сбора и анализа информации на сайте заказчика в условиях наличия крайне скудного списка утилит. В частности собрать информацию об использовании системы ввода-вывода в течении дня.</p><p id="24180c83-b619-44f3-a2f8-f32c6d4411d5" class="">В статье я попробую показать, как располагая только iostat и gnuplot можно попробовать провести анализ системы и какие выводы можно сделать.</p><p id="22509967-48a9-46af-821d-0516037334e0" class="">Я не претендую на доскональное владение предметом и точное использование терминов. Более того, я постараюсь говорить «обычным» языком и не бросаться терминами.</p><p id="229b2233-2f94-4ef4-9222-197265c42265" class="">Все описанное ниже есть плод опыта, ошибок, гугления, курения манов и прочая</p><p id="8a69fc28-5f4c-453d-9caf-93efbe582de9" class=""><strong>Небольшой ликбез</strong></p><p id="7fc099be-0a2f-4a11-b265-98569958ce7a" class="">В терминах оценки производительности системы ввода-вывода в части хранения, есть несколько характеристик:<br/>Пропускная способность (байт в секунду) — максимальная линейная скорость с которой устройство пишет или читает один, но очень большой файл.<br/>IOPS (операций в секунду) — число запросов, отправленных на устройство. Это скорость работы с большим числом мелких файлов.<br/>Время обработки (миллисекунд) — время за которое в среднем обрабатывается запрос на ввод-вывод включая ожидание в очереди, причем наиболее характерно именно ожидание, ибо оно зависит от загрузки, а не собственно размера запроса. Чем выше это время, тем «тормознутее» отзыв системы на запрос приложения, но остальные приложения в принципе не затрагиваются.<br/>Загрузка (проценты) — оценка загруженности системы на ввод-вывод. При значениях близких к 100% система «встает», в том числе все приложения. Процессора уходят в iowait, а процессы, желающие ввода-вывода — в <br/><code>[Disk]</code> Sleep</p><p id="fb78ad74-8f37-4f1e-9a4e-2a0c9541dcff" class="">При этом нужно понимать, что ни один из этих параметров не может дать полноценный профиль использования файловой системы. Сложно увидеть и оценить «чистую» работу файловой подсистемы, хотя бы из-за того, что в стеке ее работы присутствуют различные кеши: буфер диска, кеш RAID контроллера, системный кеш. Соответственно более менее экстраполируемые цифры могут быть получены только вблизи от пиковой нагрузки. А тема правильного тестирования систем хранения, сравнения и оценки результатов это вообще поле не паханое и можно писать диссертации.</p><p id="0363acce-1654-4a3c-8b22-ad9752d9e065" class=""><strong>Базовые характеристики</strong></p><p id="cc44799d-db0b-4d76-96c8-f46c18ae5508" class="">Так как измерять абсолютные цифры вообще дело не очень благодарное, я предпочитаю оценивать их значение опираясь на какой то базис, и после этого уже оперировать какими то относительными мерками. Причем опыт работы с СУБД намекает, что сравнивать стоит не значения, а их порядки.<br/>За такой базис я для себя принял следующие цифры:<br/>Средний серверный жесткий диск 10 тысяч оборотов в секунду, подключенный по SAS к путному RAID контроллеру (с кешем на батарейке):<br/>имеет пропускную способность около 300 Мегабайт в секунду при последовательном доступе<br/>выдает порядка 150 iops (в попугаях)<br/>при времени обработки запросов порядка 10 мс<br/></p><p id="de6face0-dce8-46dd-93c4-5e9b5e60d1d0" class="">Если все это живет в RAID то соответственно в зависимости от типа рейда цифры множатся или делятся на число дисков. Например: 4 диска в RAID 1+0 должны показать половину суммарных iops всех четырех дисков.</p><p id="e2234d30-eddc-49b6-a5dc-511e3ccdffef" class="">Если тесты показывают, что система работает, выдавая примерно эти цифры, значит никто при тестировании не «нажал», никаких чудес нет и можно работать дальше. Иначе стоит сначала разобраться что с железом (может RAID восстанавливается или винт сыпется).</p><p id="d978a5b2-62e1-4243-adee-261324fe6d2f" class="">В основном результаты тестирования я использую для оценки эффективности работы с системой хранения и влияние настроек СУБД и нашего софта, на то как они её используют, а так же быстрой диагностики наличия проблем с СУБД.</p><p id="ff4a5680-d96c-42cd-8779-f4e7d9021c8a" class=""><strong>Измерения</strong></p><p id="b39e5d86-32cf-4f94-9aac-578c5ea3c085" class=""><strong>Подготовка</strong></p><p id="0aa7f437-ef41-41fa-9707-576c07fd6dd0" class="">Для начала разумно сохранить df -hl для того чтобы понимать о каких разделах идет речь.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="4c896ba0-604a-40c1-8095-619c28e0521b" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all"># df -hl
+Filesystem            Size  Used Avail Use% Mounted on
+/dev/sda1             4.0G  3.9G     0 100% /
+/dev/sda7             102G   94G  2.7G  98% /SQL
+/dev/sda6            1012M  307M  654M  32% /var
+/dev/sda2             3.0G   69M  2.8G   3% /tmp
+/dev/sda5              34G   24G  8.8G  73% /ARCHIVE
+tmpfs                 4.0G   26M  3.9G   1% /dev/shm
+</code></pre><p id="b2843249-a60c-408d-973e-6aa3ba3281c9" class="">Кстати, полезно еще помнить на каком из разделов располагается swap.</p><p id="72b4758b-c614-4df9-9dda-6ca5bdbf6bd8" class="">Хорошо будет, если физическое устройство разбито на разные логические разделы для каждого компонента. Этим мы сможем оценить профиль использования системы ввода-вывода для каждого разнесенного компонента.</p><p id="ba004fe2-4711-431d-98bb-a7ba8c810ea1" class=""><strong>Наблюдение</strong></p><p id="bfa6a042-2d50-412a-a12b-216670e5c04e" class="">В отличии от других утилит iostat не очень приспособлен для логирования с учетом времени. Ну ничего, awk в помощь.</p><p id="81957c50-fa4a-4c47-924a-d56944be639d" class=""><strong>Строчка для получения лог файла:</strong></p><p id="72bbc64b-6d5d-4152-a322-4bab062956ea" class=""><code>iostat -xk -t 10 | awk &#x27;// {print strftime(&quot;%Y-%m-%d %H:%M:%S&quot;),$0}&#x27; &gt;&gt; iostat.log &amp;</code></p><p id="8cdcff32-7749-4d97-89ea-46486b5c3519" class="">Естественно, запускать это надо в скрине.</p><p id="4880cf0f-13b9-40c7-b2bf-a44fe54a9f38" class="">Следует обратить внимание на параметр -t 10. Это интервал, за который усредняются значения и вычисляются «средние» в секундах.</p><p id="1db94013-6d74-478c-aaf1-dccae2089a6c" class="">Если значение будет слишком мало — будут на графике лишние пики и выбросы. Если слишком велико — существенных пиков заметно не будет. По моему интервал 3-10 секунд оптимальный.</p><p id="07deabc0-8e53-47e6-b4ce-60f53c5d6204" class=""><strong>Ввод нашего лога будет примерно таким</strong>:</p><p id="57b7148d-fae4-47c6-bcbd-dd01e0a932ca" class=""><code>iostat -xk -t 10 | awk &#x27;// {print strftime(&quot;%Y-%m-%d %H:%M:%S&quot;),$0}</code>&#x27;</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="98fd8030-134c-458d-8ad8-6569ac609143" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">2013-01-14 11:31:04 Linux 2.6.32.32-m4.x86_64 (localhost.localdomain)   01/14/2013
+2013-01-14 11:31:04
+2013-01-14 11:31:04 Time: 11:31:04 AM
+2013-01-14 11:31:04 avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+2013-01-14 11:31:04            0.67    0.00    1.02    1.11    0.00   97.20
+2013-01-14 11:31:04
+2013-01-14 11:31:04 Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await  svctm  %util
+2013-01-14 11:31:04 sda              20.70    47.44    0.91   12.01    26.18   237.91    40.89     2.35  181.49   7.76  10.03
+2013-01-14 11:31:04 sda1              0.00     0.83    0.08    0.67     0.94     6.00    18.47     0.05   61.99  15.81   1.19
+2013-01-14 11:31:04 sda2              0.00     0.24    0.00    0.01     0.00     1.00   173.76     0.01  533.13  45.98   0.05
+2013-01-14 11:31:04 sda3              0.00     0.00    0.00    0.00     0.01     0.02   120.95     0.00   33.78  25.52   0.00
+2013-01-14 11:31:04 sda4              0.00     0.00    0.00    0.00     0.00     0.00     2.00     0.00   72.00  72.00   0.00
+2013-01-14 11:31:04 sda5              7.45     2.07    0.18    1.17     3.82    12.99    24.88     0.06   41.68  13.86   1.87
+2013-01-14 11:31:04 sda6              0.00     0.15    0.00    0.28     0.11     1.72    12.85     0.01   40.63  18.86   0.54
+2013-01-14 11:31:04 sda7             13.24    44.15    0.65    9.87    21.29   216.18    45.16     2.23  211.42   7.91   8.32
+2013-01-14 11:31:04
+2013-01-14 11:31:14 Time: 11:31:14 AM
+2013-01-14 11:31:14 avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+2013-01-14 11:31:14            0.61    0.00    1.06    1.20    0.00   97.12
+2013-01-14 11:31:14
+2013-01-14 11:31:14 Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await  svctm  %util
+2013-01-14 11:31:14 sda               0.00    45.40    0.00   10.50     0.00   219.20    41.75     1.69  156.43   8.30   8.72
+2013-01-14 11:31:14 sda1              0.00     0.80    0.00    0.30     0.00     4.40    29.33     0.01   25.33  25.33   0.76
+2013-01-14 11:31:14 sda2              0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00   0.00   0.00
+2013-01-14 11:31:14 sda3              0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00   0.00   0.00
+2013-01-14 11:31:14 sda4              0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00   0.00   0.00
+2013-01-14 11:31:14 sda5              0.00     1.30    0.00    1.00     0.00     9.20    18.40     0.03   27.80   8.10   0.81
+2013-01-14 11:31:14 sda6              0.00     0.70    0.00    1.10     0.00     7.20    13.09     0.02   18.55  10.64   1.17
+2013-01-14 11:31:14 sda7              0.00    42.60    0.00    8.10     0.00   198.40    48.99     1.63  195.89   8.15   6.60
+</code></pre><p id="e45560bb-d03a-4067-8c10-6bfc6f2f642c" class="">Первый блок это измерения за период работы с момента старта. Остальные за время указанный интервал.</p><p id="28829d6f-cacb-47d2-a2cd-ad7496c9a3ab" class="">Запускаем это логгирование на некий интервал (например пару суток, а потом просим прислать лог.</p><p id="8298d8b8-6398-452c-b776-58a671261caf" class=""><strong>Анализ</strong></p><p id="900f52aa-91ce-44d0-9158-68dd3a7b2036" class="">Ну что по таким цифрам можно сказать?</p><p id="371a32f5-61c6-48c7-8d8f-dcf677873d49" class="">В первую очередь обратим внимание на последнюю колонку <em>%util</em>. Хотя бы потому, что большое значение этого параметра (90%-100%) для пользователя выглядит как «сервер висит». У нас sda загружен менее чем на 9%. Нормально. Причем в основном разделом <em>sda7(SQL)</em>.</p><p id="50c0dbbc-c284-4e84-94a3-7c9adc95f84a" class=""><strong>Далее параметры записи/чтения:</strong></p><p id="e6af6248-cbf1-401f-90e5-ace23d1ff1b9" class="">пропускная способность колонки rkB/s, wkB/s. Пишем 219 KБ/с<br/>iops колонки r/s, w/s — 10,5 запросов в секунду<br/>время обработки запроса: await — 156 ms, из них собственно выполнение svctm 8 ms<br/></p><p id="a27fb684-f916-482d-8b8e-6930d1c4a8e3" class="">О чем это говорит:<br/>Диск не загружен, числа не большие. Но запросы стоит в очереди 200ms время приемлемое, но при «первом шухере расколется», сама подсистема паршивенькая. Хотя однозначно сказать нельзя? ибо опять таки диск не сильно грузится вот и не торопятся данные отправлять из очереди.<br/></p><p id="4ea5aea2-d1dd-4913-a2d7-133dd319bf7f" class="">Что еще полезно: rrqm/s, wrqm/s это собственно число запросов, которые приложения попросили выполнить, но система смогла их объединить в блоки в среднем по avgrq-sz байт.</p><p id="e8f399a2-32bf-4cd1-bddc-00bd9cd4a10c" class="">Данные цифры помогут оптимизировать работу приложения:<br/>Если вы откроете 100500 файлов, начнете произвольно прыгать по открытым файлам и заниматься прочими излишествами, выкушаете кеш системы — r/s,w/s начнут стремиться к rrqm/s и wrqm/s, и avgrq-sz падать. Это ситуация чистого Random Access — самый медленный сценарий использования диска.<br/>А если все будет последовательно, то стремиться они будут к единичке (а лучше к нолику), а avgrq-sz расти. Единственный запрос за интервал — это чистой воды Sequential Access — самый быстрый сценарий использования диска.<br/></p><p id="eac63781-d981-46d0-a6d7-81ca2fe0260f" class="">Понятно, что всегда последовательной работы добиться трудно, а часто и невозможно, но сопоставляя эти цифры — можно оценить улучшило или ухудшило изменение логики работы с диском нагрузку на него.</p><h3 id="188bdbc1-3067-4f29-b79d-d100a57db840" class="">5. mpstat</h3><p id="a9929f37-e1e8-4921-b9df-d9917990ab42" class="">Утилита mpstat для мониторинга производительности Unix/Linux<br/>mpstat — отчет о использовании процессоров. Команда mpstat пишет в стандартный вывод на экран о каждом имеющемся процессоре, 0-й процессор будет выведен на первое место. Параметр «interval» определяет количество времени в секундах между каждым отчетом. Значение 0 (или без параметров) показывает статистику о процессорах и отчетность будет представляться с момента запуска системы (загрузки).<br/></p><h3 id="562ac6d4-b86d-4d51-a0b0-47f1b9aa8f8a" class="">5.1 Отображение всей информации</h3><p id="ed14b1fd-8191-4787-a519-82896326a6fd" class="">Опция «-А», показывает всю информацию, которая может быть отображена с помощью команды mpstat, как показано ниже. Это действительно эквивалентно команде «-I ALL -u -P mpstat ALL» команды:</p><p id="2e0dd079-80c1-48a8-82ef-19e9751be3f3" class=""><code>mpstat -A</code></p><figure id="ffa9fabb-0a2b-4fc2-930e-235691c7d3c3" class="image"><a href="https://i.imgur.com/5mzlymd.png"><img src="https://i.imgur.com/5mzlymd.png"/></a></figure><h3 id="98a571fb-bdfc-4448-99a6-3fdb7287d6b1" class="">5.2 Показать статистику CPU индивидуального процессора (или) ядра</h3><p id="11eccb08-65a6-4715-ac8d-d37ad1df7533" class="">Параметр «-P ALL», покажет все индивидуальные процессоры или ядра вместе со статистикой:</p><p id="cc7a2465-43fd-4b53-a3ee-6147552e4cd5" class=""><code>mpstat -P ALL</code></p><figure id="edb4a631-99b4-4c66-b9eb-b99a189dd7a0" class="image"><a href="https://i.imgur.com/YcJZkXD.png"><img src="https://i.imgur.com/YcJZkXD.png"/></a></figure><h3 id="18e538b7-4279-480e-a982-f87d3a94e809" class="">5.3 Для отображения статистически о конкретном CPU или ядре, используйте опцию «-P», как показано ниже:</h3><p id="81db88ab-34a7-4110-9b8a-87b055d3968d" class=""><code>mpstat -P 0</code></p><figure id="268d492b-2f11-4197-8201-648a47910ae4" class="image"><a href="https://i.imgur.com/ZAwQ2AO.png"><img src="https://i.imgur.com/ZAwQ2AO.png"/></a></figure><h3 id="8c789b44-34a8-4bcc-9dd2-519c94f57179" class="">5.4 Можно выполнить «mpstat -V» чтобы показать версию утилиты:</h3><figure id="ac7b75b0-63a4-4d55-aa4a-9fdae7548fb4" class="image"><a href="https://i.imgur.com/KYpUXPU.png"><img src="https://i.imgur.com/KYpUXPU.png"/></a></figure><h3 id="c2988fbe-fe37-4f68-8059-c813340a92c3" class="">5.5 Дополнительные опции</h3><figure id="77b54cba-e839-4d55-a8fd-85cb4e048878" class="image"><a href="https://i.imgur.com/1Jt9rPD.png"><img src="https://i.imgur.com/1Jt9rPD.png"/></a></figure><h3 id="047af0ff-dae0-4553-b38c-c133a80a0a20" class="">6. vmstat</h3><p id="9dbbb50d-5c6f-4c45-8962-ff18028cfbcc" class="">В первую очередь нужно вызвать команду vmstat,</p><figure id="3b1f66ef-eb19-4601-aca5-17bdba7209bf" class="image"><a href="https://i.imgur.com/5D753xU.png"><img src="https://i.imgur.com/5D753xU.png"/></a></figure><p id="0020a99d-53ff-46e0-8bdf-cda32c568bd2" class="">которая предоставляет краткую информацию о различных ресурсах системы и связанных с ними неполадках, приводящих к снижению производительности.<br/>Отчет команды vmstat содержит статистическую информацию о нитях ядра, находящихся в очереди выполнения и ожидающих запуска, а также об оперативной памяти, подкачке, дисках, прерываниях, системных вызовах, переключении контекста и работе процессора. В информации о процессоре указывается доля времени, в течение которой процессор работал в пользовательском режиме, системном режиме, простаивал и ожидал завершения операции дискового ввода-вывода.<br/>Для получения информации о работе процессора удобнее использовать команду vmstat, а не iostat, так как ее построчный вывод проще анализировать, а в случае, когда к системе подключено много дисков, ее вывод намного менее объемный. Приведенный ниже пример иллюстрирует применение vmstat для обнаружения программ, которые потребляют слишком много ресурсов CPU.<br/></p><p id="ffbd65b9-4ac9-4e33-9fa0-96c332f694d2" class=""><strong>vmstat -a</strong></p><p id="8a6c2882-df04-4fdb-a8c4-6af6854a2318" class="">(active/inactive memory) - активная/неактивная память</p><figure id="3e57fd9c-f475-43a1-b2fe-91d716a8df7e" class="image"><a href="https://i.imgur.com/liUq4cz.png"><img src="https://i.imgur.com/liUq4cz.png"/></a></figure><p id="8452d884-7054-4645-8064-b168af01db39" class=""><strong>vmstat -f</strong></p><p id="90ab5338-012e-46ab-b93e-5b9a3c927b23" class="">(number of forks since boot) - количество вилок с момента загрузки</p><figure id="ade18a46-149d-40b8-b440-d892609b5ec1" class="image"><a href="https://i.imgur.com/MRJRX8f.png"><img src="https://i.imgur.com/MRJRX8f.png"/></a></figure><p id="798b9637-f13e-4b30-85de-a97a8c066abe" class=""><strong>vmstat -d</strong></p><p id="22041b79-93ba-4c4f-8419-89e2e4aa50e9" class="">(disk statistics) - статистика диска</p><figure id="48e59290-2c74-4aea-9aed-2dc11dc35b4b" class="image"><a href="https://i.imgur.com/uiDae08.png"><img src="https://i.imgur.com/uiDae08.png"/></a></figure><p id="3ff88e5f-3c9c-47e6-ae93-ca0763e3c0b5" class=""><strong>vmstat -D</strong></p><p id="9a897e3c-df4f-4d17-8a43-96d6f1f37a56" class="">(summarize disk statistics) - (общая статистика диска)</p><figure id="74326ed1-2c8c-48c9-a95b-0222c1a0daee" class="image"><a href="https://i.imgur.com/Pn5utC2.png"><img src="https://i.imgur.com/Pn5utC2.png"/></a></figure><p id="fece9559-b38a-422d-aef6-708c5cc82336" class=""><strong>vmstat --help</strong></p><figure id="7452f3fb-cdb5-4b6d-b980-eeae6cf83feb" class="image"><a href="https://i.imgur.com/zZnwJhI.png"><img src="https://i.imgur.com/zZnwJhI.png"/></a></figure><p id="98e0eebb-2c46-40c1-91d1-2aa8c454b410" class="">vmstat 1 - 60 - через какое количество секунд выводить информацию</p><h3 id="37cc8c0d-5cef-4038-95e4-ce644fb7b521" class="">7. Утилита/команда &quot; w &quot;</h3><p id="3ae2584c-9d4b-450d-9a8d-906b5732660b" class="">Выводит краткую сводку о работающих в системе в данный момент пользователях (залогиненных пользователях), а также о том, какие процессы у них запущены</p><figure id="b05f0ddc-ad8e-4a0c-82d2-5e99e7be6909" class="image"><a href="https://i.imgur.com/IHM6EL6.png"><img src="https://i.imgur.com/IHM6EL6.png"/></a></figure><p id="5c674f83-679c-46e7-9259-8858d14cdf2c" class="">В таблице для каждого пользователя выводятся следующие поля:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="bae3cbd0-bf06-46dc-b004-c294df72e435" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">USER — имя пользователя.
+TTY — название терминала.
+FROM — название удаленного компьютера или IP-адрес.
+LOGIN — время входа в систему.
+IDLE — время бездействия.
+JCPU — время, использованное всеми процессами, подключенными к tty. Оно не включает завершенные фоновые задания, но включает фоновые задания, работающие в данный момент.
+PCPU — время, использованное текущим процессом, который указан в поле WHAT.
+WHAT — текущий процесс (командная строка текущего процесса).
+</code></pre><ul id="24e54d04-9510-4b0b-b909-f303fb85e1b2" class="bulleted-list"><li style="list-style-type:disc">h</li></ul><p id="dc35dd4b-73d7-460b-8205-3271936ff09a" class="">Не выводить заголовок у таблицы.</p><figure id="63d4d074-f330-4172-8015-aa2a434e7824" class="image"><a href="https://i.imgur.com/qas4EiL.png"><img src="https://i.imgur.com/qas4EiL.png"/></a></figure><ul id="c76fef65-953a-47f7-b172-ea5a7df4fe0e" class="bulleted-list"><li style="list-style-type:disc">u</li></ul><p id="4c621c5e-cf8e-4ad2-95cd-eb2c418b4fb9" class="">Игнорировать имена пользователей при определении времени текущего процесса и времени CPU.</p><figure id="46a5cd62-4e57-4879-a774-d8bcaa4faac8" class="image"><a href="https://i.imgur.com/U1GlxPu.png"><img src="https://i.imgur.com/U1GlxPu.png"/></a></figure><ul id="30966b1d-213f-412c-8008-12a5a325c6af" class="bulleted-list"><li style="list-style-type:disc">s</li></ul><p id="bbb9d741-208e-4a2b-81d2-1ab6a6619f02" class="">Использовать сокращенный формат вывода. Не выводить колонки JCPU и PCPU.</p><figure id="53a8aad3-8527-4f70-bc19-c9eae66ced2a" class="image"><a href="https://i.imgur.com/kLVLttb.png"><img src="https://i.imgur.com/kLVLttb.png"/></a></figure><ul id="57b0ad7c-0172-4117-8694-f7a723ea0416" class="bulleted-list"><li style="list-style-type:disc">f</li></ul><p id="98452e03-d15a-4f85-9e83-400f28ae0330" class="">Включить или выключить вывод поля from, которое соответствует имени удаленного хоста (remote hostname). В зависимости от дистрибутива Linux (версии утилиты w), поле from может выводиться или не выводиться по умолчанию.</p><figure id="719435f1-29de-46f2-928b-ddf8d46dc287" class="image"><a href="https://i.imgur.com/ofjcAWv.png"><img src="https://i.imgur.com/ofjcAWv.png"/></a></figure><ul id="811aae10-344c-474d-8fa0-0c91efad6169" class="bulleted-list"><li style="list-style-type:disc">i</li></ul><p id="4463a206-1681-4f0f-8609-680cc67280bd" class="">Выводить в поле from IP-адрес вместо имени хоста (hostname), если это возможно.</p><figure id="5abe1595-c64f-4091-a67d-a86507c4ad7e" class="image"><a href="https://i.imgur.com/2cZoWcm.png"><img src="https://i.imgur.com/2cZoWcm.png"/></a></figure><ul id="62e5b00b-25fa-4f10-9339-a5976aebc7ae" class="bulleted-list"><li style="list-style-type:disc">o</li></ul><p id="b348cca7-a22f-4c5b-8313-09d42b9e63c4" class="">Выводить информацию в старом формате. Время, которое меньше 1 минуты, не выводится.</p><figure id="0159b9ec-df8b-4a78-b182-3458d87c5929" class="image"><a href="https://i.imgur.com/zfjiza1.png"><img src="https://i.imgur.com/zfjiza1.png"/></a></figure><ul id="a4c3230a-ddf5-4e00-953a-5a26fb44dfcb" class="bulleted-list"><li style="list-style-type:disc">V</li></ul><p id="c94bc574-eb69-4e08-b144-dd8149a6fa7e" class="">Вывести версию утилиты w.</p><figure id="6aad6b3e-2508-4e72-aa47-29da193f06ad" class="image"><a href="https://i.imgur.com/3XPeMqd.png"><img src="https://i.imgur.com/3XPeMqd.png"/></a></figure><h3 id="043bad8a-b3f6-407d-9d81-0a1027677b67" class="">8. Утилита htop</h3><figure id="a70ecf3e-1d83-44ab-884c-716268f41b46" class="image"><a href="https://i.imgur.com/UURruNP.png"><img src="https://i.imgur.com/UURruNP.png"/></a></figure><p id="bbcc5d8e-84c1-41dc-8ec2-960904d7bafc" class=""><strong>Как установить htop</strong></p><p id="b0d79b1c-aa5f-410e-944e-3250fd04d6a2" class="">Установите пакет с именем htop используя менеджер пакетов для вашего дистрибутива.</p><p id="31931ef6-0913-4d52-91d6-0c3d2b11e10a" class="">В Debian, Linux Mint, Ubuntu, Kali Linux и их производных выполните:</p><p id="461dfc36-9fab-4409-80ba-37e9260a7489" class=""><code>sudo apt install htop</code></p><p id="5d35850f-4486-44f2-b107-97b8c9ade0c3" class="">В Arch Linux, Manjaro, BlackArch и их производных выполните:</p><p id="0e055b9b-7084-4c5c-b7e7-a8b29daafc9d" class=""><code>sudo pacman -Syu htop</code></p><p id="4d8bec32-137f-4a5e-91f4-7a0cd6e286f1" class=""><strong>Как просмотреть все процессы в Linux</strong></p><p id="d05a8fc9-f1f2-4219-84fc-53442415f705" class="">Команду htop можно запускать как с правами обычного пользователя:</p><p id="9d2c0d46-6239-4575-a668-23e180c0dbe4" class=""><code>htop</code></p><p id="d0e55bae-a658-4d71-82eb-d19afa1403a0" class="">Так и с привилегиями суперпользователя, для этого используйте sudo:</p><p id="0fa4f3ec-6c73-40b2-b8d8-7e257afffd59" class=""><code>sudo htop</code></p><p id="6f842bff-2312-4da9-b247-e2414b2125f1" class="">Права суперпользвоателя нужны только для некоторых действий: для изменения приоритета (nice) процессов, для закрытия процессов других пользователей.</p><p id="d4764ae7-086c-4b45-8005-466680f43709" class=""><strong>Как и в случае с программой top, окно разделено на два основных раздела:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="39cd82f6-6201-4b09-8912-a83f0305901b" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">обобщённая информация о системе
+подробная информация о процессах
+область с информацией о системе
+</code></pre><p id="6f9c662b-c673-43f7-bb80-d5402939336a" class=""><strong>В самом верху показана нагрузка на каждое ядро центрального процессора (цифры от 1 до 12).</strong>`</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="e9475e85-10b3-42c1-b49a-0dd515690e44" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Mem — это общее количество оперативной памяти и используемая память.
+Task — обобщённая статистика по процессам
+Swp — уровень занятости файла подкачки (если он есть)
+Load average — средняя загрузка центрального процессора
+Uptime — время работы операционной системы с момента последней загрузки
+</code></pre><p id="ad07eecc-7c6e-4f24-b062-3d167c702901" class=""><strong>Теперь перейдём к области с информацией о запущенных процессах</strong>.</p><p id="8d1ed213-141a-46c1-8882-fdf37b06c5c1" class=""><em><strong>Значение столбцов htop</strong></em></p><p id="6314d2c6-06fd-4c2e-b703-43fa163f6420" class="">Программа htop выводит следующие столбцы:</p><p id="7f7555db-90ab-47f7-a86c-7ba151b880b6" class=""><em>PID</em><br/>Идентификатор процесса.<br/></p><p id="51834892-8c0d-463f-9315-3f69dd995e83" class=""><em>USER</em><br/>Имя пользователя владельца процесса или ID если имя не может быть определено.<br/></p><p id="ec72160d-f6f9-4fb7-ba4a-5351a12a1689" class=""><em>PRI</em><br/>Приоритет — внутренний приоритет ядра для процесса, обычно это просто значение nice плюс двадцать. Отличается для процессов имеющих приоритет выполнения real-time.<br/></p><p id="7d3cff0d-9291-4211-aa58-7f61951989cd" class=""><em>NI</em><br/>NICE значение процесса от 19 (низкий приоритет) до -20 (высокий приоритет). Более высокое значение означает, что процесс «приятный» для других и позволяет им иметь более высокий приоритет выполнения.<br/></p><p id="0855e022-0bfe-42e9-a323-ccb60fca74fd" class=""><em>VIRT</em><br/>Размер виртуальной памяти процесса (M_SIZE).<br/></p><p id="f3f0eab4-68dd-49e1-b893-f6d58d63c34b" class=""><em>RES</em><br/>Размер резидентного набора (text + data + stack) процесса (т.е. размер используемой физической памяти процесса, M_RESIDENT).<br/></p><p id="d1467b7b-8b1e-4e8c-a017-1b9c98e6a6fc" class=""><em>SHR</em><br/>Размер общих страниц процесса (M_SHARE).<br/></p><p id="9b5ca4bf-48a6-4700-9daa-1826d12e75c7" class=""><em>S</em><br/>STATE, состояние процесса, может быть:<br/></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="c0f13d11-3bd9-424b-bf3b-727ae56c69d1" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">S для спящих (в простое)
+R для запущенных
+D для сна диска (бесперебойный)
+Z для зомби (ожидает родитель считает его статус выхода)
+T для отслеживания или приостановки (т. е. от SIGTSTP)
+W для подкачки
+</code></pre><p id="ceed3308-2c8d-4a4a-a66c-6838aba326ac" class=""><em>CPU%</em><br/>Процент процессорного времени, которое процесс использует в данный момент.<br/></p><p id="a1bfef98-5ca2-400d-bc48-f202441a90c2" class=""><em>MEM%</em><br/>Процент памяти, используемой процессом в данный момент (в зависимости от размера резидентной памяти процесса, см. M_RESIDENT выше).<br/></p><p id="27193a28-db7e-42dd-a277-7ad165628433" class=""><em>TIME+</em><br/>Время, измеренное в часах, указывает на то, сколько процесс провёл в пользовательском и системном времени.<br/></p><p id="b980746b-7efb-4f60-bfed-d3d15a4f7697" class=""><em>Command</em><br/>Полная командная строка процесса (то есть имя программы и аргументы).<br/></p><p id="603be393-f2c9-444c-b502-4ff18eca7ee5" class=""><strong>Как ускорить или замедлить частоту обновления htop</strong></p><p id="988f960b-76ed-48c4-bd44-bf285f2169a1" class="">Для установки времени обновления htop используйте опцию -d после которой укажите время обновления в десятой части секунд.<br/><br/><em>Например, чтобы программа обновляла окно каждую 1/10 секунды:</em><code>sudo htop -d 1</code></p><p id="96051005-49e0-41d7-87a5-25d61e3eb2bf" class=""><em>Чтобы программа выводила новые данные раз в 5 секунд:</em><code>sudo htop -d 50</code></p><p id="e25c460e-0e57-4bad-92ff-25f50956a644" class=""><strong>Как вывести процессы в виде дерева</strong></p><p id="abaa9078-27fb-47a3-80a8-dc14e6651b2d" class=""><em>Для вывода процессов в виде дерева используйте опцию -t:</em><code>sudo htop -t</code></p><p id="5d7fc4ff-865a-4cb1-b972-fbcb6f51d942" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

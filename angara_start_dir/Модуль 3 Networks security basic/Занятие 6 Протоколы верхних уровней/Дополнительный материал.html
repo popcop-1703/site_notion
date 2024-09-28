@@ -1,0 +1,689 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Дополнительный материал</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="4dccbde0-0911-42c3-8060-3f90420c02ad" class="page sans"><header><h1 class="page-title">Дополнительный материал</h1><p class="page-description"></p></header><div class="page-body"><h1 id="6955e10c-45c3-4b4a-a3d1-aa3990bd38e8" class="">Протокол DHCP</h1><p id="fdb2d28c-c9f3-478a-ab9c-fcb3297a94a1" class="">Протокол динамической настройки узла — прикладной протокол, позволяющий сетевым устройствам автоматически получать IP-адрес и другие параметры, необходимые для работы в сети TCP/IP.</p><p id="bde0e9c0-a9df-4069-9445-c275604a912f" class="">Именно благодаря ему на нашем компьютере при включении уже есть ip адрес, с помощью которого компьютер взаимодействует с другими устройствами в сети. Кроме ip адреса такой протокол настраивает весь сетевой стек компьютера, а в некоторых случаях и сервера. Здесь под сетевым стеком подразумеваются настройки, присущие современному стеку протоколов TCP/IP – это маска подсети, адрес роутера по умолчанию, адреса DNS серверов, серверов синхронизации времени и многих других.</p><p id="d5475f8b-685e-4391-a532-e304e768fdbe" class="">Благодаря строго определенным портам сервер легко может понять, что трафик, полученный им на порт 67, должен обрабатываться службой DHCP. А ещё сервер знает, что ответ нужно посылать на 68 порт – иначе клиент просто не поймёт, что ответ от сервера является информацией для конфигурации сетевого адаптера.</p><h3 id="9344a2a5-85bc-4b7e-9747-3ccd09135070" class="">Распределение IP-адресов</h3><p id="451832fd-9503-4430-ae3b-061dfd7915f0" class="">Протокол DHCP предоставляет три способа распределения IP-адресов:</p><p id="e1dc7fb1-53df-40aa-a351-1114ba4c8984" class=""><strong>Ручное распределение.</strong> При этом способе сетевой администратор сопоставляет МАС адресу каждого клиентского компьютера определённый IP-адрес. Фактически данный способ распределения адресов отличается от ручной настройки каждого компьютера лишь тем, что сведения об адресах хранятся на сервере DHCP, и потому их проще изменять при необходимости.</p><p id="5741a764-b450-4aa2-9cc2-92c95878fd0f" class=""><strong>Автоматическое распределение</strong>. При данном способе каждому компьютеру на постоянное использование выделяется произвольный свободный IP-адрес из определённого администратором диапазона.</p><p id="c29b6e56-dab4-4baf-a4a7-2868672bb069" class=""><strong>Динамическое распределение.</strong> Этот способ аналогичен автоматическому распределению за исключением того, что адрес выдаётся компьютеру не на постоянное пользование, а на определённый срок. Это называется арендой адреса. По истечении срока аренды IP-адрес вновь считается свободным, и клиент обязан запросить новый. Кроме того, клиент сам может отказаться от полученного адреса.</p><h3 id="d9cbbdad-b79e-48c4-a608-e23acacf2183" class="">Опции DHCP</h3><p id="00ed16c4-42ee-4a94-bcd0-860c0ae6e322" class="">Помимо IP-адреса, DHCP также может сообщать клиенту дополнительные параметры, необходимые для нормальной работы в сети. Эти параметры называются опциями DHCP.</p><ul id="53e9fa30-80cb-4e6a-96af-f5900a5a00eb" class="bulleted-list"><li style="list-style-type:disc">Опция 1 - Маска подсети, из которой получен адрес</li></ul><ul id="37357a80-7a39-4f2a-8979-17ea32a2e190" class="bulleted-list"><li style="list-style-type:disc">Опция 3 - Список IP-адресов шлюзов по умолчанию</li></ul><ul id="fcadaf4c-3885-43ad-adca-e08d0dba998e" class="bulleted-list"><li style="list-style-type:disc">Опция 6 - Список IP-адресов серверов DNS</li></ul><ul id="1e26aa19-c4b1-41d5-91af-e67c38dc86f9" class="bulleted-list"><li style="list-style-type:disc">Опция 12 - Имя хоста клиента</li></ul><ul id="cc0d5140-8c02-49d4-b8e8-e53441ac4471" class="bulleted-list"><li style="list-style-type:disc">Опция 51 - Время выделения для возвращаемого адреса</li></ul><ul id="c29604c1-ac75-4706-be7e-a8b4a45c3cfe" class="bulleted-list"><li style="list-style-type:disc">Опция 55 - Список запрашиваемых опций </li></ul><ul id="5294af3a-a17e-4f89-8af0-afb608d7b8aa" class="bulleted-list"><li style="list-style-type:disc">Опция 82 - Информация об агенте ретрансляции</li></ul><h3 id="d0a5af08-054e-496d-9c83-9ef3f48468b5" class="">Принцип работы DHCP</h3><p id="43bda30d-0f16-40a9-978f-f69f21256abe" class="">Шаг первый – discover. На этом шаге клиент ищет dhcp сервера в сети. Да, DHCP серверов может быть несколько и клиент изначально не владеет информацией ни об одном из них. Такой трафик является широковещательным, его получают все узлы в сети.</p><p id="cb1c12d8-95c4-40f5-804e-671d3c04d49d" class="">Шаг второй – offer. В ответ на запрос клиента сервер подготавливает всю необходимую информацию: как ip адрес, так и остальные параметры конфигурации, включая время аренды адреса. Такой трафик направляется от сервера только к  запросившему клиенту, другим компьютерам в сети эта информация ни к чему. При этом такой ответ отправит каждый dhcp сервер, работающий в сети и получивший discover. Если серверов несколько, то клиент получит несколько предложений об аренде.</p><p id="f9b8160f-a8b7-4866-8d44-861e5c91fa5b" class="">Шаг третий – request. Клиент должен подтвердить, что предложенная dhcp сервером конфигурация его устраивает и он готов арендовать ip адрес. Клиент ответит серверу только на один request, который придет к нему первым, остальные офферы отбросит – несколько разных адресов клиенту не нужно.</p><p id="22be6e16-1dac-449c-a405-de59859106f7" class="">Шаг четвертый – Acknowledgement. Сервер, получивший request, подтвердит, что он сохранил в своей базе данных информацию о клиенте (это, напомню, mac адрес клиента). После отправки ответа процесс dhcp считается завершенным. Таймер аренды адреса активен, компьютер применил полученную конфигурацию для своего сетевого адаптера и готов работать в сети.</p><p id="f94e2f6e-40a1-4053-a0bf-e34ffdc4fe01" class=""><strong>Дополнительные сообщения DHCP</strong></p><p id="4fb36b3a-23ed-49fd-b545-383c9eaa00d2" class=""><strong>Сообщение отказа аренды</strong>, которое посылает компьютер в случае нахождения конфликта ip адресов. Конфликт происходит, если у какого либо другого компьютера уже настроен адрес, полученный компьютером от dhcp сервером. Компьютер просто рассылает широковещательное arp сообщение, где интересуется, у кого ещё есть ip адрес, который наш компьютер получил от DHCP. Если ответ на arp будет получен, то компьютер рассылает широковещательное сообщение DHCPDECLINE, в котором говорится, что выданный dhcp сервером адрес уже присутствует в сети. После отправки такого сообщение компьютер запускает процесс DORA заново до тех пор, пока не получит уникальный адрес в сети.</p><p id="6c2b8988-bdf1-46d9-bca9-aada614aecc7" class=""><strong>Отмена подтверждения аренды</strong>. Данный ответ генерирует dhcp сервер в том случае, если компьютер запрашивает обновление для ip адреса, уже зарезервированного под другой компьютер в сети. Ещё такое происходит, если компьютер переместился в другую сеть и опять же пытается обновить время аренды для адреса, арендованного ранее.<br/>Если компьютер получает от dhcp сервера подобное сообщение, то он должен повторить процедуру аренды с нуля.<br/></p><p id="76155991-d43c-49d6-a0e8-421f1e2e8c0e" class=""><strong>Освобождение</strong>. Клиент отправляет это сообщение, чтобы уведомить сервер об освобождении занимаемого IP. Иными словами, это досрочное окончание аренды.</p><p id="3b6340a2-0315-4408-8fe1-b6624e4574f6" class=""><strong>Информация. </strong>Этим сообщением клиент запрашивает у сервера локальные настройки. Отправляется, когда клиент уже получил IP, но для правильной работы ему требуется конфигурация сети. Сервер информирует клиента ответным сообщением с указанием всех запрошенных опций.</p><h3 id="fec4dd57-2d47-4887-9989-a21b4a45e33c" class=""><strong>Время аренды DHCP</strong></h3><p id="262f644f-49f9-48d0-9fea-89280b9dcc21" class=""><strong>Время аренды</strong></p><p id="fccd40de-fa50-44d1-badd-624d75154f00" class="">DHCP сервер выдает адреса лишь на время. Для контроля за временем аренды нужен параметр «время аренды»</p><p id="f0d3b5b3-c4f9-48a7-8db2-3fa700b4931e" class=""><strong>Процесс обновления аренды</strong></p><p id="119e5d56-3787-4aa8-afed-0a7ed2cec7f5" class="">Когда время аренды подходит к концу, компьютер запрашивает у сервера обновление аренды</p><p id="782f2a04-2c08-4851-9afd-57c6a8b25461" class=""><strong>Таймеры обновления</strong></p><p id="0421c6df-a47d-4177-941a-4b5261ec8d59" class="">По умолчанию это происходит, когда проходит половина времени аренды. Если обновить аренду не удалось, компьютер запрашивает обновление через половину от оставшегося времени</p><p id="2a34d455-78ec-4bdc-b393-1ef69d43d7b8" class="">Если не контролировать выдачу ip адресов по времени, то в обозримом будущем dhcp сервер просто раздаст все свои адреса клиентам и исчерпает пул адресов. Чтобы вечно не хранить запись об аренде клиентом, которому адрес уже не нужен, существует параметр время аренды. Вместе с другими параметрами сетевого стека клиент получает и время, на которое сервер дал ему в аренду адрес. Если клиент использует адрес, то через половину от полученного таймера к серверу придет запрос на обновление аренды. Так сервер будет отслеживать, что все выданные адреса нужны компьютерам.<br/>Если компьютер не выходит на связь, то его аренду ip адреса по истечению таймера можно прервать.<br/></p><p id="05ac72cf-6138-4101-ba93-eece06fd0959" class="">Так как протокол DHCP использует UDP, то существует вероятность, что запрос клиента на обновление аренды может не дойти до сервера. Бывают и такие моменты, что dhcp сервер перегружен запросами и физически не может ответить всем. Поэтому изначально клиент посылает запрос на продление аренды через половину от этого таймера, если ответ не был получен – то ещё раз, через половину от оставшегося времени аренды. Наконец, последний запрос от клиента будет при полном истечении аренды, и если сервер до сих пор не ответил, то клиент начинает процедуру получения адреса заново.</p><h1 id="adc4ac83-67c0-411f-970a-a15490e472fa" class="">Протокол DNS</h1><p id="a5284ef3-3ff3-472f-89db-a4e267efa690" class="">Система доменных имён – это компьютерная распределённая система для получения информации о доменах. Чаще всего используется для получения IP-адреса по имени хоста</p><p id="96cbeaa7-c6c8-429c-b1e4-19757fddc96a" class="">С виду протокол довольно простой, но на нем держится огромное количество как локальных инфраструктур, так и глобальные сети.</p><p id="f282ece9-9a83-4990-83d9-cbe34ce611c6" class="">Основная задача протокола DNS – предоставить удобную систему для обращения к устройствам по их именам. В этом случае нам уже не требуется запоминать все ip адреса устройств, так как эти адреса будут ассоциированы с удобными именами. С помощью протокола DNS мы обращаемся к веб сайтам глобальной сети интернет, к локальным устройствам, будь то компьютер или сервер.</p><p id="00cb77e1-a928-4d4d-b635-886e5fa2fc27" class="">Как правило, считается, что DNS использует UDP port 53, но TCP port 53 также зарезервирован под использование для DNS.</p><p id="86144837-cc36-465e-8d9e-26fab63212de" class=""><strong>Достоинства:</strong></p><ul id="37758720-d8ed-4535-a529-b02821cafefc" class="bulleted-list"><li style="list-style-type:disc">Позволяет легко просматривать интернет-страницы.</li></ul><ul id="b5b12bb1-a4c3-4c14-9161-2def75f31d83" class="bulleted-list"><li style="list-style-type:disc">Отменяет необходимость запоминания IP-адресов, поскольку переводит доменные имена в IP-адреса.</li></ul><ul id="243663e4-2e56-4aaa-8fde-0a572abe306b" class="bulleted-list"><li style="list-style-type:disc">Хорошо настроенный DNS может повысить безопасность домашних и организационных сетей и предотвратить такие атаки, как DNS poisoning.</li></ul><p id="22734718-462a-4007-a115-d94704e460fa" class=""><strong>Недостатки:</strong></p><ul id="42d60684-a4f2-4123-b9b5-aedeb5298679" class="bulleted-list"><li style="list-style-type:disc">Основным недостатком DNS является тот факт, что его реестр контролируется ICANN.</li></ul><ul id="d0bbfdb4-004f-4efc-b136-fbde2d99f99a" class="bulleted-list"><li style="list-style-type:disc">Запросы к серверам DNS обычно не несут никакой информации о запрашивающем клиенте.</li></ul><ul id="033cdaf5-583b-4a2e-a035-6055c1c9dde2" class="bulleted-list"><li style="list-style-type:disc">DNS-серверы могут быть уязвимы к атакам типа &quot;отказ в обслуживании&quot;, нарушающим их функционирование в сети.</li></ul><h3 id="1fbd2af8-fed3-42a9-a42c-56aac7d9ab0f" class="">Разрешение имени</h3><p id="bd3f37b7-f214-4dec-9bee-340c4ac6e604" class="">Разберемся в работе протокола DNS.</p><p id="a3db0fcd-6ade-4559-be6f-7c8cdd8fcaea" class="">Как ранее уточнялось, с помощью такого протокола мы можем обратиться к устройству по его имени. Но эта информация никак не фигурирует в основных уровнях модели OSI, где используется адресация – L2 и L3. Мы не можем в заголовок ip или mac адреса подставить имя хоста, ведь там стандартизованы конкретные адреса. Поэтому DNS проводит процесс, называемый «разрешение имени». При этом процессе мы спрашиваем у специального DNS сервера, какой ip адрес у нужного нам ресурса. В примере происходит разрешение имени innopolis.com. В ответ на такой запрос dns сервер отвечает нам ip адресом искомого устройства, после чего компьютер в заголовке L3 уже может использовать полученный ip.<br/>DNS имена также называют доменными именами.<br/></p><h3 id="e1d0f4d9-09c1-4506-a06e-a395918cbd76" class="">Иерархия DNS</h3><p id="6a5f5b4c-f25a-41a4-8485-6301a210f968" class="">DNS имеет иерархическую структуру. У каждого сайта в сети интернет есть имя, состоящее из слов, разделенных точкой. Хоть мы этого и не видим, но на самом деле любое доменное имя начинается с точки. Да, я не ошибся – именно начинается, так как начало доменного имени находится справа. После точки левее идет домен верхнего уровня, ещё левее – поддомен, или же домен второго уровня, далее поддомен третьего уровня и так далее. Таким образом выстраивается полное доменное имя ресурса.<br/>Мы привыкли к тому, что обращаемся к сайтам по имени. Но уточню, что за любым сайтом стоит сервер, который поддерживает его работу. Бэкенд сайта расположен на вычислительном устройстве, которое и отдает нам информацию о сайте и его содержимом в ответ на наш веб запрос. Поэтому получается, что доменное имя сайта можно ассоциировать с именем сервера, на котором сайт расположен.<br/></p><h3 id="ada1ee1c-0d6a-470f-b908-f0d175732d22" class="">Уровни DNS</h3><p id="77a33dca-0754-4597-a46c-3cd0c2301e81" class="">DNS представляет собой базу данных сопоставлений имен и ip адресов. Хранить такую базу на одном устройстве было бы крайне сложно, так как современная глобальная сеть содержит миллиарды dns записей. Поэтому и используется иерархия – такой механизм оптимизирует dns запросы и позволяет хранить информацию распределенно.</p><p id="b88cbc62-751f-4e47-ba7a-db7d6e4050b1" class="">Иерархическая структура DNS выглядит следующим образом:</p><p id="e34fea8e-fb98-42d4-b9cd-0c4f4bbc72c2" class="">Всё начинается с корневых серверов. Это та самая невидимая точка в доменном имени. Корневых серверов во всём мире тринадцать штук, их ip адреса известны всем. Да, к dns серверу мы обращаемся именно по ip адресу. Когда мы хотим получить ip адрес сайта innopolis.com, то мы обратимся сначала к корневому серверу, он же root. На этом сервере хранится информация об адресах доменов первого уровня, в нашем случае это домен .com.</p><p id="914b15c8-b41b-4e6e-a0fc-3bf4c9d49675" class="">Домены первого уровня ещё называются TDL – top level domain. Узнав его адрес мы обратимся уже к dns серверу .com с тем же вопросом – знает ли он об ip адресе innopolis.com? После такого обращения мы получим ответ с искомым ip адресом, так как имя, адрес которого мы ищем, является поддоменом .com. </p><p id="e4a05568-d365-4ff8-b0d8-3645b15cf994" class="">Если у зоны innopolis.com есть поддомены, то тогда мы бы могли разрешить и их, обратившись к соответствующему dns серверу второго уровня, он же SLD – sub level domain</p><h3 id="9e58980a-8d77-4848-a7cd-b2d55a44cd9a" class="">Шаги DNS запроса</h3><figure id="913315f3-9a51-45f5-ab13-d3201809b782" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%204dccbde0091142c380603f90420c02ad/%25D0%25A8%25D0%25B0%25D0%25B3%25D0%25B8_DNS.drawio.png"><img style="width:1204px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%204dccbde0091142c380603f90420c02ad/%25D0%25A8%25D0%25B0%25D0%25B3%25D0%25B8_DNS.drawio.png"/></a></figure><p id="1557bd78-70b3-4363-9228-ed407304bfb6" class="">Шаг 1. Вы набираете адрес в своём браузере, например www.123.ru. Ваш запрос направляется на получение IP-адреса на сервер доменных имён вашего провайдера.</p><p id="e46d7c21-0d52-42a1-8d3d-af7173a880db" class="">Шаг 2. Если DNS сервер вашего провайдера не знает ответа, то он перенаправляет запрос на корневой DNS сервер.</p><p id="c29e021c-7a19-4171-a856-c04f7495abbf" class="">Шаг 3. Если корневой DNS не знает ответа, он говорит обратиться к DNS сервер верхнего уровня</p><p id="6266fcbb-198d-4b53-9a41-aece28676325" class="">Шаг 4. DNS сервер провайдера обращается к DNS серверу TLD</p><p id="e8902f89-667c-4ceb-94f0-51c95198711e" class="">Шаг 5. Он, на основе своей базы данных, говорит обратиться к серверу, обслуживающему www.123.ru</p><p id="af970172-78bd-4fb0-a415-cdab2ba4f32e" class="">Шаг 6. Сервер провайдера обращается к нужному SLD DNS серверу</p><p id="e75f8188-b763-446b-8f1a-c0c0a7e42f96" class="">Шаг 7. Он отвечает предоставляя искомый IP адрес</p><p id="db90ffcb-991b-4651-835d-ba369749c298" class="">Шаг 8. Сервер провайдера отвечает: вот IP-адрес www.123.ru</p><h3 id="a3738e8d-e114-43fb-8f7e-72bde6087810" class="">Сопоставление имени</h3><p id="d45359a1-b099-4ab6-93a1-3714694c82d1" class="">Основной процесс dns – это сопоставление имен. Бывает 2 разных вида сопоставления:</p><p id="f1b14f76-5125-4d58-bdd1-1a00faa3bf0d" class="">Первый вид – <strong>прямое сопоставление</strong>. Компьютер запрашивает у сервера ip адрес искомого ресурса по его имени. Получается, мы посылаем серверу имя, в ответ получаем адрес.</p><p id="83b57da7-5512-430e-bb9a-9ba9a562c8f2" class="">Второй вид – <strong>обратное сопоставление</strong>. Это процесс обнаружения доменных имен, сопоставленных с конкретным ip адресом. Отправляем серверу ip – в ответ получаем ассоциированные с этим адресом доменные имена.</p><h3 id="8c6170d1-f556-4c4a-b0a5-788624271699" class="">Процесс разрешения имени</h3><p id="ea1844ff-7004-4ab9-9add-adf80409685b" class="">Постоянные обращения клиентов к корневым серверам и серверам TLD легко могут их перегрузить. Для того, чтобы ещё больше оптимизировать процесс разрешения имен, существуют механизмы кэширования и локального сопоставителя.</p><p id="17f9189c-58fa-4d19-a6d7-fe068e86834e" class="">При попытке разрешения имени компьютер, на самом деле, не сразу обратится к root серверу – для начала он проверит собственный кэш. В dns кэше компьютера сохраняются сопоставления dns, которые компьютер получил ранее от dns серверов.</p><p id="95dcbedb-97fd-4101-b6d7-6b67d485cfac" class="">Если проверка ничего не дала, компьютер проверит файл под названием hosts. Это специальный файл для хранения локальных DNS записей.</p><p id="813339a5-002f-4e65-9d7d-9b59aafe6844" class="">Если снова ничего - идет запрос к кэширующему серверу. Как и наш компьютер, другие устройства тоже кэшируют информацию о произошедших сопоставлениях. Кэширующим сервером может выступать и наш домашний роутер, и специальный сервер в организации, и глобальный кэширующий сервер.</p><p id="71d3d90f-e074-4c20-a975-ca98e4067232" class="">И если на кэширующем сервере информации об искомом имени не будет, то тогда сам кэширующий сервер обратится к root серверу и далее по цепочке, рассмотренной ранее.</p><h3 id="b04f0af3-3268-421e-9dd7-34691263298a" class="">DNS записи</h3><p id="44b9e50a-96f8-4178-aed2-0cae9a63297b" class="">В базе данных dns сервера содержатся различные типы dns записей.</p><p id="d29ef30e-d0e8-42f7-a35f-6e74934e8d19" class=""><strong>А </strong>– Адресная запись, соответствие между именем и IP-адресом. Одна из самых часто используемых записей</p><p id="d3f3a86d-4bcc-4908-955d-884a584abf05" class=""><strong>SOA</strong> запись указывает местоположение эталонной записи о домене. Она содержит в себе контактную информацию лица, ответственного за данную зону, время кэширования информации на серверах и данные о взаимодействии DNS. В данной записи определяется время кеширование dns записей нашего домена.</p><p id="94583df5-a4c7-4a84-8084-e8ba12319f64" class=""><strong>MX</strong>. Это тип DNS-записи, предназначенный для маршрутизации электронной почты. Благодаря такой записи почтовые сервера других организаций смогут отправлять письма на нашу почту, привязанную к домену. Критически важна для SMTP-протокола, основа маршрутизации почты в Интернете</p><p id="0111b6f9-6203-4e29-874f-0a9c8400bcdc" class=""><strong>NS</strong> запись – она же nameserver. Это запись, содержащая в себе ip адрес сервера, ответственного за сопоставление имен данной dns зоны. Критически важна для функционирования самой системы доменных имён</p><p id="1b614ecf-4f20-41e2-ae0d-a11e69e8f62a" class=""><strong>PTR</strong> запись – это запись в DNS, позволяющая получить имя узла по его IP-адресу. Так как это действие противоположно стандартному запросу в DNS, его называют обратным. Широко используется для IPv4-адресов в домене in-addr.arpa, для IPv6 — в ip6.arpa</p><h1 id="f12ff4ad-3263-414f-a302-0c5ca14ea7c1" class="">Протоколы удалённого управления</h1><p id="6dc53d2b-4ce9-4429-a412-af8eb74346da" class="">Для подключения к удаленному хосту используются специализированные протоколы удаленного управления. Эти протоколы, реализующие модель «терминал-сервер», позволяют работать с ресурсами сервера так же, как и с локальными ресурсами: выполнять команды, работать с файловой системой, запускать приложения и т.п. С распространением персональных ЭВМ терминальный доступ стал использоваться в основном для решения задач удаленного администрирования.</p><h2 id="db36380d-8b01-49a9-8d85-b8ed8c5d0768" class="">Telnet</h2><p id="161e5df6-2e26-4100-afc0-08d0ac63107f" class="">Telnet был разработан в 1969 году, как универсальный инструмент доступа к командной строке удаленных сетевых устройств. В большинстве используемых операционных систем, начиная с середины 1970-х годов, Telnet использовался для организации удаленного доступа, из-за чего стал референсом для более поздних протоколов удаленного подключения (ssh, ftp, rdp).</p><p id="a034c734-14d6-4b57-ad35-eadf99b6d396" class="">Telnet - сетевой протокол для реализации текстового терминального интерфейса по сети.</p><p id="5421c6c0-5128-4fd2-8272-c3b51906f294" class="">Для установки соединения Telnet использует протокол TCP, c подключением через 23 порт.</p><h3 id="dadb1244-2f68-4857-bb9a-1b8c50b93eaa" class="">Принципы Telnet</h3><p id="68604084-fda2-4ba5-982f-14c11ff35f0c" class="">Основу протокола составляют три базовые концепции:</p><ol type="1" id="6c01d83f-0474-4346-aff7-dfbbd5d243ab" class="numbered-list" start="1"><li>Когда устанавливается соединение, предполагается, что оно начинается и завершается на &quot;Сетевом Виртуальном Терминале&quot; (Network Virtual Terminal, NVT). NVT -- это воображаемое устройство, которое создает промежуточное стандартное представление канонического терминала. NVT является стандартным описанием наиболее широко используемых возможностей реальных физических терминальных устройств. NVT позволяет описать и преобразовать в стандартную форму способы отображения и ввода информации.<br/>Терминальная программа и работающий с ней процесс преобразовывают характеристики физических устройств в спецификацию NVT, что позволяет, с одной стороны, унифицировать характеристики физических устройств, а с другой обеспечить совместимость устройств с различными возможностями.<br/></li></ol><ol type="1" id="ea90e91e-3fab-4bcc-99f6-df1596d8f3f6" class="numbered-list" start="2"><li>Используя согласование параметров, терминальная программа предлагает обслуживающему процессу использовать управляющие последовательности для управления выводом информации. Получив такую команду процесс начинает вставлять управляющие последовательности в данные, предназначенные для отображения.<br/>Протокол предлагает структуру дополнительных параметров &quot;DO, DON&#x27;T, WILL, WON&#x27;T&quot;, позволяющую пользователю и серверу более точно договориться об используемых в соединении соглашениях.<br/>Команда WILL XXX указывает на предложение отправляющей стороны использовать параметр XXX. DO XXX и DON&#x27;T XXX являются, соответственно, положительным и отрицательным ответом.<br/>Аналогично, DO XXX посылается как предложение получающей стороне использовать параметр XXX. WILL XXX и WON&#x27;T XXX суть положительный и отрицательный ответы. Так как NVT это то, что остается, когда никакие параметры не используются, ответы DON&#x27;T и WON&#x27;T гарантируют, что соединение останется в состоянии, которое подходит обеим сторонам.<br/></li></ol><ol type="1" id="b7525417-95d6-47d9-ad8b-f7ac8dc0c409" class="numbered-list" start="3"><li>Симметрия терминалов и процессов отражает тот факт, что все управляющие команды протокола могут даваться любой стороной, участвующей в соединении. Разделения на &quot;клиент&quot; и &quot;сервер&quot; здесь нет.</li></ol><h3 id="e69578f2-24b0-4cf3-bb11-45e62fbcc63a" class="">Режимы функционирования</h3><p id="611443fb-089c-4369-a95c-cea014fc7291" class="">Существуют четыре режима, в которых функционирует большинство Telnet клиентов и серверов:</p><p id="12aadfeb-2104-449d-afff-f68e343eeb94" class="">Первый – <strong>полудуплексный</strong>. NVT (Сетевой виртуальный терминал) по умолчанию это полудуплексное устройство, которое требует исполнения команды GO AHEAD (GA) от сервера, перед тем как будет принят ввод от пользователя. Ввод пользователя отображается локальным эхом от NVT клавиатуры на NVT принтер, таким образом, от клиента к серверу посылаются только полные строки.</p><p id="80530339-c2a2-4132-b87d-d30c7119fcaa" class="">Второй – <strong>символ за один раз</strong>. Это самый распространенный режим, где каждый вводимый символ отправляется серверу отдельно от других. Сервер отвечает клиенту сигналом эхо (опция ECHO стандартизована в RFC 857), что позволяет большинству вводимых символов отражаться на экране клиента. Эта методика увеличивает объем трафика, курсирующего по сети между клиентом и сервером telnet.</p><p id="de75acaf-4186-4cd6-9e76-d8f22506b97a" class="">Третий режим – <strong>строка за один раз</strong>. Если какая-либо опций (ECHO и SUPPRESS GO AHEAD) не включена, Telnet находится в режиме строка за один раз. В этом режиме строка текста редактируется на локальном компьютере и отправляется только тогда, когда она будет полностью готова. На такая возможность есть не всегда и не у всех сервисов;</p><p id="875fd5f6-6782-4b21-83c0-131f6b6d0e25" class="">И четвертый режим – <strong>линейный режим</strong> (linemode).В данном случае этот термин означает реальную опцию linemode (RFC 1184). Когда LINEMODE включен, обработка символов выполняется в локальной системе под управлением удаленной системы. Когда редактирование ввода или отображение символов должны быть отключены, удаленная система будет передавать эту информацию. Удаленная система также будет передавать изменения любым специальным символам, которые происходят в удаленной системе, чтобы они могли действовать в локальной системе.</p><h3 id="450a95df-7921-42dc-95cc-e99d748f7373" class="">Безопасность Telnet</h3><p id="f432acaf-22d9-48ba-855a-f8970a44983c" class="">При первоначальной разработке telnet в 1969 году большинство пользователей подключенных к сети компьютеров или находились в компьютерных отделениях академических учреждений, или являлись частью правительственных/частных исследований. Поэтому вопросы безопасности вставали не так остро, как это стало позднее, в 1990-х. Резко выросло людей, имеющих доступ к Интернету, а значит и количество людей, пытающихся взломать чужие сервера. Это вызвало необходимость в зашифрованных альтернативах.</p><p id="6222c4e2-a7c1-4890-9fe9-7807f3a098f1" class="">Эксперты компьютерной безопасности рекомендовали, чтобы использование Telnet для удалённых входов в систему было прекращено во всех нормальных обстоятельствах  по следующим причинам:</p><ul id="1edf4de3-a9d0-4abe-b768-a023e4b2aa79" class="bulleted-list"><li style="list-style-type:disc">Telnet по умолчанию не шифрует оправленные данные (включая и пароли), а значит очень легко подслушать канал и узнать пароли. Для этого достаточно иметь доступ к маршрутизатору, свитчу, хабу или шлюзу, расположенных между двумя использующимися узлами Telnet, и любой имеющий к ним доступ может прервать передачу пакетов, получить логин и пароль вне зависимости от анализатора пакетов.</li></ul><ul id="be31f29f-5ae8-499a-8c7b-5a8a76b73430" class="bulleted-list"><li style="list-style-type:disc">Во многих реализациях Telnet нет аутентификации, которая обеспечила бы гарантию передачи пакетов и отсутствия вторжения посередине.</li></ul><ul id="5fa03630-1763-4131-81a2-57162e94a3c8" class="bulleted-list"><li style="list-style-type:disc">Обнаружено несколько уязвимостей демонов, который обычно использует Telnet</li></ul><p id="11d9868a-ae7a-4eab-936f-89fe2db628e7" class="">Эти связанные с безопасностью недостатки наглядно показывали, что использование протокола Telnet в общедоступной сети опасно и не оптимально</p><h2 id="f7d43af7-01bd-448c-849f-e8f7db1c0dc8" class="">SSH</h2><p id="0594f18a-5fd2-45fc-a3d2-ff57bec90cd2" class="">Перейдем к наиболее актуальному протоколу взаимодействия с удаленными системами с помощью консоли.</p><p id="007c9371-4047-4ce1-89da-27840de98fc1" class="">Это <strong>SSH</strong> (Secure Shell — «безопасная оболочка») — сетевой протокол прикладного уровня, позволяющий производить удалённое управление операционной системой и туннелирование TCP-соединений (например, для передачи файлов). Схож по функциональности с протоколом Telnet но, в отличие от него, шифрует весь трафик, включая и передаваемые пароли. SSH допускает выбор различных алгоритмов шифрования. SSH-клиенты и SSH-серверы доступны для большинства сетевых операционных систем.</p><p id="27aefb6d-beae-4a5a-89f2-aed76a4a7be1" class="">SSH позволяет безопасно передавать данные практически любого другого сетевого протокола. Таким образом, помимо удалённой работы на компьютере через командную оболочку, можно передавать звуковой или видео поток, а еще файлы.</p><p id="b29c75e0-8dd3-4d4b-b4d7-7e7e4dd2a8ee" class="">В отличие от Telnet, SSH шифрует весь передаваемый трафик</p><p id="d2c04c42-b3c3-4b55-9e64-92361153f5e7" class="">По умолчанию протокол работает на 22 порту. Настройки по умолчанию можно изменить и выбрать любой доступный для назначения порт</p><h3 id="a4f48f87-6bef-4b1b-823c-84e3924bc591" class="">Функции SSH</h3><p id="cf055b20-acc3-4500-9cdd-38ce76afdfbf" class="">Протокол SSH возник как попытка обезопасить открытые незащищенные соединения. Впоследствии его функции были значительно расширены.</p><p id="b250d910-e984-4f2f-87f7-fa1b0583896b" class="">Наиболее важными из них являются:</p><ul id="8e359d7f-73ad-4ea3-bd84-6f25cb4bf974" class="bulleted-list"><li style="list-style-type:disc">Безопасные команды доступа к хосту. SSH дает возможность выполнять безопасные команды доступа к хосту, такие как ssh (удаленная оболочка), slogin (удаленный вход в систему), scp (удаленное копирование);</li></ul><ul id="c9be6339-b9a4-4cf2-bc14-fba1714ed793" class="bulleted-list"><li style="list-style-type:disc">X11 Forwarding. SSH предоставляет встроенный механизм для выполнения удаленных клиентов X Window.</li></ul><ul id="8e333211-4dc2-437e-82d8-9b625121f342" class="bulleted-list"><li style="list-style-type:disc">Port forwarding. SSH может выполнять переадресацию портов, передавая трафик c одного порта одной машины на другой порт другой машины. При этом передаваемый трафик шифруется;</li></ul><h3 id="0690b06c-5868-4668-8eec-5f8bd0670633" class="">Принцип работы</h3><p id="cdd6d522-a27f-40a3-b269-5c4b16f06c0f" class="">Протокол работает в режиме клиент-сервер, где соединение устанавливает клиент, подключаясь к серверу. SSH-клиент управляет процессом установки соединения и использует криптографию с открытым ключом для проверки подлинности SSH-сервера. После успешного соединения SSH использует сильное симметричное шифрование и алгоритмы хеширования для обеспечения конфиденциальности и целостности данных, которыми обмениваются клиент и сервер.</p><p id="dbf42cb4-1056-4cda-92b0-f888eef393ef" class="">Есть несколько шагов, которые нужно пройти, чтобы начать SSH-сеанс между компьютерами.</p><ol type="1" id="8676f1e6-3497-438d-897d-fdb0c350def2" class="numbered-list" start="1"><li>Сначала нужно обеспечить безопасный способ обмена сообщениями между компьютерами, то есть настроить зашифрованный канал.</li></ol><ol type="1" id="c7049e01-532e-46ce-b9d5-6ba59452fbed" class="numbered-list" start="2"><li>Далее нужно проверить целостность данных, отправляемых клиентом.</li></ol><ol type="1" id="3e526ee8-b2ed-48d3-9cd3-d140aa16cc4c" class="numbered-list" start="3"><li>После этого проверяется подлинность клиента.</li></ol><p id="d6549e22-9d10-485e-8f6a-59e634709e32" class="">После этих трёх шагов мы можем безопасно общаться с удалённым компьютером, делиться секретными данными, а также проверить, есть ли у клиента разрешение на доступ к хосту. Каждый из разделов ниже будет более подробно описывать эти действия.<br/><br/></p><p id="2853f845-2699-4b73-b4fc-e3a305f82892" class=""><strong>Настройка зашифрованного канала</strong></p><p id="d044bb64-4c9a-4eb2-9fd7-aa2790d4368f" class="">Вся информация, отправляемая с использованием SSH, зашифрована. Обе стороны должны знать и понимать способ шифрования.</p><p id="e8fe1200-93d6-47c1-96cd-76c766bc8ce6" class="">Для шифрования передаваемых данных используется симметричное шифрование. Суть данного подхода заключается в том, что оба компьютера имеют одинаковый ключ шифрования, который называется «симметричный ключ». Симметричное шифрование работает очень хорошо, но только до тех пор, пока сторонние не имеют доступа к ключу.</p><p id="9034a236-3900-4dae-814e-34a27a45de25" class="">Один компьютер может создать ключ и отправить в виде сообщения через интернет. Но сообщение ещё не будет зашифровано, поэтому любой, кто перехватит его, сразу же сможет расшифровать все следующие сообщения.</p><p id="8b3bbf45-4b65-4fd0-8526-3c7687713699" class="">Решение этой проблемы состоит в использовании протокола обмена ключами Диффи-Хеллмана. Оба компьютера создают свой закрытый и открытый ключ. Вместе они образуют пару ключей. Компьютеры делятся своими открытыми ключами друг с другом через интернет. Используя свой закрытый и чужой открытый ключ стороны могут независимо сгенерировать одинаковый симметричный ключ.</p><p id="eaf40be6-12fc-476c-ad88-6dbc3aa2bcbc" class="">
+</p><p id="d05a416b-730a-4eb4-b632-4f8fe9414dc4" class=""><strong>Верификация</strong></p><p id="d79ac3fb-721e-4ed8-8875-e9a0fdd758ad" class="">Следующий этап процесса установки сеанса SSH заключается в проверке того, что данные не были подделаны во время их передачи и что другой компьютер действительно является тем, за кого себя выдаёт.</p><p id="3f688f9d-111b-4d51-abbf-d35a0bbdba7b" class="">Для верификации используют хеш-функцию. Это математическая функция, которая принимает входные данные и создаёт строку фиксированного размера.</p><p id="6c51500d-c888-4e34-93f5-acc9cf851aa9" class="">Важной особенностью этой функции является то, что практически невозможно определить входные данные, зная лишь результат её работы.</p><p id="f6c9662b-2e19-48be-b054-00d31ebc8b2d" class="">После того как клиент и хост сгенерировали свои симметричные ключи, клиент использует хеш-функцию для генерации HMAC, что означает «код аутентификации сообщений, использующий хеширование». Клиент отправит этот HMAC на сервер для верификации.</p><p id="48652a23-8bc6-406e-8c1d-d52707de6172" class="">Функция хеширования использует:</p><ul id="f059eb87-e492-4053-a78a-e3c6e9721885" class="bulleted-list"><li style="list-style-type:disc">симметричный ключ клиента,</li></ul><ul id="2197180f-83ee-4d14-bf86-8c54bc7e6922" class="bulleted-list"><li style="list-style-type:disc">порядковый номер пакета,</li></ul><ul id="42eaf4c7-5e12-4716-9f36-64f76d1d07a1" class="bulleted-list"><li style="list-style-type:disc">содержимое сообщения (зашифрованное).</li></ul><p id="b335af4f-0917-43d9-a8f1-d55775267400" class="">Когда хост получает HMAC, он может использовать ту же самую хеш-функцию с этими тремя компонентами:</p><ul id="bfeb0437-24c3-4694-9719-0a2263ff5b64" class="bulleted-list"><li style="list-style-type:disc">собственный (идентичный клиентскому) симметричный ключ;</li></ul><ul id="9ed884bf-de5e-4aec-969a-fa2f7b5d636d" class="bulleted-list"><li style="list-style-type:disc">порядковый номер пакета;</li></ul><ul id="44860393-0c90-4480-ba59-fa4258e7a6d3" class="bulleted-list"><li style="list-style-type:disc">зашифрованное сообщение.</li></ul><p id="a4a5f292-685f-4637-8601-9dd840d895bf" class="">Если сформированный хеш совпадает с HMAC, полученным от клиента, то мы можем быть уверены, что подключаемый компьютер — это компьютер с симметричным ключом, потому что только хост и клиент знают симметричный ключ, а другие компьютеры — нет.</p><p id="7657095b-bc91-4bef-909b-44189ada85db" class="">Прелесть этого подхода в том, что мы не просто проверили личность клиента и убедились, что данные не были подделаны, но мы сделали это без передачи какой-либо секретной информации.</p><p id="fb032e59-6688-450c-acec-b952b78bdedc" class="">
+</p><p id="d10f5e18-6964-4380-b8e9-6ef0735fce0e" class=""><strong>Аутентификация</strong></p><p id="f9d01893-27ff-4ba7-930a-6de05c66862e" class="">Даже если мы используем симметричные ключи для безопасного общения, мы не знаем, имеет ли подключающийся компьютер разрешение на доступ к содержимому хоста. Для того, чтобы проверить это, необходимо произвести аутентификацию.</p><p id="27a01bbd-7a13-4a17-9cdf-94a89151f28f" class="">Многие используют аутентификацию по паролю. Клиент отправляет хосту зашифрованное сообщение, содержащее пароль. Хост его расшифровывает и ищет пароль в базе данных, чтобы удостовериться, есть ли у клиента разрешение на доступ. Использование пароля для аутентификации допустимо, но имеет свои недостатки, так как необходимо хранить все пароли на сервере.</p><p id="ea9193ea-629c-4506-82c6-56bcb1eb7cb9" class="">Более безопасной является аутентификация по сертификату. Сформировав сертификат, клиент единожды вводит пароль для доступа к серверу и отправляет ему открытую часть сертификата. В дальнейшем ввод пароля не требуется. Этот подход считается более безопасным, чем просто использование пароля, поскольку не подразумевает хранение секрета пользователя на хосте.</p><h3 id="894bd2dd-f926-431c-85af-1379ed0989dd" class="">Обеспечение безопасности</h3><p id="e0470df8-5bd7-41e7-a3af-6c57082b775d" class="">Безопасность протокола достигается использованием нескольких решений, которые сводят к минимуму риск использования соединения:</p><ul id="7b8b03f5-38ab-467c-8078-bcb4e85bc8ed" class="bulleted-list"><li style="list-style-type:disc">Шифрование соединение, которое может выполняться одним из методов, выбранных в процессе переговоров. Шифрованное соединение не позволяет просто перехватить и использовать трафик. Выбор алгоритма шифрования делает систему более гибкой, позволяя не использовать алгоритмы, в которых обнаружены слабые места или которые не может поддерживать одна из сторон;</li></ul><ul id="f8207be7-118f-4f42-8d73-7ba8ac8a8bc0" class="bulleted-list"><li style="list-style-type:disc">Аутентификация сервера выполняется при любом соединении. Это не позволяет выполнить подмену сервера или подмену трафика;</li></ul><ul id="f17cbe51-5c4b-4c98-8e8a-e65f33192c27" class="bulleted-list"><li style="list-style-type:disc">Аутентификация клиента может выполняться одним из нескольких доступных способов. Это с одной стороны может повысить надежность аутентификации, с другой -- делает систему более гибкой и упрощает ее использование;</li></ul><ul id="8e344e02-c77a-45b3-bdcf-30267a978489" class="bulleted-list"><li style="list-style-type:disc">Проверка целостности пакетов позволяет отследить любые незаконные изменения в трафике соединения. При обнаружении таких изменений, соединение немедленно разрывается;</li></ul><ul id="e761f9f9-e2aa-4984-9447-f377543bfe78" class="bulleted-list"><li style="list-style-type:disc">Временные параметры аутентификации не позволяют воспользоваться данными соединения в том, случае, если спустя некоторое время после перехвата оно все-таки было расшифровано. Устаревание обычно происходит через час;</li></ul><p id="1dcbdff3-be46-4d26-b231-48f74a71fda1" class="">SSH защищает от:</p><ul id="25943b21-c7f9-4773-8c9f-df8f30595691" class="bulleted-list"><li style="list-style-type:disc">Подмены IP-адресов (IP-spoofing), когда удаленный хост посылает пакеты от имени другого хоста;</li></ul><ul id="84812668-0973-4ae2-a3bf-7312ff4562aa" class="bulleted-list"><li style="list-style-type:disc">Подмены DNS-записей (DNS-spoofing), когда изменяется запись на сервере DNS и в результате соединение устанавливается не с желаемым хостом, а с тем, на который указывает новая запись;</li></ul><ul id="4f194790-ced7-499f-a4f3-5111deb9acc0" class="bulleted-list"><li style="list-style-type:disc">Перехвата открытых паролей и прочих данных, которые передаются в открытом виде и любой, кто имеет физический доступ к каналу, может их узнать.</li></ul><p id="92db3345-93a1-4f18-a093-495f31359305" class="">Рассмотрим немного подробнее аутентификацию клиента</p><p id="b7a99c4f-b421-4d2a-9367-9fdf506daafc" class=""><strong>Методы аутентификации клиентов,</strong> которые использует SSH:</p><ul id="1f79a360-d1e9-4ba0-855b-0c2c22cd7150" class="bulleted-list"><li style="list-style-type:disc">Host-based аутентификация</li></ul><ul id="cc8c91de-a31f-45aa-952e-dba1f77f67c0" class="bulleted-list"><li style="list-style-type:disc">Аутентификация с помощью открытых ключей</li></ul><ul id="71bc7037-d626-406b-b1c0-7d68154975c0" class="bulleted-list"><li style="list-style-type:disc">Kerberos-аутентификация</li></ul><ul id="83e54831-dc12-4080-a803-f8f3f93c4818" class="bulleted-list"><li style="list-style-type:disc">Парольная аутентификация</li></ul><p id="0abd3993-71cb-4112-bcd8-77bf497478d1" class=""><strong>По хостам</strong>. Метод аналогичный используемому в r-командах. В том случае, если соединение устанавливается с привилегированного порта, и файл .rhosts позволяет вход в систему, он разрешается. Этот метод является потенциально небезопасным, рекомендуется не использовать его. Для повышения уровня своей безопасности метод может быть дополнен RSA-аутентификацией клиентского хоста.</p><p id="ee749d8c-db75-4906-ad51-9c187e1904c8" class=""><strong>Открытый ключ.</strong> Клиент отправляет серверу открытый ключ. Если сервер знает его, он просит клиента доказать, что тот знает и секретный ключ тоже. Если клиент может это доказать, значит аутентификация считается успешной.</p><p id="249c7447-45b1-4b22-b7d0-f70848d951e6" class=""><strong>Керберос</strong>. Аутентификация проводится по схеме v5 Kerberos.</p><p id="6adac450-00d8-4855-9057-4ba15ac99eba" class=""><strong>Пароль.</strong> В самом крайнем случае, если не удалось провести аутентификацию не одним из перечисленных способов, используется традиционная аутентификация при помощи пароля. Принцип аутентификации аналогичен тому, какой, например, используется в Telnet с той разницей, что пароль передается по зашифрованному каналу.</p><h3 id="d64cc310-1f24-4a72-a729-08ca16d083b5" class="">Небольшое заключение</h3><p id="1128e8f1-1ad7-4d67-8f68-a5387c4f84ee" class="">SSH — это важный инструмент, используемый для удалённого управления другими компьютерами. Он безопасен, поскольку оба компьютера могут шифровать и дешифровать сообщения с использованием симметричных ключей.</p><p id="a8acf4cb-bbe6-4785-9d27-a998c95bd323" class="">Это удобный протокол для обмена информацией между удаленными устройствами. Идеальная пара для применения протокола SSH — это ваш компьютер и виртуальный хостинг, куда вы заливаете проекты.</p><h1 id="f7b4de42-d11f-4125-a4a4-db0a65999f8c" class="">Протоколы HTTP/HTTPs</h1><h2 id="cb0aeade-fb6e-4666-924c-f539327bf0e5" class="">HTTP</h2><p id="08bf3817-b32f-4c13-a7d5-148f3afa9240" class="">Протокол прикладного уровня передачи данных, изначально — в виде гипертекстовых документов в формате HTML, в настоящее время используется для передачи произвольных данных.</p><p id="d3ccceaa-ca62-4a30-903b-487fb90bd7f1" class="">Порт по умолчанию — TCP 80, но можно использовать и другие порты.</p><h3 id="c38a5286-4cce-40da-916d-b063b5e50982" class="">Структура сообщения</h3><p id="cfa02b7b-8577-415d-9791-9f51b5a919c4" class="">Каждое HTTP-сообщение состоит из трёх частей, которые передаются в указанном порядке:</p><p id="9a2807c2-d269-40df-9817-3c9cdc65c9e9" class=""><strong>Стартовая строка</strong> (англ. Starting line) — определяет тип сообщения;</p><p id="d051a0e0-b2a6-46ac-9510-2fe30180c600" class=""><strong>Заголовки</strong> (англ. Headers) — характеризуют тело сообщения, параметры передачи и прочие сведения;</p><p id="31cefa1f-8ea7-4bc9-b138-9cffb8bf2bc7" class=""><strong>Тело сообщения</strong> (англ. Message Body) — непосредственно данные сообщения. Обязательно должно отделяться от заголовков пустой строкой.</p><p id="da1912a8-aef3-41fa-ad63-55e2d7583423" class="">Тело сообщения может отсутствовать, но стартовая строка и заголовок являются обязательными элементами. Исключением является версия 0.9 протокола, у которой сообщение запроса содержит только стартовую строку, а сообщения ответа — только тело сообщения.</p><p id="d8b5b34f-a6e7-4702-a52a-b0d2bfad88b6" class="">Для версии протокола 1.1 сообщение запроса обязательно должно содержать заголовок Host.</p><p id="9e5ab97f-8b01-4a1f-821b-dde495cb881c" class=""><strong>Стартовая строка</strong></p><p id="15f89c34-bd15-4563-8b13-e8124b19defd" class="">Стартовые строки различаются для запроса и ответа. Строка запроса выглядит так:<br/>Метод URI HTTP/Версия — для остальных версий.<br/>Здесь:<br/></p><ul id="e7473a48-210e-4d9a-b7a1-fb7820c11f45" class="bulleted-list"><li style="list-style-type:disc">Метод (англ. Method) — тип запроса, одно слово заглавными буквами. В версии HTTP 0.9 использовался только метод GET, список методов для версии 1.1 представлен ниже.</li></ul><ul id="b0f090b2-55a9-4561-99c7-e36a62494785" class="bulleted-list"><li style="list-style-type:disc">URI определяет путь к запрашиваемому документу.</li></ul><ul id="567abaa9-72a1-41a9-8dbc-91818c112a01" class="bulleted-list"><li style="list-style-type:disc">Версия (англ. Version) — пара разделённых точкой цифр. Например: 1.0.</li></ul><p id="931daed1-5e73-4716-b275-c7f577c0acfa" class="">Стартовая строка ответа сервера имеет следующий формат: HTTP/Версия КодСостояния Пояснение, где:</p><ul id="ac98dca5-eae2-46dd-b50c-66288da2a97c" class="bulleted-list"><li style="list-style-type:disc">Версия — пара разделённых точкой цифр, как в запросе;</li></ul><ul id="d5dc63a2-e642-4bb9-9ec3-405bfe1c9e07" class="bulleted-list"><li style="list-style-type:disc">Код состояния (англ. Status Code) — три цифры. По коду состояния определяется дальнейшее содержимое сообщения и поведение клиента;</li></ul><ul id="b8970cbf-9c0c-41a3-935c-908dacb4e837" class="bulleted-list"><li style="list-style-type:disc">Пояснение (англ. Reason Phrase) — текстовое короткое пояснение к коду ответа для пользователя. Никак не влияет на сообщение и является необязательным.</li></ul><p id="15c048d1-c6bb-43f0-91ec-cda77d7927be" class="">Из перечисленного следует подробнее рассмотреть типы запросов и коды состояния</p><h3 id="f5b84c9b-2d20-432c-a010-b9a9ac39e84c" class="">Методы HTTP</h3><p id="1cc6728f-9462-46aa-87ff-6c05ef7eaa98" class="">Метод HTTP (англ. HTTP Method) — последовательность из любых символов, кроме управляющих и разделителей, указывающая на основную операцию над ресурсом. Обычно метод представляет собой короткое английское слово, записанное заглавными буквами. Обратите внимание, что название метода чувствительно к регистру.</p><p id="b31276a3-cff4-4d82-8aae-13e2d1f0f6e6" class="">Обозначим следующие методы:</p><ul id="b25b07f7-f317-4665-9987-aece89ba99fb" class="bulleted-list"><li style="list-style-type:disc">GET - Запрашивает представление ресурса</li></ul><ul id="b3e56574-047f-4955-b0fb-9fcd6c8e9446" class="bulleted-list"><li style="list-style-type:disc">HEAD - Запрашивает ресурс так же, как и метод GET, но без тела ответа</li></ul><ul id="f55dd3cc-656a-4702-9bf7-75f5c94a8da2" class="bulleted-list"><li style="list-style-type:disc">POST - Для отправки сущностей к определённому ресурсу</li></ul><ul id="9e1742af-8b52-458a-b287-ca8543a99729" class="bulleted-list"><li style="list-style-type:disc">PUT - Заменяет все текущие представления ресурса данными запроса</li></ul><ul id="24efc116-dd40-4082-af40-65135b1ade15" class="bulleted-list"><li style="list-style-type:disc">DELETE - Удаляет указанный ресурс</li></ul><ul id="f739482a-a8de-4f6e-b0a7-d67632d62ef9" class="bulleted-list"><li style="list-style-type:disc">CONNECT - Устанавливает &quot;туннель&quot; к серверу, определённому по ресурсу</li></ul><ul id="01717558-3e7a-4b2c-ac9b-06589908f904" class="bulleted-list"><li style="list-style-type:disc">OPTIONS - Для описания параметров соединения с ресурсом</li></ul><ul id="0d3b2a06-068d-4846-9d83-45a7baee61e0" class="bulleted-list"><li style="list-style-type:disc">TRACE - Выполняет вызов возвращаемого тестового сообщения с ресурса</li></ul><ul id="1cef08c1-5641-4083-a2e5-73b3ac16534b" class="bulleted-list"><li style="list-style-type:disc">PATCH - Для частичного изменения ресурса</li></ul><h3 id="70c1a908-b9a3-46c9-b97a-f0d7abbd8a1c" class="">Коды состояния</h3><p id="16c2a776-93a7-4eb6-aed7-819c6fc3fb08" class=""><strong>1xx</strong></p><p id="525278cd-a5b3-46a7-ab4a-5111208303a8" class="">Информационный(англ. informational)</p><p id="25017d96-6365-45b5-9066-b392a184c810" class="">Информирование о процессе передачи. В HTTP/1.0 — сообщения с такими кодами должны игнорироваться.</p><p id="bdba4146-ac9d-4462-9b37-e2a02b765f20" class="">В HTTP/1.1 — клиент должен быть готов принять этот класс сообщений как обычный ответ, но ничего отправлять серверу не нужно.</p><p id="24d66f1a-4d6f-4362-b895-8a3b250d2661" class="">Сами сообщения от сервера содержат только стартовую строку ответа и, если требуется, несколько специфичных для ответа полей заголовка. Прокси-серверы подобные сообщения должны отправлять дальше от сервера к клиенту</p><p id="a41a012e-6bef-4254-8de0-818f342f650c" class=""><strong>2xx</strong></p><p id="e2007780-3fa8-444a-85e2-f45e5c0131c8" class="">Успех(англ. Success)</p><p id="983e154b-bb5e-4c60-bd14-0dd9ca393cc3" class="">Информирование о случаях успешного принятия и обработки запроса клиента. В зависимости от статуса, сервер может ещё передать заголовки и тело сообщения.</p><p id="57ca04db-6742-412b-8531-08f425213607" class=""><strong>3xx</strong></p><p id="30bb86b1-5783-4f08-ab99-6adf583b2f98" class="">Перенаправление(англ. Redirection)</p><p id="3d3add48-9ecf-4d94-87f8-eed2a8b3f890" class="">Сообщает клиенту, что для успешного выполнения операции необходимо сделать другой запрос (как правило по другому URI). Из данного класса пять кодов 301, 302, 303, 305 и 307 относятся непосредственно к перенаправлениям (редирект). Адрес, по которому клиенту следует произвести запрос, сервер указывает в заголовке Location. При этом допускается использование фрагментов в целевом URI.</p><p id="15252efc-d603-415c-ac40-625fdb965bb5" class=""><strong>4xx</strong></p><p id="6932389f-4655-460a-b8a1-c1fc6d91d3f2" class="">Ошибка клиента(англ. Client Error)</p><p id="e0c63a18-923f-4b81-a04e-4040f8205f9a" class="">Указание ошибок со стороны клиента. При использовании всех методов, кроме HEAD, сервер должен вернуть в теле сообщения гипертекстовое пояснение для пользователя.</p><p id="1f804b34-65e9-483b-9e13-67aee915f92c" class=""><strong>5xx</strong></p><p id="e5dcefb4-0eb8-4867-956e-83b870c78e20" class="">Ошибка сервера(англ. Server Error)</p><p id="d0beba82-681a-41b5-b627-d91bc9e66f44" class="">Информирование о случаях неудачного выполнения операции по вине сервера. Для всех ситуаций, кроме использования метода HEAD, сервер должен включать в тело сообщения объяснение, которое клиент отобразит пользователю.</p><h3 id="f02c654c-3a90-455e-95bd-e21c79283372" class="">Заголовки HTTP</h3><p id="9919c55d-0276-4220-afbf-7c1ba7df7525" class="">Заголовки HTTP (англ. HTTP Headers) — это строки в HTTP-сообщении, содержащие разделённую двоеточием пару параметр-значение. Формат заголовков соответствует общему формату заголовков текстовых сетевых сообщений ARPA (см. RFC 822). Заголовки должны отделяться от тела сообщения хотя бы одной пустой строкой.</p><p id="2985d917-2425-409c-bc5e-577c14ba207e" class="">Все заголовки разделяются на четыре основных группы:</p><ul id="c81e042e-518b-448d-8a1e-9c220459d153" class="bulleted-list"><li style="list-style-type:disc">General Headers («Основные заголовки») — могут включаться в любое сообщение клиента и сервера;</li></ul><ul id="aeae2a5d-71bc-41a7-8db9-35d8e9770c3d" class="bulleted-list"><li style="list-style-type:disc">Request Headers («Заголовки запроса») — используются только в запросах клиента;</li></ul><ul id="5ed54ac0-7f49-43ef-92ea-259b473ddcc5" class="bulleted-list"><li style="list-style-type:disc">Response Headers («Заголовки ответа») — только для ответов от сервера;</li></ul><ul id="ea70382b-3821-4088-a92d-0eaef9c4390a" class="bulleted-list"><li style="list-style-type:disc">Entity Headers («Заголовки сущности») — сопровождают каждую сущность сообщения.</li></ul><p id="588f132c-b340-4c93-b4ec-db7fbb2d3cae" class="">Именно в таком порядке рекомендуется посылать заголовки получателю.</p><p id="8197c0c9-c88d-4183-ad1f-167ad92da3d2" class="">Все необходимые для функционирования HTTP заголовки описаны в основных RFC. Если не хватает существующих, то можно вводить свои. Традиционно к именам таких дополнительных заголовков добавляют префикс «X-» для избегания конфликта имён с возможно существующими.</p><h3 id="bef34748-5204-4ed6-abd0-05473e5475ba" class="">Тело сообщения</h3><p id="1a43b349-dc14-475b-abc9-67bdd0d5f17f" class="">Часть сообщения, которое называется телом, является необязательной для HTTP-сообщения, но если она доступна, она используется для переноса тела объекта, связанного с запросом или ответом. Если тело объекта присутствует, то обычно строки заголовков Content Type и Content-Length указывают природу тела сообщения. </p><p id="c9104ab3-6621-4ed1-9ebc-0fd613850792" class="">Тело сообщения — это та часть, которая содержит фактические данные HTTP-запроса (сюда же относятся данные, передаваемые через веб-формы и выгружаемые файлы) и данные HTTP-ответа от сервера (включая HTML код, файлы, изображения и т. д.).</p><h2 id="b24cf282-ecac-4e09-9b5b-d50d1bc2043c" class="">HTTPS</h2><p id="fa50f3c8-3b94-4f54-a3c3-3a84aa082a9b" class="">HTTPS не является отдельным протоколом. Это расширение протокола HTTP для поддержки шифрования в целях повышения безопасности.</p><p id="083e28eb-da6d-46e9-9f14-27203771f1b4" class="">Данные в протоколе HTTPS передаются поверх криптографических протоколов TLS или SSL.</p><p id="7e3ff313-61b4-4c58-bec2-96b262164fd4" class="">В отличие от HTTP с TCP-портом 80, для HTTPS по умолчанию используется TCP-порт 443.</p><h3 id="778081b9-209f-4e7d-86ff-a62561a486c8" class="">Функции HTTPS</h3><p id="8f1fe2c3-f4a3-4514-b864-f3f43f2f44af" class="">Функции протокола HTTPS:</p><p id="f332da7f-4cf7-478d-af2b-79d1889a8f23" class=""><strong>Шифрование</strong>. Информация передаётся в зашифрованном виде. Благодаря этому злоумышленники не могут украсть информацию, которой обмениваются посетители сайта, а также отследить их действия на других страницах.</p><p id="43aa35a6-3a22-444c-a297-077024fa505e" class=""><strong>Аутентификация</strong>. Посетители уверены, что переходят на официальный сайт компании, а не на дубликат, сделанный злоумышленником.</p><p id="202a6d80-9a09-4f37-9ccf-c1c80c8cb1b5" class=""><strong>Сохранение данных</strong>. Протокол фиксирует все изменения данных. Если злоумышленник всё-таки пытался взломать защиту, об этом можно узнать из сохранённых данных.</p><h3 id="9738bc73-b1ec-47cf-bcb4-920e63c6e4fb" class="">Механизм работы</h3><ul id="5ba69fa5-26e7-429a-9b69-b01977822255" class="bulleted-list"><li style="list-style-type:disc">Браузер пользователя просит предоставить SSL-сертификат</li></ul><ul id="1890cf89-b4a0-4112-b05e-cb943893afc3" class="bulleted-list"><li style="list-style-type:disc">Сайт на HTTPS отправляет сертификат</li></ul><ul id="4009dd98-c748-433a-8d4e-d13cdbfa9508" class="bulleted-list"><li style="list-style-type:disc">Браузер проверяет подлинность сертификата в центре сертификации</li></ul><ul id="7da2f1c7-ece5-41f7-b80e-0a4f45e9891b" class="bulleted-list"><li style="list-style-type:disc">Браузер и сайт договариваются о симметричном ключе при помощи асимметричного шифрования</li></ul><ul id="af266c9f-eafb-4799-aff8-eaf98bc56230" class="bulleted-list"><li style="list-style-type:disc">Браузер и сайт передают зашифрованную информацию</li></ul><h1 id="6979c211-7710-4877-8b92-b078530bb48d" class="">Протокол SMB</h1><p id="387d8a95-980a-4086-ae64-486730269bbd" class="">SMB (Server Message Block) – сетевой протокол для удаленного доступа к файлам и принтерам. Именно он используется при подключении ресурсов через \servername\sharename. Протокол изначально работал поверх NetBIOS, используя порты UDP 137, 138 и TCP 137, 139. С выходом Windows 2000 стал работать напрямую, используя порт TCP 445. SMB используется также для входа в домен Active Directory и работы в нем.</p><p id="9992a49a-daf7-45e1-b503-4b46870d7c69" class="">SMB работает через клиент-серверный подход, когда клиент делает определенные запросы и сервер отвечает соответствующим образом.</p><p id="26294dfc-ee45-4e98-9c8d-6567d6dbbe37" class="">Клиенты соединяются с сервером, используя протоколы TCP/IP (а, точнее, NetBIOS через TCP/IP), NetBEUI или IPX/SPX. После того, как соединение установлено, клиенты могут посылать команды серверу (эти команды называются SMB-команды или SMBs), который даёт им доступ к ресурсам, позволяет открывать, читать файлы, писать в файлы и вообще выполнять весь перечень действий, которые можно выполнять с файловой системой. Однако в случае использования SMB эти действия совершаются через сеть.</p><p id="390d3e96-577c-4346-b5d8-5f403b2700e9" class="">Протокол SMB представляет четыре вида севисов:</p><p id="9365957f-d6d3-4777-962e-12419fae2d0e" class=""><strong>Управление сессиями.</strong> Создание, поддержание и разрыв логического канала между рабочей станцией и сетевыми ресурсами файлового сервера.<br/><br/><strong>Файловый доступ.</strong> Рабочая станция может обратиться к файл-серверу с запросами на выполнение типовых файловых операций (открытие файла, чтение данных и т.п.).<br/><br/><strong>Сервис печати.</strong> Рабочая станция может ставить файлы в очередь для печати на сервере и получать информацию об очереди печати.<br/><br/><strong>Сервис сообщений.</strong> SMB поддерживает простую передачу адресных и широковещательных сообщений по локальной сети.</p><p id="9035742c-b4c7-454c-a72d-938c16329bc1" class=""><strong>Основные операции</strong></p><ul id="667f0b1e-061f-4046-9024-15e98a7bf08e" class="bulleted-list"><li style="list-style-type:disc">поиск директорий</li></ul><ul id="e31b3616-0b3f-463a-a4dd-b09d7715074e" class="bulleted-list"><li style="list-style-type:disc">чтение и запись файлов</li></ul><ul id="d70f03bf-b2b4-4c73-b329-e411a389010b" class="bulleted-list"><li style="list-style-type:disc">блокировка и разблокировка файлов</li></ul><ul id="c81825c4-2d33-4380-96eb-18e0ee974fbd" class="bulleted-list"><li style="list-style-type:disc">создание и удаление файлов и директорий</li></ul><ul id="0c00ad3a-5a1f-4407-8558-f162199f4b47" class="bulleted-list"><li style="list-style-type:disc">получение и установление атрибутов файла</li></ul><ul id="c7327655-465c-43bb-84bd-991869878949" class="bulleted-list"><li style="list-style-type:disc">открытие и закрытие файлов и принтерных файлов</li></ul><ul id="8f44dca6-acb5-4cf4-b8d6-ceca81be979d" class="bulleted-list"><li style="list-style-type:disc">присоединение к файловым и принтерным ресурсам</li></ul><p id="d51aa9d5-e8e2-422a-ac97-025453070081" class=""><strong>Подпись SMB трафика (SMB Signing)</strong><br/>Подпись SMB трафика (SMB Signing) – это специальный механизм, обеспечивающий безопасность протокола SMB. Предназначен для повышения защиты передаваемого трафика и от атак в Man-In-The-Middle. Впервые SMB Signing появился в Windows NT 4.0 SP3 и Windows 98.<br/></p><p id="0b65ca9d-7506-4d3d-93cc-a3846aaa348e" class="">SMB Signing предоставляет два улучшения для протокола SMB:</p><ul id="51d462b4-040c-4ba2-8002-09eec29f1a69" class="bulleted-list"><li style="list-style-type:disc">Взаимная аутентификация</li></ul><ul id="db78885b-c2e1-4851-a2e7-b22eb6a52917" class="bulleted-list"><li style="list-style-type:disc">Аутентификация сообщений<br/>Эти преимущества достигаются путем добавления в SMB пакет цифровой подписи.<br/>Включение ж приводит к увеличению нагрузку, что может привести к снижению производительности передачи сетевого трафика на 10-15%.<br/></li></ul><p id="262f9424-aedb-47fa-b8ce-46ec7360657b" class=""><strong>Принцип работы:</strong></p><ol type="1" id="f806549f-05c8-46bc-885c-962dbb4a94a7" class="numbered-list" start="1"><li>Клиент соединяется с сервером, делается запрос на использование SMB Signing</li></ol><ol type="1" id="3ee69b09-d174-4831-95a6-1065b6f07bed" class="numbered-list" start="2"><li>Сервер отвечает на соединение, что можно использовать SMB Signing</li></ol><ol type="1" id="214fd803-45f3-4dfd-8a65-d8dba0b0ef0e" class="numbered-list" start="3"><li>Клиент делает новый запрос, куда включает NTLM/NTLM v2 данные или билет от Kerberos и отправляет серверу. После данного этапа каждый последующий пакет имеет +1 к последовательности. Таким образом можно отслеживать, что нет вмешательства в пакеты отправляемые между клиентом и сервером</li></ol><ol type="1" id="8b2b1405-cc4d-4c85-b132-c0d67b60abc8" class="numbered-list" start="4"><li>Устанавливается номер последовательности равный 1. Генерируется цифровая подпись, путем сложения сессионного ключа (например, взятого из билета kerberos`a) и SMB пакета, и от него берется MD5/SHA-256 хэш сумма и помещается в поле SecuritySignature. После этого последовательность увеличивается на единицу, т.е. теперь равно двум (2)</li></ol><ol type="1" id="d996d70a-8967-4de2-b731-c7265ac7a60d" class="numbered-list" start="5"><li>Клиент получает пакет и выполняет действия аналогичные п.4, только со своим сессионным ключом. Если значения совпадут, то пакет считается нормальным (иначе отбрасывается).</li></ol><ol type="1" id="b04b5838-e533-4fa7-a807-675333092c99" class="numbered-list" start="6"><li>После этого общение происходит с цифровой подписью, т.е. теперь пакеты проверяются.</li></ol><p id="c032fc86-4762-47a1-b275-d9823c8e33f5" class="">Т.к. сессионный ключ в открытом виде не пересылается, то становится довольно проблематично, а главное в короткие сроки, отгадать этот самой ключ и подменять его. Таким вот простым образом достигается безопасность передачи трафика.</p><p id="80da253e-f026-456c-bc13-8976e9fe0333" class="">Так же есть реализация IPSec, в котором защищаются сами пакеты IP. IPSec может работать с любым вышестоящим (в модели OSI) протоколом, в том числе и с SMB. Отличает SMB Signing от IPSec уровни на которых происходит защита. В бонус IPSec: может не только подписывать трафик, но и защищать его от свободного снифинга. Достигается путем шифрации сессионным ключом.</p><p id="ea3b36e9-36ca-4299-bcc4-b9d8bcc6171d" class=""><strong>Аутентификация в SMB</strong></p><p id="795641a6-d591-4df5-a375-4a5275cab5bc" class="">Существует два вида уровня доступа:<br/><br/><strong>User-Level</strong> – Этот уровень отвечает за аутентификации при подключении к серверу, т.е. когда клиент пытается подключиться к серверу он отсылается свои данные для аутентификации (возможно использование анонимного доступа, тогда любой имеет доступ к серверу). Если аутентификация прошла успешно, то клиента допускают до сервера (в обычной жизни это выглядит как отображение общедоступных папок в сетевом окружении, при заходе,например, \\FF-srv01.inadmin.local). Иначе он просто не сможет подключиться до сервера.</p><p id="3c2114fc-c7d3-48c4-9837-120ce5cb5cae" class=""><strong>Share-level</strong> – Это уровень доступа, определяемые индивидуально для каждой общедоступной папки. Например, не все пользователи имеют доступ к “Папка1”, но при этом имеют доступ к папке “Общие Документы”.</p><p id="29877c26-118b-4cd2-8b85-c4d5c9b8b441" class="">Таким образом мы получаем, что сначала работает User-Level, а потом уже Share-Level, при условии, что клиент смог пройти аутентификацию на User-Level.</p><h1 id="de8569b0-be83-4de9-b84a-a1b05aab1f87" class="">Остальные сетевые протоколы</h1><p id="98cb9699-22d0-4ff7-8ca0-c1e325cd722d" class=""><strong>FTP</strong> (англ. File Transfer Protocol) — протокол передачи файлов по сети.</p><p id="a1320353-123a-481b-9fc8-922019ac26a5" class="">Порты:</p><ul id="ad9c7675-f702-49f1-821b-8d013f6a79b3" class="bulleted-list"><li style="list-style-type:disc">20 - ftp-data - Порт данных FTP</li></ul><ul id="1fa122ee-d686-4466-87b3-cc770accc296" class="bulleted-list"><li style="list-style-type:disc">21- ftp - Порт протокола передачи файлов (File Transfer Protocol — FTP); иногда используется протоколом файловой службы (File Service Protocol — FSP)</li></ul><p id="e5e302da-eea7-41ff-8e62-7831b7eb697c" class="">
+</p><p id="665e2a61-92fd-46eb-820c-73edf597d591" class=""><strong>POP/POP3</strong> (англ. Post Office Protocol Version 3 — протокол почтового отделения, версия 3) — стандартный интернет-протокол прикладного уровня, используемый клиентами электронной почты для получения почты с удалённого сервера по TCP-соединению.</p><p id="7ee98df1-ec8a-44e6-ac25-aafeb02b58df" class="">Порты:</p><ul id="62b93c51-1e42-4648-8379-d8cb603548b6" class="bulleted-list"><li style="list-style-type:disc">109 - pop2 - Протокол почтового отделения (Post Office Protocol) версии 2</li></ul><ul id="65cdea9e-eb07-4619-a231-cca3d923a796" class="bulleted-list"><li style="list-style-type:disc">110 - pop3 - Протокол почтового отделения (Post Office Protocol) версии 3</li></ul><ul id="2a6de5cf-5b62-45d0-bd05-4ab5810e30d3" class="bulleted-list"><li style="list-style-type:disc">995 - pop3s - POP 3 поверх SSL (POP3S)</li></ul><p id="ad6d4f16-4e8e-461c-a1ac-5f07d77570f6" class="">
+</p><p id="546cc236-0c7f-4980-9912-d9f2d67b264b" class=""><strong>SMTP</strong> (англ. Simple Mail Transfer Protocol — простой протокол передачи почты) — это широко используемый сетевой протокол, предназначенный для передачи электронной почты в сетях TCP/IP.</p><p id="de049383-d6ea-4c87-85b4-e433ba09831c" class="">Порты:</p><ul id="4acce169-3235-4c69-89e3-0fc6e2497087" class="bulleted-list"><li style="list-style-type:disc">25 – smtp - Протокол простой передачи почты (Simple Mail Transfer Protocol — SMTP)</li></ul><ul id="9f65989a-a94b-4089-b925-df4431a0db3a" class="bulleted-list"><li style="list-style-type:disc">465/tcp – smtps - SMTP поверх SSL (SMTPS)</li></ul><p id="db6d11ff-a14c-4546-b960-de89c4c56a5c" class="">
+</p><p id="ed40fc5c-38c4-4687-871a-c5c7d995f933" class=""><strong>SNMP</strong> (англ. Simple Network Management Protocol — простой протокол сетевого управления) — стандартный интернет-протокол для управления устройствами в IP-сетях на основе архитектур TCP/UDP.</p><p id="5d0545d0-1f4a-43a8-907a-b1e24b5cca68" class="">Порты:</p><ul id="8ff5ae1b-03f5-4041-a098-4b82dbce0c7e" class="bulleted-list"><li style="list-style-type:disc">161 – snmp - Простой протокол управления сетью (Simple Network Management Protocol — SNMP)</li></ul><ul id="4fe358d2-dcb4-4985-993f-2d8b97921bc0" class="bulleted-list"><li style="list-style-type:disc">162 – snmptrap - Ловушки для SNMP</li></ul><ul id="42c58c27-0f9c-452f-b5fe-3967853d24dd" class="bulleted-list"><li style="list-style-type:disc">199 – smux - UNIX-мультиплексор SNMP</li></ul><p id="4cde3357-2285-48df-b3bd-6576083230a4" class=""><strong>IMAP</strong> (англ. Internet Message Access Protocol) — протокол прикладного уровня для доступа к электронной почте.</p><p id="0b2c7afe-e50b-4c66-8bfa-371ad3f15c02" class="">Порты:</p><ul id="5de1803e-a18b-47a4-82fc-18dfb20e0abd" class="bulleted-list"><li style="list-style-type:disc">143 – imap - Протокол доступа к сообщениям через Интернет (Internet Message Access Protocol — IMAP)</li></ul><ul id="e1f7d5af-fce0-4fa4-beba-229ad51913c9" class="bulleted-list"><li style="list-style-type:disc">220 - imap3 - Протокол доступа к сообщениям через Интернет (Internet Message Access Protocol) версии 3</li></ul><ul id="2be138b9-7ec8-4b43-bc95-0de0ea547bc3" class="bulleted-list"><li style="list-style-type:disc">993 – imaps - IMAP поверх SSL (IMAPS)</li></ul><p id="1977b1ad-26f4-4a0c-aab1-ab4c5f6cd2a4" class=""><strong>RDP</strong> (англ. Remote Desktop Protocol — протокол удалённого рабочего стола) — проприетарный протокол прикладного уровня, позаимствованный Microsoft из купленной у PictureTel (ныне известной как Polycom) телекоммуникационной программы Liveshare Plus (названной впоследствии NetMeeting), использующийся для обеспечения удалённой работы пользователя с сервером, на котором запущен сервис терминальных подключений.</p><p id="5c00beab-a171-4bae-a801-42fb3e8be3e7" class=""><strong>Kerberos - п</strong>озволяет передавать данные через незащищённые сети для безопасной идентификации</p><p id="e4394f13-cde7-4e90-beaa-6eb56ee73b6f" class="">Порты:</p><ul id="45d8f2be-70e9-4cc3-90e6-551531fc6e00" class="bulleted-list"><li style="list-style-type:disc">88 – kerberos - Сетевая система проверки подлинности Kerberos</li></ul><ul id="9cfdbc27-9a44-4b76-9e18-1b34309f2564" class="bulleted-list"><li style="list-style-type:disc">464 – kpasswd - Службы смены пароля и ключа Kerberos</li></ul><ul id="65cd81c0-4282-4ddf-94b2-9d789d2eea6c" class="bulleted-list"><li style="list-style-type:disc">749 - kerberos-adm - Администрирование базой данных &#x27;kadmin&#x27; протокола Kerberos версии 5 (v5)</li></ul><ul id="a8169788-e3a2-46d9-99af-c2638b1401b4" class="bulleted-list"><li style="list-style-type:disc">750 - kerberos-iv - Службы Kerberos версии 4 (v4)</li></ul><ul id="90562d45-ebac-425b-9764-0d6b12a4d55f" class="bulleted-list"><li style="list-style-type:disc">543/tcp – klogin - Удалённый вход по протоколу Kerberos версии 5 (v5)</li></ul><ul id="4afd5d11-a4fa-45dd-8204-8d95825fcee9" class="bulleted-list"><li style="list-style-type:disc">544/tcp - kshell - Удалённая оболочка по протоколу Kerberos версии 5 (v5)</li></ul><ul id="06b08dcb-59a0-444b-b663-af79173bb66c" class="bulleted-list"><li style="list-style-type:disc">4444 - krb524 - Преобразователь билетов Kerberos версии 5 (v5) к версии 4 (v4)<br/>И др.<br/></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

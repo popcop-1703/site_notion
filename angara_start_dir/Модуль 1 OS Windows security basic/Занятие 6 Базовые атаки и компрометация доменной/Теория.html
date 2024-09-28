@@ -1,0 +1,1135 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Теория</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 237, 214, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 237, 214, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(249, 228, 188, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+
+		.checkbox-on {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+
+		.checkbox-off {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+	</style>
+</head>
+
+<body>
+	<article id="deaf3293-9c61-4ec6-8777-45b2cf9d0d88" class="page sans">
+		<header>
+			<div class="page-header-icon undefined"><span class="icon">🔸</span></div>
+			<h1 class="page-title">Теория</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<h2 id="16b14565-6c03-4d6a-8b24-0c40b8154800" class="">Варианты угроз инфраструктуре</h2>
+			<ul id="e2107289-3533-44c2-b7e9-701e9d0a9f6a" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Почтовый фишинг</strong>
+					<figure id="e921cbaa-6e2a-4c73-b248-65a02cf9ed50" class="image"><a
+							href="Теория/Screen_Shot_2022-05-01_at_17.06.47.png"><img
+								src="Теория/Screen_Shot_2022-05-01_at_17.06.47.png" /></a>
+					</figure>
+				</li>
+			</ul>
+			<ul id="f62f7096-8b1a-470e-b3fd-50bb032b71f4" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Вирусное ПО на съемных носителях информации</strong>
+					(пользователь может подключить носитель к рабочему компьютеру)<figure
+						id="c2244215-e08d-4688-a968-072ef1399dd8" class="image"><a
+							href="Теория/Screen_Shot_2022-05-01_at_17.07.48.png"><img
+								src="Теория/Screen_Shot_2022-05-01_at_17.07.48.png" /></a>
+					</figure>
+				</li>
+			</ul>
+			<ul id="18439751-d1d2-4922-803a-5e5d26148118" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Проникновение на объект</strong> (если плохая охрана на самом
+					объекте)<figure id="3b3403f8-d42b-4226-9064-e94169abb67f" class="image"><a
+							href="Теория/Screen_Shot_2022-05-01_at_17.09.40.png"><img
+								src="Теория/Screen_Shot_2022-05-01_at_17.09.40.png" /></a>
+					</figure>
+				</li>
+			</ul>
+			<ul id="2db647fb-9873-41bc-97ca-06f1815c8624" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Уязвимости систем</strong> (ОС или приложений)<figure
+						id="6c47db62-59e8-45de-b1f9-62729c74347a" class="image"><a
+							href="Теория/Screen_Shot_2022-05-01_at_17.10.49.png"><img
+								src="Теория/Screen_Shot_2022-05-01_at_17.10.49.png" /></a>
+					</figure>
+				</li>
+			</ul>
+			<h2 id="c51da7fc-15cc-43b6-8545-ef20ee6aadf5" class="">Введение в уязвимости</h2>
+			<h3 id="9af1ba6a-5ca5-465c-b15e-ec9bfb3194ed" class="">Common Vulnerabilities and Exposures (CVE)</h3>
+			<figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex"
+				id="9081b0f7-9921-4077-9068-330a22b35c97">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%"><strong>CVE</strong> - база данных общеизвестных уязвимостей ИБ. Каждой
+					уязвимости присваивается ID номер вида CVE-год-номер, описание и ключевые параметры уязвимости,
+					такие как:</div>
+			</figure>
+			<ul id="a6ad8830-5b9c-4d1d-9cfe-80d67abf4108" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Номер уязвимости</strong>, например CVE-2019-0708</li>
+			</ul>
+			<ul id="9ce8aebe-6b30-460e-88a4-e6d1b3685b20" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Шкала критичности</strong> (метрика), 9.8 CRITICAL</li>
+			</ul>
+			<ul id="63f94417-6712-4b12-a7b5-0bb49f0e6fb1" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Вектор</strong>, CVSS:3.0/<a
+						href="https://www.notion.so/ba4a06e5c5f041f48d208e2bb2819cac?pvs=21">AV</a>:N/<a
+						href="https://www.notion.so/ba4a06e5c5f041f48d208e2bb2819cac?pvs=21">AC</a>:L/<a
+						href="https://www.notion.so/ba4a06e5c5f041f48d208e2bb2819cac?pvs=21">PR</a>:N/<a
+						href="https://www.notion.so/ba4a06e5c5f041f48d208e2bb2819cac?pvs=21">UI</a>:N/<a
+						href="https://www.notion.so/ba4a06e5c5f041f48d208e2bb2819cac?pvs=21">S</a>:U/<a
+						href="https://www.notion.so/ba4a06e5c5f041f48d208e2bb2819cac?pvs=21">C</a>:H/<a
+						href="https://www.notion.so/ba4a06e5c5f041f48d208e2bb2819cac?pvs=21">I</a>:H/<a
+						href="https://www.notion.so/ba4a06e5c5f041f48d208e2bb2819cac?pvs=21">A</a>:H (нужен для быстрого
+					понимания как эта уязвимость работает)<figure id="5346a3bc-ec76-4fe1-a621-3cf2cc902719"
+						class="image"><a
+							href="Теория/Screen_Shot_2022-05-01_at_17.21.43.png"><img
+								src="Теория/Screen_Shot_2022-05-01_at_17.21.43.png" /></a>
+					</figure>
+				</li>
+			</ul>
+			<ul id="7c51cf34-a0a9-40ca-a960-27605780da0c" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Конкретный недостаток реализации</strong></li>
+			</ul>
+			<ul id="e8d5fb00-3b8c-44a5-b2da-7cd9f64c28a1" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Применимость</strong> (CPE), micrsoft:windows7 sp1</li>
+			</ul>
+			<ul id="c2eebff0-0731-4643-9582-5fd92ee35c9a" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Наличие исправления</strong></li>
+			</ul>
+			<hr id="cf177170-b5fd-489b-95e8-a003182eb1c5" />
+			<h2 id="68f628fa-cb70-421c-977e-18fdb57729b3" class="">Вектора</h2>
+			<h3 id="6ae00d1e-68c0-4374-9ea3-8bef2a2da27e" class="">Вектор атаки (AV)</h3>
+			<figure id="ba6b145c-ff35-4c95-814c-226dd9dcb9b3" class="image"><a
+					href="Теория/Untitled.png"><img
+						style="width:707.984375px"
+						src="Теория/Untitled.png" /></a>
+			</figure>
+			<h3 id="4737c9ef-85fe-49ec-895a-301b82ad16b1" class="">Сложность атаки (AС)</h3>
+			<figure id="41d99a0d-c0de-4662-8636-e83098233fd7" class="image"><a
+					href="Теория/Untitled%201.png"><img
+						style="width:707.9375px"
+						src="Теория/Untitled%201.png" /></a>
+			</figure>
+			<h3 id="730d551e-78af-4d77-a6bc-6fb50e627c3f" class="">Уровень привилегий (PR)</h3>
+			<figure id="54e89d17-7803-4736-8da7-42ca2f1d7060" class="image"><a
+					href="Теория/Untitled%202.png"><img
+						style="width:707.953125px"
+						src="Теория/Untitled%202.png" /></a>
+			</figure>
+			<h3 id="eb13978d-2a88-43ea-bd1a-b3207a640d91" class="">Взаимодействие с пользователем (UI)</h3>
+			<figure id="9b40abce-fe9c-4c3d-8f80-dd5bdb9e65c5" class="image"><a
+					href="Теория/Untitled%203.png"><img
+						style="width:707.9375px"
+						src="Теория/Untitled%203.png" /></a>
+			</figure>
+			<h3 id="7e013e8b-2b20-4453-940a-b0f92a33422a" class="">Влияние на другие компоненты системы (S)</h3>
+			<figure id="19dc3691-216f-48af-a086-0566019f0031" class="image"><a
+					href="Теория/Untitled%204.png"><img
+						style="width:707.953125px"
+						src="Теория/Untitled%204.png" /></a>
+			</figure>
+			<h3 id="5b386b21-a932-45f8-acd0-a6314d34a630" class="">Влияние на конфиденциальность (С)</h3>
+			<figure id="899313ce-c21a-4064-9304-cc990db13dbe" class="image"><a
+					href="Теория/Untitled%205.png"><img
+						style="width:707.984375px"
+						src="Теория/Untitled%205.png" /></a>
+			</figure>
+			<h3 id="ec47e854-4e9e-4104-bc10-9584d97b6046" class="">Влияние на целостность (I)</h3>
+			<figure id="a231f073-16cb-41f4-9792-430d6cb9a7e0" class="image"><a
+					href="Теория/Untitled%206.png"><img
+						style="width:707.96875px"
+						src="Теория/Untitled%206.png" /></a>
+			</figure>
+			<h3 id="c8b1aa95-a242-42a6-8f7c-a58abcc1c797" class="">Влияние на доступность (A)</h3>
+			<figure id="c7809459-6e34-482f-9626-708d7e65bc58" class="image"><a
+					href="Теория/Untitled%207.png"><img
+						style="width:707.984375px"
+						src="Теория/Untitled%207.png" /></a>
+			</figure>
+			<hr id="73c8e4e7-54da-4165-9b31-2f9dfd4c4fd1" />
+			<figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex"
+				id="ac4f6f8f-5a98-4738-98be-aa94b8845a87">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%"><strong>Временные метрики</strong> - вносят в общую оценку поправку на полноту
+					имеющейся информации об уязвимости, зрелость эксплуатирующего кода и доступность исправлений.
+					Доступность средств эксплуатации <strong>(E)</strong>, Доступность средств устранение
+					<strong>(RL)</strong>, Степень доверия к информации об уязвимости <strong>(RC)</strong></div>
+			</figure>
+			<figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex"
+				id="e7a2a697-f794-4540-9bd5-ec27c6a4c648">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%"><strong>Контекстные метрики</strong> - при помощи контекстных метрик эксперты по
+					безопасности могут внести в результирующую оценку <strong>поправки с учетом характеристик
+						информационной среды</strong></div>
+			</figure>
+			<h3 id="5ac0e695-3ba1-4653-afca-7b7795993ea0" class="">Актуальные уязвимости для инфраструктуры Windows</h3>
+			<ul id="f7a28450-7504-4987-a29d-a0ed6ce1d199" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Zerologon</strong>
+					<ul id="8b9b5a4c-7722-4633-ad6b-a6f1911bd973" class="bulleted-list">
+						<li style="list-style-type:circle">Представляет собой ошибку в реализации протокола шифрования
+							AES-CFB8 в Netlogon Remote Protocol (MS-NRPC)</li>
+					</ul>
+					<ul id="45ffee95-fda5-400c-9252-13dbcbb14335" class="bulleted-list">
+						<li style="list-style-type:circle">Позволяет <strong>неаутентифицированному</strong> атакующему
+							удаленному получить <em>права администратора домена</em></li>
+					</ul>
+					<ul id="5b1fb7b8-8a37-4153-b679-9cfb86102e83" class="bulleted-list">
+						<li style="list-style-type:circle"><strong>Полная компроментация домена</strong></li>
+					</ul>
+					<ul id="5d999364-f98a-45aa-a782-1e45ace57f67" class="bulleted-list">
+						<li style="list-style-type:circle">Критичность 10/10</li>
+					</ul>
+					<ul id="455cb8c0-f791-4fc7-b73e-45ff5e94d569" class="bulleted-list">
+						<li style="list-style-type:circle">Имеет идентификатор <strong>CVE-2020-1472</strong></li>
+					</ul>
+					<ul id="fe55e8c7-567f-4df9-8a02-9632302ae593" class="bulleted-list">
+						<li style="list-style-type:circle">В сети в открытом доступе <strong>присутствуют
+								PoC-эксплойты</strong> для уязвимости</li>
+					</ul>
+				</li>
+			</ul>
+			<ul id="8a5023d2-f35b-4011-8a83-b88d4997f493" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>SMBGhost</strong>
+					<ul id="fa47a955-897a-4455-b16d-5bf1a8326df8" class="bulleted-list">
+						<li style="list-style-type:circle">Уязвимость представляет собой <strong>переполнение
+								буфера</strong> на серверах Microsoft SMBv3</li>
+					</ul>
+					<ul id="8aae260a-b858-4e3f-b562-2bb087ed78d9" class="bulleted-list">
+						<li style="list-style-type:circle">Проблема позволяет неавторизированному атакующему удаленно
+							выполнить код на целевом сервере или клиенте</li>
+					</ul>
+					<ul id="1f4f3bb4-6d85-4332-abc9-ad873d760178" class="bulleted-list">
+						<li style="list-style-type:circle">Имеет идентификатор <strong>CVE-2020-0796</strong></li>
+					</ul>
+					<ul id="cdc24fe7-42f6-4b7f-accc-edced3bd7ff9" class="bulleted-list">
+						<li style="list-style-type:circle">Эксплуатация уязвимости открывает системы для атак с
+							потенциалом червя</li>
+					</ul>
+					<ul id="64ef5a1c-aa8d-449d-ae88-c1c3a45814f4" class="bulleted-list">
+						<li style="list-style-type:circle">В сети в открытом доступе <strong>присутствуют
+								PoC-эксплойты</strong> для уязвимости</li>
+					</ul>
+				</li>
+			</ul>
+			<ul id="cf578ebe-3e7f-45b3-8a8c-5d7de36a81e1" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Proxylogon</strong>
+					<ul id="5ac5dfdd-1d77-401a-9e32-be264f57258b" class="bulleted-list">
+						<li style="list-style-type:circle">Эта уязвимость позволяется внешнему атакующему обойти
+							механизм аутентификации в MS Exchange (почтовый сервис) и <strong>выдать себя за любого
+								пользователя</strong></li>
+					</ul>
+					<ul id="de72c01c-f8fd-4f8a-ac5d-91f76579b151" class="bulleted-list">
+						<li style="list-style-type:circle">Уязвимости позволяют злоумышленнику обойти этап
+							аутентификации, получить права администратора, установить вредоносное ПО и выполнять
+							произвольные команды</li>
+					</ul>
+					<ul id="b768ed47-478f-46f0-8e47-fca9ad5f4a57" class="bulleted-list">
+						<li style="list-style-type:circle">Атака представляет собой цепочку уязвимостей
+							<strong>CVE-2021-26855, 26858, 27065, 26857</strong></li>
+					</ul>
+					<ul id="a7a19287-0116-4178-bc76-1743362ebb56" class="bulleted-list">
+						<li style="list-style-type:circle">Первоначальный доступ осуществляется с помощью
+							<strong>CVE-2021-26855</strong></li>
+					</ul>
+					<ul id="64dbc3e1-870d-4671-bf3f-b993e7658255" class="bulleted-list">
+						<li style="list-style-type:circle">Тип уязвимости SSRF <strong>(подделка запросов со стороны
+								сервера)</strong></li>
+					</ul>
+				</li>
+			</ul>
+			<ul id="e9d512ed-2cb1-4b15-a519-00f6ef20b4e4" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>PrintNightmare</strong>
+					<ul id="cfdbe1a7-adb1-4e0d-b656-149a90f647bc" class="bulleted-list">
+						<li style="list-style-type:circle">Уязвимость в диспетчере печати</li>
+					</ul>
+					<ul id="b75207cf-6f50-448f-985e-4077cb14781d" class="bulleted-list">
+						<li style="list-style-type:circle">Имеет идентификаторы <strong>CVE-2021-1675 (эксплуатация
+								только локально)</strong> и <strong>CVE-2021-34527 (удаленно)</strong></li>
+					</ul>
+					<ul id="966318b2-a01b-413b-89ec-44986163273c" class="bulleted-list">
+						<li style="list-style-type:circle">Ошибка в коде приводит к недостаточной валидации ввода в ходе
+							добавления нового принтера, в результате появляется возможность <strong>загрузить в систему
+								вредоносный DLL-файл</strong>. Повторная попытка добавить принтер позволяет обратится к
+							загруженному файлу, который запустится с системными привилегиями</li>
+					</ul>
+				</li>
+			</ul>
+			<h3 id="1d776658-c5fd-43ac-bcaa-33069bd682bc" class="">Нестареющие уязвимости (почти с рождения Windows)
+			</h3>
+			<ul id="8b3e9458-eca6-43dd-9dd2-60165e76e0c6" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Path-the-hash</strong>
+					<p id="b37fd09c-2ccd-4f9e-9868-e7e1f5335aeb" class="">Позволяет атакующему авторизоваться на
+						удаленном сервере, вход на который осуществляется с использованием протоколов NTLM или LM. Для
+						такой аутентификации используется не пароль, а хеш пароля. Все из-за того, что <strong>хеши
+							паролей передаются без соли, т.е. остаются неизменными от сессии к сессии</strong></p>
+					<figure id="9b7bf0d9-2db1-4609-8b18-21458e69584e" class="image"><a
+							href="Теория/Screen_Shot_2022-05-01_at_18.32.52.png"><img
+								src="Теория/Screen_Shot_2022-05-01_at_18.32.52.png" /></a>
+					</figure>
+				</li>
+			</ul>
+			<ul id="fcf83c7d-3647-43c4-ae0c-d53e1aef7e8f" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>LLMNR (протокол)</strong>
+					<p id="84a9959f-1f4c-4041-a6d3-a77680ced1fd" class=""><strong>Local Loop Multicast Name
+							Resolution</strong> позволяет компьютерам выполнять разрешение имен хостов в локальной сети.
+						Основная проблема протокола в том, что запрос разрешения имен рассылается с помощью мультикаста
+						(многоадресно), что означает, что <strong>клиент неявно доверяет всем, кому ответит</strong></p>
+				</li>
+			</ul>
+			<ul id="2727d9c0-77f8-4081-9db8-8735424768b2" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>NetBIOS (протокол)</strong>
+					<p id="10d0c229-f298-4678-a41d-c1ae8ff7684b" class="">NBNS нужен для обнаружения компьютеров в сети,
+						построенной на базе TCP/IP. Netbios использует для службы имен <strong>(NetBIOS-NS) порт
+							137,</strong> для службы дейтаграмм <strong>(NetBIOS-DGM) - порт 138</strong>, а для сессий
+						<strong>(NetBIOS-SSN) - порт 139.</strong></p>
+					<p id="dc1ba761-3444-41df-82c2-c9aca3548456" class="">Злоумышленник может подменить данные, из-за
+						того что они отсылаются широковещательно</p>
+				</li>
+			</ul>
+			<ul id="dfc761cc-9cd8-417e-beca-70733b7c1202" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>WPAD (Использование браузера IE)</strong></li>
+			</ul>
+			<h3 id="fd15638e-7fe0-44fe-a402-0ddf261a98d8" class="">Эксплуатация контроллера домена на примере <a
+					href="https://www.notion.so/ba4a06e5c5f041f48d208e2bb2819cac?pvs=21">Zerologon</a></h3>
+			<h3 id="d0bb0a2c-e3c0-46c8-9f7c-e1c1615b741d" class="">Как работает Zerologon?</h3>
+			<figure id="d229f2e4-62eb-478a-9fe5-445c885a9db5" class="image"><a
+					href="Теория/Screen_Shot_2022-05-01_at_18.51.08.png"><img
+						src="Теория/Screen_Shot_2022-05-01_at_18.51.08.png" /></a>
+			</figure>
+			<figure id="f3e4262e-04b8-4aba-938a-e3aac197eed1" class="image"><a
+					href="Теория/Screen_Shot_2022-05-01_at_18.52.16.png"><img
+						src="Теория/Screen_Shot_2022-05-01_at_18.52.16.png" /></a>
+			</figure>
+			<h3 id="4bdf7cbe-c192-497b-96a8-4d17a7351887" class="">Поиск следов компрометации</h3>
+			<ol type="1" id="a9d7df3b-1516-47e5-9aca-4929948e86ea" class="numbered-list" start="1">
+				<li><strong>Поиск информации в логах</strong> (факт эксплуатации системы можно обнаружить, правильно
+					выполнив поиск по id события в <em>журнале событий</em>)</li>
+			</ol>
+			<ol type="1" id="c7563373-dbaa-4eaf-ab10-32a5ff759c6d" class="numbered-list" start="2">
+				<li><strong>Обнаружение атак в сетевом трафике</strong></li>
+			</ol>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

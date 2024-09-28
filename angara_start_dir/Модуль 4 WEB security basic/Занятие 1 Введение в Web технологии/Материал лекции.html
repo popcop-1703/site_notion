@@ -1,0 +1,771 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Материал лекции</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="ad8e369b-2e14-45e0-8fb5-24f04bea9eba" class="page sans"><header><h1 class="page-title">Материал лекции</h1><p class="page-description"></p></header><div class="page-body"><p id="2ec8f53b-9e90-4de8-bf1b-6fddf864c025" class="">
+</p><h2 id="ca7e8cb2-6731-4b9b-b07f-16c89b596e3a" class="">World Wide Web Consortium</h2><p id="a9923c23-8bd1-416e-9db7-a455587ff9bc" class=""><strong>Консорциум Всемирной паутины (World Wide Web Consortium, W3C)</strong> — организация, разрабатывающая и внедряющая технологические стандарты для Всемирной паутины. Основателем и главой Консорциума является сэр Тимоти Джон Бернерс-Ли, автор множества разработок в области информационных технологий. По состоянию на 29 мая 2019 года Консорциум насчитывает 444 члена.</p><p id="92cd6da1-8d82-4433-b866-36264552402a" class="">W3C разрабатывает для Интернета единые принципы и стандарты (называемые «рекомендациями» (W3C Recommendations)), которые затем внедряются производителями программ и оборудования. Таким образом достигается совместимость между программными продуктами и аппаратурой различных компаний, что делает Всемирную сеть более совершенной, универсальной и удобной.</p><p id="ca232603-e911-4da3-a672-473c129986be" class="">Миссия W3C: «Полностью раскрыть потенциал Всемирной паутины путём создания протоколов и принципов, гарантирующих долгосрочное развитие Сети».</p><h1 id="42f8124d-8c38-41be-96bf-66fa28f57694" class="">HTML</h1><p id="e2c832e9-043c-4254-bac0-b24d2e225843" class=""><strong>HTML (Hypertext Markup Language)</strong> - это код, который используется для структурирования и отображения веб-страницы и её контента. Например, контент может быть структурирован внутри множества параграфов, маркированных списков или с использованием изображений и таблиц данных.</p><p id="4c4f9b6e-4f64-49e1-b3aa-d887c7151282" class="">HTML не является языком программирования; это язык разметки, и используется, чтобы сообщать вашему браузеру, как отображать веб-страницы, которые вы посещаете. Он может быть сложным или простым, в зависимости от того, как хочет веб-дизайнер. HTML состоит из ряда элементов, которые вы используете, чтобы вкладывать или оборачивать различные части контента, чтобы заставить контент отображаться или действовать определённым образом.</p><h3 id="abca84a4-8856-4226-97e6-dfa620009bda" class="">Элементы и теги</h3><p id="5487b26c-7805-4251-812d-9cd10b6fa166" class="">HTML-элементы — основа языка HTML. Каждый HTML-документ состоит из дерева HTML-элементов и текста. Каждый HTML-элемент обозначается начальным (открывающим) и конечным (закрывающим) тегом. Открывающий и закрывающий теги содержат имя элемента.</p><figure id="a807e1ea-acf6-4f54-a4ac-26d6ce2b8817" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20ad8e369b2e1445e08fb524f04bea9eba/Untitled.png"><img style="width:1282px" src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20ad8e369b2e1445e08fb524f04bea9eba/Untitled.png"/></a></figure><p id="5514dacf-7168-487d-88fa-7f023f2b24e7" class="">Теги используются для создания элементов. Имя HTML-элемента - это имя, заключённое в угловые скобки, как например &lt;p&gt; для &quot;абзаца&quot;. Обратите внимание, что концу имени предшествует символ косой черты (слеша), &quot;&lt;/p&gt;&quot;, и что в пустых элементах закрывающий тег не требуется и не допускается. Если атрибуты не указаны, то для них применяются значения по умолчанию.</p><p id="e8cf8b9e-4401-4f7b-a15d-8e763f031532" class="">Ограждающие теги могут сделать слово или изображение ссылкой на что-то ещё, могут сделать слова курсивом, сделать шрифт больше или меньше и так далее. Например, возьмём следующую строку контента:</p><p id="6c316a66-5e18-48bf-80e8-eb62d0d267f9" class=""><code>Моя кошка очень раздражена</code></p><p id="59acf9b3-a3fa-4688-9d56-413275f6118c" class="">Если бы мы хотели, чтобы строка стояла сама по себе, мы могли бы указать, что это абзац, заключая его в теги абзаца:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="4443d3d4-39a0-4234-b26f-4037c31fe0ae" class="code"><code class="language-HTML">&lt;p&gt;Моя кошка очень раздражена&lt;/p&gt;</code></pre><p id="92823f1e-2ff8-4a2d-9c44-4b812e8593dd" class="">Главными частями элемента являются:</p><ul id="d09c9b11-958d-406f-b8b1-c149dd324ed0" class="bulleted-list"><li style="list-style-type:disc">Открывающий тег (Opening tag): Состоит из имени элемента (в данном случае, &quot;p&quot;), заключённого в открывающие и закрывающие угловые скобки.  Открывающий тег указывает, где элемент начинается или начинает действовать, в данном случае — где начинается абзац.</li></ul><ul id="e22da245-7f57-4d77-86c7-36603ac87871" class="bulleted-list"><li style="list-style-type:disc">Закрывающий тег (Closing tag): Это то же самое, что и открывающий тег, за исключением того, что он включает в себя косую черту перед именем элемента. Закрывающий элемент указывает, где элемент заканчивается, в данном случае — где заканчивается абзац. Отсутствие закрывающего тега является одной из наиболее распространённых ошибок начинающих и может приводить к странным результатам.</li></ul><ul id="ae133e21-790c-4763-9b15-cd5d0a78a9a1" class="bulleted-list"><li style="list-style-type:disc">Контент (Content): Это контент элемента, который в данном случае является просто текстом.</li></ul><ul id="505d6174-f3dd-40ed-b46b-045f34109769" class="bulleted-list"><li style="list-style-type:disc">Элемент(Element): Открывающий тег, закрывающий тег и контент вместе составляют элемент.</li></ul><p id="32ddcd2e-c43a-4595-92c7-29abdee547de" class="">Элементы также могут иметь атрибуты, которые выглядят так:</p><figure id="30a01d29-1330-4e66-a01d-75a1134a7366" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20ad8e369b2e1445e08fb524f04bea9eba/Untitled%201.png"><img style="width:627px" src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20ad8e369b2e1445e08fb524f04bea9eba/Untitled%201.png"/></a></figure><p id="9ab1cc42-e525-4f13-93ed-da5d4da46524" class="">Атрибуты содержат дополнительную информацию об элементе, которую вы не хотите показывать в фактическом контенте. В данном случае, <code>class</code> это имя атрибута, а <code>editor-note</code> это значение атрибута. Класс позволяет дать элементу идентификационное имя, которое может позже использоваться, чтобы обращаться к элементу с информацией о стиле и прочих вещах.</p><p id="286c84fb-e93f-4004-8dc2-e72326125760" class="">Атрибут всегда должен иметь:</p><ul id="ddda829d-11eb-4bf9-8bfa-c1ecca0cead9" class="bulleted-list"><li style="list-style-type:disc">Пробел между ним и именем элемента (или предыдущим атрибутом, если элемент уже имеет один или несколько атрибутов).</li></ul><ul id="28262ba9-5a74-4c8b-bcd4-7f0d81670aef" class="bulleted-list"><li style="list-style-type:disc">Имя атрибута, за которым следует знак равенства.</li></ul><ul id="5e346c2c-0189-46b3-934f-feec35b7e0ff" class="bulleted-list"><li style="list-style-type:disc">Значение атрибута, заключённое с двух сторон в кавычки.</li></ul><h3 id="d3db3e1b-9353-4d4c-9827-f18d0e87e21d" class="">Вложенные элементы</h3><p id="83e868de-35e7-482d-8e71-8979c6503f5c" class="">Вы также можете располагать элементы внутри других элементов — это называется <strong>вложением</strong>. Если мы хотим заявить, что наша кошка <strong>очень</strong> раздражена, мы можем заключить слово &quot;очень&quot; в элемент <code>&lt;strong&gt;</code> , который указывает, что слово должно быть сильно акцентированно:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="5d1949fb-79b8-441c-990e-9fa3e6234960" class="code"><code class="language-HTML">&lt;p&gt;Моя кошка &lt;strong&gt;очень&lt;/strong&gt; раздражена.&lt;/p&gt;</code></pre><p id="0300d5d8-df3a-4de9-9657-bc8ca884fbd4" class="">Вы, однако, должны убедиться, что ваши элементы правильно вложены: в примере выше мы открыли первым элемент <code>&lt;p&gt;</code>, затем элемент <code>&lt;strong&gt;</code>, потом мы должны закрыть сначала элемент <code>&lt;strong&gt;</code>, затем <code>&lt;p&gt;</code>. Приведённое ниже <strong>неверно</strong>:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="fa9cac0a-354b-4996-adfd-18458bd58dc8" class="code"><code class="language-HTML">&lt;p&gt;Моя кошка &lt;strong&gt;очень раздражена.&lt;/p&gt;&lt;/strong&gt;</code></pre><p id="a57869e9-6060-4fbc-b584-8e6ae7b11447" class="">Элементы должны открываться и закрываться правильно, поэтому они явно располагаются внутри или снаружи друг друга. Если они перекрываются, как в примере выше,  ваш веб-браузер будет пытаться сделать наилучшее предположение на основе того, что вы пытались сказать, что может привести к неожиданным результатам.</p><h3 id="28e0079c-32ae-4761-928b-88c118dd4478" class="">Пустые элементы</h3><p id="7123c8df-d365-4fa1-84a6-0d6223fa2977" class="">Некоторые элементы не имеют контента, и называются пустыми элементами.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="6cdc64fa-28fb-4a23-b306-b5a19f4d277c" class="code"><code class="language-HTML">&lt;img src=&quot;images/test-image.png&quot; alt=&quot;Моё тестовое изображение&quot;&gt;</code></pre><p id="f471d3d9-15d9-473e-b74d-8e3d9fe363db" class="">Элемент <code>&lt;img&gt;</code> содержит два атрибута, но не имеет закрывающего тега <code>&lt;/img&gt;</code>, и никакого внутреннего контента. Это потому, что элемент изображения не оборачивает контент для влияния на него. Его целью является вставка изображения в HTML страницу в нужном месте.</p><h3 id="8e17e57a-a4c5-4187-b225-c4e7df6d90c3" class="">Структура HTML документа</h3><p id="b417a992-f106-4671-be3d-53025519c151" class="">Теперь посмотрим, как отдельные элементы объединяются в целую HTML страницу.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="cfa171e3-a28c-4e2b-9e27-ee7d3b344222" class="code"><code class="language-HTML">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset=&quot;utf-8&quot;&gt;
+		&lt;title&gt;Моя тестовая страница&lt;/title&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;img src=&quot;images/test-image.png&quot; alt=&quot;Моё тестовое изображение&quot;&gt;
+	&lt;/body&gt;
+&lt;/html&gt;</code></pre><p id="87f5c450-8b18-4b90-8e60-05a0904a3858" class="">Здесь мы имеем:</p><ul id="f208a9dc-da98-4b2a-8339-2d8c5b101007" class="bulleted-list"><li style="list-style-type:disc"><strong>&lt;!DOCTYPE html&gt; — объявление типа документа</strong>. В прошлом, когда HTML был молод (около 1991/1992), доктайпы должны были выступать в качестве ссылки на набор правил, которым HTML страница должна была следовать, чтобы считаться хорошим HTML, что могло означать автоматическую проверку ошибок и другие полезные вещи. Однако в наши дни, никто не заботится об этом, и они на самом деле просто исторический артефакт, который должен быть включён для того, чтобы все работало правильно.</li></ul><ul id="f2619ef7-c35f-4cc5-905b-b17d167c1841" class="bulleted-list"><li style="list-style-type:disc"><strong>&lt;html&gt;&lt;/html&gt; — элемент &lt;html&gt;</strong>. Этот элемент оборачивает весь контент на всей странице, и иногда известен как корневой элемент.</li></ul><ul id="98caa818-a8c1-492b-a280-e81486cebaa2" class="bulleted-list"><li style="list-style-type:disc"><strong>&lt;head&gt;&lt;/head&gt; — элемент &lt;head&gt;</strong>. Этот элемент выступает в качестве контейнера для всего, что вы пожелаете включить на HTML страницу, но не являющегося контентом, который вы показываете пользователям вашей страницы. К ним относятся такие вещи, как ключевые слова и описание страницы, которые будут появляться в результатах поиска, CSS стили нашего контента, кодировка и многое другое.</li></ul><ul id="355e2e6e-3f8a-4925-bf4a-240a72ac8978" class="bulleted-list"><li style="list-style-type:disc"><strong>&lt;body&gt;&lt;/body&gt; — элемент &lt;body&gt;</strong>. В нем содержится весь контент, который вы хотите показывать пользователям, когда они посещают вашу страницу, будь то текст, изображения, видео, игры, проигрываемые аудиодорожки или что-то ещё.</li></ul><ul id="edcb6673-d284-4790-9a8d-2148f3bf9930" class="bulleted-list"><li style="list-style-type:disc"><strong>&lt;meta charset=&quot;utf-8&quot;&gt;</strong> — этот элемент устанавливает UTF-8 кодировку вашего документа, которая включает в себя большинство символов из всех известных человечеству языков. По сути, теперь документ может обрабатывать любой текстовый контент, который вы в него вложите. Нет причин не устанавливать её, так как это может помочь избежать некоторых проблем в дальнейшем.</li></ul><ul id="8119a45b-589a-4478-990e-f63cc117e75b" class="bulleted-list"><li style="list-style-type:disc"><strong>&lt;title&gt;&lt;/title&gt; — элемент &lt;title&gt;</strong>. Этот элемент устанавливает заголовок для вашей страницы, который является названием, появляющимся на вкладке браузера загружаемой страницы, и используется для описания страницы, когда вы добавляете её в закладки/избранное.</li></ul><h3 id="e5a7b429-f3c2-4b35-b24d-3bc571566917" class="">Разметка текста</h3><p id="4604ea3b-df5e-411f-9149-b78ac800051e" class="">В этом разделе рассмотрим некоторые из основных HTML элементов.</p><p id="47936925-b8f7-4841-adfb-da3fec3c4886" class=""><strong>Заголовки</strong></p><p id="a42a4b24-d0e9-48fb-a377-bc9a71abcdaf" class="">Элементы заголовка позволяют вам указывать определённые части вашего контента в качестве заголовков или подзаголовков. HTML включает шесть уровней заголовков &lt;h1&gt; – &lt;h6&gt;.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="5256da1c-fe9e-4521-8df3-e32fec7f12b6" class="code"><code class="language-HTML">&lt;h1&gt;Мой главный заголовок&lt;/h1&gt;
+&lt;h2&gt;Мой заголовок верхнего уровня&lt;/h2&gt;
+&lt;h3&gt;Мой подзаголовок&lt;/h3&gt;
+&lt;h4&gt;Мой под-подзаголовок&lt;/h4&gt;</code></pre><p id="3dee31cd-3271-4efc-9481-fc34e8dcc2f1" class=""><strong>Абзацы</strong><br/>Элемент &lt;p&gt; предназначен для абзацев текста:<br/></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="9a40f142-e22b-4557-bd5d-9d9429a7ac71" class="code"><code class="language-HTML">&lt;p&gt;Это одиночный абзац&lt;/p&gt;</code></pre><p id="0264b20a-e22d-44e0-b363-54567a3d8ef5" class=""><strong>Списки</strong></p><p id="9445b7d6-27fa-4c56-8128-6fbe20956d64" class="">Большая часть веб-контента является списками и HTML имеет специальные элементы для них. Разметка списка всегда состоит по меньшей мере из двух элементов. Наиболее распространёнными типами списков являются нумерованные и ненумерованные списки:</p><p id="93ab0497-b4c1-46d3-927d-c2165d9ce541" class="">Ненумерованные списки - это списки, где порядок пунктов не имеет значения, как в списке покупок. Они оборачиваются в элемент <code>&lt;ul&gt;</code>.</p><p id="9fc608b2-0dab-4974-94b0-f2cb24ed1a47" class="">Нумерованные списки - это списки, где порядок пунктов имеет значение, как в рецепте. Они оборачиваются в элемент <code>&lt;ol&gt;</code>.</p><p id="f8511696-4045-4332-9c1f-e1e6032109de" class="">Каждый пункт внутри списков располагается внутри элемента <code>&lt;li&gt;</code> (list item, элемент списка).</p><p id="2c06826c-eded-46fd-a734-35dab3219344" class=""><strong>Ссылки</strong></p><p id="0ad2d63c-ea64-47e3-aa10-809e6685b014" class="">Ссылки очень важны — это то, что делает Интернет Интернетом. Чтобы добавить ссылку, нам нужно использовать простой элемент — <code>&lt;a&gt;</code> — “a” это сокращение от “anchor” (”якорь”).</p><p id="ef3982ac-a2b6-4dbc-9ab0-1f191e83a5b6" class="">Пример:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="74ac5352-fc76-4c4b-863f-0ff1b4bc206a" class="code"><code class="language-HTML">&lt;a href=&quot;https://www.mozilla.org/ru/about/manifesto/details/&quot;&gt;Манифест Mozilla&lt;/a&gt;</code></pre><p id="8ad9e4f5-8749-4174-9218-f8beb68a4c85" class="">
+</p><h1 id="45f773a9-1f2b-4f56-b01e-e1fa0e4abb9a" class="">CSS</h1><p id="1cae70c3-c462-4d06-8d0d-1f0a1039ad91" class=""><strong>CSS (Cascading Style Sheets)</strong> — это код, который используется для стилизации веб-страниц. Как и HTML, CSS на самом деле не является языком программирования. Это не язык разметки - это язык таблицы стилей. Это означает, что он позволяет применять стили выборочно к элементам в документах HTML.</p><p id="30c5ed7a-fe64-44ba-ab45-e99f9493f484" class="">CSS используется создателями веб-страниц для задания цветов, шрифтов, стилей, расположения отдельных блоков и других аспектов представления внешнего вида этих веб-страниц. Основной целью разработки CSS являлось отделение описания логической структуры веб-страницы (которое производится с помощью HTML или других языков разметки) от описания внешнего вида этой веб-страницы (которое теперь производится с помощью формального языка CSS). Такое разделение может увеличить доступность документа, предоставить большую гибкость и возможность управления его представлением, а также уменьшить сложность и повторяемость в структурном содержимом.</p><p id="cadf10e3-55b2-414c-a28e-062b035209a8" class="">Кроме того, CSS позволяет представлять один и тот же документ в различных стилях или методах вывода, таких как экранное представление, печатное представление, чтение голосом (специальным голосовым браузером или программой чтения с экрана), или при выводе устройствами, использующими шрифт Брайля.</p><p id="7252141b-91d0-4a5d-8f79-4dcb9b224ec7" class="">Например, чтобы выбрать все элементы абзаца на HTML странице и изменить текст внутри них с чёрного на красный, вы должны написать этот CSS:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="66aebd68-7f39-41c8-b813-965ca94ade91" class="code"><code class="language-CSS">p { color: red; }</code></pre><h3 id="e9c580c9-6041-437b-9caa-cfd7709f6f97" class="">Структура CSS правил</h3><figure id="28272f50-d1ee-48bb-a6d4-32c20f07d5d6" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20ad8e369b2e1445e08fb524f04bea9eba/Untitled%202.png"><img style="width:850px" src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20ad8e369b2e1445e08fb524f04bea9eba/Untitled%202.png"/></a></figure><p id="9470b1d6-9806-4a0c-9bac-327e043b46c6" class="">Вся структура называется <strong>набором правил</strong> (но зачастую для краткости &quot;правило&quot;). Отметим также имена отдельных частей:</p><ul id="a86f5a08-ec19-44e7-82d2-cfb7b31b976f" class="bulleted-list"><li style="list-style-type:disc"><strong>Селектор (Selector)</strong>. Имя HTML-элемента в начале набора правил. Он выбирает элемент(ы) для применения стиля (в данном случае, элементы <code>p</code> ). Для стилизации другого элемента, просто измените селектор.</li></ul><ul id="78f06510-d350-4c8c-848f-8873fbd0d7e2" class="bulleted-list"><li style="list-style-type:disc"><strong>Объявление (Declaration)</strong>. Единственное правило, например <code>color: red;</code> указывает, какие из свойств элемента вы хотите стилизовать.</li></ul><ul id="209bae5e-625d-46bd-91c2-7c4980bdff81" class="bulleted-list"><li style="list-style-type:disc"><strong>Свойства (Properties)</strong>. Способы, которыми вы можете стилизовать определённый HTML-элемент (в данном случае, <code>color</code> является свойством для элементов <code>&lt;p&gt;</code>). В CSS вы выбираете, какие свойства вы хотите затронуть в вашем правиле.</li></ul><ul id="4f76c58c-104a-49e2-af4f-e5f5de145440" class="bulleted-list"><li style="list-style-type:disc"><strong>Значение свойства (Property value)</strong>. Справа от свойства, после двоеточия, у нас есть значение свойства, которое выбирает одно из множества возможных признаков для данного свойства (существует множество значений <code>color</code>, помимо <code>red</code>).</li></ul><p id="bf9b2b78-908d-4f3f-9852-a55626b5b60d" class="">
+</p><p id="55531a7f-3f4d-4fb7-9c07-cc07ba2c6ce7" class="">Обратите внимание на важные части синтаксиса:</p><ul id="f982a3ac-92ff-4a59-9b3b-da0f164c7a13" class="bulleted-list"><li style="list-style-type:disc">Каждый набор правил (кроме селектора) должен быть обёрнут в фигурные скобки (<code>{}</code>).</li></ul><ul id="e1787789-2740-4cc8-bda0-8ef85f4ca777" class="bulleted-list"><li style="list-style-type:disc">В каждом объявлении необходимо использовать двоеточие (<code>:</code>), чтобы отделить свойство от его значений.</li></ul><ul id="b803be61-4356-477e-bdb5-b49dd9bae14c" class="bulleted-list"><li style="list-style-type:disc">В каждом наборе правил вы должны использовать точку с запятой (<code>;</code>), чтобы отделить каждое объявление от следующего.</li></ul><p id="1e142900-fd98-4ca7-9a3c-970fcc7e1782" class="">Таким образом, чтобы изменить несколько значений свойств сразу, вам просто нужно написать их, разделяя точкой с запятой, например так:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="a850750e-63fe-4a99-82bf-06f3b0bcbd4f" class="code"><code class="language-CSS">p {
+  color: red;
+  width: 500px;
+  border: 1px solid black;
+}</code></pre><p id="c7d9b7d5-0fde-4794-8f55-caafbc237adc" class="">Вы также можете выбрать несколько элементов разного типа и применить единый набор правил для всех из них. Добавьте несколько селекторов, разделённых запятыми. Например:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="813c81b8-82b5-40ee-aeed-2a79e7d829a1" class="code"><code class="language-CSS">p,li,h1 {
+  color: red;
+}</code></pre><h3 id="721f03d4-f1ff-412d-bac0-12b3b57bdaa1" class="">Типы селекторов</h3><p id="a636ea0b-206a-4ed7-b2b3-09c2a2554d3a" class="">Существует множество различных типов селектора. Выше мы рассматривали только <strong>селектор элементов</strong>, который выбирает все элементы определённого типа в HTML документе. Вот некоторые из наиболее распространённых типов селекторов:</p><h1 id="3ac7778a-ce76-416e-8c65-cb474af33529" class="">JavaScript</h1><p id="c467bb8a-8363-42d8-b256-c6ae1122c5ba" class="">JavaScript – это язык программирования, который добавляет интерактивность. (например: игры, отклик при нажатии кнопок или при вводе данных в формы, динамические стили, анимация).</p><p id="5ae8ef64-f220-4ea5-a7b7-b8f37881d203" class="">JavaScript (JS) обычно используется как встраиваемый язык для программного доступа к объектам приложений. Наиболее широкое применение находит в браузерах как язык сценариев для придания интерактивности веб-страницам. Основные архитектурные черты: динамическая типизация, слабая типизация, автоматическое управление памятью, прототипное программирование, функции как объекты первого класса.</p><p id="8de0548c-8e70-4f91-a757-e700de4d8570" class="">Код на языке JavaScript называют скриптом. Его сохраняют в отдельный файл с расширением <code>js</code> (например, <code>myScript.js</code> или <code>awesome-effects.js</code>), а чтобы запустить, подключают этот файл на страницу. В HTML для добавления JavaScript есть специальный тег:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="6ca90785-a2a3-4663-9663-e0cac38b40f6" class="code"><code class="language-HTML" style="white-space:pre-wrap;word-break:break-all">&lt;script src=&quot;адрес_файла&quot;&gt;&lt;/script&gt;</code></pre><p id="444459dc-7c78-4efd-ac93-0b869989680f" class="">Скрипт обычно подключают в самом конце страницы, перед закрывающим тегом <code>&lt;/body&gt;</code>. Например:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="de59c702-2f8c-4218-8011-7ad40d8ab027" class="code"><code class="language-HTML" style="white-space:pre-wrap;word-break:break-all">&lt;body&gt;
+  &lt;!-- Содержимое страницы --&gt;
+
+&lt;script src=&quot;app.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;</code></pre><h1 id="042587a8-32f1-46c7-aa2a-91f160ccf0e5" class="">XML и JSON</h1><h3 id="df9d60b1-45e4-4d6e-a070-8a25a2e2e3a0" class="">XML</h3><p id="d5e41639-84c1-4b7c-b217-380efec71428" class=""><strong>XML (eXtensible Markup Language)</strong> — расширяемый язык разметки. Рекомендован Консорциумом Всемирной паутины (W3C). XML разрабатывался как язык с простым формальным синтаксисом, удобный для создания и обработки документов как программами, так и человеком, с акцентом на использование в Интернете. Язык называется расширяемым, поскольку он не фиксирует разметку, используемую в документах: разработчик волен создать разметку в соответствии с потребностями к конкретной области, будучи ограниченным лишь синтаксическими правилами языка.</p><p id="0b04845a-a90b-4645-b106-91bfbe8890b6" class="">Расширение XML — это конкретная грамматика, созданная на базе XML и представленная словарём тегов и их атрибутов, а также набором правил, определяющих, какие атрибуты и элементы могут входить в состав других элементов. Сочетание простого формального синтаксиса, удобства для человека, расширяемости, а также базирование на кодировках Юникод для представления содержания документов привело к широкому использованию как, собственно, XML, так и множества производных специализированных языков на базе XML в самых разнообразных программных средствах.</p><p id="3eefe991-edab-4f45-9867-61c8ee2aed56" class="">Для корректного XML документа должны исполняться следующие условия:</p><ul id="624023ea-58ce-45c6-916c-bfebc7a4f603" class="bulleted-list"><li style="list-style-type:disc">Правильное оформление документа.</li></ul><ul id="413e2c90-e897-407c-83ea-6ea48d499340" class="bulleted-list"><li style="list-style-type:disc">Соблюдаться все синтаксические правила XML.</li></ul><ul id="44783982-c553-40e8-a972-7d2ef72c5d5d" class="bulleted-list"><li style="list-style-type:disc">Документ должен соответствовать семантическим правилам языка (которые обычно заданны в схеме XML или DTD (Document Type Definition)).</li></ul><p id="1d825b0d-5ae6-4bde-ad72-d5b480251464" class="">Пример XML файла:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="de2fd097-2457-4c6c-8071-e49d2bd5892d" class="code"><code class="language-XML">&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;PurchaseOrder PurchaseOrderNumber=&quot;99503&quot; OrderDate=&quot;1999-10-20&quot;&gt;
+	&lt;Address Type=&quot;Shipping&quot;&gt;
+		&lt;Name&gt;Ellen Adams&lt;/Name&gt;
+		&lt;Street&gt;123 Maple Street&lt;/Street&gt;
+		&lt;City&gt;Mill Valley&lt;/City&gt;
+		&lt;State&gt;CA&lt;/State&gt;
+		&lt;Zip&gt;10999&lt;/Zip&gt;
+		&lt;Country&gt;USA&lt;/Country&gt;
+	&lt;/Address&gt;
+	&lt;Address Type=&quot;Billing&quot;&gt;
+		&lt;Name&gt;Tai Yee&lt;/Name&gt;
+		&lt;Street&gt;8 Oak Avenue&lt;/Street&gt;
+		&lt;City&gt;Old Town&lt;/City&gt;
+		&lt;State&gt;PA&lt;/State&gt;
+		&lt;Zip&gt;95819&lt;/Zip&gt;
+		&lt;Country&gt;USA&lt;/Country&gt;
+	&lt;/Address&gt;
+	&lt;DeliveryNotes&gt;Please leave packages in shed by driveway.&lt;/DeliveryNotes&gt;
+	&lt;Items&gt;
+		&lt;Item PartNumber=&quot;872-AA&quot;&gt;
+			&lt;ProductName&gt;Lawnmower&lt;/ProductName&gt;
+			&lt;Quantity&gt;1&lt;/Quantity&gt;
+			&lt;USPrice&gt;148.95&lt;/USPrice&gt;
+			&lt;Comment&gt;Confirm this is electric&lt;/Comment&gt;
+		&lt;/Item&gt;
+		&lt;Item PartNumber=&quot;926-AA&quot;&gt;
+			&lt;ProductName&gt;Baby Monitor&lt;/ProductName&gt;
+			&lt;Quantity&gt;2&lt;/Quantity&gt;
+			&lt;USPrice&gt;39.98&lt;/USPrice&gt;
+			&lt;ShipDate&gt;1999-05-21&lt;/ShipDate&gt;
+		&lt;/Item&gt;
+	&lt;/Items&gt;
+&lt;/PurchaseOrder&gt;</code></pre><h3 id="43660143-f3e3-426f-8df7-40d5b4f89b08" class="">AJAX</h3><p id="4a6f02e5-f62b-4a09-b419-82c6f756cade" class=""><strong>AJAX Asynchronous JavaScript &amp; XML</strong> – специальная технология взаимодействия с сервером, которая не требует выполнения перезагрузки. Она позволяет повысить скорость загрузки страниц веб–ресурса, поскольку нет необходимости обновлять их каждый раз. Наличие этой опции помогает сделать пользование сайтом для пользователя максимально комфортным.</p><figure id="eca7c9ad-6d05-4f2e-82ba-19c087738d3e" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20ad8e369b2e1445e08fb524f04bea9eba/Untitled%203.png"><img style="width:600px" src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20ad8e369b2e1445e08fb524f04bea9eba/Untitled%203.png"/></a></figure><p id="9006f73b-f1b5-46cc-bb8d-5cd55b929d4f" class="">Технология работы AJAX включает следующие этапы:</p><ol type="1" id="a5ae1fe6-f087-4dc2-b512-291a10267351" class="numbered-list" start="1"><li>Пользователь обращается к AJAX, чаще всего это происходит нажатием кнопки, предлагающей узнать более подробную информацию.</li></ol><ol type="1" id="7664cb78-60cc-4a4e-9e60-b7f9987166e3" class="numbered-list" start="2"><li>Сервис пересылает запрос на сервер вместе с сопутствующими данными. К примеру, может понадобиться загрузка какого-то файла или определенных сведений из базы.</li></ol><ol type="1" id="7ccaf3f3-63b6-41a7-96c6-a392aa921cc8" class="numbered-list" start="3"><li>Получив ответ из базы данных, сервер направляет его в браузер. 4 JavaScript получает ответ, расшифровывает и показывает пользователю.</li></ol><h3 id="ab3ab161-752a-4930-af81-1f046b4da4d8" class=""><strong>JSON</strong></h3><p id="93001907-4c87-4ce8-9b42-d0089b240e52" class=""><strong>Обозначение объектов JavaScript (JSON - JavaScript Object Notation)</strong> - стандартный текстовый формат для представления структурированных данных на основе синтаксиса объекта JavaScript. Он обычно используется для передачи данных в веб-приложениях (например, отправка некоторых данных с сервера клиенту, таким образом чтобы это могло отображаться на веб-странице или наоборот).</p><p id="119bb998-f663-4083-a2b4-ac782fd64a58" class=""><strong>JSON</strong> - текстовый формат данных, следующий за синтаксисом объекта JavaScript, который был популяризирован Дугласом Крокфордом. Несмотря на то, что он очень похож на буквенный синтаксис объекта JavaScript, его можно использовать независимо от JavaScript, и многие среды программирования имеют возможность читать (анализировать) и генерировать JSON.</p><p id="28f5e655-f06a-48e6-ae72-349a5c630d97" class="">Вы можете включать одни и те же базовые типы данных внутри JSON, так же как и в стандартном объекте JavaScript - строки, числа, массивы, булевы и другие объектные литералы. Это позволяет построить иерархию данных, к примеру, так:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="48aef878-f78b-4ce5-b031-1e5e197303b9" class="code"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">{
+  &quot;squadName&quot;: &quot;Super hero squad&quot;,
+  &quot;homeTown&quot;: &quot;Metro City&quot;,
+  &quot;formed&quot;: 2016,
+  &quot;secretBase&quot;: &quot;Super tower&quot;,
+  &quot;active&quot;: true,
+  &quot;members&quot;: [
+    {
+      &quot;name&quot;: &quot;Molecule Man&quot;,
+      &quot;age&quot;: 29,
+      &quot;secretIdentity&quot;: &quot;Dan Jukes&quot;,
+      &quot;powers&quot;: [
+        &quot;Radiation resistance&quot;,
+        &quot;Turning tiny&quot;,
+        &quot;Radiation blast&quot;
+      ]
+    },
+    {
+      &quot;name&quot;: &quot;Madame Uppercut&quot;,
+      &quot;age&quot;: 39,
+      &quot;secretIdentity&quot;: &quot;Jane Wilson&quot;,
+      &quot;powers&quot;: [
+        &quot;Million tonne punch&quot;,
+        &quot;Damage resistance&quot;,
+        &quot;Superhuman reflexes&quot;
+      ]
+    }
+  ]
+}</code></pre><h1 id="f0b4f1a9-e048-4e03-bbb9-3218a8c7821f" class="">Обзор CMS</h1><p id="94284cb5-85ae-4137-a323-f15c9edc2500" class=""><strong>Система управления контентом (Content management system)</strong> — информационная система или компьютерная программа, используемая для обеспечения и организации совместного процесса создания, редактирования и управления контентом.</p><p id="863df0dc-0ce8-42a4-9765-3bbe1cd8611a" class="">CMS обычно состоит из двух основных компонентов:</p><ul id="ad294e4b-9eb4-4e92-83a3-cfaba7ca9608" class="bulleted-list"><li style="list-style-type:disc">Приложение для управления контентом (CMA) в качестве внешнего пользовательского интерфейса, позволяющего пользователю добавлять, изменять и удалять контент с веб-сайта без вмешательства веб-мастера.</li></ul><ul id="b0798a50-4c4f-4c8f-857c-ec3d1e74423a" class="bulleted-list"><li style="list-style-type:disc">Приложение доставки контента (CDA), которое компилирует контент и обновляет веб-сайт. </li></ul><p id="7810a3cf-1957-485b-972f-d79cbc6cf174" class="">Основные функции CMS:</p><ul id="e9bfbabd-c48b-46e5-a69c-3bfabfdcd782" class="bulleted-list"><li style="list-style-type:disc">Предоставление инструментов для создания содержимого, организация совместной работы над содержимым</li></ul><ul id="fc9e940b-e7f1-4aac-b1b8-56d6890a6792" class="bulleted-list"><li style="list-style-type:disc">Управление содержимым: хранение, контроль версий, соблюдение режима доступа, управление потоком документов</li></ul><ul id="d5be547f-e85c-4e07-ab75-89467d7b445f" class="bulleted-list"><li style="list-style-type:disc">Публикация содержимого</li></ul><ul id="c6d33246-152a-415d-8806-d9af4159e39d" class="bulleted-list"><li style="list-style-type:disc">Представление информации в виде, удобном для навигации, поиска</li></ul><p id="6b6834cd-d394-4040-a5fe-8510c5fd18ae" class=""><strong>Преимущество CMS</strong></p><p id="c22711e0-f4dd-4f8f-a998-42ba324ccc3e" class="">Использование систем управления сайтом CMS (Content Management System) позволяет сделать изготовление сайтов максимально простым, сведя его к разработке веб-дизайна и настройке системы управления веб-контентом. Такой подход обеспечивает надежную и стабильную работу ресурса, поскольку самые популярные CMS тестировались на протяжении нескольких лет, а также в них были исправлены все ошибки. Кроме того, за изготовление сайтов на базе уже имеющихся движков говорит и то, что системы обеспечивают удобство в последующей работе с сайтом.</p><p id="645eb919-3640-4ae4-8e44-f27257e48408" class="">Принцип работы с большинством CMS одинаков: изготовление сайтов производится путем расстановки информационных блоков, потом - прорисовка веб-дизайна и настройка интерфейса. Все популярные системы управления контентом имеют разграничение доступа к сайту, поэтому использовать их удобно и в том случае, когда необходимо предоставить различным пользователям разные возможности.</p><h3 id="a33bd29a-93be-409e-85ac-a924eea137c5" class="">WordPress</h3><p id="be49d5c4-bcd2-4af2-a960-af943f9ebc1a" class="">WordPress – это одна из наиболее популярных CMS в мире. С ее помощью можно создавать сайты различного характера и управлять ими без знаний и навыков программирования. Сегодня в сети существует множество различных программ или систем управления, но WordPress является самой популярной. Более 30 % всех сайтов в интернете работают на данной платформе. А если говорить исключительно о площадках, работающих на CMS, то на WP приходится более 60 %, что делает ее однозначным лидером рынка.</p><p id="908a5aba-040b-474a-94cb-f51270ab2b25" class=""><strong>Функционал WordPress:</strong></p><ol type="1" id="d67c81d8-e141-46e6-92f4-56ae37c69e7f" class="numbered-list" start="1"><li>Позволяет создавать, удалять и редактировать статические страницы (например, «О компании», «Контакты», «Товар X» и т. д.).</li></ol><ol type="1" id="3777be33-7352-42e1-9099-e313da8dadd0" class="numbered-list" start="2"><li>Позволяет создавать, удалять и редактировать записи (публикации).</li></ol><ol type="1" id="f68d2d45-091e-49b8-b3e8-782a1a79496f" class="numbered-list" start="3"><li>Широкие возможности по работе с комментариями (включить, отключить, древовидный формат, максимальное число на одной странице и т. д.).</li></ol><ol type="1" id="2be2f1c0-13d9-4803-9d0a-f2d09ba1e471" class="numbered-list" start="4"><li>Поддержка ЧПУ (человеко-понятный URL), написание собственных URL, большой выбор форматов.</li></ol><ol type="1" id="f2267ccf-e40e-4075-b881-c804b36264bf" class="numbered-list" start="5"><li>Поддержка меток, рубрик, RSS, поиска.</li></ol><ol type="1" id="a9dda897-7eeb-4b2a-bbda-db41c8129c75" class="numbered-list" start="6"><li>Отличный текстовый редактор WYSIWYG (What You See Is What You Get – что ты видишь, то и получишь), работающий в двух режимах: визуальный и html.</li></ol><ol type="1" id="3e95c8e6-14e2-43ea-9af4-41b555b3525b" class="numbered-list" start="7"><li>Онлайн редактор фотографий и изображений, позволяющий обрезать, поворачивать, масштабировать и т. д.</li></ol><ol type="1" id="57039d79-d2d2-4525-a0fa-ea1665b94d05" class="numbered-list" start="8"><li>Большой выбор готовых шаблонов, что значительно упрощает процесс создания сайта.</li></ol><ol type="1" id="5badd1a8-f658-4924-8b1a-9a5b5cd17ba2" class="numbered-list" start="9"><li>Большой набор различных плагинов и виджетов, позволяющих добавлять нестандартные функции.</li></ol><h3 id="e722e5d7-c58d-4828-af54-aa2f863ddafa" class="">Drupal</h3><p id="4f526424-051e-408b-bcaf-cdea676c059d" class="">Drupal это гибкая CMS основанная на LAMP стеке, с модульной структурой, позволяющей добавлять и удалять функционал через установку и удаление модулей и позволяющий сменить внешний вид сайта через установку и удаление тем оформления. Основа Drupal, известная как ядро Drupal, содержит PHP скрипты необходимые для запуска основного функционала CMS, нескольких дополнительных модулей и тем, и множества JavaScript, CSS и файлов изображений. Множество дополнительных модулей и тем оформления вы можете загрузить с сайта Drupal.org.</p><p id="3ee9bd55-3c16-4fa7-9294-e5330cfb22f5" class="">Drupal существует даже дольше, чем WordPress, хотя и не имеет такой внушительной доли рынка, как WordPress. Первоначально запущенный в 2000 году, Drupal поддерживает 2,3% всех веб-сайтов и занимает 4,6% рынка систем управления контентом.</p><p id="475c83a4-3f50-444e-894e-ab7b63340bb5" class=""><strong>Преимущества Drupal</strong></p><ul id="d5a6a930-d1bb-48c1-b909-12e6436127bf" class="bulleted-list"><li style="list-style-type:disc">Drupal имеет встроенную систему контроля доступа, с возможностью создавать новые роли с индивидуальными разрешениями.</li></ul><ul id="82b1b0b2-1647-4f9e-a07f-f287d48cd3df" class="bulleted-list"><li style="list-style-type:disc">В Drupal 8 многоязычная функциональность заложена в ядро, в то время как WordPress-сайтам приходится прибегать к помощи сторонних плагинов.</li></ul><ul id="8e126cf5-81b2-4aa0-b135-0f8ab29ccbed" class="bulleted-list"><li style="list-style-type:disc">Система таксономий Drupal более гибкая, чем WordPress, что делает ее идеальной для работы с большим количеством контента.</li></ul><h3 id="60f5b4c7-05b1-415f-8929-369877c97799" class="">1С-Bitrix</h3><p id="2ab079d6-9e66-4387-860c-b96785c4924b" class="">1С-Битрикс – система управления контентом сайта (CMS), распространяющаяся на платной основе и имеющая свои особенности, отличающие этот движок от остальных. Данное решение предоставляет инструменты для изменения стандартного шаблона, что осуществляется путем заказа разработки уникального макета или приобретением уже готового. Далее макет загружается через панель администрирования почти так же, как это реализовано в других популярных CMS.</p><p id="9a3db194-ff46-426d-ac11-9c4ba10ed7a9" class="">Функции 1С-Битрикс отличаются в зависимости от редакции. Чем дороже лицензия, тем больше модулей и дополнительных опций.</p><p id="1efa6dce-5abe-4050-b2dd-0d7b40c42ad3" class="">1С-Битрикс предлагает также встроенные инструменты для контроля посещаемости сайта, изучению источников переходов и поведения пользователей, хоть по своей функциональности этот модуль слабее, чем Яндекс.Метрика или Google Analytics.</p><p id="5b7578f3-5b7f-4456-bb97-e8e8d50f8f97" class="">На движке по умолчанию доступно большое количество маркетинговых инструментов. В их числе:</p><ul id="2704e292-09a6-4b1e-aada-f6868f03e4ce" class="bulleted-list"><li style="list-style-type:disc">Система рассылки уведомлений зарегистрированным пользователям.</li></ul><ul id="c8d2a193-8066-4bf8-af24-1e47fa4c9ae5" class="bulleted-list"><li style="list-style-type:disc">Виджеты для общения с клиентами на сайте и за его пределами.</li></ul><ul id="ad785421-0691-4bbb-a7e6-4382de446183" class="bulleted-list"><li style="list-style-type:disc">Авторизация через соцсети и соцбар для расшаривания ссылок.</li></ul><ul id="043ae59b-5961-48cc-a738-f968efe2253c" class="bulleted-list"><li style="list-style-type:disc">Аналитические данные, демонстрирующие портрет аудитории и показывающие посещаемость.</li></ul><ul id="36c59374-aa87-4d2a-b2f7-b85e1d3b0a6f" class="bulleted-list"><li style="list-style-type:disc">A/B-тестирование для исследования эффективности торгового предложения.</li></ul><h1 id="8d0479f3-7b6e-4755-8fe5-7291c3ca849e" class="">Структура HTTP запроса</h1><h3 id="1babc9df-86d8-444b-b8e0-b5c5936e64a7" class="">HTTP протокол</h3><p id="00cd7ab8-94b7-436e-ba3e-2e9e4db2b73b" class=""><strong>HTTP (Hypertext Transfer Protocol)</strong> — это протокол, позволяющий получать различные ресурсы, например HTML-документы. Протокол HTTP лежит в основе обмена данными в Интернете. HTTP является протоколом клиент-серверного взаимодействия, что означает инициирование запросов к серверу самим получателем, обычно веб-браузером (web-browser). Полученный итоговый документ будет (может) состоять из различных поддокументов, являющихся частью итогового документа: например, из отдельно полученного текста, описания структуры документа, изображений, видео-файлов, скриптов и многого другого.</p><p id="97bc8420-5b9e-4b93-b940-b979a3ec3352" class="">Хотя HTTP был разработан ещё в начале 1990-х годов, за счёт своей расширяемости в дальнейшем он все время совершенствовался. HTTP является протоколом прикладного уровня, который чаще всего использует возможности другого протокола - TCP (или TLS - защищённый TCP) - для пересылки своих сообщений, однако любой другой надёжный транспортный протокол теоретически может быть использован для доставки таких сообщений. Благодаря своей расширяемости, он используется не только для получения клиентом гипертекстовых документов, изображений и видео, но и для передачи содержимого серверам, например, с помощью HTML-форм. HTTP также может быть использован для получения только частей документа с целью обновления веб-страницы по запросу (например, посредством AJAX запроса).</p><h3 id="dd733775-4ae6-4865-8156-1f711fed8db4" class="">HTTP сообщения</h3><p id="e1f34e55-35cf-4e08-b83d-c3af81a456a8" class="">HTTP — это клиент-серверный протокол, то есть запросы отправляются какой-то одной стороной — участником обмена (user-agent) (либо прокси вместо него). Чаще всего в качестве участника выступает веб-браузер, но им может быть кто угодно, например, робот, путешествующий по Сети для пополнения и обновления данных индексации веб-страниц для поисковых систем.</p><p id="39f61ebb-34c9-43ee-a424-96e5e11ae06e" class="">Каждый запрос (англ. request) отправляется серверу, который обрабатывает его и возвращает ответ (англ. response). Между этими запросами и ответами как правило существуют многочисленные посредники, называемые прокси, которые выполняют различные операции и работают как шлюзы или кэш.</p><p id="2aa95f07-f95f-45bf-97a5-55baa73ce1b3" class="">HTTP/1.1 и более ранние HTTP сообщения человекочитаемые. В версии HTTP/2 эти сообщения встроены в новую бинарную структуру, фрейм, позволяющий оптимизации, такие как компрессия заголовков и мультиплексирование.</p><p id="b9316319-bf48-483a-b774-f1417183b4ef" class=""><strong>Запросы содержат следующие элементы:</strong></p><figure id="3934d928-a042-459d-a827-c3e6315a9f7b" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20ad8e369b2e1445e08fb524f04bea9eba/Untitled%204.png"><img style="width:693px" src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20ad8e369b2e1445e08fb524f04bea9eba/Untitled%204.png"/></a></figure><ul id="7781707c-bddd-48c7-9617-cb3ef60d3880" class="bulleted-list"><li style="list-style-type:disc">HTTP-метод, обычно глагол подобно GET, POST или существительное, как OPTIONS или HEAD, определяющее операцию, которую клиент хочет выполнить. Обычно, клиент хочет получить ресурс (используя GET) или передать значения HTML-формы (используя POST), хотя другие операция могут быть необходимы в других случаях.</li></ul><ul id="29616207-e65b-4964-92e1-e14706523b67" class="bulleted-list"><li style="list-style-type:disc">Путь к ресурсу: URL ресурсы лишены элементов, которые очевидны из контекста, например без протокола (http://), домена (здесь <a href="http://developer.mozilla.org/">developer.mozilla.org</a>), или TCP порта (здесь 80).</li></ul><ul id="507ced77-2291-4909-8b1f-e1b3d230fc32" class="bulleted-list"><li style="list-style-type:disc">Версию HTTP-протокола.</li></ul><ul id="18953ed9-2812-4a7e-8d96-cf631f3e2138" class="bulleted-list"><li style="list-style-type:disc">Заголовки (опционально), предоставляющие дополнительную информацию для сервера. Или тело, для некоторых методов, таких как POST, которое содержит отправленный ресурс.</li></ul><p id="8aa3ddb7-e991-4dce-9050-3927057ae589" class="">
+</p><p id="e6b04bd0-cff6-4569-a476-1d9f35e14731" class=""><strong>Ответы содержат:</strong></p><figure id="c3c6542a-e918-415b-bab4-7a17e4068aac" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20ad8e369b2e1445e08fb524f04bea9eba/Untitled%205.png"><img style="width:758px" src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20ad8e369b2e1445e08fb524f04bea9eba/Untitled%205.png"/></a></figure><ul id="65febe9c-f4a2-4ec9-a14f-3774cd827a39" class="bulleted-list"><li style="list-style-type:disc">Версию HTTP-протокола.</li></ul><ul id="77ca4f5e-e7e0-4e73-a051-7a1c6fb8f370" class="bulleted-list"><li style="list-style-type:disc">HTTP код состояния, сообщающий об успешности запроса или причине неудачи.</li></ul><ul id="a169de13-9a92-4084-8202-51e3866f94dd" class="bulleted-list"><li style="list-style-type:disc">Сообщение состояния — краткое описание кода состояния.</li></ul><ul id="9f7897e6-0fc0-4bdc-a59a-f866dcc9c3f0" class="bulleted-list"><li style="list-style-type:disc">HTTP заголовки, подобно заголовкам в запросах.</li></ul><ul id="bd112209-6b65-46db-9146-7558d4317466" class="bulleted-list"><li style="list-style-type:disc">Опционально: тело, содержащее пересылаемый ресурс.</li></ul><h3 id="d921a222-690b-44a5-abaf-6d497be87a01" class="">HTTP методы</h3><p id="15c5b151-151e-4c9c-9b72-bc325e70b9fa" class="">Для того, чтобы указать серверу на то, какое действие мы хотим произвести с ресурсом, используется тип HTTP-запроса, который также называется HTTP метод. Существует несколько HTTP методов, которые описывают действия с ресурсами. Наиболее часто используемыми являются GET и POST.</p><p id="1b6e8f09-c230-4a69-8d13-bb0bb88a110c" class=""><strong>Метод GET</strong></p><p id="96c84cf8-e13d-4a3d-85e9-01b6f9ca1a70" class="">Метод GET запрашивает информацию из указанного источника и не влияет на его содержимое. Запрос доступен для кеширования данных и добавления в закладки. Длина запроса ограничена (макс. длина URL - 2048).</p><p id="f784aa49-4eed-4c67-a5fe-c1b3d3a2fd7a" class=""><strong>Метод POST</strong></p><p id="2d3b9f5e-3bbc-4f97-95f2-a713e8d32129" class="">Метод POST используется для отправки данных, что может оказывать влияние на содержимое ресурса. В отличие от метода GET запросы POST не могут быть кешированы, они не остаются в истории браузера и их нельзя добавить в закладки. Запросы POST не ограничиваются в объеме.</p><p id="b573e447-dc78-463e-aab4-119ab805059c" class=""><strong>Сравнение методов GET и POST</strong></p><p id="7ff9ea59-adb9-40ef-9dcb-079732c4c1db" class=""><strong>Метод HEAD</strong></p><p id="57f8ac0f-fb72-4784-b04d-557e730b62f6" class="">Аналогичен методу GET, однако в ответе сервера содержится только заголовок, без тела. Обычно применяется для того, чтобы проверить, существует ли ресурс по указанному адресу, а также не изменился ли он с момента последнего обращения.</p><p id="4068681d-42a7-46f5-9639-b19a10901096" class=""><strong>Метод PUT</strong></p><p id="aa75df4f-4955-49ff-9ad0-966d32ce9af4" class="">Загружает содержимое запроса на указанный в запросе URI. Если по заданному URI ресурса нет, то сервер создает его, возвращая статус 201 (Created).</p><p id="15098e92-27ba-47c9-9955-dc8518ae96e0" class=""><strong>Метод DELETE</strong></p><p id="38e6355e-9333-48bc-8556-54abed6835f3" class="">Удаляет указанный ресурс.</p><p id="d0a20af5-f269-43d7-9365-c77a53924d27" class=""><strong>Метод OPTION</strong></p><p id="8e3403c5-5a0a-4e5a-a3a9-92ac8192b469" class="">Используется для описания параметров коммуникации между клиентом и сервером.</p><p id="77da15d2-78d7-4ead-9e0a-498e25add2e4" class=""><strong>Метод CONNECT</strong></p><p id="199c3fa1-06c6-442d-aaa9-0318f0826016" class="">Преобразует соединение запроса в прозрачный TCP/IP-туннель.</p><h1 id="b4e206b0-866b-40ac-99c1-91ee1de58cc0" class="">Файлы Cookie</h1><p id="b6224926-e9f7-4e35-9226-1a2fdd1bacd6" class=""><strong>Cookie</strong> — небольшой фрагмент данных, отправленный веб-сервером и хранимый на компьютере пользователя. Веб-клиент (обычно веб-браузер) всякий раз при попытке открыть страницу соответствующего сайта пересылает этот фрагмент данных веб-серверу в составе HTTP-запроса. Применяется для сохранения данных на стороне пользователя, на практике обычно используется для:</p><ul id="6b9c9a50-d171-4f65-8e09-ba665ad6bb88" class="bulleted-list"><li style="list-style-type:disc">аутентификации пользователя;</li></ul><ul id="8b6f1a04-15af-4ba9-b7c1-1bc50537ed04" class="bulleted-list"><li style="list-style-type:disc">хранения персональных предпочтений и настроек пользователя;</li></ul><ul id="3b41ef9f-7968-4810-bae4-2420e7c79970" class="bulleted-list"><li style="list-style-type:disc">отслеживания состояния сеанса доступа пользователя;</li></ul><ul id="49c84bb6-52d5-43df-a912-7882374c0775" class="bulleted-list"><li style="list-style-type:disc">сведения статистики о пользователях.</li></ul><p id="f5356b51-5883-463a-be46-8192e98694b7" class="">Выделяют два основных вида cookies:</p><ul id="dd28cade-630a-4314-8416-e98cf9008b50" class="bulleted-list"><li style="list-style-type:disc">Сессионные (временные) — данные о просмотренных страницах, записи форм заказов и другая информация, позволяющая клиентам упростить работу с сайтом. Существуют только в период времени, когда пользователь находится на сайте, и удаляются сразу же после прекращения сеанса, то есть вслед за тем, как закроется вкладка. После закрытия вкладки временные файлы автоматически удаляются;</li></ul><ul id="12091966-3d24-4aa4-b2a3-d1fc46bff672" class="bulleted-list"><li style="list-style-type:disc">Постоянные — хранят долгосрочную информацию в течение нескольких недель или месяцев, например логин от учетной записи. Они не удаляются после окончания взаимодействия с сайтом.</li></ul><h3 id="2f96da43-3da9-4c86-a2a8-8925528240eb" class="">Предназначение cookie</h3><p id="aa2286a9-2901-493c-92bd-689faf73bdfd" class="">Cookie используются веб-серверами для идентификации пользователей и хранения данных о них.</p><p id="c2d7d2ec-a3fa-4676-b12b-5e485db77f50" class="">К примеру, если вход на сайт осуществляется при помощи cookie, то, после ввода пользователем своих данных на странице входа, cookie позволяют серверу запомнить, что пользователь уже идентифицирован и ему разрешён доступ к соответствующим услугам и операциям.</p><p id="6753a049-f898-45df-8d71-325cbcf30d3d" class="">Многие сайты также используют cookie для сохранения настроек пользователя. Эти настройки могут использоваться для персонализации, которая включает в себя выбор оформления и функциональности. Например, Википедия позволяет авторизованным пользователям выбрать дизайн сайта. Поисковая система Google позволяет пользователям (в том числе и не зарегистрированным в ней) выбрать количество результатов поиска, отображаемых на одной странице.</p><p id="556192d3-d53d-4e06-af05-ac640d12c466" class="">Cookie также используются для отслеживания действий пользователей на сайте. Как правило, это делается с целью сбора статистики, а рекламные компании на основе такой статистики формируют анонимные профили пользователей для более точного нацеливания рекламы.</p><p id="08b253c2-ce20-47a2-a60d-1f50d767b648" class="">Большинство современных браузеров позволяет пользователям выбрать — принимать cookie или нет, но их отключение делает невозможной работу с некоторыми сайтами. Кроме того, по законам некоторых стран (например, согласно постановлению Евросоюза от 2016 года, см. общий регламент по защите данных) сайты должны в обязательном порядке запрашивать согласие пользователя перед установкой cookie.</p><h1 id="20b9d7df-72a9-4e1f-9884-1f692b3a7599" class="">TLS, шифрование трафика</h1><h3 id="3563acd2-8fbf-4cb2-a588-316eae203fcd" class="">PKI  (Public Key Infrastructure)</h3><p id="a3e0a60c-be66-4e8d-bf79-d210fa04fa43" class=""><strong>Инфраструктура открытых ключей (Public Key Infrastructure) </strong>— набор средств (технических, материальных, людских и т. д.), распределённых служб и компонентов, в совокупности используемых для поддержки криптозадач на основе закрытого и открытого ключей. В основе PKI лежит использование криптографической системы с открытым ключом и несколько основных принципов:</p><ul id="c2e1eb35-640b-4aef-9652-120ec02f6c7d" class="bulleted-list"><li style="list-style-type:disc">Закрытый ключ (private key) известен только его владельцу;</li></ul><ul id="29b27cb6-b0be-4cdd-84e7-b7e2082292c5" class="bulleted-list"><li style="list-style-type:disc">Удостоверяющий центр (УЦ или CA - Certificate Authority) создает электронный документ — сертификат открытого ключа, таким образом удостоверяя факт того, что закрытый (секретный) ключ известен эксклюзивно владельцу этого сертификата, открытый ключ (public key) свободно передается;</li></ul><ul id="ee87076c-c067-41d2-8eb8-0444dc37068b" class="bulleted-list"><li style="list-style-type:disc">Никто не доверяет друг другу, но все доверяют удостоверяющему центру;</li></ul><ul id="aeb15ab5-17f7-4b06-b053-100c0319c1e2" class="bulleted-list"><li style="list-style-type:disc">Удостоверяющий центр подтверждает или опровергает принадлежность открытого ключа заданному лицу, которое владеет соответствующим закрытым ключом.</li></ul><p id="2bfd647b-b2ec-4c46-914a-04bf04f9e625" class="">Основные задачи системы информационной безопасности, которые решает инфраструктура управления открытыми ключами:</p><ul id="7612ef80-b4f7-417a-adf8-a23384b46f86" class="bulleted-list"><li style="list-style-type:disc">обеспечение конфиденциальности информации;</li></ul><ul id="86253067-8833-4f6b-a265-3f6f0398e30b" class="bulleted-list"><li style="list-style-type:disc">обеспечение целостности информации;</li></ul><ul id="b56c3f7a-fe20-4992-8f2e-06f2872b5c52" class="bulleted-list"><li style="list-style-type:disc">обеспечение аутентификации пользователей и ресурсов, к которым обращаются пользователи;</li></ul><ul id="e5416e9c-615e-4b25-abe8-5164a5c33c5a" class="bulleted-list"><li style="list-style-type:disc">обеспечение возможности подтверждения совершенных пользователями действий с информацией (неотказуемость/неотрекаемость — англ. non-repudiation).</li></ul><h3 id="69babe92-3f4d-45a1-ac70-3e272e7b740a" class=""><strong>Основные компоненты PKI</strong></h3><p id="758fc1b1-9a33-469f-a049-803db659bb73" class=""><strong>Центр сертификации (Certificate Authority) или удостоверяющий центр</strong></p><p id="92c2f50a-d0b7-4eca-b49f-2fdc51678fe8" class="">Является основной структурой, формирующей цифровые сертификаты подчиненных центров сертификации и конечных пользователей. Является главным компонентом PKI.<br/>Задача центра сертификации — подтверждать подлинность ключей шифрования с помощью сертификатов электронной подписи.<br/></p><p id="fe211618-a7a4-4e0f-8a99-59dd9c8b0816" class="">Технически центр сертификации реализован как компонент глобальной службы каталогов и отвечает за управление криптографическими ключами пользователей. Открытые ключи и другая информация о пользователях хранится удостоверяющими центрами в виде цифровых сертификатов.</p><p id="2bc78762-60f6-4070-962d-f6aa0e2571d7" class="">По мере увеличения числа выданных сертификатов в PKI может стать трудно для одного центра сертификации эффективно отслеживать выданные сертификаты. Одним из способов решения этой проблемы является создание иерархии сертификатов, в которой ЦС делегирует центр выдачи сертификатов подчиненным центрам, которые, в свою очередь, могут делегировать полномочия своим подчиненным. Каждый ЦС делегирует центр, выдавая сертификат ЦС подчиненному. Исходный ЦС в цепочке называется корневым.</p><figure id="5948fc77-0794-42fb-8ee9-2a63777191c6" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20ad8e369b2e1445e08fb524f04bea9eba/Untitled%206.png"><img style="width:319px" src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20ad8e369b2e1445e08fb524f04bea9eba/Untitled%206.png"/></a></figure><p id="5c017ab8-8da5-44da-af95-9e32339d6d15" class=""><strong>Сертификат открытого ключа</strong></p><p id="98c93b54-f94a-4234-a68c-9fb3e4001dc8" class="">Чаще всего просто<strong> </strong>сертификат — это данные пользователя/сервера и его открытый ключ, скреплённые электронной подписью удостоверяющего центра. Выпуская сертификат открытого ключа, удостоверяющий центр тем самым подтверждает, что лицо, поименованное в сертификате, владеет закрытым ключом, который соответствует этому открытому ключу.</p><p id="913b2bce-c4b3-4bde-bdfe-d8e678ca435b" class=""><strong>Регистрационный центр</strong></p><p id="dbacc67f-7bbc-4a65-9c87-b6e76ca37330" class="">Необязательный компонент системы, предназначенный для регистрации пользователей. Удостоверяющий центр доверяет регистрационному центру проверку информации о субъекте. Регистрационный центр, проверив правильность информации, подписывает её своим ключом и передаёт удостоверяющему центру, который, проверив ключ регистрационного центра, выписывает сертификат. Один регистрационный центр может работать с несколькими удостоверяющими центрами (то есть состоять в нескольких PKI), один удостоверяющий центр может работать с несколькими регистрационными центрами. Иногда, удостоверяющий центр выполняет функции регистрационного центра.</p><p id="6d7822d5-8fae-4bd6-ac10-99b6881c2ca9" class=""><strong>Репозиторий</strong></p><p id="bfdb2880-5be6-434a-a44a-44a48551956f" class="">Хранилище, содержащее сертификаты и списки отозванных сертификатов (СОС) и служащее для распространения этих объектов среди пользователей. В Федеральном Законе РФ № 63 «Об электронной подписи» он называется реестр сертификатов ключей подписей.</p><p id="fcdb54ee-589c-4813-b6d1-f79f9bfefca7" class=""><strong>Архив сертификатов</strong></p><p id="7469c743-4c26-4450-a4e8-d43be41cb2ff" class="">Хранилище всех изданных когда-либо сертификатов (включая сертификаты с закончившимся сроком действия). Архив используется для проверки подлинности электронной подписи, которой заверялись документы.</p><p id="a7fba2a6-3690-4994-91d1-ad4fd3a93a5f" class=""><strong>Центр запросов</strong></p><p id="c1668c9f-62ee-414a-b0d1-bf4b17acddad" class="">Необязательный компонент системы, где конечные пользователи могут запросить или отозвать сертификат.</p><p id="5c866546-07e5-4e1a-83cc-653895566a21" class=""><strong>Конечные пользователи</strong></p><p id="ca530698-1160-4a72-b26f-08abe7dc8fe5" class="">Пользователи, приложения или системы, являющиеся владельцами сертификата и использующие инфраструктуру управления открытыми ключами.</p><h3 id="e730483d-d9e2-4178-abdb-353c72d6ad78" class="">TLS (Transport Layer Security)</h3><p id="65f8dca7-d4a2-4087-869c-a3ff2957dedc" class=""><strong>TLS (transport layer security)</strong> основан на протоколе <strong>SSL (Secure Sockets Layer)</strong>, изначально разработанном в Netscape для повышения безопасности электронной коммерции в Интернете.</p><p id="ce136911-f6c3-4b32-9324-c6fb10115881" class="">После того, как протокол SSL был стандартизирован IETF (Internet Engineering Task Force), он был переименован в TLS. Поэтому хотя имена SSL и TLS взаимозаменяемы, они всё-таки отличаются, так как каждое описывает другую версию протокола.</p><p id="608c7827-88f6-4107-91f9-14379d926396" class="">Протокол TLS предназначен для предоставления трёх услуг всем приложениям, работающим над ним, а именно: шифрование, аутентификацию и целостность. Технически, не все три могут использоваться, однако на практике, для обеспечения безопасности, как правило используются все три:</p><ul id="5d195c39-122d-4028-9c26-0875d6fad059" class="bulleted-list"><li style="list-style-type:disc">Шифрование – сокрытие информации, передаваемой от одного компьютера к другому;</li></ul><ul id="df70cc8b-3df2-4cba-9713-1699c6fcb79d" class="bulleted-list"><li style="list-style-type:disc">Аутентификация – проверка авторства передаваемой информации;</li></ul><ul id="71169282-0352-48e8-8d71-33a3b2db7c02" class="bulleted-list"><li style="list-style-type:disc">Целостность – обнаружение подмены информации подделкой.</li></ul><p id="4219ed43-c782-4fee-a662-fb50ece8d06c" class="">Для того чтобы установить криптографически безопасный канал данных, узлы соединения должны согласовать используемые методы шифрования и ключи. Протокол TLS однозначно определяет данную процедуру, подробнее это рассмотрено в пункте TLS Handshake. Следует отметить, что TLS использует криптографию с открытым ключом, которая позволяет узлам установить общий секретный ключ шифрования без каких-либо предварительных знаний друг о друге.</p><p id="5b034116-886a-4677-839a-66c6b36ebc38" class="">Также в рамках процедуры TLS Handshake имеется возможность установить подлинность личности и клиента, и сервера. Например, клиент может быть уверен, что сервер, который предоставляет ему информацию о банковском счёте, действительно банковский сервер. И наоборот: сервер компании может быть уверен, что клиент, подключившийся к нему – именно сотрудник компании, а не стороннее лицо (данный механизм называется Chain of Trust и будет рассмотрен в соответствующем разделе).</p><p id="bf490c87-ef89-4113-8681-ab17f2848f13" class="">Наконец, TLS обеспечивает отправку каждого сообщения с кодом MAC (Message Authentication Code), алгоритм создания которого – односторонняя криптографическая функция хеширования (фактически – контрольная сумма), ключи которой известны обоим участникам связи. Всякий раз при отправке сообщения, генерируется его MAC-значение, которое может сгенерировать и приёмник, это обеспечивает целостность информации и защиту от её подмены.</p><h3 id="8845f918-d268-4170-b92e-dcbe2faa666e" class="">TLS Handshake</h3><p id="7537dfce-5bed-477c-b665-e7ac441fb6e0" class="">TLS-рукопожатия – это серия датаграмм, или сообщений, которыми обмениваются клиент и сервер. TLS-рукопожатие включает в себя несколько этапов, в ходе которых клиент и сервер обмениваются информацией, необходимой для завершения рукопожатия и обеспечения возможности дальнейшего общения.</p><p id="d16cf7d7-0861-410c-a235-1add0f320555" class="">Точные шаги в рамках TLS-рукопожатия зависят от используемого алгоритма обмена ключами и наборов шифров, поддерживаемых обеими сторонами. Чаще всего используется алгоритм обмена ключами RSA. Происходит следующая процедура:</p><figure id="910bde22-915e-421c-a852-79e38fef0f14" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20ad8e369b2e1445e08fb524f04bea9eba/Untitled%207.png"><img style="width:1512px" src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20ad8e369b2e1445e08fb524f04bea9eba/Untitled%207.png"/></a></figure><ol type="1" id="5bf55c55-c905-470c-95da-b5c6d48f9eb3" class="numbered-list" start="1"><li>Сообщение &quot;hello&quot; клиента: Клиент инициирует рукопожатие, посылая серверу сообщение &quot;hello&quot;. В сообщении будет указано, какую версию TLS поддерживает клиент, поддерживаемые наборы шифров и строка случайных байтов, известная как &quot;random клиента&quot;.</li></ol><ol type="1" id="68fad277-0c12-4dd1-853b-ddbb290a3f78" class="numbered-list" start="2"><li>Сообщение &quot;hello&quot; сервера: В ответ на сообщение &quot;hello&quot; клиента сервер отправляет сообщение, содержащее SSL-сертификат сервера, выбранный сервером набор шифров и &quot;random сервера&quot; – еще одну строку случайных байтов, генерируемую сервером.</li></ol><ol type="1" id="2b74cacd-84e7-4192-b66b-056294c6ed5c" class="numbered-list" start="3"><li>Аутентификация: Клиент проверяет SSL-сертификат сервера в центре сертификации, который его выдал. Он подтверждает, что сервер является тем, за кого себя выдает, и что клиент взаимодействует с реальным владельцем домена.</li></ol><ol type="1" id="3b6ab4f0-d32f-4957-b3c9-f26fa0a0dbdd" class="numbered-list" start="4"><li>Premaster secret: Клиент посылает еще одну строку случайных байтов, которая называется &quot;premaster secret&quot;. Premaster secret шифруется открытым ключом и может быть расшифрован сервером только с помощью закрытого ключа. (Клиент берет открытый ключ из SSL-сертификата сервера).</li></ol><ol type="1" id="f7683312-0fc7-4233-9f74-ad15f31bd5a8" class="numbered-list" start="5"><li>Сервер проверяет сертификат клиента (если требуется).</li></ol><ol type="1" id="4ce5bdd2-2a84-4a96-b11f-17c2ac5d2532" class="numbered-list" start="6"><li>Используемый закрытый ключ: Сервер расшифровывает &quot;premaster secret&quot;.</li></ol><ol type="1" id="732f1433-a0a1-4a45-b52f-5e353d806303" class="numbered-list" start="7"><li>Создание сеансовых ключей: Клиент и сервер генерируют сеансовые ключи из random&#x27;а клиента, random&#x27;а сервера и premaster secret. Они должны прийти к одинаковым результатам. Клиент отправляет сообщение &quot;готово&quot;, зашифрованное сеансовым ключом. Сервер отправляет сообщение &quot;готово&quot;, зашифрованное сеансовым ключом.</li></ol><ol type="1" id="8b1ac793-7a26-42b1-982f-68094d912607" class="numbered-list" start="8"><li>Безопасность симметричного шифрования достигнута: Рукопожатие завершено, и связь продолжается с использованием сеансовых ключей.</li></ol><h1 id="9f7ab378-a0b5-4fc2-9b6f-840472ab6d63" class="">Известные файлы</h1><h3 id="ec35d45a-fc51-4386-aae2-9b7f5b6fbfd8" class="">robots.txt</h3><p id="a65e08ed-5700-4293-afaf-00daccf1aff1" class="">robots txt – это обыкновенный текстовый документ, который лежит в корне веб-сайта и информирует поисковых роботов о том, какие страницы и файлы они должны сканировать и индексировать, а для каких наложен запрет.</p><p id="81b1146b-057c-48fa-afd0-4ad71687bc8a" class="">Без этого файла поисковики будут хаотично блуждать по сайту, сканировать и индексировать буквально все подряд: дубли, служебные документы, страницы с текстами «заглушками» (Lorem Ipsum) и тому подобное.</p><p id="1b451426-6ab5-4bee-bb6f-380295e7e19c" class="">Правильный robots txt не дает такому происходить и буквально ведет роботов по сайту, подсказывая, что разрешено индексировать, а что необходимо упустить.</p><p id="dbcdb19c-000f-4fb4-903a-31e440a993e7" class="">Существуют специальные директивы robots.txt для данных задач:</p><ul id="9579aea9-bc13-452b-85c1-a36be9a09e45" class="bulleted-list"><li style="list-style-type:disc"><strong>Allow</strong> — допускает индексацию.</li></ul><ul id="e7aa2c27-38a8-4110-8644-c71d2c26d787" class="bulleted-list"><li style="list-style-type:disc"><strong>Disallow</strong> — запрещает индексацию.</li></ul><figure id="65e7c394-aaee-4461-b45d-6c823f9e570d" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20ad8e369b2e1445e08fb524f04bea9eba/Untitled%208.png"><img style="width:690px" src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20ad8e369b2e1445e08fb524f04bea9eba/Untitled%208.png"/></a></figure><h3 id="5dfc3c4d-77ed-441b-b97c-0722f459976b" class="">htaccess</h3><p id="3634b5a9-09cc-4be1-8247-fe49921d57dc" class="">Файл htaccess – конфигурационный файл веб-сервера Apache уровня каталога. Он содержит набор инструкций, обуславливающих принципы работы ПО Apache в рамках текущего каталога и дочерних папках без внесения изменений в общие настройки веб-сервера.</p><p id="654e353c-92e0-4276-8be8-e7ea4c6b7f5d" class="">Для простоты понимания рассмотрим основные принципы работы веб-приложений в рамках протоколов http и https (например, обычные сайты). Сам сайт представляет собой в наиболее простом виде совокупность контента и программного кода. Последний используется как логика доступа к контенту. То есть, это набор мультимедийных (изображения, аудио, видео) файлов, а также текстовых файлов, содержащих код. Все эти файлы записывают в определенный каталог компьютера, который называют сервером.</p><p id="66be1169-8bee-4337-b4f5-d4392c5a74b0" class="">Однако, одной программной логики самого сайта недостаточно для взаимодействия с ним. На серверах хранятся сразу несколько веб-приложений, и для одновременной и бесперебойной работы каждого из них требуется ПО более высокого уровня, которое берет на себя задачи по управлению сразу всеми запросами, поступающими от клиентов (обычных пользователей интернета). В качестве такого ПО выступает Apache.</p><p id="29751f19-972b-472e-9dc2-59363ea6ea34" class="">Этот популярный веб-сервер поставляется в виде ПО с открытыми исходными кодами и обеспечивает возможность внесения тонких настроек в его функционал с помощью различных конфигурационных файлов. htaccess – это один из таких файлов. Он выполняет следующие основные функции:</p><ul id="6df39702-5361-40a8-9cea-048b856e6345" class="bulleted-list"><li style="list-style-type:disc">Переопределение директив (команд, обуславливающих принципы работы веб-сервера), которые хранятся в основном конфигурационном файле – httpd.conf, для локальных нужд (для определенного каталога).</li></ul><ul id="cd2d6921-9421-4a27-92cb-fbcf1026dffb" class="bulleted-list"><li style="list-style-type:disc">Настройка работы интерпретатора PHP (некоторые важные функции).</li></ul><ul id="e1d273ae-04ef-4a73-a3ad-838de6153d3e" class="bulleted-list"><li style="list-style-type:disc">Использование для ограничения доступа к некоторым каталогам.</li></ul><ul id="3587d895-89f3-4bf1-bd5a-b626a9d7a5c9" class="bulleted-list"><li style="list-style-type:disc">Выбор кодировки символов.</li></ul><ul id="4935f551-f508-4484-a829-4f782563e337" class="bulleted-list"><li style="list-style-type:disc">Замена сложных URL на более простые и понятные (ЧПУ).</li></ul><ul id="9afb6eba-172b-4e60-b5cb-0da7063ba244" class="bulleted-list"><li style="list-style-type:disc">Указание директив простого, сложного перенаправления при навигации по сайту и многое другое.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

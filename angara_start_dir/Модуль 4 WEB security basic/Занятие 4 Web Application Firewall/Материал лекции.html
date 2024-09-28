@@ -1,0 +1,689 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Материал лекции</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="308de3e2-2d57-44e5-b41b-54b710dda844" class="page sans"><header><h1 class="page-title">Материал лекции</h1><p class="page-description"></p></header><div class="page-body"><p id="182858b6-e096-42dc-bc37-dfcfd9caa7c8" class="">
+</p><h1 id="6bf663d3-d8ae-423e-8599-59b90d2972f6" class="">Что это такое ?</h1><p id="2f08ad65-2029-434f-9a68-9d87021036a7" class=""><strong>Web Application Firewall (WAF)</strong> - средства фильтрации трафика прикладного уровня, специально ориентированные на веб-приложения. Основное предназначение WAF — защита веб-приложения от несанкционированного доступа, даже при наличии критичных уязвимостей. Применение Web Application Firewall традиционно считается наиболее эффективным подходом к защите веб-ресурсов. WAF может быть реализован как облачный сервис, агент на веб-сервере или специализированное железное или виртуальное устройство. </p><figure id="a8d203a2-479f-4c72-9056-b6fc9d454d1a" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20308de3e22d5744e5b41b54b710dda844/Untitled.png"><img style="width:576px" src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20308de3e22d5744e5b41b54b710dda844/Untitled.png"/></a></figure><p id="628084f4-658e-477e-ad56-6c95566f6e7c" class="">С момента создания локальных и интернет-сетей появилась необходимость в защите пользовательских ПК и серверов от возможного взлома. Изначально это был <strong>Firewall</strong> — сетевой экран, отсеивающий «подозрительный» трафик (с «серых» IP-адресов). Такая защита примитивная и совсем не подходит для веб-приложений, где взлом может осуществляться даже через «белый» IP. На смену сетевым экранам в дальнейшем пришли:</p><ul id="9817d725-6f02-4617-9100-7fc2a9685ff9" class="bulleted-list"><li style="list-style-type:disc"><strong>Пакетные фильтры<br/><br/></strong>Сканировали входящий трафик и при обнаружении подозрительного набора пакетов — закрывали соединение.</li></ul><ul id="859a81ce-6ea2-4e2a-884d-2d77ae679425" class="bulleted-list"><li style="list-style-type:disc"><strong>IDS/IPS<br/><br/></strong>Ключевое отличие данной технологии — это одновременная защита через пакетные фильтры и с «прослушиванием» TCP-портов. И в IDS/IPS отслеживается активность не только извне, но и внутри локальной сети. Главный недостаток: большое количество ложных срабатываний, особенно когда интернет-сессия между пользователем и сервером задействует множество портов TCP.</li></ul><ul id="f29a3e84-b8be-4f20-9c2d-68d09dc4a84e" class="bulleted-list"><li style="list-style-type:disc"><strong>UTM<br/><br/></strong>Условно считается модификацией IDS/IPS, но с добавлением дополнительного сетевого экрана (используется как антивирус, прокси, балансировщик и так далее). В сравнении с IDS/IPS — сортирует TCP-порты по сессиям.</li></ul><p id="0eb4676d-3953-43ba-a5e9-480e515c1065" class="">Но и UTM оказалось недостаточно. Простой пример: если пользователь одновременно в браузере откроет веб-приложение банка и вкладку с java-скриптом, направленным на инициализацию отправки денег на определенную банковскую карту, то данный процесс не будет предотвращен ни антивирусом, ни самим браузером, ни сетевым экраном, так как весь трафик будет сымитирован как обычные действия пользователя.</p><figure id="13d16512-402a-47cc-a768-0de714a76193" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20308de3e22d5744e5b41b54b710dda844/Untitled%201.png"><img style="width:768px" src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20308de3e22d5744e5b41b54b710dda844/Untitled%201.png"/></a></figure><p id="83c5bac3-9a53-433a-8d32-cfa4d80e1bb4" class="">А Web Application Firewall полностью анализирует трафик и защищает веб-приложения от «несанкционированных» действий и подозрительных атак. Ключевые отличия WAF:</p><ul id="334c2f58-458a-4343-b751-565d9accf2f8" class="bulleted-list"><li style="list-style-type:disc">применяется машинное самообучение (на основе пользовательских действий);</li></ul><ul id="e505061a-03e7-4915-a07b-e8cb7c632958" class="bulleted-list"><li style="list-style-type:disc">интегрированный сканер потенциальных уязвимостей;</li></ul><ul id="11f13650-8f53-4a16-8bfc-71dc4c36fee9" class="bulleted-list"><li style="list-style-type:disc">поддержка корреляции сетевых атак (даже если задействуется одновременно несколько портов на разных протоколах), что существенно упрощает дальнейший анализ журналов.</li></ul><h3 id="d36c7dce-e4bf-4f75-bdd6-ccc70beeb376" class=""></h3><h1 id="4973ca51-eec0-434d-a386-aaae5326af2a" class="">Архитектура</h1><p id="af58e114-c119-46b9-96b6-023952ab801d" class="">Для эффективного обнаружения различных способов обхода WAF, специалисту необходимо разобраться в современных механизмах классификации запросов. Каждый WAF индивидуален и имеет уникальное внутреннее устройство, однако существуют некоторые типовые методы, применяемые для анализа. Давайте их и рассмотрим.</p><figure id="5a717ba8-6cf7-4660-8191-4e2aae8a3f87" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20308de3e22d5744e5b41b54b710dda844/Untitled%202.png"><img style="width:624px" src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20308de3e22d5744e5b41b54b710dda844/Untitled%202.png"/></a></figure><h3 id="c35ea479-bad0-4212-97d3-dfd17e91d3b4" class=""><strong>Правила на основе регулярных выражений</strong></h3><p id="00db519d-6b3c-4e89-9ed1-d212e579ecce" class="">Большинство существующих WAF базируется на правилах, основанных на регулярных выражениях. Для их создания некоторое известное множество атак изучается разработчиком WAF, в результате определяются ключевые синтаксические конструкции, по наличию которых можно утверждать о проведении атаки. На основе полученных результатов пишутся регулярные выражения, способные находить такие конструкции. Кажется, что всё просто, однако такой подход имеет ряд недостатков. Зона применимости регулярного выражения ограничивается одним запросом, а чаще даже конкретным параметром запроса, что очевидно снижает эффективность таких правил и создает ряд «слепых зон» для подобного механизма. Во-вторых, синтаксис регулярных выражений, сложная логика текстовых протоколов, допускающая замену на эквивалентные конструкции и использование различных представлений символов, приводят к ошибкам при создании подобных правил. На данную тему есть <a href="https://xakep.ru/2016/12/19/web-application-firewalls-bypasses/">отличное исследование</a> от Владимира Иванова.</p><h3 id="a815172a-c7d1-4f7c-90f5-093ef0d828e3" class=""><strong>Scorebuilding</strong></h3><p id="ca6376ed-296b-43e8-8d95-a136888da6f6" class="">Данный механизм должен быть знаком всем, кто интересовался устройством межсетевых экранов и антивирусов. Сам по себе он не детектирует атаки, однако дополняет другие методы, делая их более точными и гибкими. Причина появления инструмента — в том, что присутствие в запросе некоторой «подозрительной» конструкции является недостаточным условием для выявления атаки или же, напротив, может приводить к большому числу false-positive ошибок. Данная проблема решается введением балльной системы. Например, каждое правило, основанное на регулярных выражениях, дополняется информацией о критичности его срабатывания; после выявления всех сработавших правил их критичность суммируется. В случае преодоления некоторого порогового значения атака детектируется, а запрос блокируется. Данный механизм, несмотря на свою простоту, хорошо зарекомендовал себя в задачах подобного класса и применяется повсеместно.</p><h3 id="4624aa8b-f9f7-43d4-9a63-8adb6ab8d3ca" class=""><strong>Токенайзеры</strong></h3><p id="3e00c231-56f8-4e84-8398-14a397534295" class="">Этот подход к детектированию атак был представлен на Black Hat 2012 в виде C/C++ <a href="https://github.com/client9/libinjection">библиотеки libinjection</a>, позволяющей быстро и точно выявлять атаки класса SQL injection. На данный момент, для библиотеки libinjection существуют порты под различные языки программирования, включая PHP, Lua, Python, etc… По сути, механизм сводится к поиску сигнатур, представленных в виде последовательности токенов. Некоторое количество сигнатур вносится во встроенный черный список и считается недопустимым или вредоносным. Иными словами, перед тем, как проанализировать какой-либо запрос, его сначала приводят к набору токенов. Токены подразделяются на различные типы, например, variable, string, regular operator, unknown, number, comment, union-like operator, function, comma, etc… Один из основных недостатков данного метода заключается в том, что существует возможность построить такую конструкцию, которая приведет к некорректному формированию токенов, следовательно, сигнатура запроса будет отлична от ожидаемой. Такие конструкции обычно называются token breaker.</p><h3 id="ff723640-9816-4816-8d17-896553103892" class=""><strong>Анализ поведения</strong></h3><p id="8525c5db-f0b5-4d31-82a1-f3041f51d978" class="">Детектирование попыток эксплуатации уязвимостей в параметрах запроса — не единственная задача WAF. Важно выявлять и саму процедуру поиска уязвимости, которая может проявляться в попытках сканирования, брутфорса директорий, фаззинга параметров и прочих часто применяемых автоматизированными средствами методик обнаружения уязвимостей и соответственным образом реагировать на них. Более продвинутые WAF даже умеют строить цепочки запросов, «типичные» для нормального поведения пользователя и блокировать попытки отправки запросов в отличном от стандартного поведения порядке. Данный механизм не столько противодействует атакам, сколько затрудняет процесс нахождения уязвимости. Ограничение на количество запросов в минуту никак не скажется на типичном пользователе, но будет существенной помехой для сканера, работающего в несколько потоков.</p><h3 id="afb5f25a-dd14-43a1-a33f-06ccb06eddaf" class=""><strong>Репутационный анализ</strong></h3><p id="78629f01-12ce-476a-869e-4e3e57a37444" class="">Еще один механизм, напрямую унаследованный от межсетевых экранов и антивирусов. Сегодня почти любой WAF включает в себя списки адресов VPN-сервисов, анонимайзеров, узлов Tor-сети, участников ботнетов, которые могут применяться для блокировки запросов, исходящих от подозрительных адресов. Более продвинутые WAF умеют автоматически обновлять свои базы и вносить в них дополнительные записи на основе анализируемого трафика.</p><h3 id="97b9f0d6-7038-4a18-afca-47ee40c20829" class=""><strong>Машинное обучение</strong></h3><p id="baca12c5-61d0-4356-98e6-2306667dd595" class="">Один из самых спорных моментов в WAF. Данный механизм сложнее всего описать, и тому есть множество причин. Для начала, стоит отметить, что само понятие «машинное обучение» крайне обширно и фактически включает в себя множество технологий и методик. Кроме того, “машинное обучение” считается лишь одним из классов методов ИИ. «Внедрение» машинного обучения или “использование ИИ” — очень популярный маркетинговый ход. Зачастую непонятно, какие методы и алгоритмы используются на практике, а иногда со стороны атакующего кажется, что машинное обучение в WAF — это лишь красивые слова. Среди тех игроков рынка, кто действительно смог подчинить себе всю мощь машинного обучения, мало кто готов делиться своим опытом. Всё это складывается в довольно печальную картину для «человека извне», желающего разобраться в вопросе. И всё же попробуем выделить хотя бы парочку здравых идей на основе доступной информации.</p><p id="b4a1ef41-24d7-4411-abaf-9d96b3f4b4ee" class="">Во-первых, машинное обучение полностью зависит от тех данных, на основе которых оно осуществлялось, и это зачастую является большой проблемой. Требуется наличие у компании-разработчика актуальной и полной коллекции существующих атак и их методов применения, что довольно непросто. По этой причине многие поставщики тщательно логируют результаты работы своих WAF и сотрудничают с другими компаниями, предлагающими IDS, SIEM системы для доступа к реальным примерам атак. Во-вторых, модель, обученная на «сферическом веб-приложении в вакууме» может оказаться попросту неэффективной при установке на реальное веб-приложение клиента. Для наилучшего эффекта считается правильным проводить дополнительное обучение модели на стадии внедрения WAF у клиента, что требует дополнительных расходов, времени, организационных трудностей, а также не гарантирует лучшего результата.</p><p id="ce1670bb-4f1d-410b-b7f8-06367ca2a3a6" class="">
+</p><h1 id="201bb6c6-d9a9-4a72-98d6-59a01474993e" class="">Принципы работы</h1><p id="aa01c59c-6ca4-4a2f-a5f2-a0c6ee8d6e6e" class="">Классическое размещение WAF в сети — в режиме обратного прокси-сервера, перед защищаемыми веб-cерверами. В зависимости от производителя могут поддерживаться и другие режимы работы — например, прозрачный прокси-сервер, мост или даже пассивный режим, когда продукт работает с репликацией трафика.</p><p id="1c06dd6f-c632-4e30-8cf7-8eab0cc938fa" class="">Работает WAF по следующим моделям безопасности:</p><ul id="c300c366-5a9c-41a1-858a-b2793830b081" class="bulleted-list"><li style="list-style-type:disc"><strong>Negative<br/><br/></strong>Некий «черный список», запрещающий прием конкретной информации, прописанной в настройках. Защищает веб-приложения на прикладном уровне (аналог IPS), но умеет оценивать потенциальные угрозы детальнее и чаще применяется для обеспечения защиты от «популярных» и специфических типов атак. Анализирует уязвимости конкретных веб-приложений.<br/>Пример работы Negative: запрещать заранее заданный «плохой» запрос GET по HTTP и разрешать все остальное.<br/></li></ul><ul id="f2c48f9b-d459-40f5-9e78-d2ca5d6d15b0" class="bulleted-list"><li style="list-style-type:disc"><strong>Positive<br/><br/></strong>«Белый список», разрешающий прием конкретной информации, которая была заранее указана в настройках. Позволяет получить максимальную защиту, т.к. применяется в качестве дополнения к моделям. Задействует другой тип логики: правила, определяющие, что конкретно разрешено.<br/>Пример работы Positive: разрешать указанные ранее запросы GET по HTTP для заданного адреса и запрещать все остальное.<br/></li></ul><p id="ea688ad8-ce2a-4746-a8e5-6d6d5dfc761b" class="">Давайте рассмотрим механизмы работы WAF изнутри. Этапы обработки входящего трафика в большинстве WAF одинаковы. Условно можно выделить пять этапов:</p><ol type="1" id="74b27655-e250-4b20-8c33-8eeafba3daae" class="numbered-list" start="1"><li>Парсинг HTTP-пакета, который пришел от клиента.</li></ol><ol type="1" id="af6dbb90-7111-45ed-b941-d54cae0948e5" class="numbered-list" start="2"><li>Выбор правил в зависимости от типа входящего параметра.</li></ol><ol type="1" id="c85d47c3-511a-409b-b26c-a9883fa6d5ee" class="numbered-list" start="3"><li>Нормализация данных до вида, пригодного для анализа.</li></ol><ol type="1" id="3c179461-e4b4-4c91-8f2d-195f52b3a51b" class="numbered-list" start="4"><li>Применение правила детектирования.</li></ol><ol type="1" id="3029e078-a6f2-42f5-b8dc-85105fe5988d" class="numbered-list" start="5"><li>Вынесение решения о вредоносности пакета. На этом этапе WAF либо обрывает соединение, либо пропускает дальше — на уровень приложения.</li></ol><p id="7f7f5f41-e3f4-4dca-9b08-beb2e3f978b9" class="">Все этапы, кроме четвертого, хорошо изучены и в большинстве файрволов одинаковы. О четвертом пункте — правилах детектирования — дальше и пойдет речь. Если проанализировать виды логик обнаружения атак в пятнадцати наиболее популярных WAF, то лидировать будут:</p><ul id="0b91cf0d-dcbc-496a-9fef-97d1eac41ae2" class="bulleted-list"><li style="list-style-type:disc">регулярные выражения;</li></ul><ul id="418516a5-2d07-49d0-a464-86bb9eeb7c62" class="bulleted-list"><li style="list-style-type:disc">токенайзеры, лексические анализаторы;</li></ul><ul id="dac4e775-68c6-4efd-b15a-888f3dcdbddb" class="bulleted-list"><li style="list-style-type:disc">репутация;</li></ul><ul id="663f05aa-f3a1-4613-a65a-7cc51d85fbe3" class="bulleted-list"><li style="list-style-type:disc">выявление аномалий;</li></ul><ul id="87b09287-650a-4ef3-a35e-29c94bbb8998" class="bulleted-list"><li style="list-style-type:disc">score builder.</li></ul><p id="65eb6f3d-9fc3-4d0e-aa84-e4980addc70d" class="">Большинство WAF используют именно механизмы регулярных выражений («регэкспы») для поиска атак. На это есть две причины. Во-первых, так исторически сложилось, ведь именно регулярные выражения использовал первый WAF, написанный в 1997 году. Вторая причина также вполне естественна — это простота подхода, используемого регулярками.</p><p id="6e1ce01d-0675-475c-a7a8-136048f82e0b" class=""><em>Наиболее популярные техники детекта вредоносной нагрузки в WAF:</em></p><figure id="a4e57e03-84f8-48ae-a872-01e180b949ae" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20308de3e22d5744e5b41b54b710dda844/Untitled%203.png"><img style="width:1200px" src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20308de3e22d5744e5b41b54b710dda844/Untitled%203.png"/></a></figure><p id="9091fb90-f9c9-4029-a864-05b952427259" class="">Напомним, что регулярные выражения выполняют поиск подстроки (в нашем случае — вредоносного паттерна) в тексте (в нашем случае — в HTTP-параметре). Например, вот одна из самых простых регулярок из ModSecurity:</p><p id="e367e816-a8ae-4f65-acd2-611d8a7cccda" class=""><code>(?i)(&lt;script[^&gt;]*&gt;.*?)</code></p><p id="9b525728-602c-4b93-9aee-a18f7d07dafa" class="">Это выражение ищет HTML-инъекцию типа XSS в теле запроса. Первая часть (<code>(?i)</code>) делает последующую часть выражения нечувствительной к регистру, вторая (во вторых скобках) ищет открывающийся тег <code>&lt;script</code> с произвольными параметрами внутри тега и произвольный текст после символа <code>&gt;</code>.</p><p id="150b6f77-52d0-46fe-a013-da74ed1a5e79" class="">
+</p><h1 id="d54883fc-ab17-44be-94ef-10e1a594c113" class="">Разновидности WAF</h1><p id="e8d0912b-5048-4d02-812b-4f8aee7def30" class="">На рынке представлено множество WAF. Однако не все они одинаковы. Различные формы WAF имеют свои преимущества и недостатки, поэтому важно понимать их различия, прежде чем принимать взвешенное решение.</p><h3 id="153383d0-f30f-416a-84db-7bb16c49d6dc" class="">Аппаратные WAF</h3><p id="6c6aa351-5a1b-4c86-a648-abbca8071f33" class="">WAF на аппаратной основе развертывается с помощью аппаратного устройства, устанавливаемого локально в сети LAN рядом с веб-серверами и серверами приложений. Операционная система работает внутри устройства, поддерживая конфигурацию и обновление программного обеспечения.</p><p id="1df70ad9-09bd-42a0-b216-8f4d6ef0af25" class="">Главным преимуществом аппаратного WAF является высокая скорость и производительность. Благодаря физической близости к серверу, устройство отслеживает и фильтрует пакеты данных, поступающие на веб-сайт и обратно, с очень низкой задержкой. Основной недостаток заключается в том, что владение и обслуживание аппаратных машин обходится недешево. От приобретения и установки до хранения и обслуживания, аппаратные WAF связаны с более высокими затратами по сравнению с другими типами WAF.</p><p id="e2d46d76-6bd0-4266-8a05-f5265ef98e61" class=""><strong>Для кого подходит?</strong></p><p id="c9fe7a0b-38e7-48a7-9871-42f0c2eea2a0" class="">Аппаратные WAF обычно используются крупными организациями, которые ежедневно получают сотни тысяч посещений. Это связано с тем, что для эффективного обслуживания такого большого количества клиентов скорость и производительность становятся наивысшим приоритетом. Кроме того, большинство крупных предприятий могут позволить себе расходы на управление и эксплуатацию аппаратного обеспечения.</p><h3 id="945aa674-5b97-49d0-9a72-1f154ebd982f" class="">Программные WAF</h3><p id="97db6086-0416-496f-b271-5d6d1eeb8df9" class="">Программный WAF устанавливается на виртуальной машине (VM) вместо физического аппаратного устройства. Все компоненты WAF по сути те же, что и в аппаратном WAF. Единственное отличие заключается в том, что для работы виртуальной машины пользователям потребуется собственный гипервизор.<br/>Основное преимущество WAF на базе программного обеспечения - гибкость. Его можно использовать не только в локальной системе, виртуальная машина также может быть развернута в облаке, подключаясь к облачным веб-серверам и серверам приложений. Программный WAF также является более дешевым вариантом по сравнению с аппаратными WAF. Однако основным недостатком является то, что поскольку он работает на виртуальной машине, в процессе мониторинга и фильтрации возникает большая задержка, что делает его менее быстрым, чем аппаратный WAF.<br/></p><p id="0d1a8b22-56a6-435e-91b3-76a301524e82" class=""><strong>Для кого подходит?</strong></p><p id="3257d9b6-f6e9-4073-9a19-7398786e7c9f" class="">Очевидно, что программные WAF обычно используются в организациях с веб-серверами и серверами приложений, расположенными в облаке, таких как центры обработки данных и хостинг-провайдеры. Они также популярны среди малых и средних предприятий, которым необходимо защитить свои веб-приложения при меньших затратах.</p><h3 id="7c7609bf-a5c2-4bc4-b633-e90b1e35ed5e" class="">Облачные WAF</h3><p id="ca39e7fb-ae6f-428a-9f1c-3a605c18fb9c" class="">Облачный WAF - это новое поколение WAF, который предоставляется и управляется непосредственно поставщиком услуг в форме SaaS (software as a service — программное обеспечение как услуга). В отличие от программного WAF, компоненты WAF полностью находятся в облаке, поэтому пользователю не нужно ничего устанавливать локально или на виртуальных машинах.</p><p id="11b9d9cf-98c2-4907-bc64-021460a83932" class="">Основным преимуществом является простота. Пользователю не нужно физически устанавливать какое-либо программное обеспечение, ему необходимо лишь подключиться к плану подписки. Поставщик услуг обеспечивает всю оптимизацию и обновления, так что пользователю не нужно самостоятельно управлять WAF. С другой стороны, недостатком является то, что поскольку WAF полностью управляется поставщиком услуг, у пользователя остается не так много возможностей для настройки.</p><p id="6ae80262-874e-4cc6-93c3-43094a766d1c" class=""><strong>Для кого подходит?</strong></p><p id="ca8cf8f2-7959-430d-a9de-047cc62eb211" class="">Облачные WAF подходят для большинства малых и средних организаций, поскольку они не требуют физического места хранения и ручного обслуживания, они отлично подходят для организаций, не имеющих много дополнительных ресурсов для управления WAF.</p><p id="9bb88359-0b8c-4562-b432-b134c643b411" class="">
+</p><h1 id="0d62dd4b-4e97-4103-b202-a2d405ae32d8" class="">Применение WAF на практике</h1><p id="94f6dfbb-9343-4f04-bf1b-661658bae990" class="">Web Application Firewall<strong> </strong>— защитный экран уровня приложений, предназначенный для выявления и блокирования современных атак на веб-приложения, в том числе и с использованием уязвимостей нулевого дня:</p><ul id="3b460304-dcaf-41f0-b4cd-7939458ec00b" class="bulleted-list"><li style="list-style-type:disc">SQL Injection — sql инъекции;</li></ul><ul id="a2eaff5f-db96-4276-b213-83c3547519f1" class="bulleted-list"><li style="list-style-type:disc">Remote Code Execution (RCE) — удаленное выполнение кода;</li></ul><ul id="9c6b0249-6260-451a-93ae-0de763217094" class="bulleted-list"><li style="list-style-type:disc">Cross Site Scripting (XSS) — межсайтовый скриптинг;</li></ul><ul id="1a32ec16-4b5e-4ec0-9a56-65aa09f53652" class="bulleted-list"><li style="list-style-type:disc">Cross Site Request Forgery (CSRF) — межстайтовая подделка запросов;</li></ul><ul id="b46b1f9a-dcd4-473a-90cd-27fe815016a6" class="bulleted-list"><li style="list-style-type:disc">Remote File Inclusion (RFI) — удалённый инклуд;</li></ul><ul id="912b9881-c481-448b-ad84-ac4134b0c129" class="bulleted-list"><li style="list-style-type:disc">Local File Inclusion (LFI) — локальный инклуд;</li></ul><ul id="bdc98406-e58c-4147-9e15-57eb442ab9fe" class="bulleted-list"><li style="list-style-type:disc">Auth Bypass — обход авторизации;</li></ul><ul id="be63e414-3467-44a7-9486-632335a0bb78" class="bulleted-list"><li style="list-style-type:disc">Insecure Direct Object Reference — небезопасные прямые ссылки на объекты;</li></ul><ul id="ff17b40e-f8b3-4e64-9869-6dd3f0019f7d" class="bulleted-list"><li style="list-style-type:disc">Bruteforce — подбор паролей.</li></ul><p id="73951544-ed67-4592-9c65-0b2e01b0ffb0" class="">
+</p><p id="ae7b0da8-19dd-49a0-8f69-49a4efd84260" class=""><strong>Что должен уметь WAF, чтобы его внедрение было обосновано в реальном проекте?</strong></p><p id="8b880371-ed04-41e6-9db6-95377e373ff4" class="">Основная его функция — детектирование и блокирование запросов, в которых, согласно анализу WAF, есть некоторые аномалии или прослеживается атакующий вектор. Такой анализ не должен затруднять взаимодействие легитимных пользователей с веб-приложением, в то же время должен точно и своевременно детектировать любые попытки атак. Для того, чтобы реализовать такую функциональность, разработчики WAF обычно применяют регулярные выражения, токенайзеры, поведенческий анализ, репутационный анализ, а также машинное обучение, и зачастую все эти технологии используются совместно. Кроме этого, WAF может еще предоставлять и другую функциональность: защита от DDoS, блокировка IP-адресов атакующих, отслеживание подозрительных IP-адресов, добавление security-заголовков (X-XSS-Protection, X-Frame-Options, etc…), добавление http-only флага к cookie, внедрение механизма HSTS, добавление функциональности CSRF-токенов. Также некоторые WAF имеют встраеваемый на сайт клиентский модуль, написанный на JavaScript.</p><p id="fccd489a-31ee-454f-8cf2-4e37b54956bd" class="">Разумеется, WAF создает ряд трудностей для работы хакеров и пентестеров. Обнаружение и эксплуатация уязвимостей становится более трудоемкой задачей, если, конечно, атакующим не известны эффективные 0day-способы обхода конкретного WAF. Использовать автоматизированные сканеры при анализе веб-приложений под защитой WAF почти бесполезно. WAF надежно защищает сайты как минимум от scriptkiddies. Однако, опытный специалист или хакер, не имея должной мотивации, может также решить не тратить много времени на поиск способов обхода. Отдельно отметим, что, чем сложнее и многофункциональнее веб-приложение, тем больше возможная область атаки, и тем проще будет найти способ обхода WAF.</p><p id="7c19b3d0-8101-4fd1-a1ed-fe5e7d21c747" class="">Общие требования к современному Web Application Firewall:</p><ul id="fc47ff56-f616-488e-9b49-9b77daa4fab0" class="bulleted-list"><li style="list-style-type:disc">системные компоненты WAF должны соответствовать требованиям PCI DSS;</li></ul><ul id="b6cdb42f-663b-462d-90c5-4102c5797570" class="bulleted-list"><li style="list-style-type:disc">возможность реагирования на угрозы, описанные в OWASP Top 10;</li></ul><ul id="054c4750-2e66-4f0f-aa0f-e2e9caac2b81" class="bulleted-list"><li style="list-style-type:disc">инспектирование запросов и ответов в соответствии с политикой безопасности, журналирование событий; предотвращение утечки данных — инспекция ответов сервера на наличие критичных данных;</li></ul><ul id="f9902386-ee51-42a6-a974-d824afe9245c" class="bulleted-list"><li style="list-style-type:disc">применение как позитивной, так и негативной модели безопасности; инспектирование всего содержимого веб-страниц, включая HTML, DHTML и CSS, а также нижележащих протоколов доставки содержимого (HTTP/HTTPS);</li></ul><ul id="01c3af5c-f39c-441c-a5a0-d134876cfcd1" class="bulleted-list"><li style="list-style-type:disc">инспектирование сообщений веб-сервиса, если веб-сервис подключен к интернету (SOAP, XML);</li></ul><ul id="16fc62b9-9a4f-4c54-a26b-9d8951e877f2" class="bulleted-list"><li style="list-style-type:disc">инспектирование любого протокола или конструкции данных, использующихся для передачи данных веб-приложения вне зависимости от того, является ли он проприетарным или стандартизованным (как для входящих, так и исходящих потоков данных);</li></ul><ul id="93753a15-8787-4d32-8cc0-de005fed38a1" class="bulleted-list"><li style="list-style-type:disc">защита от угроз, направленных непосредственно на WAF;</li></ul><ul id="9323a4bb-b8fb-4de9-bb95-78cb504bd29e" class="bulleted-list"><li style="list-style-type:disc">поддержка SSL\TLS-терминации соединения;</li></ul><ul id="30ce0b68-9960-43cf-a374-9931fc7ab7eb" class="bulleted-list"><li style="list-style-type:disc">предотвращение или обнаружение подделки идентификатора сессии;</li></ul><ul id="3f881b5c-dfb9-4a65-9f84-ffb54e29e248" class="bulleted-list"><li style="list-style-type:disc">автоматическое скачивание обновлений сигнатур атак и применение их;</li></ul><ul id="d960c015-e087-4a06-affb-893f3a62042c" class="bulleted-list"><li style="list-style-type:disc">возможность установки режима fail-open и fail-close;</li></ul><ul id="57722044-91b3-41ea-a17f-7c55d3a9159d" class="bulleted-list"><li style="list-style-type:disc">поддержка устройством клиентских SSL-сертификатов;</li></ul><ul id="e1a9477c-54c6-4ea5-a181-c4c802a2d921" class="bulleted-list"><li style="list-style-type:disc">поддержка аппаратного хранения ключей (FIPS).</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

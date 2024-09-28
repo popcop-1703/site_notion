@@ -1,0 +1,684 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Практическая работа №4.1 DNS.</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="76133577-2fcf-408d-b338-58a4a5d9a948" class="page sans"><header><h1 class="page-title">Практическая работа №4.1 DNS.</h1><p class="page-description"></p></header><div class="page-body"><hr id="deea8210-5fa3-4a6e-9170-b3fa03f4ab37"/><h1 id="c25a5028-f84e-47d1-adc0-4078ab80bcef" class="">Занятие 4 - <em>Инфраструктурные сервисы в домене</em></h1><h1 id="033a8c57-eff5-4ecb-9476-0b536ac29bf9" class="">Задание:</h1><p id="3ce5f567-3e64-4ffc-8a80-ef32aa3ab2f6" class="">1) Настроить сервис DNS</p><h1 id="ded48afc-fb3f-4cce-b162-34454cf6021a" class="">Методический материал:</h1><h2 id="9d04fadf-f67d-4c11-85c0-e40fa8fe5a41" class="">Часть 1. DNS</h2><p id="f83b63c9-c7d5-4d88-bbc0-1620bc488249" class="">Задача -- настроить перенаправление запросов DNS, не относящихся к зоне pt.local, на внешний DNS сервер. В дополнение -- сконфигурировать зону обратного просмотра.<br/>:::info<br/>Проверьте, что на микротике настроено перенаправление запросов -- выполнены пункты 3.14 и 3.15 из инструкции <br/><a href="https://hackmd.io/@UncleVan/B1mSSsBNc">Занятие 0 - </a><em><a href="https://hackmd.io/@UncleVan/B1mSSsBNc">Подготовка стенда</a></em><br/>:::<br/></p><p id="e981b92f-99ca-459f-b80e-e9c116e656d7" class="">==1.1 Зайдём в оснастку DNS==</p><hr id="aeead296-654c-4b2f-b65f-999e438dc399"/><figure id="8d7fd8a6-77b1-4a89-afd2-405f19132ec9" class="image"><a href="https://i.imgur.com/6kHako4.png"><img src="https://i.imgur.com/6kHako4.png"/></a></figure><hr id="5b5216d3-fac1-4efe-92e2-8e6cf2d1c736"/><p id="fe75741a-2665-499b-a037-d7877d0169e7" class="">==1.2 Просмотрим текущие DNS записи==</p><hr id="0bb1522b-9d9b-433a-a9a2-d757f0f7395b"/><figure id="4cfe0c64-4083-4e0c-8e42-359663c88316" class="image"><a href="https://i.imgur.com/yIvqEa5.png"><img src="https://i.imgur.com/yIvqEa5.png"/></a></figure><hr id="e2ab3fc1-c5f2-458d-8562-85834fe72125"/><p id="f47a5310-66af-4a3a-9fe1-a7d1609e130e" class="">==1.3 Настроим форвард. Перейдём в настройки сервера DNS==</p><hr id="9c4530d9-8506-41f0-b520-2831489cf39c"/><figure id="4917c547-b39b-4350-9ed7-42b578d195c6" class="image"><a href="https://i.imgur.com/i7Iimk0.png"><img src="https://i.imgur.com/i7Iimk0.png"/></a></figure><hr id="c5f1c6c9-ec14-4838-a6db-94cdcd9fc3c8"/><p id="504e758d-8c53-4b66-a8d6-757d929b4a6e" class="">==1.4 Откроем вкладку &quot;forwarders&quot;==</p><hr id="f9af67c7-c8b3-4d78-a6f8-23ef8809f642"/><figure id="87d62e96-7625-4b2a-bb5c-5b62663a7014" class="image"><a href="https://i.imgur.com/IQhJy3H.png"><img src="https://i.imgur.com/IQhJy3H.png"/></a></figure><hr id="ca784a05-afdb-48b1-82e0-48b794128ce5"/><p id="b38972cc-3f45-458f-b3fd-251fec18732b" class="">==1.5 Зайдём в пункт &quot;edit&quot;==</p><hr id="c0057ba2-1d8a-4151-b793-ea9cd1c1efdb"/><figure id="d79088d6-ada9-431e-a90d-b7ea2186112d" class="image"><a href="https://i.imgur.com/q9lOIJ7.png"><img src="https://i.imgur.com/q9lOIJ7.png"/></a></figure><hr id="28b15a73-3e4a-4f16-b5c6-afcf64bb72d3"/><p id="23f1f7da-c84a-4e5a-9075-763671c207e9" class="">==1.6 Введём адрес mikrotik. Именно он будет перенаправлять DNS запросы на внешние сервера==</p><hr id="854441e9-6126-4265-b5ca-1f2a0a430d01"/><figure id="a8c8c2e2-a2ba-4b08-ab82-898916e60fa5" class="image"><a href="https://i.imgur.com/vWBHMkj.png"><img src="https://i.imgur.com/vWBHMkj.png"/></a></figure><hr id="66386c00-9a16-43ec-9bf4-515cf1daa6a7"/><p id="8452e0ca-c96b-433a-a886-b5766940ce66" class="">==1.7 Увидим, что настройка прошла корректно==</p><hr id="4a87822d-592a-4baa-862c-3f99bfafa32d"/><figure id="35005f40-7a94-4d97-b7f3-31a32c81ea9e" class="image"><a href="https://i.imgur.com/5bFTiKO.png"><img src="https://i.imgur.com/5bFTiKO.png"/></a></figure><hr id="43d3bb53-207e-4e6e-bbf2-e4e8c50e7328"/><p id="0f14a3d0-fb6b-4370-b494-04f5bfcc1333" class="">Если вместо подтверждения увидите ошибку -- проверьте, включен ли ваш микротик и настроен ли на нём приём удалённых запросов, как указано вначале статьи</p><hr id="d66b8f07-673f-4399-8fc2-39b15e124fd4"/><p id="0d1977b4-7718-436c-89ff-eab65cda163b" class="">==1.8 Закроем окно и применим настройки, после чего закроем окно свойств DNS==</p><hr id="c4bc3e37-9a87-4b9e-9bb2-d130c3581e31"/><figure id="01cd5c10-b7c0-494c-aab7-9d05488d5a15" class="image"><a href="https://i.imgur.com/KQ5MSoZ.png"><img src="https://i.imgur.com/KQ5MSoZ.png"/></a></figure><hr id="9f579d2e-d35f-4457-a4fa-ceb22a590515"/><p id="ee87615e-2f77-464b-9d02-b5733624a790" class="">==1.9 Настроим зону обратного просмотра. Нажмём ЛКМ на &quot;reverse lookup zone&quot;, а после нажмём на неё ПКМ==</p><hr id="49a8ae45-54cd-45a4-ac5a-beda6d8da773"/><figure id="a80a8cc9-c372-488a-92a3-724961a93d7c" class="image"><a href="https://i.imgur.com/a4UOqmC.png"><img src="https://i.imgur.com/a4UOqmC.png"/></a></figure><hr id="8e463e0f-1f20-4cea-88df-2cf6baa7e16b"/><p id="bf4f78f5-a429-4e15-a71b-a720efa50986" class="">==1.10 Нажмём &quot;new zone&quot;. Откроется меню создания зоны. NEXT==</p><hr id="d448d9b1-8d55-45b8-9356-3f9f60797a8d"/><figure id="b168a19c-9bb4-494c-bbf5-737d008390d6" class="image"><a href="https://i.imgur.com/BzwPpY1.png"><img src="https://i.imgur.com/BzwPpY1.png"/></a></figure><hr id="6e5f9b9c-8100-43b2-a7d4-3c68867a1423"/><p id="186428fa-2457-4db8-9cb5-f09cddd6e8c9" class="">==1.11 Оставляем пункт &quot;primary zone&quot;. NEXT==</p><hr id="b8afca57-e72b-4fe9-8ac2-28b14deae563"/><figure id="1402a203-0797-4ccb-b00d-88f629e55a43" class="image"><a href="https://i.imgur.com/NtwEuJ1.png"><img src="https://i.imgur.com/NtwEuJ1.png"/></a></figure><hr id="5c3dbca8-3dd7-4f55-88d3-730b781a094b"/><p id="153e06d8-ae23-4bce-a700-30fb824687ee" class="">==1.12 Аналогично оставляем по умолчанию параметры репликации. NEXT==</p><hr id="e76eb2e5-b396-4a48-a374-cd227b7f5812"/><figure id="c2a2968f-75ce-48a9-af47-0228901d98c2" class="image"><a href="https://i.imgur.com/u5MUWbo.png"><img src="https://i.imgur.com/u5MUWbo.png"/></a></figure><hr id="4f9b0bb1-c1cd-4bf3-981d-bd6feabd92b7"/><p id="a6165459-2f44-4bf7-98f2-dc59e86ba1b9" class="">==1.13 Настроим IPv4 зону. NEXT==</p><hr id="5bd0deb6-697f-4b68-8431-9c85d2429376"/><figure id="46c0a0fa-f67c-4dc6-a840-06f3eeb81dfd" class="image"><a href="https://i.imgur.com/Qu6ro7p.png"><img src="https://i.imgur.com/Qu6ro7p.png"/></a></figure><hr id="5e90e2d7-5049-45b4-a13d-62b49719b761"/><hr id="4fb1ff9d-de3a-4800-b7ce-ebae7da193b9"/><p id="5c89fe05-333a-4e67-9804-7e3b0e682ae7" class="">==1.14 Введём идентификатор зоны без последнего ip октета. Это наша сеть, для которой будет создана зона обратного просмотра. NEXT==</p><hr id="74727cc7-d7f1-449f-b396-1b9196934899"/><figure id="e66ea81a-40a2-4a81-927a-0b635b2cbc57" class="image"><a href="https://i.imgur.com/htZCOgH.png"><img src="https://i.imgur.com/htZCOgH.png"/></a></figure><hr id="2bee3031-7ceb-4b2a-9ae7-89490afea197"/><p id="9d232b51-bee6-40c2-b3a6-7ee1d661de8f" class="">==1.15 Оставим пункт по умолчанию для динамического обновления зоны. NEXT==</p><hr id="d3811a59-8d09-4850-9d0a-89d5f1e8b94c"/><figure id="569b8c5a-02a2-4907-bdd6-0b8b4b362452" class="image"><a href="https://i.imgur.com/cnxUoMk.png"><img src="https://i.imgur.com/cnxUoMk.png"/></a></figure><hr id="fae3d1ea-acae-4e78-aa39-def64bc638f5"/><p id="28995992-65c6-4570-addc-bc9c25ce51a0" class="">==1.16 Сверимся с итоговыми настройками и завершим конфигурацию==</p><hr id="7340043e-4783-4ffe-af05-b882f6b82afd"/><figure id="39dd3df4-17ac-4585-9906-58453b2e129e" class="image"><a href="https://i.imgur.com/lNVz3AY.png"><img src="https://i.imgur.com/lNVz3AY.png"/></a></figure><hr id="5c915229-71f0-4c65-926c-409cc50ebb2d"/><p id="5a541e7a-fae2-41ca-aa3f-e38270c7ed00" class="">==1.17 Увидим созданную обратную зону==</p><hr id="4cbb055b-13b7-41eb-b73f-815a8a9268e2"/><figure id="2b9fa07e-8f15-400f-8f3d-5dc2f710034e" class="image"><a href="https://i.imgur.com/cXzqfD0.png"><img src="https://i.imgur.com/cXzqfD0.png"/></a></figure><hr id="93a7d43e-ca3d-4615-8684-0984ed6223c4"/><h2 id="6ae30e27-6c48-4397-a9ef-a67f0fd5dccd" class="">Ссылки для закрепления материала и самостоятельного изучения:</h2><ul id="bd02db10-6126-4a41-885d-f01acbafab31" class="bulleted-list"><li style="list-style-type:disc"><a href="http://pyatilistnik.org/chto-takoe-dns/">DNS</a></li></ul><ul id="fcc67389-6b0e-44a1-a14b-d99de804aaa8" class="bulleted-list"><li style="list-style-type:disc"><a href="https://tproger.ru/explain/domain-name-system/">Как работает DNS</a></li></ul><ul id="284c698c-857e-46bc-b364-c07e93a2ecd8" class="bulleted-list"><li style="list-style-type:disc"><a href="https://cybernews.com/resources/what-is-a-dns-attack/">Виды атак на DNS</a></li></ul><ul id="b5871523-062e-4298-b8f2-504f4f22bc10" class="bulleted-list"><li style="list-style-type:disc"><a href="https://ru.wikipedia.org/wiki/%D0%9A%D0%BE%D1%80%D0%BD%D0%B5%D0%B2%D1%8B%D0%B5_%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80%D1%8B_DNS">Корневые серверы DNS</a></li></ul><ul id="bf9ee47f-7e00-4ad5-b361-61538e2e8799" class="bulleted-list"><li style="list-style-type:disc"><a href="https://root-servers.org/">Официальная информация о действующих корневых серверах DNS</a></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

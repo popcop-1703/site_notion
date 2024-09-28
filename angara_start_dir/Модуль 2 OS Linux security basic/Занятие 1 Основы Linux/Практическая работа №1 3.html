@@ -1,0 +1,697 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Практическая работа №1.3</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="7fb828a1-216d-42e6-ac20-2fb0d3d842f4" class="page sans"><header><h1 class="page-title">Практическая работа №1.3</h1><p class="page-description"></p></header><div class="page-body"><hr id="6cde0a2c-9b13-4af5-95fd-63ba21051998"/><h2 id="39c426c2-39b0-4317-bedb-595196ec00d1" class="">Практическая работа Философия Vim</h2><h3 id="43078f03-5ed2-4248-b9cb-972b9c66d901" class="">Цель работы:</h3><ul id="d50cb41d-9248-4466-b0fb-ad0f3e72786b" class="bulleted-list"><li style="list-style-type:disc">Научиться работать в VIM.</li></ul><h3 id="d136ec16-4440-49d0-a022-4859d977709c" class=""><strong>Задача:</strong></h3><ul id="1cc34ed3-1a3d-410a-8b3b-f5ce1f2d51db" class="bulleted-list"><li style="list-style-type:disc">Выполнить все задания.<p id="97d99e20-56fa-44c5-b1e8-99b20dee030e" class=""><strong>Vim</strong> — один из самых противоречивых инструментов из всех видевших свет. Это не просто редактор, это лакмусовая бумажка, четко разделяющая программистов, администраторов и юниксоидов на своих и чужих. Пока одни задаются вопросом, зачем нужна эта мертвечина в XXI веке, другие не могут представить себе жизни без Vim. Но чем же он их привлекает? Почему у редактора, который появился на свет более сорока лет назад, столько фанатов в сегодняшнем мире? Попробуем разобраться.</p></li></ul><ul id="281ddd56-19e0-4090-929f-92b4651f3b13" class="bulleted-list"><li style="list-style-type:disc">Пройти интерактивное обучение <a href="https://www.openvim.com/">https://www.openvim.com/</a>.</li></ul><ul id="fa32ce08-e947-40c2-85f9-b05981402db3" class="bulleted-list"><li style="list-style-type:disc">Ответить на контрольные вопросы, что проделано в данной работе и в интерактивное обучении <a href="https://www.openvim.com/">https://www.openvim.com/</a>. (отвечать на контрольные вопросы в случае, если преподаватель спрашивает лично).</li></ul><ul id="4006fb0b-2464-4cdb-8261-56995bcafb4d" class="toggle"><li><details open=""><summary><strong>Контрольные вопросы</strong></summary><ol type="1" id="235c45c7-b4b9-451b-85d5-f53d11b75a8b" class="numbered-list" start="1"><li>Как перейти в режим редактирования?</li></ol><ol type="1" id="60ae23fd-0023-4491-8db9-3662db8743d3" class="numbered-list" start="2"><li>Как перейти из режима редактирования в режим навигации?</li></ol><ol type="1" id="7e44cd5e-2ced-4b3c-94d6-eda36ba41ea0" class="numbered-list" start="3"><li>Как сохранить внесённые в файл изменения?</li></ol><ol type="1" id="d04627be-1eda-4c0e-86b6-838e839b2bb6" class="numbered-list" start="4"><li>Как посмотреть стравку по какой-либо команде?</li></ol><ol type="1" id="52fe7e62-b5e3-4c3e-a85c-2913935a89a3" class="numbered-list" start="5"><li>Какими клавишами осуществляется навигация на один символ вправо/влево, на одну строку вверх/вниз?</li></ol><ol type="1" id="ab9a8981-2e11-4e2a-bbb2-8315e92614e3" class="numbered-list" start="6"><li>Как перейти к началу и к концу строки?</li></ol><ol type="1" id="d6023dd2-36f3-4728-8022-041a156eba51" class="numbered-list" start="7"><li>Как перейти к началу/концу документа?</li></ol><ol type="1" id="4f617f64-1f1c-4c06-aa04-25625abf7e11" class="numbered-list" start="8"><li>Как узнать количество строк в файле?</li></ol><ol type="1" id="dd403170-fe0c-4022-860d-5fbfe83e7c15" class="numbered-list" start="9"><li>Как перейти к строке номер 10?</li></ol><ol type="1" id="dcee18c2-14cf-4220-bc05-c3eb6294e177" class="numbered-list" start="10"><li>Как перейти к соответствующей закрывающейся скобке, если курсор находится на открывающейся?</li></ol><ol type="1" id="ea7ff5d5-88fd-4a85-98c5-080276ad365e" class="numbered-list" start="11"><li>Как удалить символ под курсором?</li></ol><ol type="1" id="14467d62-9d10-48d1-8547-b873bdbe805f" class="numbered-list" start="12"><li>Как удалить текущую строку?</li></ol><ol type="1" id="5dd3d0f1-ebcd-4e93-aba4-dd2f31df5da5" class="numbered-list" start="13"><li>Как удалить 5 строк, начиная с той, на которой находится курсор?</li></ol><ol type="1" id="92b3a056-9f84-4a10-8971-9f5dacafc236" class="numbered-list" start="14"><li>Как удалить строки с текушей, до конца/начала файла?</li></ol><ol type="1" id="983fe11c-d0cd-47a1-92a9-9a5441a6d926" class="numbered-list" start="15"><li>Как удалить часть строки от курсора до конца/начала строки?</li></ol><ol type="1" id="cd0556e6-3ab3-4e80-9c56-1f33b380b911" class="numbered-list" start="16"><li>Как удалить символы от курсора до конца слова?</li></ol><ol type="1" id="6d3b3551-9474-47f7-b064-06327d6dbe07" class="numbered-list" start="17"><li>Как удалить произвольную часть текста?</li></ol><ol type="1" id="1c08dd3a-f82d-411a-b569-43e0ffbc6a13" class="numbered-list" start="18"><li>Как скопировать/вставить целую строку?</li></ol><ol type="1" id="9ba264ad-b78c-414c-806b-a21c25b5cae1" class="numbered-list" start="19"><li>Как скопировать/вставить одно слово?</li></ol><ol type="1" id="28febafa-bf5f-4d1c-8239-237e15d08bf3" class="numbered-list" start="20"><li>Как скопировать/вставить часть текста от текущего положения курсора, до конца следующей строки?</li></ol></details></li></ul><ul id="233dcaae-54ba-4c33-b0dc-da328fec5953" class="bulleted-list"><li style="list-style-type:disc">Сделать скриншоты выполнения заданий.</li></ul><p id="a8cc534a-dbc7-436c-9e1c-0375abd04505" class="">
+</p><p id="85cd7413-b9c2-4a72-b733-881ea3e62313" class=""><strong>Самый странный редактор</strong></p><ul id="d9e674aa-77c6-4434-97d4-8e37354f0fbc" class="bulleted-list"><li style="list-style-type:disc">На первый взгляд Vim выглядит очень и очень странно. Знакомство с ним сопровождается страшными мучениями, когда ты просто не можешь понять, что происходит. Редактор либо вообще не реагирует на нажатия клавиш, либо ведет себя крайне неадекватно. Ты пишешь слово door, а вместо этого Vim переходит на новую строку и вставляет or. Ты стираешь эту галиматью и снова пробуешь что-то написать — и, о чудо, на экране действительно появляется текст.</li></ul><p id="b7f7159b-e839-4317-9fad-a035b20443d1" class=""><strong>А потом его опять начинает глючить.</strong></p><ul id="f19f2da8-a3ed-4967-acbb-3a56ab2ea550" class="bulleted-list"><li style="list-style-type:disc">Спустя несколько попыток разобраться, как это работает, и бесчисленное множество матерных слов ты идешь в интернет и узнаешь, что Vim — двухрежимный редактор. Писать текст здесь можно только в режиме ввода (INSERT), для перехода в который следует нажать кнопку i или Insert.</li></ul><p id="14e4c8b9-42a9-4ed1-98aa-158444e4820e" class="">Основной же режим, для выхода в который используется Esc, здесь предназначен для ввода, как тебе на первый взгляд кажется, хоткеев. Причем состоять они могут всего из одной клавиши: w — передвигает курсор к следующему слову, 0 — в начало строки, $ — в конец строки, A переводит курсор в конец строки и переключает редактор в режим ввода, u — аналог Ctrl-Z в нормальных редакторах.</p><p id="8be35913-2939-46f2-93c3-1a914021262c" class="">Погуглив еще немного, ты обнаруживаешь, что есть также «хоткеи» из двух и более последовательных нажатий. Такие, как, например, dd, который удаляет всю строку, и dw, удаляющий слово, gg и GG, которые перемещают курсор в начало и конец документа.</p><p id="8742bd7a-c91e-4ba5-9e75-71cb4f133d07" class="">Немного привыкнув, ты уже можешь кое-как прыгать между режимами и вводить эти странные хоткеи — они даже начинают казаться тебе удобными, но один вопрос все-таки тебя не покидает:</p><p id="d3452c4c-9a4a-49cf-8c40-fd2d7c4ded4e" class=""><strong>— Зачем здесь эти режимы?!</strong></p><p id="85c07a72-0a8b-4d59-ae99-fdadba76eafe" class="">«Хоткеи» Vim действительно удобны благодаря своей лаконичности, но разве необходимость переключаться между режимами не убивает все их удобство? Разве не проще нажимать пусть и требующие больше движений горячие клавиши в нормальных редакторах, чем мотаться взад-вперед между режимами? Да, может быть, сорок лет назад, когда на клавиатурах не было Ctrl и Alt, это и было оправданно, но сейчас-то зачем?</p><p id="b274cf52-4bfc-431b-94da-3fcc4c6c5256" class="">Так и заканчивает знакомство с Vim среднестатистический пользователь. Некоторое время он, конечно, еще потратит на то, чтобы найти выход, но затем забудет, как страшный сон, и вернется к своему любимому Sublime. А уж в условиях сурового сервера и nano сойдет.</p><p id="d0949b13-9f49-4f9a-8722-f0f0e55b2c95" class=""><em><strong>Почему так происходит? По одной простой причине: для работы с Vim нужна совсем другая система мышления, переключиться на которую мало кому удается сразу.</strong></em></p><figure id="ddb03791-7e41-40c1-b9a9-ee4d1f2343e0" class="image"><a href="https://i.imgur.com/w6nneeK.png"><img src="https://i.imgur.com/w6nneeK.png"/></a></figure><h2 id="7f4a5107-97a6-47f1-9954-43963cebb5cd" class="">1. Философия Vim</h2><p id="150086d7-575c-46a3-8529-7facc54f0c81" class="">Чтобы понять, почему Vim именно такой, какой есть, и чтобы научиться использовать его эффективно, необходимо запомнить две простые истины.</p><p id="15d6cb09-3dcc-4af2-ba0c-e0854566529f" class="">Истина первая. Разделение режимов Vim имеет абсолютно логичный утилитарный характер. В одном режиме ты пишешь текст, во втором редактируешь. В современных редакторах эти границы размыты, мы привыкли писать и тут же редактировать, стирать, снова писать. В режиме ввода Vim позволяет это делать, но в очень ограниченных пределах: написал не ту букву — стер, написал другую. Все остальное — в режиме редактирования (основной режим).</p><p id="7109ad5d-702f-431f-97a5-da1acda157bf" class="">Истина вторая. «Хоткеи», доступные в режиме редактирования, — это вовсе не хоткеи, а мощная система команд с аргументами, циклами и регистрами. При использовании Vim ты ни в коем случае не должен мыслить стандартным образом: сейчас я тыкну мышкой на том слове, потом нажму Backspace столько раз, сколько потребуется, чтобы его стереть, напишу другое слово, а потом перемещу курсор обратно. Вместо этого ты должен отдать редактору команду: замени вон то слово на это и верни меня обратно.</p><h2 id="24db20e9-ac6e-4e64-b910-2eeb76ea75d2" class="">2. Установка</h2><p id="38a64147-83f5-4697-b619-ab9767468a8f" class="">Редактор есть практически в любом стандартном репозитории каждого дистрибутива Linux. Воспользуйтесь своим установщиком пакетов (например, yum для CentOS):</p><p id="8db11a5f-876b-4c1f-b4e1-e245192f523b" class="">sudo yum install vim<br/>После этого vim должен корректно установиться.<br/></p><h2 id="28eb4528-603e-446c-bb55-bf1e0e645d52" class="">3. Запуск Vim</h2><p id="511d499b-9e02-4546-bd7f-a6c3483b4c0c" class="">Если не указывать никаких агрументов открывается пустой файл. В зависимости от вашего дистрибутива могут присутствовать представление и информация о лицензии.<br/>Когда вы начнете пользоваться редактором, они пропадут. Чтобы открыть файл, укажите его имя. Например, далее мы создадим файл “newfile” и откроем его в vim.<br/></p><h2 id="9b441782-1c53-4d68-8552-7640bc167783" class="">3.1 Создание файла:</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3b92e769-6105-4064-8c3d-00aa675ad1bc" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">echo &quot;Это новый файл.
+Вот вторая строчка,
+А это третья.
+</code></pre><p id="aa88ed41-5fdb-4030-afe4-56ed843a2d26" class=""><strong>Здесь ещё немного текста. Мы будем работать с этим файлом.</strong></p><p id="8b3b9ed7-287e-4b61-858d-9c463bf43bb2" class=""><code>Это будет очень здорово.&quot; &gt;&gt; newfile</code></p><p id="2d13ae27-0db6-4227-a9d9-235e63c27774" class=""><strong>Открытие файла при помощи vim:</strong></p><p id="135bd437-affd-4cac-832f-ddbe44f84631" class=""><code>vim newfile</code></p><ul id="c4065fdf-b673-4190-9ce1-20d19b448cc3" class="bulleted-list"><li style="list-style-type:disc">Режимы работы<br/>Основное отличие vim от многих других редакторов заключается в том, что в нем несколько режимов редактирования, а не один, как в большей части других. В других программах особые функции, например, копирование текста, приводится в действие комбинациями клавиш. В vim для разделения этих функций и набора текста используются разные режимы.<br/></li></ul><ul id="d3706398-ab38-4e24-97cb-2a1e48635c50" class="bulleted-list"><li style="list-style-type:disc">Нормальный режим<br/>Режим по умолчанию, в котором vim находится после запуска. Применяется для быстрой навигации по документу и редактирования: в нем можно копировать, вставлять, перемещать, удалять и изменять текст. Переход из других режимов осуществляется нажатием клавиши «escape». Для набора текста не используется.<br/></li></ul><ul id="e5b436e2-ed6e-4c19-b163-8973b8a1740e" class="bulleted-list"><li style="list-style-type:disc">Режим вставки<br/>Для набора текста нужно перейти в режим “вставки”. Он похож на интерфейс набора текста многих других программ. Вводимый вами текст появляется на экране в документе, каждая клавиша соответствует своему символу. Перейти в этот режим можно следующим образом:<br/></li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="584ac647-d0c1-4224-b94d-20e218b60191" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">i — в текущем положении курсора
+a — на следующем символе после текущего положения
+I — в начале текущей строки
+A — в конце текущей строки
+</code></pre><ul id="b9508c92-9d04-4f62-9307-da0b38a0afad" class="bulleted-list"><li style="list-style-type:disc">Режим визуального выделения<br/>Позволяет визуально выделять текстовые фрагменты. Затем к ним можно применять команды нормального режима для редактирования или форматирования.<br/></li></ul><p id="819f3f84-aed4-4a78-a143-225d8000b4e9" class=""><em>v — режим обычного (посимвольного) визуального выделения перемещением курсора вверх, вниз, влево или вправо</em></p><figure id="db749da6-cf64-4ffe-a747-63d2b81d5fc5" class="image"><a href="https://i.imgur.com/MPux8bE.png"><img src="https://i.imgur.com/MPux8bE.png"/></a></figure><p id="68e26876-e5f9-42e6-8f73-0f03ed1b54ca" class=""><em>V — режим построчного визуального выделения. Строки выделяются целиком перемещением вверх или вниз</em></p><figure id="08e32e6a-2a38-45cb-9f6b-dcbc7abff808" class="image"><a href="https://i.imgur.com/O7IitWt.png"><img src="https://i.imgur.com/O7IitWt.png"/></a></figure><p id="b1e75213-300f-4c64-95d5-afdf4381ddee" class=""><code>[ctrl]-v</code> — режим блочного визуального выделения. Выделяется прямоугольный участок, который можно увеличивать и уменьшать. Позволяет выбирать фрагменты нескольких линий.</p><figure id="e874a2bf-3657-4699-b62a-4dc77086d271" class="image"><a href="https://i.imgur.com/uXIKarB.png"><img src="https://i.imgur.com/uXIKarB.png"/></a></figure><h3 id="1b4854d6-b5c8-4eda-a80d-ff717b397d9a" class="">3.2 Перемещение</h3><ul id="00401fd3-6df9-4a2d-9943-81fc765212e9" class="bulleted-list"><li style="list-style-type:disc">Вы всегда можете передвигаться по документу стрелками, но vim предоставляет более быстрый и удобный способ. В нормальном режиме для навигации применяются следующие клавиши:</li></ul><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="6bf98c8d-f6f7-45bb-8db7-945c9e54fee8" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">h — перемещение влево
+j — перемещение вниз
+k — перемещение вверх
+l — перемещение вправо
+</code></pre><p id="782bc10d-e7c9-4715-bbcf-1d486c29695b" class="">Сначала эти клавиши могут показаться непонятными и неинтуитивными, но они были выбраны потому, что находятся в среднем ряду на стандартной клавиатуре. Это значит, что рука пользователя проходит от положения покоя значительно меньшее расстояние, чем при использовании стрелок.</p><p id="8d1d51e2-ea8c-4fb1-ada3-d6494ac55b5e" class=""><strong>Также есть дополнительные функции навигации, вот несколько наиболее важных:</strong></p><ul id="ff2a1851-e549-4648-83d0-f6d90a8d46fa" class="bulleted-list"><li style="list-style-type:disc">gg — переход в начало документа</li></ul><ul id="bf6aa47a-da6a-48be-87bc-c42a1d14bfeb" class="bulleted-list"><li style="list-style-type:disc">G — переход в конец документа. Если предварительно ввести номер — переместиться на строку с этими номером</li></ul><ul id="9d38615b-c2e4-444a-8a85-5e011fd6143f" class="bulleted-list"><li style="list-style-type:disc">w — перемещение к следующему слову. Если предварительно ввести количество — переместиться на это количество слов</li></ul><ul id="9a789045-3573-42ec-b784-9b79d78be1f7" class="bulleted-list"><li style="list-style-type:disc">b — перемещение к предыдущему слову. Если предварительно вввести количество — переместиться на это количество слов назад</li></ul><ul id="add47058-e6c6-463f-a5b7-81aad0e97833" class="bulleted-list"><li style="list-style-type:disc">e — перемещение к концу слова. Если предварительно указать количество — переместиться на указанное количество слов</li></ul><ul id="876cb298-d55f-4798-9e83-4f1f19a264f7" class="bulleted-list"><li style="list-style-type:disc">0 — перемещение к началу строки</li></ul><ul id="2d332a1c-3d7a-40d6-aa90-0807e1a99b75" class="bulleted-list"><li style="list-style-type:disc">$ — перемещение к концу строки</li></ul><h3 id="7d367edd-bf38-437f-b016-1903f2c6e484" class="">3.3 Поиск текста</h3><p id="75105419-9f5a-4825-8eb9-55d11ca66b13" class=""><em>Что бы найти фрагмент текста, нужно перед текстом поиска ввести слэш «/» и нажать enter</em></p><p id="01baa1b9-dcc6-42d0-bb43-0db07e98d008" class="">/это</p><figure id="553d17ef-af6f-43c2-a2d9-44ccd2895c5f" class="image"><a href="https://i.imgur.com/yYrn4Fn.png"><img src="https://i.imgur.com/yYrn4Fn.png"/></a></figure><p id="a4c9ca38-f030-4d73-9e4e-9352a0a38d2e" class=""><em>По умолчанию поиск в vim регистрозависимый, для того что бы сделать поиск независимый от регистра, нужно перед текстом ввести следующую комбинацию &quot;/\c&quot;<br/>/\cэто<br/></em></p><figure id="02112539-c64a-4a1c-b694-c8995edb93fa" class="image"><a href="https://i.imgur.com/Nrn3MXX.png"><img src="https://i.imgur.com/Nrn3MXX.png"/></a></figure><p id="3c72bf39-72ba-43dd-8168-04fd211866bd" class=""><em>Если же наоборот нужно сделать явное задание регистрозависимого поиска используйте комбинацию «/\C»</em></p><p id="12433029-b554-4a23-a36d-7819f1b84530" class=""><em>/\СЭто будет</em></p><figure id="7a68882e-8a4c-42e9-bebf-2fd77240f942" class="image"><a href="https://i.imgur.com/NdCcZoQ.png"><img src="https://i.imgur.com/NdCcZoQ.png"/></a></figure><p id="86a958f0-5385-4fa2-b118-3cca69e455cf" class=""><em>Что бы найти следующий фрагмент нажмите «n» предыдущий «N»</em></p><h3 id="9e32d749-dcb7-4225-adfe-9668cb1da91e" class="">3.4 Редактирование</h3><p id="6aa7ec11-3410-46d8-b995-8dc7853ad456" class="">Редактирование выполняется посредством команд в нормальном режиме. Они очень эффективны в комбинации с командами перемещения. Любая команда из раздела перемещения может задать направление. Например, можно удалить или скопировать одно слово, указав “w” за соответствующей командой.</p><p id="7d6e3167-0e9d-477f-aaf3-6d35a19ed8a9" class=""><strong>Рассмотрим наиболее распространённые действия.</strong></p><h3 id="b12a2d24-853d-47c6-91ec-e2f8d4acf7f2" class="">3.4.1 Удаление текста</h3><ul id="87424183-7b14-4392-8343-f5809e91c139" class="bulleted-list"><li style="list-style-type:disc">x — удалить символ на позиции курсора</li></ul><ul id="48d22c4e-2ebf-48c2-b9b1-d976a9cf475e" class="bulleted-list"><li style="list-style-type:disc">d — удалить в заданном командой перемещения направлении. Например, “dl” удаляет один символ справа</li></ul><ul id="ff0d1b11-7e8e-4f68-b175-3c39ec09cebf" class="bulleted-list"><li style="list-style-type:disc">dd — удалить строку</li></ul><ul id="229616e8-0006-4a3d-9b75-be414b553727" class="bulleted-list"><li style="list-style-type:disc">D — удалить все символы от положения курсора до окончания строки</li></ul><ul id="aeca3626-cd3a-427a-b007-fae992ae14a1" class="bulleted-list"><li style="list-style-type:disc">Замена текста</li></ul><ul id="03989b42-fd1a-4500-bf8e-7f718df0c246" class="bulleted-list"><li style="list-style-type:disc">r — заменить символ на позиции курсора заданным после команды символом</li></ul><ul id="e7991bfa-76a8-40c5-818a-94e38af4a12e" class="bulleted-list"><li style="list-style-type:disc">c — заменить в заданном командой перемещения направлении. Например, “cb” заменяет предыдущее слово. Для набора текста на замену запускается режим вставки.</li></ul><ul id="96cc9750-4206-423c-9af4-7f3ea77e78f2" class="bulleted-list"><li style="list-style-type:disc">C — заменить до окончания строки. Текст на замену набирается в режиме вставки.</li></ul><h3 id="1ff270be-1b8c-408c-8eb0-3ae1ed62c686" class="">3.4.2 Копирование и вставка</h3><ul id="9989fb61-dfe7-4324-b4b2-474c6d73ac04" class="bulleted-list"><li style="list-style-type:disc">y — копировать в заданном далее направлении</li></ul><ul id="1a20a8f6-fa63-44c8-a14f-977b8d5470df" class="bulleted-list"><li style="list-style-type:disc">yy — копировать всю строку</li></ul><ul id="d7681e48-0e49-4382-8a6d-c9e020d0f875" class="bulleted-list"><li style="list-style-type:disc">Y — копировать до окончания строки</li></ul><ul id="344ad0a5-92e3-4e02-8c72-646e84c93c3e" class="bulleted-list"><li style="list-style-type:disc">p — вставить последнюю скопированную (или удаленную!) строку ниже текущей</li></ul><ul id="0fa8b091-61af-49fd-9083-d5ec6fdc3773" class="bulleted-list"><li style="list-style-type:disc">P — вставить последнюю скопированную (или удаленную!) строку выше текущей</li></ul><h3 id="257e509b-cb79-43ca-90a2-bbda3281aa9e" class="">3.4.3 Дополнительные команды редактирования</h3><ul id="86226b07-29ec-4c6f-9979-f92b6f549c9a" class="bulleted-list"><li style="list-style-type:disc">u — отменить последнее действие</li></ul><ul id="a5c33ebd-2937-4763-ad24-1cdede718dcf" class="bulleted-list"><li style="list-style-type:disc">&lt;ctrl&gt;-r — вернуть последнее отмененное действие</li></ul><ul id="00783b27-36d4-4933-b894-60fb46c7ac62" class="bulleted-list"><li style="list-style-type:disc">J — присоединить строку ниже к текущей</li></ul><h3 id="53bff0a2-848f-4dc2-ab5b-63e04bbbba29" class="">3.5 Командный режим</h3><p id="70fca9d8-2052-4f3b-942b-120d7df8e77f" class="">Используется для продвинутого редактирования, изменения параметров и управления. В нем выполняется сохранение, выход из программы, продвинутый поиск и многое другое. Активируется клавишей двоеточия “:”.</p><h3 id="d8988669-0277-4df0-96d0-41e94c176f02" class="">3.5.1 Команды управления</h3><p id="2e2cc2a1-c1c6-4478-928a-d0325639acb4" class=""><strong>Команды управления задаются вводом “:” перед каждой командой.</strong></p><ul id="3983135a-1ec6-40fe-8c5f-f0c9c3430795" class="bulleted-list"><li style="list-style-type:disc">:q — выход из программы. Действие не будет выполнена, если не сохранить изменения</li></ul><ul id="cb900942-780a-42bb-9b8a-fa72880abd96" class="bulleted-list"><li style="list-style-type:disc">:q! — выход из программы с отменой всех изменений, которые не были сохранены</li></ul><ul id="e8727be1-f362-4d40-8637-b80cca14f127" class="bulleted-list"><li style="list-style-type:disc">:w — сохранить изменения. При первичном сохранении или сохранении в другой файл укажите имя через пробел</li></ul><ul id="2d54b946-9c77-40d1-8784-a5a9283ca8c1" class="bulleted-list"><li style="list-style-type:disc">:e — редактировать указанный далее файл</li></ul><ul id="ade21b33-d9db-4b3a-8215-fb0ab18eb73b" class="bulleted-list"><li style="list-style-type:disc">:bn — редактировать следующий файл (если открыто несколько файлов)</li></ul><ul id="d03187f5-78e1-4d90-8ee9-9ae3f7a6c44a" class="bulleted-list"><li style="list-style-type:disc">:bp — редактировать предыдущий файл (если открыто несколько файлов)</li></ul><ul id="dd6f55e4-cc6e-4408-b778-0a50146f24c8" class="bulleted-list"><li style="list-style-type:disc">:qw – сохранить файл и выйти</li></ul><h3 id="6d0cbd59-bf47-4174-96bb-709f9b59c53f" class="">3.6 Объединение команд</h3><p id="f203f33f-10ca-4726-9cac-8dde8f9e4e91" class="">Как упоминалось выше, эффективность vim обусловлена возможностью строить цепочки разных действий. Лучше всего этот принцип иллюстрируется, если представлять команды vim в виде языка. Клавиши в нормальном режиме играют роль различных частей речи.</p><p id="f19311f8-8fa7-4559-8a6d-af77d291bff2" class=""><strong>Например, для копирования 5 слов представьте эту фразу как команды, которые понимает vim. Это будет выглядеть так:</strong></p><ul id="94d705d0-fdc7-4e90-8511-b7f5e2c2fef8" class="bulleted-list"><li style="list-style-type:disc">:y5w (y — копировать, 5 — количество, w — слов)</li></ul><p id="dc6ea29e-07b5-49f1-b006-00694b30e6f6" class=""><strong>Удалить текст от текущей позиции до окончания файла:</strong></p><ul id="2245562f-a425-4288-a856-262c1ed6fdc7" class="bulleted-list"><li style="list-style-type:disc">:dG (d — удалить, G — переход в конец файла)</li></ul><ul id="b60971b3-06f0-4abb-8b6a-9addf74ca9fb" class="bulleted-list"><li style="list-style-type:disc">Также полезно усвоить ряд используемых в действиях vim принципов. Например, сдвоенный символ обычно распространяет действие команды на всю строку. Следующая команда скопирует не один символ, а строку целиком:</li></ul><p id="544f4461-8c05-4a94-b354-07e99f1dc7ba" class=""><code>:yy</code></p><ul id="edf8e037-55b1-4228-82d3-3e87ef3d3585" class="bulleted-list"><li style="list-style-type:disc">С другой стороны, соответствующая команде заглавная буква часто действует от положения курсора до окончания линии. В случае с изменением текста это будет следующая команда:</li></ul><p id="619d4ef5-63c7-4e91-bb2b-651da42170da" class=""><code>:C</code></p><ul id="1e907414-c5b0-4cba-81d8-6c3aa246282b" class="bulleted-list"><li style="list-style-type:disc">Чтобы выполнить операцию с несколькими символами или строками, укажите перед командой число. Например, такая команда заменит весь текст от текущего положения курсора до окончания следующей строки:</li></ul><p id="8fa53327-e327-4ecd-b109-c3d3d9058652" class=""><code>:2C</code></p><h2 id="7741340d-14a2-4868-ac4e-3051da9a3e4a" class="">4. Заключение (vimtutor)</h2><p id="28171a68-ed0a-44a7-b361-f039c6ae4271" class=""><em>Vim — очень мощный инструмент, но рассмотрение многих его функциональных возможностей выходит за пределы этой статьи. Если вы хотите узнать больше, полезно начать со встроенного в vim обучающего интерфейса:</em></p><ul id="56624981-4308-4847-838d-f8c53c07e912" class="bulleted-list"><li style="list-style-type:disc">vimtutor<br/>В нем не рассматриваются тонкости, но он позволит вам разобраться в работе vim и освоить основы редактирования. У vim есть интерактивное обучение <br/><a href="https://www.openvim.com/">https://www.openvim.com/</a><ul id="39d2b560-d945-4552-8836-586da99cdc40" class="bulleted-list"><li style="list-style-type:circle">Выполнить все задания.</li></ul><ul id="185d52fb-053d-43a5-9b5f-9acd704fd6d4" class="bulleted-list"><li style="list-style-type:circle">Пройти интерактивное обучение <a href="https://www.openvim.com/">https://www.openvim.com/</a>.</li></ul><ul id="2bd1cca5-dc7e-45e8-aed9-c0ad90151db5" class="bulleted-list"><li style="list-style-type:circle">Ответить на контрольные вопросы, что проделано в данной работе и в интерактивное обучении <a href="https://www.openvim.com/">https://www.openvim.com/</a>. (отвечать на контрольные вопросы в случае, если преподаватель спрашивает лично).<ul id="793a2db5-0966-424d-8ea7-eab312a6c102" class="toggle"><li><details open=""><summary><strong>Контрольные вопросы</strong></summary><ol type="1" id="578f7a7f-ba1a-4caa-bdbc-c73b74722abc" class="numbered-list" start="1"><li>Как перейти в режим редактирования?</li></ol><ol type="1" id="ff0cbbb2-21df-4961-a958-7e94b145d45d" class="numbered-list" start="2"><li>Как перейти из режима редактирования в режим навигации?</li></ol><ol type="1" id="30326d50-d6f6-4d8d-b08c-c32d70095613" class="numbered-list" start="3"><li>Как сохранить внесённые в файл изменения?</li></ol><ol type="1" id="d7a5b7df-cab6-4649-a6c1-ea6b933873ee" class="numbered-list" start="4"><li>Как посмотреть стравку по какой-либо команде?</li></ol><ol type="1" id="1e8f30d3-2def-49f8-b33a-4d69207dddcb" class="numbered-list" start="5"><li>Какими клавишами осуществляется навигация на один символ вправо/влево, на одну строку вверх/вниз?</li></ol><ol type="1" id="598de80b-971d-4abb-baee-94272d7750e0" class="numbered-list" start="6"><li>Как перейти к началу и к концу строки?</li></ol><ol type="1" id="d120209c-6c53-4937-9008-149a68aa812f" class="numbered-list" start="7"><li>Как перейти к началу/концу документа?</li></ol><ol type="1" id="4f44c4b0-a10f-4477-8c35-5012732388fa" class="numbered-list" start="8"><li>Как узнать количество строк в файле?</li></ol><ol type="1" id="89203246-0b0d-4faa-af3e-840d8a070f01" class="numbered-list" start="9"><li>Как перейти к строке номер 10?</li></ol><ol type="1" id="5620687a-eec1-47d8-93aa-d3693bdd23ea" class="numbered-list" start="10"><li>Как перейти к соответствующей закрывающейся скобке, если курсор находится на открывающейся?</li></ol><ol type="1" id="7ab4c4a4-2389-4df5-991d-3f58bb31e486" class="numbered-list" start="11"><li>Как удалить символ под курсором?</li></ol><ol type="1" id="f91b32f0-8242-4131-89d0-a338521d7f2a" class="numbered-list" start="12"><li>Как удалить текущую строку?</li></ol><ol type="1" id="52f0e153-bf27-4c3b-8080-a753efae3fcb" class="numbered-list" start="13"><li>Как удалить 5 строк, начиная с той, на которой находится курсор?</li></ol><ol type="1" id="8225c54a-bcbb-4b06-b419-9fa75aa02e92" class="numbered-list" start="14"><li>Как удалить строки с текушей, до конца/начала файла?</li></ol><ol type="1" id="6b3b6865-fd76-4a77-861f-41b1ac25ae67" class="numbered-list" start="15"><li>Как удалить часть строки от курсора до конца/начала строки?</li></ol><ol type="1" id="0d6c97bc-c3a6-4de8-a03c-741db60caa4e" class="numbered-list" start="16"><li>Как удалить символы от курсора до конца слова?</li></ol><ol type="1" id="125fdb78-6d47-4d3a-b31e-e7d196da0fd4" class="numbered-list" start="17"><li>Как удалить произвольную часть текста?</li></ol><ol type="1" id="2a150ad8-4570-44fd-b9af-49fb28b69ad7" class="numbered-list" start="18"><li>Как скопировать/вставить целую строку?</li></ol><ol type="1" id="320066d7-4b6f-4750-8950-c16a29cb1259" class="numbered-list" start="19"><li>Как скопировать/вставить одно слово?</li></ol><ol type="1" id="1fe8fe9b-81b8-408f-aecb-a20fead10ef7" class="numbered-list" start="20"><li>Как скопировать/вставить часть текста от текущего положения курсора, до конца следующей строки?</li></ol></details></li></ul></li></ul><ul id="3f4d017c-18ec-4ec4-bbcc-bd6ab0e6b90f" class="bulleted-list"><li style="list-style-type:circle">Сделать скриншоты выполнения заданий.</li></ul></li></ul><p id="24882302-f2b2-45b3-b2b7-d0850229ad66" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

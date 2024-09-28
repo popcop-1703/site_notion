@@ -1,0 +1,686 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Практическая работа №1.1 Подготовка стенда</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 237, 214, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="7da57ddc-dacb-45a8-afbc-30ffd74b74e8" class="page sans"><header><h1 class="page-title">Практическая работа №1.1 <em><strong>Подготовка стенда</strong></em></h1><p class="page-description"></p></header><div class="page-body"><hr id="aa2d8cfc-70f2-4173-b1a0-e341dd78fe61"/><h1 id="0a54d9d0-ca56-450c-82e1-9935cd3f21d6" class="">Занятие 1 - <em>Подготовка стенда</em></h1><h1 id="cb39955c-d02c-4f53-8026-baa9689b57c3" class="">Задание:</h1><p id="19314789-980e-4bc4-8c36-406f4305de4d" class="">1) Подготовить виртуальный стенд:</p><ul id="a70bfd17-9474-4e88-9e45-9f2479c90ae3" class="bulleted-list"><li style="list-style-type:disc">Установить Windows Server 2016 (EN локализация)</li></ul><ul id="b29ea564-48fa-48ea-b7af-038c2e996304" class="bulleted-list"><li style="list-style-type:disc">Установить Windows Server 2016 (RU локализация)</li></ul><ul id="ee2e4a69-9470-447c-878a-d14b05896903" class="bulleted-list"><li style="list-style-type:disc">Установить Windows 10 Pro</li></ul><ul id="6044e0c5-e07a-4be6-b362-d425290786b8" class="bulleted-list"><li style="list-style-type:disc">Импортировать в Oracle VirtualBox Kali Linux актуальной версии</li></ul><ul id="89b820cf-508f-48dd-adc0-4e0cc61922a1" class="bulleted-list"><li style="list-style-type:disc">Импортировать в Oracle VirtualBox Mikrotik</li></ul><p id="61fc6491-4bf8-41a4-8155-1234e9a0f707" class="">2) Сконфигурировать виртуальный стенд: настроить в соответствии с методическим материалом виртуальную машину Mikrotik.</p><p id="d3c75919-12cf-402f-89fe-f878ae82286b" class="">
+</p><h1 id="0e537baf-4c44-48f8-aeee-5dd1e3d33095" class="">Методический материал:</h1><h2 id="3c510af5-67f5-4adb-a765-d501e60f428f" class="">Часть 0. Загрузка файлов и подготовка среды виртуализации</h2><h3 id="0cdfcc8f-58dc-437f-98bf-40135465f4ca" class="">Подготовка среды виртуализации</h3><p id="5aa6dd40-d50c-4ec3-84f6-83bc911bfaa8" class="">Необходимо скачать и установить программу виртуализации: <a href="https://www.virtualbox.org/wiki/Downloads">https://www.virtualbox.org/wiki/Downloads</a><br/>В дополнение скачать и установить Oracle VM VirtualBox Extension Pack: <br/><a href="https://www.virtualbox.org/wiki/Downloads">https://www.virtualbox.org/wiki/Downloads</a></p><h3 id="5c2881e4-6bc3-406c-8e1d-fc43df2277ae" class="">Для модуля понадобятся образы Windows server 2016 en, Windows server 2016 ru, Windows 10 Pro, mikrotik, kali linux. Их можно скачать с портала edu, либо по ссылкам ниже.</h3><ol type="1" id="4131c69b-33d2-4c3c-8984-20e6e686a21a" class="numbered-list" start="1"><li>Образы Windows server 2016 en, Windows server 2016 ru, Windows 10 Pro доступны для скачивания с официального сайта Microsoft: <a href="https://www.microsoft.com/ru-ru/evalcenter/evaluate-windows-server-2016/">Server2016</a>, <a href="https://www.microsoft.com/ru-ru/software-download/windows10ISO">Windows10</a>.</li></ol><ol type="1" id="eaa8e7bd-2384-491c-b96a-b8f655002ddf" class="numbered-list" start="2"><li>Скачать mikrotik можно по ссылке на <strong><a href="https://disk.yandex.ru/d/YdZAPkd4YxAFZw">облачное хранилище</a></strong>.</li></ol><ol type="1" id="403ed7ae-50af-443c-9024-03f41830cf09" class="numbered-list" start="3"><li>Актуальную версию ОС Kali Linux можно скачать с <strong><a href="https://www.kali.org/downloads/">официального сайта</a></strong>.</li></ol><p id="4269e975-9900-4aa0-94ac-e2082c31de65" class="">
+</p><ul id="3057f21d-0574-43db-a162-69f863908024" class="bulleted-list"><li style="list-style-type:disc">В случае проблем со скачиванием образов Windows с официального сайта, Windows server 2016 en, Windows server 2016 ru, Windows 10 Pro можно скачать по ссылке на <strong><a href="https://disk.yandex.ru/d/qF19veBcI14tZA">облачное хранилище</a></strong></li></ul><h2 id="0d4a4654-6660-4d84-8f7a-b98c9525f4d7" class="">Часть 1. Установка Windows Server</h2><p id="85081467-2c61-4185-ad41-04a5a4fed8cc" class="">1.1 Создадим шаблон виртуальной машины:</p><hr id="86421384-e2b4-4d0f-86f7-2a43941e6bf6"/><figure id="898a3b71-5896-41a7-a403-7f64aee444d4" class="image"><a href="https://i.imgur.com/nDUn0AS.png"><img src="https://i.imgur.com/nDUn0AS.png"/></a></figure><hr id="e4dfaf29-93f8-47ac-b5c0-deb688563757"/><p id="8f1ec99c-7478-43d8-b434-1f125fd8c0dd" class="">1.2 Укажем версию устанавливаемой ОС:</p><hr id="b9b89fa9-583e-497d-90d2-e5991c0703fb"/><figure id="f1e7f947-199d-4e51-a479-8f1244643fb2" class="image"><a href="https://i.imgur.com/1WLJovM.png"><img src="https://i.imgur.com/1WLJovM.png"/></a></figure><hr id="20ced117-e7e7-4df9-a412-225f461ebf6b"/><p id="118cdbff-56c4-43f0-bc36-726ca2219b76" class="">1.3 Выделим необходимое количество оперативной памяти (ОП).</p><hr id="aee74df0-8c11-4552-b776-1bbe1e70f04c"/><figure id="83ea75e7-df07-4706-8558-0a101bfa491c" class="image"><a href="https://i.imgur.com/Etihi6i.png"><img src="https://i.imgur.com/Etihi6i.png"/></a></figure><hr id="e47a19d1-a0a2-40bc-ba9b-e0c571b09623"/><p id="6e5b4431-d0d1-4607-affc-e376dcb5a50e" class="">:--:</p><hr id="be61694d-a06a-403a-b7c3-876ce7e2946b"/><p id="6a3d5687-7f4a-4419-82a1-92486747106d" class=""><em>Если в вашем ПК 6-8 гб ОП, то выделяйте для winserver 1,5 гб ОП. Если 16 и более -- выделяйте 2-4 гб ОП.</em></p><hr id="1ec74d7f-afad-41d5-8136-13b79074ddfe"/><p id="a9c18f43-f15f-4f1c-9788-02203c32e02a" class="">1.4 Создадим новый виртуальный жесткий диск</p><hr id="51dae0ad-8132-40b9-9bca-f33d911b280c"/><figure id="de463da6-6894-46e5-b09c-8d69a207ada7" class="image"><a href="https://i.imgur.com/HUbfgYK.png"><img src="https://i.imgur.com/HUbfgYK.png"/></a></figure><hr id="4aa38c3b-3e39-4208-8956-8794d3f41b61"/><p id="d36d3f52-4c96-45f8-9a6b-26fbe0f5738f" class="">1.5 Оставим тип и формат без изменений</p><hr id="e20f5844-d7b1-4508-aea0-3244df7e420e"/><figure id="84d9a810-43b2-40e7-8fc9-3996c79ea490" class="image"><a href="https://i.imgur.com/CvHhdYk.png"><img src="https://i.imgur.com/CvHhdYk.png"/></a></figure><hr id="1e930dbd-b457-496a-9edb-daa50473f800"/><figure id="42fb182a-7352-4291-876d-3d4ed6f7da4e" class="image"><a href="https://i.imgur.com/JL8hsOZ.png"><img src="https://i.imgur.com/JL8hsOZ.png"/></a></figure><hr id="3d7de5e6-a545-4852-bde9-890d83e3d529"/><p id="42b9008f-199b-4bfc-b62f-1e12696fc304" class="">1.6 Рекомендую создавать диск не менее, чем 30Гб</p><hr id="91149919-a2a8-401a-bd4a-df1f6a43e59c"/><figure id="061ebf50-4fea-49e5-9a10-72936c7e20e4" class="image"><a href="https://i.imgur.com/vUlbBdN.png"><img src="https://i.imgur.com/vUlbBdN.png"/></a></figure><hr id="5ea2dfd0-8398-4a55-82fa-237fd42d2b5f"/><p id="da65db8f-560f-4510-a219-6f86c73e5fdc" class="">1.7 Виртуальная машина готова! Включим её:</p><hr id="1dfb0576-2f03-4660-80aa-6e6ff0dcf2dd"/><figure id="92b5517e-935f-4050-a89b-21dea96fe69e" class="image"><a href="https://i.imgur.com/n1sJOMi.png"><img src="https://i.imgur.com/n1sJOMi.png"/></a></figure><hr id="b60bfcca-32ba-4733-aff8-e96567ab9c9f"/><p id="b8ec4345-3c6b-4cc1-b2fa-d29a0ce53e06" class="">1.8 При запуске необходимо указать, где берём файлы ОС. Это будет наш ISO образ. Укажем путь к нему:</p><hr id="4e608831-9076-43f2-80ee-1936b06b15df"/><figure id="01647151-0e4d-4906-95eb-4100ca847039" class="image"><a href="https://i.imgur.com/c5UVY17.png"><img src="https://i.imgur.com/c5UVY17.png"/></a></figure><hr id="d92fbb2e-6321-493e-ab2f-f7f02e8169d0"/><figure id="e65c9496-61d1-4788-9808-da75c60c239e" class="image"><a href="https://i.imgur.com/ZeRggSi.png"><img src="https://i.imgur.com/ZeRggSi.png"/></a></figure><hr id="c4a5284d-cc2e-47f3-a656-1f2b49733a24"/><p id="ded3c86e-d654-4cd4-9296-e5e5e5cfcb95" class="">В MAC OS сразу откроется finder, где можно будет выбрать ISO</p><hr id="f4bcca73-eac5-479d-8b7d-113de281c366"/><figure id="1cfb6a6f-3bcc-4942-9ad8-377fe9f02d34" class="image"><a href="https://i.imgur.com/gtWnWJ2.png"><img src="https://i.imgur.com/gtWnWJ2.png"/></a></figure><hr id="38b53168-9f13-4c28-bc51-66d2888ed703"/><p id="1859ca2f-d6b5-46ee-9897-d03b8d1e2506" class="">В Windows OS нужно нажать дополнительную кнопку, после чего выбрать ISO.</p><hr id="36a1423f-a108-4f2e-b601-1467aba01538"/><figure id="5a830139-0b9e-4f7c-897c-a50418dd7714" class="image"><a href="https://i.imgur.com/kg6t31p.png"><img src="https://i.imgur.com/kg6t31p.png"/></a></figure><hr id="fd445c0c-d69c-4f05-9361-fd97d807da26"/><p id="7c5768e1-065d-4246-b9db-5f915bf8335c" class="">После чего начать запуск виртуальной машины</p><hr id="42a26e5a-052d-4c42-ac10-96e8995871a3"/><p id="0d8fc244-6fbe-4b02-9698-4d4d0ce4455f" class="">1.9 Пункты для установки по порядку:</p><hr id="ab03355b-fb5d-4ac2-aad3-8ea4e1dd980a"/><figure id="90fe1943-1392-442e-9b10-6399833160e0" class="image"><a href="https://i.imgur.com/7pqq4Mz.png"><img src="https://i.imgur.com/7pqq4Mz.png"/></a></figure><hr id="1bbf651a-ba47-45e8-9ce9-995382337fff"/><hr id="b38d7658-9754-4ab4-81e1-ab8b2f67b34a"/><figure id="62e7b53c-f8f3-4e25-b1c9-c5ab7905b2dd" class="image"><a href="https://i.imgur.com/JDGpDvn.png"><img src="https://i.imgur.com/JDGpDvn.png"/></a></figure><hr id="9546d120-0b31-49b2-bf50-b2caabca89d0"/><hr id="6f68ed07-7f3f-441d-8d76-ef9561125912"/><figure id="3de4b58f-38f9-4d0b-92d1-1d4d3e843653" class="image"><a href="https://i.imgur.com/5Poty9R.png"><img src="https://i.imgur.com/5Poty9R.png"/></a></figure><hr id="09e7f70f-cbc8-4888-906b-9ff1355b5046"/><hr id="c35b7b9e-d082-4b38-81ae-027cb3c99965"/><figure id="ee84c479-1084-458c-9c56-23a5161a7a7f" class="image"><a href="https://i.imgur.com/pS56lhl.png"><img src="https://i.imgur.com/pS56lhl.png"/></a></figure><hr id="3472a32c-6abb-4195-9082-b47dac47ce3d"/><hr id="aa8deff4-0639-4ec8-bd18-b3e711f855fb"/><figure id="e6eb3c6a-0bf1-4b95-aaa8-ec287ca664bb" class="image"><a href="https://i.imgur.com/ff5lHDB.png"><img src="https://i.imgur.com/ff5lHDB.png"/></a></figure><hr id="27863a4c-08d1-48db-b4f7-a1ba0037cbe3"/><hr id="cce53879-eaba-45ca-81e0-8bb43cd3e58f"/><figure id="7c4925ab-357f-4936-983a-10b11253c31d" class="image"><a href="https://i.imgur.com/FJOjKgS.png"><img src="https://i.imgur.com/FJOjKgS.png"/></a></figure><hr id="78b07b9e-c0e8-4d84-91c8-287a9ee4ca75"/><p id="e6508fcc-caa8-4c21-9145-825fbb31f9cc" class=""><em>Пойдет процесс установки. Виртуальная машина перезагрузится и предложит вам создать пароль пользователя. После ввода пароля запустится Windows. На этом установка окончена.</em></p><hr id="3e0d6691-81c1-4f83-b87a-49b6fae00886"/><h2 id="3e4d1e8a-d738-47ad-924b-53ce3c1c6da3" class="">Часть 2. Установка Windows 10 Pro</h2><p id="5560fba1-f29d-4cb6-b1e4-cf440e6076af" class="">Пункты 1-8 по созданию шаблона виртуальной машины аналогичны ранее приведенной инструкции в части 1. По техническим требованиям рекомендую давать 4Гб оперативной памяти в случае, если на ПК общий объем ОП 16Гб и более. Если менее 16Гб ОП -- то выдать виртуальной машине 2Гб ОП. По диску -- выдать не менее 30Гб.</p><p id="94467042-7645-477e-b41e-aababcec72a4" class="">Процесс установки:</p><hr id="0011ef22-1663-424b-9819-e8efa98a229f"/><figure id="4c712ae3-f972-4c3f-8dc6-c63ce947e105" class="image"><a href="https://i.imgur.com/bN8NR4H.png"><img src="https://i.imgur.com/bN8NR4H.png"/></a></figure><hr id="173aab31-8482-4e18-b098-bd5834c51558"/><figure id="d2b9d374-f00d-450b-be9f-0c05f7f37081" class="image"><a href="https://i.imgur.com/jn6ylp3.png"><img src="https://i.imgur.com/jn6ylp3.png"/></a></figure><hr id="a9ec8703-f72b-417e-b5bb-60fca8ab0ff4"/><figure id="321d48d6-3e39-448f-95ee-d8297fc60776" class="image"><a href="https://i.imgur.com/i9FKGOq.png"><img src="https://i.imgur.com/i9FKGOq.png"/></a></figure><hr id="add4a836-d8e5-4baf-a6f2-ac8c57c1fa08"/><figure id="c1a54623-7efb-41b9-9a62-827ea5e44ed2" class="image"><a href="https://i.imgur.com/hWGMIAV.png"><img src="https://i.imgur.com/hWGMIAV.png"/></a></figure><hr id="6a00811d-66a8-4234-ab34-936d403173ca"/><figure id="700aa377-2a1f-4300-92c8-6b71aa1787a5" class="image"><a href="https://i.imgur.com/PzaqUlO.png"><img src="https://i.imgur.com/PzaqUlO.png"/></a></figure><hr id="31d1a6d1-19b0-4919-92fa-1968cd362fa5"/><figure id="075b5ea9-202c-41e0-87b8-2b7918aa8e94" class="image"><a href="https://i.imgur.com/dzJleEv.png"><img src="https://i.imgur.com/dzJleEv.png"/></a></figure><hr id="0b0688f3-a1fd-4093-bb74-7f331b773d92"/><figure id="37ee4cdb-623a-47e8-9482-ca0ab6c0f34e" class="image"><a href="https://i.imgur.com/JCRhWNn.png"><img src="https://i.imgur.com/JCRhWNn.png"/></a></figure><hr id="fd15099d-cdfa-48ca-a2c4-82f012178fd9"/><p id="64fc0016-c3f8-48ca-80f3-641db3a8a10a" class=""><em>При нажатии кнопки &quot;далее&quot; разметка диска пройдет автоматически, поэтому самостоятельно диск размечать не обязательно. Пойдет процесс установки. Виртуальная машина перезагрузится и предложит вам настроить ОС.</em></p><hr id="4a67c8ff-e496-4253-a8c8-8c48fc33d500"/><p id="ec38e4f3-c36e-4dc0-9212-953e5ca45139" class="">Процесс настройки:</p><hr id="137c26c6-fcd6-4be0-a19b-905a363f86a9"/><p id="2f512630-f259-43df-9556-8bb6d9a8db7f" class="">Выбрать регион в соответствии с вашим и раскладку клавиатуры.</p><hr id="986f2a08-6ac2-4751-9a6c-323d1a013555"/><figure id="cec10d29-ffca-4151-891d-58b8052e8e5b" class="image"><a href="https://i.imgur.com/LOJ7eFP.png"><img src="https://i.imgur.com/LOJ7eFP.png"/></a></figure><hr id="14ef0551-02c2-4c97-a18f-2a0dc415df7e"/><figure id="29f1f4ed-f6f9-411c-9994-3f37a1296850" class="image"><a href="https://i.imgur.com/qADyC9P.png"><img src="https://i.imgur.com/qADyC9P.png"/></a></figure><hr id="7cb8b6de-857a-40d9-872e-e91955bf7477"/><figure id="5e9ab6a8-612b-4d5f-b595-1cc0e69aca0f" class="image"><a href="https://i.imgur.com/NcF36dH.png"><img src="https://i.imgur.com/NcF36dH.png"/></a></figure><hr id="f3f948b3-df88-4936-8299-ee0d8b823504"/><hr id="e4203d75-cb7b-4761-a432-c588dc063b19"/><p id="163995f1-7b87-4792-9299-57761409050d" class="">тут все пункты можно отключить:</p><hr id="3aaa9b72-be86-491b-a5e6-9bc49caefd64"/><figure id="ef027fc4-57a6-4e25-bd9d-76b0d867df14" class="image"><a href="https://i.imgur.com/aZzMzOg.png"><img src="https://i.imgur.com/aZzMzOg.png"/></a></figure><hr id="9d8d61ee-baec-44a6-b947-9d641e259260"/><hr id="d6c98831-ae05-4984-a9b2-bac98a7fdac2"/><p id="53322b6b-aa00-4a4f-ad88-147f2be2fdf2" class="">Другие функции нам тоже не пригодятся:</p><hr id="517180bb-3b8b-4b41-94bf-2e3b0e8b54ab"/><figure id="ca459923-4ea6-406e-b67c-804f16dd8ac2" class="image"><a href="https://i.imgur.com/z9xjddQ.png"><img src="https://i.imgur.com/z9xjddQ.png"/></a></figure><hr id="97593c3a-574c-4459-857d-df5d56a073d3"/><p id="5d434046-f436-41fd-b1ad-8df95fd4ce17" class="">После этого Windows включится. На текущем этапе более ничего конфигурировать не нужно.</p><hr id="23920bd3-d7d9-4fa1-a647-781c679bd045"/><h2 id="f412e801-06de-4207-b56c-1f0cf273afb4" class="">Часть 3. Настройка роутера</h2><h3 id="a2fc3504-be14-4a53-9b34-7a44ca07bef0" class="">Импорт Mikrotik</h3><p id="aa06c7f7-96ac-4b72-a808-4c8e7423837c" class="">Необходимо войти в меню импорта виртуальных машин</p><figure id="88cda789-a39e-4766-bb4d-c6c45dfe60de" class="image"><a href="https://i.imgur.com/EB2z9q4.png"><img src="https://i.imgur.com/EB2z9q4.png"/></a></figure><p id="9e726d25-41dd-4274-8cbe-d2d5c033b73c" class="">Выбрать скачанный образ микротика</p><p id="3009985c-b23b-4403-abd7-a4f4ca39d274" class=""><em>mikrotik-6-44.ovf</em></p><figure id="4855bd8a-1918-4e44-bac1-ed7a33239b58" class="image"><a href="https://i.imgur.com/T6msxKk.png"><img src="https://i.imgur.com/T6msxKk.png"/></a></figure><p id="81f9e10c-a902-4be8-bdeb-22dda7bf1ada" class="">сгенерировать новые мак адреса</p><figure id="4d1032dc-44dd-4629-89bf-5130c5c720ec" class="image"><a href="https://i.imgur.com/6EpPxKs.png"><img src="https://i.imgur.com/6EpPxKs.png"/></a></figure><h3 id="9ff3000b-30e9-4ccc-b9a4-1eccfeb58e7e" class="">Конфигурация Mikrotik</h3><p id="a03250fe-9961-4966-99ad-9a4d5724556e" class="">:::info<br/>Учетка: Admin<br/>Пароль пустой.<br/>:::<br/></p><blockquote id="a90e2329-b8b2-4873-9e1c-5c9c149336f6" class="">Здесь будет приведен первый способ, связанный с настройкой устройства через графический интерфейс программы. А внизу статьи будет приведен набор команд, которые можно ввести в консоли микротика (этот способ быстрее, но рекомендуется только опытным пользователям Linux или людям, имеющим опыт конфигурации устройств через консоль)</blockquote><p id="f10ea836-821e-4d94-81ff-d309779bbbad" class="">Примечание: В статье приводится пример, когда адаптеры mikrotik называются ether5,6,7. Но может произойти так, что адаптеры будут называться ether1,2,3. Если это произойдет, просто применяйте все команды учитывая соответствие, что ether1=ether5, ether2=ether6 и так далее.</p><p id="fd20bf0a-75b6-4951-b113-78c60453452a" class="">3.1 Коннект к микротику</p><hr id="efe997fe-6e76-4ec6-a2eb-0211181bdaad"/><figure id="538f370a-4909-43a9-9e86-0c36bd5517b3" class="image"><a href="https://i.imgur.com/rE88SiT.png"><img src="https://i.imgur.com/rE88SiT.png"/></a></figure><hr id="2ae613fd-7216-495c-8c58-29db0c5fd46c"/><p id="270dc07e-7da0-4829-ae3a-8f97a4a4df18" class=""><em>После запуска виртуальной машины необходимо открыть Winbox, нажать на кнопку &quot;neighbors&quot;, там должен отобразиться интерфейс микротика с MAC адресом (возможно придется подождать минуту перед тем, как адрес появится). Нужно нажать на этот мак адрес так, чтобы он появился в верхнем поле (либо ввести его вручную), ввести имя аккаунта admin, а поле пароля оставить пустым, после чего нажать connect. Должно открыться окно конфигурации роутера.</em></p><hr id="112c2763-4c98-41b4-827c-04e4332164ee"/><p id="bb5a0cc9-acf1-47d5-be16-fc6b6a341fba" class="">3.2 Чтобы роутер работал корректно, необходимо перегенерировать MAC адреса адаптеров. Зайти в меню interfaces</p><hr id="801c4a82-5430-4487-a3ad-98842e3485ca"/><figure id="aba6bb8a-436a-4b05-9f96-8a188bf7e16f" class="image"><a href="https://i.imgur.com/z9YG4Pq.png"><img src="https://i.imgur.com/z9YG4Pq.png"/></a></figure><hr id="5478d3b2-0069-4939-9f91-23af62dda790"/><p id="8e805edb-c04c-4a49-8752-a24397e150e7" class="">Но интерфейсы могут называться и по другому</p><hr id="454289e1-36f1-4c4e-b1c3-69853de87c8c"/><figure id="d895aa85-42d3-4b30-bd3d-dada7fe5cbd1" class="image"><a href="https://i.imgur.com/a0qwiBE.png"><img src="https://i.imgur.com/a0qwiBE.png"/></a></figure><hr id="3821e042-7230-4124-ba71-131c4b9ed378"/><p id="f23f627a-7cb4-4fcd-9274-27a91c02af0b" class="">3. Нажать на интерфейс ether5 и выключить его. То же самое сделать с ether6</p><hr id="caa1f8e5-d9bd-46e2-ba6b-e67191655402"/><p id="7e4ec350-8d23-4983-936b-5a2e9feaeb97" class="">:--:</p><hr id="ff5f190b-3f41-4728-86ef-9d37baceff2f"/><figure id="2da5380c-1575-4f9e-b56c-390c058de870" class="image"><a href="https://i.imgur.com/TPSmJIr.png"><img src="https://i.imgur.com/TPSmJIr.png"/></a></figure><hr id="6c302a3f-9fe5-437b-8c7b-2f90d4d2cf12"/><p id="cf1328dd-5a8c-4448-9cf7-6a3971ac18c4" class="">Получится вот так:</p><figure id="39344c2b-13b8-445b-8384-b3df0d4899f9" class="image"><a href="https://i.imgur.com/Zxc1z4N.png"><img src="https://i.imgur.com/Zxc1z4N.png"/></a></figure><p id="1822a29d-df9b-495d-9203-4b867ef3f7ce" class="">3.4 Зайти в интерфейс ether5, нажать кнопку &quot;Reset MAC address&quot;, после этого apply и ok. Аналогично с ether6.</p><hr id="94c20919-c49b-4684-9672-4ad2dd145dc5"/><figure id="32c0ab77-80cb-4b5e-b8c4-b2372109bc94" class="image"><a href="https://i.imgur.com/rRE6Rja.png"><img src="https://i.imgur.com/rRE6Rja.png"/></a></figure><hr id="5e72588e-5513-4f44-8a4b-c7c868d22706"/><p id="bbdb3a9d-1328-428f-9bcf-36eb04b3602f" class="">3.5 Включить ether5 и ether6</p><hr id="8eda458c-f1dd-488e-99de-a2b3ec8f70bc"/><figure id="3a2db109-0505-4ae1-9e7b-73dab6c81769" class="image"><a href="https://i.imgur.com/g1BjtwE.png"><img src="https://i.imgur.com/g1BjtwE.png"/></a></figure><hr id="c6a21e79-5c67-4c6a-a0c3-12792d803094"/><p id="8100e216-2541-4d39-868f-44fd4ba373c2" class="">3.6 Зайти в меню dhcp client</p><hr id="66621533-0740-47c0-b9ac-08cb538e6a94"/><figure id="15235e3c-8fd3-4c20-8eef-d7f29b2fc39c" class="image"><a href="https://i.imgur.com/gQPxxn6.png"><img src="https://i.imgur.com/gQPxxn6.png"/></a></figure><hr id="d144e78a-f443-46f5-9bf9-70bda5e85b81"/><p id="2089af62-0eb7-4409-906f-0855484d7481" class="">3.7 2 раза нажать по интерфейсу, откроется меню конфигурирования</p><hr id="26a522dd-738e-47a7-83b5-e2aa494abdbb"/><figure id="3ab87337-7ad0-486b-b5b4-01cfafea09b2" class="image"><a href="https://i.imgur.com/7ZU2L93.png"><img src="https://i.imgur.com/7ZU2L93.png"/></a></figure><hr id="b7599762-8657-4d52-89ed-89a5d0e3e355"/><p id="1be866c1-4dd3-4375-b8bd-1a6685c1f96b" class="">3.8 Проверить, что там выставлен ether5 и нажать apply</p><hr id="63492dfd-24d1-4571-b16f-a2df76637c1d"/><figure id="87af004f-e2c2-4451-9a3f-1750b8b731ba" class="image"><a href="https://i.imgur.com/xCgKskw.png"><img src="https://i.imgur.com/xCgKskw.png"/></a></figure><hr id="8663384d-d58d-430a-b777-e93dbf155076"/><p id="7ab2c5af-2928-41e9-b8cf-869321ff4fc3" class=""><em>интерфейс получит ip адрес и микротик сможет выходить в сеть интернет (можно проверить пингами из терминала микротика)</em></p><hr id="d4a5d620-2b81-4b2b-bd2a-36441cdc3df3"/><p id="da1b61cf-2722-461c-85a6-28e3549a74d7" class="">3.9 Далее настроим ip адрес для внутреннего адаптера сети. Зайдем в меню адресов интерфейсов</p><hr id="57e5bc35-e234-4a4b-98d9-9531bf0506a7"/><figure id="a538b268-745b-4da9-988a-7b0eca6e4d73" class="image"><a href="https://i.imgur.com/LiQAyxB.png"><img src="https://i.imgur.com/LiQAyxB.png"/></a></figure><hr id="d07f0799-e8b3-4c2b-8e59-9c272ac2d959"/><p id="51c64388-8a97-43dc-8c7d-f1c3d111e06c" class="">3.10 Там добавим новый адрес</p><hr id="522e2f0d-e997-4011-94b0-dae6c48b2a89"/><figure id="e37f3e38-5bde-4b0f-968e-39bd2f32e08b" class="image"><a href="https://i.imgur.com/rvVz013.png"><img src="https://i.imgur.com/rvVz013.png"/></a></figure><hr id="f290dd7f-075c-40d6-9c8e-01de006dcc48"/><p id="39f42dda-98fc-45fe-8029-8240f4fa230e" class="">3.11 И настроим его.</p><hr id="a58bef20-9844-4bf1-8bdd-f3633b6bdbfb"/><figure id="b8dfb27e-a137-4e86-9ded-5422a2f09937" class="image"><a href="https://i.imgur.com/IiMf04I.png"><img src="https://i.imgur.com/IiMf04I.png"/></a></figure><hr id="11c28483-d048-43af-8c70-c068c94accb1"/><p id="6c6c1413-f45b-4d69-bacf-584db051ebbf" class="">3.12 Для того, чтобы инфраструктура могла обращаться к сети интернет, необходимо сконфигурировать правило. Заходим в IP-&gt;Firewal, затем во вкладку NAT</p><hr id="41aa8324-67e1-4b90-aec7-f0ffb0c6ea0e"/><figure id="c8d157ea-abf2-44d3-b9db-9c16fc0373cf" class="image"><a href="https://i.imgur.com/1T39A2w.png"><img src="https://i.imgur.com/1T39A2w.png"/></a></figure><hr id="f6b440b7-b2b4-447a-a144-612f8e763a52"/><figure id="cd6a90f0-8a70-4f04-90c3-f6286b5bfe7b" class="image"><a href="https://i.imgur.com/UpTBd1m.png"><img src="https://i.imgur.com/UpTBd1m.png"/></a></figure><hr id="867a8327-a8d7-48d4-a159-b49025b07ab5"/><p id="81293eb2-e1eb-4b45-8d97-db9ed5f16f06" class="">3.13 Добавляем через синюю кнопку плюс новое правило NAT. Во вкладке General укажем интерфейс для исходящего трафика. Во вкладке Action нужно включить маскарадинг.</p><hr id="53cd453c-a028-4cc4-9e52-d16d1204cb34"/><figure id="d18d4c26-88de-4052-b2ab-1e00fa8b4303" class="image"><a href="https://i.imgur.com/bDVeOah.png"><img src="https://i.imgur.com/bDVeOah.png"/></a></figure><hr id="3c9557e5-e046-484b-a00d-8f8715f98a37"/><figure id="e5450754-aba2-4d7b-9b0e-97fe863e74fd" class="image"><a href="https://i.imgur.com/JZ4apNU.png"><img src="https://i.imgur.com/JZ4apNU.png"/></a></figure><hr id="091e4a7c-b590-4e75-8163-f4a529606b89"/><p id="eacccab4-b535-4a08-ba64-c2cf649ef3f2" class="">3.14 Зайдите в меню DNS</p><hr id="1e792ece-2125-4d6d-9b52-0997e3d412e9"/><figure id="aaeb8d9a-f5e7-4fa6-869b-63300a7014e2" class="image"><a href="https://i.imgur.com/C44Ko0W.png"><img src="https://i.imgur.com/C44Ko0W.png"/></a></figure><hr id="3df1ec60-86dc-49ca-aebe-6e2e1b971185"/><p id="5cabc6e2-ad3b-4efc-9b89-4a2ab2a77e48" class="">3.15 Впишите адрес внешнего кеширующего сервера в верхний пункт и разрешите удалённые запросы. После этого примените настройки</p><hr id="484ae78d-01a7-4adf-90e8-0723d8282c2d"/><figure id="321553e3-fb49-4758-91d6-0cb3bf2eea38" class="image"><a href="https://i.imgur.com/FqNV9pC.png"><img src="https://i.imgur.com/FqNV9pC.png"/></a></figure><hr id="e28d8a08-a846-4398-9a00-0294fd68e1c9"/><p id="03b3c4ab-9f5c-43b1-9a94-b56786688666" class=""><strong>После данных манипуляций</strong></p><p id="5f18c44c-d5a1-4567-ab78-3b03ef47ffcf" class="">необходимо на всех остальных виртуальных машинах (windows server 2016 en и ru, win10pro, kali linux) выставить в настройках сетевого адаптера тип &quot;внутренняя сеть&quot;</p><figure id="f0260574-b85c-4c79-bf52-1f0dcec72689" class="image"><a href="https://i.imgur.com/LQlW8lH.png"><img src="https://i.imgur.com/LQlW8lH.png"/></a></figure><h2 id="626554b7-c8dd-44f7-a516-88e0fff6d0c7" class="">Часть 4. Настройка виртуальной Windows</h2><p id="b2cc2d8c-e162-457b-be3a-70ae8c4544b8" class="">Необходимо изменить имя ПК и поставить ему произвольное и читаемое (например, PC1). Для этого в панели управления перейдем в настройки системы</p><hr id="faa86120-f2b5-4216-ac39-776e0a7dd9fc"/><figure id="c96b08c1-073e-4262-8139-1cd2eb88e93d" class="image"><a href="https://i.imgur.com/YMJByfo.png"><img src="https://i.imgur.com/YMJByfo.png"/></a></figure><hr id="76bca021-f859-495c-b2bd-33f969473234"/><p id="e5be25ec-785f-43d8-ae8a-2553fd7454b8" class="">Зайдем в меню переименования</p><hr id="8267c9eb-ac77-481d-8b5c-4c9e47c47498"/><figure id="b016968d-014c-4dbd-aafb-b4f4324fcbb6" class="image"><a href="https://i.imgur.com/pGwm5e2.png"><img src="https://i.imgur.com/pGwm5e2.png"/></a></figure><hr id="31d9e664-7c59-4ded-9c2c-ddeb4b3ad914"/><p id="987c1115-7e81-4db6-9cf8-c81400fd7c5b" class="">После подтверждения изменений windows перезагрузится</p><hr id="548cd660-6677-4471-aa7b-4a8432c644fd"/><figure id="73638815-7a17-46ed-887a-c538f8ce0a4f" class="image"><a href="https://i.imgur.com/AeBlzkH.png"><img src="https://i.imgur.com/AeBlzkH.png"/></a></figure><hr id="150c8a00-d46b-49e7-8571-3abaac2b5c97"/><h2 id="fa09debe-249a-400e-998a-f7d456abccd9" class="">Траблшутинг.</h2><h3 id="0c0dd1e4-edfd-4726-8403-556d463b9073" class="">Если на fedora не запускается vmware:</h3><p id="d57c5b2b-aab3-46b9-89e8-cff67da76cca" class="">Uefi secure boot мог блокировать подгрузку модулей в ядро. После отключения все должно заработать</p><h3 id="9d74bc44-02c0-4dc8-bc02-be6754692ddb" class="">Если микротик жалуется на лицензию и говорит, что превратится в тыкву через 24 часа, необходимо применить в cmd хостовой windows, запущенной от имени администратора, следующие 3 команды:</h3><blockquote id="d6bfe17d-94db-45ca-943b-8d9f89d8db8f" class="">C:\Program Files\Oracle\VirtualBox&gt; vboxmanage setextradata &quot;имявиртуалкимикротика&quot; &quot;VBoxInternal/Devices/piix3ide/0/Config/PrimaryMaster/SerialNumber&quot; &quot;string:00000000000000000001&quot;</blockquote><blockquote id="eb52439c-831d-4f4f-ac8a-bcac8fedde26" class="">C:\Program Files\Oracle\VirtualBox&gt; VBoxManage setextradata &quot;имявиртуалкимикротика&quot; &quot;VBoxInternal/Devices/piix3ide/0/Config/PrimaryMaster/FirmwareRevision&quot; &quot;string:QM00001&quot;</blockquote><blockquote id="5fd87e5e-d084-4df6-91e3-279e7a518a65" class="">C:\Program Files\Oracle\VirtualBox&gt; VBoxManage setextradata &quot;имявиртуалкимикротика&quot; &quot;VBoxInternal/Devices/piix3ide/0/Config/PrimaryMaster/ModelNumber&quot; &quot;string:VMware Virtual IDE Hard Drive&quot;</blockquote><h3 id="e6b0e39c-c364-4735-81f4-d11555a013fe" class="">Проблемы с виртуализацией</h3><ol type="1" id="bdd6f200-5cbe-448f-b431-2678c4bdd41e" class="numbered-list" start="1"><li>Проверьте, включена ли виртуализация на вашем ПК. Если нет, то включите в биосе.</li></ol><p id="337615d6-7546-4dc8-b6a5-873b0158d8a6" class="">Проверить можно в диспетчере задач</p><hr id="075249ec-85c1-4187-8d04-b34bb4765055"/><figure id="055d0bf8-c13b-4d4a-b76e-e3b0501d447f" class="image"><a href="https://i.imgur.com/dvwt2rl.png"><img src="https://i.imgur.com/dvwt2rl.png"/></a></figure><hr id="fea51f9f-f767-4663-8aab-f9e1f7d64225"/><p id="7c0a9855-4c9a-4b00-9e55-c07ecfa7e3ce" class="">Либо другими способами, описанными</p><hr id="336bccb0-88b3-41d0-8663-6ccc3b9232fb"/><ol type="1" id="026ebe3a-2ac3-4796-8a47-bb208a34f894" class="numbered-list" start="1"><li>Проверьте, отключен ли компонент Hyper-V. Если включен, то его необходимо <strong><a href="https://remontka.pro/disable-hyper-v-windows-10/">выключить</a></strong>.</li></ol><ol type="1" id="03ce4c4c-c73b-4715-89ad-aa56942becdb" class="numbered-list" start="2"><li>Ошибка <a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/credential-guard/credential-guard-manage">Credential Guard</a></li></ol><h3 id="2c75e7d6-8a4f-4499-a735-34c9d261eda9" class="">Конфигурация Mikrotik через консоль</h3><p id="af81d988-2bb9-4514-b66c-19d480f84526" class="">это альтернативный способ настройки микротика.<br/>После того, как залогинились в систему, примените команду<br/></p><blockquote id="8196ce95-0036-4261-b58c-c9a5838ff610" class="">ip dhcp-client add interface=ether1 disabled=no<br/>ip address print<br/></blockquote><p id="345d1743-f1b3-4190-b98f-9a430bfe3d2a" class="">Вы должны увидеть, что первый интерфейс получил ip адрес (скорее всего это будет 10.0.2.15, но может быть и похожий)</p><p id="7576807a-fe2f-4638-9842-c4e469f767d9" class="">После настроим NAT</p><blockquote id="91833087-2d25-4aa2-94ef-14d2d6aa219c" class="">ip firewall nat add chain=srcnat action=masquerade out-interface=ether1</blockquote><p id="846a7784-111c-468e-b844-71bb97b33013" class="">И DNS (не обязательно восьмёрки, можете использовать и другие кешируюшие сервера):</p><blockquote id="d0161cbc-b50d-4436-a204-7cecb9b8d536" class="">ip dns set servers=8.8.8.8<br/>ip dns set allow-remote-requests=yes<br/></blockquote><p id="46a93e82-f8c0-436d-b579-f70f7318cbee" class="">И дадим адрес на внутренний интерфейс</p><blockquote id="2b4814c5-76d0-4ba1-a069-83490218f9f2" class="">ip address add address=192.168.10.254/24 interface=ether2</blockquote><p id="6a487603-da87-4fee-ba77-c325cd60e537" class="">Готово!</p><h3 id="8c009e96-5408-43d3-8c38-d33a9c07c687" class="">Если хочется Win11, но вылетает ошибка несовместимости с ТТХ</h3><p id="297ab8ff-7255-4dad-b83b-f5b30ab06802" class="">Когда вылетит это окно:</p><figure id="73cdb526-5ba3-461d-913e-cf07e8928d98" class="image"><a href="https://i.imgur.com/xkMANSn.png"><img src="https://i.imgur.com/xkMANSn.png"/></a></figure><ul id="6bcd35dc-78ea-44ce-95f5-1d2480bfa2eb" class="bulleted-list"><li style="list-style-type:disc">Нажмите Shift+F10.</li></ul><ul id="1647d9d7-8bcf-4b8a-9bef-af845aaa9795" class="bulleted-list"><li style="list-style-type:disc">Введите команду «regedit» и нажмите кнопку ввода.</li></ul><ul id="0ff5137a-3459-4870-9966-0db20d09b9a9" class="bulleted-list"><li style="list-style-type:disc">Вставьте в адресную строку редактора реестра такой маршрут «HKEY_LOCAL_MACHINE\SYSTEM\Setup» и нажмите кнопку ввода (либо пройдите по этому пути в появившемся проводнике).</li></ul><ul id="0b438a85-b5bd-4209-8cbc-44a64359cf7c" class="bulleted-list"><li style="list-style-type:disc">нажмите на Setup ПКМ, пройдите в меню new и там нажмите key. Вы создадите ветку реестра, назовите её <strong>LabConfig</strong>.</li></ul><ul id="9088f080-75fa-4ed8-af54-d444f9ac7c5d" class="bulleted-list"><li style="list-style-type:disc">в этой ветке нужно создать три значения DWORD 32-bit. Называться они будут «BypassTPMCheck», «BypassRAMCheck» и «BypassSecureBootCheck».</li></ul><ul id="40adba77-06ea-4a13-82c1-f609d95846dd" class="bulleted-list"><li style="list-style-type:disc">После создания и переименования проставьте значение на каждый из трех параметров. Значение будет 1.</li></ul><figure id="5bd72262-348c-4a63-ab45-9999b3b5cda5" class="image"><a href="https://i.imgur.com/UkTQ82o.png"><img src="https://i.imgur.com/UkTQ82o.png"/></a></figure><ul id="6b3bcea8-7ead-47fa-bc9f-74e37f426f2f" class="bulleted-list"><li style="list-style-type:disc">Закройте меню редактора</li></ul><ul id="248c5fc0-ab1e-4e00-8f88-db439c50f7c6" class="bulleted-list"><li style="list-style-type:disc">Закройте меню с ошибкой проверки ТТХ. Откроется меню к кнопкой install</li></ul><ul id="ac7557a4-423d-4cf5-be3b-4ce836b75142" class="bulleted-list"><li style="list-style-type:disc">Нажмите install и продолжайте обычную установку.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
