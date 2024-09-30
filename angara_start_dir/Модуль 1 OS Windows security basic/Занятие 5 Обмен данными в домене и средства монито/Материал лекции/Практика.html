@@ -2,7 +2,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Материал лекции</title>
+	<title>Практика</title>
 	<style>
 		/* cspell:disable-file */
 		/* webkit printing magic: print all background colors */
@@ -812,164 +812,25 @@
 		.select-value-color-washGlass {
 			background-color: undefined;
 		}
-
 	</style>
 </head>
 
 <body>
-	<article id="7f338dec-cde1-4ea7-a156-6845ac796b91" class="page sans">
+	<article id="fffaa64c-9d0a-81a8-acfd-ddf57923f092" class="page sans">
 		<header>
-			<h1 class="page-title">Материал лекции</h1>
+			<div class="page-header-icon undefined"><span class="icon">🔹</span></div>
+			<h1 class="page-title">Практика</h1>
 			<p class="page-description"></p>
 		</header>
 		<div class="page-body">
-			<h3 id="a6d4b750-f132-4144-beb6-75d644f8ccdf" class="">Основные определения</h3>
-			<p id="32b23789-0519-4174-ae76-782f2171c63b" class=""><strong>Домен</strong> - логическая структура, которая
-				в себе объединяет представления техники или пользователей в виде <strong>объектов</strong>, доступные
-				для управления системным администратором</p>
-			<p id="6fe357c3-f268-4981-901e-955226922b49" class=""><strong>Active Directory</strong> - каталог, который
-				хранит объекты домена.</p>
-			<p id="c9eecfe7-f339-4672-a4da-ced682e22ac6" class=""><strong>Контроллер домена</strong> - конкретный
-				сервер, управляющий доступом к сетевым ресурсам в рамках одного <strong>домена.</strong> Контроллеры
-				домена выполняют функции аутентификации пользователей, поиска в каталоге, т.е. <strong>управляют
-					взаимодействием между пользователем и доменом</strong>.</p>
-			<p id="5abe9608-f97d-490c-adce-b43742a9f4ee" class="">
+			<p id="fffaa64c-9d0a-8117-8d4d-c34c588e19ad" class="">
 			</p>
-			<hr id="422e236a-51f6-444f-b8cb-3680fa35f9b8" />
-			<h3 id="92c3a066-8c51-479f-8311-dc8e52d49080" class="">Физическая структура домена.</h3>
-			<figure id="a6e4d9f6-c724-4fab-9eb7-0aad436f330b" class="image"><a
-					href="win_2_1.png"><img
-						src="win_2_1.png" /></a>
-			</figure>
-			<p id="5f388a7e-97a9-46da-9449-23b78b147afc" class="">Для полноценного функционирования инфраструктуры нужны
-				такие сервера как:</p>
-			<ul id="76927420-fc27-4bfb-99d8-007fc6e983f3" class="bulleted-list">
-				<li style="list-style-type:disc"><strong>Контроллер домена</strong> (Главный сервер с установленной на
-					нем ОС и ролью домена - ADDS)</li>
-			</ul>
-			<ul id="27a708f6-11da-43b3-b051-1c5c3b885c46" class="bulleted-list">
-				<li style="list-style-type:disc"><strong>DNS</strong> (Система, позволяющая преобразовывать доменные
-					имена в IP адреса и наоборот)</li>
-			</ul>
-			<ul id="cea0f471-f465-41b9-9631-0dcc68aebd34" class="bulleted-list">
-				<li style="list-style-type:disc"><strong>Глобальный каталог</strong> (Помогает быстро получить доступ до
-					поиска информации в самом домене)</li>
-			</ul>
-			<p id="13331e80-01f0-42b4-99be-9920109731cc" class="">
-			</p>
-			<h3 id="c4898d1e-75b0-4183-b1ab-87386f24af91" class="">Логическая структура домена.</h3>
-			<figure id="5d2c3583-fc6c-4ebd-90ce-edbfeebeb39e" class="image"><a
-					href="win_2_2.png"><img
-						src="win_2_2.png" /></a>
-			</figure>
-			<p id="a88aea7c-c1ad-4a9f-a568-2685592505be" class="">Логически доменная структура представляет из себя
-				<strong>дерево (лес доменов)</strong>, в котором основные домены могут порождать поддомены. Основными
-				логическими объектами будут являться:</p>
-			<ul id="c9ac3974-0823-4fb5-ad2f-72e1adf56dfe" class="bulleted-list">
-				<li style="list-style-type:disc">Пользователи</li>
-			</ul>
-			<ul id="84491f6c-f907-43f3-9cb9-0bf633ffcdf1" class="bulleted-list">
-				<li style="list-style-type:disc">Компьютеры</li>
-			</ul>
-			<ul id="ba2bf670-5500-4274-91f0-4d5e954c3f79" class="bulleted-list">
-				<li style="list-style-type:disc">Группы</li>
-			</ul>
-			<ul id="f079a370-ad90-40ed-a94f-c924ce838776" class="bulleted-list">
-				<li style="list-style-type:disc">Контейнеры</li>
-			</ul>
-			<ul id="5c2fc9ec-8191-407d-bb26-769717c1c24e" class="bulleted-list">
-				<li style="list-style-type:disc">Лес доменов</li>
-			</ul>
-			<ul id="7e5f1720-c486-4317-97b3-c7536119b337" class="bulleted-list">
-				<li style="list-style-type:disc">Деревья доменов</li>
-			</ul>
-			<p id="853c4c27-6bbf-4295-9e88-de50bcf3ef28" class="">
-			</p>
-			<hr id="38d7584f-2cb4-41e6-a5b9-8d2378c6f0a1" />
-			<h2 id="ce289176-0d4b-4bbb-902a-e9fea5bd4e18" class="">Active Directory Domain Services (ADDS)</h2>
-			<blockquote id="9da02a23-ae77-4d68-af69-7b372923fc60" class="">Сервисы, необходимые для функционирования
-				домена</blockquote>
-			<h3 id="8cc30f02-48e2-48a9-aaf5-73e7a8b5a707" class="">Инструменты, для управления доменом</h3>
-			<ul id="b44a214f-ea1d-482e-9641-43eed470b097" class="bulleted-list">
-				<li style="list-style-type:disc"><strong>AD Users &amp; Computers</strong> - графическая оснастка,
-					которая позволяет <strong>редактировать, создавать новые и просматривать</strong> объекты в базе
-					данных домена, состоящую из пользователей и устройств</li>
-			</ul>
-			<ul id="db0912a2-dd5c-4ecf-9bf0-748301ff0096" class="bulleted-list">
-				<li style="list-style-type:disc"><strong>AD Domain &amp; trusts</strong> - инструмент для регулирования
-					отношений между доменами (используется в безопасности)</li>
-			</ul>
-			<ul id="6a8f8f5b-6846-4bfe-8e8d-2773230134b7" class="bulleted-list">
-				<li style="list-style-type:disc"><strong>AD Sites &amp; Services</strong> - оснастка для разделения
-					доменов на локальные сети и настройки времени синхронизации между ними<figure
-						id="bb579759-6aa7-4f12-b50b-5c954040fedc" class="image"><a
-							href="win_2_3.png"><img
-								src="win_2_3.png" /></a>
-					</figure>
-				</li>
-			</ul>
-			<h3 id="7b508b9b-fdfc-47da-9828-6f24137f1288" class=""><strong>Инфраструктурные части ADDS</strong></h3>
-			<ul id="66faa12b-e477-4cc5-8c44-076ffee2ded1" class="bulleted-list">
-				<li style="list-style-type:disc"><strong>NTDS</strong> - база данных объектов домена</li>
-			</ul>
-			<ul id="de03d8bd-6e34-4a24-93a8-6b043f5dfb71" class="bulleted-list">
-				<li style="list-style-type:disc"><strong>Контроллеры домена</strong> (в том числе доступны только для
-					чтения)</li>
-			</ul>
-			<ul id="15b3a29b-2e75-4d51-b40c-c955e041a431" class="bulleted-list">
-				<li style="list-style-type:disc"><strong>Глобальный каталог</strong> - для быстрого поиска по БД домена
-				</li>
-			</ul>
-			<h3 id="c4aceb55-862f-48c7-9890-3f46287d3dfa" class="">Объекты AD</h3>
-			<ul id="af6de686-4865-4605-a8fa-ea5932dc727f" class="bulleted-list">
-				<li style="list-style-type:disc"><strong>Users</strong></li>
-			</ul>
-			<ul id="3d86cf78-14c2-464e-ba74-9e44eafa0ef8" class="bulleted-list">
-				<li style="list-style-type:disc"><strong>Computers</strong></li>
-			</ul>
-			<ul id="d0828f7f-85f3-4257-98f1-29fdb591c5ed" class="bulleted-list">
-				<li style="list-style-type:disc"><strong>Groups</strong></li>
-			</ul>
-			<ul id="7a20b1ce-45ca-4d25-84ab-792f4c253ad9" class="bulleted-list">
-				<li style="list-style-type:disc"><strong>Organizational units</strong> (контейнеры, OU)</li>
-			</ul>
-			<h3 id="9cc59731-29cf-4356-b8e6-d0f6d4e187bf" class="">Базовые контейнеры AD (папки)</h3>
-			<ul id="5701d9ba-ca39-45fb-b588-eebde98d05f2" class="bulleted-list">
-				<li style="list-style-type:disc"><strong>Builtin</strong> - содержит различные группы для
-					администрирования</li>
-			</ul>
-			<ul id="91b56070-a470-4035-a00d-38640eee53f3" class="bulleted-list">
-				<li style="list-style-type:disc"><strong>Computers</strong> - OU с компьютерами</li>
-			</ul>
-			<ul id="ad2a9237-a106-47c7-9960-fb49eb84a07e" class="bulleted-list">
-				<li style="list-style-type:disc"><strong>Domain controllers</strong> - все контроллеры домена</li>
-			</ul>
-			<ul id="dca4d48d-568e-473d-a26a-b443c8d2aca9" class="bulleted-list">
-				<li style="list-style-type:disc"><strong>ForeignSecurityPrincipals</strong> - контейнер, в котором
-					хранятся SID пользователей из других доверенных лесов</li>
-			</ul>
-			<ul id="627f6c3f-cbfa-45e9-9bb4-24009f112eff" class="bulleted-list">
-				<li style="list-style-type:disc"><strong>Managed Service Account</strong> - контейнер для хранения
-					специальных сервисных учетных записей</li>
-			</ul>
-			<ul id="50a3d6c1-9c56-460a-bb42-cd589e56aa2e" class="bulleted-list">
-				<li style="list-style-type:disc"><strong>Users</strong> - здесь расположены группы администрирования и
-					пользователи</li>
-			</ul>
-			<h3 id="24b3744a-19b3-462e-9d13-cb6bc8935805" class="">RSAT</h3>
-			<p id="ab721ac0-2f79-465f-83cc-4e530f863303" class=""><strong>Remote Server Administration Tools</strong> -
-				средства для <strong>удаленного</strong> администрирования сервера, которые позволяют управлять ролями и
-				компонентами Windows Server с обычной рабочей станции</p>
-			<h3 id="b380f991-6b67-4212-82a4-fc99d1de5894" class="">PoSH</h3>
-			<p id="08e5de90-650b-4a29-9eb0-fd7363ca3fe3" class=""><strong>Windows PowerShell</strong> - расширяемое
-				средство автоматизации от Microsoft, с его помощью можно менять настройки, останавливать и запускать
-				сервисы, а так же производить обслуживание приложений. <strong>Windows PowerShell ISE</strong> - среда
-				разработки скриптов для PoSH</p>
-			<h3 id="975b4424-be38-41ad-ad12-0b710e6c7817" class="">Групповые политики</h3>
-			<blockquote id="6ebe7f23-b600-4585-8a4e-d182f93b7718" class="">Основная цель - возможность централизованно
-				управлять пользователями и компьютерами в домене</blockquote>
-			<p id="784c7130-ce17-462d-8b57-92da251f1949" class="">
-			</p>
+			<figure id="fffaa64c-9d0a-81bb-ae1d-f04979f30ec1" class="link-to-page"><a
+					href="Практика/Практическая работа №5 1 Обмен данными в домене.html">Практическая
+					работа №5.1 Обмен данными в домене.</a></figure>
+			<figure id="fffaa64c-9d0a-8147-82c1-dea23d1146ba" class="link-to-page"><a
+					href="Практика/Практическая работа №5 2 Средства мониторинга Wind.html">Практическая
+					работа №5.2 Средства мониторинга Windows.</a></figure>
 		</div>
 	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
 </body>
