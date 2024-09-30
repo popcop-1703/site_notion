@@ -1,699 +1,1196 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Материал лекции</title><style>
-/* cspell:disable-file */
-/* webkit printing magic: print all background colors */
-html {
-	-webkit-print-color-adjust: exact;
-}
-* {
-	box-sizing: border-box;
-	-webkit-print-color-adjust: exact;
-}
-
-html,
-body {
-	margin: 0;
-	padding: 0;
-}
-@media only screen {
-	body {
-		margin: 2em auto;
-		max-width: 900px;
-		color: rgb(55, 53, 47);
-	}
-}
-
-body {
-	line-height: 1.5;
-	white-space: pre-wrap;
-}
-
-a,
-a.visited {
-	color: inherit;
-	text-decoration: underline;
-}
-
-.pdf-relative-link-path {
-	font-size: 80%;
-	color: #444;
-}
-
-h1,
-h2,
-h3 {
-	letter-spacing: -0.01em;
-	line-height: 1.2;
-	font-weight: 600;
-	margin-bottom: 0;
-}
-
-.page-title {
-	font-size: 2.5rem;
-	font-weight: 700;
-	margin-top: 0;
-	margin-bottom: 0.75em;
-}
-
-h1 {
-	font-size: 1.875rem;
-	margin-top: 1.875rem;
-}
-
-h2 {
-	font-size: 1.5rem;
-	margin-top: 1.5rem;
-}
-
-h3 {
-	font-size: 1.25rem;
-	margin-top: 1.25rem;
-}
-
-.source {
-	border: 1px solid #ddd;
-	border-radius: 3px;
-	padding: 1.5em;
-	word-break: break-all;
-}
-
-.callout {
-	border-radius: 3px;
-	padding: 1rem;
-}
-
-figure {
-	margin: 1.25em 0;
-	page-break-inside: avoid;
-}
-
-figcaption {
-	opacity: 0.5;
-	font-size: 85%;
-	margin-top: 0.5em;
-}
-
-mark {
-	background-color: transparent;
-}
-
-.indented {
-	padding-left: 1.5em;
-}
-
-hr {
-	background: transparent;
-	display: block;
-	width: 100%;
-	height: 1px;
-	visibility: visible;
-	border: none;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
-}
-
-img {
-	max-width: 100%;
-}
-
-@media only print {
-	img {
-		max-height: 100vh;
-		object-fit: contain;
-	}
-}
-
-@page {
-	margin: 1in;
-}
-
-.collection-content {
-	font-size: 0.875rem;
-}
-
-.column-list {
-	display: flex;
-	justify-content: space-between;
-}
-
-.column {
-	padding: 0 1em;
-}
-
-.column:first-child {
-	padding-left: 0;
-}
-
-.column:last-child {
-	padding-right: 0;
-}
-
-.table_of_contents-item {
-	display: block;
-	font-size: 0.875rem;
-	line-height: 1.3;
-	padding: 0.125rem;
-}
-
-.table_of_contents-indent-1 {
-	margin-left: 1.5rem;
-}
-
-.table_of_contents-indent-2 {
-	margin-left: 3rem;
-}
-
-.table_of_contents-indent-3 {
-	margin-left: 4.5rem;
-}
-
-.table_of_contents-link {
-	text-decoration: none;
-	opacity: 0.7;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
-}
-
-table,
-th,
-td {
-	border: 1px solid rgba(55, 53, 47, 0.09);
-	border-collapse: collapse;
-}
-
-table {
-	border-left: none;
-	border-right: none;
-}
-
-th,
-td {
-	font-weight: normal;
-	padding: 0.25em 0.5em;
-	line-height: 1.5;
-	min-height: 1.5em;
-	text-align: left;
-}
-
-th {
-	color: rgba(55, 53, 47, 0.6);
-}
-
-ol,
-ul {
-	margin: 0;
-	margin-block-start: 0.6em;
-	margin-block-end: 0.6em;
-}
-
-li > ol:first-child,
-li > ul:first-child {
-	margin-block-start: 0.6em;
-}
-
-ul > li {
-	list-style: disc;
-}
-
-ul.to-do-list {
-	padding-inline-start: 0;
-}
-
-ul.to-do-list > li {
-	list-style: none;
-}
-
-.to-do-children-checked {
-	text-decoration: line-through;
-	opacity: 0.375;
-}
-
-ul.toggle > li {
-	list-style: none;
-}
-
-ul {
-	padding-inline-start: 1.7em;
-}
-
-ul > li {
-	padding-left: 0.1em;
-}
-
-ol {
-	padding-inline-start: 1.6em;
-}
-
-ol > li {
-	padding-left: 0.2em;
-}
-
-.mono ol {
-	padding-inline-start: 2em;
-}
-
-.mono ol > li {
-	text-indent: -0.4em;
-}
-
-.toggle {
-	padding-inline-start: 0em;
-	list-style-type: none;
-}
-
-/* Indent toggle children */
-.toggle > li > details {
-	padding-left: 1.7em;
-}
-
-.toggle > li > details > summary {
-	margin-left: -1.1em;
-}
-
-.selected-value {
-	display: inline-block;
-	padding: 0 0.5em;
-	background: rgba(206, 205, 202, 0.5);
-	border-radius: 3px;
-	margin-right: 0.5em;
-	margin-top: 0.3em;
-	margin-bottom: 0.3em;
-	white-space: nowrap;
-}
-
-.collection-title {
-	display: inline-block;
-	margin-right: 1em;
-}
-
-.page-description {
-    margin-bottom: 2em;
-}
-
-.simple-table {
-	margin-top: 1em;
-	font-size: 0.875rem;
-	empty-cells: show;
-}
-.simple-table td {
-	height: 29px;
-	min-width: 120px;
-}
-
-.simple-table th {
-	height: 29px;
-	min-width: 120px;
-}
-
-.simple-table-header-color {
-	background: rgb(247, 246, 243);
-	color: black;
-}
-.simple-table-header {
-	font-weight: 500;
-}
-
-time {
-	opacity: 0.5;
-}
-
-.icon {
-	display: inline-block;
-	max-width: 1.2em;
-	max-height: 1.2em;
-	text-decoration: none;
-	vertical-align: text-bottom;
-	margin-right: 0.5em;
-}
-
-img.icon {
-	border-radius: 3px;
-}
-
-.user-icon {
-	width: 1.5em;
-	height: 1.5em;
-	border-radius: 100%;
-	margin-right: 0.5rem;
-}
-
-.user-icon-inner {
-	font-size: 0.8em;
-}
-
-.text-icon {
-	border: 1px solid #000;
-	text-align: center;
-}
-
-.page-cover-image {
-	display: block;
-	object-fit: cover;
-	width: 100%;
-	max-height: 30vh;
-}
-
-.page-header-icon {
-	font-size: 3rem;
-	margin-bottom: 1rem;
-}
-
-.page-header-icon-with-cover {
-	margin-top: -0.72em;
-	margin-left: 0.07em;
-}
-
-.page-header-icon img {
-	border-radius: 3px;
-}
-
-.link-to-page {
-	margin: 1em 0;
-	padding: 0;
-	border: none;
-	font-weight: 500;
-}
-
-p > .user {
-	opacity: 0.5;
-}
-
-td > .user,
-td > time {
-	white-space: nowrap;
-}
-
-input[type="checkbox"] {
-	transform: scale(1.5);
-	margin-right: 0.6em;
-	vertical-align: middle;
-}
-
-p {
-	margin-top: 0.5em;
-	margin-bottom: 0.5em;
-}
-
-.image {
-	border: none;
-	margin: 1.5em 0;
-	padding: 0;
-	border-radius: 0;
-	text-align: center;
-}
-
-.code,
-code {
-	background: rgba(135, 131, 120, 0.15);
-	border-radius: 3px;
-	padding: 0.2em 0.4em;
-	border-radius: 3px;
-	font-size: 85%;
-	tab-size: 2;
-}
-
-code {
-	color: #eb5757;
-}
-
-.code {
-	padding: 1.5em 1em;
-}
-
-.code-wrap {
-	white-space: pre-wrap;
-	word-break: break-all;
-}
-
-.code > code {
-	background: none;
-	padding: 0;
-	font-size: 100%;
-	color: inherit;
-}
-
-blockquote {
-	font-size: 1.25em;
-	margin: 1em 0;
-	padding-left: 1em;
-	border-left: 3px solid rgb(55, 53, 47);
-}
-
-.bookmark {
-	text-decoration: none;
-	max-height: 8em;
-	padding: 0;
-	display: flex;
-	width: 100%;
-	align-items: stretch;
-}
-
-.bookmark-title {
-	font-size: 0.85em;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	height: 1.75em;
-	white-space: nowrap;
-}
-
-.bookmark-text {
-	display: flex;
-	flex-direction: column;
-}
-
-.bookmark-info {
-	flex: 4 1 180px;
-	padding: 12px 14px 14px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
-
-.bookmark-image {
-	width: 33%;
-	flex: 1 1 180px;
-	display: block;
-	position: relative;
-	object-fit: cover;
-	border-radius: 1px;
-}
-
-.bookmark-description {
-	color: rgba(55, 53, 47, 0.6);
-	font-size: 0.75em;
-	overflow: hidden;
-	max-height: 4.5em;
-	word-break: break-word;
-}
-
-.bookmark-href {
-	font-size: 0.75em;
-	margin-top: 0.25em;
-}
-
-.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
-.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
-.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
-.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
-.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
-.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
-.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
-.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
-.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
-.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
-.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
-.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
-.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
-.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
-.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
-.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
-.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
-.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
-.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
-.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
-.highlight-default {
-	color: rgba(55, 53, 47, 1);
-}
-.highlight-gray {
-	color: rgba(120, 119, 116, 1);
-	fill: rgba(120, 119, 116, 1);
-}
-.highlight-brown {
-	color: rgba(159, 107, 83, 1);
-	fill: rgba(159, 107, 83, 1);
-}
-.highlight-orange {
-	color: rgba(217, 115, 13, 1);
-	fill: rgba(217, 115, 13, 1);
-}
-.highlight-yellow {
-	color: rgba(203, 145, 47, 1);
-	fill: rgba(203, 145, 47, 1);
-}
-.highlight-teal {
-	color: rgba(68, 131, 97, 1);
-	fill: rgba(68, 131, 97, 1);
-}
-.highlight-blue {
-	color: rgba(51, 126, 169, 1);
-	fill: rgba(51, 126, 169, 1);
-}
-.highlight-purple {
-	color: rgba(144, 101, 176, 1);
-	fill: rgba(144, 101, 176, 1);
-}
-.highlight-pink {
-	color: rgba(193, 76, 138, 1);
-	fill: rgba(193, 76, 138, 1);
-}
-.highlight-red {
-	color: rgba(212, 76, 71, 1);
-	fill: rgba(212, 76, 71, 1);
-}
-.highlight-default_background {
-	color: rgba(55, 53, 47, 1);
-}
-.highlight-gray_background {
-	background: rgba(241, 241, 239, 1);
-}
-.highlight-brown_background {
-	background: rgba(244, 238, 238, 1);
-}
-.highlight-orange_background {
-	background: rgba(251, 236, 221, 1);
-}
-.highlight-yellow_background {
-	background: rgba(251, 237, 214, 1);
-}
-.highlight-teal_background {
-	background: rgba(237, 243, 236, 1);
-}
-.highlight-blue_background {
-	background: rgba(231, 243, 248, 1);
-}
-.highlight-purple_background {
-	background: rgba(244, 240, 247, 0.8);
-}
-.highlight-pink_background {
-	background: rgba(249, 238, 243, 0.8);
-}
-.highlight-red_background {
-	background: rgba(253, 235, 236, 1);
-}
-.block-color-default {
-	color: inherit;
-	fill: inherit;
-}
-.block-color-gray {
-	color: rgba(120, 119, 116, 1);
-	fill: rgba(120, 119, 116, 1);
-}
-.block-color-brown {
-	color: rgba(159, 107, 83, 1);
-	fill: rgba(159, 107, 83, 1);
-}
-.block-color-orange {
-	color: rgba(217, 115, 13, 1);
-	fill: rgba(217, 115, 13, 1);
-}
-.block-color-yellow {
-	color: rgba(203, 145, 47, 1);
-	fill: rgba(203, 145, 47, 1);
-}
-.block-color-teal {
-	color: rgba(68, 131, 97, 1);
-	fill: rgba(68, 131, 97, 1);
-}
-.block-color-blue {
-	color: rgba(51, 126, 169, 1);
-	fill: rgba(51, 126, 169, 1);
-}
-.block-color-purple {
-	color: rgba(144, 101, 176, 1);
-	fill: rgba(144, 101, 176, 1);
-}
-.block-color-pink {
-	color: rgba(193, 76, 138, 1);
-	fill: rgba(193, 76, 138, 1);
-}
-.block-color-red {
-	color: rgba(212, 76, 71, 1);
-	fill: rgba(212, 76, 71, 1);
-}
-.block-color-default_background {
-	color: inherit;
-	fill: inherit;
-}
-.block-color-gray_background {
-	background: rgba(241, 241, 239, 1);
-}
-.block-color-brown_background {
-	background: rgba(244, 238, 238, 1);
-}
-.block-color-orange_background {
-	background: rgba(251, 236, 221, 1);
-}
-.block-color-yellow_background {
-	background: rgba(251, 237, 214, 1);
-}
-.block-color-teal_background {
-	background: rgba(237, 243, 236, 1);
-}
-.block-color-blue_background {
-	background: rgba(231, 243, 248, 1);
-}
-.block-color-purple_background {
-	background: rgba(244, 240, 247, 0.8);
-}
-.block-color-pink_background {
-	background: rgba(249, 238, 243, 0.8);
-}
-.block-color-red_background {
-	background: rgba(253, 235, 236, 1);
-}
-.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
-.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
-.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
-.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
-.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
-.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
-.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
-.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
-.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
-.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
-.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
-.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
-.select-value-color-pageGlass { background-color: undefined; }
-.select-value-color-washGlass { background-color: undefined; }
-
-.checkbox {
-	display: inline-flex;
-	vertical-align: text-bottom;
-	width: 16;
-	height: 16;
-	background-size: 16px;
-	margin-left: 2px;
-	margin-right: 5px;
-}
-
-.checkbox-on {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-
-.checkbox-off {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-	
-</style></head><body><article id="6e0f8dcf-ef8e-4c45-a222-64919e0d5818" class="page sans"><header><h1 class="page-title">Материал лекции</h1><p class="page-description"></p></header><div class="page-body"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="a45e6cc8-cb17-4c26-a922-1e71b1108ece"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><strong>Сервисы и службы</strong> — это программы, которые работают в системе Linux<em><strong> в фоновом режиме</strong></em>.<br/>Они обычно запускаются в фоновом режиме при загрузке системы. В качестве примеров можно привести: веб-сервер Apache, SSH, Firewall Ufw<br/></div></figure><h2 id="93448875-4589-4c74-8889-979ca0ae0613" class="">Работы с сервисами</h2><ol type="1" id="e204fcaf-eedb-4c71-b21c-e5d36f30ec52" class="numbered-list" start="1"><li>Запустить сервис<br/><br/><code>$ sudo systemctl start application.service</code></li></ol><ol type="1" id="bb38ef98-99cd-47dd-a53f-c2f082520c6b" class="numbered-list" start="2"><li>Перезапустить сервис<br/><br/><code>$ sudo systemctl restart application</code></li></ol><ol type="1" id="05dea7ee-2e8f-4dde-a695-d6e3333bfef3" class="numbered-list" start="3"><li>Остановить сервис<br/><br/><code>$ sudo systemctl stop application</code></li></ol><ol type="1" id="7caf63c7-6e51-4886-86d3-d8d411b0d401" class="numbered-list" start="4"><li>Перезагрузить файлы конфигурации<br/><br/><code>$ sudo systemctl reload application</code></li></ol><ol type="1" id="a7bee6eb-a106-4f21-8718-ab08d44123d9" class="numbered-list" start="5"><li>Автоматический запуск службы при загрузке<br/><br/><code>$ sudo systemctl enable application</code></li></ol><ol type="1" id="f1577061-4258-4a63-9da7-ffc89e6f0362" class="numbered-list" start="6"><li>Убрать из автозагрузки<br/><br/><code>$ sudo systemctl disable application</code></li></ol><ol type="1" id="92af5f7c-d13f-4c1c-a5fd-4fb2fe666c79" class="numbered-list" start="7"><li>Вывод списка всех сервисов<br/><br/><code>$ systemctl list-units</code></li></ol><ol type="1" id="70d5b7fd-b089-474d-99be-1125df0bf704" class="numbered-list" start="8"><li>Вывод информации о процессе<br/><br/><code>$ systemctl status ssh</code></li></ol><p id="a7fc83d5-743f-4ade-b2ea-5f1b0372b900" class=""><strong>— Вместо “application” укажитесервис, который вы хотите запустить</strong></p><p id="74ca7683-b73f-41f2-8b25-3764e19ae995" class=""><strong>— Суффикс .service не обязателен</strong></p><figure id="56df20fb-2490-4f73-a825-d4d7a3056fd0" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled.png"><img style="width:377px" src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled.png"/></a><figcaption>Просмотр всех запущенных и установленных сервисов<br/><br/><code>service —status-all</code></figcaption></figure><h2 id="7252a091-4ace-4bb1-b1d4-0473de66f89b" class="">Samba</h2><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="ca00de98-1f50-44ed-85ae-c5e924013b75"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Клиент-серверное программное обеспечение для реалзации файлового сервера</div></figure><h3 id="59e31186-06ef-48aa-8ddf-040f632d45cc" class="">Возможности</h3><ol type="1" id="81c4dee4-9d80-409b-9db8-1242f79d2479" class="numbered-list" start="1"><li><strong>Контроллер домена</strong><br/>— Служба аутетификации на базе Kerberos v5<br/>— LDAP-совместимая служба каталогов с возможостью репликации по DRS<br/>— Сервер управления групповыми политиками<br/>— DNS-сервер на базе BIND<br/></li></ol><ol type="1" id="b022da6e-7134-4f0e-b43c-60fcb7dfe515" class="numbered-list" start="2"><li><strong>Файловый сервер</strong></li></ol><ol type="1" id="c6e9b535-6c6e-4028-90de-813bc3e68a80" class="numbered-list" start="3"><li><strong>Сервер печати</strong></li></ol><p id="f58f4631-9ea4-4ab4-8171-96ffcac9fb17" class=""><code>$ apt install samba -y</code> — установка SAMBA</p><p id="715a55c4-e1ce-4523-aad0-f18294ef8c42" class=""><code>$ systemctl status smbd</code> — проверка корректности установки</p><figure id="82f00457-68ab-432f-a824-7cd9dd4bb162" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%201.png"><img style="width:576px" src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%201.png"/></a></figure><h3 id="60544628-6417-4944-a888-5132b1806925" class="">Настройка SAMBA</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="e3edc0d5-21c2-469c-b86a-61a0f6b1d908" class="code"><code class="language-Shell">$ mkdir /Samba_Dir - создадим дирекоторию, в которой будем организовывать общий доступ
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Материал лекции</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 237, 214, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 237, 214, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(249, 228, 188, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+
+		.checkbox-on {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+
+		.checkbox-off {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+	</style>
+</head>
+
+<body>
+	<article id="fffaa64c-9d0a-8132-83b6-e01ad069ba1a" class="page sans">
+		<header>
+			<h1 class="page-title">Материал лекции</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex"
+				id="fffaa64c-9d0a-81c3-870e-c4bd928d0768">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%"><strong>Сервисы и службы</strong> — это программы, которые работают в системе
+					Linux<em><strong> в фоновом режиме</strong></em>.<br />Они обычно запускаются в фоновом режиме при
+					загрузке системы. В качестве примеров можно привести: веб-сервер Apache, SSH, Firewall Ufw<br />
+				</div>
+			</figure>
+			<h2 id="fffaa64c-9d0a-810d-ad59-d96736edc3d5" class="">Работы с сервисами</h2>
+			<ol type="1" id="fffaa64c-9d0a-819c-a205-e690b85ad48a" class="numbered-list" start="1">
+				<li>Запустить сервис<br /><br /><code>$ sudo systemctl start application.service</code></li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-81cb-b0e3-c07245c3fe47" class="numbered-list" start="2">
+				<li>Перезапустить сервис<br /><br /><code>$ sudo systemctl restart application</code></li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-8171-86f3-c33bebe6d241" class="numbered-list" start="3">
+				<li>Остановить сервис<br /><br /><code>$ sudo systemctl stop application</code></li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-81e3-a993-ce5eb61e5287" class="numbered-list" start="4">
+				<li>Перезагрузить файлы конфигурации<br /><br /><code>$ sudo systemctl reload application</code></li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-8151-8ae4-e238d2278459" class="numbered-list" start="5">
+				<li>Автоматический запуск службы при
+					загрузке<br /><br /><code>$ sudo systemctl enable application</code></li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-8157-88c6-f9ced366016d" class="numbered-list" start="6">
+				<li>Убрать из автозагрузки<br /><br /><code>$ sudo systemctl disable application</code></li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-8177-a195-dbf5a36067f8" class="numbered-list" start="7">
+				<li>Вывод списка всех сервисов<br /><br /><code>$ systemctl list-units</code></li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-813a-b92a-fe2be797e259" class="numbered-list" start="8">
+				<li>Вывод информации о процессе<br /><br /><code>$ systemctl status ssh</code></li>
+			</ol>
+			<p id="fffaa64c-9d0a-8109-ba77-ea1f518a6c87" class=""><strong>— Вместо “application” укажитесервис, который
+					вы хотите запустить</strong></p>
+			<p id="fffaa64c-9d0a-81b5-8e16-c93bdc9eb11e" class=""><strong>— Суффикс .service не обязателен</strong></p>
+			<figure id="fffaa64c-9d0a-81ac-99d4-f8ef327815d4" class="image"><a
+					href="Материал лекции/Untitled.png"><img
+						style="width:377px"
+						src="Материал лекции/Untitled.png" /></a>
+				<figcaption>Просмотр всех запущенных и установленных
+					сервисов<br /><br /><code>service —status-all</code></figcaption>
+			</figure>
+			<h2 id="fffaa64c-9d0a-8164-80f3-c7dff2a87899" class="">Samba</h2>
+			<figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex"
+				id="fffaa64c-9d0a-81ea-8bf7-fb5ce04d00d7">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%">Клиент-серверное программное обеспечение для реалзации файлового сервера</div>
+			</figure>
+			<h3 id="fffaa64c-9d0a-816c-af1f-e932f9c84861" class="">Возможности</h3>
+			<ol type="1" id="fffaa64c-9d0a-81ab-9d64-fc0f2d76477b" class="numbered-list" start="1">
+				<li><strong>Контроллер домена</strong><br />— Служба аутетификации на базе Kerberos v5<br />—
+					LDAP-совместимая служба каталогов с возможостью репликации по DRS<br />— Сервер управления
+					групповыми политиками<br />— DNS-сервер на базе BIND<br /></li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-8164-a555-c0c51a4a75bf" class="numbered-list" start="2">
+				<li><strong>Файловый сервер</strong></li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-81c1-90e8-d77d4f8824aa" class="numbered-list" start="3">
+				<li><strong>Сервер печати</strong></li>
+			</ol>
+			<p id="fffaa64c-9d0a-81ad-9729-f16603290431" class=""><code>$ apt install samba -y</code> — установка SAMBA
+			</p>
+			<p id="fffaa64c-9d0a-81ce-90d0-c28e3ada08d3" class=""><code>$ systemctl status smbd</code> — проверка
+				корректности установки</p>
+			<figure id="fffaa64c-9d0a-8183-89fb-c76e5845e135" class="image"><a
+					href="Материал лекции/Untitled%201.png"><img
+						style="width:576px"
+						src="Материал лекции/Untitled%201.png" /></a>
+			</figure>
+			<h3 id="fffaa64c-9d0a-8108-8bc3-dd27f506590b" class="">Настройка SAMBA</h3>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-81a7-93b6-d2415a80b3d7" class="code"><code class="language-Shell">$ mkdir /Samba_Dir - создадим дирекоторию, в которой будем организовывать общий доступ
 $ nano /Samba_Dir/FileToShare - в директории создадим файл
 $ chmod 777 /Samba_Dir - установим полные права доступа всем пользователям
 $ nano /etc/samba/smb.conf - файл конфигурации samba
-$ systemctl restart smbd - перезапустить и применить настройки</code></pre><figure id="b5e71963-5b79-4124-a9e3-16ecd9d97ea8" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%202.png"><img style="width:1071px" src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%202.png"/></a></figure><h2 id="76ec443e-7bb9-4470-84e2-9a3e0175328e" class="">Веб-сервисы</h2><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="b83d070a-e3e9-40ae-afc7-3ce191d49319"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><strong>Веб-сервис </strong>— программа, которая организовывает взаимодействие между сайтами и клиентами.<br/>Примеры веб-сервисов: Apache и Nginx<br/></div></figure><h3 id="a3e09899-10be-4623-84db-6b39e062c6a1" class="">Apache</h3><blockquote id="57af279f-88f6-45eb-81ac-73f6e52fc69e" class="">Свободное ПО для размещения веб-сервера. По состоянию на 2020 год он используется на 33% сайтов интернета</blockquote><p id="3d5af224-b15d-485d-989c-4e125b02afb3" class=""><code>$ apt install apache2</code> — установка Apache</p><p id="8cdbdc93-b16c-4d02-a325-0368f2ee40fd" class=""><code>$ systemctl enable apache2</code> — добавление сервиса в автозагрузку</p><p id="e62b6dd4-b758-4509-9882-057836f0950f" class="">Просмотр статуса:</p><figure id="3b246967-8730-4bfd-a2f1-49f67f3a2b26" class="image"><a href="../%D0%97%D0%B0%D0%BD%D1%8F%D1%82%D0%B8%D0%B5%202%20%D0%90%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Linux%20d6d35d1e6d144e12895cd52702c806db/%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20fdab289de02c400285892678f47b8d18/Untitled%207.png"><img style="width:633px" src="../%D0%97%D0%B0%D0%BD%D1%8F%D1%82%D0%B8%D0%B5%202%20%D0%90%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Linux%20d6d35d1e6d144e12895cd52702c806db/%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20fdab289de02c400285892678f47b8d18/Untitled%207.png"/></a></figure><p id="73a042cd-fe12-495e-b52e-74b646051c7e" class="">Как видим, в данный момент сервис не активен, запустим его:</p><figure id="964a9bd3-ef91-4622-8f3a-c458f0d11787" class="image"><a href="../%D0%97%D0%B0%D0%BD%D1%8F%D1%82%D0%B8%D0%B5%202%20%D0%90%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Linux%20d6d35d1e6d144e12895cd52702c806db/%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20fdab289de02c400285892678f47b8d18/Untitled%208.png"><img style="width:326px" src="../%D0%97%D0%B0%D0%BD%D1%8F%D1%82%D0%B8%D0%B5%202%20%D0%90%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20Linux%20d6d35d1e6d144e12895cd52702c806db/%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20fdab289de02c400285892678f47b8d18/Untitled%208.png"/></a></figure><p id="1fcd3cca-680d-4670-8b90-4cdb0a6d11f9" class=""><strong>conf -</strong> это каталог, в котором расположены все файлы конфигурации сервера.  Файлы конфигурации в основном представляют собой текстовые файлы, в которых добавляются директивы для управления поведением и функциональностью веб-сервера.</p><ol type="1" id="1b0cfd00-9b48-4863-b9f1-d3cd0948339f" class="numbered-list" start="1"><li><code>/etc/apache2/apache.conf</code> — отвечает за основные настройки</li></ol><ol type="1" id="2a2140ba-5664-4522-90d0-8aecb3a15b0e" class="numbered-list" start="2"><li><code>/etc/apache2/conf-available</code> — дополнительные настройки веб-сервера</li></ol><ol type="1" id="25f7047b-a5a9-482f-a2fd-e89ab18e7d6c" class="numbered-list" start="3"><li><code>/etc/apache2/mods-avilable</code> — настройка модулей</li></ol><ol type="1" id="cf10db42-a9f2-4eec-8768-4836ab000a75" class="numbered-list" start="4"><li><code>/etc/apache2/ports.conf</code> — порты, на которых работает Apache</li></ol><figure id="c69ff67b-e2b2-4648-b5e5-5791900b744e" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%203.png"><img style="width:1253px" src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%203.png"/></a></figure><h2 id="c0e4e0ed-78a8-4aa9-a7bf-e684148d4496" class="">Nginx</h2><blockquote id="71b07600-247e-4ad0-ba6b-edac6055afb0" class="">Веб-сервер с открытым исходным кодом, созданный работать под высокой нагрузкой. Чаще всего используется для отдачи статического контента</blockquote><h3 id="6cc283f0-77c6-4c7b-8f58-aee6045655b8" class="">Установка</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="b3788d98-4ed1-4e2e-b7a9-f55d7290722a" class="code"><code class="language-Shell">$ sudo apt install nginx</code></pre><h3 id="0d891875-ea6e-4913-bb4e-288ea3e7f811" class="">Конфигурация</h3><p id="2bb8c65e-b84e-4813-9991-1381c34ea097" class="">Файлы конфигурации nginx находятся в папке /etc/nginx. Рассмотрим их: </p><ul id="0004632d-baa7-48c2-9fa2-b437e5a2c700" class="bulleted-list"><li style="list-style-type:disc"><code>/etc/nginx/nginx.conf</code> – главный файл конфигурации nginx. В отличии от Apache вся конфигурация делается тут</li></ul><ul id="1db3e615-417f-46ea-8f3c-f144418fef1c" class="bulleted-list"><li style="list-style-type:disc"><code>/etc/nginx/sites-available</code> – каталог с конфигурациями виртуальных хостов, т.е. каждый файл, находящийся в этом каталоге, содержит информацию о конкретном сайте – его имени, IP адресе, рабочей директории и т.д. </li></ul><ul id="ef4e1a15-4d7f-43b1-a69b-6f9ea4ace27f" class="bulleted-list"><li style="list-style-type:disc"><code><strong>/etc/nginx/sites-enabled</strong></code><strong> </strong>– в этом каталоге содержаться конфигурации сайтов, обслуживаемых nginx, т.е. активных, как правило, это символические ссылки sites-available конфигураций, что очень удобно для оперативного включения и отключения сайтов</li></ul><figure id="7bea78e7-7722-4e08-b1b0-df8b3ee8f4bc" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%204.png"><img style="width:889px" src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%204.png"/></a><figcaption>Конфигурационный файл Nginx</figcaption></figure><figure id="babc9e89-4f32-4f76-9a92-3ffe0582cd16" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%205.png"><img style="width:672px" src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%205.png"/></a><figcaption>Файл виртуального хоста</figcaption></figure><p id="0ea0e845-8e04-4fcb-a0fd-4e4cbaf6fb2d" class="">Вначале необходимо создать корневой каталог. Назовем веб-проект example1 и положим туда html файл, содержащий в себе заголовок example.com</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="f4ea462a-944f-4708-acb4-082f4ce4ae16" class="code"><code class="language-Shell">$ sudo mkdir -v /usr/share/nginx/example1.com
-$ echo &quot;&lt;h1&gt;Hello&lt;/h1&gt;&quot; | sudo tee /usr/share/nginx/example1.com/index.html</code></pre><p id="c721cbf1-4374-417d-ad00-8ce75879538b" class="">Удалим виртуальный хост по умолчанию, так как далее заменим его своим:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="be6f7f29-15ee-4bd7-9c07-0baeb49a3a96" class="code"><code class="language-Shell">$ sudo rm /etc/nginx/sites-enabled/default</code></pre><p id="e921a845-7779-4dc9-8681-399c92393550" class="">Теперь создаем файл виртуального хоста для домена example1.com и внесем туда настройки</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="c6f1f78c-23e1-4a02-97fb-670a8d94d883" class="code"><code class="language-Shell">$ sudo nano /etc/nginx/sites-available/example1.com</code></pre><p id="325f6aa0-b8c9-4dd2-8d83-4f63f6487a48" class="">Убедимся в отсутствии ошибок</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="38a89ab0-ab04-4975-b296-6b10c1acc364" class="code"><code class="language-Shell">$ sudo nginx -t</code></pre><p id="6e8f262c-28c1-4041-bd11-a9b724512475" class="">Активируем сайт, создав символическую ссылку на каталог sites-enabled:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3b668ef9-72ba-4485-9b08-6c2c5ae939c6" class="code"><code class="language-Shell">$sudo ln -s /etc/nginx/sites-available/example1.com /etc/nginx/sites-enabled/example1.com</code></pre><h2 id="74b56fdc-2e66-41e1-8657-07439cd633dd" class="">SFTP</h2><blockquote id="08cadfb5-6960-4e38-ac97-83a2718df081" class="">Это безопасный протокол передачи файлов “Secure Shell”</blockquote><p id="6021d05c-60fd-4b9a-b6fe-cd7120fcf5a9" class="">Так как SFTP работает поверх SSH, первым делом необходимо установить OpenSSH как со стороны сервера (хранилища):</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="752363bb-8eaa-4d3e-8dc2-9471ba12a01d" class="code"><code class="language-Shell">$ sudo apt install openssh-server</code></pre><p id="3e48af82-4949-4e00-a953-e07d153d422a" class="">Также необходимо установить ssh на стороне клиента (устройства, с которого планируется доступ к хранилищу):</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="ebe7e326-d45b-4af9-a524-81a491a66ef0" class="code"><code class="language-Shell">$ sudo apt install ssh</code></pre><p id="d54b3fde-8d53-4a6a-b420-069dfc8c50d5" class="">Для безопасного использования SFTP, лучше всего создать группы и пользователей, которые будут использовать только эту службу:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="42e6f62d-d75f-47b4-9c72-d2c195d03353" class="code"><code class="language-Shell">$ sudo useradd -g sftpgroup sftpuser
-$ sudo passwd sftpuser</code></pre><p id="3a664265-3df6-446d-8b41-b8370612c581" class="">Cоздадим каталоги и изменим их доступ:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="7f88b3d7-1c9c-4f28-9549-aebc543d65c6" class="code"><code class="language-Shell">$ sudo mkdir -p /data/sftpuser/upload 
+$ systemctl restart smbd - перезапустить и применить настройки</code></pre>
+			<figure id="fffaa64c-9d0a-81dd-ab26-d9bb30ebfce1" class="image"><a
+					href="Материал лекции/Untitled%202.png"><img
+						style="width:707.953125px"
+						src="Материал лекции/Untitled%202.png" /></a>
+			</figure>
+			<h2 id="fffaa64c-9d0a-8111-a8ef-db41a6144ae4" class="">Веб-сервисы</h2>
+			<figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex"
+				id="fffaa64c-9d0a-8160-bdca-ce0ee186e679">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%"><strong>Веб-сервис </strong>— программа, которая организовывает взаимодействие
+					между сайтами и клиентами.<br />Примеры веб-сервисов: Apache и Nginx<br /></div>
+			</figure>
+			<h3 id="fffaa64c-9d0a-8124-86f8-fa878a1f7f9f" class="">Apache</h3>
+			<blockquote id="fffaa64c-9d0a-81d6-9cb1-e032471adac4" class="">Свободное ПО для размещения веб-сервера. По
+				состоянию на 2020 год он используется на 33% сайтов интернета</blockquote>
+			<p id="fffaa64c-9d0a-814a-8661-dbf7c5632e92" class=""><code>$ apt install apache2</code> — установка Apache
+			</p>
+			<p id="fffaa64c-9d0a-8166-8a2e-cc5b84aa0916" class=""><code>$ systemctl enable apache2</code> — добавление
+				сервиса в автозагрузку</p>
+			<p id="fffaa64c-9d0a-8188-8587-c8cfe1e8a89d" class="">Просмотр статуса:</p>
+			<figure id="fffaa64c-9d0a-8159-a097-cf976bf8fc73" class="image"><a
+					href="Материал лекции/Untitled%203.png"><img
+						style="width:633px"
+						src="Материал лекции/Untitled%203.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-812b-bfa7-d73aa1f98d8c" class="">Как видим, в данный момент сервис не активен, запустим
+				его:</p>
+			<figure id="fffaa64c-9d0a-8138-bfe7-f83b92726599" class="image"><a
+					href="Материал лекции/Untitled%204.png"><img
+						style="width:326px"
+						src="Материал лекции/Untitled%204.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-8119-9cb5-de6025ba413a" class=""><strong>conf -</strong> это каталог, в котором
+				расположены все файлы конфигурации сервера.  Файлы конфигурации в основном представляют собой текстовые
+				файлы, в которых добавляются директивы для управления поведением и функциональностью веб-сервера.</p>
+			<ol type="1" id="fffaa64c-9d0a-8110-bf5e-dd8e22982207" class="numbered-list" start="1">
+				<li><code>/etc/apache2/apache.conf</code> — отвечает за основные настройки</li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-81c1-b013-e2d055d8fcfb" class="numbered-list" start="2">
+				<li><code>/etc/apache2/conf-available</code> — дополнительные настройки веб-сервера</li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-81d4-ad50-fe8de1097d8a" class="numbered-list" start="3">
+				<li><code>/etc/apache2/mods-avilable</code> — настройка модулей</li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-8104-aff4-f9aab765b90a" class="numbered-list" start="4">
+				<li><code>/etc/apache2/ports.conf</code> — порты, на которых работает Apache</li>
+			</ol>
+			<figure id="fffaa64c-9d0a-8122-9301-e595527cd651" class="image"><a
+					href="Материал лекции/Untitled%205.png"><img
+						style="width:707.9375px"
+						src="Материал лекции/Untitled%205.png" /></a>
+			</figure>
+			<h2 id="fffaa64c-9d0a-81ee-a31b-deb8e09abc80" class="">Nginx</h2>
+			<blockquote id="fffaa64c-9d0a-8105-a14c-fd1fd396c4dd" class="">Веб-сервер с открытым исходным кодом,
+				созданный работать под высокой нагрузкой. Чаще всего используется для отдачи статического контента
+			</blockquote>
+			<h3 id="fffaa64c-9d0a-8117-adae-e82467af1baf" class="">Установка</h3>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-81e2-bde2-dd638f13a178"
+				class="code"><code class="language-Shell">$ sudo apt install nginx</code></pre>
+			<h3 id="fffaa64c-9d0a-81a1-8415-c5e6fdf4e458" class="">Конфигурация</h3>
+			<p id="fffaa64c-9d0a-81b0-9b87-e184092e85d7" class="">Файлы конфигурации nginx находятся в папке /etc/nginx.
+				Рассмотрим их: </p>
+			<ul id="fffaa64c-9d0a-8170-9d31-c58928a3de49" class="bulleted-list">
+				<li style="list-style-type:disc"><code>/etc/nginx/nginx.conf</code> – главный файл конфигурации nginx. В
+					отличии от Apache вся конфигурация делается тут</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-812f-a5cb-c819ed2f8749" class="bulleted-list">
+				<li style="list-style-type:disc"><code>/etc/nginx/sites-available</code> – каталог с конфигурациями
+					виртуальных хостов, т.е. каждый файл, находящийся в этом каталоге, содержит информацию о конкретном
+					сайте – его имени, IP адресе, рабочей директории и т.д. </li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8191-b19c-cb20fdeda98b" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>/etc/nginx/sites-enabled</strong></code><strong>
+					</strong>– в этом каталоге содержаться конфигурации сайтов, обслуживаемых nginx, т.е. активных, как
+					правило, это символические ссылки sites-available конфигураций, что очень удобно для оперативного
+					включения и отключения сайтов</li>
+			</ul>
+			<figure id="fffaa64c-9d0a-81a0-9e86-ff9475e9320e" class="image"><a
+					href="Материал лекции/Untitled%206.png"><img
+						style="width:707.96875px"
+						src="Материал лекции/Untitled%206.png" /></a>
+				<figcaption>Конфигурационный файл Nginx</figcaption>
+			</figure>
+			<figure id="fffaa64c-9d0a-8167-9605-d68dda4e840d" class="image"><a
+					href="Материал лекции/Untitled%207.png"><img
+						style="width:672px"
+						src="Материал лекции/Untitled%207.png" /></a>
+				<figcaption>Файл виртуального хоста</figcaption>
+			</figure>
+			<p id="fffaa64c-9d0a-81d6-9321-eeb612288d99" class="">Вначале необходимо создать корневой каталог. Назовем
+				веб-проект example1 и положим туда html файл, содержащий в себе заголовок example.com</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-813c-b7bb-f77858285da2" class="code"><code class="language-Shell">$ sudo mkdir -v /usr/share/nginx/example1.com
+$ echo &quot;&lt;h1&gt;Hello&lt;/h1&gt;&quot; | sudo tee /usr/share/nginx/example1.com/index.html</code></pre>
+			<p id="fffaa64c-9d0a-817c-abba-f1f261399351" class="">Удалим виртуальный хост по умолчанию, так как далее
+				заменим его своим:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-8180-9c1b-c9eb66b9067d"
+				class="code"><code class="language-Shell">$ sudo rm /etc/nginx/sites-enabled/default</code></pre>
+			<p id="fffaa64c-9d0a-8160-aacd-ca5eae035eb0" class="">Теперь создаем файл виртуального хоста для домена
+				example1.com и внесем туда настройки</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-818d-9784-d0c820d4e427"
+				class="code"><code class="language-Shell">$ sudo nano /etc/nginx/sites-available/example1.com</code></pre>
+			<p id="fffaa64c-9d0a-81db-ae64-dd3a64fd3814" class="">Убедимся в отсутствии ошибок</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-8144-bf7a-c5779152e2fd"
+				class="code"><code class="language-Shell">$ sudo nginx -t</code></pre>
+			<p id="fffaa64c-9d0a-8192-a834-e4de24b24207" class="">Активируем сайт, создав символическую ссылку на
+				каталог sites-enabled:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-819c-a8de-d7b0de72ee32"
+				class="code"><code class="language-Shell">$sudo ln -s /etc/nginx/sites-available/example1.com /etc/nginx/sites-enabled/example1.com</code></pre>
+			<h2 id="fffaa64c-9d0a-812a-8873-de4aca8c61f6" class="">SFTP</h2>
+			<blockquote id="fffaa64c-9d0a-81f9-98cd-ff54b7b506af" class="">Это безопасный протокол передачи файлов
+				“Secure Shell”</blockquote>
+			<p id="fffaa64c-9d0a-8144-b20a-f78cb5ecedcd" class="">Так как SFTP работает поверх SSH, первым делом
+				необходимо установить OpenSSH как со стороны сервера (хранилища):</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-81f8-b093-cbb87125274f"
+				class="code"><code class="language-Shell">$ sudo apt install openssh-server</code></pre>
+			<p id="fffaa64c-9d0a-81c7-9ee4-f5c059e52b63" class="">Также необходимо установить ssh на стороне клиента
+				(устройства, с которого планируется доступ к хранилищу):</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-81b1-9ce1-cc428965dc6b"
+				class="code"><code class="language-Shell">$ sudo apt install ssh</code></pre>
+			<p id="fffaa64c-9d0a-81ab-a39e-f7aaf91b202f" class="">Для безопасного использования SFTP, лучше всего
+				создать группы и пользователей, которые будут использовать только эту службу:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-814a-8504-fb51750c8299" class="code"><code class="language-Shell">$ sudo useradd -g sftpgroup sftpuser
+$ sudo passwd sftpuser</code></pre>
+			<p id="fffaa64c-9d0a-8180-a4ad-cecfc8c79ece" class="">Cоздадим каталоги и изменим их доступ:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-81a5-b83c-f7d188ede638" class="code"><code class="language-Shell">$ sudo mkdir -p /data/sftpuser/upload 
 $ chown -R root.sftpgroup /data/sftp 
-$ chown -R sftpuser.sftpgroup /data/sftp/upload</code></pre><p id="ea4bbf7a-456a-46a1-872c-6be916be0a6b" class="">Доступ по sftp осуществляется аналогично с ssh — <strong>sftp username@host</strong> (чтобы узнать ip-адрес хоста выполните команду <strong>ip a</strong>) :</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="e516573c-71fc-46c1-a0f9-941203461fbd" class="code"><code class="language-Shell">$ sftp sftpuser@192.168.183.128</code></pre><h3 id="ee47986a-5a80-4599-a8fc-ff68a0de1d65" class="">Основные команды sftp:</h3><ol type="1" id="9b9dc162-989e-48e2-92da-8d1e59188cdc" class="numbered-list" start="1"><li><code>get</code> — загрузка содержимого с удаленного сервиса</li></ol><ol type="1" id="4a1927d7-8447-4835-ab6b-b0fe19820ef8" class="numbered-list" start="2"><li><code>put</code> — загрузка содержимого из локальной системы в удаленную</li></ol><ol type="1" id="2bc65d20-7f8e-4930-b816-ddeeb6fe5bda" class="numbered-list" start="3"><li><code>rm</code> — удаление файлов на сервере</li></ol><h3 id="fd7f8505-7d31-487e-93d7-a3c7e66c0b84" class="">WinSCP</h3><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="430dc0e7-176b-4ce6-8492-d61e1070b459"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Для передачи файлов с клиента под управлением Windows существует FTP-клиент WinSCP. Это свободный графический клиент протоколов SFTP и SCP, предназначенный для Windows.</div></figure><figure id="1a803373-6663-40a7-8afd-52357f55bc1a" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%206.png"><img style="width:729px" src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%206.png"/></a></figure><h2 id="ad0ec8b6-3c5a-4688-8079-8207a89da06c" class="">CRON</h2><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="635b7a45-35df-4ae3-83e3-4db9b068fa69"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Это сервис, как и большинство других сервисов <br/>Linux, он запускается при старте системы и работает в фоновом режиме. <br/>Его основная задача выполнять нужные процессы в нужное время<br/></div></figure><p id="af3ddd31-6af5-4ef5-b76a-4c64260de13f" class="">Существует несколько конфигурационных файлов, из которых он берет информацию о том<br/>что и когда нужно выполнять<br/></p><ul id="265a9220-6cef-46af-abeb-e37a3ce9ed2f" class="bulleted-list"><li style="list-style-type:disc"><strong>/etc/cron.minutely</strong> - каждую минуту;</li></ul><ul id="1d90d0e5-9f56-406d-8ca5-c8771dd3cf8c" class="bulleted-list"><li style="list-style-type:disc"><strong>/etc/cron.hourly</strong> - каждый час;</li></ul><ul id="12cdbb59-6c98-44ec-8165-40d3fc0660f5" class="bulleted-list"><li style="list-style-type:disc"><strong>/etc/cron.daily</strong> - каждый день;</li></ul><ul id="d9b63822-7e4c-4f46-b6c1-5f84582fb0d6" class="bulleted-list"><li style="list-style-type:disc"><strong>/etc/cron.weekly</strong> - каждую неделю;</li></ul><ul id="9a1908a5-7f93-491c-9564-7cfb7256040c" class="bulleted-list"><li style="list-style-type:disc"><strong>/etc/cron.monthly</strong> - каждый месяц.</li></ul><p id="f16d68c4-f86a-411a-a7a1-422c7a95aaf6" class="">
-</p><p id="49a9e9c4-cc83-42d0-9184-f57a1892dfe4" class="">
-</p><h1 id="b7c9754c-3067-4358-b183-17c927c7fc37" class="">Практика Samba</h1><p id="ddab56e2-d5f4-4bc1-8a4c-9155ffb9e4f1" class="">
-</p><figure id="dce16621-4510-46a5-a1a7-0e5dc510e023" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%207.png"><img style="width:720px" src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%207.png"/></a><figcaption>Во время установки появится вот такое окно. В нем отмечаем <strong>yes </strong>для работы по DHCP. В некоторых случаях необходимо выбирать работы статически</figcaption></figure><p id="4e141389-d479-4f33-ac3d-57baad925e13" class="">
-</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3288f183-3d2a-4fa6-a503-bc41666de062" class="code"><code class="language-Shell">#на всякий случай делаем бекап файла конфигураций Samba
+$ chown -R sftpuser.sftpgroup /data/sftp/upload</code></pre>
+			<p id="fffaa64c-9d0a-8124-8eae-d5c6acff107c" class="">Доступ по sftp осуществляется аналогично с ssh —
+				<strong>sftp username@host</strong> (чтобы узнать ip-адрес хоста выполните команду <strong>ip
+					a</strong>) :</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-8105-8a8f-f44fe909eded"
+				class="code"><code class="language-Shell">$ sftp sftpuser@192.168.183.128</code></pre>
+			<h3 id="fffaa64c-9d0a-8153-824d-f382289bd541" class="">Основные команды sftp:</h3>
+			<ol type="1" id="fffaa64c-9d0a-8184-a3c9-fbcef11a60c0" class="numbered-list" start="1">
+				<li><code>get</code> — загрузка содержимого с удаленного сервиса</li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-8162-99de-d6a7a693605a" class="numbered-list" start="2">
+				<li><code>put</code> — загрузка содержимого из локальной системы в удаленную</li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-81b9-b01a-e442d052e469" class="numbered-list" start="3">
+				<li><code>rm</code> — удаление файлов на сервере</li>
+			</ol>
+			<h3 id="fffaa64c-9d0a-8185-8f4f-eaca33bb2a13" class="">WinSCP</h3>
+			<figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex"
+				id="fffaa64c-9d0a-81bf-83fd-c960e0d53115">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%">Для передачи файлов с клиента под управлением Windows существует FTP-клиент
+					WinSCP. Это свободный графический клиент протоколов SFTP и SCP, предназначенный для Windows.</div>
+			</figure>
+			<figure id="fffaa64c-9d0a-81ef-a648-ed0b2602db00" class="image"><a
+					href="Материал лекции/Untitled%208.png"><img
+						style="width:707.984375px"
+						src="Материал лекции/Untitled%208.png" /></a>
+			</figure>
+			<h2 id="fffaa64c-9d0a-81e1-b0da-cee7ce92f4be" class="">CRON</h2>
+			<figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex"
+				id="fffaa64c-9d0a-81dd-b25f-cc312ce7297d">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%">Это сервис, как и большинство других сервисов <br />Linux, он запускается при
+					старте системы и работает в фоновом режиме. <br />Его основная задача выполнять нужные процессы в
+					нужное время<br /></div>
+			</figure>
+			<p id="fffaa64c-9d0a-81ca-a06e-ed9dd1c43ed2" class="">Существует несколько конфигурационных файлов, из
+				которых он берет информацию о том<br />что и когда нужно выполнять<br /></p>
+			<ul id="fffaa64c-9d0a-8174-8eef-ca3704fcb887" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>/etc/cron.minutely</strong> - каждую минуту;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-811a-8140-f63f557c3a43" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>/etc/cron.hourly</strong> - каждый час;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81c3-8734-c5a3e649ba44" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>/etc/cron.daily</strong> - каждый день;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81fe-b958-d774edeb1266" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>/etc/cron.weekly</strong> - каждую неделю;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-815b-b2bb-efb7a601e914" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>/etc/cron.monthly</strong> - каждый месяц.</li>
+			</ul>
+			<p id="fffaa64c-9d0a-8107-9c6f-d0541618227f" class="">
+			</p>
+			<p id="fffaa64c-9d0a-81b2-a38d-c8cde9ca8da2" class="">
+			</p>
+			<h1 id="fffaa64c-9d0a-815b-97d6-f8e07a496fff" class="">Практика Samba</h1>
+			<p id="fffaa64c-9d0a-817b-ab1d-cef929199604" class="">
+			</p>
+			<figure id="fffaa64c-9d0a-81db-af9f-e4190753fe3b" class="image"><a
+					href="Материал лекции/Untitled%209.png"><img
+						style="width:707.984375px"
+						src="Материал лекции/Untitled%209.png" /></a>
+				<figcaption>Во время установки появится вот такое окно. В нем отмечаем <strong>yes </strong>для работы
+					по DHCP. В некоторых случаях необходимо выбирать работы статически</figcaption>
+			</figure>
+			<p id="fffaa64c-9d0a-81ea-9984-cbe625da0660" class="">
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-81aa-9094-fd66098aa17f" class="code"><code class="language-Shell">#на всякий случай делаем бекап файла конфигураций Samba
 $ cp /etc/samba/smb.conf /etc/samba/smb.conf.bak 
 
 #cоздаем директорию, которая будет иметь общий доступ
@@ -715,7 +1212,14 @@ $ chgrp smbgrp /samba/private
 $ sudo smbpasswd -a user1 
 
 #переходим к редактированию конфигурационного файла Samba
-$ nano /etc/samba/smb.conf</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="88bdb8f2-b644-440a-b389-bb32d1c12027" class="code"><code class="language-Plain Text">[global]
+$ nano /etc/samba/smb.conf</code></pre>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-8194-a2f8-f6cb34f3e0b0" class="code"><code class="language-Plain Text">[global]
 workgroup = WORKGROUP
 security = user
 map to guest = bad user
@@ -734,8 +1238,25 @@ path = /samba/private
 valid users = user1
 guest ok = no
 browsable = yes
-writable = yes</code></pre><p id="591a4cd7-90d0-4e5c-9a98-3875b4c0ed98" class="">
-</p><figure id="52c38960-5ca2-459b-ad85-2273bdf1eefa" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%208.png"><img style="width:774px" src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%208.png"/></a><figcaption>Проверка настроек с помощью команды <code>testparm -s</code>, чтобы применить настройки <code>service smbd restart</code></figcaption></figure><h3 id="6e5d2492-68db-4bb0-ad5d-1417bf164bba" class="">Безопасность в Samba</h3><blockquote id="9fa325df-3e7d-45fa-8c35-e1e0bf113fc4" class="">Iptables</blockquote><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1a982da3-00b8-4e59-aa08-4f78aaff59cf" class="code"><code class="language-Shell">#проверка установки iptables
+writable = yes</code></pre>
+			<p id="fffaa64c-9d0a-8161-ac51-dcf690f34304" class="">
+			</p>
+			<figure id="fffaa64c-9d0a-812c-964b-d7d529fc27ff" class="image"><a
+					href="Материал лекции/Untitled%2010.png"><img
+						style="width:707.984375px"
+						src="Материал лекции/Untitled%2010.png" /></a>
+				<figcaption>Проверка настроек с помощью команды <code>testparm -s</code>, чтобы применить настройки
+					<code>service smbd restart</code></figcaption>
+			</figure>
+			<h3 id="fffaa64c-9d0a-8129-be59-c871de32dc1e" class="">Безопасность в Samba</h3>
+			<blockquote id="fffaa64c-9d0a-81ba-8e05-c45e5555dd27" class="">Iptables</blockquote>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-81d8-bf86-f416322400d7" class="code"><code class="language-Shell">#проверка установки iptables
 $ iptables -L
 
 #прописываем правило фаервола для разрешения (ACCEPT)
@@ -748,10 +1269,72 @@ $ iptables -A INPUT -p tcp -m tcp --dport 445 -s 10.0.0.0/24 -j ACCEPT
 #аналогично для остальных портов (это те порты по которым работает Samba)
 $ iptables -A INPUT -p tcp -m tcp --dport 139 -s 10.0.0.0/24 -j ACCEPT
 $ iptables -A INPUT -p udp -m udp --dport 137 -s 10.0.0.0/24 -j ACCEPT
-$ iptables -A INPUT -p udp -m udp --dport 138 -s 10.0.0.0/24 -j ACCEPT</code></pre><h3 id="4a18df7c-fbc4-4446-9de3-5ada7c99fd07" class="">Установка утилиты для автоматической работы iptables</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="152a855c-a857-478c-ac0a-ed5d7977a251" class="code"><code class="language-Shell">$ apt-get install iptables-persistent</code></pre><figure id="a0f8a7dd-96d8-499f-acb2-31b188a935c7" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%209.png"><img style="width:585px" src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%209.png"/></a><figcaption>Сразу во время установки программа спрашивает сохранить ли ей текущие настройки iptables. Отмечаем <strong>&lt;Yes&gt;</strong></figcaption></figure><figure id="0fba91a6-999a-4e73-876f-ff4c01c6976c" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%2010.png"><img style="width:589px" src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%2010.png"/></a><figcaption>Теперь в файле rules.v4 прописаны правила, которые мы указывали ранее </figcaption></figure><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="8dd31b06-1ba2-4b9c-9b81-ab2fa9ab65a4" class="code"><code class="language-Shell">$ service netfilter-persistent save</code></pre><h3 id="dc6c0979-a4ec-45c1-9246-5692d77ab4fc" class="">Проверка работы</h3><p id="4a1b5dc0-c208-4cd1-8642-af1bac2d7b5a" class="">Теперь попробуем создать папку в директории public. Все работает, без необходимости перезапускать сервер. Все настройки применяются автоматически</p><p id="203c9f03-dde1-48f5-a065-7e6fb17fa11c" class="">
-</p><p id="946db756-0922-45fe-be0f-65bc2ae60722" class="">
-</p><h1 id="b82f147e-bfbc-4f89-9c26-fabf945107a3" class="">Практика Nginx</h1><p id="5b05e0e0-5e1f-4492-9696-d9789b35f989" class="">
-</p><p id="ba98222e-7953-423c-ba80-7da73efe802c" class="">Установка</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="e54e9d93-35b2-44c7-8c7d-614748b1ed59" class="code"><code class="language-Shell">$ sudo apt install nginx -y</code></pre><h3 id="daeea573-a040-4fdd-84c1-eb7029e50421" class="">Проверка работы</h3><figure id="f88ebae6-7d64-4c68-ba80-d4f1ae6fcb0f" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%2011.png"><img style="width:706px" src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%2011.png"/></a><figcaption>Перейдем по своему локальному ip адресу (смотрим с помощью команды <code>ip a</code>).<br/>Если появляетс такая картинка, значит все работает верно<br/></figcaption></figure><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="42926fdc-da25-4f50-966f-63580a1ee9c0" class="code"><code class="language-Shell">#создадим рабочий каталог
+$ iptables -A INPUT -p udp -m udp --dport 138 -s 10.0.0.0/24 -j ACCEPT</code></pre>
+			<h3 id="fffaa64c-9d0a-8107-8fe8-fe47299e5d2c" class="">Установка утилиты для автоматической работы iptables
+			</h3>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-8109-8b0d-c4ef048a7192"
+				class="code"><code class="language-Shell">$ apt-get install iptables-persistent</code></pre>
+			<figure id="fffaa64c-9d0a-8161-95d7-dd292e8d8b87" class="image"><a
+					href="Материал лекции/Untitled%2011.png"><img
+						style="width:585px"
+						src="Материал лекции/Untitled%2011.png" /></a>
+				<figcaption>Сразу во время установки программа спрашивает сохранить ли ей текущие настройки iptables.
+					Отмечаем <strong>&lt;Yes&gt;</strong></figcaption>
+			</figure>
+			<figure id="fffaa64c-9d0a-81c9-95a3-e4d9c036486e" class="image"><a
+					href="Материал лекции/Untitled%2012.png"><img
+						style="width:589px"
+						src="Материал лекции/Untitled%2012.png" /></a>
+				<figcaption>Теперь в файле rules.v4 прописаны правила, которые мы указывали ранее </figcaption>
+			</figure>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-8143-a786-d8c98c5dc95e"
+				class="code"><code class="language-Shell">$ service netfilter-persistent save</code></pre>
+			<h3 id="fffaa64c-9d0a-8125-8f06-e8bede9879aa" class="">Проверка работы</h3>
+			<p id="fffaa64c-9d0a-8109-9104-ddb66fd3d9df" class="">Теперь попробуем создать папку в директории public.
+				Все работает, без необходимости перезапускать сервер. Все настройки применяются автоматически</p>
+			<p id="fffaa64c-9d0a-81b9-94c7-fa09035ea28b" class="">
+			</p>
+			<p id="fffaa64c-9d0a-8114-ade0-db8dae60b129" class="">
+			</p>
+			<h1 id="fffaa64c-9d0a-8196-a7f0-c7388b6c4100" class="">Практика Nginx</h1>
+			<p id="fffaa64c-9d0a-8192-826f-d40bdeb52a7a" class="">
+			</p>
+			<p id="fffaa64c-9d0a-8112-82a7-ccc755caaa21" class="">Установка</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-8194-b028-d6650a8c0755"
+				class="code"><code class="language-Shell">$ sudo apt install nginx -y</code></pre>
+			<h3 id="fffaa64c-9d0a-8168-b384-fda975fe5206" class="">Проверка работы</h3>
+			<figure id="fffaa64c-9d0a-81f6-a044-ccf5349d7da7" class="image"><a
+					href="Материал лекции/Untitled%2013.png"><img
+						style="width:707.96875px"
+						src="Материал лекции/Untitled%2013.png" /></a>
+				<figcaption>Перейдем по своему локальному ip адресу (смотрим с помощью команды
+					<code>ip a</code>).<br />Если появляетс такая картинка, значит все работает верно<br /></figcaption>
+			</figure>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-8170-a43c-eefaea5b538a" class="code"><code class="language-Shell">#создадим рабочий каталог
 $ sudo mkdir /usr/share/nginx/example1.com
 
 #создаем сам текст странички
@@ -764,7 +1347,14 @@ $ sudo rm /etc/nginx/sites-enabled/default
 $ sudo nginx -t
 
 #открываем файл и вставляем код для работы сервера
-$ sudo nano /etc/nginx/sites-available/example1.com</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="bc63ca9d-a935-40e8-919e-424a48ca4e8e" class="code"><code class="language-PHP">server {
+$ sudo nano /etc/nginx/sites-available/example1.com</code></pre>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-818b-8723-f973c51cf9f1" class="code"><code class="language-PHP">server {
     #listen указывает на IP-адрес и порт, на котором программа будет ожидать соединения от этого сайта.
     #Чтобы выбрать любой IP-адрес, можно указать звездочку, а порт указывать обязательно.
     #параметр default server виртуальный хост будет использоваться по умолчанию
@@ -785,11 +1375,45 @@ $ sudo nano /etc/nginx/sites-available/example1.com</code></pre><script src="htt
          fastcgi_pass unix:/run/php/php7.2-fpm.sock;
          include snippets/fastcgi-php.conf;
     }
-}</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="f7188c78-db60-43e6-b78a-86ac39b1558d" class="code"><code class="language-Shell">$ sudo ln -s /etc/nginx/sites-available/example1.com /etc/nginx/sites-enabled/example1.com
-$ service nginx restart</code></pre><figure id="15a815ba-a38a-4d56-b356-66ddb190b063" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%2012.png"><img style="width:504px" src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%2012.png"/></a><figcaption>Снова переходим по этому адресу и видим нашу страничку</figcaption></figure><p id="f4d0a8d3-b00f-4e1b-be62-9939442425ca" class="">
-</p><p id="9a816163-9a66-4c81-9a91-fd4210d5b6ab" class="">
-</p><h1 id="06d61483-f6b1-410a-8f68-2715211cb381" class="">Практика SFTP</h1><p id="87281213-a315-4182-8b36-49ad7e6d9885" class="">
-</p><h3 id="90d825f0-8b7c-4643-a1c2-2f29aa66adcb" class="">У<strong>становка</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="76e8b50a-8ca3-4d2b-b09b-84d89e05b268" class="code"><code class="language-Shell">$ apt-get install openssh-server</code></pre><h3 id="db8f37d6-a257-48b3-a598-35a1384dc2b0" class="">Настройка</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3bc2816e-c972-4aa5-938d-d6e273cc2ad6" class="code"><code class="language-Shell">#создадим группу и пользователя, затем привяжем его к группе
+}</code></pre>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-81a5-80de-ff6a0630277a" class="code"><code class="language-Shell">$ sudo ln -s /etc/nginx/sites-available/example1.com /etc/nginx/sites-enabled/example1.com
+$ service nginx restart</code></pre>
+			<figure id="fffaa64c-9d0a-818b-96e2-f7ea3ead4eb9" class="image"><a
+					href="Материал лекции/Untitled%2014.png"><img
+						style="width:504px"
+						src="Материал лекции/Untitled%2014.png" /></a>
+				<figcaption>Снова переходим по этому адресу и видим нашу страничку</figcaption>
+			</figure>
+			<p id="fffaa64c-9d0a-81c7-bb7b-c49d37b82bd5" class="">
+			</p>
+			<p id="fffaa64c-9d0a-819e-976a-f3c4cd73fb96" class="">
+			</p>
+			<h1 id="fffaa64c-9d0a-81f2-bbae-e6aadbdda992" class="">Практика SFTP</h1>
+			<p id="fffaa64c-9d0a-8197-bf20-c0c0d1cf76c0" class="">
+			</p>
+			<h3 id="fffaa64c-9d0a-81f5-a811-c4e11b395ccb" class="">У<strong>становка</strong></h3>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-81c9-871b-ca4e259e807e"
+				class="code"><code class="language-Shell">$ apt-get install openssh-server</code></pre>
+			<h3 id="fffaa64c-9d0a-813a-bcf4-ebbc98b1fb34" class="">Настройка</h3>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-8198-b5c8-d23f8c585570" class="code"><code class="language-Shell">#создадим группу и пользователя, затем привяжем его к группе
 $ groupadd sftpgroup
 $ useradd -g sgtpgroup sftpuser
 
@@ -802,4 +1426,37 @@ $ chown -R root.sftpgroup /lesson/sftpuser
 $ chown -R root.sftpgroup /lesson/sftpuser/get
 
 #идем в файл конфигурации
-$ sudo nano /etc/ssh/ssh_config</code></pre><figure id="f883e88b-5ea0-4096-8895-4cb55557cb07" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%2013.png"><img style="width:912px" src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%2013.png"/></a><figcaption>Прописываем данные настройки</figcaption></figure><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="f132be39-93a2-4da3-bebd-7b1c1cce0056" class="code"><code class="language-Shell">$ service ssh restart</code></pre><h3 id="4c9c0d2c-d553-4473-8f22-b55800db96db" class="">Проверка работы</h3><figure id="c3bb7a0e-12e9-47b7-b44f-a563bff924a3" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%2014.png"><img style="width:1076px" src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%2014.png"/></a><figcaption>В Windows 10 проверяем ping до Linux. И далее в программе WinSCP вводим адрес хоста Linux, имя пользователя и пароль. Далее нажимаем Yes</figcaption></figure><figure id="e1a51262-22a8-4ee9-a73a-a3df92c4623b" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%2015.png"><img style="width:1076px" src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%206e0f8dcfef8e4c45a22264919e0d5818/Untitled%2015.png"/></a><figcaption>В случае успешной работы мы увидем файлы Linux’a</figcaption></figure></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
+$ sudo nano /etc/ssh/ssh_config</code></pre>
+			<figure id="fffaa64c-9d0a-81f8-be1b-e107ae263c73" class="image"><a
+					href="Материал лекции/Untitled%2015.png"><img
+						style="width:707.96875px"
+						src="Материал лекции/Untitled%2015.png" /></a>
+				<figcaption>Прописываем данные настройки</figcaption>
+			</figure>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="fffaa64c-9d0a-8136-8314-f5cbff7ae577"
+				class="code"><code class="language-Shell">$ service ssh restart</code></pre>
+			<h3 id="fffaa64c-9d0a-81ff-8d0b-c54994eb44df" class="">Проверка работы</h3>
+			<figure id="fffaa64c-9d0a-81cd-be6e-fdd33615bdef" class="image"><a
+					href="Материал лекции/Untitled%2016.png"><img
+						style="width:707.984375px"
+						src="Материал лекции/Untitled%2016.png" /></a>
+				<figcaption>В Windows 10 проверяем ping до Linux. И далее в программе WinSCP вводим адрес хоста Linux,
+					имя пользователя и пароль. Далее нажимаем Yes</figcaption>
+			</figure>
+			<figure id="fffaa64c-9d0a-81eb-bcb8-e73bca7044b1" class="image"><a
+					href="Материал лекции/Untitled%2017.png"><img
+						style="width:707.96875px"
+						src="Материал лекции/Untitled%2017.png" /></a>
+				<figcaption>В случае успешной работы мы увидем файлы Linux’a</figcaption>
+			</figure>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

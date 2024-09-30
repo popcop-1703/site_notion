@@ -1,712 +1,1453 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Дополнительный материал</title><style>
-/* cspell:disable-file */
-/* webkit printing magic: print all background colors */
-html {
-	-webkit-print-color-adjust: exact;
-}
-* {
-	box-sizing: border-box;
-	-webkit-print-color-adjust: exact;
-}
-
-html,
-body {
-	margin: 0;
-	padding: 0;
-}
-@media only screen {
-	body {
-		margin: 2em auto;
-		max-width: 900px;
-		color: rgb(55, 53, 47);
-	}
-}
-
-body {
-	line-height: 1.5;
-	white-space: pre-wrap;
-}
-
-a,
-a.visited {
-	color: inherit;
-	text-decoration: underline;
-}
-
-.pdf-relative-link-path {
-	font-size: 80%;
-	color: #444;
-}
-
-h1,
-h2,
-h3 {
-	letter-spacing: -0.01em;
-	line-height: 1.2;
-	font-weight: 600;
-	margin-bottom: 0;
-}
-
-.page-title {
-	font-size: 2.5rem;
-	font-weight: 700;
-	margin-top: 0;
-	margin-bottom: 0.75em;
-}
-
-h1 {
-	font-size: 1.875rem;
-	margin-top: 1.875rem;
-}
-
-h2 {
-	font-size: 1.5rem;
-	margin-top: 1.5rem;
-}
-
-h3 {
-	font-size: 1.25rem;
-	margin-top: 1.25rem;
-}
-
-.source {
-	border: 1px solid #ddd;
-	border-radius: 3px;
-	padding: 1.5em;
-	word-break: break-all;
-}
-
-.callout {
-	border-radius: 3px;
-	padding: 1rem;
-}
-
-figure {
-	margin: 1.25em 0;
-	page-break-inside: avoid;
-}
-
-figcaption {
-	opacity: 0.5;
-	font-size: 85%;
-	margin-top: 0.5em;
-}
-
-mark {
-	background-color: transparent;
-}
-
-.indented {
-	padding-left: 1.5em;
-}
-
-hr {
-	background: transparent;
-	display: block;
-	width: 100%;
-	height: 1px;
-	visibility: visible;
-	border: none;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
-}
-
-img {
-	max-width: 100%;
-}
-
-@media only print {
-	img {
-		max-height: 100vh;
-		object-fit: contain;
-	}
-}
-
-@page {
-	margin: 1in;
-}
-
-.collection-content {
-	font-size: 0.875rem;
-}
-
-.column-list {
-	display: flex;
-	justify-content: space-between;
-}
-
-.column {
-	padding: 0 1em;
-}
-
-.column:first-child {
-	padding-left: 0;
-}
-
-.column:last-child {
-	padding-right: 0;
-}
-
-.table_of_contents-item {
-	display: block;
-	font-size: 0.875rem;
-	line-height: 1.3;
-	padding: 0.125rem;
-}
-
-.table_of_contents-indent-1 {
-	margin-left: 1.5rem;
-}
-
-.table_of_contents-indent-2 {
-	margin-left: 3rem;
-}
-
-.table_of_contents-indent-3 {
-	margin-left: 4.5rem;
-}
-
-.table_of_contents-link {
-	text-decoration: none;
-	opacity: 0.7;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
-}
-
-table,
-th,
-td {
-	border: 1px solid rgba(55, 53, 47, 0.09);
-	border-collapse: collapse;
-}
-
-table {
-	border-left: none;
-	border-right: none;
-}
-
-th,
-td {
-	font-weight: normal;
-	padding: 0.25em 0.5em;
-	line-height: 1.5;
-	min-height: 1.5em;
-	text-align: left;
-}
-
-th {
-	color: rgba(55, 53, 47, 0.6);
-}
-
-ol,
-ul {
-	margin: 0;
-	margin-block-start: 0.6em;
-	margin-block-end: 0.6em;
-}
-
-li > ol:first-child,
-li > ul:first-child {
-	margin-block-start: 0.6em;
-}
-
-ul > li {
-	list-style: disc;
-}
-
-ul.to-do-list {
-	padding-inline-start: 0;
-}
-
-ul.to-do-list > li {
-	list-style: none;
-}
-
-.to-do-children-checked {
-	text-decoration: line-through;
-	opacity: 0.375;
-}
-
-ul.toggle > li {
-	list-style: none;
-}
-
-ul {
-	padding-inline-start: 1.7em;
-}
-
-ul > li {
-	padding-left: 0.1em;
-}
-
-ol {
-	padding-inline-start: 1.6em;
-}
-
-ol > li {
-	padding-left: 0.2em;
-}
-
-.mono ol {
-	padding-inline-start: 2em;
-}
-
-.mono ol > li {
-	text-indent: -0.4em;
-}
-
-.toggle {
-	padding-inline-start: 0em;
-	list-style-type: none;
-}
-
-/* Indent toggle children */
-.toggle > li > details {
-	padding-left: 1.7em;
-}
-
-.toggle > li > details > summary {
-	margin-left: -1.1em;
-}
-
-.selected-value {
-	display: inline-block;
-	padding: 0 0.5em;
-	background: rgba(206, 205, 202, 0.5);
-	border-radius: 3px;
-	margin-right: 0.5em;
-	margin-top: 0.3em;
-	margin-bottom: 0.3em;
-	white-space: nowrap;
-}
-
-.collection-title {
-	display: inline-block;
-	margin-right: 1em;
-}
-
-.page-description {
-    margin-bottom: 2em;
-}
-
-.simple-table {
-	margin-top: 1em;
-	font-size: 0.875rem;
-	empty-cells: show;
-}
-.simple-table td {
-	height: 29px;
-	min-width: 120px;
-}
-
-.simple-table th {
-	height: 29px;
-	min-width: 120px;
-}
-
-.simple-table-header-color {
-	background: rgb(247, 246, 243);
-	color: black;
-}
-.simple-table-header {
-	font-weight: 500;
-}
-
-time {
-	opacity: 0.5;
-}
-
-.icon {
-	display: inline-block;
-	max-width: 1.2em;
-	max-height: 1.2em;
-	text-decoration: none;
-	vertical-align: text-bottom;
-	margin-right: 0.5em;
-}
-
-img.icon {
-	border-radius: 3px;
-}
-
-.user-icon {
-	width: 1.5em;
-	height: 1.5em;
-	border-radius: 100%;
-	margin-right: 0.5rem;
-}
-
-.user-icon-inner {
-	font-size: 0.8em;
-}
-
-.text-icon {
-	border: 1px solid #000;
-	text-align: center;
-}
-
-.page-cover-image {
-	display: block;
-	object-fit: cover;
-	width: 100%;
-	max-height: 30vh;
-}
-
-.page-header-icon {
-	font-size: 3rem;
-	margin-bottom: 1rem;
-}
-
-.page-header-icon-with-cover {
-	margin-top: -0.72em;
-	margin-left: 0.07em;
-}
-
-.page-header-icon img {
-	border-radius: 3px;
-}
-
-.link-to-page {
-	margin: 1em 0;
-	padding: 0;
-	border: none;
-	font-weight: 500;
-}
-
-p > .user {
-	opacity: 0.5;
-}
-
-td > .user,
-td > time {
-	white-space: nowrap;
-}
-
-input[type="checkbox"] {
-	transform: scale(1.5);
-	margin-right: 0.6em;
-	vertical-align: middle;
-}
-
-p {
-	margin-top: 0.5em;
-	margin-bottom: 0.5em;
-}
-
-.image {
-	border: none;
-	margin: 1.5em 0;
-	padding: 0;
-	border-radius: 0;
-	text-align: center;
-}
-
-.code,
-code {
-	background: rgba(135, 131, 120, 0.15);
-	border-radius: 3px;
-	padding: 0.2em 0.4em;
-	border-radius: 3px;
-	font-size: 85%;
-	tab-size: 2;
-}
-
-code {
-	color: #eb5757;
-}
-
-.code {
-	padding: 1.5em 1em;
-}
-
-.code-wrap {
-	white-space: pre-wrap;
-	word-break: break-all;
-}
-
-.code > code {
-	background: none;
-	padding: 0;
-	font-size: 100%;
-	color: inherit;
-}
-
-blockquote {
-	font-size: 1.25em;
-	margin: 1em 0;
-	padding-left: 1em;
-	border-left: 3px solid rgb(55, 53, 47);
-}
-
-.bookmark {
-	text-decoration: none;
-	max-height: 8em;
-	padding: 0;
-	display: flex;
-	width: 100%;
-	align-items: stretch;
-}
-
-.bookmark-title {
-	font-size: 0.85em;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	height: 1.75em;
-	white-space: nowrap;
-}
-
-.bookmark-text {
-	display: flex;
-	flex-direction: column;
-}
-
-.bookmark-info {
-	flex: 4 1 180px;
-	padding: 12px 14px 14px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
-
-.bookmark-image {
-	width: 33%;
-	flex: 1 1 180px;
-	display: block;
-	position: relative;
-	object-fit: cover;
-	border-radius: 1px;
-}
-
-.bookmark-description {
-	color: rgba(55, 53, 47, 0.6);
-	font-size: 0.75em;
-	overflow: hidden;
-	max-height: 4.5em;
-	word-break: break-word;
-}
-
-.bookmark-href {
-	font-size: 0.75em;
-	margin-top: 0.25em;
-}
-
-.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
-.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
-.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
-.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
-.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
-.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
-.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
-.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
-.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
-.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
-.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
-.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
-.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
-.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
-.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
-.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
-.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
-.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
-.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
-.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
-.highlight-default {
-	color: rgba(55, 53, 47, 1);
-}
-.highlight-gray {
-	color: rgba(120, 119, 116, 1);
-	fill: rgba(120, 119, 116, 1);
-}
-.highlight-brown {
-	color: rgba(159, 107, 83, 1);
-	fill: rgba(159, 107, 83, 1);
-}
-.highlight-orange {
-	color: rgba(217, 115, 13, 1);
-	fill: rgba(217, 115, 13, 1);
-}
-.highlight-yellow {
-	color: rgba(203, 145, 47, 1);
-	fill: rgba(203, 145, 47, 1);
-}
-.highlight-teal {
-	color: rgba(68, 131, 97, 1);
-	fill: rgba(68, 131, 97, 1);
-}
-.highlight-blue {
-	color: rgba(51, 126, 169, 1);
-	fill: rgba(51, 126, 169, 1);
-}
-.highlight-purple {
-	color: rgba(144, 101, 176, 1);
-	fill: rgba(144, 101, 176, 1);
-}
-.highlight-pink {
-	color: rgba(193, 76, 138, 1);
-	fill: rgba(193, 76, 138, 1);
-}
-.highlight-red {
-	color: rgba(212, 76, 71, 1);
-	fill: rgba(212, 76, 71, 1);
-}
-.highlight-default_background {
-	color: rgba(55, 53, 47, 1);
-}
-.highlight-gray_background {
-	background: rgba(241, 241, 239, 1);
-}
-.highlight-brown_background {
-	background: rgba(244, 238, 238, 1);
-}
-.highlight-orange_background {
-	background: rgba(251, 236, 221, 1);
-}
-.highlight-yellow_background {
-	background: rgba(251, 237, 214, 1);
-}
-.highlight-teal_background {
-	background: rgba(237, 243, 236, 1);
-}
-.highlight-blue_background {
-	background: rgba(231, 243, 248, 1);
-}
-.highlight-purple_background {
-	background: rgba(244, 240, 247, 0.8);
-}
-.highlight-pink_background {
-	background: rgba(249, 238, 243, 0.8);
-}
-.highlight-red_background {
-	background: rgba(253, 235, 236, 1);
-}
-.block-color-default {
-	color: inherit;
-	fill: inherit;
-}
-.block-color-gray {
-	color: rgba(120, 119, 116, 1);
-	fill: rgba(120, 119, 116, 1);
-}
-.block-color-brown {
-	color: rgba(159, 107, 83, 1);
-	fill: rgba(159, 107, 83, 1);
-}
-.block-color-orange {
-	color: rgba(217, 115, 13, 1);
-	fill: rgba(217, 115, 13, 1);
-}
-.block-color-yellow {
-	color: rgba(203, 145, 47, 1);
-	fill: rgba(203, 145, 47, 1);
-}
-.block-color-teal {
-	color: rgba(68, 131, 97, 1);
-	fill: rgba(68, 131, 97, 1);
-}
-.block-color-blue {
-	color: rgba(51, 126, 169, 1);
-	fill: rgba(51, 126, 169, 1);
-}
-.block-color-purple {
-	color: rgba(144, 101, 176, 1);
-	fill: rgba(144, 101, 176, 1);
-}
-.block-color-pink {
-	color: rgba(193, 76, 138, 1);
-	fill: rgba(193, 76, 138, 1);
-}
-.block-color-red {
-	color: rgba(212, 76, 71, 1);
-	fill: rgba(212, 76, 71, 1);
-}
-.block-color-default_background {
-	color: inherit;
-	fill: inherit;
-}
-.block-color-gray_background {
-	background: rgba(241, 241, 239, 1);
-}
-.block-color-brown_background {
-	background: rgba(244, 238, 238, 1);
-}
-.block-color-orange_background {
-	background: rgba(251, 236, 221, 1);
-}
-.block-color-yellow_background {
-	background: rgba(251, 237, 214, 1);
-}
-.block-color-teal_background {
-	background: rgba(237, 243, 236, 1);
-}
-.block-color-blue_background {
-	background: rgba(231, 243, 248, 1);
-}
-.block-color-purple_background {
-	background: rgba(244, 240, 247, 0.8);
-}
-.block-color-pink_background {
-	background: rgba(249, 238, 243, 0.8);
-}
-.block-color-red_background {
-	background: rgba(253, 235, 236, 1);
-}
-.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
-.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
-.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
-.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
-.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
-.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
-.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
-.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
-.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
-.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
-.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
-.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
-.select-value-color-pageGlass { background-color: undefined; }
-.select-value-color-washGlass { background-color: undefined; }
-
-.checkbox {
-	display: inline-flex;
-	vertical-align: text-bottom;
-	width: 16;
-	height: 16;
-	background-size: 16px;
-	margin-left: 2px;
-	margin-right: 5px;
-}
-
-.checkbox-on {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-
-.checkbox-off {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-	
-</style></head><body><article id="25b0d3e2-0b6d-4192-8053-6c7a1ffb1edb" class="page sans"><header><h1 class="page-title">Дополнительный материал</h1><p class="page-description"></p></header><div class="page-body"><h1 id="f100fa68-1ec7-44b1-a59e-2577a629b101" class="">Лекционный материал:</h1><h2 id="83dbf631-90e8-411e-96ba-0e387ab9a529" class="">1. Файловые системы native для ОС семейства *nix</h2><p id="ca6d9425-bdbf-4227-a917-1c88f4f84cec" class="">Инструмент, позволяющий операционной системе и программам обращаться к нужным файлам и работать с ними. </p><p id="ca9575a6-2388-444f-a3f9-0755074cf3a8" class="">Файловая система – это инструмент, позволяющий операционной системе и <br/>программам обращаться к нужным файлам и работать с ними. При этом <br/>программы оперируют только названием файла, его размером и датой <br/>созданий. Все остальные функции по поиску необходимого файла в хранилище<br/>и работе с ним берет на себя файловая система накопителя.<br/></p><p id="15943841-915f-4ab5-a854-0dd458568e5c" class="">Основными функциями файловой системы являются:</p><ul id="5cde5fb1-fc24-4fa3-a4a3-e6f3431d1c0b" class="bulleted-list"><li style="list-style-type:disc">размещение и упорядочивание на носителе данных в виде файлов;</li></ul><ul id="52bb52b4-285f-4840-974a-fb02c78d74ac" class="bulleted-list"><li style="list-style-type:disc">определение максимально поддерживаемого объема данных на носителе информации;</li></ul><ul id="24729564-6f4a-4af9-84d7-e31561f90025" class="bulleted-list"><li style="list-style-type:disc">создание, чтение и удаление файлов;</li></ul><ul id="9be94653-38cd-4251-bce5-37ca78ebd7cf" class="bulleted-list"><li style="list-style-type:disc">назначение и изменение атрибутов файлов (размер, время создания и изменения,<br/>владелец и создатель файла, доступен только для чтения, скрытый файл,<br/>временный файл, архивный, исполняемый, максимальная длина имени файла и<br/>т.п.);<br/></li></ul><ul id="4543fd2a-7cfc-45d1-bd1b-b74e70a0906f" class="bulleted-list"><li style="list-style-type:disc">определение структуры файла;</li></ul><ul id="14912d5c-e9f6-4cd3-b001-e01c8dae001a" class="bulleted-list"><li style="list-style-type:disc">поиск файлов;</li></ul><ul id="58b5e95e-f76b-48be-915f-bb7784231235" class="bulleted-list"><li style="list-style-type:disc">организация каталогов для логической организации файлов;</li></ul><ul id="e1604292-02f3-448f-930a-97eebf5e045f" class="bulleted-list"><li style="list-style-type:disc">защита файлов при системном сбое;</li></ul><ul id="c49731db-c8aa-4d2c-9a9b-1a3d831de4b3" class="bulleted-list"><li style="list-style-type:disc">защита файлов от несанкционированного доступа и изменения их содержимого</li></ul><p id="bb567a3c-a77f-4ab9-9211-50ed2609ab4e" class="">Таким образом, файловая система устанавливает правила эксплуатации и <br/>организацию данных на накопителе, и тем самым экономит ресурсы <br/>операционной системы и рабочих программ. К тому же наличие файловой <br/>системы позволяет использовать накопитель на разных компьютерах без <br/>каких-либо предварительных настроек и оптимизации.<br/></p><p id="8c31dd6b-22c9-4de6-b97d-29d1a39dc9c4" class="">Операционная система воспринимает физический диск хранения информации как набор кластеров размером 512 байт и больше. Драйверы файловой системы организуют кластеры в файлы и каталоги, которые также являются файлами, содержащими список других файлов в этом каталоге. Эти же драйверы отслеживают, какие из кластеров в настоящее время используются, какие свободны, какие помечены как неисправные.</p><p id="499bd3ba-64ac-41bb-9dd1-eaec7485b36e" class="">Запись файлов большого объема приводит к необходимости фрагментации, когда файлы не сохраняются как целые единицы, а делятся на фрагменты. Каждый фрагмент записывается в отдельные кластеры, состоящие из ячеек (размер ячейки составляет один байт). Информация о всех фрагментах, как части одного файла, хранится в файловой системе.</p><p id="43e5de82-fc1a-4a57-9f38-12455acdd12b" class="">Файловая система связывает носитель информации (хранилище) с прикладным программным обеспечением, организуя доступ к конкретным файлам при помощи функционала взаимодействия программ API. Программа, при обращении к файлу, располагает данными только о его имени, размере и атрибутах. Всю остальную информацию, касающуюся типа носителя, на котором записан файл, и структуры хранения данных, она получает от драйвера файловой системы.</p><p id="047dd19b-bbae-4b25-9f67-eb5ca0630584" class="">На физическом уровне драйверы ФС оптимизируют запись и считывание отдельных частей файлов для ускоренной обработки запросов, фрагментации и «склеивания» хранящейся в ячейках информации. Данный алгоритм получил распространение в большинстве популярных файловых систем на концептуальном уровне в виде иерархической структуры представления метаданных (B-trees). Технология снижает количество самых длительных дисковых операций – позиционирования головок при чтении произвольных блоков. Это позволяет не только ускорить обработку запросов, но и продлить срок службы HDD. В случае с твердотельными накопителями, где принцип записи, хранения и считывания информации отличается от применяемого в жестких дисках, ситуация с выбором оптимальной файловой системы имеет свои нюансы.</p><p id="91f70bab-834e-4be7-8153-ab20dae5c32c" class="">
-</p><h3 id="490e6e38-7c1a-40e5-8ee8-2c44c7ad21c4" class="">Файловые системы Windows</h3><h3 id="a0736471-b803-44ee-b6af-690e67c1206c" class=""><strong>FAT32</strong></h3><p id="9e31a2f6-8485-44df-b41b-254aab7ceeb7" class="">FAT – одна из старейших файловых систем, которая была разработана еще в<br/>1977 году программистами компании Microsoft для гибких дисков.<br/></p><p id="aa397a0f-b191-4bcd-bc3a-c59003dc03e1" class="">За период эксплуатации выпускалось несколько версий, которые отличались от предыдущих объемами томов и файлов, которыми способны оперировать.</p><p id="1b31e042-11f6-4a34-a1ed-e68fc5fabcbb" class="">Современная версия FAT32 вышла в 1995 году. Она может работать с <br/>томами размером до 32 ГБ и файлами размером до 4 ГБ. При этом система не<br/>работает с накопителями объемом более 8 Тб. Поэтому сегодня FAT32 <br/>используется в основном только на флешках, картах памяти фотоаппаратов и<br/>музыкальных плееров.<br/></p><p id="3cf9002c-3783-4469-8e36-3c9b43c6fc0f" class="">Структура накопителя с FAT32 имеет три области:</p><ul id="ae1d42ac-9a01-4e64-8bd0-a166311a47c0" class="bulleted-list"><li style="list-style-type:disc">Служебный сектор, который зарезервирован системой.</li></ul><ul id="0178cb71-c68c-4c3f-98cd-461bb136d719" class="bulleted-list"><li style="list-style-type:disc">Таблица указателей для поиска файлов.</li></ul><ul id="9dd8adee-68d2-4a58-a45e-d816b8998709" class="bulleted-list"><li style="list-style-type:disc">Область записи данных.</li></ul><p id="1bd6941b-a7da-4646-9c7c-13ca82ab4639" class="">Благодаря отсутствию шифрования, современных систем защиты информации и<br/>журнала данных, накопители с файловой системой FAT32 могут работать <br/>быстрее, но только с единичными файлами. Работа с массивом небольших <br/>файлов может затянуться надолго. Причиной является иерархическая <br/>структура, которая подразумевает многоуровневый доступ к файлам, в <br/>отличие от бинарного дерева, где доступ к файлам открывается напрямую, <br/>независимо от других.<br/></p><p id="1904db45-a911-42f4-b38e-19b64f24753c" class="">Однако несмотря на очевидные недостатки, система все еще востребована, и даже предоставляет некоторые преимущества:</p><ul id="6c2e243c-e582-4cc7-998a-f051cce07307" class="bulleted-list"><li style="list-style-type:disc">Накопители меньше изнашиваются, благодаря отсутствию журнала.</li></ul><ul id="bd9c7dcd-c9a6-48c4-8704-0a562714c4a2" class="bulleted-list"><li style="list-style-type:disc">Флешки с FAT32 распространены в рабочей среде. На них удобно<br/>переносить документы, фотографии, небольшие видеоролики, презентации.<br/></li></ul><ul id="177e169d-4971-40c5-b85c-dd59f413f5bf" class="bulleted-list"><li style="list-style-type:disc">Флешки с FAT32 используются в качестве установочных.</li></ul><h3 id="acbbb1c3-8998-4d9d-8289-b1911445f865" class=""><strong>NTFS</strong></h3><p id="9aa70197-5bf6-45c2-ae06-47913558090d" class="">NTFS, или новая технология файловой системы была создана, чтоб устранить недостатки FAT32.</p><p id="b0fd95bc-2001-4796-9b39-f7d1e650159a" class="">Структура системы хранения данных имеет вид бинарного дерева. В <br/>отличие от иерархической, как у FAT32, доступ к информации <br/>осуществляется по запросу, а поиск ведется по названию файла. При этом <br/>система имеет каталог, отсортированный по названиям. Массив делится на 2<br/>части и отсекается та, в которой данного файла не будет, оставшаяся <br/>часть также делиться на 2, и так далее до тех пор, пока не будет найден <br/>нужный файл.<br/></p><p id="01da8f5b-72b1-4611-a13a-2d9ae32e4c6f" class=""><strong>Особенности файловой системы NTFS</strong>:</p><ul id="a6f1b4a3-8a86-4f37-a0c1-1950e6c04537" class="bulleted-list"><li style="list-style-type:disc">Имена файлов размером до 255 символов.</li></ul><ul id="ca927825-34b9-49f1-af46-558da4d5cb91" class="bulleted-list"><li style="list-style-type:disc">Журналирование – действия с файлами выполняются полностью, или не<br/>совершается вовсе. Например, если во время копирования файлов<br/>отключается питание, то при включении по журналу система проверит, какие файлы были скопированы полностью, а результаты незавершенных процессов<br/>удаляются.<br/></li></ul><ul id="1c196a0e-3a4c-4bae-b515-bddda372b83a" class="bulleted-list"><li style="list-style-type:disc">Использование шифрования для защиты данных.</li></ul><p id="1588ce46-e2bb-45ac-9620-b0eba7da088e" class="">В отличие от предыдущей файловой системы, NTFS может работать с томами<br/>объемом 8 ПБ (1 петабайт – 1015 байт), и оперировать более чем 4 <br/>миллиардами файлов.<br/></p><p id="4628416c-efb6-4b44-83bd-9578ef08dbf5" class="">Таким образом NTFS – современное решение для пользовательского сегмента, позволяющее работать с твердотельными накопителями и жесткими дисками большого объема, имеющими несколько разделов.</p><h3 id="c6accd10-7726-4d94-9e00-ab07cd517158" class=""><strong>ReFS (Resilient File System)</strong></h3><p id="79e17da6-1127-4ce9-aafb-c1e3975dae2c" class="">Последняя разработка Microsoft, доступная для серверов Windows 8 и 10. <br/>Архитектура файловой системы в основном организована в виде B + -tree. <br/>Файловая система ReFS обладает высокой отказоустойчивостью благодаря <br/>реализации новых функций:<br/></p><ul id="943ed2e9-d9b6-449a-a095-70ecc53e5118" class="bulleted-list"><li style="list-style-type:disc">Copy-on-Write (CoW) – никакие метаданные не изменяются без копирования;</li></ul><ul id="5ff0029b-46c3-4ba0-8aa9-eb053d409c17" class="bulleted-list"><li style="list-style-type:disc">данные записываются на новое дисковое пространство, а не поверх существующих файлов;</li></ul><ul id="e8399214-135a-436b-b554-176d955d08be" class="bulleted-list"><li style="list-style-type:disc">при модификации метаданных новая копия хранится в свободном дисковом<br/>пространстве, затем система создает ссылку из старых метаданных на новую версию.<br/></li></ul><p id="6fc3cf9f-a21f-44bd-924f-2cdce0a6fb30" class="">Все это позволяет повысить надежность хранения файлов, обеспечивает быстрое и легкое восстановление данных.</p><p id="bd532351-31f4-44b2-abcf-6536cd78a74f" class="">
-</p><h3 id="4632050e-4dec-49dc-a517-f90a6add441a" class=""><strong>Файловые системы Linux</strong></h3><p id="3807ac96-a727-4e36-ba2e-4e0c26652d59" class="">В отличие от ОС Windows и macOS, ограничивающих выбор файловой системы предустановленными вариантами, Linux предоставляет возможность использования нескольких ФС, каждая из которых оптимизирована для решения определенных задач. Файловые системы в Linux используются не только для работы с файлами на диске, но и для хранения данных в оперативной памяти или доступа к конфигурации ядра во время работы системы. Все они включены в ядро и могут использоваться в качестве корневой файловой системы.</p><p id="46f46a80-854a-46ab-acf4-4f284de47cd9" class="">
-</p><p id="36ec8b13-a5bc-41b3-98fd-17ff2c011183" class=""><strong>Основные файловые системы, используемые в дистрибутивах Linux:</strong></p><ul id="45c1bf3f-7aff-4e0f-b612-b82e1a59a4be" class="bulleted-list"><li style="list-style-type:disc">Ext2;</li></ul><ul id="5cc9445c-af02-4385-b799-92bff8ace23c" class="bulleted-list"><li style="list-style-type:disc">Ext3;</li></ul><ul id="a0f81b64-4668-4040-86a6-2be64aed4193" class="bulleted-list"><li style="list-style-type:disc">Ext4;</li></ul><ul id="f243e232-8224-4ef9-b130-b9938efaaa8a" class="bulleted-list"><li style="list-style-type:disc">JFS;</li></ul><ul id="3a83fd9c-f0f7-44e9-8d86-ee6cf3c81f46" class="bulleted-list"><li style="list-style-type:disc">ReiserFS;</li></ul><ul id="27018930-edab-4b99-a6db-bce6cb3e93c5" class="bulleted-list"><li style="list-style-type:disc">XFS;</li></ul><ul id="ad68aad6-0a27-4f4b-b441-cf912c0feeec" class="bulleted-list"><li style="list-style-type:disc">Btrfs;</li></ul><ul id="4ef3a1fa-94e0-42dd-b583-1eada8bb1b26" class="bulleted-list"><li style="list-style-type:disc">ZFS.</li></ul><p id="d0ed6ad2-c17b-4767-a039-36d042762438" class="">
-</p><h2 id="8477def8-5dcb-44a8-9dbd-0dc7d0003d70" class="">Ext</h2><p id="c4161308-026d-4d4d-baf2-b130aefda10d" class="">Файловая система EXT (Extended File System) была разработана специально для операционной системы Linux. Главной целью, которую преследовали создатели EXT было преодоление максимального размера записываемых файлов, который в то время составлял всего лишь 64 МБ. Благодаря созданию новой структуры метаданных – максимально возможный размер файла увеличился до 2 ГБ. В то же время максимальная длина имен файлов увеличилась о 255 байт. </p><p id="07160d76-3be2-45b2-97c8-87b2a82603bc" class="">EXT распространена не только среди пользователей Linux, но и среди владельцев смартфонов на Android, так как по умолчанию Android использует файловую систему Ext4.</p><figure id="97060424-c6d7-4e9d-8c2b-006cb3aae6b8" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled.png"><img style="width:1113px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled.png"/></a></figure><p id="811b30e5-406b-43e2-83ef-dbdde0065d7a" class="">
-</p><h2 id="8ac5392c-ab2c-443c-8c46-21573293ac45" class="">JST</h2><p id="9e7a94ad-b0eb-4b18-a078-837e62dd2754" class="">JFS (<strong>Journaled File System</strong>)— первая альтернатива для ФС группы Ext. Её разработали в IBM специально для операционной системы AIX UNIX. </p><figure id="ca86602c-3e1d-4ab3-99ee-0bf913250ae7" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%201.png"><img style="width:1031px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%201.png"/></a></figure><p id="832dfaf8-4110-4916-b023-2051d9c5ab02" class="">
-</p><h2 id="fc35fc4d-6cad-42ef-9f68-2d2730d9f5ea" class="">ReiserFS</h2><p id="0756b548-220d-40c7-be57-8ff1b6e3f32b" class="">Файловая система ReiserFS стала первой журналированной файловой системой, которую приняли в ядро. Со временем ее развитие замедлилось и теперь ее обогнали такие известные файловые системы, как Btrfs и ZFS. </p><p id="02d3f851-f37d-4981-b55e-04ba30a43562" class="">
-</p><h2 id="71cbb22b-3baf-4da9-af5a-c5cbec083139" class="">BTRFS</h2><p id="8b5bc939-72ce-4c27-8cdf-0cbd4738d13c" class="">Btrfs (B-Tree Filesystem) - файловая система, предназначенная для удовлетворения растущих требований к масштабируемости больших подсистем хранения. Имя файловой системы Btrfs происходит от имени структуры данных B-деревьев, которые в ней используются. B-дерево это древовидная структура данных, которая позволяет файловым системам и базам данных эффективно получать доступ и обновлять большие блоки данных независимо от размера дерева.</p><p id="f7abe7de-6933-48bc-9ad9-38185daca6d5" class="">BTRFS — это молодая и современная файловая система, решающая широкий спектр задач, однако не без минусов: </p><ul id="6d387456-3ff8-423c-b6a5-b84999b37ea4" class="bulleted-list"><li style="list-style-type:disc">активное её развитие приводит к изменению каких-либо ключевых моментов, на которые могут опираться сторонние утилиты при работе с ней </li></ul><ul id="7f651b74-aac1-4935-bfb1-22c8e0d38b13" class="bulleted-list"><li style="list-style-type:disc">высокая подверженность фрагментации </li></ul><ul id="a31c5a18-be46-45f9-b0a4-f041408d27ef" class="bulleted-list"><li style="list-style-type:disc">скудная и местами устаревшая документация</li></ul><p id="b46a258f-b9f5-4061-ac7e-fb55a4bde170" class="">
-</p><h2 id="f48d37ca-11c9-4169-ae64-990e49c5052e" class="">XFS</h2><p id="a6e90836-bd16-4d8c-a78a-d61ba9ea81f9" class="">XFS - это высоко масштабируемая, высокопроизводительная файловая система, которая была изначально разработана в Silicon Graphics в 1993 году. Она была добавлена в основной состав ядра Linux в 2002 году. Сейчас она используется в качестве файловой системы по умолчанию в операционных системах семейства Red Hat. </p><p id="db260ba2-4ca3-428a-b686-61b1298f85cb" class="">Эта файловая система имеет все преимущества современных файловых систем, такие как журналирование метаданных для быстрого восстановления, но, кроме того, здесь поддерживается распределение потоков ввода/вывода по группам что сильно увеличивает производительность чтения и записи данных. Но это работает только для больших файлов. Также вы можете увеличить размер файловой системы или выполнить дефрагментацию, даже если она смонтирована.</p><p id="c5e5372c-8bac-4086-9bc1-c33afb4f84d2" class="">Один из основных недостатков XFS состоит в том, что ее нельзя уменьшить. Кроме того, операции с метаданными работают немного медленнее, чем в других файловых системах, поэтому обработка большого количества небольших файлов будет значительно медленнее. Файловая система достаточно стабильна и имеет собственные инструменты для восстановления в случае необходимости.</p><h2 id="51f03e49-cdf8-4557-ba1d-5e282ecea2cc" class="">ZFS</h2><p id="c47d7850-0dd6-4651-b80a-4ed6186d5b96" class="">ZFS - это файловая система, объединенная с менеджером логических томов. Она была предназначена для высокопроизводительных серверов, поэтому уже тогда поддерживала мгновенные снимки и клонирование данных. После покупки компанией Oracle исходный код ZFS был закрыт, однако сейчас можно установить и использовать последнюю доступную версию под именем OpenZFS.</p><p id="97a3bd73-4c66-4f22-9b90-538e4754fce0" class=""><strong>Особенности ZFS</strong>:</p><ul id="2a6b8572-2099-4a35-bcf6-3554bb86620a" class="bulleted-list"><li style="list-style-type:disc">Объединённое хранилище (Pooled storage)</li></ul><ul id="7cd89bbc-6cee-4e1d-8f3b-7aebf5fc48a2" class="bulleted-list"><li style="list-style-type:disc">Copy-on-write</li></ul><ul id="64a30e8f-292a-44a6-9791-30e7b7973d66" class="bulleted-list"><li style="list-style-type:disc">Снапшоты</li></ul><ul id="e747ca42-0a02-4de2-bd8e-74aa7a00d64f" class="bulleted-list"><li style="list-style-type:disc">Проверка цельности информации и автоматическая починка</li></ul><ul id="76364ccc-be42-437d-9e73-de362ade0723" class="bulleted-list"><li style="list-style-type:disc">Максимальный размер файла в 16 Эксабайт (<em>Прим. переводчика: 10^18 байт</em>)</li></ul><ul id="1974debc-6c43-4a77-a38c-49673a3d292d" class="bulleted-list"><li style="list-style-type:disc">Максимальный размер хранилища в 256 квадрильонов Зеттабайт (<em>Прим. переводчика: Квадрильон — миллион^4; Зеттабайт — 10^21 байт)</em></li></ul><p id="9f777513-d674-499a-8470-dd136fa856ba" class="">
-</p><p id="e06f2293-6fde-4bf8-aa71-7f53840aff21" class="">
-</p><h2 id="84c0066f-33c5-436e-968c-e710c6cd5323" class="">2. Разделы Linux</h2><p id="eb7c2231-3daf-4f4b-b3fc-b589572967cb" class="">Раздел — <strong>часть долговременной памяти</strong> жёсткого диска или флеш-накопителя, выделенная для <strong>удобства работы</strong>, и состоящая из смежных блоков. На одном устройстве хранения может быть несколько разделов.</p><p id="28677c11-f736-4830-a4d4-5c4dace2560e" class=""><strong>Преимущества использования разделов</strong>:</p><figure id="f73dc917-ed2e-4118-a299-60305d305ab1" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%202.png"><img style="width:1270px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%202.png"/></a></figure><h3 id="305efe49-d0bc-40db-a169-8a20b603affe" class="">Таблица разделов жесткого диска</h3><p id="9bab4dec-57a1-4bbe-a90b-e110047c7507" class="">Существует несколько типов таблиц разделов жестких дисков. Наиболее <br/>распространенной на данным момент являемся IBM-PC совместимая таблица <br/>разделов, являющаяся частью главной загрузочной записи (MBR). MBR <br/>располагается в первом (нулевом) физическом секторе жесткого диска.<br/>Однако в последнее время начинает все чаще использоваться таблица GPT (GUID Partition Table).<br/>Если ваш диск имеет таблицу разбиения GPT, то вам не нужно заботится о <br/>количестве разделов (в GPT по умолчанию зарезервировано место под 128 <br/>разделов) и разбираться с типами разделов (в GPT - все разделы <br/>первичные). <br/></p><h3 id="fbb72698-edee-41d8-bd4a-729bfcfb6d6a" class="">Структура диска, разбитого на разделы (MBR)</h3><ul id="804aefb6-43bc-437d-b19b-5ec6b5c59d57" class="bulleted-list"><li style="list-style-type:disc">Информация о размещении разделов на жёстком диске хранится в таблице<br/>разделов, которая является частью главной загрузочной записи (MBR).<br/></li></ul><ul id="9398b01d-2464-475c-a7b5-95fd3764e49b" class="bulleted-list"><li style="list-style-type:disc">Раздел может быть либо <strong>первичным</strong>, либо <strong>расширенным</strong>.</li></ul><ul id="2b2d0f36-762c-41dc-88d1-d4cb5b8cb391" class="bulleted-list"><li style="list-style-type:disc">В первом секторе каждого первичного раздела находится загрузочный<br/>сектор, отвечающий за загрузку операционной системы с этого раздела.<br/>Информация о том, какой раздел будет использован для загрузки<br/>операционной системы, тоже записана в главной загрузочной записи.<br/></li></ul><ul id="2ae569eb-8eb7-4ba2-95d7-e1289dccc2cd" class="bulleted-list"><li style="list-style-type:disc">В MBR под таблицу разделов выделено 64 байта. Каждая запись занимает 16 байт. Таким образом, всего на жестком диске может быть создано не более 4 разделов. Когда разрабатывалась структура MBR, это считалось достаточным. Однако, позднее был введён <strong>расширенный раздел</strong>, в котором можно прописать несколько <strong>логических</strong> разделов.</li></ul><ul id="e1494d2d-e03b-4242-bff8-ff1b7528f292" class="bulleted-list"><li style="list-style-type:disc">По правилам <strong>расширенный раздел</strong> может быть только один. Таким образом, в максимальной конфигурации на жёстком диске может быть сформировано три <strong>первичных</strong> и один <strong>расширенный</strong> раздел, содержащий несколько <strong>логических</strong>.</li></ul><h3 id="97b6e4ae-2deb-4555-b4e4-301fe770a35d" class="">Виды разделов</h3><h3 id="2d159512-3fd5-41fb-8167-a5485c9e7a01" class="">Первичный (основной) раздел</h3><p id="b88af5e3-be51-4c5f-be02-19657fec18c2" class="">Первичный раздел обязательно должен быть на физическом диске. Этот <br/>раздел всегда содержит либо одну файловую систему, либо другие <br/>логические разделы. На физическом диске может быть до четырёх первичных <br/>разделов.<br/>Некоторые старые операционные системы — например, MS-DOS и Windows — могли быть установлены только на первичный раздел.<br/></p><h3 id="1a3ec8c1-1e5b-48c3-b8cf-2845d530c769" class="">Расширенный и Логические разделы</h3><p id="84e7577c-0fc0-4793-b7fb-ca6a21a01349" class="">Таблица разделов может содержать не более 4 первичных разделов, поэтому <br/>были изобретёны расширенный разделы. В расширенном разделе можно создать<br/> несколько логических разделов. Логические разделы выстраиваются в <br/>цепочку где информация о первом логическом разделе храниться в MBR, а <br/>информация о последующем хранится в первом секторе логического раздела. <br/>Такая цепочка позволяет (в теории) создавать неограниченное количество <br/>разделов, но (на практике) число логических разделов ограничивается <br/>утилитами и, обычно, больше 10 логических разделов не создать.<br/></p><p id="6bb58d7f-a069-4148-8230-26b4ff0b6c7b" class="">Важно отметить что некоторые версии Windows не могут загрузиться с <br/>логического раздела (нужен обязательно первичный раздел), тогда как для <br/>Linux никакой разницы в виде разделов - нет, Linux загружается и <br/>работает с разделами совершенно независимо от их вида (первичный или <br/>логический).<br/></p><p id="1a35a10a-464b-4ee3-9270-72bd64209e4a" class="">
-</p><p id="f795d9a0-12b1-42da-8a7c-516d62e637ea" class="">В стандартной разбивке диска для Linux используется четыре раздела: </p><ol type="1" id="9e0d37c2-0d5c-415d-a4c9-781fe4b89683" class="numbered-list" start="1"><li><strong>/ - корень, основной раздел для файловой системы; </strong></li></ol><p id="966044bb-7892-4272-8bc3-fb20e3aa2533" class="">Этот раздел является хранилищем всех остальных. Через него система получает доступ ко многим своим ресурсам. В этом разделе файловая система содержит такие важные системные каталоги как «/usr», «/bin», «/etc», «/var», «/opt» и т. д., в совокупности все они содержат файлы ядра, стандартные системные утилиты, файлы хранимой конфигурации системы, файлы журналов системных событий и т. д.</p><ol type="1" id="57f1c3b6-34ec-44dd-93d6-ec4a02c0e80b" class="numbered-list" start="2"><li><strong>/boot - файлы загрузчика; </strong></li></ol><p id="b3dcd462-3e4b-4526-ac38-053fdfb29a7c" class="">Это отдельная изолированная область на устройстве хранения, содержащая только код для загрузки системы. На самом деле современные дистрибутивы Linux вполне могут обойтись и без данного раздела, поскольку в большинстве случаев ими используется универсальный загрузчик GRUB.</p><ol type="1" id="46d35b82-a018-448e-9098-d05687209b10" class="numbered-list" start="3"><li><strong>/home - раздел для файлов пользователя; </strong></li></ol><p id="4084fa22-ca25-426d-8240-294379960cdb" class="">Этот раздел предназначен для отделения и хранения пользовательских данных от файлов системной среды Linux. В каталоге «/home» содержатся (по-умолчанию) домашние подкаталоги пользователей (каждому пользователю в системе — свой каталог).</p><ol type="1" id="491c24f5-2461-4a9e-8c79-8c8a481419e5" class="numbered-list" start="4"><li><strong>/swap</strong> - <strong>раздел подкачки;</strong></li></ol><p id="525e54ed-81cf-4eb2-8c03-af63105f66ec" class="">Используется для выгрузки страниц из оперативной памяти, если она будет переполнена. Также сюда записывается все содержимое памяти когда компьютер уходит в режим сна или гибернации</p><p id="70d03c85-27c8-4269-9d6c-9502a7d4deed" class="">Стоит заметить, что для некоторых современных Linux-дистрибутивов (например Ubuntu) раздел «/swap» уже не требуется — его заменил файл подкачки.</p><p id="5943fe8d-b86e-4d2e-9318-f2bcd64bda56" class="">
-</p><h3 id="63d6da64-0125-4491-9cf5-389d0cd3f0c3" class="">Управление разделами</h3><p id="33eec1f2-9f77-4912-aa21-a6e15809ff11" class=""><strong>fdisk</strong> (сокращение от “format disk“, форматировать диск) — это наиболее распространенная утилита командной строки для работы с дисками в Linux/Unix системах.</p><p id="596a3693-2001-4c69-9af9-5d59a17b5e76" class="">При помощи этой команды можно просматривать, создавать, удалять, изменять, копировать и перемещать разделы на жёстком диске, используя простой интерфейс текстовых меню. Для просмотра всех доступных разделов используется опция -l (listing — перечисление). Разделы перечисляются по именам, например, /dev/sda, /dev/sdb или /dev/sdc.</p><figure id="00f82b2d-956d-4c10-ac77-7469891dd1fa" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%203.png"><img style="width:490px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%203.png"/></a></figure><p id="7c1e6105-5082-48f1-b766-bbe4b8d5686d" class="">
-</p><p id="245d8c4b-bb4e-42f3-a844-c6a81238a3a1" class="">Большинство операций fdisk по разметке дисков выполняются в <strong>интерактивном режиме</strong>. Чтобы запустить fdisk в интерактивном режиме выполните команду fdisk «диск», например:</p><figure id="0ffd9862-07c4-44ea-8bc0-0a93dad48b3b" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%204.png"><img style="width:589px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%204.png"/></a></figure><p id="2e879202-77fc-4cb8-a85f-9364676c69b5" class="">После этого вы попадете в меню, опции которого можно посмотреть выполнив команду <strong>m</strong>. Вот основные из них:</p><figure id="bceb5777-b8a1-40a2-b19f-8e1d6ec1e2d0" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%205.png"><img style="width:776px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%205.png"/></a></figure><p id="7c817c4f-c83c-40a2-a728-1df28b0ddb33" class="">
-</p><h2 id="9b07e8af-841f-422a-97ea-11a54800cd3c" class="">3. Утилиты для работы с ФС</h2><p id="dc96377c-e082-4719-850d-95a45205788a" class="">Некоторые манипуляции с файловой системой и разделами могут привести к критическим для системы последствиям, поэтому для начала давайте создадим тестовый диск, на котором будем оттачивать навыки.</p><p id="5eeba973-9a2c-46dc-98d4-5daa879a251c" class="">Сделаем это с помощью команды <strong>dd:</strong></p><figure id="1972dae5-a0f7-49e2-bd9a-07c125b06055" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%206.png"><img style="width:483px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%206.png"/></a></figure><p id="e47abd33-d767-4c20-a3e6-43ea46b65362" class=""><strong>if</strong> = источник (в примере поток нулей) </p><p id="0f817577-e0d2-4dde-913a-67e9432bfbe0" class=""><strong>of</strong> = место назначения </p><p id="ea5b9530-2404-4111-aafb-4da2b948973f" class=""><strong>count</strong> = число блоков для копирования </p><p id="2300834e-047e-4fa5-8a91-ddd23d40c992" class=""><strong>bs </strong>= размер одного блока</p><p id="23f3c232-9fc4-4ea1-b810-057f7d9fd526" class="">
-</p><p id="01fa9335-1ef0-4b87-91fc-8a171cabb22a" class="">Затем создадим файловую систему ext3. Делается это с помощью команды <strong>mkfs:</strong></p><figure id="c6a98905-7ac4-4934-99e7-0a137e56efa9" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%207.png"><img style="width:486px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%207.png"/></a></figure><p id="3a3e054f-97db-4f8b-820e-3a163a7a6072" class="">
-</p><p id="a3ea0105-0510-41c0-9e80-2416d917eafc" class=""><strong>-t ext4</strong> – указываем какую ФС создаем </p><p id="e0bba54e-810a-404d-b04c-9609c4438590" class=""><strong>-L root</strong> – создаем метку </p><p id="64fe3260-bbcf-4a85-bce6-96e3ddfe26e9" class=""><strong>/disk.img</strong> – путь к диску, обычно в виде /dev/sda</p><p id="f757c734-b654-4fc1-a583-943e1c31f686" class="">
-</p><p id="140914b2-76b4-4a5a-8f26-0dcd743070f2" class="">Давайте проверим, все ли в порядке с созданной файловой системой. Для этого есть утилита <strong>fsck</strong>.</p><figure id="951bfda0-8805-46c7-aa34-ca3d2ce751a4" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%208.png"><img style="width:476px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%208.png"/></a></figure><p id="b96d9a59-0ba2-45c9-8ea7-67a4213b3cb8" class=""><em>Обратите внимание, диск должен быть не примонтирован.</em></p><p id="994786bd-138a-4fc1-a37b-100540613376" class=""><strong>fsck можно применять со следующими опциями</strong>:</p><figure id="208f68b9-edff-4d2b-9b6f-4c5f6e0efb42" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%209.png"><img style="width:672px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%209.png"/></a></figure><p id="37f19e85-a518-4b3b-8cae-a859f27def21" class="">Теперь попробуем изменить метку раздела диска. Для этого воспользуемся командой <strong>e2label</strong></p><figure id="3b1093f8-f7ed-4a36-9140-18f5aa42df95" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%2010.png"><img style="width:1012px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%2010.png"/></a></figure><p id="e05a0b66-8a5b-466a-8593-06fc2028d827" class="">
-</p><p id="9a575fd4-07bb-46a8-8c4b-95798f2df728" class="">Различные параметры файловой системы, такие как размер блока данных, иноды (структура данных в которой хранится информация о файле или директории в файловой системе) UUID, метку и многое другое можно настроить. Поможет в этом утилита <strong>tune2fs</strong>. Давайте, к примеру, с её помощью изменим зарезервированное место под данные пользователя root на 5% от дискового пространства.</p><figure id="13a563e0-6225-4c71-84f6-ec1491e7e696" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%2011.png"><img style="width:664px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%2011.png"/></a></figure><p id="317f45f5-8222-42a9-ac95-6f2ad83b5816" class="">А с опцией <strong>-l</strong> мы можем посмотреть всю доступную информацию о параметрах файловой системы:</p><figure id="c78636a4-c772-47ec-9382-cab4a8c41986" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%2012.png"><img style="width:605px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%2012.png"/></a></figure><p id="247328cb-3784-42c6-9aa6-2553a73c0e70" class="">
-</p><h3 id="336ff8a2-b333-4207-ae0a-72d9eb7cd0c4" class=""><strong>Другие опции команды tune2fs:</strong></h3><figure id="6b7a6243-4fd2-44d3-a0b6-64e0541d27ad" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%2013.png"><img style="width:722px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%2013.png"/></a></figure><p id="ae5ef8a2-2169-4d62-bba7-8bfce35450f3" class="">
-</p><p id="73423f04-d01e-4226-a142-321e003f6211" class="">Изменение размера файловой системы Linux выполняется командой <strong>resize2fs</strong>. В качестве аргументов принимает диск и желаемый размер.</p><figure id="f3a0f195-468b-4c78-84af-7caf5c25c09e" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%2014.png"><img style="width:483px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%2014.png"/></a></figure><h3 id="2153729a-32bb-467e-a503-40c9214a0eb4" class="">Опции:</h3><figure id="988b7cbc-1883-47ee-b14d-ee0c81b98756" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%2015.png"><img style="width:626px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%2015.png"/></a></figure><p id="65b42a40-bb0b-4c31-907c-c5a45353b246" class="">
-</p><p id="9fe64235-98c4-40b4-af52-2b3a941c1eca" class="">Для дефрагментации можно использовать утилиту <strong>e4defrag</strong>. В качестве аргумента укажите диск, который желаете фрагментировать. В нашем случае команда будет выглядеть так:</p><figure id="cd8db855-498b-49dd-8a05-e6aabd150a77" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%2016.png"><img style="width:483px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%2016.png"/></a></figure><p id="2ca3997a-415e-48ef-abbf-5ec01f3d3dbe" class="">Чтобы проверить нужна ли дефрагментация выполните эту же команду с опцией -c</p><p id="1b360ce3-4ac5-40cc-870a-55c83127edcc" class="">
-</p><h2 id="f87a0c9e-c379-4496-95a7-dedf76488a4f" class="">4. Монтирование и типы монтирования ФС</h2><p id="943780cd-3b6f-4e9f-8a2b-f8f83d4a05e0" class="">Монтированием в Linux называется подключение диска, раздела, каталога или файла в корневую файловую систему. Суть монтирования в том, что в файловой системе создаётся новая директория (обычная папка), допустим, это папка /mnt/disk. А затем командой mount указывается, что теперь диск, к примеру /dev/sda, смонтирован в директорию /mnt/disk. После этого можно получить доступ к файлам диска /dev/sda открыв папку /mnt/disk в любом менеджере файлов, то есть /mnt/disk (точка монтирования) становится корневой директорией смонтированной ФС.</p><p id="1c14745b-83c8-4172-862a-75443e25792e" class=""><strong>Просмотр текущих точек монтирования: findmnt –real</strong></p><figure id="0cf75dde-ccc0-404a-8bb9-90754e3e34b5" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%2017.png"><img style="width:708px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%2017.png"/></a></figure><p id="ff3cb263-316c-49e7-82ea-f11a857c45ea" class="">
-</p><p id="3b751df7-391e-489c-8008-c8b24080e1c8" class="">Монтирование осуществляется с помощью утилиты <strong>mount</strong>. Для подключения файловой системы к конкретному местоположению (точке монтирования) команда mount используется в следующей форме:</p><figure id="3b4657f3-a92b-46a1-b72e-8654979b2ad8" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%2018.png"><img style="width:716px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%2018.png"/></a></figure><p id="f55b0efa-c294-4df8-b40e-f1791868740a" class="">В качестве устройства можно также указать файл образа.</p><p id="4262accf-0c2f-4025-9cbe-6d145333a942" class="">Смонтировать /dev/sda1 в директорию /mnt можно следующим образом (добавив опцию –v мы увидим информацию о процессе):</p><figure id="a045073a-76a0-4e6d-ac13-f9ce00e9fb4b" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%2019.png"><img style="width:716px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%2019.png"/></a></figure><p id="492cff73-c61f-455d-8bc0-a0e4719d5c17" class="">
-</p><h3 id="8c7e3f1f-5941-4352-98a9-c37e91912a6f" class=""><strong>Основные опции команды mount</strong></h3><figure id="3c274e57-2d0d-4269-adb6-c59c997b9379" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%2020.png"><img style="width:1206px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%2020.png"/></a></figure><p id="2e603f38-9646-41eb-bfe7-bb18246d52d6" class="">
-</p><h3 id="7667a9af-03ca-4732-bcca-d710da85838d" class="">hdparm</h3><p id="9ee814e3-ddf0-4d8b-be13-850e9ad863c2" class="">Утилита hdparm позволяет установить устройству флаг read-only. Когда флаг установлен на 1, Linux не разрешает операции записи на устройство.</p><figure id="80d81aab-2814-4d97-aec2-2803ec1fb537" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%2021.png"><img style="width:1238px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%2021.png"/></a></figure><p id="434fc7f8-e4c1-42c7-9fa1-774ec9a861e7" class="">
-</p><p id="ff62901a-1681-4efb-aa1d-bc1a7790838c" class="">Для <strong>размонтирования</strong> диска используется команда <strong>umount</strong>, которой можно передать либо точку монтирования, либо устройство. Размонтирование устройства /dev/hdb1 с точкой монитрования /mnt выглядит так:</p><h1 id="32dd43fe-2f1f-4209-983b-df8d160f606a" class=""></h1><figure id="41b6f1ff-f438-445f-9f3f-9e7111335d90" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%2022.png"><img style="width:833px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%2025b0d3e20b6d419280536c7a1ffb1edb/Untitled%2022.png"/></a></figure><p id="35efb009-e120-4aee-af92-3f5426f830b0" class="">
-</p><p id="c9c5234e-f012-4adb-8ebd-c2927d21d531" class="">
-</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Дополнительный материал</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 237, 214, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 237, 214, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(249, 228, 188, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+
+		.checkbox-on {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+
+		.checkbox-off {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+	</style>
+</head>
+
+<body>
+	<article id="fffaa64c-9d0a-8115-ad12-e5075925fcd6" class="page sans">
+		<header>
+			<h1 class="page-title">Дополнительный материал</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<h1 id="fffaa64c-9d0a-81c2-b321-f6c49a2d065b" class="">Лекционный материал:</h1>
+			<h2 id="fffaa64c-9d0a-811b-871c-de9df3e76ba7" class="">1. Файловые системы native для ОС семейства *nix</h2>
+			<p id="fffaa64c-9d0a-81fc-88f1-c6056ab05abc" class="">Инструмент, позволяющий операционной системе и
+				программам обращаться к нужным файлам и работать с ними. </p>
+			<p id="fffaa64c-9d0a-81b3-a507-c4f99a69a517" class="">Файловая система – это инструмент, позволяющий
+				операционной системе и <br />программам обращаться к нужным файлам и работать с ними. При этом
+				<br />программы оперируют только названием файла, его размером и датой <br />созданий. Все остальные
+				функции по поиску необходимого файла в хранилище<br />и работе с ним берет на себя файловая система
+				накопителя.<br /></p>
+			<p id="fffaa64c-9d0a-8150-a9b4-fa7d68f4bb9d" class="">Основными функциями файловой системы являются:</p>
+			<ul id="fffaa64c-9d0a-8119-be1a-e6888aa436b6" class="bulleted-list">
+				<li style="list-style-type:disc">размещение и упорядочивание на носителе данных в виде файлов;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8190-b8a6-e05a1b4f8a05" class="bulleted-list">
+				<li style="list-style-type:disc">определение максимально поддерживаемого объема данных на носителе
+					информации;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81ed-92c4-e4331b9064df" class="bulleted-list">
+				<li style="list-style-type:disc">создание, чтение и удаление файлов;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-813a-bacc-faeddaf9624f" class="bulleted-list">
+				<li style="list-style-type:disc">назначение и изменение атрибутов файлов (размер, время создания и
+					изменения,<br />владелец и создатель файла, доступен только для чтения, скрытый файл,<br />временный
+					файл, архивный, исполняемый, максимальная длина имени файла и<br />т.п.);<br /></li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81dd-ad86-fe7f17d1a93c" class="bulleted-list">
+				<li style="list-style-type:disc">определение структуры файла;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-813f-8d98-e7056456ea8c" class="bulleted-list">
+				<li style="list-style-type:disc">поиск файлов;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81ac-9afe-c5c609dd4097" class="bulleted-list">
+				<li style="list-style-type:disc">организация каталогов для логической организации файлов;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8101-899f-ee7352a2bd14" class="bulleted-list">
+				<li style="list-style-type:disc">защита файлов при системном сбое;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-813e-ad57-dfbbcf9792aa" class="bulleted-list">
+				<li style="list-style-type:disc">защита файлов от несанкционированного доступа и изменения их
+					содержимого</li>
+			</ul>
+			<p id="fffaa64c-9d0a-8147-81b7-fd2c50645699" class="">Таким образом, файловая система устанавливает правила
+				эксплуатации и <br />организацию данных на накопителе, и тем самым экономит ресурсы <br />операционной
+				системы и рабочих программ. К тому же наличие файловой <br />системы позволяет использовать накопитель
+				на разных компьютерах без <br />каких-либо предварительных настроек и оптимизации.<br /></p>
+			<p id="fffaa64c-9d0a-81dd-9052-c6bf8ff03e08" class="">Операционная система воспринимает физический диск
+				хранения информации как набор кластеров размером 512 байт и больше. Драйверы файловой системы организуют
+				кластеры в файлы и каталоги, которые также являются файлами, содержащими список других файлов в этом
+				каталоге. Эти же драйверы отслеживают, какие из кластеров в настоящее время используются, какие
+				свободны, какие помечены как неисправные.</p>
+			<p id="fffaa64c-9d0a-81b3-bb9e-d6ac4328d1e3" class="">Запись файлов большого объема приводит к необходимости
+				фрагментации, когда файлы не сохраняются как целые единицы, а делятся на фрагменты. Каждый фрагмент
+				записывается в отдельные кластеры, состоящие из ячеек (размер ячейки составляет один байт). Информация о
+				всех фрагментах, как части одного файла, хранится в файловой системе.</p>
+			<p id="fffaa64c-9d0a-815f-9f5b-d4c69a9ce3be" class="">Файловая система связывает носитель информации
+				(хранилище) с прикладным программным обеспечением, организуя доступ к конкретным файлам при помощи
+				функционала взаимодействия программ API. Программа, при обращении к файлу, располагает данными только о
+				его имени, размере и атрибутах. Всю остальную информацию, касающуюся типа носителя, на котором записан
+				файл, и структуры хранения данных, она получает от драйвера файловой системы.</p>
+			<p id="fffaa64c-9d0a-81f9-9465-e0ca0fc38f04" class="">На физическом уровне драйверы ФС оптимизируют запись и
+				считывание отдельных частей файлов для ускоренной обработки запросов, фрагментации и «склеивания»
+				хранящейся в ячейках информации. Данный алгоритм получил распространение в большинстве популярных
+				файловых систем на концептуальном уровне в виде иерархической структуры представления метаданных
+				(B-trees). Технология снижает количество самых длительных дисковых операций – позиционирования головок
+				при чтении произвольных блоков. Это позволяет не только ускорить обработку запросов, но и продлить срок
+				службы HDD. В случае с твердотельными накопителями, где принцип записи, хранения и считывания информации
+				отличается от применяемого в жестких дисках, ситуация с выбором оптимальной файловой системы имеет свои
+				нюансы.</p>
+			<p id="fffaa64c-9d0a-8101-a761-cba622657933" class="">
+			</p>
+			<h3 id="fffaa64c-9d0a-8106-823e-db6441d49b14" class="">Файловые системы Windows</h3>
+			<h3 id="fffaa64c-9d0a-815d-a436-d6fa6e3b4ba6" class=""><strong>FAT32</strong></h3>
+			<p id="fffaa64c-9d0a-8130-8dad-e9528a6cd126" class="">FAT – одна из старейших файловых систем, которая была
+				разработана еще в<br />1977 году программистами компании Microsoft для гибких дисков.<br /></p>
+			<p id="fffaa64c-9d0a-81a2-b195-c1eaf12200df" class="">За период эксплуатации выпускалось несколько версий,
+				которые отличались от предыдущих объемами томов и файлов, которыми способны оперировать.</p>
+			<p id="fffaa64c-9d0a-8128-86a4-fe259a047548" class="">Современная версия FAT32 вышла в 1995 году. Она может
+				работать с <br />томами размером до 32 ГБ и файлами размером до 4 ГБ. При этом система не<br />работает
+				с накопителями объемом более 8 Тб. Поэтому сегодня FAT32 <br />используется в основном только на
+				флешках, картах памяти фотоаппаратов и<br />музыкальных плееров.<br /></p>
+			<p id="fffaa64c-9d0a-81b9-9e10-cbb42092d6a9" class="">Структура накопителя с FAT32 имеет три области:</p>
+			<ul id="fffaa64c-9d0a-81d1-90b7-f176149c91be" class="bulleted-list">
+				<li style="list-style-type:disc">Служебный сектор, который зарезервирован системой.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8180-ba67-e05caef5095e" class="bulleted-list">
+				<li style="list-style-type:disc">Таблица указателей для поиска файлов.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81c5-b13d-f5e079268dc9" class="bulleted-list">
+				<li style="list-style-type:disc">Область записи данных.</li>
+			</ul>
+			<p id="fffaa64c-9d0a-816d-b010-fc3227ee416e" class="">Благодаря отсутствию шифрования, современных систем
+				защиты информации и<br />журнала данных, накопители с файловой системой FAT32 могут работать
+				<br />быстрее, но только с единичными файлами. Работа с массивом небольших <br />файлов может затянуться
+				надолго. Причиной является иерархическая <br />структура, которая подразумевает многоуровневый доступ к
+				файлам, в <br />отличие от бинарного дерева, где доступ к файлам открывается напрямую, <br />независимо
+				от других.<br /></p>
+			<p id="fffaa64c-9d0a-81db-a861-dad3e62cbed9" class="">Однако несмотря на очевидные недостатки, система все
+				еще востребована, и даже предоставляет некоторые преимущества:</p>
+			<ul id="fffaa64c-9d0a-81cc-b55e-fbe030cbedd9" class="bulleted-list">
+				<li style="list-style-type:disc">Накопители меньше изнашиваются, благодаря отсутствию журнала.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81fd-bb8a-fe6e9266cfd4" class="bulleted-list">
+				<li style="list-style-type:disc">Флешки с FAT32 распространены в рабочей среде. На них
+					удобно<br />переносить документы, фотографии, небольшие видеоролики, презентации.<br /></li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81f2-b552-fc373f845eaa" class="bulleted-list">
+				<li style="list-style-type:disc">Флешки с FAT32 используются в качестве установочных.</li>
+			</ul>
+			<h3 id="fffaa64c-9d0a-816b-8383-ecdf77b0f14f" class=""><strong>NTFS</strong></h3>
+			<p id="fffaa64c-9d0a-81d8-be25-ccb1c508766f" class="">NTFS, или новая технология файловой системы была
+				создана, чтоб устранить недостатки FAT32.</p>
+			<p id="fffaa64c-9d0a-81ca-904b-f6b8ddd8b312" class="">Структура системы хранения данных имеет вид бинарного
+				дерева. В <br />отличие от иерархической, как у FAT32, доступ к информации <br />осуществляется по
+				запросу, а поиск ведется по названию файла. При этом <br />система имеет каталог, отсортированный по
+				названиям. Массив делится на 2<br />части и отсекается та, в которой данного файла не будет, оставшаяся
+				<br />часть также делиться на 2, и так далее до тех пор, пока не будет найден <br />нужный файл.<br />
+			</p>
+			<p id="fffaa64c-9d0a-81aa-a900-c4462f148569" class=""><strong>Особенности файловой системы NTFS</strong>:
+			</p>
+			<ul id="fffaa64c-9d0a-816d-90ea-d615c2e20ea5" class="bulleted-list">
+				<li style="list-style-type:disc">Имена файлов размером до 255 символов.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8147-a32c-fc48cfc876b0" class="bulleted-list">
+				<li style="list-style-type:disc">Журналирование – действия с файлами выполняются полностью, или
+					не<br />совершается вовсе. Например, если во время копирования файлов<br />отключается питание, то
+					при включении по журналу система проверит, какие файлы были скопированы полностью, а результаты
+					незавершенных процессов<br />удаляются.<br /></li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81e6-a099-c1d31e82c439" class="bulleted-list">
+				<li style="list-style-type:disc">Использование шифрования для защиты данных.</li>
+			</ul>
+			<p id="fffaa64c-9d0a-8184-8869-fae535a49fba" class="">В отличие от предыдущей файловой системы, NTFS может
+				работать с томами<br />объемом 8 ПБ (1 петабайт – 1015 байт), и оперировать более чем 4
+				<br />миллиардами файлов.<br /></p>
+			<p id="fffaa64c-9d0a-814e-9dbf-f6c1162dffdd" class="">Таким образом NTFS – современное решение для
+				пользовательского сегмента, позволяющее работать с твердотельными накопителями и жесткими
+				дисками большого объема, имеющими несколько разделов.</p>
+			<h3 id="fffaa64c-9d0a-8181-8f36-defb387359d0" class=""><strong>ReFS (Resilient File System)</strong></h3>
+			<p id="fffaa64c-9d0a-8119-9edd-eef886328027" class="">Последняя разработка Microsoft, доступная для серверов
+				Windows 8 и 10. <br />Архитектура файловой системы в основном организована в виде B + -tree.
+				<br />Файловая система ReFS обладает высокой отказоустойчивостью благодаря <br />реализации новых
+				функций:<br /></p>
+			<ul id="fffaa64c-9d0a-81f8-8289-fdcb52d91f7c" class="bulleted-list">
+				<li style="list-style-type:disc">Copy-on-Write (CoW) – никакие метаданные не изменяются без копирования;
+				</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81b7-a25a-e1d82ee7ea04" class="bulleted-list">
+				<li style="list-style-type:disc">данные записываются на новое дисковое пространство, а не поверх
+					существующих файлов;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81a3-8f8c-ce274e2a2202" class="bulleted-list">
+				<li style="list-style-type:disc">при модификации метаданных новая копия хранится в свободном
+					дисковом<br />пространстве, затем система создает ссылку из старых метаданных на новую версию.<br />
+				</li>
+			</ul>
+			<p id="fffaa64c-9d0a-81f6-9087-feb1b2aa7f5c" class="">Все это позволяет повысить надежность хранения файлов,
+				обеспечивает быстрое и легкое восстановление данных.</p>
+			<p id="fffaa64c-9d0a-81f2-9311-faa504de86bf" class="">
+			</p>
+			<h3 id="fffaa64c-9d0a-81de-afa3-d7b03f3ea7ff" class=""><strong>Файловые системы Linux</strong></h3>
+			<p id="fffaa64c-9d0a-813e-90d8-c80b9163e2b9" class="">В отличие от ОС Windows и macOS, ограничивающих выбор
+				файловой системы предустановленными вариантами, Linux предоставляет возможность использования нескольких
+				ФС, каждая из которых оптимизирована для решения определенных задач. Файловые системы в Linux
+				используются не только для работы с файлами на диске, но и для хранения данных в оперативной памяти или
+				доступа к конфигурации ядра во время работы системы. Все они включены в ядро и могут использоваться в
+				качестве корневой файловой системы.</p>
+			<p id="fffaa64c-9d0a-81d1-90e6-e309a33e13d3" class="">
+			</p>
+			<p id="fffaa64c-9d0a-815f-a647-ce151f3afd10" class=""><strong>Основные файловые системы, используемые в
+					дистрибутивах Linux:</strong></p>
+			<ul id="fffaa64c-9d0a-81fb-9331-c8610269d1c1" class="bulleted-list">
+				<li style="list-style-type:disc">Ext2;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81e9-a689-d0eb4f67651d" class="bulleted-list">
+				<li style="list-style-type:disc">Ext3;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8164-8884-dd712424d6f5" class="bulleted-list">
+				<li style="list-style-type:disc">Ext4;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81e6-849d-ef932a7b8596" class="bulleted-list">
+				<li style="list-style-type:disc">JFS;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81ac-b96e-e9b07c54ffd9" class="bulleted-list">
+				<li style="list-style-type:disc">ReiserFS;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-810f-96f4-d6afd120e8de" class="bulleted-list">
+				<li style="list-style-type:disc">XFS;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81ad-980b-f5ee8bd0dc82" class="bulleted-list">
+				<li style="list-style-type:disc">Btrfs;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8189-aa7e-f538abbae86e" class="bulleted-list">
+				<li style="list-style-type:disc">ZFS.</li>
+			</ul>
+			<p id="fffaa64c-9d0a-810a-9015-c8c7845628d1" class="">
+			</p>
+			<h2 id="fffaa64c-9d0a-8163-9ba3-dbf87ff2d054" class="">Ext</h2>
+			<p id="fffaa64c-9d0a-8129-bad6-e4de1b1ca085" class="">Файловая система EXT (Extended File System) была
+				разработана специально для операционной системы Linux. Главной целью, которую преследовали создатели EXT
+				было преодоление максимального размера записываемых файлов, который в то время составлял всего лишь 64
+				МБ. Благодаря созданию новой структуры метаданных – максимально возможный размер файла увеличился до 2
+				ГБ. В то же время максимальная длина имен файлов увеличилась о 255 байт. </p>
+			<p id="fffaa64c-9d0a-8179-8687-ebd08b7af7d6" class="">EXT распространена не только среди пользователей
+				Linux, но и среди владельцев смартфонов на Android, так как по умолчанию Android использует файловую
+				систему Ext4.</p>
+			<figure id="fffaa64c-9d0a-811c-903e-e83a284a9527" class="image"><a
+					href="Дополнительный материал/Untitled.png"><img
+						style="width:1113px"
+						src="Дополнительный материал/Untitled.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-812a-badc-df3bd1134ed6" class="">
+			</p>
+			<h2 id="fffaa64c-9d0a-81d1-a5df-de3c20bad520" class="">JST</h2>
+			<p id="fffaa64c-9d0a-8192-81a5-efe949333d21" class="">JFS (<strong>Journaled File System</strong>)— первая
+				альтернатива для ФС группы Ext. Её разработали в IBM специально для операционной системы AIX UNIX. </p>
+			<figure id="fffaa64c-9d0a-81ae-8fe1-eb7b49224a1e" class="image"><a
+					href="Дополнительный материал/Untitled%201.png"><img
+						style="width:1031px"
+						src="Дополнительный материал/Untitled%201.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-8153-83da-e5b52f72f6fa" class="">
+			</p>
+			<h2 id="fffaa64c-9d0a-819b-8ea7-e388cbf7fec7" class="">ReiserFS</h2>
+			<p id="fffaa64c-9d0a-815f-8f01-ef9292eef621" class="">Файловая система ReiserFS стала первой журналированной
+				файловой системой, которую приняли в ядро. Со временем ее развитие замедлилось и теперь ее обогнали
+				такие известные файловые системы, как Btrfs и ZFS. </p>
+			<p id="fffaa64c-9d0a-8196-9bd2-eac2d2875a11" class="">
+			</p>
+			<h2 id="fffaa64c-9d0a-8149-a6a2-d396cde2afcd" class="">BTRFS</h2>
+			<p id="fffaa64c-9d0a-817d-9a0a-f77cbe193f38" class="">Btrfs (B-Tree Filesystem) - файловая система,
+				предназначенная для удовлетворения растущих требований к масштабируемости больших подсистем хранения.
+				Имя файловой системы Btrfs происходит от имени структуры данных B-деревьев, которые в ней используются.
+				B-дерево это древовидная структура данных, которая позволяет файловым системам и базам данных эффективно
+				получать доступ и обновлять большие блоки данных независимо от размера дерева.</p>
+			<p id="fffaa64c-9d0a-81d1-b345-daad2a2a1f65" class="">BTRFS — это молодая и современная файловая система,
+				решающая широкий спектр задач, однако не без минусов: </p>
+			<ul id="fffaa64c-9d0a-81b8-94c5-e872f5840972" class="bulleted-list">
+				<li style="list-style-type:disc">активное её развитие приводит к изменению каких-либо ключевых моментов,
+					на которые могут опираться сторонние утилиты при работе с ней </li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8192-9910-d659380480b8" class="bulleted-list">
+				<li style="list-style-type:disc">высокая подверженность фрагментации </li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8122-bb38-dceb7e0394b6" class="bulleted-list">
+				<li style="list-style-type:disc">скудная и местами устаревшая документация</li>
+			</ul>
+			<p id="fffaa64c-9d0a-819a-b016-c842115b4c3d" class="">
+			</p>
+			<h2 id="fffaa64c-9d0a-8101-9791-dc4702766465" class="">XFS</h2>
+			<p id="fffaa64c-9d0a-81b4-b14f-e24bb1075b7c" class="">XFS - это высоко масштабируемая,
+				высокопроизводительная файловая система, которая была изначально разработана в Silicon Graphics в 1993
+				году. Она была добавлена в основной состав ядра Linux в 2002 году. Сейчас она используется в качестве
+				файловой системы по умолчанию в операционных системах семейства Red Hat. </p>
+			<p id="fffaa64c-9d0a-815d-ae84-feb263877467" class="">Эта файловая система имеет все преимущества
+				современных файловых систем, такие как журналирование метаданных для быстрого восстановления, но, кроме
+				того, здесь поддерживается распределение потоков ввода/вывода по группам что сильно увеличивает
+				производительность чтения и записи данных. Но это работает только для больших файлов. Также вы можете
+				увеличить размер файловой системы или выполнить дефрагментацию, даже если она смонтирована.</p>
+			<p id="fffaa64c-9d0a-8115-a89e-db3a5bd6bf3f" class="">Один из основных недостатков XFS состоит в том, что ее
+				нельзя уменьшить. Кроме того, операции с метаданными работают немного медленнее, чем в других файловых
+				системах, поэтому обработка большого количества небольших файлов будет значительно медленнее. Файловая
+				система достаточно стабильна и имеет собственные инструменты для восстановления в случае необходимости.
+			</p>
+			<h2 id="fffaa64c-9d0a-81b3-9427-d23ae500ac1c" class="">ZFS</h2>
+			<p id="fffaa64c-9d0a-81be-a412-e338c91c150f" class="">ZFS - это файловая система, объединенная с менеджером
+				логических томов. Она была предназначена для высокопроизводительных серверов, поэтому уже тогда
+				поддерживала мгновенные снимки и клонирование данных. После покупки компанией Oracle исходный код ZFS
+				был закрыт, однако сейчас можно установить и использовать последнюю доступную версию под именем OpenZFS.
+			</p>
+			<p id="fffaa64c-9d0a-8153-b44e-f427256ed48e" class=""><strong>Особенности ZFS</strong>:</p>
+			<ul id="fffaa64c-9d0a-8116-8966-ea663eaa0121" class="bulleted-list">
+				<li style="list-style-type:disc">Объединённое хранилище (Pooled storage)</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8104-87bf-cf38ae782f92" class="bulleted-list">
+				<li style="list-style-type:disc">Copy-on-write</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-811b-b9bd-e670cae1a8d0" class="bulleted-list">
+				<li style="list-style-type:disc">Снапшоты</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8127-82b7-d662f74f6839" class="bulleted-list">
+				<li style="list-style-type:disc">Проверка цельности информации и автоматическая починка</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81a9-836c-e1852ca7a858" class="bulleted-list">
+				<li style="list-style-type:disc">Максимальный размер файла в 16 Эксабайт (<em>Прим. переводчика: 10^18
+						байт</em>)</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81fc-99a4-c498cebd5ad8" class="bulleted-list">
+				<li style="list-style-type:disc">Максимальный размер хранилища в 256 квадрильонов Зеттабайт (<em>Прим.
+						переводчика: Квадрильон — миллион^4; Зеттабайт — 10^21 байт)</em></li>
+			</ul>
+			<p id="fffaa64c-9d0a-81f9-81d7-e0000f233bdc" class="">
+			</p>
+			<p id="fffaa64c-9d0a-8136-804f-e39736cdc86d" class="">
+			</p>
+			<h2 id="fffaa64c-9d0a-8116-aeab-fc9300c323fd" class="">2. Разделы Linux</h2>
+			<p id="fffaa64c-9d0a-812d-a777-ef4bd0aa0bec" class="">Раздел — <strong>часть долговременной памяти</strong>
+				жёсткого диска или флеш-накопителя, выделенная для <strong>удобства работы</strong>, и состоящая из
+				смежных блоков. На одном устройстве хранения может быть несколько разделов.</p>
+			<p id="fffaa64c-9d0a-8126-b982-ffd27c0f2c94" class=""><strong>Преимущества использования разделов</strong>:
+			</p>
+			<figure id="fffaa64c-9d0a-8161-9304-d7fe03703750" class="image"><a
+					href="Дополнительный материал/Untitled%202.png"><img
+						style="width:1270px"
+						src="Дополнительный материал/Untitled%202.png" /></a>
+			</figure>
+			<h3 id="fffaa64c-9d0a-8142-9953-f566df0063a9" class="">Таблица разделов жесткого диска</h3>
+			<p id="fffaa64c-9d0a-814f-b0a3-ec7da01c5af9" class="">Существует несколько типов таблиц разделов жестких
+				дисков. Наиболее <br />распространенной на данным момент являемся IBM-PC совместимая таблица
+				<br />разделов, являющаяся частью главной загрузочной записи (MBR). MBR <br />располагается в первом
+				(нулевом) физическом секторе жесткого диска.<br />Однако в последнее время начинает все чаще
+				использоваться таблица GPT (GUID Partition Table).<br />Если ваш диск имеет таблицу разбиения GPT, то
+				вам не нужно заботится о <br />количестве разделов (в GPT по умолчанию зарезервировано место под 128
+				<br />разделов) и разбираться с типами разделов (в GPT - все разделы <br />первичные). <br /></p>
+			<h3 id="fffaa64c-9d0a-8195-a1e4-da6429a27447" class="">Структура диска, разбитого на разделы (MBR)</h3>
+			<ul id="fffaa64c-9d0a-81cb-9df1-d8a6e6938425" class="bulleted-list">
+				<li style="list-style-type:disc">Информация о размещении разделов на жёстком диске хранится в
+					таблице<br />разделов, которая является частью главной загрузочной записи (MBR).<br /></li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8186-8230-f8fae7bdacdd" class="bulleted-list">
+				<li style="list-style-type:disc">Раздел может быть либо <strong>первичным</strong>, либо
+					<strong>расширенным</strong>.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8197-a6a7-e6b0ad8fcb8a" class="bulleted-list">
+				<li style="list-style-type:disc">В первом секторе каждого первичного раздела находится
+					загрузочный<br />сектор, отвечающий за загрузку операционной системы с этого
+					раздела.<br />Информация о том, какой раздел будет использован для загрузки<br />операционной
+					системы, тоже записана в главной загрузочной записи.<br /></li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8114-8c9b-c54fbb60f29e" class="bulleted-list">
+				<li style="list-style-type:disc">В MBR под таблицу разделов выделено 64 байта. Каждая запись занимает 16
+					байт. Таким образом, всего на жестком диске может быть создано не более 4 разделов. Когда
+					разрабатывалась структура MBR, это считалось достаточным. Однако, позднее был введён
+					<strong>расширенный раздел</strong>, в котором можно прописать несколько <strong>логических</strong>
+					разделов.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81a7-98d2-f8333bcdca5c" class="bulleted-list">
+				<li style="list-style-type:disc">По правилам <strong>расширенный раздел</strong> может быть только один.
+					Таким образом, в максимальной конфигурации на жёстком диске может быть сформировано три
+					<strong>первичных</strong> и один <strong>расширенный</strong> раздел, содержащий несколько
+					<strong>логических</strong>.</li>
+			</ul>
+			<h3 id="fffaa64c-9d0a-81db-9865-d4fe40881ed6" class="">Виды разделов</h3>
+			<h3 id="fffaa64c-9d0a-8127-af87-d9f0d4d4c64b" class="">Первичный (основной) раздел</h3>
+			<p id="fffaa64c-9d0a-81e6-9733-ce2c4babf99f" class="">Первичный раздел обязательно должен быть на физическом
+				диске. Этот <br />раздел всегда содержит либо одну файловую систему, либо другие <br />логические
+				разделы. На физическом диске может быть до четырёх первичных <br />разделов.<br />Некоторые старые
+				операционные системы — например, MS-DOS и Windows — могли быть установлены только на первичный
+				раздел.<br /></p>
+			<h3 id="fffaa64c-9d0a-814e-8513-d079d65c9fc7" class="">Расширенный и Логические разделы</h3>
+			<p id="fffaa64c-9d0a-811b-8d7b-f00ebdf62931" class="">Таблица разделов может содержать не более 4 первичных
+				разделов, поэтому <br />были изобретёны расширенный разделы. В расширенном разделе можно создать<br />
+				несколько логических разделов. Логические разделы выстраиваются в <br />цепочку где информация о первом
+				логическом разделе храниться в MBR, а <br />информация о последующем хранится в первом секторе
+				логического раздела. <br />Такая цепочка позволяет (в теории) создавать неограниченное количество
+				<br />разделов, но (на практике) число логических разделов ограничивается <br />утилитами и, обычно,
+				больше 10 логических разделов не создать.<br /></p>
+			<p id="fffaa64c-9d0a-81f4-8e8a-f4b4d7f65980" class="">Важно отметить что некоторые версии Windows не могут
+				загрузиться с <br />логического раздела (нужен обязательно первичный раздел), тогда как для <br />Linux
+				никакой разницы в виде разделов - нет, Linux загружается и <br />работает с разделами совершенно
+				независимо от их вида (первичный или <br />логический).<br /></p>
+			<p id="fffaa64c-9d0a-81fc-b07e-fbe8cd6aef70" class="">
+			</p>
+			<p id="fffaa64c-9d0a-8170-95f8-d7b60f6d1d5c" class="">В стандартной разбивке диска для Linux используется
+				четыре раздела: </p>
+			<ol type="1" id="fffaa64c-9d0a-8161-8e94-cf9d7949843c" class="numbered-list" start="1">
+				<li><strong>/ - корень, основной раздел для файловой системы; </strong></li>
+			</ol>
+			<p id="fffaa64c-9d0a-8101-aac7-e524f5fabb6b" class="">Этот раздел является хранилищем всех остальных. Через
+				него система получает доступ ко многим своим ресурсам. В этом разделе файловая система содержит такие
+				важные системные каталоги как «/usr», «/bin», «/etc», «/var», «/opt» и т. д., в совокупности все они
+				содержат файлы ядра, стандартные системные утилиты, файлы хранимой конфигурации системы, файлы журналов
+				системных событий и т. д.</p>
+			<ol type="1" id="fffaa64c-9d0a-81a6-8114-d821d7ff9520" class="numbered-list" start="2">
+				<li><strong>/boot - файлы загрузчика; </strong></li>
+			</ol>
+			<p id="fffaa64c-9d0a-8127-b116-eddc595a175e" class="">Это отдельная изолированная область на устройстве
+				хранения, содержащая только код для загрузки системы. На самом деле современные дистрибутивы Linux
+				вполне могут обойтись и без данного раздела, поскольку в большинстве случаев ими используется
+				универсальный загрузчик GRUB.</p>
+			<ol type="1" id="fffaa64c-9d0a-8111-ba1e-f55ae960a0ed" class="numbered-list" start="3">
+				<li><strong>/home - раздел для файлов пользователя; </strong></li>
+			</ol>
+			<p id="fffaa64c-9d0a-81e5-8af2-fb923fec7f82" class="">Этот раздел предназначен для отделения и хранения
+				пользовательских данных от файлов системной среды Linux. В каталоге «/home» содержатся (по-умолчанию)
+				домашние подкаталоги пользователей (каждому пользователю в системе — свой каталог).</p>
+			<ol type="1" id="fffaa64c-9d0a-81c4-bb70-cd1b66762e34" class="numbered-list" start="4">
+				<li><strong>/swap</strong> - <strong>раздел подкачки;</strong></li>
+			</ol>
+			<p id="fffaa64c-9d0a-81c9-bfda-ce29549873c6" class="">Используется для выгрузки страниц из оперативной
+				памяти, если она будет переполнена. Также сюда записывается все содержимое памяти когда компьютер уходит
+				в режим сна или гибернации</p>
+			<p id="fffaa64c-9d0a-812b-b9f7-c3f1b156d149" class="">Стоит заметить, что для некоторых современных
+				Linux-дистрибутивов (например Ubuntu) раздел «/swap» уже не требуется — его заменил файл подкачки.</p>
+			<p id="fffaa64c-9d0a-8142-af06-f95ef525f3e5" class="">
+			</p>
+			<h3 id="fffaa64c-9d0a-8164-8041-e74c27f5706f" class="">Управление разделами</h3>
+			<p id="fffaa64c-9d0a-8178-8bf3-e7bb64b962fa" class=""><strong>fdisk</strong> (сокращение от “format disk“,
+				форматировать диск) — это наиболее распространенная утилита командной строки для работы с дисками в
+				Linux/Unix системах.</p>
+			<p id="fffaa64c-9d0a-810c-a519-ec260a58bf85" class="">При помощи этой команды можно просматривать,
+				создавать, удалять, изменять, копировать и перемещать разделы на жёстком диске, используя простой
+				интерфейс текстовых меню. Для просмотра всех доступных разделов используется опция -l (listing —
+				перечисление). Разделы перечисляются по именам, например, /dev/sda, /dev/sdb или /dev/sdc.</p>
+			<figure id="fffaa64c-9d0a-8199-83bf-e1961b63fd8b" class="image"><a
+					href="Дополнительный материал/Untitled%203.png"><img
+						style="width:490px"
+						src="Дополнительный материал/Untitled%203.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-8119-8fd1-fb6c367c04da" class="">
+			</p>
+			<p id="fffaa64c-9d0a-81c9-b533-cf1ab86a0038" class="">Большинство операций fdisk по разметке дисков
+				выполняются в <strong>интерактивном режиме</strong>. Чтобы запустить fdisk в интерактивном режиме
+				выполните команду fdisk «диск», например:</p>
+			<figure id="fffaa64c-9d0a-810a-b977-ed5d810c7427" class="image"><a
+					href="Дополнительный материал/Untitled%204.png"><img
+						style="width:589px"
+						src="Дополнительный материал/Untitled%204.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-8149-856f-edd2c180b7b1" class="">После этого вы попадете в меню, опции которого можно
+				посмотреть выполнив команду <strong>m</strong>. Вот основные из них:</p>
+			<figure id="fffaa64c-9d0a-81cb-bdca-fb66ba4e66f7" class="image"><a
+					href="Дополнительный материал/Untitled%205.png"><img
+						style="width:776px"
+						src="Дополнительный материал/Untitled%205.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-81fb-9048-e9a124671c6d" class="">
+			</p>
+			<h2 id="fffaa64c-9d0a-81b5-9249-f9f36650b74d" class="">3. Утилиты для работы с ФС</h2>
+			<p id="fffaa64c-9d0a-81ac-bd6e-f8babbbff86e" class="">Некоторые манипуляции с файловой системой и разделами
+				могут привести к критическим для системы последствиям, поэтому для начала давайте создадим тестовый
+				диск, на котором будем оттачивать навыки.</p>
+			<p id="fffaa64c-9d0a-81bf-bd09-d41ff98d7c36" class="">Сделаем это с помощью команды <strong>dd:</strong></p>
+			<figure id="fffaa64c-9d0a-81e7-b972-e69450948ffe" class="image"><a
+					href="Дополнительный материал/Untitled%206.png"><img
+						style="width:483px"
+						src="Дополнительный материал/Untitled%206.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-817a-a9c5-d1160d568e76" class=""><strong>if</strong> = источник (в примере поток нулей)
+			</p>
+			<p id="fffaa64c-9d0a-8171-a942-d612b83f14d0" class=""><strong>of</strong> = место назначения </p>
+			<p id="fffaa64c-9d0a-8100-acd1-c6efc8f97ef7" class=""><strong>count</strong> = число блоков для копирования
+			</p>
+			<p id="fffaa64c-9d0a-813a-9e10-feb3a3ea0356" class=""><strong>bs </strong>= размер одного блока</p>
+			<p id="fffaa64c-9d0a-81d1-9be5-c127d49d9ca7" class="">
+			</p>
+			<p id="fffaa64c-9d0a-8133-825c-d9474daf384c" class="">Затем создадим файловую систему ext3. Делается это с
+				помощью команды <strong>mkfs:</strong></p>
+			<figure id="fffaa64c-9d0a-8120-91c3-e3b44a415fba" class="image"><a
+					href="Дополнительный материал/Untitled%207.png"><img
+						style="width:486px"
+						src="Дополнительный материал/Untitled%207.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-81d3-8a87-fd1a43174e35" class="">
+			</p>
+			<p id="fffaa64c-9d0a-811b-873c-f17f24e71cc8" class=""><strong>-t ext4</strong> – указываем какую ФС создаем
+			</p>
+			<p id="fffaa64c-9d0a-8160-ae93-d7e638e7e352" class=""><strong>-L root</strong> – создаем метку </p>
+			<p id="fffaa64c-9d0a-8113-a5fe-c68c9ff2eace" class=""><strong>/disk.img</strong> – путь к диску, обычно в
+				виде /dev/sda</p>
+			<p id="fffaa64c-9d0a-81ef-86b0-ef199c28f2ec" class="">
+			</p>
+			<p id="fffaa64c-9d0a-81d6-bc59-fcd49fe1f53e" class="">Давайте проверим, все ли в порядке с созданной
+				файловой системой. Для этого есть утилита <strong>fsck</strong>.</p>
+			<figure id="fffaa64c-9d0a-81ac-a7be-d38fa550f7ab" class="image"><a
+					href="Дополнительный материал/Untitled%208.png"><img
+						style="width:476px"
+						src="Дополнительный материал/Untitled%208.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-8158-8cc3-cf75afc940c3" class=""><em>Обратите внимание, диск должен быть не
+					примонтирован.</em></p>
+			<p id="fffaa64c-9d0a-8148-870b-d227ec546fb6" class=""><strong>fsck можно применять со следующими
+					опциями</strong>:</p>
+			<figure id="fffaa64c-9d0a-8167-86bc-d60880d06b5a" class="image"><a
+					href="Дополнительный материал/Untitled%209.png"><img
+						style="width:672px"
+						src="Дополнительный материал/Untitled%209.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-81d3-bc99-e629bdc37597" class="">Теперь попробуем изменить метку раздела диска. Для
+				этого воспользуемся командой <strong>e2label</strong></p>
+			<figure id="fffaa64c-9d0a-8104-b857-d277d4c29537" class="image"><a
+					href="Дополнительный материал/Untitled%2010.png"><img
+						style="width:1012px"
+						src="Дополнительный материал/Untitled%2010.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-81f7-b72c-c24c043e9146" class="">
+			</p>
+			<p id="fffaa64c-9d0a-8169-9c22-e55620142f52" class="">Различные параметры файловой системы, такие как размер
+				блока данных, иноды (структура данных в которой хранится информация о файле или директории в файловой
+				системе) UUID, метку и многое другое можно настроить. Поможет в этом утилита <strong>tune2fs</strong>.
+				Давайте, к примеру, с её помощью изменим зарезервированное место под данные пользователя root на 5% от
+				дискового пространства.</p>
+			<figure id="fffaa64c-9d0a-813d-abcb-d25f85e0a63e" class="image"><a
+					href="Дополнительный материал/Untitled%2011.png"><img
+						style="width:664px"
+						src="Дополнительный материал/Untitled%2011.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-81e4-8c1a-f9301d1568dc" class="">А с опцией <strong>-l</strong> мы можем посмотреть всю
+				доступную информацию о параметрах файловой системы:</p>
+			<figure id="fffaa64c-9d0a-8101-b661-c205f4f76ffc" class="image"><a
+					href="Дополнительный материал/Untitled%2012.png"><img
+						style="width:605px"
+						src="Дополнительный материал/Untitled%2012.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-8165-aec5-e69236756acf" class="">
+			</p>
+			<h3 id="fffaa64c-9d0a-81f9-a8da-d4956adb68b9" class=""><strong>Другие опции команды tune2fs:</strong></h3>
+			<figure id="fffaa64c-9d0a-818c-b06f-c5973b7210ec" class="image"><a
+					href="Дополнительный материал/Untitled%2013.png"><img
+						style="width:722px"
+						src="Дополнительный материал/Untitled%2013.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-8120-8792-c4fff1458345" class="">
+			</p>
+			<p id="fffaa64c-9d0a-81a3-af47-c571eaf2f1a4" class="">Изменение размера файловой системы Linux выполняется
+				командой <strong>resize2fs</strong>. В качестве аргументов принимает диск и желаемый размер.</p>
+			<figure id="fffaa64c-9d0a-81b4-8a46-e78e081e4a32" class="image"><a
+					href="Дополнительный материал/Untitled%2014.png"><img
+						style="width:483px"
+						src="Дополнительный материал/Untitled%2014.png" /></a>
+			</figure>
+			<h3 id="fffaa64c-9d0a-8193-935d-effadd483d68" class="">Опции:</h3>
+			<figure id="fffaa64c-9d0a-81b0-93a2-eac6ac2f7328" class="image"><a
+					href="Дополнительный материал/Untitled%2015.png"><img
+						style="width:626px"
+						src="Дополнительный материал/Untitled%2015.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-8105-920d-d7e0a2d2a354" class="">
+			</p>
+			<p id="fffaa64c-9d0a-810d-b036-cf29693aa690" class="">Для дефрагментации можно использовать утилиту
+				<strong>e4defrag</strong>. В качестве аргумента укажите диск, который желаете фрагментировать. В нашем
+				случае команда будет выглядеть так:</p>
+			<figure id="fffaa64c-9d0a-8166-9d87-ea10a690bbcd" class="image"><a
+					href="Дополнительный материал/Untitled%2016.png"><img
+						style="width:483px"
+						src="Дополнительный материал/Untitled%2016.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-81e2-b13a-e9eda7b76c97" class="">Чтобы проверить нужна ли дефрагментация выполните эту
+				же команду с опцией -c</p>
+			<p id="fffaa64c-9d0a-8139-a7be-db5ea6a5a0c0" class="">
+			</p>
+			<h2 id="fffaa64c-9d0a-813d-b61d-de6decdb6cd8" class="">4. Монтирование и типы монтирования ФС</h2>
+			<p id="fffaa64c-9d0a-81ef-b735-e5b29d339780" class="">Монтированием в Linux называется подключение диска,
+				раздела, каталога или файла в корневую файловую систему. Суть монтирования в том, что в файловой системе
+				создаётся новая директория (обычная папка), допустим, это папка /mnt/disk. А затем командой mount
+				указывается, что теперь диск, к примеру /dev/sda, смонтирован в директорию /mnt/disk. После этого можно
+				получить доступ к файлам диска /dev/sda открыв папку /mnt/disk в любом менеджере файлов, то есть
+				/mnt/disk (точка монтирования) становится корневой директорией смонтированной ФС.</p>
+			<p id="fffaa64c-9d0a-8151-a28f-e0c30d17f61e" class=""><strong>Просмотр текущих точек монтирования: findmnt
+					–real</strong></p>
+			<figure id="fffaa64c-9d0a-81cb-99e9-c8620f3cf352" class="image"><a
+					href="Дополнительный материал/Untitled%2017.png"><img
+						style="width:708px"
+						src="Дополнительный материал/Untitled%2017.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-8101-ae9f-c971c16bbdb3" class="">
+			</p>
+			<p id="fffaa64c-9d0a-8119-9647-ea151181d09f" class="">Монтирование осуществляется с помощью утилиты
+				<strong>mount</strong>. Для подключения файловой системы к конкретному местоположению (точке
+				монтирования) команда mount используется в следующей форме:</p>
+			<figure id="fffaa64c-9d0a-8198-b7f2-d0497511b5e0" class="image"><a
+					href="Дополнительный материал/Untitled%2018.png"><img
+						style="width:716px"
+						src="Дополнительный материал/Untitled%2018.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-8132-aa4b-cdd86d89e43e" class="">В качестве устройства можно также указать файл образа.
+			</p>
+			<p id="fffaa64c-9d0a-8125-8c9f-d8fc91aea62b" class="">Смонтировать /dev/sda1 в директорию /mnt можно
+				следующим образом (добавив опцию –v мы увидим информацию о процессе):</p>
+			<figure id="fffaa64c-9d0a-81b0-a8f8-eb2229cac8ae" class="image"><a
+					href="Дополнительный материал/Untitled%2019.png"><img
+						style="width:716px"
+						src="Дополнительный материал/Untitled%2019.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-819e-92b5-d671fabe0a29" class="">
+			</p>
+			<h3 id="fffaa64c-9d0a-81ac-82fe-f643db945c33" class=""><strong>Основные опции команды mount</strong></h3>
+			<figure id="fffaa64c-9d0a-812e-a02c-c073d6067706" class="image"><a
+					href="Дополнительный материал/Untitled%2020.png"><img
+						style="width:1206px"
+						src="Дополнительный материал/Untitled%2020.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-81ad-85a6-ca29567aafa4" class="">
+			</p>
+			<h3 id="fffaa64c-9d0a-8150-81e9-e04b45d9b79b" class="">hdparm</h3>
+			<p id="fffaa64c-9d0a-8111-88d7-d09c43d26b9a" class="">Утилита hdparm позволяет установить устройству флаг
+				read-only. Когда флаг установлен на 1, Linux не разрешает операции записи на устройство.</p>
+			<figure id="fffaa64c-9d0a-8161-b5af-d7506a7fa3b4" class="image"><a
+					href="Дополнительный материал/Untitled%2021.png"><img
+						style="width:1238px"
+						src="Дополнительный материал/Untitled%2021.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-810d-b996-f8a5879bdf86" class="">
+			</p>
+			<p id="fffaa64c-9d0a-811d-9f24-d6f58daa88a5" class="">Для <strong>размонтирования</strong> диска
+				используется команда <strong>umount</strong>, которой можно передать либо точку монтирования, либо
+				устройство. Размонтирование устройства /dev/hdb1 с точкой монитрования /mnt выглядит так:</p>
+			<h1 id="fffaa64c-9d0a-81d3-b3f8-e8adf6c667ca" class=""></h1>
+			<figure id="fffaa64c-9d0a-81f1-8189-e3e7ddf9747e" class="image"><a
+					href="Дополнительный материал/Untitled%2022.png"><img
+						style="width:833px"
+						src="Дополнительный материал/Untitled%2022.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-8154-80eb-f340b2192ae4" class="">
+			</p>
+			<p id="fffaa64c-9d0a-8159-a63a-c6d8e1b449ee" class="">
+			</p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>
