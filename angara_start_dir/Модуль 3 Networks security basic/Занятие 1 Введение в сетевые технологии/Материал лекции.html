@@ -1,685 +1,1022 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Материал лекции</title><style>
-/* cspell:disable-file */
-/* webkit printing magic: print all background colors */
-html {
-	-webkit-print-color-adjust: exact;
-}
-* {
-	box-sizing: border-box;
-	-webkit-print-color-adjust: exact;
-}
-
-html,
-body {
-	margin: 0;
-	padding: 0;
-}
-@media only screen {
-	body {
-		margin: 2em auto;
-		max-width: 900px;
-		color: rgb(55, 53, 47);
-	}
-}
-
-body {
-	line-height: 1.5;
-	white-space: pre-wrap;
-}
-
-a,
-a.visited {
-	color: inherit;
-	text-decoration: underline;
-}
-
-.pdf-relative-link-path {
-	font-size: 80%;
-	color: #444;
-}
-
-h1,
-h2,
-h3 {
-	letter-spacing: -0.01em;
-	line-height: 1.2;
-	font-weight: 600;
-	margin-bottom: 0;
-}
-
-.page-title {
-	font-size: 2.5rem;
-	font-weight: 700;
-	margin-top: 0;
-	margin-bottom: 0.75em;
-}
-
-h1 {
-	font-size: 1.875rem;
-	margin-top: 1.875rem;
-}
-
-h2 {
-	font-size: 1.5rem;
-	margin-top: 1.5rem;
-}
-
-h3 {
-	font-size: 1.25rem;
-	margin-top: 1.25rem;
-}
-
-.source {
-	border: 1px solid #ddd;
-	border-radius: 3px;
-	padding: 1.5em;
-	word-break: break-all;
-}
-
-.callout {
-	border-radius: 3px;
-	padding: 1rem;
-}
-
-figure {
-	margin: 1.25em 0;
-	page-break-inside: avoid;
-}
-
-figcaption {
-	opacity: 0.5;
-	font-size: 85%;
-	margin-top: 0.5em;
-}
-
-mark {
-	background-color: transparent;
-}
-
-.indented {
-	padding-left: 1.5em;
-}
-
-hr {
-	background: transparent;
-	display: block;
-	width: 100%;
-	height: 1px;
-	visibility: visible;
-	border: none;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
-}
-
-img {
-	max-width: 100%;
-}
-
-@media only print {
-	img {
-		max-height: 100vh;
-		object-fit: contain;
-	}
-}
-
-@page {
-	margin: 1in;
-}
-
-.collection-content {
-	font-size: 0.875rem;
-}
-
-.column-list {
-	display: flex;
-	justify-content: space-between;
-}
-
-.column {
-	padding: 0 1em;
-}
-
-.column:first-child {
-	padding-left: 0;
-}
-
-.column:last-child {
-	padding-right: 0;
-}
-
-.table_of_contents-item {
-	display: block;
-	font-size: 0.875rem;
-	line-height: 1.3;
-	padding: 0.125rem;
-}
-
-.table_of_contents-indent-1 {
-	margin-left: 1.5rem;
-}
-
-.table_of_contents-indent-2 {
-	margin-left: 3rem;
-}
-
-.table_of_contents-indent-3 {
-	margin-left: 4.5rem;
-}
-
-.table_of_contents-link {
-	text-decoration: none;
-	opacity: 0.7;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
-}
-
-table,
-th,
-td {
-	border: 1px solid rgba(55, 53, 47, 0.09);
-	border-collapse: collapse;
-}
-
-table {
-	border-left: none;
-	border-right: none;
-}
-
-th,
-td {
-	font-weight: normal;
-	padding: 0.25em 0.5em;
-	line-height: 1.5;
-	min-height: 1.5em;
-	text-align: left;
-}
-
-th {
-	color: rgba(55, 53, 47, 0.6);
-}
-
-ol,
-ul {
-	margin: 0;
-	margin-block-start: 0.6em;
-	margin-block-end: 0.6em;
-}
-
-li > ol:first-child,
-li > ul:first-child {
-	margin-block-start: 0.6em;
-}
-
-ul > li {
-	list-style: disc;
-}
-
-ul.to-do-list {
-	padding-inline-start: 0;
-}
-
-ul.to-do-list > li {
-	list-style: none;
-}
-
-.to-do-children-checked {
-	text-decoration: line-through;
-	opacity: 0.375;
-}
-
-ul.toggle > li {
-	list-style: none;
-}
-
-ul {
-	padding-inline-start: 1.7em;
-}
-
-ul > li {
-	padding-left: 0.1em;
-}
-
-ol {
-	padding-inline-start: 1.6em;
-}
-
-ol > li {
-	padding-left: 0.2em;
-}
-
-.mono ol {
-	padding-inline-start: 2em;
-}
-
-.mono ol > li {
-	text-indent: -0.4em;
-}
-
-.toggle {
-	padding-inline-start: 0em;
-	list-style-type: none;
-}
-
-/* Indent toggle children */
-.toggle > li > details {
-	padding-left: 1.7em;
-}
-
-.toggle > li > details > summary {
-	margin-left: -1.1em;
-}
-
-.selected-value {
-	display: inline-block;
-	padding: 0 0.5em;
-	background: rgba(206, 205, 202, 0.5);
-	border-radius: 3px;
-	margin-right: 0.5em;
-	margin-top: 0.3em;
-	margin-bottom: 0.3em;
-	white-space: nowrap;
-}
-
-.collection-title {
-	display: inline-block;
-	margin-right: 1em;
-}
-
-.page-description {
-    margin-bottom: 2em;
-}
-
-.simple-table {
-	margin-top: 1em;
-	font-size: 0.875rem;
-	empty-cells: show;
-}
-.simple-table td {
-	height: 29px;
-	min-width: 120px;
-}
-
-.simple-table th {
-	height: 29px;
-	min-width: 120px;
-}
-
-.simple-table-header-color {
-	background: rgb(247, 246, 243);
-	color: black;
-}
-.simple-table-header {
-	font-weight: 500;
-}
-
-time {
-	opacity: 0.5;
-}
-
-.icon {
-	display: inline-block;
-	max-width: 1.2em;
-	max-height: 1.2em;
-	text-decoration: none;
-	vertical-align: text-bottom;
-	margin-right: 0.5em;
-}
-
-img.icon {
-	border-radius: 3px;
-}
-
-.user-icon {
-	width: 1.5em;
-	height: 1.5em;
-	border-radius: 100%;
-	margin-right: 0.5rem;
-}
-
-.user-icon-inner {
-	font-size: 0.8em;
-}
-
-.text-icon {
-	border: 1px solid #000;
-	text-align: center;
-}
-
-.page-cover-image {
-	display: block;
-	object-fit: cover;
-	width: 100%;
-	max-height: 30vh;
-}
-
-.page-header-icon {
-	font-size: 3rem;
-	margin-bottom: 1rem;
-}
-
-.page-header-icon-with-cover {
-	margin-top: -0.72em;
-	margin-left: 0.07em;
-}
-
-.page-header-icon img {
-	border-radius: 3px;
-}
-
-.link-to-page {
-	margin: 1em 0;
-	padding: 0;
-	border: none;
-	font-weight: 500;
-}
-
-p > .user {
-	opacity: 0.5;
-}
-
-td > .user,
-td > time {
-	white-space: nowrap;
-}
-
-input[type="checkbox"] {
-	transform: scale(1.5);
-	margin-right: 0.6em;
-	vertical-align: middle;
-}
-
-p {
-	margin-top: 0.5em;
-	margin-bottom: 0.5em;
-}
-
-.image {
-	border: none;
-	margin: 1.5em 0;
-	padding: 0;
-	border-radius: 0;
-	text-align: center;
-}
-
-.code,
-code {
-	background: rgba(135, 131, 120, 0.15);
-	border-radius: 3px;
-	padding: 0.2em 0.4em;
-	border-radius: 3px;
-	font-size: 85%;
-	tab-size: 2;
-}
-
-code {
-	color: #eb5757;
-}
-
-.code {
-	padding: 1.5em 1em;
-}
-
-.code-wrap {
-	white-space: pre-wrap;
-	word-break: break-all;
-}
-
-.code > code {
-	background: none;
-	padding: 0;
-	font-size: 100%;
-	color: inherit;
-}
-
-blockquote {
-	font-size: 1.25em;
-	margin: 1em 0;
-	padding-left: 1em;
-	border-left: 3px solid rgb(55, 53, 47);
-}
-
-.bookmark {
-	text-decoration: none;
-	max-height: 8em;
-	padding: 0;
-	display: flex;
-	width: 100%;
-	align-items: stretch;
-}
-
-.bookmark-title {
-	font-size: 0.85em;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	height: 1.75em;
-	white-space: nowrap;
-}
-
-.bookmark-text {
-	display: flex;
-	flex-direction: column;
-}
-
-.bookmark-info {
-	flex: 4 1 180px;
-	padding: 12px 14px 14px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
-
-.bookmark-image {
-	width: 33%;
-	flex: 1 1 180px;
-	display: block;
-	position: relative;
-	object-fit: cover;
-	border-radius: 1px;
-}
-
-.bookmark-description {
-	color: rgba(55, 53, 47, 0.6);
-	font-size: 0.75em;
-	overflow: hidden;
-	max-height: 4.5em;
-	word-break: break-word;
-}
-
-.bookmark-href {
-	font-size: 0.75em;
-	margin-top: 0.25em;
-}
-
-.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
-.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
-.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
-.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
-.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
-.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
-.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
-.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
-.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
-.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
-.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
-.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
-.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
-.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
-.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
-.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
-.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
-.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
-.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
-.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
-.highlight-default {
-	color: rgba(55, 53, 47, 1);
-}
-.highlight-gray {
-	color: rgba(120, 119, 116, 1);
-	fill: rgba(120, 119, 116, 1);
-}
-.highlight-brown {
-	color: rgba(159, 107, 83, 1);
-	fill: rgba(159, 107, 83, 1);
-}
-.highlight-orange {
-	color: rgba(217, 115, 13, 1);
-	fill: rgba(217, 115, 13, 1);
-}
-.highlight-yellow {
-	color: rgba(203, 145, 47, 1);
-	fill: rgba(203, 145, 47, 1);
-}
-.highlight-teal {
-	color: rgba(68, 131, 97, 1);
-	fill: rgba(68, 131, 97, 1);
-}
-.highlight-blue {
-	color: rgba(51, 126, 169, 1);
-	fill: rgba(51, 126, 169, 1);
-}
-.highlight-purple {
-	color: rgba(144, 101, 176, 1);
-	fill: rgba(144, 101, 176, 1);
-}
-.highlight-pink {
-	color: rgba(193, 76, 138, 1);
-	fill: rgba(193, 76, 138, 1);
-}
-.highlight-red {
-	color: rgba(212, 76, 71, 1);
-	fill: rgba(212, 76, 71, 1);
-}
-.highlight-default_background {
-	color: rgba(55, 53, 47, 1);
-}
-.highlight-gray_background {
-	background: rgba(241, 241, 239, 1);
-}
-.highlight-brown_background {
-	background: rgba(244, 238, 238, 1);
-}
-.highlight-orange_background {
-	background: rgba(251, 236, 221, 1);
-}
-.highlight-yellow_background {
-	background: rgba(251, 237, 214, 1);
-}
-.highlight-teal_background {
-	background: rgba(237, 243, 236, 1);
-}
-.highlight-blue_background {
-	background: rgba(231, 243, 248, 1);
-}
-.highlight-purple_background {
-	background: rgba(244, 240, 247, 0.8);
-}
-.highlight-pink_background {
-	background: rgba(249, 238, 243, 0.8);
-}
-.highlight-red_background {
-	background: rgba(253, 235, 236, 1);
-}
-.block-color-default {
-	color: inherit;
-	fill: inherit;
-}
-.block-color-gray {
-	color: rgba(120, 119, 116, 1);
-	fill: rgba(120, 119, 116, 1);
-}
-.block-color-brown {
-	color: rgba(159, 107, 83, 1);
-	fill: rgba(159, 107, 83, 1);
-}
-.block-color-orange {
-	color: rgba(217, 115, 13, 1);
-	fill: rgba(217, 115, 13, 1);
-}
-.block-color-yellow {
-	color: rgba(203, 145, 47, 1);
-	fill: rgba(203, 145, 47, 1);
-}
-.block-color-teal {
-	color: rgba(68, 131, 97, 1);
-	fill: rgba(68, 131, 97, 1);
-}
-.block-color-blue {
-	color: rgba(51, 126, 169, 1);
-	fill: rgba(51, 126, 169, 1);
-}
-.block-color-purple {
-	color: rgba(144, 101, 176, 1);
-	fill: rgba(144, 101, 176, 1);
-}
-.block-color-pink {
-	color: rgba(193, 76, 138, 1);
-	fill: rgba(193, 76, 138, 1);
-}
-.block-color-red {
-	color: rgba(212, 76, 71, 1);
-	fill: rgba(212, 76, 71, 1);
-}
-.block-color-default_background {
-	color: inherit;
-	fill: inherit;
-}
-.block-color-gray_background {
-	background: rgba(241, 241, 239, 1);
-}
-.block-color-brown_background {
-	background: rgba(244, 238, 238, 1);
-}
-.block-color-orange_background {
-	background: rgba(251, 236, 221, 1);
-}
-.block-color-yellow_background {
-	background: rgba(251, 237, 214, 1);
-}
-.block-color-teal_background {
-	background: rgba(237, 243, 236, 1);
-}
-.block-color-blue_background {
-	background: rgba(231, 243, 248, 1);
-}
-.block-color-purple_background {
-	background: rgba(244, 240, 247, 0.8);
-}
-.block-color-pink_background {
-	background: rgba(249, 238, 243, 0.8);
-}
-.block-color-red_background {
-	background: rgba(253, 235, 236, 1);
-}
-.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
-.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
-.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
-.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
-.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
-.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
-.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
-.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
-.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
-.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
-.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
-.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
-.select-value-color-pageGlass { background-color: undefined; }
-.select-value-color-washGlass { background-color: undefined; }
-
-.checkbox {
-	display: inline-flex;
-	vertical-align: text-bottom;
-	width: 16;
-	height: 16;
-	background-size: 16px;
-	margin-left: 2px;
-	margin-right: 5px;
-}
-
-.checkbox-on {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-
-.checkbox-off {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-	
-</style></head><body><article id="849d2496-6828-4fad-9ffd-d06a632dd56e" class="page sans"><header><h1 class="page-title">Материал лекции</h1><p class="page-description"></p></header><div class="page-body"><h2 id="9fbf1627-6a16-406f-8ad1-44f08fb2284a" class="">Сетевые технологии</h2><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="be1c2fe7-b1a9-4522-93d5-34ae9088dec6"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Согласованный <strong>набор стандартных протоколов</strong> и реализующий их программно-аппаратных средств, достаточный для построения вычислительных сетей.</div></figure><h3 id="b115f4ae-feb0-43bb-9902-1f9b8904489c" class="">Модель OSI</h3><blockquote id="d1af4885-d9a5-4cd6-b877-e4fc719c3fce" class=""><mark class="highlight-gray">Стандарты формирования трафика</mark></blockquote><table id="ba4e6f9d-ea9c-4caa-b1e0-7c8bfb6ab7a2" class="simple-table"><thead class="simple-table-header"><tr id="4c8260ea-39a0-422b-9de1-9f36b3320b51"><th id="a_Dw" class="simple-table-header-color simple-table-header" style="width:480px">Уровень (Layers)</th><th id="^[zz" class="simple-table-header-color simple-table-header">PDU</th></tr></thead><tbody><tr id="5104de3d-3b98-4f15-9762-fb274d651551"><td id="a_Dw" class="" style="width:480px"><strong>7. Прикладной (application)</strong><br/>Протоколы приложений, например DHCP<br/></td><td id="^[zz" class="">Данные</td></tr><tr id="138aeab7-d5bf-4513-b812-47368af4e45e"><td id="a_Dw" class="" style="width:480px"><strong>6. Уровень представления (presentation)</strong><br/>Кодирование данных из человеческого в машинный<br/></td><td id="^[zz" class="">Данные</td></tr><tr id="1f0c4aee-396c-4230-9bfc-c6991301dabb"><td id="a_Dw" class="" style="width:480px"><strong>5. Сеансовый (session)</strong><br/>Создается сеанс между двумя устройствами<br/></td><td id="^[zz" class="">Данные</td></tr><tr id="05d62885-799b-4d7d-8f5a-fb3d60e45c16"><td id="a_Dw" class="" style="width:480px"><strong>4. Транспортный (transport)</strong><br/>Обеспечение надежной передачи данных, выбирается протокол TCP/UDP<br/></td><td id="^[zz" class="">Сегмент</td></tr><tr id="56563d5a-465a-4d73-a749-9d0dd551d32b"><td id="a_Dw" class="" style="width:480px"><strong>3. Сетевой (network)</strong><br/>Добавление адресации IP и тд.<br/></td><td id="^[zz" class="">IP-пакет</td></tr><tr id="7005948b-6605-4c87-a1d5-a2a1603102ad"><td id="a_Dw" class="" style="width:480px"><strong>2. Канальный (data link)</strong><br/>Обеспечение взаимодействия сетей на физическом уровне и контроль ошибок<br/></td><td id="^[zz" class="">Кадр</td></tr><tr id="d6ebfa7e-6b62-4ec3-ad9d-737bda5e6314"><td id="a_Dw" class="" style="width:480px"><strong>1. Физический (physical)</strong><br/>Метод передачи данных, представленных в двоичном виде (Модулирование сигнала)<br/></td><td id="^[zz" class="">Бит</td></tr></tbody></table><h3 id="4660d143-ef4e-4831-ad64-d1bece8d498f" class="">MAC-адрес</h3><figure class="callout" style="white-space:pre-wrap;display:flex" id="73097dbc-e6dd-400c-9c20-2abf9ee32874"><div style="font-size:1.5em"><span class="icon">❗</span></div><div style="width:100%"><strong>Уникальный идентификатор</strong> активного оборудования или некоторых его интерфейсов в сетях Ethernet. Данный адрес <strong>зашивается в сетевую карту</strong> на заводе производителя. Адреса выдает организация под названием <em><strong>IANA</strong></em></div></figure><figure id="14ab9a5e-bec9-4586-88d1-d8569df6cac7" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20849d249668284fad9ffdd06a632dd56e/Screen_Shot_2022-05-05_at_18.17.18.png"><img src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20849d249668284fad9ffdd06a632dd56e/Screen_Shot_2022-05-05_at_18.17.18.png"/></a></figure><p id="1f0d780a-8c27-4dc3-9ad5-a025f30f0523" class=""><mark class="highlight-gray">Вид MAC адреса (всего 48 символов)</mark></p><h3 id="cfe0bd3a-0ff1-452e-83a1-653d80d7d48e" class="">Хаб vs Коммутатор vs Маршрутизатор</h3><figure id="7dc081ea-7e70-4420-8ab1-2095b4fb7707" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20849d249668284fad9ffdd06a632dd56e/Screen_Shot_2022-05-05_at_18.28.23.png"><img src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20849d249668284fad9ffdd06a632dd56e/Screen_Shot_2022-05-05_at_18.28.23.png"/></a></figure><h3 id="3c8385b7-a25c-449a-b530-5740d396764d" class="">Как работает коммутация</h3><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="399a5dc6-7f51-452e-a840-55e7b3f1e9e5"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><strong>Коммутация</strong> - процесс соединения различных абонентов коммуникационной сети через транзитные узлы</div></figure><ol type="1" id="757b4742-dbed-4cac-9399-d31028a26c3c" class="numbered-list" start="1"><li>Коммутатор создает <strong>таблицу коммутации</strong>, чтобы понять куда отправлять трафик. Это соотношение порта и MAC-адреса<figure id="809bfe2b-2a72-49ad-90fa-88e197a9039c" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20849d249668284fad9ffdd06a632dd56e/Screen_Shot_2022-05-05_at_18.32.43.png"><img src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20849d249668284fad9ffdd06a632dd56e/Screen_Shot_2022-05-05_at_18.32.43.png"/></a></figure></li></ol><ol type="1" id="e4857e47-f1a1-4dc5-ad8e-35a967e7767b" class="numbered-list" start="2"><li>Выбор метода коммутации<br/><br/><strong>Cut-through</strong> - быстрый метод, но контрольная сумма не проверяется, просто коммутация по адресному значению.<br/><br/><strong>Store-and-forward</strong> - основной метод коммутации, он медленный, но обычные пользователи этого не заметят. Он генерирует и проверяет <strong>контрольную сумму</strong> (алгоритм хеширования, алгоритм <em>CRC-32</em>) и <em><strong>при обнаружении ошибки кадр отбрасывается</strong></em></li></ol><h3 id="e599da53-cf7b-4f7f-8309-debd6e9c8824" class="">IP адресация</h3><figure class="callout" style="white-space:pre-wrap;display:flex" id="7c4c195e-0e04-41cb-9027-54fcf0afcb22"><div style="font-size:1.5em"><span class="icon">❗</span></div><div style="width:100%"><strong>Internet Protocol</strong> - маршрутизируемый протокол <em>сетевого</em> уровня стека TCP/IP</div></figure><figure id="bd75c0dc-d130-46f8-a591-d9e0c55f777a" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20849d249668284fad9ffdd06a632dd56e/Screen_Shot_2022-05-05_at_18.44.01.png"><img src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20849d249668284fad9ffdd06a632dd56e/Screen_Shot_2022-05-05_at_18.44.01.png"/></a></figure><ul id="84dffc2d-b9b1-429f-9039-a7acd517e5b4" class="bulleted-list"><li style="list-style-type:disc"><strong>Сетевой адрес</strong> (сеть или подсеть)</li></ul><ul id="ea7c9175-1e74-477d-861b-e0279c72cf63" class="bulleted-list"><li style="list-style-type:disc"><strong>Адрес хоста</strong> (конечные компьютеры в сети)</li></ul><ul id="60022c1e-c44a-4366-913f-d5fffc77a0f6" class="bulleted-list"><li style="list-style-type:disc"><strong>Широковещательный адрес</strong> (отправка данных на все хосты)</li></ul><h3 id="30e828c4-3154-4fd2-a0fe-c61aa5724cc4" class="">IPv6</h3><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="5e995473-d595-414d-a09a-e09f8561f298"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Основное изменение - более длинные адреса отправителя и получателя, каждый из которых занимает по <strong>16 байт</strong></div></figure><figure id="567b30b2-924b-43c5-8202-7c51036e8085" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20849d249668284fad9ffdd06a632dd56e/Screen_Shot_2022-05-05_at_18.51.38.png"><img src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20849d249668284fad9ffdd06a632dd56e/Screen_Shot_2022-05-05_at_18.51.38.png"/></a></figure><h3 id="40efd378-074a-461b-9756-7be3c968124d" class="">Преимущества IPv6</h3><ul id="92040146-4e15-4594-b85b-9f2de5a42214" class="bulleted-list"><li style="list-style-type:disc">Адресов хватит с запасом на многие десятилетия вперед</li></ul><ul id="c9936fe0-f443-4333-88c6-0bf7c68cefdf" class="bulleted-list"><li style="list-style-type:disc">У каждого устройства “белый” IP адрес</li></ul><ul id="20e6aac2-a77a-4fb6-b924-3a3215b82890" class="bulleted-list"><li style="list-style-type:disc">Раскрываются возможности peer-to-peer сетей</li></ul><ul id="2defefde-bf94-4dd4-9617-f0f727b67d1e" class="bulleted-list"><li style="list-style-type:disc">Упрощены заголовки пакетов</li></ul><ul id="396c5224-69d3-445a-84d1-27c01654bf3d" class="bulleted-list"><li style="list-style-type:disc">Поддержка шифрования трафика IPsec</li></ul><h3 id="09ee83db-de84-4792-bc25-7656c9e4baca" class="">ARP</h3><blockquote id="ce66eb02-2d16-4ed2-8ee6-5aabe498b499" class=""><mark class="highlight-gray">Как узнать за каким портом находится компьютер?</mark></blockquote><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="5faf11ea-31c4-457e-bcac-94866b75b0ca"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><strong>ARP</strong> (<strong>Address Resolution Protocol</strong> — протокол определения адреса) — <strong>протокол</strong> для определения соответствия между <em>логическим</em> адресом сетевого уровня (<strong>IP</strong>) и <em>физическим</em> адресом устройства (<strong>MAC</strong>). <br/>ARP был спроектирован для передачи IP-пакетов через пакеты (кадры) Ethernet.<br/></div></figure><ul id="58d5f096-8d62-43ca-8ad7-fb26028c571d" class="bulleted-list"><li style="list-style-type:disc"><strong>Broadcast</strong> адрес (Широковещательный адрес) — условный (не присвоенный никакому устройству в сети) адрес, который используется для передачи широковещательных пакетов в компьютерных сетях. На уровне <strong><a href="https://ru.wikipedia.org/wiki/%D0%A1%D0%B5%D1%82%D0%B5%D0%B2%D0%B0%D1%8F_%D0%BC%D0%BE%D0%B4%D0%B5%D0%BB%D1%8C_OSI#%D0%9A%D0%B0%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9_%D1%83%D1%80%D0%BE%D0%B2%D0%B5%D0%BD%D1%8C_(Data_Link_layer)">L2</a></strong> используется широковещательный <a href="https://ru.wikipedia.org/wiki/MAC-%D0%B0%D0%B4%D1%80%D0%B5%D1%81">MAC-адрес</a> <strong>FF:FF:FF:FF:FF:FF</strong> для передачи служебных <a href="https://ru.wikipedia.org/wiki/%D0%94%D0%B0%D1%82%D0%B0%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0">датаграмм</a> (например, <a href="https://ru.wikipedia.org/wiki/ARP#%D0%A1%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%B0_%D0%BF%D0%B0%D0%BA%D0%B5%D1%82%D0%B0">ARP-запросов</a>). Датаграммы, отправленные на такой адрес, принимаются всеми сетевыми устройствами локальной сети.</li></ul><ul id="d61e2c88-c10e-4330-a9af-553f7b69af02" class="bulleted-list"><li style="list-style-type:disc"><strong>ARP запрос</strong> (Who has ...)</li></ul><ul id="764278ec-d7d0-4584-9d04-c331b833de15" class="bulleted-list"><li style="list-style-type:disc"><strong>Broadcast ARP</strong> (когда устройство подключается в сети, оно посылает запрос всем устройствам в сети, чтобы они записали его адрес в свои ARP таблички)</li></ul><ul id="c706cdd7-4070-4ebf-ba0d-37ea181fd0d8" class="bulleted-list"><li style="list-style-type:disc">Когда приходит ответ на ARP запрос данный записываются на коммутатор или любое другое сетевое устройство, в его ARP таблицу, в которой есть три столбца: <strong>Host</strong> | <strong>MAC адрес</strong> | <strong>IP</strong><figure id="a14aa0b6-58d1-4c20-9e94-6442cefc7390" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20849d249668284fad9ffdd06a632dd56e/Screen_Shot_2022-05-05_at_19.06.08.png"><img src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20849d249668284fad9ffdd06a632dd56e/Screen_Shot_2022-05-05_at_19.06.08.png"/></a></figure><p id="c50d1798-f51e-481c-9210-c6c3d2bc8e96" class=""><mark class="highlight-gray">Пример ARP-таблицы в Windows</mark></p><p id="67cd77d5-9c75-4da3-954c-ba143432e9a0" class="">
-</p></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Материал лекции</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 237, 214, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 237, 214, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(249, 228, 188, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="fffaa64c-9d0a-81c3-834e-e1d73e0b5a3f" class="page sans">
+		<header>
+			<h1 class="page-title">Материал лекции</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<h2 id="fffaa64c-9d0a-8147-a8fb-c3c8a7465c2a" class="">Сетевые технологии</h2>
+			<figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex"
+				id="fffaa64c-9d0a-8148-b583-f6e4cbc3e55a">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%">Согласованный <strong>набор стандартных протоколов</strong> и реализующий их
+					программно-аппаратных средств, достаточный для построения вычислительных сетей.</div>
+			</figure>
+			<h3 id="fffaa64c-9d0a-8103-86bb-d4a5b516dce0" class="">Модель OSI</h3>
+			<blockquote id="fffaa64c-9d0a-81eb-ad6a-e0b75b0fe0f3" class=""><mark class="highlight-gray">Стандарты
+					формирования трафика</mark></blockquote>
+			<table id="fffaa64c-9d0a-8161-a3fd-d905b56b765b" class="simple-table">
+				<thead class="simple-table-header">
+					<tr id="fffaa64c-9d0a-8196-8593-c52340e2d575">
+						<th id="a_Dw" class="simple-table-header-color simple-table-header" style="width:480px">Уровень
+							(Layers)</th>
+						<th id="^[zz" class="simple-table-header-color simple-table-header">PDU</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr id="fffaa64c-9d0a-81e2-9d93-e9c76c27cb44">
+						<td id="a_Dw" class="" style="width:480px"><strong>7. Прикладной
+								(application)</strong><br />Протоколы приложений, например DHCP<br /></td>
+						<td id="^[zz" class="">Данные</td>
+					</tr>
+					<tr id="fffaa64c-9d0a-8197-bcb3-d832d33c10da">
+						<td id="a_Dw" class="" style="width:480px"><strong>6. Уровень представления
+								(presentation)</strong><br />Кодирование данных из человеческого в машинный<br /></td>
+						<td id="^[zz" class="">Данные</td>
+					</tr>
+					<tr id="fffaa64c-9d0a-814d-a767-df849e58ac68">
+						<td id="a_Dw" class="" style="width:480px"><strong>5. Сеансовый
+								(session)</strong><br />Создается сеанс между двумя устройствами<br /></td>
+						<td id="^[zz" class="">Данные</td>
+					</tr>
+					<tr id="fffaa64c-9d0a-8107-a61e-eb4230a60895">
+						<td id="a_Dw" class="" style="width:480px"><strong>4. Транспортный
+								(transport)</strong><br />Обеспечение надежной передачи данных, выбирается протокол
+							TCP/UDP<br /></td>
+						<td id="^[zz" class="">Сегмент</td>
+					</tr>
+					<tr id="fffaa64c-9d0a-81fc-b55b-f08eb6cad5b7">
+						<td id="a_Dw" class="" style="width:480px"><strong>3. Сетевой (network)</strong><br />Добавление
+							адресации IP и тд.<br /></td>
+						<td id="^[zz" class="">IP-пакет</td>
+					</tr>
+					<tr id="fffaa64c-9d0a-817e-add9-c05246389a52">
+						<td id="a_Dw" class="" style="width:480px"><strong>2. Канальный (data
+								link)</strong><br />Обеспечение взаимодействия сетей на физическом уровне и контроль
+							ошибок<br /></td>
+						<td id="^[zz" class="">Кадр</td>
+					</tr>
+					<tr id="fffaa64c-9d0a-81c3-9a38-e98dbda5af56">
+						<td id="a_Dw" class="" style="width:480px"><strong>1. Физический (physical)</strong><br />Метод
+							передачи данных, представленных в двоичном виде (Модулирование сигнала)<br /></td>
+						<td id="^[zz" class="">Бит</td>
+					</tr>
+				</tbody>
+			</table>
+			<h3 id="fffaa64c-9d0a-8116-abe3-c923ac3f5c5c" class="">MAC-адрес</h3>
+			<figure class="callout" style="white-space:pre-wrap;display:flex" id="fffaa64c-9d0a-81b7-8454-da187c432d34">
+				<div style="font-size:1.5em"><span class="icon">❗</span></div>
+				<div style="width:100%"><strong>Уникальный идентификатор</strong> активного оборудования или некоторых
+					его интерфейсов в сетях Ethernet. Данный адрес <strong>зашивается в сетевую карту</strong> на заводе
+					производителя. Адреса выдает организация под названием <em><strong>IANA</strong></em></div>
+			</figure>
+			<figure id="fffaa64c-9d0a-8104-a980-d5c073aae1fe" class="image"><a
+					href="Материал лекции/Screen_Shot_2022-05-05_at_18.17.18.png"><img
+						src="Материал лекции/Screen_Shot_2022-05-05_at_18.17.18.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-81c4-873b-c8617e8fa4b6" class=""><mark class="highlight-gray">Вид MAC адреса (всего 48
+					символов)</mark></p>
+			<h3 id="fffaa64c-9d0a-8110-b37f-f7f96684014a" class="">Хаб vs Коммутатор vs Маршрутизатор</h3>
+			<figure id="fffaa64c-9d0a-814d-8ed8-cf65e0b92cc8" class="image"><a
+					href="Материал лекции/Screen_Shot_2022-05-05_at_18.28.23.png"><img
+						src="Материал лекции/Screen_Shot_2022-05-05_at_18.28.23.png" /></a>
+			</figure>
+			<h3 id="fffaa64c-9d0a-816c-abf9-d18589ebff7f" class="">Как работает коммутация</h3>
+			<figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex"
+				id="fffaa64c-9d0a-814d-9a26-c05a95995f67">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%"><strong>Коммутация</strong> - процесс соединения различных абонентов
+					коммуникационной сети через транзитные узлы</div>
+			</figure>
+			<ol type="1" id="fffaa64c-9d0a-81a1-812c-c4fe0cfb9bcc" class="numbered-list" start="1">
+				<li>Коммутатор создает <strong>таблицу коммутации</strong>, чтобы понять куда отправлять трафик. Это
+					соотношение порта и MAC-адреса<figure id="fffaa64c-9d0a-81df-a4fe-c47b6a6f5a6f" class="image"><a
+							href="Материал лекции/Screen_Shot_2022-05-05_at_18.32.43.png"><img
+								src="Материал лекции/Screen_Shot_2022-05-05_at_18.32.43.png" /></a>
+					</figure>
+				</li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-81f5-8263-cd8053636edf" class="numbered-list" start="2">
+				<li>Выбор метода коммутации<br /><br /><strong>Cut-through</strong> - быстрый метод, но контрольная
+					сумма не проверяется, просто коммутация по адресному
+					значению.<br /><br /><strong>Store-and-forward</strong> - основной метод коммутации, он медленный,
+					но обычные пользователи этого не заметят. Он генерирует и проверяет <strong>контрольную
+						сумму</strong> (алгоритм хеширования, алгоритм <em>CRC-32</em>) и <em><strong>при обнаружении
+							ошибки кадр отбрасывается</strong></em></li>
+			</ol>
+			<h3 id="fffaa64c-9d0a-81d5-aac8-d52656515c43" class="">IP адресация</h3>
+			<figure class="callout" style="white-space:pre-wrap;display:flex" id="fffaa64c-9d0a-812b-a5d3-e0e33f14899a">
+				<div style="font-size:1.5em"><span class="icon">❗</span></div>
+				<div style="width:100%"><strong>Internet Protocol</strong> - маршрутизируемый протокол <em>сетевого</em>
+					уровня стека TCP/IP</div>
+			</figure>
+			<figure id="fffaa64c-9d0a-814d-9bd2-f5dfbd8b08a6" class="image"><a
+					href="Материал лекции/Screen_Shot_2022-05-05_at_18.44.01.png"><img
+						src="Материал лекции/Screen_Shot_2022-05-05_at_18.44.01.png" /></a>
+			</figure>
+			<ul id="fffaa64c-9d0a-8104-b020-f1937b492053" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Сетевой адрес</strong> (сеть или подсеть)</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-818a-a846-d04f22a93e73" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Адрес хоста</strong> (конечные компьютеры в сети)</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81f8-a27d-c4c1007485bc" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Широковещательный адрес</strong> (отправка данных на все хосты)
+				</li>
+			</ul>
+			<h3 id="fffaa64c-9d0a-81ba-9946-c9d4e69d8c25" class="">IPv6</h3>
+			<figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex"
+				id="fffaa64c-9d0a-811b-a2c9-ecad692286ea">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%">Основное изменение - более длинные адреса отправителя и получателя, каждый из
+					которых занимает по <strong>16 байт</strong></div>
+			</figure>
+			<figure id="fffaa64c-9d0a-81cd-96f6-c0f3073af75c" class="image"><a
+					href="Материал лекции/Screen_Shot_2022-05-05_at_18.51.38.png"><img
+						src="Материал лекции/Screen_Shot_2022-05-05_at_18.51.38.png" /></a>
+			</figure>
+			<h3 id="fffaa64c-9d0a-8163-bb9d-c76d025e7758" class="">Преимущества IPv6</h3>
+			<ul id="fffaa64c-9d0a-819a-b561-d631b2d63e5e" class="bulleted-list">
+				<li style="list-style-type:disc">Адресов хватит с запасом на многие десятилетия вперед</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8141-abe7-fd1c407ee47c" class="bulleted-list">
+				<li style="list-style-type:disc">У каждого устройства “белый” IP адрес</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81dc-8bec-d01e7080a0cc" class="bulleted-list">
+				<li style="list-style-type:disc">Раскрываются возможности peer-to-peer сетей</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81b3-bc47-efec34817097" class="bulleted-list">
+				<li style="list-style-type:disc">Упрощены заголовки пакетов</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8114-b7d0-fd7d300ee745" class="bulleted-list">
+				<li style="list-style-type:disc">Поддержка шифрования трафика IPsec</li>
+			</ul>
+			<h3 id="fffaa64c-9d0a-8158-ac84-cc9429354d1f" class="">ARP</h3>
+			<blockquote id="fffaa64c-9d0a-819d-bd10-ff5a0279d0c2" class=""><mark class="highlight-gray">Как узнать за
+					каким портом находится компьютер?</mark></blockquote>
+			<figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex"
+				id="fffaa64c-9d0a-81b0-893b-fb7607ff0a79">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%"><strong>ARP</strong> (<strong>Address Resolution Protocol</strong> — протокол
+					определения адреса) — <strong>протокол</strong> для определения соответствия между
+					<em>логическим</em> адресом сетевого уровня (<strong>IP</strong>) и <em>физическим</em> адресом
+					устройства (<strong>MAC</strong>). <br />ARP был спроектирован для передачи IP-пакетов через пакеты
+					(кадры) Ethernet.<br /></div>
+			</figure>
+			<ul id="fffaa64c-9d0a-81b0-9a89-ec5e5ee26e6a" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Broadcast</strong> адрес (Широковещательный адрес) — условный
+					(не присвоенный никакому устройству в сети) адрес, который используется для
+					передачи широковещательных пакетов в компьютерных сетях. На уровне <strong><a
+							href="https://ru.wikipedia.org/wiki/%D0%A1%D0%B5%D1%82%D0%B5%D0%B2%D0%B0%D1%8F_%D0%BC%D0%BE%D0%B4%D0%B5%D0%BB%D1%8C_OSI#%D0%9A%D0%B0%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9_%D1%83%D1%80%D0%BE%D0%B2%D0%B5%D0%BD%D1%8C_(Data_Link_layer)">L2</a></strong>
+					используется широковещательный <a
+						href="https://ru.wikipedia.org/wiki/MAC-%D0%B0%D0%B4%D1%80%D0%B5%D1%81">MAC-адрес</a>
+					<strong>FF:FF:FF:FF:FF:FF</strong> для передачи служебных <a
+						href="https://ru.wikipedia.org/wiki/%D0%94%D0%B0%D1%82%D0%B0%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0">датаграмм</a>
+					(например, <a
+						href="https://ru.wikipedia.org/wiki/ARP#%D0%A1%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%B0_%D0%BF%D0%B0%D0%BA%D0%B5%D1%82%D0%B0">ARP-запросов</a>).
+					Датаграммы, отправленные на такой адрес, принимаются всеми сетевыми устройствами локальной сети.
+				</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8136-b738-f0653ccfc333" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>ARP запрос</strong> (Who has ...)</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8181-bf61-c76c6a2e9505" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Broadcast ARP</strong> (когда устройство подключается в сети,
+					оно посылает запрос всем устройствам в сети, чтобы они записали его адрес в свои ARP таблички)</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-810f-8b37-cd5dc8217d4c" class="bulleted-list">
+				<li style="list-style-type:disc">Когда приходит ответ на ARP запрос данный записываются на коммутатор
+					или любое другое сетевое устройство, в его ARP таблицу, в которой есть три столбца:
+					<strong>Host</strong> | <strong>MAC адрес</strong> | <strong>IP</strong>
+					<figure id="fffaa64c-9d0a-81a1-9e68-fc5edbb61248" class="image"><a
+							href="Материал лекции/Screen_Shot_2022-05-05_at_19.06.08.png"><img
+								src="Материал лекции/Screen_Shot_2022-05-05_at_19.06.08.png" /></a>
+					</figure>
+					<p id="fffaa64c-9d0a-8123-a515-f512167d5958" class=""><mark class="highlight-gray">Пример
+							ARP-таблицы в Windows</mark></p>
+					<p id="fffaa64c-9d0a-81c2-bb87-c5b14099679b" class="">
+					</p>
+				</li>
+			</ul>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

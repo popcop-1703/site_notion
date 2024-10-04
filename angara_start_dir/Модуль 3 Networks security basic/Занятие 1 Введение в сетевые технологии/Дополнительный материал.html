@@ -1,686 +1,1646 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Дополнительный материал</title><style>
-/* cspell:disable-file */
-/* webkit printing magic: print all background colors */
-html {
-	-webkit-print-color-adjust: exact;
-}
-* {
-	box-sizing: border-box;
-	-webkit-print-color-adjust: exact;
-}
-
-html,
-body {
-	margin: 0;
-	padding: 0;
-}
-@media only screen {
-	body {
-		margin: 2em auto;
-		max-width: 900px;
-		color: rgb(55, 53, 47);
-	}
-}
-
-body {
-	line-height: 1.5;
-	white-space: pre-wrap;
-}
-
-a,
-a.visited {
-	color: inherit;
-	text-decoration: underline;
-}
-
-.pdf-relative-link-path {
-	font-size: 80%;
-	color: #444;
-}
-
-h1,
-h2,
-h3 {
-	letter-spacing: -0.01em;
-	line-height: 1.2;
-	font-weight: 600;
-	margin-bottom: 0;
-}
-
-.page-title {
-	font-size: 2.5rem;
-	font-weight: 700;
-	margin-top: 0;
-	margin-bottom: 0.75em;
-}
-
-h1 {
-	font-size: 1.875rem;
-	margin-top: 1.875rem;
-}
-
-h2 {
-	font-size: 1.5rem;
-	margin-top: 1.5rem;
-}
-
-h3 {
-	font-size: 1.25rem;
-	margin-top: 1.25rem;
-}
-
-.source {
-	border: 1px solid #ddd;
-	border-radius: 3px;
-	padding: 1.5em;
-	word-break: break-all;
-}
-
-.callout {
-	border-radius: 3px;
-	padding: 1rem;
-}
-
-figure {
-	margin: 1.25em 0;
-	page-break-inside: avoid;
-}
-
-figcaption {
-	opacity: 0.5;
-	font-size: 85%;
-	margin-top: 0.5em;
-}
-
-mark {
-	background-color: transparent;
-}
-
-.indented {
-	padding-left: 1.5em;
-}
-
-hr {
-	background: transparent;
-	display: block;
-	width: 100%;
-	height: 1px;
-	visibility: visible;
-	border: none;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
-}
-
-img {
-	max-width: 100%;
-}
-
-@media only print {
-	img {
-		max-height: 100vh;
-		object-fit: contain;
-	}
-}
-
-@page {
-	margin: 1in;
-}
-
-.collection-content {
-	font-size: 0.875rem;
-}
-
-.column-list {
-	display: flex;
-	justify-content: space-between;
-}
-
-.column {
-	padding: 0 1em;
-}
-
-.column:first-child {
-	padding-left: 0;
-}
-
-.column:last-child {
-	padding-right: 0;
-}
-
-.table_of_contents-item {
-	display: block;
-	font-size: 0.875rem;
-	line-height: 1.3;
-	padding: 0.125rem;
-}
-
-.table_of_contents-indent-1 {
-	margin-left: 1.5rem;
-}
-
-.table_of_contents-indent-2 {
-	margin-left: 3rem;
-}
-
-.table_of_contents-indent-3 {
-	margin-left: 4.5rem;
-}
-
-.table_of_contents-link {
-	text-decoration: none;
-	opacity: 0.7;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
-}
-
-table,
-th,
-td {
-	border: 1px solid rgba(55, 53, 47, 0.09);
-	border-collapse: collapse;
-}
-
-table {
-	border-left: none;
-	border-right: none;
-}
-
-th,
-td {
-	font-weight: normal;
-	padding: 0.25em 0.5em;
-	line-height: 1.5;
-	min-height: 1.5em;
-	text-align: left;
-}
-
-th {
-	color: rgba(55, 53, 47, 0.6);
-}
-
-ol,
-ul {
-	margin: 0;
-	margin-block-start: 0.6em;
-	margin-block-end: 0.6em;
-}
-
-li > ol:first-child,
-li > ul:first-child {
-	margin-block-start: 0.6em;
-}
-
-ul > li {
-	list-style: disc;
-}
-
-ul.to-do-list {
-	padding-inline-start: 0;
-}
-
-ul.to-do-list > li {
-	list-style: none;
-}
-
-.to-do-children-checked {
-	text-decoration: line-through;
-	opacity: 0.375;
-}
-
-ul.toggle > li {
-	list-style: none;
-}
-
-ul {
-	padding-inline-start: 1.7em;
-}
-
-ul > li {
-	padding-left: 0.1em;
-}
-
-ol {
-	padding-inline-start: 1.6em;
-}
-
-ol > li {
-	padding-left: 0.2em;
-}
-
-.mono ol {
-	padding-inline-start: 2em;
-}
-
-.mono ol > li {
-	text-indent: -0.4em;
-}
-
-.toggle {
-	padding-inline-start: 0em;
-	list-style-type: none;
-}
-
-/* Indent toggle children */
-.toggle > li > details {
-	padding-left: 1.7em;
-}
-
-.toggle > li > details > summary {
-	margin-left: -1.1em;
-}
-
-.selected-value {
-	display: inline-block;
-	padding: 0 0.5em;
-	background: rgba(206, 205, 202, 0.5);
-	border-radius: 3px;
-	margin-right: 0.5em;
-	margin-top: 0.3em;
-	margin-bottom: 0.3em;
-	white-space: nowrap;
-}
-
-.collection-title {
-	display: inline-block;
-	margin-right: 1em;
-}
-
-.page-description {
-    margin-bottom: 2em;
-}
-
-.simple-table {
-	margin-top: 1em;
-	font-size: 0.875rem;
-	empty-cells: show;
-}
-.simple-table td {
-	height: 29px;
-	min-width: 120px;
-}
-
-.simple-table th {
-	height: 29px;
-	min-width: 120px;
-}
-
-.simple-table-header-color {
-	background: rgb(247, 246, 243);
-	color: black;
-}
-.simple-table-header {
-	font-weight: 500;
-}
-
-time {
-	opacity: 0.5;
-}
-
-.icon {
-	display: inline-block;
-	max-width: 1.2em;
-	max-height: 1.2em;
-	text-decoration: none;
-	vertical-align: text-bottom;
-	margin-right: 0.5em;
-}
-
-img.icon {
-	border-radius: 3px;
-}
-
-.user-icon {
-	width: 1.5em;
-	height: 1.5em;
-	border-radius: 100%;
-	margin-right: 0.5rem;
-}
-
-.user-icon-inner {
-	font-size: 0.8em;
-}
-
-.text-icon {
-	border: 1px solid #000;
-	text-align: center;
-}
-
-.page-cover-image {
-	display: block;
-	object-fit: cover;
-	width: 100%;
-	max-height: 30vh;
-}
-
-.page-header-icon {
-	font-size: 3rem;
-	margin-bottom: 1rem;
-}
-
-.page-header-icon-with-cover {
-	margin-top: -0.72em;
-	margin-left: 0.07em;
-}
-
-.page-header-icon img {
-	border-radius: 3px;
-}
-
-.link-to-page {
-	margin: 1em 0;
-	padding: 0;
-	border: none;
-	font-weight: 500;
-}
-
-p > .user {
-	opacity: 0.5;
-}
-
-td > .user,
-td > time {
-	white-space: nowrap;
-}
-
-input[type="checkbox"] {
-	transform: scale(1.5);
-	margin-right: 0.6em;
-	vertical-align: middle;
-}
-
-p {
-	margin-top: 0.5em;
-	margin-bottom: 0.5em;
-}
-
-.image {
-	border: none;
-	margin: 1.5em 0;
-	padding: 0;
-	border-radius: 0;
-	text-align: center;
-}
-
-.code,
-code {
-	background: rgba(135, 131, 120, 0.15);
-	border-radius: 3px;
-	padding: 0.2em 0.4em;
-	border-radius: 3px;
-	font-size: 85%;
-	tab-size: 2;
-}
-
-code {
-	color: #eb5757;
-}
-
-.code {
-	padding: 1.5em 1em;
-}
-
-.code-wrap {
-	white-space: pre-wrap;
-	word-break: break-all;
-}
-
-.code > code {
-	background: none;
-	padding: 0;
-	font-size: 100%;
-	color: inherit;
-}
-
-blockquote {
-	font-size: 1.25em;
-	margin: 1em 0;
-	padding-left: 1em;
-	border-left: 3px solid rgb(55, 53, 47);
-}
-
-.bookmark {
-	text-decoration: none;
-	max-height: 8em;
-	padding: 0;
-	display: flex;
-	width: 100%;
-	align-items: stretch;
-}
-
-.bookmark-title {
-	font-size: 0.85em;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	height: 1.75em;
-	white-space: nowrap;
-}
-
-.bookmark-text {
-	display: flex;
-	flex-direction: column;
-}
-
-.bookmark-info {
-	flex: 4 1 180px;
-	padding: 12px 14px 14px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
-
-.bookmark-image {
-	width: 33%;
-	flex: 1 1 180px;
-	display: block;
-	position: relative;
-	object-fit: cover;
-	border-radius: 1px;
-}
-
-.bookmark-description {
-	color: rgba(55, 53, 47, 0.6);
-	font-size: 0.75em;
-	overflow: hidden;
-	max-height: 4.5em;
-	word-break: break-word;
-}
-
-.bookmark-href {
-	font-size: 0.75em;
-	margin-top: 0.25em;
-}
-
-.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
-.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
-.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
-.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
-.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
-.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
-.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
-.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
-.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
-.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
-.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
-.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
-.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
-.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
-.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
-.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
-.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
-.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
-.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
-.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
-.highlight-default {
-	color: rgba(55, 53, 47, 1);
-}
-.highlight-gray {
-	color: rgba(120, 119, 116, 1);
-	fill: rgba(120, 119, 116, 1);
-}
-.highlight-brown {
-	color: rgba(159, 107, 83, 1);
-	fill: rgba(159, 107, 83, 1);
-}
-.highlight-orange {
-	color: rgba(217, 115, 13, 1);
-	fill: rgba(217, 115, 13, 1);
-}
-.highlight-yellow {
-	color: rgba(203, 145, 47, 1);
-	fill: rgba(203, 145, 47, 1);
-}
-.highlight-teal {
-	color: rgba(68, 131, 97, 1);
-	fill: rgba(68, 131, 97, 1);
-}
-.highlight-blue {
-	color: rgba(51, 126, 169, 1);
-	fill: rgba(51, 126, 169, 1);
-}
-.highlight-purple {
-	color: rgba(144, 101, 176, 1);
-	fill: rgba(144, 101, 176, 1);
-}
-.highlight-pink {
-	color: rgba(193, 76, 138, 1);
-	fill: rgba(193, 76, 138, 1);
-}
-.highlight-red {
-	color: rgba(212, 76, 71, 1);
-	fill: rgba(212, 76, 71, 1);
-}
-.highlight-default_background {
-	color: rgba(55, 53, 47, 1);
-}
-.highlight-gray_background {
-	background: rgba(241, 241, 239, 1);
-}
-.highlight-brown_background {
-	background: rgba(244, 238, 238, 1);
-}
-.highlight-orange_background {
-	background: rgba(251, 236, 221, 1);
-}
-.highlight-yellow_background {
-	background: rgba(251, 237, 214, 1);
-}
-.highlight-teal_background {
-	background: rgba(237, 243, 236, 1);
-}
-.highlight-blue_background {
-	background: rgba(231, 243, 248, 1);
-}
-.highlight-purple_background {
-	background: rgba(244, 240, 247, 0.8);
-}
-.highlight-pink_background {
-	background: rgba(249, 238, 243, 0.8);
-}
-.highlight-red_background {
-	background: rgba(253, 235, 236, 1);
-}
-.block-color-default {
-	color: inherit;
-	fill: inherit;
-}
-.block-color-gray {
-	color: rgba(120, 119, 116, 1);
-	fill: rgba(120, 119, 116, 1);
-}
-.block-color-brown {
-	color: rgba(159, 107, 83, 1);
-	fill: rgba(159, 107, 83, 1);
-}
-.block-color-orange {
-	color: rgba(217, 115, 13, 1);
-	fill: rgba(217, 115, 13, 1);
-}
-.block-color-yellow {
-	color: rgba(203, 145, 47, 1);
-	fill: rgba(203, 145, 47, 1);
-}
-.block-color-teal {
-	color: rgba(68, 131, 97, 1);
-	fill: rgba(68, 131, 97, 1);
-}
-.block-color-blue {
-	color: rgba(51, 126, 169, 1);
-	fill: rgba(51, 126, 169, 1);
-}
-.block-color-purple {
-	color: rgba(144, 101, 176, 1);
-	fill: rgba(144, 101, 176, 1);
-}
-.block-color-pink {
-	color: rgba(193, 76, 138, 1);
-	fill: rgba(193, 76, 138, 1);
-}
-.block-color-red {
-	color: rgba(212, 76, 71, 1);
-	fill: rgba(212, 76, 71, 1);
-}
-.block-color-default_background {
-	color: inherit;
-	fill: inherit;
-}
-.block-color-gray_background {
-	background: rgba(241, 241, 239, 1);
-}
-.block-color-brown_background {
-	background: rgba(244, 238, 238, 1);
-}
-.block-color-orange_background {
-	background: rgba(251, 236, 221, 1);
-}
-.block-color-yellow_background {
-	background: rgba(251, 237, 214, 1);
-}
-.block-color-teal_background {
-	background: rgba(237, 243, 236, 1);
-}
-.block-color-blue_background {
-	background: rgba(231, 243, 248, 1);
-}
-.block-color-purple_background {
-	background: rgba(244, 240, 247, 0.8);
-}
-.block-color-pink_background {
-	background: rgba(249, 238, 243, 0.8);
-}
-.block-color-red_background {
-	background: rgba(253, 235, 236, 1);
-}
-.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
-.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
-.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
-.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
-.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
-.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
-.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
-.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
-.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
-.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
-.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
-.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
-.select-value-color-pageGlass { background-color: undefined; }
-.select-value-color-washGlass { background-color: undefined; }
-
-.checkbox {
-	display: inline-flex;
-	vertical-align: text-bottom;
-	width: 16;
-	height: 16;
-	background-size: 16px;
-	margin-left: 2px;
-	margin-right: 5px;
-}
-
-.checkbox-on {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-
-.checkbox-off {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-	
-</style></head><body><article id="1c0f905f-70e6-4bb2-9532-1fcfaf23948a" class="page sans"><header><h1 class="page-title">Дополнительный материал</h1><p class="page-description"></p></header><div class="page-body"><h1 id="fac7b340-d11a-4435-88d8-6ca8819ca388" class="">Модель OSI</h1><p id="9e9a71d0-a83c-421b-8a7b-f0f12502db4b" class="">Модель OSI, она же “базовая модель связи открытых систем”. Эта модель описывает правила и процедуры передачи данных в различных сетевых средах при организации сеанса связи.</p><h2 id="dc731595-32f4-4777-8545-4991af98ab61" class="">Уровни модели:</h2><ol type="1" id="c0acf5e1-ccdb-4937-9c44-577378fa279b" class="numbered-list" start="1"><li>Физический (physical layer) - тип данных - бит</li></ol><ol type="1" id="7bd23232-56a6-4f19-a794-101ed05e48d8" class="numbered-list" start="2"><li>Канальный (data link layer) - тип данных - кадр</li></ol><ol type="1" id="f77a7844-e315-49ec-8363-a482fe3263ca" class="numbered-list" start="3"><li>Сетевой (network layer) - тип данных - IP-пакет</li></ol><ol type="1" id="57655cbb-2a05-403a-9e03-d282d24a833a" class="numbered-list" start="4"><li>Транспортный (transport layer) - тип данных - сегмент</li></ol><ol type="1" id="ac0a15f6-62cd-4f82-81fe-d78cc9beb1c2" class="numbered-list" start="5"><li>Сеансовый (session layer) - тип данных - данные</li></ol><ol type="1" id="83154479-371a-4eb3-8ead-b9b757dadee7" class="numbered-list" start="6"><li>Представления (presentation layer) - тип данных - данные</li></ol><ol type="1" id="d6a9c21d-d448-4c13-9890-be21923b21e3" class="numbered-list" start="7"><li>Прикладной (application layer) - тип данных - данные</li></ol><p id="391d6f70-f0d1-4571-86af-3baf4d20b238" class="">Рассмотрим каждый уровень более подробно:</p><h3 id="16200bec-55af-48b7-8349-cdcd69931833" class="">7. Прикладной уровень</h3><p id="0909c2bd-3d11-4514-8048-19148ae1cc54" class="">Прикладной уровень является верхним уровнем и непосредственно примыкает к прикладным процессам. Ещё его называют уровнем приложения.</p><p id="f8e82f9a-5c09-451a-a86f-ab9ad5286155" class="">Прикладной уровень - это набор разнообразных протоколов, с помощью которых пользователи сети получают доступ к разделяемым ресурсам, таким как файлы, принтеры или гипертекстовые Web-страницы, а также организуют свою совместную работу, например, с помощью протокола электронной почты.</p><p id="38248146-e229-46e1-af21-6773a1730d08" class="">Выполняет следующие функции:</p><ul id="adc50a2c-d937-4415-bab5-ef6355888ba8" class="bulleted-list"><li style="list-style-type:disc">Идентификация пользователей по их паролям</li></ul><ul id="e1754a80-3d4a-4a3d-b5ed-0b9282113c1d" class="bulleted-list"><li style="list-style-type:disc">Определение функционирующих</li></ul><ul id="f4c24bce-6503-4129-8132-26b1ef99c9de" class="bulleted-list"><li style="list-style-type:disc">Определение достаточности имеющихся ресурсов</li></ul><ul id="6c325290-02a4-46f1-a2a2-35e54bf2a029" class="bulleted-list"><li style="list-style-type:disc">Организация запросов на соединение с другими прикладными процессами</li></ul><h3 id="47a9b456-49b3-4ad5-970f-7095431fd16b" class="">6. Уровень представления</h3><p id="e5084b6f-d6cc-46b2-8729-f8f32a3dadf2" class="">На уровне представления выполняется шифрование и дешифрование данных, благодаря которым секретность обмена данными обеспечивается сразу для всех прикладных сервисов.</p><p id="68678adf-6059-4bb2-adce-f16d848a5c78" class="">Этот уровень обеспечивает то, что информация передаваемая прикладным уровнем, будет понятна прикладному уровню в другой системе. В случаях необходимости уровень представления в момент передачи информации выполняет преобразование форматов данных в некоторый общий формат представления, а в момент приема, соответственно, выполняет обратное преобразование. Таким образом, прикладные уровни могут преодолеть, например, синтаксические различия в представлении данных.</p><p id="8d914bcf-a8c0-4077-adb0-13b5f8fd2ad4" class="">Функции:</p><ul id="114d1a7e-5fe9-4fb4-8480-c0443167aafc" class="bulleted-list"><li style="list-style-type:disc">Генерация запросов на установление сеансов взаимодействия прикладных процессов</li></ul><ul id="c6c2249b-a78c-4af7-883b-0678377fc168" class="bulleted-list"><li style="list-style-type:disc">Согласование представления данных между прикладными процессами</li></ul><ul id="070f463d-8013-44e9-a5fe-6c856e2d060c" class="bulleted-list"><li style="list-style-type:disc">Реализация форм представления данных</li></ul><ul id="465c43b7-ae9a-4d98-a54c-240edcaf2b94" class="bulleted-list"><li style="list-style-type:disc">Представление графического материала</li></ul><ul id="f72111af-4ccc-4d72-867f-0a157bea600b" class="bulleted-list"><li style="list-style-type:disc">Засекречивание данных</li></ul><ul id="a1640f58-2924-4fe2-8c30-ee509917bd56" class="bulleted-list"><li style="list-style-type:disc">Передача запросов на прекращение сеансов</li></ul><h3 id="f09b7404-645a-4e0b-97c7-be097251e29a" class="">5. Сеансовый уровень</h3><p id="bafd118d-4e29-42f6-a4ac-e8f50152d057" class="">Уровень, определяющий процедуру проведения сеансов между пользователями или прикладными процессами.</p><p id="fe93c134-3b1b-42e3-90e7-79b752d300a7" class="">Сеансовый уровень обеспечивает управление диалогом для того, чтобы фиксировать, какая из сторон является активной в настоящий момент, а также предоставляет средства синхронизации</p><p id="be18b89a-6e7c-4f8d-a77e-dd6c568ccee1" class="">Функции:</p><ul id="6f40e0b6-b07d-4134-bae4-3f9152c72d1b" class="bulleted-list"><li style="list-style-type:disc">Установление и завершение на сеансовом уровне соединения между взаимодействующими системами</li></ul><ul id="48917df3-2a7f-4f7a-a2d8-44069e18de9c" class="bulleted-list"><li style="list-style-type:disc">Выполнение нормального и срочного обмена данными между прикладными процессами</li></ul><ul id="c559600f-ffd4-4286-98a6-6c16a051b9fe" class="bulleted-list"><li style="list-style-type:disc">Управление взаимодействием прикладных процессов</li></ul><ul id="7bf3dc00-edc9-4571-b373-0d4a413eccca" class="bulleted-list"><li style="list-style-type:disc">Синхронизация сеансовых соединений</li></ul><ul id="a43240d4-8f46-45fb-ad36-6494b3eb02a9" class="bulleted-list"><li style="list-style-type:disc">Извещение прикладных процессов об исключительных ситуациях</li></ul><h3 id="edfa58d9-e626-48d5-b047-4e8ea85482d0" class="">4. Транспортный уровень</h3><p id="91d86c83-ba44-4fee-83ff-f3447181dece" class="">Отвечает за координацию передачи данных между конечными системами и хостами, включая количество данных для отправки, скорость, место назначения и так далее.</p><p id="e4776b02-ffd7-45ed-aca3-e66e18de1e4d" class="">Определяет, следует ли устанавливать соединение, как проверить целостность данных, как восстановится после ошибки соединения и необходима ли повторная передача</p><p id="57de760d-444b-48cb-938f-1b86822270be" class="">Единица данных - сегмент</p><p id="3399df06-17d9-466e-b277-8fe72168571a" class="">На этом уровне есть два основных протокола – TCP (Transmission Control Protocol) и UDP (User Datagram Protocol). Разница между ними в том, что различный транспорт применяется для разной категории трафика:</p><p id="d96c4d32-b7db-472a-959a-d9078b396137" class="">Когда наш Трафик чувствителен к потерям – используем TCP. Он обеспечивает контроль за передачей данных. Пример такого трафика – удаленное подключение к серверу. Так как с помощью удаленного подключения мы отправляем различные команды на сервер, потеря буквы в команде или даже целой команды может стать причиной ошибки и выхода сервера из строя</p><p id="59fb402f-33fe-461a-8d8d-77d56ecaaf29" class="">Если потери трафика не критичны – значит, используем более быстрый протокол UDP. Пример – видеоконференции. Потеря небольшого куска данных не сильно скажется на картинке, но зато большой объем видеопотока будет быстрее добираться до нашего устройства</p><p id="cfca103d-08dc-4487-b307-1d59ebc4696b" class="">В случае использования TCP протокола устройство, отправляющее трафик, сначала устанавливает соединение с принимающей стороной. Происходит так называемый TCP-handshake (рукопожатие сторон), в котором устройства договариваются, что будут пересылать данные друг другу</p><p id="b08912ca-8e22-4280-9a92-a9a8afe56278" class="">Если мы используем UDP, то никаких договоренностей нам не нужно – наше устройство просто отправит данные на приёмник вне зависимости от того, готова ли принимающая сторона обработать наши данные</p><p id="448068d9-66a1-4677-8b83-5a523c592655" class="">Функции:</p><ul id="9041e8ec-0047-453c-8716-652e7bd4705d" class="bulleted-list"><li style="list-style-type:disc">Управление передачей по сети и обеспечение целостности блоков данных.</li></ul><ul id="e96fd724-9b8b-4c3a-bb34-7db99de63040" class="bulleted-list"><li style="list-style-type:disc">Обнаружение ошибок, частичная их ликвидация и сообщение о неисправленных ошибках.</li></ul><ul id="bf8ac35d-6823-49d5-bcab-dcd3b3aa5f7c" class="bulleted-list"><li style="list-style-type:disc">Восстановление передачи после отказов и неисправностей.</li></ul><ul id="fa64567f-dd99-4330-84ee-64dd28bc217a" class="bulleted-list"><li style="list-style-type:disc">Укрупнение или разделение блоков данных.<br/>Предоставление приоритетов при передаче блоков.<br/></li></ul><ul id="27b6e63b-53ee-4bc6-ade1-8ced01f8c9e1" class="bulleted-list"><li style="list-style-type:disc">Подтверждение передачи.</li></ul><ul id="c07ea289-c4b5-45f6-b2ca-a4e0c6482eef" class="bulleted-list"><li style="list-style-type:disc">Ликвидация блоков при тупиковых ситуациях в сети</li></ul><h3 id="ec5c5e57-7f86-423c-b969-3874fd29d899" class="">3. Сетевой уровень</h3><p id="d780de65-8539-4edc-a247-898778a75b79" class="">Данный уровень обеспечивает прокладку каналов, соединяющих абонентские и административные системы через коммуникационную сеть, выбор маршрута наиболее быстрого и надежного пути.</p><p id="c8361045-eacd-4da8-ac9d-6eddcbfbcff5" class="">Сетевой уровень устанавливает связь в вычислительной сети между двумя системами и обеспечивает прокладку виртуальных каналов между ними.</p><p id="4d060e8e-c16b-4d27-ae49-c7f66260b211" class="">Кроме этого, сетевой уровень сообщает транспортному уровню о появляющихся ошибках. Сообщения сетевого уровня принято называть пакетами (packet). В них помещаются фрагменты данных, а также логические адреса источника и назначения. Сетевой уровень отвечает за их адресацию и доставку.</p><p id="cc74b093-5fc8-4256-8a44-9856c78e9a73" class="">Единица данных - IP пакет</p><p id="deb10431-4e92-4649-9694-697be1245828" class="">Выполняет функции:</p><ul id="c9a9a9e8-69fb-49bb-adb6-62e2eab14521" class="bulleted-list"><li style="list-style-type:disc">Обнаружение и исправление ошибок, возникающих при передаче через коммуникационную сеть</li></ul><ul id="108643c4-6d34-4df1-9013-3b6755034eb3" class="bulleted-list"><li style="list-style-type:disc">Упорядочение последовательностей пакетов</li></ul><ul id="7a82614a-30c0-4db5-af95-0e341876006a" class="bulleted-list"><li style="list-style-type:disc">Маршрутизация и коммутация</li></ul><ul id="422b364b-5e35-4891-a919-6accf143810d" class="bulleted-list"><li style="list-style-type:disc">Сегментирование и объединение пакетов</li></ul><h3 id="9781497f-c4aa-4d45-b825-76d768ac5663" class="">2. Канальный уровень</h3><p id="7bcd9ff8-1a33-4726-a568-b89eea796aa3" class="">Единицей информации канального уровня являются кадры (frame). Кадры – это логически организованная структура, в которую можно помещать данные. Полученные с физического уровня данные, представленные в битах, он упаковывает в кадры, проверяет их на целостность и, если нужно, исправляет ошибки (либо формирует повторный запрос повреждённого кадра) и отправляет на сетевой уровень</p><p id="c91d58ff-8659-4c7d-a761-ce9e896ea702" class="">Здесь также появляются такие понятия, как мак адрес, коммутатор, сеть Ethernet.</p><ul id="44f08ec1-7534-432b-a2f1-3465cb1f3d85" class="bulleted-list"><li style="list-style-type:disc">Мак адрес – уникальный идентификационный номер любого устройства, которое взаимодействует с сетью. Сетевая карта компьютера, wi-fi адаптер ноутбука, Bluetooth в телефоне – все эти компоненты имеют свой уникальный мак адрес</li></ul><ul id="4857b19f-301a-4bc0-b3c6-2900420ce66f" class="bulleted-list"><li style="list-style-type:disc">Коммутатор – устройство, обеспечивающее передачу данных по сети на основе мак адресации</li></ul><ul id="cf36eb5b-fecc-41b8-811a-4413b6692b1b" class="bulleted-list"><li style="list-style-type:disc">Ethernet – это стандарт пакетной передачи данных между устройствами. Стандарт довольно обширный, он определяет проводные сетевые соединения, модулируемые в провод электрические сигналы, формат передающихся кадров</li></ul><p id="84719ef6-a967-4470-81e1-ab8ae04978da" class="">Функции:</p><ul id="65dec656-985b-4230-8e99-e5cc19ecf570" class="bulleted-list"><li style="list-style-type:disc">Организация (установление, управление, расторжение) канальных соединений и идентификация их портов</li></ul><ul id="553f10ec-c943-497a-afd2-9ffffb7efa12" class="bulleted-list"><li style="list-style-type:disc">Организация и передача кадров</li></ul><ul id="65bdd7cf-9e3c-4b3c-a2c1-fbb58984f94f" class="bulleted-list"><li style="list-style-type:disc">Обнаружение и исправление ошибок</li></ul><ul id="8199e315-4936-44be-9835-387683a03c96" class="bulleted-list"><li style="list-style-type:disc">Управление потоками данных</li></ul><ul id="e72f38a6-96b7-4ad1-8699-973265824fd8" class="bulleted-list"><li style="list-style-type:disc">Обеспечение прозрачности логических каналов (передачи по ним данных, закодированных любым способом)</li></ul><p id="681c7adc-19f6-46db-af91-9b6e9d49de4b" class=""><strong>MAC-адрес</strong></p><p id="e347990f-364c-4b5f-bad0-e82d75cf11b2" class="">Физический адрес состоит из 6 байтов. Его принято выражать в шестнадцатеричной системе счисления. Значение каждого байта отделяют дефисом или двоеточием для того, чтобы адрес легко воспринимался визуально.</p><p id="78279ca4-de82-4461-a4ef-402c1a2c22a9" class="">Первые 3 байта называются <em>OUI</em> (Organizational Unique Identifier) - уникальный идентификатор организации, то есть фирмы производителя.</p><p id="d8ef024b-5159-4c29-b3c2-5c8db528d4de" class="">Младшие 3 байта называются <em>Номер интерфейса</em>, их значение устанавливается на заводе и является уникальным для каждого выпущенного устройства.</p><p id="c06d2d1d-db06-480e-bd4a-796bb0bf7a2d" class="">Два старших разряда имеют специальное значение:</p><ul id="854720b7-5f19-4d18-93b7-83991621643f" class="bulleted-list"><li style="list-style-type:disc">первый бит указывает, для одиночного (0) или группового (1) адресата предназначен кадр;</li></ul><ul id="5eea5163-19f3-4b05-b869-4b351a1f7a4b" class="bulleted-list"><li style="list-style-type:disc">следующий бит указывает, является ли MAC-адрес глобально (0) или локально (1) администрируемым.</li></ul><h3 id="ba715626-9053-4817-a562-9cdb24e019e3" class="">1. Физический уровень</h3><p id="0723fcc2-8953-4728-889f-5fafbac9cd4c" class="">На первом уровне модели OSI происходит передача физических сигналов от источника к получателю. Данные в современном мире можно передать разными способами, поэтому в стандарте описано несколько разных сред – передачи данных с помощью электрического тока, с помощью света, с помощью радиоволн</p><p id="39543187-9bc4-41db-9e38-317e474921a4" class="">На этом уровне мы оперируем кабелями, модуляцией сигнала в провод, контактами в разъемах, кодированием единиц и нулей.</p><p id="c72a8796-00a0-41c3-adda-4fe62cd4f171" class="">Его функции:</p><ul id="832b1b91-181f-4d33-8769-32680cdf4e70" class="bulleted-list"><li style="list-style-type:disc">Установление и разъединение физических соединений</li></ul><ul id="9b613850-32cc-4df8-a310-6dd99391d46c" class="bulleted-list"><li style="list-style-type:disc">Передача и приём сигналов в последовательном коде</li></ul><ul id="ad4a9da6-2f9e-4597-b95f-c9042c14a809" class="bulleted-list"><li style="list-style-type:disc">Прослушивание каналов</li></ul><ul id="cda31cbd-15e9-4ef8-9769-9a9baf600030" class="bulleted-list"><li style="list-style-type:disc">Идентификация каналов</li></ul><ul id="e42fb43d-5a07-4ecc-ae6c-cf2f50e8802b" class="bulleted-list"><li style="list-style-type:disc">Оповещение о появлении неисправностей и отказов</li></ul><h2 id="d1ccc08b-988a-4994-9a7d-61f8d39fb255" class="">TCP/IP &amp; OSI</h2><p id="075e3672-e80b-4b59-a9d4-159a394c6986" class="">Стек протоколов TCP/IP (Transmission Control Protocol/Internet Protocol, протокол управления передачей/протокол интернета) — сетевая модель, описывающая процесс передачи цифровых данных</p><p id="d450e8c9-44f7-44fb-85ff-5e34d582aa7a" class="">На правилах, включенных в нее, базируется работа интернета и локальных сетей независимо от их назначения и структуры. Эти правила называются протоколы передачи. Их рассмотрим в дальнейших лекциях</p><p id="fd187c56-2ba5-4301-acf6-1f3ecd596004" class="">Стек протоколов TCP/IP включает в себя четыре уровня:</p><ol type="1" id="1593118c-5e57-4dfa-bd19-7192e5434b91" class="numbered-list" start="1"><li>Канальный уровень (Network Access Layer)</li></ol><ol type="1" id="cc3c27eb-5057-4397-adbc-90e6f7483c7f" class="numbered-list" start="2"><li>Межсетевой уровень (Сетевой уровень) (Internet Layer)</li></ol><ol type="1" id="a25ac2bf-935b-46f2-9d8a-6f87999f1a16" class="numbered-list" start="3"><li>Транспортный уровень (Transport Layer)</li></ol><ol type="1" id="a6c650fe-8643-4204-b6fd-ae4b93b1e61b" class="numbered-list" start="4"><li>Прикладной уровень (Application Layer)</li></ol><h3 id="751739b9-114c-41c9-bcd5-a1c63fba679b" class="">4. Прикладной уровень</h3><p id="3af5949c-1dbd-47f3-95b0-21f1137cadb4" class="">На этом уровне работают такие протоколы как HTTP/HTTPS, FTP, DNS и т.д.</p><p id="710493a9-9c11-40d2-9c0e-efbf7f75fd1a" class="">Данному уровню в модели TCP/IP соответствуют прикладной уровень, уровень представления и сеансовый уровень модели OSI</p><h3 id="3eda1d2f-0e96-43f5-b395-c57c764fe0ce" class="">3. Транспортный уровень</h3><p id="5087d158-7c7c-4860-b387-068561896c9b" class="">На этом уровне работают такие протоколы как TCP, UDP и т.д.</p><p id="bf4d78f7-bdd8-4881-ba1a-6ceefdd6aa7b" class="">Данному уровню в модели TCP/IP соответствует транспортный уровень модели OSI</p><h3 id="94aeff73-c011-42f5-b0b8-74b473ed3596" class="">2. Межсетевой уровень </h3><p id="8ba39574-46a6-42f9-96d7-2819c75ef6bd" class="">На этом уровне работает протокол IP</p><p id="18c5aa82-00a9-4a71-8b5e-656dfe7d6b79" class="">Данному уровню в модели TCP/IP соответствует сетевой уровень модели OSI</p><h3 id="f48d1713-8d20-472e-958d-bcea8933d7ce" class="">1. Канальный уровень</h3><p id="20c59eaf-08bf-48ef-bf2a-80d6590c8834" class="">На данном уровне работают: Ethernet, IEEE 802.11 WLAN и т.д.</p><p id="73c77523-df0d-4db7-a046-5cea039c930f" class="">Данному уровню в модели TCP/IP соответствуют канальный и физический уровни модели OSI</p><p id="b56193c9-1c5e-4fcc-8e55-3fccd13d4e7d" class="">
-</p><p id="7f0f7be4-fe58-4977-a224-60b87e142b0f" class="">Модель TCP/IP и модель OSI являются концептуальными моделями, используемыми для описания всех сетевых коммуникаций, в то время как TCP/IP сама по себе также является важным протоколом, используемым во всех операциях Интернета. Как правило, когда мы говорим об уровне 2, уровне 3 или уровне 7, в котором работает сетевое устройство, мы имеем в виду модель OSI. Модели TCP/IP используется как для моделирования текущей архитектуры Интернета и обеспечивают набор правил, которым следуют все формы передачи по сети.</p><h1 id="26067a2e-5cfe-4145-866c-d69e2cb87f65" class="">Виды сетевого оборудования</h1><p id="3a5c1688-8d90-4d83-9caf-3926bd7241c3" class="">Сетевое оборудование – устройства, необходимые для работы компьютерной сети</p><p id="36c5ce10-c172-4ad1-81f2-0a78d3c7656b" class="">Часто сетевое оборудование делят на активное и пассивное</p><p id="03c055b9-a47f-48f8-b266-585a4488caef" class="">В соответствии с ГОСТ Р 51513-99, активное оборудование — это оборудование, содержащее электронные схемы, получающее питание от электрической сети или других источников питания и выполняющее функции преобразования, усиления сигналов и иные.</p><p id="cfa55b3d-f396-419e-9a52-751dbe831145" class="">ГОСТ Р 51513-99 определяет пассивное сетевое оборудование как оборудование, не получающее питание от электрической сети или других источников питания (батарейка, аккумулятор, солнечная панель, генератор, др.) и выполняющее функции распределения или снижения уровня сигналов.</p><p id="5e49d181-87bf-4fb6-989c-44f3da3dc730" class=""><strong>Активное:</strong></p><ul id="d521e8fb-b587-446a-a0c1-53820b963ab8" class="bulleted-list"><li style="list-style-type:disc">Концентратор</li></ul><ul id="1d89d2cc-b993-4a26-86ff-402aae5605d0" class="bulleted-list"><li style="list-style-type:disc">Коммутатор</li></ul><ul id="78093c5c-a580-463b-9728-e7e06df2b4d7" class="bulleted-list"><li style="list-style-type:disc">Маршрутизатор</li></ul><ul id="ecbd19af-5651-4f74-93f8-48a115aded5c" class="bulleted-list"><li style="list-style-type:disc">Сетевой адаптер</li></ul><ul id="6366351e-fc4f-46ba-a176-f2ded78ac9e7" class="bulleted-list"><li style="list-style-type:disc">Повторитель и т.д.</li></ul><p id="aea4bb7a-90fa-40bf-bd9b-0fc1a966189f" class=""><strong>Пассивное:</strong></p><ul id="4e2912ac-ceda-4539-a87e-acc0a2040281" class="bulleted-list"><li style="list-style-type:disc">Кабель</li></ul><ul id="848bb94d-a3d5-436f-95ae-bb83706f96dc" class="bulleted-list"><li style="list-style-type:disc">Патч-панель</li></ul><ul id="af8f46bb-1eed-4786-aec5-82cd9c15ea48" class="bulleted-list"><li style="list-style-type:disc">Монтажный шкаф</li></ul><ul id="93720d94-cbc6-480f-bcda-c74939edde20" class="bulleted-list"><li style="list-style-type:disc">Стойка</li></ul><ul id="dfc0f10b-0af1-48ce-b0d8-8720041c0da0" class="bulleted-list"><li style="list-style-type:disc">Розетка и т.д.</li></ul><p id="42d6f23e-4cc5-4cf6-ba82-b057c0f4d72f" class="">Рассмотрим подробнее некоторые из примеров.</p><p id="457a8a5e-1da8-4a4f-9e71-4fb0ab9e953e" class=""><strong>Хаб:</strong><br/>Хаб, или как его еще называют концентратор, самое простое устройство для соединения нескольких девайсов в одну сеть. В хабе есть несколько портов, в которые подключаются устройства и, хаб - это максимально примитивное устройство, без мозгов.<br/>Его задача заключается в том, что когда на вход одного порта приходят данные, он их копирует и рассылает по всем своим портам. Единственное, что он знает - к каким портам подключены устройства. В итоге все в сети получают эти данные и смотрят на адрес получателя, кому они предназначены. Если ему - то принимают, если не ему, то уничтожают данные.<br/></p><p id="11168ab6-6bf9-40d1-9bf5-9f1eb62529df" class=""><strong>Коммутатор:</strong><br/>Коммутатор - это устройство уже поумнее. К нему также подключаются сетевые устройства в порты для того чтобы образовать сеть, однако, он отличается от хаба тем, что пришедший к нему траффик он высылает уже не на все порты, а непосредственно получателю.<br/>Коммутатор только с такими функциями называют неуправляемым.<br/>Управляемый коммутатор – более сложное устройство, которое может работать как неуправляемый, но при этом имеет ручное управление, расширенный набор функций и поддерживает протоколы сетевого управления по сети благодаря наличию микропроцессора (по сути управляемый свитч – это узкоспециализированный компьютер).<br/>Откуда он знает куда пересылать данные? У него есть специальная таблица, в которой есть соответствие физического адреса устройства или, как говорят MAC - адреса, и к какому порту оно подключено. Ориентируясь на эту информацию коммутатор принимает решения о том, куда направить данные.<br/></p><p id="7aec391c-3c3f-48eb-bab2-99e328b67084" class=""><strong>Маршрутизатор:</strong><br/>Маршрутизаторы или роутеры, в отличии от коммутаторов и хабов умеют работать с IP - адресами.<br/>Как понятно из названия, маршрутизатор занимается тем, что маршрутизирует данные из одной сети в другую, основываясь на IP - адресе приходящих к нему данных. Когда к нему приходит пакет с данными, он смотрит на адрес назначения и затем в свою таблицу маршрутизации и после этого принимает решение, что сделать с данными - перенаправить данные в свою сеть или отправить дальше в другую сеть.<br/></p><p id="a33f0282-adc0-4192-a29b-c44b9609bc2a" class="">Рассмотрим различия наглядно:</p><ul id="21296102-9401-4a14-ac1d-e31d1a983523" class="bulleted-list"><li style="list-style-type:disc"><strong>Концентратор </strong><ul id="3751752c-b45b-4635-b0cc-debadc889cf8" class="bulleted-list"><li style="list-style-type:circle">Уровень - Физический</li></ul><ul id="bc1d0841-6822-497f-aaff-b6779a0ab807" class="bulleted-list"><li style="list-style-type:circle">Форма передачи данных - Биты</li></ul><ul id="2de9aa06-0529-4f14-b5a4-c92f559ea559" class="bulleted-list"><li style="list-style-type:circle">Кол-во портов - 4/12</li></ul><ul id="3ec2f5bd-33f3-4430-a708-2d7f13ddfc83" class="bulleted-list"><li style="list-style-type:circle">Адрес для передачи данных - MAC адрес</li></ul><ul id="14b3398c-c09b-4f11-aefe-d9e4536f6c73" class="bulleted-list"><li style="list-style-type:circle">Тип устройства - Неинтеллектуальное</li></ul></li></ul><ul id="4a8b3c66-9b13-4eb3-b1a1-cde0fcda298c" class="bulleted-list"><li style="list-style-type:disc">Коммутатор <ul id="cfc3d4a1-8804-4055-9141-3af5339bf184" class="bulleted-list"><li style="list-style-type:circle">Уровень - Канальный</li></ul><ul id="ed6052db-232c-44f1-9d41-0308c28bf8d8" class="bulleted-list"><li style="list-style-type:circle">Форма передачи данных - Кадр</li></ul><ul id="e190a8c4-79a8-4840-8311-3306f60e94b1" class="bulleted-list"><li style="list-style-type:circle">Кол-во портов - Обычно от 4 до 48</li></ul><ul id="0a5c7274-1f7c-460c-9b09-d28b8597729d" class="bulleted-list"><li style="list-style-type:circle">Адрес для передачи данных - MAC адрес</li></ul><ul id="723c3c1c-1077-4bd5-be8a-aab94a10983b" class="bulleted-list"><li style="list-style-type:circle">Тип устройства - Интеллектуальное</li></ul></li></ul><ul id="2e947fa2-bc58-4ba0-adaf-c0ad4c6e72ed" class="bulleted-list"><li style="list-style-type:disc">Маршрутизатор<ul id="7f0847fa-d8b2-412c-9bf7-b103f1bb1ebe" class="bulleted-list"><li style="list-style-type:circle">Уровень - Сетевой</li></ul><ul id="96364331-fb6a-4a66-a179-e810d2a832b9" class="bulleted-list"><li style="list-style-type:circle">Форма передачи данных - Пакет</li></ul><ul id="20efe503-3601-4ce6-bce8-531230c06dbd" class="bulleted-list"><li style="list-style-type:circle">Кол-во портов - 2/4/5/8</li></ul><ul id="5a8f1f3a-a3d5-4419-bb32-e554f048176e" class="bulleted-list"><li style="list-style-type:circle">Адрес для передачи данных - IP адрес</li></ul><ul id="54f018c7-fec0-4d29-8fc8-71568947f0c3" class="bulleted-list"><li style="list-style-type:circle">Тип устройства - Интеллектуальное</li></ul></li></ul><h1 id="b2950aaa-944b-4b22-b563-ed4096a00e0a" class="">Коммутация</h1><p id="3d19ade3-1758-427d-98ed-8a6238b30f7f" class="">Это процесс соединения различных абонентов коммуникационной сети через транзитные узлы</p><p id="216a90f7-0cbb-4029-b339-94088be1389d" class="">Коммуникационные сети должны обеспечивать связь своих абонентов между собой</p><p id="90c7e88b-5393-49c8-8135-d268ffc5185f" class="">Сетевую связность устройств способен обеспечить коммутатор. Устройства к нему подключаются посредством витой пары с коннектором rj-45, данный тип подключения используется как в домашних сетях, так и в больших корпоративных топологиях. Это самый распространённый тип подключения, хотя в высокопроизводительных сетях могут использоваться другие коннекторы и типы сред передачи данных, обеспечивающие более высокую производительность.</p><p id="b694a243-cb32-4eb6-89c0-3ac29f7fdbc7" class="">На основе трафика, генерируемого компьютерами, коммутатор определяет, где какое устройство находится.</p><h2 id="d458dff8-2c7b-4054-9b1b-f96c47f87c26" class="">Построение таблицы коммутации</h2><figure id="222c8545-4b7b-4c37-9457-4ba408a55ead" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%201c0f905f70e64bb295321fcfaf23948a/Untitled.png"><img style="width:480px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%201c0f905f70e64bb295321fcfaf23948a/Untitled.png"/></a></figure><p id="7467fe3c-829a-4884-af5a-af2b9bb3a224" class="">От компьютера к коммутатору приходит фрейм, внутри которого кроме данных находятся специальные заголовки, изображенные на рисунке. Когда коммутатор получает кадр, отправленный компьютером А компьютеру В, он извлекает из него МАС-адрес приемника и ищет этот МАС-адрес в своей таблице коммутации. Как только в таблице коммутации будет найдена запись, ассоциирующая МАС-адрес приемника (компьютера В) с одним из портов коммутатора, за исключением порта-источника, кадр будет передан через соответствующий выходной порт (в приведенном примере - порт 2). Этот процесс называется продвижение (forwarding) кадра.<br/>Если бы оказалось, что выходной порт и порт-источник совпадают, то передаваемый кадр был бы коммутатором отброшен. Этот процесс называется фильтрацией (filtering).<br/>В том случае, если МАС-адрес приемника в поступившем кадре неизвестен (в таблице коммутации отсутствует соответствующая запись), коммутатор создает множество копий этого кадра и передает их через все свои порты, за исключением того, на который он поступил. Этот процесс называется лавинной маршрутизацией (flooding). Несмотря на то, что процесс лавинной маршрутизации занимает полосу пропускания, он позволяет коммутатору избежать потери кадров, когда МАС-адрес приемника неизвестен, и осуществлять процесс самообучения.<br/></p><h2 id="bdc3fbf0-7f0b-4fd2-ba3e-052dd578c770" class="">Методы коммутации</h2><p id="51d2f071-0fa0-4909-93a3-5cd0fc4d9369" class="">Коммутация трафика может проходить разными способами в зависимости от задач.</p><p id="aae109f0-538d-4425-8c7b-f835686f516f" class="">Для обеспечения наибольшего быстродействия сети существует способ cut-through. Здесь коммутатор проверяет только первые шесть байт фрейма, так как в них содержится адрес получателя информации.</p><figure id="00798684-fc45-482a-9ab2-31c35af92ea9" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%201c0f905f70e64bb295321fcfaf23948a/Untitled%201.png"><img style="width:944px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%201c0f905f70e64bb295321fcfaf23948a/Untitled%201.png"/></a></figure><p id="f8cc697d-aef8-4493-8ad7-ea8693639495" class="">В рядовых случаях используется коммутация store-and-forward, где коммутатор проверяет фрейм полностью, высчитывает контрольную сумму и проверяет, не изменился ли фрейм за время его передачи по сети. В случае обнаружения ошибки такой фрейм будет отброшен. Это медленный способ коммутации.</p><figure id="162ffacd-61bc-4624-b6a4-ae649d13267b" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%201c0f905f70e64bb295321fcfaf23948a/Untitled%202.png"><img style="width:946px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%201c0f905f70e64bb295321fcfaf23948a/Untitled%202.png"/></a></figure><p id="73d4c899-98b2-4caf-9ed6-a833b4cfc9a7" class="">Мы снова видим структуру фрейма, в ней можно заметить:</p><p id="e01ece8c-ba35-4db1-aeb5-6cf3506ecf74" class="">Адрес назначения - Адрес сетевой карты получателя</p><p id="290f897d-3ca3-4773-a6f2-b752be2bb2d1" class="">Адрес источника - Адрес сетевой карты отправителя</p><p id="94c6443f-9d3d-4016-a207-492f4d6d945b" class="">Длина - Количество байт, начиная от следующего за этим полем и кончая последним перед полем Контрольная сумма</p><p id="914aed90-ee21-4a4f-9c4e-8f08f2005056" class="">Данные – сами данные, которые переносит фрейм</p><p id="3383cb98-8c10-47b8-beca-5db1a9bffe38" class="">Контрольная сумма - это значение, которое было рассчитано по некоторому алгоритму на основе имеющихся файлов или данных. </p><p id="cc69c1c8-16f2-48c2-a1bc-08326a2d21c2" class="">Если с первыми четырьмя полями понятно, то с последним не совсем, давайте рассмотрим его подробнее.</p><h2 id="189545dd-fdcc-408d-be18-6d2c91236e99" class="">Контрольная сумма</h2><p id="9b0c8f74-3135-4a62-8725-eba06ca6180a" class="">Итак, контрольная сумма — некоторое значение, рассчитанное по набору данных путём применения определённого алгоритма и используемое для проверки целостности данных при их передаче или хранении.</p><p id="0fc1ea30-e108-4a32-a4da-6eba838802ea" class="">Особенностью контрольной суммы является то, что ее алгоритм, при одинаковых входных данных всегда выдает одинаковое значение. При этом малейшее изменение входных данных кардинально меняет значение контрольной суммы.</p><p id="53ec6e48-d9da-4b94-9278-dea82bb2fdb1" class="">Эта особенность позволяет использовать контрольную сумму для проверки целостности файлов или данных. Высчитываете контрольную сумму и отправляете ее вместе с файлом. После чего получатель файла повторно высчитывает контрольную сумму файла и сравнивает ее с вашей контрольной суммой. Если значения совпадают, значит файл оригинальный, если нет, значит он получил какие-то изменения.</p><p id="25bce455-376e-4509-a57d-cb2c9034afc0" class="">Также нужно упомянуть, что контрольную сумму нельзя использовать для получения исходных данных. То есть нельзя «расшифровать» хеш-сумму и получить данные которые были хешированы, хеш-сумму можно только сравнить с другой хеш-суммой.</p><p id="a1300c93-d57d-45b8-863a-860fb0ab3ef8" class="">Другими словами, контрольная сумма используется для обнаружения ошибок при передаче кадра по сети. Не стоит забывать, что при обнаружении ошибок кадр отбрасывается.</p><p id="3dac580e-1170-429f-aafd-b4a771b7fae1" class="">Контрольная сумма вычисляется по алгоритму CRC-32, а также обнаруживает 99,999999977% всех ошибок в сообщениях длинной до 64 байт</p><h1 id="fd05f681-161f-41b5-9448-81eeff0333a0" class="">IP сети и IPv4 адресация</h1><p id="093a8493-d4a3-474d-a35e-6806cbe66af1" class="">Internet Protocol - маршрутизируемый протокол сетевого уровня стека TCP/IP</p><p id="fbf428d3-e914-49a1-98bc-a4a9201c52c9" class="">Это один из основных протоколов L3. Как раз в нем определено такое понятие, как адресация. Сейчас в протоколе существует два вида адресации – IPv4 и IPv6. Далее сделаем основной упор на более старый и известный IPv4.</p><p id="deb224fd-628a-4a88-ba8b-c08de1f56cbc" class="">Сетевой уровень модели OSI помогает нам, как пользователям сети, отойти от адресации по mac, предоставив нахождение mac адреса получателя автоматике благодаря широковещательным arp запросам. Не понадобится вбивать длинные mac адреса назначения и находить их, вручную опрашивая устройства. Теперь мы сами можем назначить специальный ip адрес любому устройству и взаимодействовать с получателем именно по ip. Сам ip адрес короче mac, его проще запомнить и использовать.</p><p id="b7fe950e-8884-4d93-bfd0-b2f8ace483d9" class=""><strong>IP пакетом </strong>называется единица данных, передаваемая на сетевом уровне модели OSI</p><figure id="26e4c125-0c5b-4702-b72e-7e009a707da3" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%201c0f905f70e64bb295321fcfaf23948a/Untitled%203.png"><img style="width:384px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%201c0f905f70e64bb295321fcfaf23948a/Untitled%203.png"/></a></figure><p id="cdd7741f-51d8-4cbe-89b3-367b6207faeb" class="">Не лишним будет и посмотреть, что находится внутри у ip пакета. На рисунке вы видите заголовки, присущие любому ip пакету. Заголовки – это сервисная информация, благодаря которой наши данные могут передаваться по сетям. Различные заголовки характерны и для второго  уровня модели OSI, и для третьего, и для остальных.</p><p id="587de6d7-c63c-45ca-b9cd-a7ac2551a60a" class="">На третьем уровне вы видите сервисную информацию, позволяющую роутеру маршрутизировать пакеты по сети,  проверять их целостность, отбрасывать в случае закольцовывания сети.</p><h2 id="9f43ee5f-74d8-4b99-8421-43fcf982059f" class="">IPv4</h2><p id="b29ce0c2-073a-432b-8e06-20e51a7b311e" class="">Сам протокол IP разрабатывался довольно давно, а первой наиболее широко используемой версией протокола стала четвертая, отсюда и название. Рассмотрим IPv4 детально.</p><p id="63b756a8-5984-4dfc-998b-1205abe810fa" class="">Для компьютера вся информация представляет собой набор нулей и единиц. Так же и в сетевых технологиях – наш трафик, передаваемый по проводам, это те же самые нули и единицы. И, как мы разобрали ранее, трафик на уровне L3 состоит из полезных данных и заголовков пакета. Каждый из заголовков можно интерпретировать как последовательность нулей и единиц, в том числе адрес отправителя и получателя. При этом количество нулей и единиц в записи ip адреса будет соответствовать его весу в битах, так как бит – минимальная единица счисления в мире информационных технологий.</p><p id="43d4c7c4-d1a4-4568-aaab-b8bf4170bf91" class="">В каждой части по 8 бит, такая часть называется октет. Каждый октет записывают в десятичном формате, и форма записи IP адреса следующая: четыре октета разделенных точкой (213.180.193.3). С таким видом деления адресов людям гораздо удобнее работать, чем с записью в двоичной форме длиной в 32 бита.</p><p id="1a83af22-5d2d-4613-bbb5-22141141ce89" class="">В свою очередь приходим к тому, что максимальное число, где скрывается ровно двести пятьдесят шесть комбинаций – это число дести пятьдесят пять. Вот и получается диапазон от нуля до двухсот пятидесяти пяти, которым можно описать один октет в ip адресе. Остальные октеты составляются по аналогии.<br/>Минимально возможный ip адрес – четыре нуля. Максимально возможный ip адрес четыре числа двести пятьдесят пять<br/></p><p id="13ca98bb-67bc-4773-8115-0ccb52218d5c" class="">Итак, форма представления 4 десятичных числа 0-255, разделённых точками</p><figure id="6e2e0b66-49bf-4f06-bbb2-7764f0f00e56" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%201c0f905f70e64bb295321fcfaf23948a/Untitled%204.png"><img style="width:336px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%201c0f905f70e64bb295321fcfaf23948a/Untitled%204.png"/></a></figure><p id="1ede7840-e3c8-45c2-b506-3b3c69e46e47" class="">
-</p><p id="787acd17-deaa-4fd4-88fb-8dac77618b4b" class="">В сетях IPv4 всего существует три типа IP-адресов, каждый тип IP-адреса ориентирован на определенную задачу, это следующие IP-адреса:</p><ul id="2762182e-cf06-4ef9-9fa4-562cfa0bdb66" class="bulleted-list"><li style="list-style-type:disc">Сетевой адрес : IP-адрес, к которому относится сеть или подсеть</li></ul><ul id="fd568aa6-a5cb-4397-abca-6c308d80b16d" class="bulleted-list"><li style="list-style-type:disc">Адрес хоста : IP-адреса, назначенные конечным компьютерам  в сети</li></ul><ul id="37add180-354b-4d6b-b383-f3b9a24f22dc" class="bulleted-list"><li style="list-style-type:disc">Широковещательный адрес : специальный адрес, он используется для отправки данных на все хосты в сети</li></ul><p id="5bfc4495-cbb9-421f-b36e-68f22ab74b29" class="">Как по IP адресу узнать, где адрес сети, а где адрес хоста? Для этого используется Маска подсети. Это число похоже на ip адрес, аналогично состоит из четырех октетов и весит тридцать два бита. Маска подсети нужна, чтобы определить размерность этой самой сети. Когда мы определяем подсеть, с помощью маски сразу можно вычислить общее количество ip адресов в данной сети, тот самый диапазон. Но есть важное замечание – в любой сети присутствует два специальных ip адреса, которые не могут быть использованы в качестве адреса конечного компьютера. Эта адреса – первый и последний в подсети. Первый адрес в подсети используется как идентификатор подсети, или же название подсети. Последний адрес используется как адрес широковещательной рассылки. Если мы отправим трафик в сеть и укажем в качестве получателя последний адрес в нашей подсети – то сетевые устройства разошлют такой трафик всем работающим устройствам в рамках этой подсети.</p><p id="39ae2d67-dd45-420c-ae19-464ea39adeae" class=""><strong>Недостатки IPv4</strong></p><ul id="8d9f0e47-b93d-41ae-b61b-cc37311a89a7" class="bulleted-list"><li style="list-style-type:disc"><strong>Проблема масштабируемости</strong><ul id="a330332b-000a-4fb4-9037-4366bf9324cb" class="bulleted-list"><li style="list-style-type:circle">сложность массового изменения IP-адресов</li></ul><ul id="b5de316f-72f5-42ef-8d13-12c7fd415ff3" class="bulleted-list"><li style="list-style-type:circle">недостаточность объема 32-битного адресного пространства</li></ul><ul id="e5e565ec-9b2b-44cf-a767-344abe182661" class="bulleted-list"><li style="list-style-type:circle">относительная сложность обработки заголовков пакетов IPv4</li></ul><ul id="0fdd6568-1387-40e5-9150-5d758b73e650" class="bulleted-list"><li style="list-style-type:circle">сложность агрегирования маршрутов, разрастание таблиц маршрутизации</li></ul></li></ul><ul id="67e775e1-9732-4ef0-ae95-4b9b9260fa0c" class="bulleted-list"><li style="list-style-type:disc"><strong>Отсутствие некоторых обязательных механизмов, а именно:</strong><ul id="d98c04d9-d854-4b88-bac0-92811e1e6693" class="bulleted-list"><li style="list-style-type:circle">механизмов информационной безопасности</li></ul><ul id="e32aad18-0ca2-4c90-8b55-3251f679e1a1" class="bulleted-list"><li style="list-style-type:circle">средств поддержки классов обслуживания</li></ul></li></ul><h2 id="258df558-e30b-4b36-ae73-baf28e7ad725" class="">IPv6</h2><p id="57b99fec-3ef3-4784-ba17-ad39c5fe6aca" class="">IPv6 — новая версия интернет-протокола, призванная решить проблемы, с которыми столкнулась версия IPv4, за счёт ряда принципиальных изменений</p><p id="b1c214fc-be0b-417f-bea7-cd5a9a1ebafb" class="">Первое и главное отличие: IP-адреса в новом протоколе стали длиной 128 бит. Это дает 2 в степени 128 вариантов уникальных адресов, а это на секундочку вот столько:</p><p id="1ebcf9de-dca3-4783-98af-2ea441f16948" class="">340 282 366 920 938 463 463 374 607 431 768 211 456 комбинаций</p><p id="e1e67c7a-0b52-4cbf-bd8a-563b47b12416" class="">Соответственно, с изменением длины адреса, поменялся и его формат. Новый IP-адрес стал выглядеть немного сложнее, к примеру вот так:Пример IPv6 адреса</p><p id="7dcd41c7-561e-4bdd-b17e-4410e6d10f06" class="">2001:0db8:0000:0000:0000:0000:0010:ad12</p><p id="1bc89b36-90ab-4c3b-97fc-521aafb41e94" class="">IPv6 адрес теперь состоит из 8 групп шестнадцатеричных чисел, разделенных двоеточиями.Выглядит правда так себе, но хорошая новость в том, что в таких адресах можно сократить нули слева направо, поэтому большой адрес можно записать вот так, что гораздо симпатичнее.</p><p id="4a173c09-ae0f-4ad5-b37e-c61e700110eb" class="">2001:0db8:0000:0000:0000:0000:0010:ad12</p><p id="f2fc1022-6f36-49ee-aef3-af571a667edf" class="">2001:db8:10:ad12</p><p id="a80662ae-0087-4483-8989-5acfc1769559" class=""><strong>Формат заголовка IPv6</strong></p><ul id="a059eef2-e8d6-4e38-9db1-18276bc7e635" class="bulleted-list"><li style="list-style-type:disc">Первое поле в заголовке протокола IPv6 также, как и в заголовке протокола IPv4, это номер версии 4 для IPv4 и 6 для IPv6.</li></ul><ul id="a864da36-84d0-4f17-98b4-07cdda0b90b8" class="bulleted-list"><li style="list-style-type:disc">Затем идет поле класс трафика, оно необходимо для реализации качества обслуживания. Самый простой вариант, разбиение трафика на два класса, обычный и важный. Маршрутизаторы, которые поддерживают обеспечение качества обслуживания, передают важный трафик быстрее используя специальную выделенную очередь, также возможны и другие варианты использования классов трафиков.</li></ul><ul id="0a650f15-ca1b-413c-bc92-cc74a5ec3fef" class="bulleted-list"><li style="list-style-type:disc">Следующее поле в заголовке IPv6 это метка потока, это поле используется для того чтобы объединить преимущества сетей коммутации пакетов с сетями с коммутацией каналов. У набора пакетов, которые передаются от одного отправителя к одному получателю, и требует определенного типа обслуживания, устанавливается одна и та же метка. Маршрутизаторы, которые поддерживают работу в таком режиме, обрабатывают пакет на основе метки, что гораздо быстрее.</li></ul><ul id="7b2868c0-72ab-4560-9618-1285cc74072d" class="bulleted-list"><li style="list-style-type:disc">Следующее поле это длина полезной нагрузки, в отличии от протокола IPv4, где в подобном поле указывается общая длина пакета, здесь указывается только размер данных без размера заголовка.</li></ul><ul id="c91ca4e9-3ca7-4028-8562-5f24f6834543" class="bulleted-list"><li style="list-style-type:disc">Затем идет поле следующий заголовок, которое необходимо, если используются дополнительные заголовки, в этом поле указывается тип первого дополнительного заголовка.</li></ul><ul id="9fc03b1b-5f5d-4739-8d21-3b9b625de323" class="bulleted-list"><li style="list-style-type:disc">В IPv6 поле время жизни пакета переименовали в максимальное число транзитных участков, потому что на практике вместо времени жизни, даже в протоколе IPv4, указывается максимальное количество маршрутизаторов через которое может пройти пакет, перед тем как он будет отброшен.</li></ul><p id="34b5e6a4-cedb-4577-861a-2409a0b088cf" class="">По сравнению с заголовком протокола IPv4 в протоколе IPv6 нет полей, которые отвечают за фрагментацию, и за контрольную сумму. Расчет контрольной суммы создает большую нагрузку на маршрутизаторы, однако эта операция часто является излишней, так как контрольная сумма рассчитывается на канальном уровне, и на сетевом уровне. Поэтому от расчета контрольных сумм в протоколе IPv6, было решено отказаться.</p><p id="83a6fcc8-3ba2-45d7-b6a8-771ea7c910af" class="">Также было принято решение отказаться от фрагментации, потому что она так же как и расчет контрольной суммы, создает большую нагрузку на маршрутизаторы. На практике во многих сетях сейчас используется один и тот же размер пакета, соответствующий размеру кадра Ethernet 1500 байт, поэтому фрагментация часто являются ненужной. Если все же где-то по пути пакета встретиться сеть с меньшим максимальным размером пакета, то вместо фрагментации необходимо использовать технологию Path MTU Discovery.</p><p id="d270a8c9-6ffa-4e90-8469-8a855ed84031" class="">Также как и заголовок протокола IPv4,  заголовок протокола IPv6 состоит из двух частей обязательный и необязательной. В необязательные части может быть несколько дополнительных заголовков.</p><p id="f901c7b9-7e35-4ca5-9277-fd97a04603cc" class="">В IPv6 могут быть дополнительные заголовки следующих типов:</p><ul id="2deb9c19-1daa-4acf-8b4b-daa27bce1a9b" class="bulleted-list"><li style="list-style-type:disc">Заголовок параметры маршрутизации —  содержит данные, которые необходимы маршрутизаторам для того, чтобы корректно обрабатывать пакеты.</li></ul><ul id="2c212c61-9c09-457a-bd31-77d9c797e3e0" class="bulleted-list"><li style="list-style-type:disc">Заголовок параметры получателя —  содержит данные, которые необходимы для обработки пакета на стороне получателя.</li></ul><ul id="16238dab-7913-4c2f-9653-4560ce54aa81" class="bulleted-list"><li style="list-style-type:disc">Дополнительный заголовок маршрутизация — содержит список маршрутизаторов, через который пакет должен обязательно пройти.</li></ul><p id="84e01847-1e9c-406f-8cf8-2442b450a6c5" class=""><strong>Преимущества IPv6</strong></p><p id="102069ba-b542-4b44-830d-842bd35bbbfc" class="">IPv6 во многом превосходит IPv4 и имеет ряд очевидных преимуществ. Во-первых, более широкое адресное пространство, которое уже даёт массу преимуществ:</p><ul id="d04c9c1b-6e26-4800-bb24-00c0ec2609f2" class="bulleted-list"><li style="list-style-type:disc">Адресов хватит с запасом на многие десятилетия вперед. А значит не надо будет париться над обходными решениями, и можно будет полностью избавиться от NAT.</li></ul><ul id="b0575e8e-5336-45f8-842d-c6b6d2dfa866" class="bulleted-list"><li style="list-style-type:disc">Каждое из устройств подключенных к сети сможет получить свой “белый” IP адрес, что уже хорошо.</li></ul><ul id="9426ab72-10f2-4921-8181-52cfaf6137fb" class="bulleted-list"><li style="list-style-type:disc">По настоящему хорошо заработают peer-to-peer сети, т.е. сети в которых устройства могут общаться между собой напрямую.</li></ul><p id="ae7d8200-912b-47b5-a927-817255621cff" class="">Во-вторых, в новом протоколе упростили и причесали:</p><ul id="25493214-4538-498a-b628-90942d1d40e3" class="bulleted-list"><li style="list-style-type:disc">Теперь адреса можно создавать и настраивать автоматически, благодаря технологии SLAAC — Stateless Address Autoconfiguration. А это существенно упрощает администрирования сети.</li></ul><ul id="cd841e7b-fa8e-45bd-b27b-09c752193f32" class="bulleted-list"><li style="list-style-type:disc">Также в IPv6 существенно упростили заголовки пакетов, которые стало проще и быстрее обрабатывать.</li></ul><ul id="bd394d7d-94e1-4979-ab5b-8ce51dc37099" class="bulleted-list"><li style="list-style-type:disc">Ну и добавили обязательную поддержку шифрования трафика IPsec</li></ul><p id="8eed5c83-2a55-4711-aab3-55b153306c4d" class=""><strong>Проблемы IPv6</strong></p><p id="839e1865-dbd6-4d35-8209-42a587d25f87" class="">Скажем, IPv6 — неидеальный. У него есть ряд серьезных проблем.</p><p id="7e7c23cf-d19f-4e9d-a9eb-70b986ce7852" class="">Начнем с того, что для провайдеров обновляться на IPv6 очень дорого. Нужно закупать новое оборудование, перенастраивать его и прочее. А зачем это делать, если итак всё работает? Согласитесь, когда на кону миллиарды, вопрос становится очень серьёзным.</p><p id="2a449d15-4db7-46e7-b2c1-241c7ee78a30" class="">Во-вторых, на текущий момент всё еще очень мало понимания, как настраивать IPv6. И даже у больших профессионалов с многолетним опытом возникают сложности, чего уж говорить о рядовых пользователях.</p><p id="a1b3fc3e-9151-4dfd-9369-56df4a71812b" class="">В-третьих, IPv6 не имеет обратной совместимости с IPv4. А это значит, что на время перехода нужно работать в режиме дуал-стек, то есть поддерживать и то, и то. А это фактически двойная работа по настройке, гарантированное увеличение косяков и гарантированное уменьшение безопасности. То есть параллельная работа IPv4 и IPv6 в 2 раза увеличивает поверхность атаки. Так как нужно защищать и то, и то.</p><p id="088fc976-3fab-41fc-916a-c3f531061a2c" class="">Тем не менее все специалисты сходятся во мнении, что переход на IPv6 неизбежен, это дело времени. И когда это переход состоится, мы наконец то увидим, как на самом деле должен работать интернет.</p><h2 id="0c971b49-36a3-4fd3-b607-cacaed474eed" class="">Аренда IP адресов. IANA. Распределение IP адресов по странам</h2><p id="ce3af07a-3425-489c-9832-6ad12767f752" class="">IANA - организация, которая занимается как распределением ip адресов по миру, так и номеров автономных систем. Занимается скорее в организационном плане, так как фактически арендовать адрес или номер AS можно у RIR и LIR.</p><p id="a6187d4b-f5eb-4995-817f-6cca448ff49a" class="">RIR (Regional Internet Registry) это региональные организации, каждая из которых отвечает за определённую часть планеты (Для Европы и России – это RIPE NCC)</p><p id="09889f85-5d5e-4d6a-ab8b-d5e7dc6fb7b9" class="">А LIR (Local Internet Registry) может стать почти любая желающая организация при наличии необходимых документов. Это более локальные организации, созданные для снятия нагрузки с RIR.</p><p id="d63b96a1-de9d-4490-b50b-664c190331b7" class="">Когда автономные системы только появились, максимальный номер AS был 65535. Позже этот стандарт был доработан. Сейчас этих номеров столько же, сколько существует ip адресов версии 4.</p><p id="1b4cd9f8-ba96-4b43-a78e-128154e129bd" class="">Номер AS привязывается к конкретной подсети, арендованной у LIR. Нельзя стать AS, если вы владеете блоком ip адресов меньшим, чем 256, то есть по маске 24. При этом, если организация стала автономной системой, она может стать и провайдером – выдавать в аренду ip адреса и маршрутизировать своих клиентов в глобальную сеть интернет.</p><figure id="1a51500e-44c4-461a-a74b-fd47f082ef24" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%201c0f905f70e64bb295321fcfaf23948a/Untitled%205.png"><img style="width:288px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%201c0f905f70e64bb295321fcfaf23948a/Untitled%205.png"/></a></figure><h1 id="9c8cab12-c2b4-43ea-bd9b-8c6c0bf99b7d" class="">Протокол ARP</h1><p id="9c599559-acc8-417d-90f2-baec5ce18337" class="">Одним из важнейших протоколов в современных локальных сетях является ARP - Address Resolution Protocol. Это протокол, в компьютерных сетях, предназначенный для определения МАС-адреса другого компьютера по известному IP-адресу<br/>Он преобразует логический адрес(IP) в физический адрес (MAC) и сохраняет результаты в кэше ARP хоста.<br/></p><p id="e18477f6-94e3-4330-a3d9-b7974c35742f" class="">ARP работает на уровнях 2 и 3 модели OSI</p><p id="459e6f79-b67b-4a60-9d3d-18d1c493632b" class="">Каждое устройство уровня 3 использует ARP</p><p id="7de058be-44c0-4197-8e24-8339ba89d88d" class="">Размер кэша ARP специально ограничен, и адреса, как правило, остаются в кэше всего несколько минут. Он регулярно очищается, чтобы освободить пространство. Эта разработка также предназначена для обеспечения конфиденциальности и безопасности, чтобы предотвратить кражу или подделку IP-адресов кибератаки. В то время как MAC-адреса фиксированы, IP-адреса постоянно изменяются.</p><p id="45db35ee-6345-431e-8ef1-f31e4ccd5fb6" class="">В процессе очистки неиспользуемые адреса удаляются; также удаляются любые данные, связанные с неудачными попытками связи с компьютерами, не подключенными к сети или даже не включенными.</p><h2 id="1f3db485-9ce9-4b74-ac6c-e6bc228ba5ef" class="">ARP запрос</h2><figure id="18526696-090c-4fd0-ac93-f7a3c6ef1653" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%201c0f905f70e64bb295321fcfaf23948a/Untitled%206.png"><img style="width:384px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%201c0f905f70e64bb295321fcfaf23948a/Untitled%206.png"/></a></figure><p id="3a1be935-b519-490c-9584-2e37b35b3468" class="">ARP работает следующим образом:</p><p id="70e09d02-0d8f-439e-a9da-191d5a17e452" class="">Шаг 1. Хост А отправляет ARP запрос  всем хостам в сети с IP-адресом хоста В, генерируя широковещательный запрос</p><p id="80e0357c-51f7-4d2c-b020-964308a60396" class="">Шаг 2 Хост В распознаёт IP-адрес в запросе. Он выполняет ARP-ответ, в котором честно указывает свой MAC-адрес. Другие же хосты, например, хост C проигнорирует полученный трафик, т.к. его IP-адрес не совпадает с IP-адресом в запросе</p><p id="b6d615d1-1622-479c-b25c-e769c1f9b39b" class="">Шаг 3. Хост А получает ARP-ответ и сохраняет МАС-адрес хоста В в кэше ARP вместе с соответствующим IP-адресом хоста В</p><h2 id="ccaa559a-4de1-4294-808a-371378e04b9d" class="">ARP таблица</h2><p id="d2010dd6-7c25-4acd-945c-30aa11fa89b3" class="">Благодаря такому взаимодействию на нашем компьютере создается ARP таблица, которая содержит все ответы, полученные от других устройств в сети. Таблица представлена в виде простого сопоставления ip адреса и mac адреса.</p><p id="9b8b7bdc-0504-43c4-bafb-be6316a6633f" class="">Arp –a, arp –g отображают ARP-таблицу хоста</p><p id="8b6c3a23-38b6-4ce4-b393-c92fa041d5f4" class="">Таблица или кэш ARP хранится в оперативной памяти устройства. ARP содержит три параметра:</p><ul id="d3760686-e37e-4e0a-aa8c-40698636ca6d" class="bulleted-list"><li style="list-style-type:disc">IP-адрес целевого хоста</li></ul><ul id="9495768b-4198-4420-b5b7-d726fa5fbe60" class="bulleted-list"><li style="list-style-type:disc">Соответствующий MAC-адрес этого хоста</li></ul><ul id="4932cc5e-1728-4e05-ae6e-95218ab0334d" class="bulleted-list"><li style="list-style-type:disc">Как определяется входной МАС-адрес источника: статически или динамически. Статические добавляются администратором, динамические же – создаются и удаляются автоматически. При этом в ARP-таблице всегда хранится широковещательный физический адрес FF:FF:FF:FF:FF:FF</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Дополнительный материал</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 237, 214, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 237, 214, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(249, 228, 188, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+	</style>
+</head>
+
+<body>
+	<article id="fffaa64c-9d0a-811b-97ea-e6956102aca2" class="page sans">
+		<header>
+			<h1 class="page-title">Дополнительный материал</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<h1 id="fffaa64c-9d0a-8182-bcfa-c2c25ade9473" class="">Модель OSI</h1>
+			<p id="fffaa64c-9d0a-8101-8580-ce778f490c27" class="">Модель OSI, она же “базовая модель связи открытых
+				систем”. Эта модель описывает правила и процедуры передачи данных в различных сетевых средах при
+				организации сеанса связи.</p>
+			<h2 id="fffaa64c-9d0a-8114-a85a-dc5ccd780bc4" class="">Уровни модели:</h2>
+			<ol type="1" id="fffaa64c-9d0a-8147-ac30-c5276b92014d" class="numbered-list" start="1">
+				<li>Физический (physical layer) - тип данных - бит</li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-8149-b61a-e001511db806" class="numbered-list" start="2">
+				<li>Канальный (data link layer) - тип данных - кадр</li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-8183-8514-ee745cc28d10" class="numbered-list" start="3">
+				<li>Сетевой (network layer) - тип данных - IP-пакет</li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-81f1-890d-f231ee1653f0" class="numbered-list" start="4">
+				<li>Транспортный (transport layer) - тип данных - сегмент</li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-81aa-981b-cdb94c9198ec" class="numbered-list" start="5">
+				<li>Сеансовый (session layer) - тип данных - данные</li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-810d-aeb8-f692cc404c7d" class="numbered-list" start="6">
+				<li>Представления (presentation layer) - тип данных - данные</li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-819c-9f4e-dd5fa1b6cc93" class="numbered-list" start="7">
+				<li>Прикладной (application layer) - тип данных - данные</li>
+			</ol>
+			<p id="fffaa64c-9d0a-8164-9f01-d2850f365099" class="">Рассмотрим каждый уровень более подробно:</p>
+			<h3 id="fffaa64c-9d0a-8112-abc1-c4f2e356c3d7" class="">7. Прикладной уровень</h3>
+			<p id="fffaa64c-9d0a-81fe-927d-f6ec93c11734" class="">Прикладной уровень является верхним уровнем и
+				непосредственно примыкает к прикладным процессам. Ещё его называют уровнем приложения.</p>
+			<p id="fffaa64c-9d0a-8190-9d42-f6ca28b2e913" class="">Прикладной уровень - это набор разнообразных
+				протоколов, с помощью которых пользователи сети получают доступ к разделяемым ресурсам, таким как файлы,
+				принтеры или гипертекстовые Web-страницы, а также организуют свою совместную работу, например, с помощью
+				протокола электронной почты.</p>
+			<p id="fffaa64c-9d0a-81a1-a4c1-e3fb155851e8" class="">Выполняет следующие функции:</p>
+			<ul id="fffaa64c-9d0a-81d6-959c-ee146853e6bd" class="bulleted-list">
+				<li style="list-style-type:disc">Идентификация пользователей по их паролям</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81d3-8bba-ff21181da212" class="bulleted-list">
+				<li style="list-style-type:disc">Определение функционирующих</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8167-9d39-d868e1638639" class="bulleted-list">
+				<li style="list-style-type:disc">Определение достаточности имеющихся ресурсов</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-818b-9439-ddce12234028" class="bulleted-list">
+				<li style="list-style-type:disc">Организация запросов на соединение с другими прикладными процессами
+				</li>
+			</ul>
+			<h3 id="fffaa64c-9d0a-819a-b403-e42f1e5822ed" class="">6. Уровень представления</h3>
+			<p id="fffaa64c-9d0a-8198-add1-d7da2355ab18" class="">На уровне представления выполняется шифрование и
+				дешифрование данных, благодаря которым секретность обмена данными обеспечивается сразу для всех
+				прикладных сервисов.</p>
+			<p id="fffaa64c-9d0a-81ff-acd8-d209eb1418c8" class="">Этот уровень обеспечивает то, что информация
+				передаваемая прикладным уровнем, будет понятна прикладному уровню в другой системе. В случаях
+				необходимости уровень представления в момент передачи информации выполняет преобразование форматов
+				данных в некоторый общий формат представления, а в момент приема, соответственно, выполняет обратное
+				преобразование. Таким образом, прикладные уровни могут преодолеть, например, синтаксические различия в
+				представлении данных.</p>
+			<p id="fffaa64c-9d0a-811f-86cd-df8f10dbde2b" class="">Функции:</p>
+			<ul id="fffaa64c-9d0a-8113-af6d-c6e1e1fbdbf2" class="bulleted-list">
+				<li style="list-style-type:disc">Генерация запросов на установление сеансов взаимодействия прикладных
+					процессов</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81a2-80ff-c985c7ecb9d2" class="bulleted-list">
+				<li style="list-style-type:disc">Согласование представления данных между прикладными процессами</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-811d-ae76-e1fb3fc79e26" class="bulleted-list">
+				<li style="list-style-type:disc">Реализация форм представления данных</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81fc-a685-e6b808c676d1" class="bulleted-list">
+				<li style="list-style-type:disc">Представление графического материала</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8152-9a50-fcc354523240" class="bulleted-list">
+				<li style="list-style-type:disc">Засекречивание данных</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81bf-aa9e-e0c58e3c1f81" class="bulleted-list">
+				<li style="list-style-type:disc">Передача запросов на прекращение сеансов</li>
+			</ul>
+			<h3 id="fffaa64c-9d0a-81b2-bf45-fa761f97cd97" class="">5. Сеансовый уровень</h3>
+			<p id="fffaa64c-9d0a-81d7-9d3e-f790b1551dce" class="">Уровень, определяющий процедуру проведения сеансов
+				между пользователями или прикладными процессами.</p>
+			<p id="fffaa64c-9d0a-818e-a489-ddbb037adddf" class="">Сеансовый уровень обеспечивает управление диалогом для
+				того, чтобы фиксировать, какая из сторон является активной в настоящий момент, а также предоставляет
+				средства синхронизации</p>
+			<p id="fffaa64c-9d0a-81dc-80a8-ebb86978c419" class="">Функции:</p>
+			<ul id="fffaa64c-9d0a-81ae-81de-fa84a73af159" class="bulleted-list">
+				<li style="list-style-type:disc">Установление и завершение на сеансовом уровне соединения между
+					взаимодействующими системами</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8137-bf56-e0e46367db25" class="bulleted-list">
+				<li style="list-style-type:disc">Выполнение нормального и срочного обмена данными между прикладными
+					процессами</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81ca-8bcb-e41865ad9236" class="bulleted-list">
+				<li style="list-style-type:disc">Управление взаимодействием прикладных процессов</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81fc-a5c7-dbf91f01326a" class="bulleted-list">
+				<li style="list-style-type:disc">Синхронизация сеансовых соединений</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81d1-876a-ee1498eaaff0" class="bulleted-list">
+				<li style="list-style-type:disc">Извещение прикладных процессов об исключительных ситуациях</li>
+			</ul>
+			<h3 id="fffaa64c-9d0a-81cc-b3cc-f05ec1d8850d" class="">4. Транспортный уровень</h3>
+			<p id="fffaa64c-9d0a-8176-ab4e-c498d9961f12" class="">Отвечает за координацию передачи данных между
+				конечными системами и хостами, включая количество данных для отправки, скорость, место назначения и так
+				далее.</p>
+			<p id="fffaa64c-9d0a-8114-ad3f-f467698e7b07" class="">Определяет, следует ли устанавливать соединение, как
+				проверить целостность данных, как восстановится после ошибки соединения и необходима ли повторная
+				передача</p>
+			<p id="fffaa64c-9d0a-811d-bf5d-f7adabb9f274" class="">Единица данных - сегмент</p>
+			<p id="fffaa64c-9d0a-81d0-a004-e9a322706abe" class="">На этом уровне есть два основных протокола – TCP
+				(Transmission Control Protocol) и UDP (User Datagram Protocol). Разница между ними в том, что различный
+				транспорт применяется для разной категории трафика:</p>
+			<p id="fffaa64c-9d0a-8155-becb-c358f39e42fc" class="">Когда наш Трафик чувствителен к потерям – используем
+				TCP. Он обеспечивает контроль за передачей данных. Пример такого трафика – удаленное подключение к
+				серверу. Так как с помощью удаленного подключения мы отправляем различные команды на сервер, потеря
+				буквы в команде или даже целой команды может стать причиной ошибки и выхода сервера из строя</p>
+			<p id="fffaa64c-9d0a-81ae-906c-df6dd76ba63e" class="">Если потери трафика не критичны – значит, используем
+				более быстрый протокол UDP. Пример – видеоконференции. Потеря небольшого куска данных не сильно скажется
+				на картинке, но зато большой объем видеопотока будет быстрее добираться до нашего устройства</p>
+			<p id="fffaa64c-9d0a-81bf-a565-dd33abc07d17" class="">В случае использования TCP протокола устройство,
+				отправляющее трафик, сначала устанавливает соединение с принимающей стороной. Происходит так называемый
+				TCP-handshake (рукопожатие сторон), в котором устройства договариваются, что будут пересылать данные
+				друг другу</p>
+			<p id="fffaa64c-9d0a-819d-ae54-c526fb7826b7" class="">Если мы используем UDP, то никаких договоренностей нам
+				не нужно – наше устройство просто отправит данные на приёмник вне зависимости от того, готова ли
+				принимающая сторона обработать наши данные</p>
+			<p id="fffaa64c-9d0a-81b9-a0fc-f8b53adb3095" class="">Функции:</p>
+			<ul id="fffaa64c-9d0a-8154-91c9-f06ef7bced30" class="bulleted-list">
+				<li style="list-style-type:disc">Управление передачей по сети и обеспечение целостности блоков данных.
+				</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8193-bfa7-feafffd87662" class="bulleted-list">
+				<li style="list-style-type:disc">Обнаружение ошибок, частичная их ликвидация и сообщение о
+					неисправленных ошибках.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81c9-bd52-f5f1bf652370" class="bulleted-list">
+				<li style="list-style-type:disc">Восстановление передачи после отказов и неисправностей.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81be-883e-dcf344cd2daa" class="bulleted-list">
+				<li style="list-style-type:disc">Укрупнение или разделение блоков данных.<br />Предоставление
+					приоритетов при передаче блоков.<br /></li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8192-8e20-d1a5767db76b" class="bulleted-list">
+				<li style="list-style-type:disc">Подтверждение передачи.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81c1-940b-e1b6b758e69b" class="bulleted-list">
+				<li style="list-style-type:disc">Ликвидация блоков при тупиковых ситуациях в сети</li>
+			</ul>
+			<h3 id="fffaa64c-9d0a-81e8-9898-d7a51540ff25" class="">3. Сетевой уровень</h3>
+			<p id="fffaa64c-9d0a-812d-b1eb-f6b051482a2d" class="">Данный уровень обеспечивает прокладку каналов,
+				соединяющих абонентские и административные системы через коммуникационную сеть, выбор маршрута наиболее
+				быстрого и надежного пути.</p>
+			<p id="fffaa64c-9d0a-8128-a091-f2b3b0233971" class="">Сетевой уровень устанавливает связь в вычислительной
+				сети между двумя системами и обеспечивает прокладку виртуальных каналов между ними.</p>
+			<p id="fffaa64c-9d0a-8139-a637-db41994fb37a" class="">Кроме этого, сетевой уровень сообщает транспортному
+				уровню о появляющихся ошибках. Сообщения сетевого уровня принято называть пакетами (packet). В них
+				помещаются фрагменты данных, а также логические адреса источника и назначения. Сетевой уровень отвечает
+				за их адресацию и доставку.</p>
+			<p id="fffaa64c-9d0a-81da-89c4-e743111f8cd8" class="">Единица данных - IP пакет</p>
+			<p id="fffaa64c-9d0a-81b1-b6c7-d53b4da56a61" class="">Выполняет функции:</p>
+			<ul id="fffaa64c-9d0a-81e0-9fcb-e849b080fb45" class="bulleted-list">
+				<li style="list-style-type:disc">Обнаружение и исправление ошибок, возникающих при передаче через
+					коммуникационную сеть</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81cc-9d8e-d7847619537e" class="bulleted-list">
+				<li style="list-style-type:disc">Упорядочение последовательностей пакетов</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81a3-8b10-fd86794a5593" class="bulleted-list">
+				<li style="list-style-type:disc">Маршрутизация и коммутация</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8105-9ca1-f039474a3649" class="bulleted-list">
+				<li style="list-style-type:disc">Сегментирование и объединение пакетов</li>
+			</ul>
+			<h3 id="fffaa64c-9d0a-815f-a1ae-cec7898dc89a" class="">2. Канальный уровень</h3>
+			<p id="fffaa64c-9d0a-813b-b024-ca706a7454c6" class="">Единицей информации канального уровня являются кадры
+				(frame). Кадры – это логически организованная структура, в которую можно помещать данные. Полученные с
+				физического уровня данные, представленные в битах, он упаковывает в кадры, проверяет их на целостность
+				и, если нужно, исправляет ошибки (либо формирует повторный запрос повреждённого кадра) и отправляет на
+				сетевой уровень</p>
+			<p id="fffaa64c-9d0a-81dc-9d13-d908057cca04" class="">Здесь также появляются такие понятия, как мак адрес,
+				коммутатор, сеть Ethernet.</p>
+			<ul id="fffaa64c-9d0a-8104-a6a6-fcd5c67ee363" class="bulleted-list">
+				<li style="list-style-type:disc">Мак адрес – уникальный идентификационный номер любого устройства,
+					которое взаимодействует с сетью. Сетевая карта компьютера, wi-fi адаптер ноутбука, Bluetooth в
+					телефоне – все эти компоненты имеют свой уникальный мак адрес</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8158-ab3d-e638d3c2aa27" class="bulleted-list">
+				<li style="list-style-type:disc">Коммутатор – устройство, обеспечивающее передачу данных по сети на
+					основе мак адресации</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8181-a055-f0de5a13e808" class="bulleted-list">
+				<li style="list-style-type:disc">Ethernet – это стандарт пакетной передачи данных между устройствами.
+					Стандарт довольно обширный, он определяет проводные сетевые соединения, модулируемые в провод
+					электрические сигналы, формат передающихся кадров</li>
+			</ul>
+			<p id="fffaa64c-9d0a-8177-891c-cb19cf479b95" class="">Функции:</p>
+			<ul id="fffaa64c-9d0a-81ae-98a3-e66a8aede4e2" class="bulleted-list">
+				<li style="list-style-type:disc">Организация (установление, управление, расторжение) канальных
+					соединений и идентификация их портов</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8111-be47-e7f03015d27b" class="bulleted-list">
+				<li style="list-style-type:disc">Организация и передача кадров</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8136-b7e7-fa8120b13be2" class="bulleted-list">
+				<li style="list-style-type:disc">Обнаружение и исправление ошибок</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81c4-9f38-c7e5a2c6b02e" class="bulleted-list">
+				<li style="list-style-type:disc">Управление потоками данных</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8136-8fe0-c815a6d042aa" class="bulleted-list">
+				<li style="list-style-type:disc">Обеспечение прозрачности логических каналов (передачи по ним данных,
+					закодированных любым способом)</li>
+			</ul>
+			<p id="fffaa64c-9d0a-81ac-b1c3-dfee681f1bfc" class=""><strong>MAC-адрес</strong></p>
+			<p id="fffaa64c-9d0a-8168-be9d-fcac81686173" class="">Физический адрес состоит из 6 байтов. Его принято
+				выражать в шестнадцатеричной системе счисления. Значение каждого байта отделяют дефисом или двоеточием
+				для того, чтобы адрес легко воспринимался визуально.</p>
+			<p id="fffaa64c-9d0a-8139-89f3-fb1d81f1ef91" class="">Первые 3 байта называются <em>OUI</em> (Organizational
+				Unique Identifier) - уникальный идентификатор организации, то есть фирмы производителя.</p>
+			<p id="fffaa64c-9d0a-8192-9696-eb0af2a8f7c0" class="">Младшие 3 байта называются <em>Номер интерфейса</em>,
+				их значение устанавливается на заводе и является уникальным для каждого выпущенного устройства.</p>
+			<p id="fffaa64c-9d0a-8189-b93c-f5e75b1d8e6a" class="">Два старших разряда имеют специальное значение:</p>
+			<ul id="fffaa64c-9d0a-8136-a9b3-eb67f56c2b65" class="bulleted-list">
+				<li style="list-style-type:disc">первый бит указывает, для одиночного (0) или группового (1) адресата
+					предназначен кадр;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8178-94d7-fc125e983857" class="bulleted-list">
+				<li style="list-style-type:disc">следующий бит указывает, является ли MAC-адрес глобально (0) или
+					локально (1) администрируемым.</li>
+			</ul>
+			<h3 id="fffaa64c-9d0a-812a-91c0-dea3c47881e9" class="">1. Физический уровень</h3>
+			<p id="fffaa64c-9d0a-81e4-8b68-f0486410b087" class="">На первом уровне модели OSI происходит передача
+				физических сигналов от источника к получателю. Данные в современном мире можно передать разными
+				способами, поэтому в стандарте описано несколько разных сред – передачи данных с помощью электрического
+				тока, с помощью света, с помощью радиоволн</p>
+			<p id="fffaa64c-9d0a-811e-9728-e8050eb965af" class="">На этом уровне мы оперируем кабелями, модуляцией
+				сигнала в провод, контактами в разъемах, кодированием единиц и нулей.</p>
+			<p id="fffaa64c-9d0a-81e9-8134-f6ecefd53a2c" class="">Его функции:</p>
+			<ul id="fffaa64c-9d0a-817d-a4a4-cc87f3c77e78" class="bulleted-list">
+				<li style="list-style-type:disc">Установление и разъединение физических соединений</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8123-9608-c81b35d12141" class="bulleted-list">
+				<li style="list-style-type:disc">Передача и приём сигналов в последовательном коде</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8121-94b2-fa448f2554d7" class="bulleted-list">
+				<li style="list-style-type:disc">Прослушивание каналов</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81ed-af3d-d4f3f15fa68e" class="bulleted-list">
+				<li style="list-style-type:disc">Идентификация каналов</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81fe-92d5-e8033f63e1f1" class="bulleted-list">
+				<li style="list-style-type:disc">Оповещение о появлении неисправностей и отказов</li>
+			</ul>
+			<h2 id="fffaa64c-9d0a-819e-89a5-f43f0bada17b" class="">TCP/IP &amp; OSI</h2>
+			<p id="fffaa64c-9d0a-81fe-adde-cc3ad237dda5" class="">Стек протоколов TCP/IP (Transmission Control
+				Protocol/Internet Protocol, протокол управления передачей/протокол интернета) — сетевая модель,
+				описывающая процесс передачи цифровых данных</p>
+			<p id="fffaa64c-9d0a-8180-bfd1-c45bfa79c673" class="">На правилах, включенных в нее, базируется работа
+				интернета и локальных сетей независимо от их назначения и структуры. Эти правила называются протоколы
+				передачи. Их рассмотрим в дальнейших лекциях</p>
+			<p id="fffaa64c-9d0a-8123-aa1a-f84122924b5e" class="">Стек протоколов TCP/IP включает в себя четыре уровня:
+			</p>
+			<ol type="1" id="fffaa64c-9d0a-8149-8b90-f85fdab9ad43" class="numbered-list" start="1">
+				<li>Канальный уровень (Network Access Layer)</li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-810d-a73e-da53313d594c" class="numbered-list" start="2">
+				<li>Межсетевой уровень (Сетевой уровень) (Internet Layer)</li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-8194-b0c2-ff3dbfff2b20" class="numbered-list" start="3">
+				<li>Транспортный уровень (Transport Layer)</li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-81a5-8d2d-f1e08cdf929f" class="numbered-list" start="4">
+				<li>Прикладной уровень (Application Layer)</li>
+			</ol>
+			<h3 id="fffaa64c-9d0a-81b2-9169-f09d17dbc37c" class="">4. Прикладной уровень</h3>
+			<p id="fffaa64c-9d0a-81b1-98ca-d20764499740" class="">На этом уровне работают такие протоколы как
+				HTTP/HTTPS, FTP, DNS и т.д.</p>
+			<p id="fffaa64c-9d0a-8189-8149-e25bf483e984" class="">Данному уровню в модели TCP/IP соответствуют
+				прикладной уровень, уровень представления и сеансовый уровень модели OSI</p>
+			<h3 id="fffaa64c-9d0a-81b4-bbe4-dde6e7dbe10b" class="">3. Транспортный уровень</h3>
+			<p id="fffaa64c-9d0a-815d-8b4a-cc4d133b36c8" class="">На этом уровне работают такие протоколы как TCP, UDP и
+				т.д.</p>
+			<p id="fffaa64c-9d0a-8114-8fbd-e3aa6e7f313e" class="">Данному уровню в модели TCP/IP соответствует
+				транспортный уровень модели OSI</p>
+			<h3 id="fffaa64c-9d0a-8167-b3b5-d00f3e7fde0e" class="">2. Межсетевой уровень </h3>
+			<p id="fffaa64c-9d0a-81e8-bd0d-ee58bb774d17" class="">На этом уровне работает протокол IP</p>
+			<p id="fffaa64c-9d0a-810a-8a0a-e1c5a4ada07f" class="">Данному уровню в модели TCP/IP соответствует сетевой
+				уровень модели OSI</p>
+			<h3 id="fffaa64c-9d0a-8141-bf27-dd3bf54bc473" class="">1. Канальный уровень</h3>
+			<p id="fffaa64c-9d0a-81e5-be8a-edc2cc95b79f" class="">На данном уровне работают: Ethernet, IEEE 802.11 WLAN
+				и т.д.</p>
+			<p id="fffaa64c-9d0a-81dc-8e74-f8db4f703643" class="">Данному уровню в модели TCP/IP соответствуют канальный
+				и физический уровни модели OSI</p>
+			<p id="fffaa64c-9d0a-81fb-b09c-e81a1ec219eb" class="">
+			</p>
+			<p id="fffaa64c-9d0a-8171-bc31-c8fa007617c5" class="">Модель TCP/IP и модель OSI являются концептуальными
+				моделями, используемыми для описания всех сетевых коммуникаций, в то время как TCP/IP сама по себе также
+				является важным протоколом, используемым во всех операциях Интернета. Как правило, когда мы говорим об
+				уровне 2, уровне 3 или уровне 7, в котором работает сетевое устройство, мы имеем в виду модель OSI.
+				Модели TCP/IP используется как для моделирования текущей архитектуры Интернета и обеспечивают набор
+				правил, которым следуют все формы передачи по сети.</p>
+			<h1 id="fffaa64c-9d0a-8127-bdc2-e0e2d3e9ad56" class="">Виды сетевого оборудования</h1>
+			<p id="fffaa64c-9d0a-8194-9230-c704c96fdc1c" class="">Сетевое оборудование – устройства, необходимые для
+				работы компьютерной сети</p>
+			<p id="fffaa64c-9d0a-8188-8b29-dfc6ddeb2878" class="">Часто сетевое оборудование делят на активное и
+				пассивное</p>
+			<p id="fffaa64c-9d0a-8117-aee3-daca6f95e494" class="">В соответствии с ГОСТ Р 51513-99, активное
+				оборудование — это оборудование, содержащее электронные схемы, получающее питание от электрической сети
+				или других источников питания и выполняющее функции преобразования, усиления сигналов и иные.</p>
+			<p id="fffaa64c-9d0a-81a9-a41a-ff76ee127139" class="">ГОСТ Р 51513-99 определяет пассивное сетевое
+				оборудование как оборудование, не получающее питание от электрической сети или других источников питания
+				(батарейка, аккумулятор, солнечная панель, генератор, др.) и выполняющее функции распределения или
+				снижения уровня сигналов.</p>
+			<p id="fffaa64c-9d0a-81d0-872d-f4902e95eb51" class=""><strong>Активное:</strong></p>
+			<ul id="fffaa64c-9d0a-81c4-8d87-ed1e5df72063" class="bulleted-list">
+				<li style="list-style-type:disc">Концентратор</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8106-8365-cf33931088c7" class="bulleted-list">
+				<li style="list-style-type:disc">Коммутатор</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81f1-beb4-c072ddf980f7" class="bulleted-list">
+				<li style="list-style-type:disc">Маршрутизатор</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-819d-bf26-d415c13dc650" class="bulleted-list">
+				<li style="list-style-type:disc">Сетевой адаптер</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8151-a5f8-f5f8614efaa1" class="bulleted-list">
+				<li style="list-style-type:disc">Повторитель и т.д.</li>
+			</ul>
+			<p id="fffaa64c-9d0a-81ea-b9e2-e1a16abb9518" class=""><strong>Пассивное:</strong></p>
+			<ul id="fffaa64c-9d0a-81e4-831e-cb6a9389b817" class="bulleted-list">
+				<li style="list-style-type:disc">Кабель</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-815f-a3e3-f27c81f3650f" class="bulleted-list">
+				<li style="list-style-type:disc">Патч-панель</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81f5-ab18-dcf2c8aa7e7d" class="bulleted-list">
+				<li style="list-style-type:disc">Монтажный шкаф</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81fe-97f8-e96caa1200a3" class="bulleted-list">
+				<li style="list-style-type:disc">Стойка</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81ba-980b-f8b3a8fa62d8" class="bulleted-list">
+				<li style="list-style-type:disc">Розетка и т.д.</li>
+			</ul>
+			<p id="fffaa64c-9d0a-8158-9fac-e93ab60edf5b" class="">Рассмотрим подробнее некоторые из примеров.</p>
+			<p id="fffaa64c-9d0a-814e-a64c-e4e63fb76c4b" class=""><strong>Хаб:</strong><br />Хаб, или как его еще
+				называют концентратор, самое простое устройство для соединения нескольких девайсов в одну сеть. В хабе
+				есть несколько портов, в которые подключаются устройства и, хаб - это максимально примитивное
+				устройство, без мозгов.<br />Его задача заключается в том, что когда на вход одного порта приходят
+				данные, он их копирует и рассылает по всем своим портам. Единственное, что он знает - к каким портам
+				подключены устройства. В итоге все в сети получают эти данные и смотрят на адрес получателя, кому они
+				предназначены. Если ему - то принимают, если не ему, то уничтожают данные.<br /></p>
+			<p id="fffaa64c-9d0a-8186-b1c5-c91bc8f0316b" class=""><strong>Коммутатор:</strong><br />Коммутатор - это
+				устройство уже поумнее. К нему также подключаются сетевые устройства в порты для того чтобы образовать
+				сеть, однако, он отличается от хаба тем, что пришедший к нему траффик он высылает уже не на все порты, а
+				непосредственно получателю.<br />Коммутатор только с такими функциями называют
+				неуправляемым.<br />Управляемый коммутатор – более сложное устройство, которое может работать как
+				неуправляемый, но при этом имеет ручное управление, расширенный набор функций и поддерживает протоколы
+				сетевого управления по сети благодаря наличию микропроцессора (по сути управляемый свитч – это
+				узкоспециализированный компьютер).<br />Откуда он знает куда пересылать данные? У него есть специальная
+				таблица, в которой есть соответствие физического адреса устройства или, как говорят MAC - адреса, и к
+				какому порту оно подключено. Ориентируясь на эту информацию коммутатор принимает решения о том, куда
+				направить данные.<br /></p>
+			<p id="fffaa64c-9d0a-81d5-a499-fef469955f69" class=""><strong>Маршрутизатор:</strong><br />Маршрутизаторы
+				или роутеры, в отличии от коммутаторов и хабов умеют работать с IP - адресами.<br />Как понятно из
+				названия, маршрутизатор занимается тем, что маршрутизирует данные из одной сети в другую, основываясь на
+				IP - адресе приходящих к нему данных. Когда к нему приходит пакет с данными, он смотрит на адрес
+				назначения и затем в свою таблицу маршрутизации и после этого принимает решение, что сделать с данными -
+				перенаправить данные в свою сеть или отправить дальше в другую сеть.<br /></p>
+			<p id="fffaa64c-9d0a-81ab-9c01-efc3a4caae48" class="">Рассмотрим различия наглядно:</p>
+			<ul id="fffaa64c-9d0a-8114-afb9-e8996747b9f8" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Концентратор </strong>
+					<ul id="fffaa64c-9d0a-8134-8971-ceade7664eac" class="bulleted-list">
+						<li style="list-style-type:circle">Уровень - Физический</li>
+					</ul>
+					<ul id="fffaa64c-9d0a-813d-8d71-d55c1990bfba" class="bulleted-list">
+						<li style="list-style-type:circle">Форма передачи данных - Биты</li>
+					</ul>
+					<ul id="fffaa64c-9d0a-8116-9103-d2e249c53c23" class="bulleted-list">
+						<li style="list-style-type:circle">Кол-во портов - 4/12</li>
+					</ul>
+					<ul id="fffaa64c-9d0a-81a3-8489-d7f8eb8f3360" class="bulleted-list">
+						<li style="list-style-type:circle">Адрес для передачи данных - MAC адрес</li>
+					</ul>
+					<ul id="fffaa64c-9d0a-81d2-a93b-e234701dee31" class="bulleted-list">
+						<li style="list-style-type:circle">Тип устройства - Неинтеллектуальное</li>
+					</ul>
+				</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-810a-9bd9-d895cb65708a" class="bulleted-list">
+				<li style="list-style-type:disc">Коммутатор <ul id="fffaa64c-9d0a-810f-bcb5-e625985524db"
+						class="bulleted-list">
+						<li style="list-style-type:circle">Уровень - Канальный</li>
+					</ul>
+					<ul id="fffaa64c-9d0a-8113-ac69-c6ba9393f6bf" class="bulleted-list">
+						<li style="list-style-type:circle">Форма передачи данных - Кадр</li>
+					</ul>
+					<ul id="fffaa64c-9d0a-81f2-89e0-e285f18b9bd9" class="bulleted-list">
+						<li style="list-style-type:circle">Кол-во портов - Обычно от 4 до 48</li>
+					</ul>
+					<ul id="fffaa64c-9d0a-81e9-ac83-f4b9427fb32a" class="bulleted-list">
+						<li style="list-style-type:circle">Адрес для передачи данных - MAC адрес</li>
+					</ul>
+					<ul id="fffaa64c-9d0a-8146-a7d3-f73dd83d9d58" class="bulleted-list">
+						<li style="list-style-type:circle">Тип устройства - Интеллектуальное</li>
+					</ul>
+				</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81dd-9299-eadb5b381a7e" class="bulleted-list">
+				<li style="list-style-type:disc">Маршрутизатор<ul id="fffaa64c-9d0a-8152-9b80-cd01fb630da3"
+						class="bulleted-list">
+						<li style="list-style-type:circle">Уровень - Сетевой</li>
+					</ul>
+					<ul id="fffaa64c-9d0a-81dc-a174-d0ba5d232253" class="bulleted-list">
+						<li style="list-style-type:circle">Форма передачи данных - Пакет</li>
+					</ul>
+					<ul id="fffaa64c-9d0a-8188-846f-c088b03bd900" class="bulleted-list">
+						<li style="list-style-type:circle">Кол-во портов - 2/4/5/8</li>
+					</ul>
+					<ul id="fffaa64c-9d0a-818c-8b09-e634cf8be6bd" class="bulleted-list">
+						<li style="list-style-type:circle">Адрес для передачи данных - IP адрес</li>
+					</ul>
+					<ul id="fffaa64c-9d0a-81fa-9d31-ccf3ab9fd485" class="bulleted-list">
+						<li style="list-style-type:circle">Тип устройства - Интеллектуальное</li>
+					</ul>
+				</li>
+			</ul>
+			<h1 id="fffaa64c-9d0a-81df-a3cb-f540b246c6c1" class="">Коммутация</h1>
+			<p id="fffaa64c-9d0a-8156-8659-d8f76761f46c" class="">Это процесс соединения различных абонентов
+				коммуникационной сети через транзитные узлы</p>
+			<p id="fffaa64c-9d0a-81f1-8ad7-cd1f0364437d" class="">Коммуникационные сети должны обеспечивать связь своих
+				абонентов между собой</p>
+			<p id="fffaa64c-9d0a-8141-981f-fbe30fc192f5" class="">Сетевую связность устройств способен обеспечить
+				коммутатор. Устройства к нему подключаются посредством витой пары с коннектором rj-45, данный тип
+				подключения используется как в домашних сетях, так и в больших корпоративных топологиях. Это самый
+				распространённый тип подключения, хотя в высокопроизводительных сетях могут использоваться другие
+				коннекторы и типы сред передачи данных, обеспечивающие более высокую производительность.</p>
+			<p id="fffaa64c-9d0a-8111-8900-c2da19f6e587" class="">На основе трафика, генерируемого компьютерами,
+				коммутатор определяет, где какое устройство находится.</p>
+			<h2 id="fffaa64c-9d0a-81b0-85cf-cf479764f17c" class="">Построение таблицы коммутации</h2>
+			<figure id="fffaa64c-9d0a-8150-ad8a-c80e92edd790" class="image"><a
+					href="Дополнительный материал/Untitled.png"><img
+						style="width:480px"
+						src="Дополнительный материал/Untitled.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-816b-ad8b-f3e411b03640" class="">От компьютера к коммутатору приходит фрейм, внутри
+				которого кроме данных находятся специальные заголовки, изображенные на рисунке. Когда коммутатор
+				получает кадр, отправленный компьютером А компьютеру В, он извлекает из него МАС-адрес приемника и ищет
+				этот МАС-адрес в своей таблице коммутации. Как только в таблице коммутации будет найдена запись,
+				ассоциирующая МАС-адрес приемника (компьютера В) с одним из портов коммутатора, за исключением
+				порта-источника, кадр будет передан через соответствующий выходной порт (в приведенном примере - порт
+				2). Этот процесс называется продвижение (forwarding) кадра.<br />Если бы оказалось, что выходной порт и
+				порт-источник совпадают, то передаваемый кадр был бы коммутатором отброшен. Этот процесс называется
+				фильтрацией (filtering).<br />В том случае, если МАС-адрес приемника в поступившем кадре неизвестен (в
+				таблице коммутации отсутствует соответствующая запись), коммутатор создает множество копий этого кадра и
+				передает их через все свои порты, за исключением того, на который он поступил. Этот процесс называется
+				лавинной маршрутизацией (flooding). Несмотря на то, что процесс лавинной маршрутизации занимает полосу
+				пропускания, он позволяет коммутатору избежать потери кадров, когда МАС-адрес приемника неизвестен, и
+				осуществлять процесс самообучения.<br /></p>
+			<h2 id="fffaa64c-9d0a-81d0-ab11-e08c694f4366" class="">Методы коммутации</h2>
+			<p id="fffaa64c-9d0a-81f9-96aa-efddfd38734e" class="">Коммутация трафика может проходить разными способами в
+				зависимости от задач.</p>
+			<p id="fffaa64c-9d0a-81a5-ac58-fa4b93f7b9da" class="">Для обеспечения наибольшего быстродействия сети
+				существует способ cut-through. Здесь коммутатор проверяет только первые шесть байт фрейма, так как в них
+				содержится адрес получателя информации.</p>
+			<figure id="fffaa64c-9d0a-81c0-84d4-c1ab745f64e7" class="image"><a
+					href="Дополнительный материал/Untitled%201.png"><img
+						style="width:944px"
+						src="Дополнительный материал/Untitled%201.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-8131-9c9a-eec06e416488" class="">В рядовых случаях используется коммутация
+				store-and-forward, где коммутатор проверяет фрейм полностью, высчитывает контрольную сумму и проверяет,
+				не изменился ли фрейм за время его передачи по сети. В случае обнаружения ошибки такой фрейм будет
+				отброшен. Это медленный способ коммутации.</p>
+			<figure id="fffaa64c-9d0a-81ab-88bf-c5dbaf7e0232" class="image"><a
+					href="Дополнительный материал/Untitled%202.png"><img
+						style="width:946px"
+						src="Дополнительный материал/Untitled%202.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-8185-af0c-e0dd0d2583e2" class="">Мы снова видим структуру фрейма, в ней можно заметить:
+			</p>
+			<p id="fffaa64c-9d0a-81d8-9b0d-e0b7a60c444a" class="">Адрес назначения - Адрес сетевой карты получателя</p>
+			<p id="fffaa64c-9d0a-81c0-b204-e105b2e2ec40" class="">Адрес источника - Адрес сетевой карты отправителя</p>
+			<p id="fffaa64c-9d0a-81d3-88ba-cf190738721b" class="">Длина - Количество байт, начиная от следующего за этим
+				полем и кончая последним перед полем Контрольная сумма</p>
+			<p id="fffaa64c-9d0a-8140-9f22-d59c9bca5f50" class="">Данные – сами данные, которые переносит фрейм</p>
+			<p id="fffaa64c-9d0a-814d-8407-f4d34e4c8985" class="">Контрольная сумма - это значение, которое было
+				рассчитано по некоторому алгоритму на основе имеющихся файлов или данных. </p>
+			<p id="fffaa64c-9d0a-81ee-bf8d-db77fdf8905d" class="">Если с первыми четырьмя полями понятно, то с последним
+				не совсем, давайте рассмотрим его подробнее.</p>
+			<h2 id="fffaa64c-9d0a-81c3-950d-c2ca29ee8f40" class="">Контрольная сумма</h2>
+			<p id="fffaa64c-9d0a-814d-a035-ec4bb6348e4f" class="">Итак, контрольная сумма — некоторое значение,
+				рассчитанное по набору данных путём применения определённого алгоритма и используемое для проверки
+				целостности данных при их передаче или хранении.</p>
+			<p id="fffaa64c-9d0a-815c-ae8d-e3475e5a070a" class="">Особенностью контрольной суммы является то, что ее
+				алгоритм, при одинаковых входных данных всегда выдает одинаковое значение. При этом малейшее изменение
+				входных данных кардинально меняет значение контрольной суммы.</p>
+			<p id="fffaa64c-9d0a-81f7-b241-e803b516147a" class="">Эта особенность позволяет использовать контрольную
+				сумму для проверки целостности файлов или данных. Высчитываете контрольную сумму и отправляете ее вместе
+				с файлом. После чего получатель файла повторно высчитывает контрольную сумму файла и сравнивает ее с
+				вашей контрольной суммой. Если значения совпадают, значит файл оригинальный, если нет, значит он получил
+				какие-то изменения.</p>
+			<p id="fffaa64c-9d0a-818f-b62f-cbf219ef46e7" class="">Также нужно упомянуть, что контрольную сумму нельзя
+				использовать для получения исходных данных. То есть нельзя «расшифровать» хеш-сумму и получить данные
+				которые были хешированы, хеш-сумму можно только сравнить с другой хеш-суммой.</p>
+			<p id="fffaa64c-9d0a-815b-ab7d-c06b42186e02" class="">Другими словами, контрольная сумма используется для
+				обнаружения ошибок при передаче кадра по сети. Не стоит забывать, что при обнаружении ошибок кадр
+				отбрасывается.</p>
+			<p id="fffaa64c-9d0a-81a0-996c-c3830cfb4012" class="">Контрольная сумма вычисляется по алгоритму CRC-32, а
+				также обнаруживает 99,999999977% всех ошибок в сообщениях длинной до 64 байт</p>
+			<h1 id="fffaa64c-9d0a-8177-a3ff-d5b5248dc38e" class="">IP сети и IPv4 адресация</h1>
+			<p id="fffaa64c-9d0a-8141-8c47-ed389674eaaf" class="">Internet Protocol - маршрутизируемый протокол сетевого
+				уровня стека TCP/IP</p>
+			<p id="fffaa64c-9d0a-81ce-a521-c93b25946413" class="">Это один из основных протоколов L3. Как раз в нем
+				определено такое понятие, как адресация. Сейчас в протоколе существует два вида адресации – IPv4 и IPv6.
+				Далее сделаем основной упор на более старый и известный IPv4.</p>
+			<p id="fffaa64c-9d0a-8153-8ff9-ff3bd53b3182" class="">Сетевой уровень модели OSI помогает нам, как
+				пользователям сети, отойти от адресации по mac, предоставив нахождение mac адреса получателя автоматике
+				благодаря широковещательным arp запросам. Не понадобится вбивать длинные mac адреса назначения и
+				находить их, вручную опрашивая устройства. Теперь мы сами можем назначить специальный ip адрес любому
+				устройству и взаимодействовать с получателем именно по ip. Сам ip адрес короче mac, его проще запомнить
+				и использовать.</p>
+			<p id="fffaa64c-9d0a-81cb-b5c0-fa45a4762f2d" class=""><strong>IP пакетом </strong>называется единица данных,
+				передаваемая на сетевом уровне модели OSI</p>
+			<figure id="fffaa64c-9d0a-8168-b32d-dba9ff79e7b6" class="image"><a
+					href="Дополнительный материал/Untitled%203.png"><img
+						style="width:384px"
+						src="Дополнительный материал/Untitled%203.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-8131-9464-e21ca9ab4b03" class="">Не лишним будет и посмотреть, что находится внутри у
+				ip пакета. На рисунке вы видите заголовки, присущие любому ip пакету. Заголовки – это сервисная
+				информация, благодаря которой наши данные могут передаваться по сетям. Различные заголовки характерны и
+				для второго уровня модели OSI, и для третьего, и для остальных.</p>
+			<p id="fffaa64c-9d0a-816a-b3a3-f414804e8174" class="">На третьем уровне вы видите сервисную информацию,
+				позволяющую роутеру маршрутизировать пакеты по сети, проверять их целостность, отбрасывать в случае
+				закольцовывания сети.</p>
+			<h2 id="fffaa64c-9d0a-81d3-bd8e-e3d957e1c717" class="">IPv4</h2>
+			<p id="fffaa64c-9d0a-818e-ab47-fc29c5690ec1" class="">Сам протокол IP разрабатывался довольно давно, а
+				первой наиболее широко используемой версией протокола стала четвертая, отсюда и название. Рассмотрим
+				IPv4 детально.</p>
+			<p id="fffaa64c-9d0a-81b8-a4ae-f871612c02a8" class="">Для компьютера вся информация представляет собой набор
+				нулей и единиц. Так же и в сетевых технологиях – наш трафик, передаваемый по проводам, это те же самые
+				нули и единицы. И, как мы разобрали ранее, трафик на уровне L3 состоит из полезных данных и заголовков
+				пакета. Каждый из заголовков можно интерпретировать как последовательность нулей и единиц, в том числе
+				адрес отправителя и получателя. При этом количество нулей и единиц в записи ip адреса будет
+				соответствовать его весу в битах, так как бит – минимальная единица счисления в мире информационных
+				технологий.</p>
+			<p id="fffaa64c-9d0a-815e-be37-df4d11013394" class="">В каждой части по 8 бит, такая часть называется октет.
+				Каждый октет записывают в десятичном формате, и форма записи IP адреса следующая: четыре октета
+				разделенных точкой (213.180.193.3). С таким видом деления адресов людям гораздо удобнее работать, чем с
+				записью в двоичной форме длиной в 32 бита.</p>
+			<p id="fffaa64c-9d0a-813a-bce0-c2afee76a8ea" class="">В свою очередь приходим к тому, что максимальное
+				число, где скрывается ровно двести пятьдесят шесть комбинаций – это число дести пятьдесят пять. Вот и
+				получается диапазон от нуля до двухсот пятидесяти пяти, которым можно описать один октет в ip адресе.
+				Остальные октеты составляются по аналогии.<br />Минимально возможный ip адрес – четыре нуля. Максимально
+				возможный ip адрес четыре числа двести пятьдесят пять<br /></p>
+			<p id="fffaa64c-9d0a-8153-92d0-e353dc264be2" class="">Итак, форма представления 4 десятичных числа 0-255,
+				разделённых точками</p>
+			<figure id="fffaa64c-9d0a-81f9-9125-ed21afc2edbf" class="image"><a
+					href="Дополнительный материал/Untitled%204.png"><img
+						style="width:336px"
+						src="Дополнительный материал/Untitled%204.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-8197-ada1-e826e84dc546" class="">
+			</p>
+			<p id="fffaa64c-9d0a-8141-bfb0-f881eca1bbc1" class="">В сетях IPv4 всего существует три типа IP-адресов,
+				каждый тип IP-адреса ориентирован на определенную задачу, это следующие IP-адреса:</p>
+			<ul id="fffaa64c-9d0a-8145-b635-e3880e18af18" class="bulleted-list">
+				<li style="list-style-type:disc">Сетевой адрес : IP-адрес, к которому относится сеть или подсеть</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8138-a512-ff0336101c21" class="bulleted-list">
+				<li style="list-style-type:disc">Адрес хоста : IP-адреса, назначенные конечным компьютерам в сети</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8109-afe6-c16ecc219bbc" class="bulleted-list">
+				<li style="list-style-type:disc">Широковещательный адрес : специальный адрес, он используется для
+					отправки данных на все хосты в сети</li>
+			</ul>
+			<p id="fffaa64c-9d0a-8127-a62c-f75ef21b466f" class="">Как по IP адресу узнать, где адрес сети, а где адрес
+				хоста? Для этого используется Маска подсети. Это число похоже на ip адрес, аналогично состоит из четырех
+				октетов и весит тридцать два бита. Маска подсети нужна, чтобы определить размерность этой самой сети.
+				Когда мы определяем подсеть, с помощью маски сразу можно вычислить общее количество ip адресов в данной
+				сети, тот самый диапазон. Но есть важное замечание – в любой сети присутствует два специальных ip
+				адреса, которые не могут быть использованы в качестве адреса конечного компьютера. Эта адреса – первый и
+				последний в подсети. Первый адрес в подсети используется как идентификатор подсети, или же название
+				подсети. Последний адрес используется как адрес широковещательной рассылки. Если мы отправим трафик в
+				сеть и укажем в качестве получателя последний адрес в нашей подсети – то сетевые устройства разошлют
+				такой трафик всем работающим устройствам в рамках этой подсети.</p>
+			<p id="fffaa64c-9d0a-8128-be99-fb6a91cba862" class=""><strong>Недостатки IPv4</strong></p>
+			<ul id="fffaa64c-9d0a-819b-ad20-d3cb274f794f" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Проблема масштабируемости</strong>
+					<ul id="fffaa64c-9d0a-81da-90a3-f7ffaedf119b" class="bulleted-list">
+						<li style="list-style-type:circle">сложность массового изменения IP-адресов</li>
+					</ul>
+					<ul id="fffaa64c-9d0a-81da-8920-d3dbbe3aed72" class="bulleted-list">
+						<li style="list-style-type:circle">недостаточность объема 32-битного адресного пространства</li>
+					</ul>
+					<ul id="fffaa64c-9d0a-81cb-9a86-d70959d30e37" class="bulleted-list">
+						<li style="list-style-type:circle">относительная сложность обработки заголовков пакетов IPv4
+						</li>
+					</ul>
+					<ul id="fffaa64c-9d0a-81a7-9c67-da589545d43c" class="bulleted-list">
+						<li style="list-style-type:circle">сложность агрегирования маршрутов, разрастание таблиц
+							маршрутизации</li>
+					</ul>
+				</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81d5-a596-c7137ebfa115" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Отсутствие некоторых обязательных механизмов, а
+						именно:</strong>
+					<ul id="fffaa64c-9d0a-816b-a2ae-f5058caf1e97" class="bulleted-list">
+						<li style="list-style-type:circle">механизмов информационной безопасности</li>
+					</ul>
+					<ul id="fffaa64c-9d0a-8169-8b95-ee41cb966d3b" class="bulleted-list">
+						<li style="list-style-type:circle">средств поддержки классов обслуживания</li>
+					</ul>
+				</li>
+			</ul>
+			<h2 id="fffaa64c-9d0a-8143-938e-c970118f461b" class="">IPv6</h2>
+			<p id="fffaa64c-9d0a-81eb-a3e8-e01c528fad73" class="">IPv6 — новая версия интернет-протокола, призванная
+				решить проблемы, с которыми столкнулась версия IPv4, за счёт ряда принципиальных изменений</p>
+			<p id="fffaa64c-9d0a-8133-b84b-eaca3f44bd15" class="">Первое и главное отличие: IP-адреса в новом протоколе
+				стали длиной 128 бит. Это дает 2 в степени 128 вариантов уникальных адресов, а это на секундочку вот
+				столько:</p>
+			<p id="fffaa64c-9d0a-81bc-ace9-fe7b6a2f2c38" class="">340 282 366 920 938 463 463 374 607 431 768 211 456
+				комбинаций</p>
+			<p id="fffaa64c-9d0a-81d9-b889-d66747ff01c1" class="">Соответственно, с изменением длины адреса, поменялся и
+				его формат. Новый IP-адрес стал выглядеть немного сложнее, к примеру вот так:Пример IPv6 адреса</p>
+			<p id="fffaa64c-9d0a-81f0-ab38-ed98ff6d8740" class="">2001:0db8:0000:0000:0000:0000:0010:ad12</p>
+			<p id="fffaa64c-9d0a-8138-895b-e5aa291b056e" class="">IPv6 адрес теперь состоит из 8 групп шестнадцатеричных
+				чисел, разделенных двоеточиями.Выглядит правда так себе, но хорошая новость в том, что в таких адресах
+				можно сократить нули слева направо, поэтому большой адрес можно записать вот так, что гораздо
+				симпатичнее.</p>
+			<p id="fffaa64c-9d0a-8151-92a1-de1524b52740" class="">2001:0db8:0000:0000:0000:0000:0010:ad12</p>
+			<p id="fffaa64c-9d0a-8135-8ae4-f217a337b1ff" class="">2001:db8:10:ad12</p>
+			<p id="fffaa64c-9d0a-81bc-8fd8-e57e0ad1f2bc" class=""><strong>Формат заголовка IPv6</strong></p>
+			<ul id="fffaa64c-9d0a-81dd-97b9-cdd0207b920d" class="bulleted-list">
+				<li style="list-style-type:disc">Первое поле в заголовке протокола IPv6 также, как и в заголовке
+					протокола IPv4, это номер версии 4 для IPv4 и 6 для IPv6.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81e0-8596-c3d37fffee2d" class="bulleted-list">
+				<li style="list-style-type:disc">Затем идет поле класс трафика, оно необходимо для реализации качества
+					обслуживания. Самый простой вариант, разбиение трафика на два класса, обычный и
+					важный. Маршрутизаторы, которые поддерживают обеспечение качества обслуживания, передают важный
+					трафик быстрее используя специальную выделенную очередь, также возможны и другие варианты
+					использования классов трафиков.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-811f-940d-c7508a166be4" class="bulleted-list">
+				<li style="list-style-type:disc">Следующее поле в заголовке IPv6 это метка потока, это поле используется
+					для того чтобы объединить преимущества сетей коммутации пакетов с сетями с коммутацией каналов. У
+					набора пакетов, которые передаются от одного отправителя к одному получателю, и требует
+					определенного типа обслуживания, устанавливается одна и та же метка. Маршрутизаторы, которые
+					поддерживают работу в таком режиме, обрабатывают пакет на основе метки, что гораздо быстрее.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-814a-b8ba-cd2542c6fffc" class="bulleted-list">
+				<li style="list-style-type:disc">Следующее поле это длина полезной нагрузки, в отличии от протокола
+					IPv4, где в подобном поле указывается общая длина пакета, здесь указывается только размер данных без
+					размера заголовка.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-814f-8841-e20d7a57cb38" class="bulleted-list">
+				<li style="list-style-type:disc">Затем идет поле следующий заголовок, которое необходимо, если
+					используются дополнительные заголовки, в этом поле указывается тип первого дополнительного
+					заголовка.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8168-9d7a-fc9e601ea5e0" class="bulleted-list">
+				<li style="list-style-type:disc">В IPv6 поле время жизни пакета переименовали в максимальное число
+					транзитных участков, потому что на практике вместо времени жизни, даже в протоколе IPv4, указывается
+					максимальное количество маршрутизаторов через которое может пройти пакет, перед тем как он будет
+					отброшен.</li>
+			</ul>
+			<p id="fffaa64c-9d0a-81be-a06d-f17ff89dc639" class="">По сравнению с заголовком протокола IPv4 в протоколе
+				IPv6 нет полей, которые отвечают за фрагментацию, и за контрольную сумму. Расчет контрольной суммы
+				создает большую нагрузку на маршрутизаторы, однако эта операция часто является излишней, так как
+				контрольная сумма рассчитывается на канальном уровне, и на сетевом уровне. Поэтому от расчета
+				контрольных сумм в протоколе IPv6, было решено отказаться.</p>
+			<p id="fffaa64c-9d0a-81ce-a171-e34e5f15e7fd" class="">Также было принято решение отказаться от фрагментации,
+				потому что она так же как и расчет контрольной суммы, создает большую нагрузку на маршрутизаторы. На
+				практике во многих сетях сейчас используется один и тот же размер пакета, соответствующий размеру
+				кадра Ethernet 1500 байт, поэтому фрагментация часто являются ненужной. Если все же где-то по пути
+				пакета встретиться сеть с меньшим максимальным размером пакета, то вместо фрагментации необходимо
+				использовать технологию Path MTU Discovery.</p>
+			<p id="fffaa64c-9d0a-81c5-9759-dc181712c88b" class="">Также как и заголовок протокола IPv4,  заголовок
+				протокола IPv6 состоит из двух частей обязательный и необязательной. В необязательные части может быть
+				несколько дополнительных заголовков.</p>
+			<p id="fffaa64c-9d0a-81bd-966d-f6fe98439cb7" class="">В IPv6 могут быть дополнительные заголовки следующих
+				типов:</p>
+			<ul id="fffaa64c-9d0a-814b-9852-d13d8299176b" class="bulleted-list">
+				<li style="list-style-type:disc">Заголовок параметры маршрутизации —  содержит данные, которые
+					необходимы маршрутизаторам для того, чтобы корректно обрабатывать пакеты.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81f1-8459-c4b7b7bca5dc" class="bulleted-list">
+				<li style="list-style-type:disc">Заголовок параметры получателя —  содержит данные, которые необходимы
+					для обработки пакета на стороне получателя.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81fc-b56e-f46dd0ea8711" class="bulleted-list">
+				<li style="list-style-type:disc">Дополнительный заголовок маршрутизация — содержит список
+					маршрутизаторов, через который пакет должен обязательно пройти.</li>
+			</ul>
+			<p id="fffaa64c-9d0a-8194-8149-c0d3cb5e8229" class=""><strong>Преимущества IPv6</strong></p>
+			<p id="fffaa64c-9d0a-81e0-aa9c-e02a2c473f7b" class="">IPv6 во многом превосходит IPv4 и имеет ряд очевидных
+				преимуществ. Во-первых, более широкое адресное пространство, которое уже даёт массу преимуществ:</p>
+			<ul id="fffaa64c-9d0a-8145-a137-f3ce2f26bc1e" class="bulleted-list">
+				<li style="list-style-type:disc">Адресов хватит с запасом на многие десятилетия вперед. А значит не надо
+					будет париться над обходными решениями, и можно будет полностью избавиться от NAT.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8132-973d-db816c460a51" class="bulleted-list">
+				<li style="list-style-type:disc">Каждое из устройств подключенных к сети сможет получить свой “белый” IP
+					адрес, что уже хорошо.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81a4-8a9f-dbf9538ba24e" class="bulleted-list">
+				<li style="list-style-type:disc">По настоящему хорошо заработают peer-to-peer сети, т.е. сети в которых
+					устройства могут общаться между собой напрямую.</li>
+			</ul>
+			<p id="fffaa64c-9d0a-81d2-9705-e30ca67fca45" class="">Во-вторых, в новом протоколе упростили и причесали:
+			</p>
+			<ul id="fffaa64c-9d0a-811e-84f1-ca2e2c716d60" class="bulleted-list">
+				<li style="list-style-type:disc">Теперь адреса можно создавать и настраивать автоматически, благодаря
+					технологии SLAAC — Stateless Address Autoconfiguration. А это существенно упрощает администрирования
+					сети.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8109-844a-ea37efdf3195" class="bulleted-list">
+				<li style="list-style-type:disc">Также в IPv6 существенно упростили заголовки пакетов, которые стало
+					проще и быстрее обрабатывать.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81cc-b791-ff0c78599075" class="bulleted-list">
+				<li style="list-style-type:disc">Ну и добавили обязательную поддержку шифрования трафика IPsec</li>
+			</ul>
+			<p id="fffaa64c-9d0a-819b-9f29-cd8e0700e646" class=""><strong>Проблемы IPv6</strong></p>
+			<p id="fffaa64c-9d0a-81b3-bee9-c5b3d1bf1277" class="">Скажем, IPv6 — неидеальный. У него есть ряд серьезных
+				проблем.</p>
+			<p id="fffaa64c-9d0a-8179-85e9-d73ea8ccdc3f" class="">Начнем с того, что для провайдеров обновляться на IPv6
+				очень дорого. Нужно закупать новое оборудование, перенастраивать его и прочее. А зачем это делать, если
+				итак всё работает? Согласитесь, когда на кону миллиарды, вопрос становится очень серьёзным.</p>
+			<p id="fffaa64c-9d0a-81b5-b68d-cf5b7c7ef61f" class="">Во-вторых, на текущий момент всё еще очень мало
+				понимания, как настраивать IPv6. И даже у больших профессионалов с многолетним опытом возникают
+				сложности, чего уж говорить о рядовых пользователях.</p>
+			<p id="fffaa64c-9d0a-8112-b6ae-d75c754a1471" class="">В-третьих, IPv6 не имеет обратной совместимости с
+				IPv4. А это значит, что на время перехода нужно работать в режиме дуал-стек, то есть поддерживать и то,
+				и то. А это фактически двойная работа по настройке, гарантированное увеличение косяков и гарантированное
+				уменьшение безопасности. То есть параллельная работа IPv4 и IPv6 в 2 раза увеличивает поверхность атаки.
+				Так как нужно защищать и то, и то.</p>
+			<p id="fffaa64c-9d0a-8110-8275-dc18042cd54d" class="">Тем не менее все специалисты сходятся во мнении, что
+				переход на IPv6 неизбежен, это дело времени. И когда это переход состоится, мы наконец то увидим, как на
+				самом деле должен работать интернет.</p>
+			<h2 id="fffaa64c-9d0a-8144-a944-f5e89222520b" class="">Аренда IP адресов. IANA. Распределение IP адресов по
+				странам</h2>
+			<p id="fffaa64c-9d0a-8167-b22a-d3da66f463f8" class="">IANA - организация, которая занимается как
+				распределением ip адресов по миру, так и номеров автономных систем. Занимается скорее в организационном
+				плане, так как фактически арендовать адрес или номер AS можно у RIR и LIR.</p>
+			<p id="fffaa64c-9d0a-81ad-971a-f07fe074760d" class="">RIR (Regional Internet Registry) это региональные
+				организации, каждая из которых отвечает за определённую часть планеты (Для Европы и России – это RIPE
+				NCC)</p>
+			<p id="fffaa64c-9d0a-819d-8020-e8df1a975bf3" class="">А LIR (Local Internet Registry) может стать почти
+				любая желающая организация при наличии необходимых документов. Это более локальные организации,
+				созданные для снятия нагрузки с RIR.</p>
+			<p id="fffaa64c-9d0a-81d1-868f-e4142bc1fd6e" class="">Когда автономные системы только появились,
+				максимальный номер AS был 65535. Позже этот стандарт был доработан. Сейчас этих номеров столько же,
+				сколько существует ip адресов версии 4.</p>
+			<p id="fffaa64c-9d0a-8120-8a08-f048ab6d1d10" class="">Номер AS привязывается к конкретной подсети,
+				арендованной у LIR. Нельзя стать AS, если вы владеете блоком ip адресов меньшим, чем 256, то есть по
+				маске 24. При этом, если организация стала автономной системой, она может стать и провайдером – выдавать
+				в аренду ip адреса и маршрутизировать своих клиентов в глобальную сеть интернет.</p>
+			<figure id="fffaa64c-9d0a-817f-b654-e46f0a561560" class="image"><a
+					href="Дополнительный материал/Untitled%205.png"><img
+						style="width:288px"
+						src="Дополнительный материал/Untitled%205.png" /></a>
+			</figure>
+			<h1 id="fffaa64c-9d0a-8142-a159-ff8a59c19879" class="">Протокол ARP</h1>
+			<p id="fffaa64c-9d0a-8103-955d-ea2be468f74c" class="">Одним из важнейших протоколов в современных локальных
+				сетях является ARP - Address Resolution Protocol. Это протокол, в компьютерных сетях, предназначенный
+				для определения МАС-адреса другого компьютера по известному IP-адресу<br />Он преобразует логический
+				адрес(IP) в физический адрес (MAC) и сохраняет результаты в кэше ARP хоста.<br /></p>
+			<p id="fffaa64c-9d0a-8128-98dc-e175f99365d3" class="">ARP работает на уровнях 2 и 3 модели OSI</p>
+			<p id="fffaa64c-9d0a-81d7-8865-c4878d148f9d" class="">Каждое устройство уровня 3 использует ARP</p>
+			<p id="fffaa64c-9d0a-811f-a021-c5468ba780d6" class="">Размер кэша ARP специально ограничен, и адреса, как
+				правило, остаются в кэше всего несколько минут. Он регулярно очищается, чтобы освободить пространство.
+				Эта разработка также предназначена для обеспечения конфиденциальности и безопасности, чтобы
+				предотвратить кражу или подделку IP-адресов кибератаки. В то время как MAC-адреса фиксированы, IP-адреса
+				постоянно изменяются.</p>
+			<p id="fffaa64c-9d0a-8166-ba5b-fa8c86e488c5" class="">В процессе очистки неиспользуемые адреса удаляются;
+				также удаляются любые данные, связанные с неудачными попытками связи с компьютерами, не подключенными к
+				сети или даже не включенными.</p>
+			<h2 id="fffaa64c-9d0a-818d-a488-c40bb8254e5e" class="">ARP запрос</h2>
+			<figure id="fffaa64c-9d0a-814c-8467-ea06284af0be" class="image"><a
+					href="Дополнительный материал/Untitled%206.png"><img
+						style="width:384px"
+						src="Дополнительный материал/Untitled%206.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-819c-bdd0-daabbcd89c5f" class="">ARP работает следующим образом:</p>
+			<p id="fffaa64c-9d0a-8187-b7f3-e15fc0489e75" class="">Шаг 1. Хост А отправляет ARP запрос всем хостам в сети
+				с IP-адресом хоста В, генерируя широковещательный запрос</p>
+			<p id="fffaa64c-9d0a-815f-93d6-df81ebc325ef" class="">Шаг 2 Хост В распознаёт IP-адрес в запросе. Он
+				выполняет ARP-ответ, в котором честно указывает свой MAC-адрес. Другие же хосты, например, хост C
+				проигнорирует полученный трафик, т.к. его IP-адрес не совпадает с IP-адресом в запросе</p>
+			<p id="fffaa64c-9d0a-817f-af82-de5a1bb8e556" class="">Шаг 3. Хост А получает ARP-ответ и сохраняет МАС-адрес
+				хоста В в кэше ARP вместе с соответствующим IP-адресом хоста В</p>
+			<h2 id="fffaa64c-9d0a-8144-97aa-eed74dd80de5" class="">ARP таблица</h2>
+			<p id="fffaa64c-9d0a-8138-92fb-f5fc631c2acf" class="">Благодаря такому взаимодействию на нашем компьютере
+				создается ARP таблица, которая содержит все ответы, полученные от других устройств в сети. Таблица
+				представлена в виде простого сопоставления ip адреса и mac адреса.</p>
+			<p id="fffaa64c-9d0a-814f-ac60-fb44d56e11af" class="">Arp –a, arp –g отображают ARP-таблицу хоста</p>
+			<p id="fffaa64c-9d0a-81fd-9841-cdbe486427e8" class="">Таблица или кэш ARP хранится в оперативной памяти
+				устройства. ARP содержит три параметра:</p>
+			<ul id="fffaa64c-9d0a-814e-8c6b-fb8f856435d4" class="bulleted-list">
+				<li style="list-style-type:disc">IP-адрес целевого хоста</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-812d-9e69-d183cd8b2cd9" class="bulleted-list">
+				<li style="list-style-type:disc">Соответствующий MAC-адрес этого хоста</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81de-a667-d66445279605" class="bulleted-list">
+				<li style="list-style-type:disc">Как определяется входной МАС-адрес источника: статически или
+					динамически. Статические добавляются администратором, динамические же – создаются и удаляются
+					автоматически. При этом в ARP-таблице всегда хранится широковещательный физический адрес
+					FF:FF:FF:FF:FF:FF</li>
+			</ul>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

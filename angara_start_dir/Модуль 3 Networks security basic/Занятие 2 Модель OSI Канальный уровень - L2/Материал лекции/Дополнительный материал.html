@@ -1,0 +1,1711 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Дополнительный материал</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 237, 214, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 237, 214, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(249, 228, 188, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+
+		.checkbox-on {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+
+		.checkbox-off {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+	</style>
+</head>
+
+<body>
+	<article id="fffaa64c-9d0a-81a3-8cf0-e549b54cf417" class="page sans">
+		<header>
+			<h1 class="page-title">Дополнительный материал</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<h1 id="fffaa64c-9d0a-8103-92e6-f1ed977a1ac3" class="">Топология сети</h1>
+			<p id="fffaa64c-9d0a-8158-8402-c48e578c199d" class="">Топология сети - это описание расположения узлов и
+				соединений в сети, часто представляемых в виде графика.</p>
+			<p id="fffaa64c-9d0a-8117-8e6e-ea441d8fa8f4" class="">Топология логической сети - концептуальное
+				представление о том, как устройства работают на определённых уровнях абстракции. </p>
+			<p id="fffaa64c-9d0a-8179-9e6d-cf4a36538ffd" class="">Физическая топология подробно описывает, как физически
+				связаны устройства.</p>
+			<p id="fffaa64c-9d0a-8128-9d20-f85947c06024" class="">Карта топологии сети - карта, которая позволяет
+				администратору видеть физическое расположение подключённых устройств. Наличие карты топологии сети под
+				рукой очень полезно для понимания того, как устройства соединяются друг с другом, и лучших методов
+				устранения неполадок.</p>
+			<p id="fffaa64c-9d0a-8140-bb4a-eb5bbe49d095" class="">Далее рассмотрим некоторые топологии сети.</p>
+			<h2 id="fffaa64c-9d0a-81a5-b1f8-c18dc3ea4273" class="">Топология шины</h2>
+			<figure id="fffaa64c-9d0a-819e-b819-de6ab29b70ea" class="image"><a
+					href="Дополнительный материал/Untitled.png"><img
+						style="width:240px"
+						src="Дополнительный материал/Untitled.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-8130-ac3a-c669234e1d13" class="">Топология шины - это тип сети, где каждое устройство
+				подключается к одному кабелю, который проходит от одного конца сети к другому. Этот тип топологии часто
+				называют линейная топология. В топологии шины данные передаются только в одном направлении. Если
+				топология шины имеет две конечные точки, она называется топология линейной шины.</p>
+			<p id="fffaa64c-9d0a-8142-9c74-d5f466883bb7" class="">Достоинства такой схемы:</p>
+			<ul id="fffaa64c-9d0a-8165-a6e5-cf45031db6e2" class="bulleted-list">
+				<li style="list-style-type:disc">простое моделирование;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8111-bed7-f087252c4065" class="bulleted-list">
+				<li style="list-style-type:disc">дешевизна конструкции, при условии, что все устройства располагаются
+					недалеко друг от друга;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-812d-afa6-f92f01a0b99a" class="bulleted-list">
+				<li style="list-style-type:disc">поломка одного или даже нескольких устройств не влияет на
+					работоспособность остальных элементов сети.</li>
+			</ul>
+			<p id="fffaa64c-9d0a-8138-b64a-c91a95fd0127" class="">Недостатки шины:</p>
+			<ul id="fffaa64c-9d0a-81cf-8d87-ccc29e4bfff3" class="bulleted-list">
+				<li style="list-style-type:disc">неполадки на любом участке, а это обрыв шины или поломка сетевого
+					коннектора нарушают работы всей системы;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81e6-8d88-cd46cc3c4c6e" class="bulleted-list">
+				<li style="list-style-type:disc">сложность ремонтных работ, прежде всего определения места
+					неисправности;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81b6-8b51-f872ece1862e" class="bulleted-list">
+				<li style="list-style-type:disc">очень низкая производительность – в каждый момент только одно
+					устройство передаёт данные остальным, увеличение числа приборов ведёт к существенному снижению
+					производительности;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81f3-9a75-fdbb88094f51" class="bulleted-list">
+				<li style="list-style-type:disc">сложность расширения сети, для этого приходится полностью заменять
+					участки кабеля.</li>
+			</ul>
+			<p id="fffaa64c-9d0a-8106-8b9a-ff3410e3bc87" class="">Именно из-за этих недостатков такие сети морально
+				устарели, не обеспечивают современных требований обмена данными и фактически не применяются. По такой
+				топологии создавались первые локальные сети. Роль шины в таких схемах выполнял коаксиальный кабель. Его
+				прокладывали ко всем компьютерам и возле каждого соединяли т-образным штекером (тройником).</p>
+			<h2 id="fffaa64c-9d0a-81aa-8d74-c66bcfc07826" class="">Кольцевая топология</h2>
+			<figure id="fffaa64c-9d0a-819a-b6b0-dc0a025695af" class="image"><a
+					href="Дополнительный материал/Untitled%201.png"><img
+						style="width:192px"
+						src="Дополнительный материал/Untitled%201.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-81eb-b70f-f7c868f7365f" class="">В сетях с кольцевой топологией компьютеры соединяются
+				друг с другом в кольцевом формате. Каждое устройство в сети будет иметь двух соседей и не больше или не
+				меньше. Кольцевые топологии обычно использовались в прошлом, но вам было бы трудно найти предприятие,
+				все еще использующее их сегодня.</p>
+			<p id="fffaa64c-9d0a-81b6-9dac-fd51b0d1ac09" class="">Первый узел подключен к последнему узлу, чтобы связать
+				цикл вместе. Как следствие размещения в этом формате пакеты должны проходить через все узлы на пути к
+				месту назначения.</p>
+			<p id="fffaa64c-9d0a-8159-bb8f-f922afccb2a5" class="">В рамках этой топологии один узел выбран для настройки
+				сети и мониторинга других устройств. </p>
+			<p id="fffaa64c-9d0a-817b-a727-e86b7cebaa9a" class="">Достоинства соединения кольцом:</p>
+			<ul id="fffaa64c-9d0a-81eb-8772-e8c591a2084a" class="bulleted-list">
+				<li style="list-style-type:disc">простота компоновки;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81c0-86de-eba9d1fcae56" class="bulleted-list">
+				<li style="list-style-type:disc">возможность построения длинных сетей;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81de-8e91-d221b4869e53" class="bulleted-list">
+				<li style="list-style-type:disc">не возникает необходимости в дополнительных устройствах;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8120-8c13-cca862f8a886" class="bulleted-list">
+				<li style="list-style-type:disc">устойчивая работа с хорошей скоростью даже при интенсивной передаче
+					данных.</li>
+			</ul>
+			<p id="fffaa64c-9d0a-8145-a193-d642ba739dcc" class="">Но кольцевое соединение имеет и ряд недостатков:</p>
+			<ul id="fffaa64c-9d0a-817c-a1eb-ef56d0e3719a" class="bulleted-list">
+				<li style="list-style-type:disc">каждый компьютер должен быть в рабочем состоянии и участвовать в
+					трансляции, при обрыве кабеля или поломки одного устройства – сеть не работает;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81f3-9f64-ffddf6dc04b2" class="bulleted-list">
+				<li style="list-style-type:disc">на время подсоединения нового прибора схема полностью размыкается,
+					поэтому требуется полное отключение сети;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8163-af00-df501e176264" class="bulleted-list">
+				<li style="list-style-type:disc">сложное моделирование и настройка соединений;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8198-913f-df65958ec2d2" class="bulleted-list">
+				<li style="list-style-type:disc">сложный поиск неисправностей и их устранение.</li>
+			</ul>
+			<p id="fffaa64c-9d0a-815c-b15d-d95fb8ea2a22" class="">Кольцевые топологии полудуплекс, но также может быть
+				сделан дуплекс. Чтобы сделать кольцевые топологии полнодуплексными, вам потребуется два соединения между
+				сетевыми узлами для формирования Топология двойного кольца.</p>
+			<h2 id="fffaa64c-9d0a-814a-b7d5-d6e374610797" class="">Топология двойного кольца</h2>
+			<figure id="fffaa64c-9d0a-8163-904e-caa3ffc5d30b" class="image"><a
+					href="Дополнительный материал/Untitled%202.png"><img
+						style="width:192px"
+						src="Дополнительный материал/Untitled%202.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-8100-999f-d6e561b756b9" class="">Топологии с двумя кольцами обеспечивают каждый узел
+				двумя соединениями, по одному в каждом направлении. Таким образом, данные могут передаваться по часовой
+				стрелке или против часовой стрелки соответственно.</p>
+			<p id="fffaa64c-9d0a-81c8-bc0a-c9383ca11826" class="">Достоинства:</p>
+			<ul id="fffaa64c-9d0a-815f-8763-cf30b3c37fb8" class="bulleted-list">
+				<li style="list-style-type:disc">Низкий риск коллизий пакетов</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81ae-b3fe-ddbfd6d9e549" class="bulleted-list">
+				<li style="list-style-type:disc">Данные могут перемещаться по узлам на высоких скоростях</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8132-bc12-f603e077c9e7" class="bulleted-list">
+				<li style="list-style-type:disc">Более устойчивы к сбоям</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81a8-b24a-f22f834e0849" class="bulleted-list">
+				<li style="list-style-type:disc">Низкая стоимость установки</li>
+			</ul>
+			<p id="fffaa64c-9d0a-8176-9470-c67f59fa8ce4" class="">Недостатки:</p>
+			<ul id="fffaa64c-9d0a-819e-89f6-f432792e6948" class="bulleted-list">
+				<li style="list-style-type:disc">Повышенные проблемы масштабируемости</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-812e-9a63-df87ec8b9df9" class="bulleted-list">
+				<li style="list-style-type:disc">Больше устройств = большая задержка связи</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8179-9c9a-f331fe18907e" class="bulleted-list">
+				<li style="list-style-type:disc">Необходимо выключить сеть, чтобы внести изменения к существующим узлам
+					или добавить новые узлы</li>
+			</ul>
+			<h2 id="fffaa64c-9d0a-8115-b025-c8d3eed57403" class="">Топология звезды</h2>
+			<figure id="fffaa64c-9d0a-81b4-8d6d-e0ad08eacbb5" class="image"><a
+					href="Дополнительный материал/Untitled%203.png"><img
+						style="width:192px"
+						src="Дополнительный материал/Untitled%203.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-81e8-b895-c6f9a5ed299a" class="">Топология «звезда» - это топология, в которой каждый
+				узел в сети подключен к одному центральному коммутатору. Каждое устройство в сети напрямую связано с
+				коммутатором и косвенно связано с любым другим узлом. Связь между этими элементами заключается в том,
+				что центральное сетевое устройство является сервером, а другие устройства рассматриваются как клиенты.
+				Центральный узел отвечает за управление передачей данных по сети и действует как ретранслятор. В
+				топологии «звезда» компьютеры подключаются с помощью коаксиального кабеля, витой пары или
+				оптоволоконного кабеля.</p>
+			<p id="fffaa64c-9d0a-8154-a17a-c00ec478cde3" class="">Достоинства:</p>
+			<ul id="fffaa64c-9d0a-8104-b9ad-f5063f730d88" class="bulleted-list">
+				<li style="list-style-type:disc">Возможность управлять всей сетью из одного места</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8148-84f1-c2f8bc5f0eae" class="bulleted-list">
+				<li style="list-style-type:disc">Высокий уровень защиты от сбоев</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8164-a8cc-c1112632c627" class="bulleted-list">
+				<li style="list-style-type:disc">Можно добавлять новые компьютеры без необходимости отключать сеть</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-818a-a786-cabe3c720d6d" class="bulleted-list">
+				<li style="list-style-type:disc">Просты в настройке и установке</li>
+			</ul>
+			<p id="fffaa64c-9d0a-8163-ba58-f4d0bb563644" class="">Недостатки:</p>
+			<ul id="fffaa64c-9d0a-810b-a6ce-d5d6141dab37" class="bulleted-list">
+				<li style="list-style-type:disc">Выход центрального коммутатора из строя = выход всей сети из строя</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81f4-bb60-e586e66975ba" class="bulleted-list">
+				<li style="list-style-type:disc">Дорогая установка и использование</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8145-a785-ef3d4ada0417" class="bulleted-list">
+				<li style="list-style-type:disc">Производительность сети также привязана к конфигурации и
+					производительности центрального узла</li>
+			</ul>
+			<h2 id="fffaa64c-9d0a-815a-aea7-d9ad92f684f9" class="">Топология дерева</h2>
+			<figure id="fffaa64c-9d0a-818d-aef4-efb3aa27e6fa" class="image"><a
+					href="Дополнительный материал/Untitled%204.png"><img
+						style="width:288px"
+						src="Дополнительный материал/Untitled%204.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-81c3-8e59-e4b33d467a90" class="">Как следует из названия, древовидная топология - это
+				сетевая структура, имеющая форму дерева с множеством ветвей. Топологии деревьев имеют корневой узел,
+				который связан с другой иерархией узлов. иерархия родитель-потомок где существует только одна взаимная
+				связь между двумя связанными узлами. Как правило, топология дерева должна иметь три уровня иерархии для
+				классификации таким образом. Эта форма топологии используется в глобальных сетях выдержать много
+				разложенных устройств.</p>
+			<p id="fffaa64c-9d0a-8177-81b3-e7c87061db5a" class="">Достоинства:</p>
+			<ul id="fffaa64c-9d0a-818f-8284-cdcf5913f99a" class="bulleted-list">
+				<li style="list-style-type:disc">Позволяет расширить топологии шины и звезды</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8167-84c2-e111742b9f88" class="bulleted-list">
+				<li style="list-style-type:disc">Хорошо подходит для поиска ошибок и устранения неполадок</li>
+			</ul>
+			<p id="fffaa64c-9d0a-8113-800e-cb59cea36048" class="">Недостатки:</p>
+			<ul id="fffaa64c-9d0a-81a9-bb02-e1b87b7e15ad" class="bulleted-list">
+				<li style="list-style-type:disc">Выход корневого узла из строя = все поддеревья разделены</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81ec-807f-dd008d5b4fbc" class="bulleted-list">
+				<li style="list-style-type:disc">Больше узлов = сложность в управлении</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-814a-8806-fa8078b8d40e" class="bulleted-list">
+				<li style="list-style-type:disc">Необходимо большое количество кабелей</li>
+			</ul>
+			<h2 id="fffaa64c-9d0a-8157-b0ad-c7d6f89dcff8" class="">Топология сетки</h2>
+			<figure id="fffaa64c-9d0a-81f3-9af4-f5f274e6a493" class="image"><a
+					href="Дополнительный материал/Untitled%205.png"><img
+						style="width:192px"
+						src="Дополнительный материал/Untitled%205.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-81d4-9494-ced38bd681ab" class="">Топология сетки - это соединение точка-точка, где узлы
+				взаимосвязаны. В этой форме топологии, данные передаются двумя способами: маршрутизации и затопление. В
+				маршрутизации узлы используют логику маршрутизации для определения кратчайшего расстояния до места
+				назначения пакета. Напротив, при затоплении данные отправляются на все узлы в сети. Наводнение не
+				требует никакой формы логики маршрутизации для работы.<br />Есть две формы топологии сетки: частичная
+				топология сетки и топология ULL-сетки. При частичной топологии сетки большинство узлов взаимосвязаны, но
+				есть несколько, которые связаны только с двумя или тремя другими узлами. В топологии с полной сеткой
+				каждый узел взаимосвязан.<br /></p>
+			<p id="fffaa64c-9d0a-8125-9f74-ce67c6af3915" class="">Достоинства:</p>
+			<ul id="fffaa64c-9d0a-81bd-b294-ec38b059a86b" class="bulleted-list">
+				<li style="list-style-type:disc">Надёжны и устойчивы к сбоям</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81cf-8fb1-dbb2234b987f" class="bulleted-list">
+				<li style="list-style-type:disc">Защищена от взлома</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-818b-84a4-f8ce26eeffc5" class="bulleted-list">
+				<li style="list-style-type:disc">Быстродействие</li>
+			</ul>
+			<p id="fffaa64c-9d0a-816d-8984-f626ef39e068" class="">Недостатки:</p>
+			<ul id="fffaa64c-9d0a-81ce-89ee-e39af250f385" class="bulleted-list">
+				<li style="list-style-type:disc">Долгая настройка </li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81fa-a75a-ec62d8745d7d" class="bulleted-list">
+				<li style="list-style-type:disc">Трудность построения</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81df-9f2a-f2ef970b553d" class="bulleted-list">
+				<li style="list-style-type:disc">Стоимость монтажа и поддержания достаточно высока</li>
+			</ul>
+			<h2 id="fffaa64c-9d0a-816f-8511-f28a21620efb" class="">Гибридная топология</h2>
+			<figure id="fffaa64c-9d0a-8132-a8c4-ed8e404fcbcc" class="image"><a
+					href="Дополнительный материал/Untitled%206.png"><img
+						style="width:240px"
+						src="Дополнительный материал/Untitled%206.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-815e-b6c2-c522d3e57d7a" class="">Когда топология состоит из двух или более разных
+				топологий, она называется гибридной топологией. Гибридные топологии чаще всего встречается на крупных
+				предприятиях где отдельные отделы имеют сетевые топологии, которые отличаются от другой топологии в
+				организации. Соединение этих топологий вместе приведет к гибридной топологии. Как следствие, возможности
+				и уязвимости зависят от типов топологии, которые связаны.</p>
+			<p id="fffaa64c-9d0a-815b-b2a5-fb9d3bd9232b" class="">Достоинства:</p>
+			<ul id="fffaa64c-9d0a-813e-bff9-d61874bd0775" class="bulleted-list">
+				<li style="list-style-type:disc">Гибкость</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81b7-8bfd-f33219baaa7e" class="bulleted-list">
+				<li style="list-style-type:disc">Масштабируемость</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81a6-ab05-d03251f640e6" class="bulleted-list">
+				<li style="list-style-type:disc">Подходит для больших сетей</li>
+			</ul>
+			<p id="fffaa64c-9d0a-819d-9cbf-d8b1c242d2fb" class="">Недостатки:</p>
+			<ul id="fffaa64c-9d0a-818a-9f93-d709a633c53a" class="bulleted-list">
+				<li style="list-style-type:disc">Дорогая настройка</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81a8-b675-f7010de75a58" class="bulleted-list">
+				<li style="list-style-type:disc">Сложная топология, настройка и установка</li>
+			</ul>
+			<h1 id="fffaa64c-9d0a-81c8-a5ac-d8cdb49060f3" class="">Spanning Tree Protocol</h1>
+			<h2 id="fffaa64c-9d0a-81c3-b937-e4d0d70e617e" class="">Широковещательный шторм</h2>
+			<p id="fffaa64c-9d0a-81f0-b3a4-c8692f7393e6" class="">Широковещательный шторм (англ. Broadcast storm) —
+				лавина (всплеск) широковещательных пакетов (на втором уровне модели OSI — кадров). Размножение
+				широковещательных сообщений активным сетевым оборудованием приводит к экспоненциальному росту их числа и
+				парализует работу сети. Такие пакеты, в частности, используются сетевыми сервисами для оповещения
+				станций о своём присутствии. Считается нормальным, если широковещательные пакеты составляют не более
+				10 % от общего числа пакетов в сети.<br />Широковещательный шторм может возникать как результат
+				появления некорректно сформированных широковещательных сообщений, в том числе действиями
+				злоумышленников. Также довольно часто к шторму приводят кольца (петли) в сети на
+				основе концентраторов.<br /></p>
+			<h2 id="fffaa64c-9d0a-8110-949b-feab7160ac61" class="">STP</h2>
+			<p id="fffaa64c-9d0a-813f-b6e6-e6303cbc3872" class="">Протокол связующего дерева - сетевой протокол,
+				предназначенный для автоматического удаления циклов из топологии сети на канальном уровне в
+				Ethernet-сетях.</p>
+			<p id="fffaa64c-9d0a-8152-9130-dc5f10d09f40" class="">Первоначальный протокол STP описан в стандарте 802.1D.
+				Позже появилось несколько новых протоколов (RSTP, MSTP, PVST, PVST+), отличающихся некоторыми
+				особенностями в алгоритме работы, в скорости, в отношении к VLANам и ряде других вопросов, но в целом
+				решающих ту же задачу похожими способами. Все их принято обобщённо называть STP-протоколами.</p>
+			<p id="fffaa64c-9d0a-817d-a580-d2fad8143b1d" class="">Протокол STP в своё время был разработан мамой
+				Интернета Радией Перлман (Radia Perlman), а позже, в начале 90х превратился в стандарт IEEE 802.1D.</p>
+			<p id="fffaa64c-9d0a-819c-a340-cfe3fc6b6ecb" class="">В настоящее время протокол STP (или аналогичный)
+				поддерживается почти всеми Ethernet-коммутаторами, как реальными, так и виртуальными, за исключением
+				самых примитивных.</p>
+			<p id="fffaa64c-9d0a-8116-88be-e36fe2c876f6" class="">Протокол работает на канальном уровне. STP позволяет
+				делать топологию избыточной на физическом уровне, но при этом логически блокировать петли.</p>
+			<p id="fffaa64c-9d0a-81ab-a830-d35ab76228c9" class="">Достигается это с помощью того, что STP отправляет
+				сообщения BPDU и обнаруживает фактическую топологию сети. А затем, определяя<br />роли коммутаторов и
+				портов, часть портов блокирует так, чтобы в итоге получить топологию без петель.<br /></p>
+			<p id="fffaa64c-9d0a-8132-93ff-e8275b6b5dbb" class="">Для того чтобы определить какие порты заблокировать, а
+				какие будут передавать данные, STP выполняет следующее:</p>
+			<ul id="fffaa64c-9d0a-814d-9b57-f5c411f837d4" class="bulleted-list">
+				<li style="list-style-type:disc">Выбор корневого моста (Root Bridge)</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8124-9bdd-e231b8db7be0" class="bulleted-list">
+				<li style="list-style-type:disc">Определение корневых портов (Root Port)</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8164-bf5c-c903a24c1777" class="bulleted-list">
+				<li style="list-style-type:disc">Определение выделенных портов (Designated Port)</li>
+			</ul>
+			<p id="fffaa64c-9d0a-811f-8a21-d0a3f004d1d3" class=""><strong>Выбор корневого моста</strong><br />Корневым
+				становится коммутатор с наименьшим идентификатором моста (Bridge ID).<br /></p>
+			<p id="fffaa64c-9d0a-81bc-aa80-f91765ba7016" class="">Только один коммутатор может быть корневым. Для того
+				чтобы выбрать корневой коммутатор, все коммутаторы отправляют сообщения BPDU, указывая себя в качестве
+				корневого коммутатора. Если коммутатор получает BPDU от коммутатора с меньшим Bridge ID, то он перестает
+				анонсировать информацию о том, что он корневой и начинает передавать BPDU коммутатора с меньшим Bridge
+				ID.</p>
+			<p id="fffaa64c-9d0a-81fc-9152-cd5b3fa8d50f" class="">В итоге только один коммутатор останется корневым и
+				будет передавать BPDU.</p>
+			<p id="fffaa64c-9d0a-814c-bc62-c949e05f5d13" class="">Изначально Bridge ID состоял из двух полей:</p>
+			<ul id="fffaa64c-9d0a-8167-92c9-e262261bf0ce" class="bulleted-list">
+				<li style="list-style-type:disc">Приоритет — поле, которое позволяет административно влиять на выборы
+					корневого коммутатора. Размер — 2 байта,</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8107-b522-eb10e53d8468" class="bulleted-list">
+				<li style="list-style-type:disc">MAC-адрес — используется как уникальный идентификатор, который, в
+					случае совпадения значений приоритетов, позволяет выбрать корневой коммутатор. Так как MAC-адреса
+					уникальны, то и Bridge ID уникален, так что какой-то коммутатор<br />обязательно станет
+					корневым.<br /></li>
+			</ul>
+			<p id="fffaa64c-9d0a-816e-a014-cb41ef28035f" class=""><strong>Определение корневых портов</strong></p>
+			<p id="fffaa64c-9d0a-81c5-a795-cd7fe0cc09d5" class="">Определение корневых портов<br />Порт коммутатора,
+				который имеет кратчайший путь к корневому коммутатору, называется корневым портом. У любого не корневого
+				коммутатора может быть только один корневой порт. Корневой порт выбирается на основе меньшего Root Path
+				Cost - это общее значение стоимости всех линков до корневого коммутатора. Если стоимость линков до
+				корневого коммутатора совпадает, то выбор корневого порта происходит на основе меньшего Bridge ID
+				коммутатора. Если и Bridge ID коммутаторов до корневого коммутатора совпадает, то тогда корневой порт
+				выбирается на основе Port ID.<br /></p>
+			<p id="fffaa64c-9d0a-815c-9b07-c677b9ef0a4a" class=""><strong>Определение назначенных портов</strong></p>
+			<p id="fffaa64c-9d0a-8175-9032-cd026b80c0fc" class="">Коммутатор в сегменте сети, имеющий наименьшее
+				расстояние до корневого коммутатора, называется назначенным коммутатором (мостом). Порт этого
+				коммутатора, который подключен к рассматриваемому сегменту сети называется назначенным портом.<br />Так
+				же как и корневой порт выбирается на основе:<br /></p>
+			<ul id="fffaa64c-9d0a-8184-8f17-df3c919a6965" class="bulleted-list">
+				<li style="list-style-type:disc">Меньшего Root Path Cost</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8120-a354-d3056dce3361" class="bulleted-list">
+				<li style="list-style-type:disc">Меньшего Bridge ID</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81c3-bc8d-f95c6d362f58" class="bulleted-list">
+				<li style="list-style-type:disc">Меньшего Port ID</li>
+			</ul>
+			<p id="fffaa64c-9d0a-81b8-935f-c9ffc34f49b8" class=""><strong>Алгоритм действия STP</strong></p>
+			<p id="fffaa64c-9d0a-8164-8912-da597655b8c3" class="">После включения коммутаторов в сеть, по умолчанию
+				каждый коммутатор считает себя корневым (root).</p>
+			<ol type="1" id="fffaa64c-9d0a-810e-aea2-e2dab60be8b0" class="numbered-list" start="1">
+				<li>Каждый коммутатор начинает посылать по всем портам конфигурационные Hello BPDU пакеты раз в 2
+					секунды.</li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-81ad-8be3-f45a0f0862b0" class="numbered-list" start="2">
+				<li>Если мост получает BPDU с идентификатором моста (Bridge ID) меньшим, чем свой собственный, он
+					прекращает генерировать свои BPDU и начинает ретранслировать BPDU с этим идентификатором. </li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-8189-8cdd-d3b43e766a2d" class="numbered-list" start="3">
+				<li>Таким образом в конце концов в этой сети Ethernet остаётся только один мост, который продолжает
+					генерировать и передавать собственные BPDU. Он и становится корневым мостом (root bridge).</li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-816c-814c-e9da8237e216" class="numbered-list" start="4">
+				<li>Остальные мосты ретранслируют BPDU корневого моста, добавляя в них собственный идентификатор и
+					увеличивая счётчик стоимости и пути (path cost).</li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-8103-bd78-f5fd377b9219" class="numbered-list" start="5">
+				<li>Для каждого сегмента сети, к которому присоединено два и более портов мостов, происходит определение
+					designated port — порта, через который BPDU, приходящие от корневого моста, попадают в этот сегмент.
+				</li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-8172-9306-c664a0e39cb2" class="numbered-list" start="6">
+				<li>После этого все порты в сегментах, к которым присоединено 2 и более портов моста, блокируются за
+					исключением root port и designated port.</li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-81bd-a4c5-c487b35992ae" class="numbered-list" start="7">
+				<li>Корневой мост продолжает посылать свои Hello BPDU раз в 2 секунды.</li>
+			</ol>
+			<p id="fffaa64c-9d0a-81e3-b9fe-ef8a0b8b2369" class=""><strong>Таймеры STP</strong></p>
+			<p id="fffaa64c-9d0a-8122-aaf5-cc3122459a75" class="">Для того чтобы все коммутаторы сети имели возможность
+				получить точную информацию о конфигурации связующего дерева, в протоколе STP используются следующие
+				таймеры.</p>
+			<ul id="fffaa64c-9d0a-815a-8acf-f8ba9139f206" class="bulleted-list">
+				<li style="list-style-type:disc">Hello Time — это интервал времени, через который корневой мост
+					отправляет конфигурационные BPDU. Значение таймера Hello Time, настроенное на корневом мосте, будет
+					определять значения таймеров Hello Time на всех некорневых коммутаторах, т.к. они просто пересылают
+					конфигурационные BPDU, когда получают их от корня. Значение таймера Hello Time по умолчанию 2
+					секунды: диапазон возможных значений от 1 до 10 секунд.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8149-b19f-fd4bbf518478" class="bulleted-list">
+				<li style="list-style-type:disc">Forward Delay — это интервал времени, в течение которого порт
+					коммутатора находится в состояниях &quot;Прослушивание&quot; и &quot;Обучение&quot;. Такая задержка
+					смены состояний необходима, чтобы исключить возможность временного возникновения альтернативных
+					маршрутов при неодновременной смене состояний портов во время реконфигурации. Значение таймера
+					Forward Delay по умолчанию 15 секунд. диапазон возможных значений от 4 до 30 секунд.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-817b-a0f2-de97fb422b54" class="bulleted-list">
+				<li style="list-style-type:disc">Max Age — это интервал времени, в течение которого коммутатор хранит
+					параметры текущей конфигурации связующего дерева. Значение таймера Max Age устанавливается корневым
+					мостом и позволяет гарантировать, что все коммутаторы сети обладают одинаковой информацией о времени
+					хранения конфигурации STP. Если период времени, определенный таймером, истек, а коммутатор за это
+					время не получил кадр BPDU от корневого моста, то он начинает считать себя корневым мостом и
+					рассылает свои собственные BPDU всем коммутаторам сети, инициируя новую процедуру построения
+					связующего дерева. Значение таймера Max Age по умолчанию 20 секунд, диапазон возможных значений от 6
+					до 40 секунд.</li>
+			</ul>
+			<p id="fffaa64c-9d0a-81e4-a75d-fca6cd03f0c5" class="">Значения таймеров Hello Time, Forward Delay и Max Age
+				могут быть вручную настроены администратором сети на коммутаторе. Обычно эти настройки выполняются
+				только на коммутаторе, являющемся корневым для данной топологии связующего дерева. При настройке важно
+				помнить, что неправильно подобранные значения таймеров могут значительно увеличить время сходимости
+				топологии STP и снизить производительность сети, поэтому рекомендуется использовать значения таймеров по
+				умолчанию.</p>
+			<p id="fffaa64c-9d0a-81c1-a7a0-d0ff7ac41c11" class=""><strong>Роли портов</strong></p>
+			<p id="fffaa64c-9d0a-81fa-8c7e-e23948df8874" class="">Главная задача коммутатора – иметь один путь к вершине
+				дерева, к root’у. Если коммутатор обнаруживает, что среди его интерфейсов есть те, через которые можно
+				получить трафик от root’а, то принимается решение заблокировать такие порты. Таким образом коммутатор
+				отключает интерфейсы, приводящие к кольцу в топологии.<br />При этом коммутатор способен понять, какой
+				из интерфейсов оставить включенным правильнее. Он выберет интерфейс, от которого трафик до root’a
+				доходит быстрее всего. Это происходит на основании метрики пути. Чем длиннее путь – тем хуже
+				метрика.<br /></p>
+			<p id="fffaa64c-9d0a-816b-8a8a-f76b53d5fc0b" class="">Роли портов:</p>
+			<ul id="fffaa64c-9d0a-8176-81c3-fce784ff4034" class="bulleted-list">
+				<li style="list-style-type:disc">Root Port — корневой порт коммутатора</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81e8-b598-e3c350eddaaa" class="bulleted-list">
+				<li style="list-style-type:disc">Designated Port — назначенный порт сегмента</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8150-9383-d6605582de8a" class="bulleted-list">
+				<li style="list-style-type:disc">Nondesignated Port — не назначенный порт сегмента</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81d9-abaf-cc6fcc2be4a2" class="bulleted-list">
+				<li style="list-style-type:disc">Disabled Port — порт, который находится в выключенном состоянии.</li>
+			</ul>
+			<p id="fffaa64c-9d0a-8194-955f-c64284e6daf8" class=""><strong>Состояния портов</strong></p>
+			<p id="fffaa64c-9d0a-81ee-9ee6-ef99d51a0e44" class="">Порт коммутатора может находиться в различных
+				статусах, в зависимости от результата сходимости Spanning Tree:</p>
+			<ul id="fffaa64c-9d0a-81c6-b706-df675d2fffc7" class="bulleted-list">
+				<li style="list-style-type:disc">Блокирован - как видно из названия, данный порт находится в статусе
+					блокировки. Это означает, что порт не участвует в приеме и пересылке фреймов. Все BPDU сообщения от
+					соседних коммутаторов исключаются.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81a0-bcb0-d7eb1d859062" class="bulleted-list">
+				<li style="list-style-type:disc">Слушает – коммутатор все еще не участвует в процессе передачи фреймов с
+					данными, но получает и отправляет сообщения BPDU.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8118-8d76-cade46aec483" class="bulleted-list">
+				<li style="list-style-type:disc">Учится – в данном состоянии порт начинает фиксировать MAC – адреса
+					устройств.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81f7-b225-cb17bfa8f889" class="bulleted-list">
+				<li style="list-style-type:disc">Пересылка – в состоянии пересылки, коммутатор может отправлять и
+					принимать фреймы BPDU параллельно с заполнением таблицы MAC - адресов.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8116-a868-f2498760d53b" class="bulleted-list">
+				<li style="list-style-type:disc">Выключен – порт выключен администратором.</li>
+			</ul>
+			<h2 id="fffaa64c-9d0a-8103-a911-f5cbb03ceb2b" class="">RSTP</h2>
+			<p id="fffaa64c-9d0a-8109-95cd-da667109593d" class="">RSTP (Rapid STP, англ. Rapid spanning tree
+				protocol, быстрый протокол основного дерева), он же IEEE 802.1w-2001 и IEEE 802.1D-2004— версия
+				протокола STP c ускоренной реконфигурацией дерева, использующегося для исключения петель (исключения
+				дублирующих маршрутов) в соединениях коммутаторов Ethernet с дублирующими линиями.</p>
+			<p id="fffaa64c-9d0a-817c-b462-cd6ac8a73817" class=""><strong>Состояния порта</strong></p>
+			<ul id="fffaa64c-9d0a-8138-85f8-f72e4e81f48f" class="bulleted-list">
+				<li style="list-style-type:disc">Discarding</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81f1-8bf3-dfe7bf3e3aaa" class="bulleted-list">
+				<li style="list-style-type:disc">Learning</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8101-82fc-ef269d6e1b9c" class="bulleted-list">
+				<li style="list-style-type:disc">Forwarding</li>
+			</ul>
+			<p id="fffaa64c-9d0a-81c7-8d1b-cc918da5550e" class=""><strong>Роли порта</strong></p>
+			<ul id="fffaa64c-9d0a-81e5-a91c-cd37a13dac3f" class="bulleted-list">
+				<li style="list-style-type:disc">Root — беспрепятственная коммуникация не корневого коммутатора по
+					порту, имеющий наименьшую стоимость линка к корневому коммутатору.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8158-99e9-d07b7fef3c5f" class="bulleted-list">
+				<li style="list-style-type:disc">Designated — беспрепятственная коммуникация по порту на
+					весь LAN сегмент, не содержащий корневой коммутатор.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8121-95a0-f4b5cc7ce56e" class="bulleted-list">
+				<li style="list-style-type:disc">Alternate — альтернативный линк к корневому коммутатору, отличный от
+					используемого «Root» порта. Регулярный трафик на порту блокируется.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81e4-8a36-f7f824b43d9a" class="bulleted-list">
+				<li style="list-style-type:disc">Backup — запасной/резервный линк к LAN сегменту
+					предоставляющий LAN сегменту линк к корневому коммутатору, большей стоимости, чем «Designated» порт.
+					Регулярный трафик на порту блокируется.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81fc-aec5-c4d2bc561710" class="bulleted-list">
+				<li style="list-style-type:disc">Disabled — Не определён строго стандартом STP, администратор может
+					отключить порт вручную.</li>
+			</ul>
+			<p id="fffaa64c-9d0a-81be-9410-cc8a47495466" class=""><strong>Принцип работы</strong></p>
+			<p id="fffaa64c-9d0a-8126-b7c8-d6fb5c361e5b" class="">Принцип работы в общих чертах похож на STP: выбирается
+				корневой коммутатор, затем каждый коммутатор, участвующий в построении дерева, ищет кратчайший маршрут
+				(с учётом пропускной способности канала) к корневому коммутатору через соседние коммутаторы (или
+				напрямую). Линии, не попавшие в маршрут, переводятся в режим ожидания и не используются для передачи
+				данных, пока работают основные линии. В случае выхода из строя основных линий, ожидающие линии
+				используются для построения альтернативной топологии, после чего одна из линий становится активной, а
+				остальные продолжают находиться в режиме ожидания.</p>
+			<h2 id="fffaa64c-9d0a-81e5-90a5-d5464dd15f4a" class="">PVST</h2>
+			<p id="fffaa64c-9d0a-816b-acf4-d7e695b9eb8d" class="">Cisco имеет свой взгляд на STP, и свою проприетарную
+				реализацию протокола — PVST (Per-VLAN Spanning Tree) — которая предназначена для работы в сети с
+				несколькими VLAN. В PVST для каждого влана существует свой процесс STP, что позволяет независимую и
+				гибкую настройку под потребности каждого влана, но самое главное, позволяет использовать балансировку
+				нагрузки за счет того, что конкретный физический линк может быть заблокирован в одном влане, но работать
+				в другом. Минусом этой реализации является, конечно, проприетарность: для функционирования PVST
+				требуется проприетарный же ISL транк между свичами.</p>
+			<p id="fffaa64c-9d0a-81c8-ba16-fedb1c3e6e7e" class="">Также существует вторая версия этой реализации
+				— PVST+, которая позволяет наладить связь между свичами с CST и PVST, и работает как с ISL- транком, так
+				и с 802.1q. PVST+ это протокол по умолчанию на коммутаторах Cisco.</p>
+			<h2 id="fffaa64c-9d0a-8112-805f-f6cea255092e" class="">MSTP</h2>
+			<p id="fffaa64c-9d0a-811d-a1b3-d3711052e27b" class="">Протокол Multiple Spanning Tree Protocol (MSTP)
+				является расширением протокола RSTP, который позволяет настраивать отдельное связующее дерево для
+				любой VLAN или группы VLAN, создавая множество маршрутов передачи трафика и позволяя осуществлять
+				балансировку нагрузки.</p>
+			<p id="fffaa64c-9d0a-8139-bc34-f9a731f27956" class="">Протокол MSTP делит коммутируемую сеть на регионы
+				MST (Multiple Spanning Tree (MST) Region), каждый из которых может содержать множество копий связующих
+				деревьев (Multiple Spanning Tree Instance, MSTI) с независимой друг от друга топологией.</p>
+			<p id="fffaa64c-9d0a-818a-85b1-d39ee0a54633" class="">Для того чтобы два и более коммутатора принадлежали
+				одному региону MST, они должны обладать одинаковой конфигурацией MST, которая включает: номер
+				ревизии MSTP (MSTP revision level number), имя региона (Region name), карту привязки VLAN к копии
+				связующего дерева (VLAN-to-instance mapping).</p>
+			<p id="fffaa64c-9d0a-81f7-b5b2-d19ce2edeafd" class="">Внутри коммутируемой сети может быть создано
+				множество MST-регионов.</p>
+			<p id="fffaa64c-9d0a-8184-bb73-e5ba75e384c7" class="">Протокол MSTP определяет следующие типы
+				связующих деревьев:</p>
+			<ul id="fffaa64c-9d0a-81a1-b898-d9553b6416a2" class="bulleted-list">
+				<li style="list-style-type:disc">Internal Spanning Tree (IST) — специальная копия связующего дерева,
+					которая по умолчанию существует в каждом MST-регионе. IST присвоен номер 0 (Instance 0). Она может
+					отправлять и получать кадры BPDU и служит для управления топологией внутри региона. Все VLAN,
+					настроенные на коммутаторах данного MST-региона, по умолчанию привязаны к IST;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8125-90e5-ec8aa8ba2cd7" class="bulleted-list">
+				<li style="list-style-type:disc">Common Spanning Tree (CST) — единое связующее дерево, вычисленное с
+					использованием протоколов STP, RSTP, MSTP и объединяющее все регионы MST и мосты SST;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8169-b492-de50e0c6c211" class="bulleted-list">
+				<li style="list-style-type:disc">Common and Internal Spanning Tree (CIST) — единое связующее дерево,
+					объединяющее CST и IST каждого MST-региона;</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8172-a7f4-d8ccbbd54b7c" class="bulleted-list">
+				<li style="list-style-type:disc">Single Spanning Tree (SST) Bridge — это мост, поддерживающий только
+					единственное связующее дерево, CST. Это единственное связующее дерево может поддерживать
+					протокол STP или протокол RSTP.</li>
+			</ul>
+			<p id="fffaa64c-9d0a-81e2-a947-dfb778cae4da" class="">В CIST порты имеют все те же роли, что есть в RSTP:
+			</p>
+			<ul id="fffaa64c-9d0a-8156-a9bb-c0e5a2cf0ddb" class="bulleted-list">
+				<li style="list-style-type:disc">Root port<br />Порт с наименьшей стоимостью пути до корневого
+					коммутатора (регионального в MSTI).<br /></li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8131-822f-e4f132587a25" class="bulleted-list">
+				<li style="list-style-type:disc">Designated port<br />Порт , предоставляющий подключенной к нему сети
+					самый дешевый путь до корневого коммутатора (регионального в MSTI).<br /></li>
+			</ul>
+			<ul id="fffaa64c-9d0a-817a-abdd-dbff38b21c9b" class="bulleted-list">
+				<li style="list-style-type:disc">Alternate port<br />Резерв Root port.<br /></li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81aa-8dff-f17ba6c2757b" class="bulleted-list">
+				<li style="list-style-type:disc">Backup port<br />Резерв Designated port.<br /></li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81fd-be04-d5b4407b2f7e" class="bulleted-list">
+				<li style="list-style-type:disc">Также в MSTI доступна новая роль - Master port - это порт с наименьшей
+					стоимостью пути из региона до корневого коммутатора CIST.</li>
+			</ul>
+			<p id="fffaa64c-9d0a-81af-bdac-deb3883ca071" class=""><strong>Вычисления в MSTP</strong></p>
+			<p id="fffaa64c-9d0a-818d-886b-fc5b16b62602" class="">Вычисления в MSTP</p>
+			<p id="fffaa64c-9d0a-81ba-a080-e55ca7377635" class="">Процесс вычисления MSTP начинается с выбора корневого
+				моста CIST (CIST Root) сети. В качестве CIST Root будет выбран коммутатор, обладающий наименьшим
+				значением идентификатора моста среди всех коммутаторов сети.</p>
+			<p id="fffaa64c-9d0a-813d-a7ce-d44f1bd6e1b9" class="">Далее в каждом регионе выбирается региональный
+				корневой мост CIST (CIST Region Root). Им становится коммутатор, обладающий наименьшей внешней
+				стоимостью пути к корню CIST среди всех коммутаторов, принадлежащих данному региону.<br />При наличии в
+				регионе отдельных связующих деревьев MSTI для каждой MSTI, независимо от остальных,
+				выбирается региональный корневой мост MSTI (MSTI Regional Root). Им становится коммутатор, обладающий
+				наименьшим значением идентификатора моста среди всех коммутаторов данной MSTI этого MST-региона.<br />
+			</p>
+			<p id="fffaa64c-9d0a-818a-a18c-c1609273d196" class="">При вычислении активной топологии CIST и MSTI
+				используется тот же фундаментальный алгоритм, который описан в стандарте IEEE 802.1D-2004.</p>
+			<h2 id="fffaa64c-9d0a-8172-afc4-efff3d8c259c" class="">Агрегация каналов</h2>
+			<p id="fffaa64c-9d0a-81c8-81b0-fc656dbb2ee2" class=""><strong>Агрегирование каналов</strong> (агрегация
+				каналов, англ. link aggregation) — технология, которая позволяет объединить несколько физических каналов
+				в один логический.</p>
+			<p id="fffaa64c-9d0a-81b9-bde5-cd9214dece6a" class=""><strong>LAG </strong>(Link Aggregation Group) - это
+				реальный метод или пример для агрегации каналов. Группа агрегации каналов формируется, когда мы
+				подключаем несколько портов параллельно между двумя коммутаторами и настраиваем их как LAG. LAG создает
+				несколько каналов между двумя коммутаторами, что увеличивает пропускную способность.</p>
+			<p id="fffaa64c-9d0a-8164-a109-cd5a24cb3db5" class="">Кроме того, он обеспечивает резервирование на уровне
+				канала при отказе сети и балансировке нагрузки трафика. Даже если одна связь выйдет из строя, остальные
+				связи между двумя коммутаторами все равно будут работать. Они также принимают на себя тот трафик,
+				который должен проходить через вышедшего из строя, поэтому пакет данных не будет потерян.</p>
+			<p id="fffaa64c-9d0a-8106-a0ff-ff0df68d5956" class=""><strong>LACP</strong> - это подкомпонент стандарта
+				IEEE 802.3ad (Link Aggregation).Стандарт предписывает, что LACP может быть методом объединения
+				нескольких физических каналов между сетевыми устройствами в один логический канал.<br />В результате,
+				каналы, поддерживающие протокол LACP, могут увеличить логическую полосу пропускания и надежность сети
+				без изменения какой-либо сетевой инфраструктуры.<br />Более того, даже если одна ссылка выходит из
+				строя, в режиме LACP другие доступные члены ссылки в той же группе LACP будут балансировать
+				нагрузку.<br /></p>
+			<p id="fffaa64c-9d0a-816a-b1c9-f971a07d3a21" class="">В момент, когда LACP включен между двумя
+				коммутаторами, они будут отправлять LACPDU (блоки данных LACP) друг другу. После получения друг от друга
+				LACPDU два коммутатора будут определять, у какой стороны системный приоритет выше.</p>
+			<p id="fffaa64c-9d0a-814c-88e2-f26a3a29aa6f" class="">Затем они будут вести переговоры друг с другом, чтобы
+				выбрать того, кто выше, чтобы быть Актером, а тот, кто ниже, - Партнером. Если два коммутатора имеют
+				одинаковый системный приоритет, коммутатор с меньшим значением MAC-адреса будет Актером.</p>
+			<p id="fffaa64c-9d0a-81ae-b996-f2b1f7dec29e" class="">После выбора Субъекта два коммутатора будут выбирать
+				активные порты на основе приоритетов портов порта Субъекта. Однако, если порты Субъекта имеют одинаковые
+				приоритеты, порты с меньшими номерами портов будут выбраны в качестве активных портов.</p>
+			<p id="fffaa64c-9d0a-8164-9996-cac624387389" class="">После выбора соответствующих портов двух коммутаторов
+				устанавливается порт-канал (группа LACP). Тогда активные ссылки загрузят данные баланса для связи.</p>
+			<h1 id="fffaa64c-9d0a-8157-897f-c4530092ba7c" class="">Сегментация сети (VLAN)</h1>
+			<h2 id="fffaa64c-9d0a-81f8-b3d5-e25b83c6ae6d" class="">Сегментация сетей</h2>
+			<p id="fffaa64c-9d0a-817e-96b0-c175b8804411" class="">Сегментация сети — метод обеспечения безопасности
+				сети, который заключается в разделении сети на более мелкие отдельные подсети. При этом специалисты по
+				сети могут распределять эти подсети по сегментам и предоставлять уникальные средства и службы управления
+				безопасностью для каждой из них.</p>
+			<p id="fffaa64c-9d0a-81dc-addc-f1c04c735d00" class="">Процесс сегментации сети включает в себя разделение
+				физической сети на разные логические подсети.</p>
+			<p id="fffaa64c-9d0a-81c5-822a-f8cbc0ec8ad6" class="">Изначально наша сеть делится на сегменты физически,
+				благодаря различным сетевым устройствам.</p>
+			<p id="fffaa64c-9d0a-8112-af66-c65b4087f92d" class="">Но этого недостаточно, ведь к одному коммутатору могут
+				быть подключены компьютеры, взаимодействие которых друг с другом нужно заблокировать. Для решения такой
+				задачи используется технология VLAN.</p>
+			<p id="fffaa64c-9d0a-8160-8abf-cbd506b06a64" class="">VLAN (Virtual Local Area Network) — группа устройств,
+				имеющих возможность взаимодействовать между собой напрямую на канальном уровне, хотя физически при этом
+				они могут быть подключены к разным сетевым коммутаторам. И наоборот, устройства, находящиеся в разных
+				VLAN&#x27;ах, невидимы друг для друга на канальном уровне, даже если они подключены к одному
+				коммутатору, и связь между этими устройствами возможна только на сетевом и более высоких уровнях.</p>
+			<p id="fffaa64c-9d0a-8120-baa8-d7a1c814a31a" class="">VLAN представляет собой число от единицы до 4094.
+				Данное число записывается в заголовок фрейма на уровне L2, этот процесс называется тегированием трафика.
+			</p>
+			<p id="fffaa64c-9d0a-819e-b361-dde444a867d2" class=""><strong>VLAN порты</strong></p>
+			<p id="fffaa64c-9d0a-811b-bd99-f6963d10e0a8" class="">У коммутатора в процессе работы с технологией VLAN
+				существует два вида настройки портов.</p>
+			<p id="fffaa64c-9d0a-8177-9764-c52f93dd83bf" class="">Первый вид – access. Эта настройка применяется к
+				порту, к которому подключено клиентское устройство. На данном порту трафик будет тегироваться.</p>
+			<p id="fffaa64c-9d0a-811c-af61-dc55151f5535" class="">Второй вид – trunk. Такие порты нужны для связи
+				сетевых устройств. По этим интерфейсам трафик передается без изменений тега VLAN.</p>
+			<p id="fffaa64c-9d0a-811f-9dff-dd52627c3f28" class=""><strong>Процесс тегирования</strong></p>
+			<p id="fffaa64c-9d0a-812b-85c0-e9e2669f92f0" class="">Разберем процесс тегирования. Компьютер формирует
+				трафик к другому устройству. Этот трафик доходит до интерфейса ближайшего коммутатора. Далее, в
+				соответствии с настройками интерфейса, в L2 заголовок добавляется тег VLAN, после чего фрейм идёт дальше
+				по сети.</p>
+			<p id="fffaa64c-9d0a-812f-8e07-ffc05e710ad6" class="">Когда такой трафик доходит до коммутатора, к которому
+				подключен получатель трафика, то коммутатор в соответствии со своей таблицей мак адресов направляет
+				трафик на интерфейс. Если интерфейс настроен в такой же VLAN, какой тег присутствует и в трафике, то из
+				заголовка фрейма удаляется метка VLAN, а трафик проходит через интерфейс и направляется к получателю.
+				Если VLAN отличается, то трафик отбрасывается.</p>
+			<p id="fffaa64c-9d0a-8103-a76f-c659bf88bf10" class="">По пути до получателя информации наш трафик может
+				пройти через многие коммутаторы в сети. Такие коммутаторы связаны между собой транковыми портами,
+				проходя через которые заголовки фрейма изменяться не будут.</p>
+			<p id="fffaa64c-9d0a-81b4-99a0-ef21c99ef7e7" class=""><strong>Маршрутизация между VLAN</strong></p>
+			<p id="fffaa64c-9d0a-813d-9a45-ef3b7b570037" class="">По умолчанию трафик из одного VLAN никак не сможет
+				оказаться в другом VLAN, так как это ограничивается на канальном уровне. Соответственно, arp запрос
+				первого vlan не дойдет до устройств второго vlan по аналогичной причине.</p>
+			<p id="fffaa64c-9d0a-81bd-81b2-c9db77f8a809" class="">Чтобы обеспечить сетевую связность между VLAN
+				используется маршрутизация на роутере – процесс перемещения трафика из одной сети в другую. </p>
+			<figure id="fffaa64c-9d0a-818a-aa8c-fcaed1ded85a" class="image"><a
+					href="Дополнительный материал/Untitled%207.png"><img
+						style="width:240px"
+						src="Дополнительный материал/Untitled%207.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-8185-94d2-edec30605332" class="">На рисунке изображены два подключения от роутера к
+				коммутатору, каждое подключение для своей метки VLAN. В реальности это взаимодействие будет проходить по
+				одному проводу, а вот интерфейсы на маршрутизаторе будут виртуализированы. По одному виртуальному
+				интерфейсу на каждый VLAN.</p>
+			<p id="fffaa64c-9d0a-81d1-83f2-e4869fadeecd" class="">Поэтому, чтобы первый компьютер доставил трафик
+				второму, он отправит свой трафик на роутер, чтобы тот смаршрутизировал эту информацию в другую сеть,
+				изменив тег в фрейме.</p>
+			<h2 id="fffaa64c-9d0a-81cc-8f86-d6e39dde65f4" class="">VTP</h2>
+			<p id="fffaa64c-9d0a-81c6-beb4-f2d438257975" class="">VLAN Trunking Protocol (VTP) — проприетарный протокол
+				компании Cisco Systems, предназначенный для создания, удаления и переименования VLANов на сетевых
+				устройствах. Передавать информацию о том, какой порт находится в каком VLANе, он не может.</p>
+			<p id="fffaa64c-9d0a-81ed-ba12-ee41c61f5175" class=""><strong>Сообщения VTP</strong></p>
+			<ul id="fffaa64c-9d0a-814e-ac30-d8d551665cb0" class="bulleted-list">
+				<li style="list-style-type:disc">Summary advertisements</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-813a-96ff-fa00c422516f" class="bulleted-list">
+				<li style="list-style-type:disc">Subset advertisements</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-818f-ab2a-df7d3cc63d54" class="bulleted-list">
+				<li style="list-style-type:disc">Advertisement requests</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-819c-8ba4-e3e67ed88e05" class="bulleted-list">
+				<li style="list-style-type:disc">VTP Join messages (используются для pruning)</li>
+			</ul>
+			<p id="fffaa64c-9d0a-8131-a8be-e5c50ad70c8f" class=""><strong>Режимы работы протокола</strong><br />На
+				коммутаторе VTP может работать в трёх режимах:<br /></p>
+			<ul id="fffaa64c-9d0a-81cd-ba80-c122f2a3cc96" class="bulleted-list">
+				<li style="list-style-type:disc">Server (режим по умолчанию):</li>
+			</ul>
+			<p id="fffaa64c-9d0a-8156-a428-ef73b64aca66" class="">Можно создавать, изменять и удалять VLAN из командной
+				строки коммутатора,<br />Генерирует объявления VTP и передает объявления от других
+				коммутаторов,<br />Может обновлять свою базу данных VLAN при получении информации не только от других
+				VTP серверов но и от других VTP клиентов в одном домене, с более высоким номером ревизии.<br />Сохраняет
+				информацию о настройках VLAN в файле vlan.dat во flash.<br /></p>
+			<ul id="fffaa64c-9d0a-81ff-963b-ccfec25795a0" class="bulleted-list">
+				<li style="list-style-type:disc">Client:</li>
+			</ul>
+			<p id="fffaa64c-9d0a-81fe-9d7e-d02a85fa34ff" class="">Нельзя создавать, изменять и удалять VLAN из командной
+				строки коммутатора,<br />Передает объявления от других коммутаторов,<br />Синхронизирует свою базу
+				данных VLAN при получении информации VTP,<br />Сохраняет информацию о настройках VLAN в файле vlan.dat
+				во flash.<br /></p>
+			<ul id="fffaa64c-9d0a-8128-a5db-dcf06b8e373e" class="bulleted-list">
+				<li style="list-style-type:disc">Transparent:</li>
+			</ul>
+			<p id="fffaa64c-9d0a-8140-bc46-e9ffb875b760" class="">Можно создавать, изменять и удалять VLAN из командной
+				строки коммутатора, но только для локального коммутатора,<br />Не генерирует объявления
+				VTP,<br />Передает объявления от других коммутаторов,<br />Не обновляет свою базу данных VLAN при
+				получении информации по VTP,<br />Сохраняет информацию о настройках VLAN в NVRAM,<br />Всегда использует
+				configuration revision number 0.<br /></p>
+			<p id="fffaa64c-9d0a-81ee-a03c-eb1976bc6842" class="">В версии 3 VTP добавился новый режим работы и
+				изменились некоторые режимы работы, по сравнению с предыдущими версиями:</p>
+			<ul id="fffaa64c-9d0a-81c0-8bf0-c7d3d4c46752" class="bulleted-list">
+				<li style="list-style-type:disc">Server:</li>
+			</ul>
+			<p id="fffaa64c-9d0a-8111-85fd-e94d00cc9647" class="">Добавилась поддержка Private VLAN<br />Могут
+				анонсироваться VLAN из расширенного диапазона<br /></p>
+			<ul id="fffaa64c-9d0a-810a-8dfe-e9c671e46e62" class="bulleted-list">
+				<li style="list-style-type:disc">Client:</li>
+			</ul>
+			<p id="fffaa64c-9d0a-8164-85f4-db12ec831e08" class="">Настройки VLAN сохраняются в NVRAM и в режиме
+				клиента<br />Добавилась поддержка Private VLAN<br />Могут анонсироваться VLAN из расширенного
+				диапазона<br /></p>
+			<ul id="fffaa64c-9d0a-8179-91c0-f28b4c5173ee" class="bulleted-list">
+				<li style="list-style-type:disc">Transparent:</li>
+			</ul>
+			<p id="fffaa64c-9d0a-818d-ac87-f6a86e881586" class="">без изменений</p>
+			<ul id="fffaa64c-9d0a-81a4-8d4e-ea88b01d78df" class="bulleted-list">
+				<li style="list-style-type:disc">Off:</li>
+			</ul>
+			<p id="fffaa64c-9d0a-81e2-abe2-f1bc14436f74" class="">Новый режим работы VTP, который добавился в 3
+				версии.<br />Не передает объявления VTP.<br />В остальном аналогичен режиму Transparent<br /></p>
+			<h2 id="fffaa64c-9d0a-8178-a532-dab0b6168c8e" class="">GVRP &amp; MVRP</h2>
+			<p id="fffaa64c-9d0a-81e6-84da-f98f5f326bff" class=""><strong>GARP VLAN Registration Protocol
+				</strong>(GVRP) — сетевой протокол канального уровня модели OSI/ISO, позволяющий устройству локальной
+				сети сообщить всем соседним устройствам, что оно желает принять пакеты для одной или нескольких VLAN.
+				Главная цель GVRP — позволить коммутаторам автоматически обнаружить информацию о VLAN, которая иначе
+				должна была бы быть вручную сконфигурирована в каждом коммутаторе. Этого можно достичь использованием
+				GVRP — распространить идентификаторы VLAN по локальной сети. GVRP также может быть использован сетевыми
+				серверами. Эти серверы обычно конфигурируются для вхождения в несколько VLAN, и затем сообщают
+				коммутаторам о VLAN, к которым они хотят присоединиться.</p>
+			<p id="fffaa64c-9d0a-817a-97c2-f4d76d777d58" class=""><strong>Протокол MVRP - Multiple VLAN Registration
+					Protocol</strong> - служебный протокол канального уровня, который так же как и его
+				предшественник, GVRP, нужен для автоматизации настроек VLAN в больших сетях. Описан в стандарте 802.1ak
+				(как одно из приложений рамочного протокола MRP, Multiple Registration Protocol), который с 2005 года
+				дополняет собой 802.1Q.</p>
+			<p id="fffaa64c-9d0a-81b2-bdd2-d3b2c7dff575" class="">Основная задача MVRP - синхронизировать в LAN-сети
+				информацию об используемых устройствами VLAN и привязке VLAN к интерфейсам. Для этого MVRP использует
+				MRP Attribute Declaration (MAD) и MRP Attribute Propagation (MAP) - в общем-то так же, как GVRP
+				использовал GARP Information Declaration (GID) и GARP Information Propagation (GIP).<br />Примечательным
+				является то, что MVRP передаёт статус всех 4096 VLANов в одной PDU, а также уведомляет об изменениях в
+				топологии нескольких VLAN также одной пачкой TCN.<br /></p>
+			<h1 id="fffaa64c-9d0a-81bd-976f-f300337d80f1" class="">Вектора атак на канальном уровне</h1>
+			<h2 id="fffaa64c-9d0a-8199-b56b-cc9c4476c01f" class="">MAC-Address Spoofing</h2>
+			<p id="fffaa64c-9d0a-8114-8e15-c88d2b7c81db" class="">MAC-spoofing — атака канального уровня, заключающаяся
+				в том, что на сетевой карте изменяется MAC-адрес, что заставляет коммутатор отправлять на порт, к
+				которому подключен злоумышленник, пакеты, которые до этого он видеть не мог</p>
+			<p id="fffaa64c-9d0a-815c-891d-fba77acfcab0" class="">Аппаратный адрес сетевого адаптера является уникальным
+				идентификатором карты и состоит из кода производителя и производственного номера адаптера. Таким
+				образом, гарантируется уникальность аппаратного адреса в сети. В соответствии с этим, появление узлов с
+				одинаковым аппаратным адресом на разных портах может быть рассмотрено коммутатором как образование
+				кольца, что в некоторых случаях может привести к аварийному завершению работы коммутатора до
+				перезагрузки. Однако большая часть коммутаторов изменяет для атакуемого, адреса номер порта в таблице
+				маршрутизации на номер, с которого пришел последний по времени пакет данных. Т.е. при наличии в сети
+				двух узлов с одинаковым аппаратным адресом, коммутатор будет направлять поток входящих данных на порт, с
+				которого пришел последний исходящий пакет. Соответственно входящий поток данных будет переключаться на
+				последний по времени активный порт и при большом количестве исходящих пакетов с обоих узлов входящий
+				пакет данных будет разорван и разбросан по этим двум узлам. Таким образом, и атакующий и атакуемый узел
+				получат фрагменты входящего потока данных. Однако т.к. протоколом ТСР такая ситуация будет рассмотрена
+				как потеря пакетов в канале, недостающие фрагменты будут запрошены каждым узлом и есть вероятность
+				получения пакетов, переданных конкурирующему узлу. В результате этого скорость передачи данных на
+				атакуемом узле сильно уменьшается, что позволяет обнаружить атаку. Использование атакующим узлом
+				межсетевого экрана позволяет сделать его обнаружение практически невозможным.</p>
+			<h2 id="fffaa64c-9d0a-8126-8d8e-ff7aba1ca942" class="">CAM-table overflow</h2>
+			<p id="fffaa64c-9d0a-8164-b44f-df64afa129a1" class="">Основная атака против коммутатора – переполнение его
+				таблицы коммутации. Таблица хранится в оперативной памяти коммутатора, а эта память не бесконечна.
+				Зачастую даже на современных коммутаторах её гораздо меньше, чем на компьютере. 256 мегабайт простому
+				офисному коммутатору сполна хватит, чтобы выполнять все свои функции.</p>
+			<p id="fffaa64c-9d0a-8136-81fc-cf5a6e11288b" class="">Таблица заполняется в соответствии с адресом
+				отправителя фрейма, пришедшего на конкретный порт коммутатора. Этот заголовок отправителя формирует
+				компьютер. Злоумышленник, в свою очередь, с помощью простых технических средств может такой трафик
+				подделать и отправлять фреймы со случайным мак адресом отправителя.</p>
+			<p id="fffaa64c-9d0a-8147-bca0-ff064035aff3" class="">В этом и заключается суть атаки – злоумышленник
+				подключается к коммутатору, генерирует огромное количество фреймов, не несущих данных, но содержащих
+				заголовок отправителя со случайным мак адресом. Коммутатор запоминает все эти мак адреса, ассоциируя их
+				с одним портом. Постепенно оперативная память коммутатора заполняется и таблица достигает своего
+				максимума. Новые записи даже на других интерфейсах коммутатор запомнить не может и, в связи с
+				перегрузкой, прекращает процесс коммутации по всем своим интерфейсам.</p>
+			<p id="fffaa64c-9d0a-814b-8f47-d75159060ee1" class="">Осложняет последствия атаки тот факт, что коммутатор
+				при получении трафика, адресованному на мак адрес, коммутатору неизвестный, перешлет этот трафик
+				широковещательно, то есть на все интерфейсы. В случае с подобной атакой получится, что всем коммутаторам
+				сети будет рассылаться вредоносный трафик, переполняющий их таблицы коммутации. Поэтому произойдет
+				веерное отключение сетевых устройств по всей инфраструктуре.</p>
+			<h2 id="fffaa64c-9d0a-8127-921a-f062bdad7db8" class="">ARP-Spoofing</h2>
+			<p id="fffaa64c-9d0a-811f-a3c9-db35c59c097a" class="">ARP-spoofing (ARP-poisoning) — техника сетевой атаки,
+				применяемая преимущественно в Ethernet, но возможная и в других, использующих протокол ARP сетях,
+				основанная на использовании недостатков протокола ARP и позволяющая перехватывать трафик между узлами,
+				которые расположены в пределах одного широковещательного домена.</p>
+			<p id="fffaa64c-9d0a-8141-bb16-c61b4e657ebc" class="">В реальной сети такая атака проходит следующим
+				образом:</p>
+			<p id="fffaa64c-9d0a-816b-af0b-e7247a962425" class="">Компьютер A и B обмениваются информацией по сети. У
+				компьютера A есть информация об ip адресе B и мак адресе B, у компьютера B – аналогичная информация про
+				A.<br />Но когда появляется злоумышленник, он отправляет обоим устройствам поддельную информацию.
+				Компьютеру A он отправит ответ, в котором присутствует сопоставление ip адреса B и мак адреса компьютера
+				C. Компьютеру B отправится arp ответ с ip адресом A и мак адресом C. Этим ответам оба компьютера верят и
+				обновляют информацию в своих таблицах.<br />Что же происходит теперь при обмене трафиком? Компьютер A
+				отправляет информацию на ip адрес B. Чтобы это сделать, ему нужно узнать мак адрес B, но он уже есть в
+				arp таблице компьютера A. Но вот только ранее мы определили, что таблица была изменена, и поэтому на
+				уровне L2 в мак адрес получается подставится мак адрес компьютера C, то есть злоумышленника. Коммутатор,
+				приняв такой трафик, в ip адрес заглядывать не будет. Все, что ему важно – мак адрес. Получается, что
+				трафик отправится злоумышленнику. Аналогично и с компьютером B.<br /></p>
+			<h2 id="fffaa64c-9d0a-81b7-8d82-e0ed1f3ccff8" class="">VLAN-hopping</h2>
+			<p id="fffaa64c-9d0a-81b7-b3f5-e9eaa848162b" class=""><strong>Switch Spoofing</strong></p>
+			<p id="fffaa64c-9d0a-8164-8f7f-c9e6641c968c" class="">Уязвимость заключается в отсутствии правильной
+				конфигурации сетевых интерфейсов коммутатора. Если мы явно не определим, что пользовательские интерфейсы
+				являются access, а соединения с другими коммутаторами являются trunk, то злоумышленник, подключившись к
+				произвольному порту коммутатора может с помощью специальной команды объявить устройству, что его
+				компьютер тоже является коммутатором. Тогда интерфейс коммутатора будет переведен в режим trunk. Как мы
+				разобрали на предыдущем занятии, trunk интерфейс пропускает трафик без изменения метки VLAN.
+				Соответственно, злоумышленник может сам назначать своему трафику произвольную метку vlan, что поместит
+				его в сеть, ассоциированную с выбранным vlan тегом.<br />А уже из этого следует тот факт, что устройство
+				злоумышленника может не пользоваться маршрутизацией между сетями – достаточно будет просто отправить
+				тегированный трафик.<br /></p>
+			<p id="fffaa64c-9d0a-8106-82cc-fd81b8c3da90" class=""><strong>Double Tagging</strong></p>
+			<p id="fffaa64c-9d0a-8192-9fff-e2fe4963bb75" class="">Ещё существует атака на VLAN с двойным тегированием.
+				Компьютер злоумышленника помещает в кадр два тега vlan и отправляет на коммутатор, который не ожидает,
+				что на access порт придет тегированный трафик. Коммутатор снимает внешний тег vlan, но о существовании
+				второго тега не подозревает. По итогу трафик с тегом проходит далее по инфраструктуре и оказывается в
+				vlan, который нужен злоумышленнику.<br />Минус такой атаки в том, что она однонаправленная. Обратно от
+				атакуемого хоста трафик к нам не дойдет.<br /></p>
+			<h2 id="fffaa64c-9d0a-8140-a155-ca348cc33c4e" class="">STP attacks</h2>
+			<p id="fffaa64c-9d0a-8174-ad25-da26c86eedf1" class="">Итак, Spanning Tree Protocol предназначен для
+				предотвращения петель в сетевой инфраструктуре.</p>
+			<p id="fffaa64c-9d0a-8129-aadb-ea49f620c9b6" class="">Чтобы не было петель, часть интерфейсов коммутаторов
+				заблокируются, чтобы до каждого из устройств был только один путь от корневого коммутатора.</p>
+			<p id="fffaa64c-9d0a-8168-898d-e11749371273" class="">Злоумышленник как раз хочет стать главной всей
+				топологии. Для проведения атаки он подключится к двум коммутаторам и пошлем им BPDU фрейм с данными,
+				сформированными таким образом, чтобы все остальные подумали, что компьютер злоумышленника является
+				главой топологии. В данных злоумышленник попросту укажет минимально возможный id. Этому компьютеру
+				передадут роль root, а лишние связи снова заблокируются, чтобы не создавалось новых петель.</p>
+			<p id="fffaa64c-9d0a-81aa-8bb6-c6fdfe329bd4" class="">По итогу для связи между некоторыми коммутаторами в
+				топологии трафик будет проходить как раз через компьютер злоумышленника, ведь все связи коммутаторов
+				осуществляются через главный коммутатор. А захватив роль roota, компьютер злоумышленника стал тем самым
+				главным коммутатором. Он, в свою очередь, сможет просмотреть трафик, который ему по умолчанию не
+				предназначался.<br />Такая атака не даст просмотреть весь трафик в сети. Если трафик направляется от
+				левого верхнего коммутатора в левый средний, то до главного коммутатора такая информация не пройдет и
+				злоумышленник ее не перехватит.<br /></p>
+			<h1 id="fffaa64c-9d0a-816a-928e-e2910bbcb658" class="">Широковещательный домен</h1>
+			<p id="fffaa64c-9d0a-81b5-adba-def48744d62d" class="">Широковещательный домен — область сети, в которой
+				происходит обмен широковещательными сообщениями, и устройства могут отправлять друг другу сообщения
+				непосредственно, без участия маршрутизатора.</p>
+			<p id="fffaa64c-9d0a-8143-aa24-ec4c2fa26152" class="">Например, послал ваш компьютер широковещательный
+				запрос в сеть в поисках DHCP-сервера. Фрейм этот (он же кадр) адресован всем устройствам и имеет
+				MAC-адрес получателя FF:FF:FF:FF:FF:FF. Сначала он попадает на коммутатор, с которого его копии
+				рассылаются на все порты. Потом часть попадает на другие компьютеры, часть уходят в соседние
+				коммутаторы, кто-то доходит до маршрутизатора, а одну копию принимает-таки DHCP-сервер. И вот участок
+				сети, внутри которого могут жить эти кадры и называется широковещательным доменом. А кончают свою жизнь
+				они на конечных хостах (компьютеры, серверы) или на маршрутизаторах, которые их отбрасывают, если они им
+				не предназначены.</p>
+			<p id="fffaa64c-9d0a-819a-9ed8-fb5118621494" class="">Если же на коммутаторе заведены VLAN’ы, то они также
+				разделяют широковещательные домены, потому что пакет между ними обязательно должен проходить через
+				маршрутизатор, который отбросит широковещательные сообщения. Таким образом, один VLAN — это один
+				широковещательный домен.</p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

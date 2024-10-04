@@ -1,685 +1,1153 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Материал лекции</title><style>
-/* cspell:disable-file */
-/* webkit printing magic: print all background colors */
-html {
-	-webkit-print-color-adjust: exact;
-}
-* {
-	box-sizing: border-box;
-	-webkit-print-color-adjust: exact;
-}
-
-html,
-body {
-	margin: 0;
-	padding: 0;
-}
-@media only screen {
-	body {
-		margin: 2em auto;
-		max-width: 900px;
-		color: rgb(55, 53, 47);
-	}
-}
-
-body {
-	line-height: 1.5;
-	white-space: pre-wrap;
-}
-
-a,
-a.visited {
-	color: inherit;
-	text-decoration: underline;
-}
-
-.pdf-relative-link-path {
-	font-size: 80%;
-	color: #444;
-}
-
-h1,
-h2,
-h3 {
-	letter-spacing: -0.01em;
-	line-height: 1.2;
-	font-weight: 600;
-	margin-bottom: 0;
-}
-
-.page-title {
-	font-size: 2.5rem;
-	font-weight: 700;
-	margin-top: 0;
-	margin-bottom: 0.75em;
-}
-
-h1 {
-	font-size: 1.875rem;
-	margin-top: 1.875rem;
-}
-
-h2 {
-	font-size: 1.5rem;
-	margin-top: 1.5rem;
-}
-
-h3 {
-	font-size: 1.25rem;
-	margin-top: 1.25rem;
-}
-
-.source {
-	border: 1px solid #ddd;
-	border-radius: 3px;
-	padding: 1.5em;
-	word-break: break-all;
-}
-
-.callout {
-	border-radius: 3px;
-	padding: 1rem;
-}
-
-figure {
-	margin: 1.25em 0;
-	page-break-inside: avoid;
-}
-
-figcaption {
-	opacity: 0.5;
-	font-size: 85%;
-	margin-top: 0.5em;
-}
-
-mark {
-	background-color: transparent;
-}
-
-.indented {
-	padding-left: 1.5em;
-}
-
-hr {
-	background: transparent;
-	display: block;
-	width: 100%;
-	height: 1px;
-	visibility: visible;
-	border: none;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
-}
-
-img {
-	max-width: 100%;
-}
-
-@media only print {
-	img {
-		max-height: 100vh;
-		object-fit: contain;
-	}
-}
-
-@page {
-	margin: 1in;
-}
-
-.collection-content {
-	font-size: 0.875rem;
-}
-
-.column-list {
-	display: flex;
-	justify-content: space-between;
-}
-
-.column {
-	padding: 0 1em;
-}
-
-.column:first-child {
-	padding-left: 0;
-}
-
-.column:last-child {
-	padding-right: 0;
-}
-
-.table_of_contents-item {
-	display: block;
-	font-size: 0.875rem;
-	line-height: 1.3;
-	padding: 0.125rem;
-}
-
-.table_of_contents-indent-1 {
-	margin-left: 1.5rem;
-}
-
-.table_of_contents-indent-2 {
-	margin-left: 3rem;
-}
-
-.table_of_contents-indent-3 {
-	margin-left: 4.5rem;
-}
-
-.table_of_contents-link {
-	text-decoration: none;
-	opacity: 0.7;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
-}
-
-table,
-th,
-td {
-	border: 1px solid rgba(55, 53, 47, 0.09);
-	border-collapse: collapse;
-}
-
-table {
-	border-left: none;
-	border-right: none;
-}
-
-th,
-td {
-	font-weight: normal;
-	padding: 0.25em 0.5em;
-	line-height: 1.5;
-	min-height: 1.5em;
-	text-align: left;
-}
-
-th {
-	color: rgba(55, 53, 47, 0.6);
-}
-
-ol,
-ul {
-	margin: 0;
-	margin-block-start: 0.6em;
-	margin-block-end: 0.6em;
-}
-
-li > ol:first-child,
-li > ul:first-child {
-	margin-block-start: 0.6em;
-}
-
-ul > li {
-	list-style: disc;
-}
-
-ul.to-do-list {
-	padding-inline-start: 0;
-}
-
-ul.to-do-list > li {
-	list-style: none;
-}
-
-.to-do-children-checked {
-	text-decoration: line-through;
-	opacity: 0.375;
-}
-
-ul.toggle > li {
-	list-style: none;
-}
-
-ul {
-	padding-inline-start: 1.7em;
-}
-
-ul > li {
-	padding-left: 0.1em;
-}
-
-ol {
-	padding-inline-start: 1.6em;
-}
-
-ol > li {
-	padding-left: 0.2em;
-}
-
-.mono ol {
-	padding-inline-start: 2em;
-}
-
-.mono ol > li {
-	text-indent: -0.4em;
-}
-
-.toggle {
-	padding-inline-start: 0em;
-	list-style-type: none;
-}
-
-/* Indent toggle children */
-.toggle > li > details {
-	padding-left: 1.7em;
-}
-
-.toggle > li > details > summary {
-	margin-left: -1.1em;
-}
-
-.selected-value {
-	display: inline-block;
-	padding: 0 0.5em;
-	background: rgba(206, 205, 202, 0.5);
-	border-radius: 3px;
-	margin-right: 0.5em;
-	margin-top: 0.3em;
-	margin-bottom: 0.3em;
-	white-space: nowrap;
-}
-
-.collection-title {
-	display: inline-block;
-	margin-right: 1em;
-}
-
-.page-description {
-    margin-bottom: 2em;
-}
-
-.simple-table {
-	margin-top: 1em;
-	font-size: 0.875rem;
-	empty-cells: show;
-}
-.simple-table td {
-	height: 29px;
-	min-width: 120px;
-}
-
-.simple-table th {
-	height: 29px;
-	min-width: 120px;
-}
-
-.simple-table-header-color {
-	background: rgb(247, 246, 243);
-	color: black;
-}
-.simple-table-header {
-	font-weight: 500;
-}
-
-time {
-	opacity: 0.5;
-}
-
-.icon {
-	display: inline-block;
-	max-width: 1.2em;
-	max-height: 1.2em;
-	text-decoration: none;
-	vertical-align: text-bottom;
-	margin-right: 0.5em;
-}
-
-img.icon {
-	border-radius: 3px;
-}
-
-.user-icon {
-	width: 1.5em;
-	height: 1.5em;
-	border-radius: 100%;
-	margin-right: 0.5rem;
-}
-
-.user-icon-inner {
-	font-size: 0.8em;
-}
-
-.text-icon {
-	border: 1px solid #000;
-	text-align: center;
-}
-
-.page-cover-image {
-	display: block;
-	object-fit: cover;
-	width: 100%;
-	max-height: 30vh;
-}
-
-.page-header-icon {
-	font-size: 3rem;
-	margin-bottom: 1rem;
-}
-
-.page-header-icon-with-cover {
-	margin-top: -0.72em;
-	margin-left: 0.07em;
-}
-
-.page-header-icon img {
-	border-radius: 3px;
-}
-
-.link-to-page {
-	margin: 1em 0;
-	padding: 0;
-	border: none;
-	font-weight: 500;
-}
-
-p > .user {
-	opacity: 0.5;
-}
-
-td > .user,
-td > time {
-	white-space: nowrap;
-}
-
-input[type="checkbox"] {
-	transform: scale(1.5);
-	margin-right: 0.6em;
-	vertical-align: middle;
-}
-
-p {
-	margin-top: 0.5em;
-	margin-bottom: 0.5em;
-}
-
-.image {
-	border: none;
-	margin: 1.5em 0;
-	padding: 0;
-	border-radius: 0;
-	text-align: center;
-}
-
-.code,
-code {
-	background: rgba(135, 131, 120, 0.15);
-	border-radius: 3px;
-	padding: 0.2em 0.4em;
-	border-radius: 3px;
-	font-size: 85%;
-	tab-size: 2;
-}
-
-code {
-	color: #eb5757;
-}
-
-.code {
-	padding: 1.5em 1em;
-}
-
-.code-wrap {
-	white-space: pre-wrap;
-	word-break: break-all;
-}
-
-.code > code {
-	background: none;
-	padding: 0;
-	font-size: 100%;
-	color: inherit;
-}
-
-blockquote {
-	font-size: 1.25em;
-	margin: 1em 0;
-	padding-left: 1em;
-	border-left: 3px solid rgb(55, 53, 47);
-}
-
-.bookmark {
-	text-decoration: none;
-	max-height: 8em;
-	padding: 0;
-	display: flex;
-	width: 100%;
-	align-items: stretch;
-}
-
-.bookmark-title {
-	font-size: 0.85em;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	height: 1.75em;
-	white-space: nowrap;
-}
-
-.bookmark-text {
-	display: flex;
-	flex-direction: column;
-}
-
-.bookmark-info {
-	flex: 4 1 180px;
-	padding: 12px 14px 14px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
-
-.bookmark-image {
-	width: 33%;
-	flex: 1 1 180px;
-	display: block;
-	position: relative;
-	object-fit: cover;
-	border-radius: 1px;
-}
-
-.bookmark-description {
-	color: rgba(55, 53, 47, 0.6);
-	font-size: 0.75em;
-	overflow: hidden;
-	max-height: 4.5em;
-	word-break: break-word;
-}
-
-.bookmark-href {
-	font-size: 0.75em;
-	margin-top: 0.25em;
-}
-
-.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
-.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
-.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
-.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
-.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
-.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
-.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
-.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
-.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
-.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
-.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
-.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
-.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
-.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
-.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
-.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
-.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
-.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
-.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
-.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
-.highlight-default {
-	color: rgba(55, 53, 47, 1);
-}
-.highlight-gray {
-	color: rgba(120, 119, 116, 1);
-	fill: rgba(120, 119, 116, 1);
-}
-.highlight-brown {
-	color: rgba(159, 107, 83, 1);
-	fill: rgba(159, 107, 83, 1);
-}
-.highlight-orange {
-	color: rgba(217, 115, 13, 1);
-	fill: rgba(217, 115, 13, 1);
-}
-.highlight-yellow {
-	color: rgba(203, 145, 47, 1);
-	fill: rgba(203, 145, 47, 1);
-}
-.highlight-teal {
-	color: rgba(68, 131, 97, 1);
-	fill: rgba(68, 131, 97, 1);
-}
-.highlight-blue {
-	color: rgba(51, 126, 169, 1);
-	fill: rgba(51, 126, 169, 1);
-}
-.highlight-purple {
-	color: rgba(144, 101, 176, 1);
-	fill: rgba(144, 101, 176, 1);
-}
-.highlight-pink {
-	color: rgba(193, 76, 138, 1);
-	fill: rgba(193, 76, 138, 1);
-}
-.highlight-red {
-	color: rgba(212, 76, 71, 1);
-	fill: rgba(212, 76, 71, 1);
-}
-.highlight-default_background {
-	color: rgba(55, 53, 47, 1);
-}
-.highlight-gray_background {
-	background: rgba(241, 241, 239, 1);
-}
-.highlight-brown_background {
-	background: rgba(244, 238, 238, 1);
-}
-.highlight-orange_background {
-	background: rgba(251, 236, 221, 1);
-}
-.highlight-yellow_background {
-	background: rgba(251, 237, 214, 1);
-}
-.highlight-teal_background {
-	background: rgba(237, 243, 236, 1);
-}
-.highlight-blue_background {
-	background: rgba(231, 243, 248, 1);
-}
-.highlight-purple_background {
-	background: rgba(244, 240, 247, 0.8);
-}
-.highlight-pink_background {
-	background: rgba(249, 238, 243, 0.8);
-}
-.highlight-red_background {
-	background: rgba(253, 235, 236, 1);
-}
-.block-color-default {
-	color: inherit;
-	fill: inherit;
-}
-.block-color-gray {
-	color: rgba(120, 119, 116, 1);
-	fill: rgba(120, 119, 116, 1);
-}
-.block-color-brown {
-	color: rgba(159, 107, 83, 1);
-	fill: rgba(159, 107, 83, 1);
-}
-.block-color-orange {
-	color: rgba(217, 115, 13, 1);
-	fill: rgba(217, 115, 13, 1);
-}
-.block-color-yellow {
-	color: rgba(203, 145, 47, 1);
-	fill: rgba(203, 145, 47, 1);
-}
-.block-color-teal {
-	color: rgba(68, 131, 97, 1);
-	fill: rgba(68, 131, 97, 1);
-}
-.block-color-blue {
-	color: rgba(51, 126, 169, 1);
-	fill: rgba(51, 126, 169, 1);
-}
-.block-color-purple {
-	color: rgba(144, 101, 176, 1);
-	fill: rgba(144, 101, 176, 1);
-}
-.block-color-pink {
-	color: rgba(193, 76, 138, 1);
-	fill: rgba(193, 76, 138, 1);
-}
-.block-color-red {
-	color: rgba(212, 76, 71, 1);
-	fill: rgba(212, 76, 71, 1);
-}
-.block-color-default_background {
-	color: inherit;
-	fill: inherit;
-}
-.block-color-gray_background {
-	background: rgba(241, 241, 239, 1);
-}
-.block-color-brown_background {
-	background: rgba(244, 238, 238, 1);
-}
-.block-color-orange_background {
-	background: rgba(251, 236, 221, 1);
-}
-.block-color-yellow_background {
-	background: rgba(251, 237, 214, 1);
-}
-.block-color-teal_background {
-	background: rgba(237, 243, 236, 1);
-}
-.block-color-blue_background {
-	background: rgba(231, 243, 248, 1);
-}
-.block-color-purple_background {
-	background: rgba(244, 240, 247, 0.8);
-}
-.block-color-pink_background {
-	background: rgba(249, 238, 243, 0.8);
-}
-.block-color-red_background {
-	background: rgba(253, 235, 236, 1);
-}
-.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
-.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
-.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
-.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
-.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
-.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
-.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
-.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
-.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
-.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
-.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
-.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
-.select-value-color-pageGlass { background-color: undefined; }
-.select-value-color-washGlass { background-color: undefined; }
-
-.checkbox {
-	display: inline-flex;
-	vertical-align: text-bottom;
-	width: 16;
-	height: 16;
-	background-size: 16px;
-	margin-left: 2px;
-	margin-right: 5px;
-}
-
-.checkbox-on {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-
-.checkbox-off {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-	
-</style></head><body><article id="c4bda998-dcd5-48dc-af8c-5b6ef0c26e6e" class="page sans"><header><h1 class="page-title">Материал лекции</h1><p class="page-description"></p></header><div class="page-body"><h3 id="9bd1abc1-a204-471c-bff2-13fed4bf5055" class="">Топология сети</h3><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="cf4b0d11-eb1d-490e-b054-f275e92550a4"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><strong>Топология сети</strong> - это описание расположения узлов (коммутаторов, компьютеров, маршрутизаторов) и соединений в сети, часто передаваемых в виде графика</div></figure><figure id="d5e85d8e-a83d-44d9-bd5d-1599319d6407" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20c4bda998dcd548dcaf8c5b6ef0c26e6e/Screen_Shot_2022-05-07_at_16.23.59.png"><img src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20c4bda998dcd548dcaf8c5b6ef0c26e6e/Screen_Shot_2022-05-07_at_16.23.59.png"/></a></figure><p id="1760d699-d778-41a9-84f0-57bbb297e56e" class="block-color-gray"><strong>Шина.</strong><br/>Изначально существовала шинная топология, т.е. существовал один провод, к которому подключись компьютеры. Сетевых устройств тогда еще не существовало.<br/>Минус такой топологии в том, что при одновременной передачи данных электрический сигнал накладывается друг на друга а, соответсвенно, изменяется, и машина-приемник считать их банально не может.<br/></p><figure id="ce230234-b6ed-47b4-b4ca-ece5d0c3d02c" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20c4bda998dcd548dcaf8c5b6ef0c26e6e/Screen_Shot_2022-05-07_at_16.24.05.png"><img src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20c4bda998dcd548dcaf8c5b6ef0c26e6e/Screen_Shot_2022-05-07_at_16.24.05.png"/></a></figure><p id="6b7b17f9-6313-4c2c-998d-a961ed75da1f" class="block-color-gray"><strong>Кольцо.</strong><br/>После шинной топологии придумали кольцевую, тоже не содержащую в себе сетевых устройств.<br/>Минус такой топологии в том, что при обрыве кольца весь сигнал терялся и локальная сеть, соответсвенно, падала.<br/></p><figure id="616556d4-303c-4bae-bfbf-27efc070b8c0" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20c4bda998dcd548dcaf8c5b6ef0c26e6e/Screen_Shot_2022-05-07_at_16.30.45.png"><img src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20c4bda998dcd548dcaf8c5b6ef0c26e6e/Screen_Shot_2022-05-07_at_16.30.45.png"/></a></figure><p id="882b922b-9ae9-496c-9ac8-38c73295a093" class="block-color-gray"><strong>Звезда.</strong><br/>С появлением сетевых устройств, также появилась топология вида “звезда”. В этой топологии все устройства подключаются к свитчу или хабу, который в свою очередь подключен к другому сетевому устройству.<br/>Так построены многие локальные сети в современных организациях.<br/></p><figure id="b47f5473-01c4-45bb-8783-e86dd8e66f11" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20c4bda998dcd548dcaf8c5b6ef0c26e6e/Screen_Shot_2022-05-07_at_16.30.52.png"><img src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20c4bda998dcd548dcaf8c5b6ef0c26e6e/Screen_Shot_2022-05-07_at_16.30.52.png"/></a></figure><p id="c7851546-b35c-45e8-95aa-3e2744192811" class="block-color-gray"><strong>Двойное кольцо.</strong><br/>Тоже современная топология, но с большей отказоустойчивостью.<br/></p><figure id="696bb0ad-eb0b-4e4c-bc42-f4fc589c236c" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20c4bda998dcd548dcaf8c5b6ef0c26e6e/Screen_Shot_2022-05-07_at_16.36.46.png"><img src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20c4bda998dcd548dcaf8c5b6ef0c26e6e/Screen_Shot_2022-05-07_at_16.36.46.png"/></a></figure><p id="14839410-97ba-41ac-9ec0-3b04e3c63319" class=""><mark class="highlight-gray"><strong>Гибридная топология</strong></mark></p><h2 id="c5da3dba-c59e-48ab-9405-d468c4155188" class="">Spanning Tree Protocol (STP)</h2><blockquote id="74be34fa-5a64-4efc-a823-0c65abb4ea90" class=""><mark class="highlight-gray">Как программными методами защититься от петель (широковещательного шторма) в сети?</mark></blockquote><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="5f943283-fcc4-46d5-b7f5-e303d1322518"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><strong>STP (протокол связующего дерева)</strong> - протокол, предназначенный для <strong>автоматического удаления циклов</strong> из топологии сети на <em>канальном уровне</em> в Ethernet-сетях.<br/><br/><strong>PVST (Per-VLAN Spanning Tree)</strong> - версия протокола STP, в которой для каждого VLAN строится отдельное дерево. Работает быстрее оригинального STP и используется по умолчанию в Cisco</div></figure><p id="efd47902-00e7-47e8-b199-bfce2ade8b73" class="">Чтобы определить какие порты заблокировать, а какие будут передавать данные, STP выполняет следующий алгоритм:<br/><br/><strong>- Выбор корневого дерева<br/>- Определение корневых портов<br/>- Определение выделенных портов<br/></strong></p><p id="eddaacb8-55ed-4b38-b944-9a727077af9b" class="">Корневым становится коммутатор с наименьшим Bridge ID<br/><br/><em>Bridge ID (идентификатор моста) - это<br/>-<br/></em> <strong>число задаваемое администратором<br/>- tag VLAN’a<br/>- MAC-адрес нулевого порта<br/></strong></p><h3 id="932e6402-c8a6-4d54-a9ff-c568cf6407cf" class="">Таймеры STP</h3><ul id="b7c40072-c877-4bf5-a517-4a6aaeadd4fe" class="bulleted-list"><li style="list-style-type:disc"><strong>Hello Time</strong> - это интервал времени, через который корневой мост отправляет конфигурационные BPDU</li></ul><ul id="dfe36698-7382-4792-8236-22e7ffcc1321" class="bulleted-list"><li style="list-style-type:disc"><strong>Forward Delay</strong> - это интервал времени, в течение которого порт коммутатора находится в состояниях “Прослушивание” и “Обучение”</li></ul><ul id="c63261ce-a360-44ec-b0c5-48a9f29c5f88" class="bulleted-list"><li style="list-style-type:disc"><strong>Max Age</strong> - это интервал времени, в течение которого коммутатор хранит параметры текущей конфигурации связующего дерева</li></ul><h3 id="bdb2a132-cfa9-48e8-9e87-c6ddba9de415" class="">Роли портов</h3><ul id="4c0e3ddd-015d-4ab2-9679-f1c785576f4f" class="bulleted-list"><li style="list-style-type:disc"><strong>Root Port</strong> - корневой порт коммутатора</li></ul><ul id="20f0d3d2-0d46-4c55-9369-9f60b7abe626" class="bulleted-list"><li style="list-style-type:disc"><strong>Designated Port</strong> - порты, находящиеся в режиме передачи данных</li></ul><ul id="564dfb85-ce85-4a28-b6e9-7a4897ade8d3" class="bulleted-list"><li style="list-style-type:disc"><strong>Nondesignated Port</strong> - заблокированные порты</li></ul><h3 id="0a9c82d1-7a62-49bd-acc4-1d1b71055064" class="">Состояния портов</h3><ul id="e4c3ff6a-7bbd-4151-8e2c-4867cb19499d" class="bulleted-list"><li style="list-style-type:disc"><strong>Blocking</strong></li></ul><ul id="6f566873-f69a-4e34-b8a0-43457a8da261" class="bulleted-list"><li style="list-style-type:disc"><strong>Listening</strong></li></ul><ul id="57589ebb-e859-4550-b9f7-cc3c9088b2ad" class="bulleted-list"><li style="list-style-type:disc"><strong>Learning</strong></li></ul><ul id="7ffb341d-3f5b-4d92-b5fe-069c8a6e70a2" class="bulleted-list"><li style="list-style-type:disc"><strong>Forwarding</strong></li></ul><ul id="16ebd6af-d563-489b-a089-02b4ea2a5009" class="bulleted-list"><li style="list-style-type:disc"><strong>Disabled</strong></li></ul><h3 id="87fd2101-00de-4796-9993-8fb2b7a35799" class="">Агрегирование каналов</h3><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="1ed2a705-8c95-46ed-aa27-7a937ef4fc91"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"> <strong>Агрегирование каналов</strong> - технология, которая позволяет объединить несколько физических каналов в один логический, тем самым повысив пропускную способность канала.<br/>Например, если соединить два гигабитных кабеля в один логический канал, то скорость передачи данных будет примерно 1,8 гигабит/сек<br/></div></figure><h2 id="c41abf77-0c88-457d-a31c-11e697911ef6" class="">Сегментация сети</h2><ol type="1" id="ee8b23a8-1d57-4edf-8639-c252296a3c79" class="numbered-list" start="1"><li><strong>Физическое разделение</strong><ol type="a" id="fb13b4e1-7395-4fa3-9c2b-325ecacc0dc0" class="numbered-list" start="1"><li><strong>Коммутаторы</strong></li></ol><ol type="a" id="92233206-e212-49bb-9441-388244d23cf7" class="numbered-list" start="2"><li><strong>Маршрутизаторы</strong></li></ol></li></ol><ol type="1" id="350282e5-55ef-4bd4-a0e2-211291ce3a83" class="numbered-list" start="2"><li><strong>Логическое разделение</strong><ol type="a" id="ba641470-1cec-4583-9547-fa1637200bb8" class="numbered-list" start="1"><li><strong>192.168.1.0/24</strong> | <strong>192.168.2.0</strong> и тд - в каждом сегменте до 254 узлов</li></ol><ol type="a" id="e6285359-334a-4f41-95a0-7fd55746e369" class="numbered-list" start="2"><li><strong>192.168.0.0/25</strong> | <strong>192.168.128.0/26</strong> и тд - в сегментах до 126, 62 и тд узлов соответсвенно</li></ol></li></ol><h3 id="a87d7b05-37fe-45ce-9216-9e1bf1034622" class="">VLAN</h3><blockquote id="76f49db9-73f9-4bb2-b5fc-ae3ced5140c1" class=""><mark class="highlight-gray">Технология, работающая на канальном уровне и позволяющая коммутаторам отнести трафик к тому или иному сегменту сети. Сегментация на уровне L2.</mark></blockquote><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="5a9c7ff0-0337-49f3-8c60-805b845b221f"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><strong>Virtual Local Area Network</strong> - группа устройств,  имеющих возможность взаимодействовать <strong>между собой напрямую на канальном уровне</strong>, хотя физически быть подключенными к разным сетевым коммутаторам.<br/>Максимальное количество VLAN’ов может быть 4095, но нельзя создавать 0 и 4095 VLAN<br/>Лучше помещать в отдельный VLAN каждый порт коммутатора, для того чтобы трафик проходил через роутер, на котором его можно фильтровать.<br/></div></figure><figure id="90be6854-f128-461f-92d4-f7b5beb28bf7" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20c4bda998dcd548dcaf8c5b6ef0c26e6e/Screen_Shot_2022-05-07_at_17.25.42.png"><img src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20c4bda998dcd548dcaf8c5b6ef0c26e6e/Screen_Shot_2022-05-07_at_17.25.42.png"/></a></figure><h3 id="ba2e3929-04d7-41c0-a35e-ed633ae1fb80" class="">Порты VLAN</h3><ul id="dc2ced02-1c6e-43d8-b743-92d963c2c89d" class="bulleted-list"><li style="list-style-type:disc"><strong>Access Port (порт доступа).</strong><br/>К нему подключены конечные узлы. Трафик между этим портов и устройством нетегированный<br/></li></ul><ul id="fc9de36e-19c6-438b-9bc2-cd14eb006eff" class="bulleted-list"><li style="list-style-type:disc"><strong>Trunk Port.</strong><br/>Отвечает за связь сетевых устройств. Внутри такой линии передается трафик нескольких VLAN’ов.<br/>Trunk порт не тегирует трафик, он пересылает его, в соответствии с правилами, его можно настроить на фильтрацию некоторых VLAN’ов<br/></li></ul><h3 id="23d6967c-ae64-47a6-8677-7bd02786f979" class="">Тегирование трафика</h3><figure id="2d6cee78-9e87-47e2-9325-bc822a24ccf6" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20c4bda998dcd548dcaf8c5b6ef0c26e6e/Screen_Shot_2022-05-07_at_17.31.59.png"><img src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20c4bda998dcd548dcaf8c5b6ef0c26e6e/Screen_Shot_2022-05-07_at_17.31.59.png"/></a></figure><h3 id="e6201822-f60e-4c3c-88ef-5da9b45700fe" class="">VTP</h3><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="8aefbb32-9de0-4cd2-a5b2-4ac6a5f03afa"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><strong>VLAN Trunking Protocol (технология CISCO)</strong> - протокол, предназначенный для создания, удаления и переименования VLAN’ов на сетевых устройствах. Он помогает отправить информацию о существующих у себя VLAN’ах другим коммутаторам.</div></figure><h3 id="57c8b56e-90df-4484-bafe-54a948ff7589" class="">GVRP и MVRP</h3><blockquote id="692a0e0d-9155-4a96-9416-4f17a55e9ca6" class=""><mark class="highlight-gray">Тоже самое, что и VTP, но у них открытая реализация и поддерживаются большинством коммутаторов.</mark></blockquote><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="e7ec1f4c-f4e2-42bc-8413-5d7ff0749d5c"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><br/><br/><strong>GARP VLAN Registration Protocol</strong> - сетевой протокол, позволяющий устройству локальной сети сообщить всем соседним устройствам, что оно желает принять пакеты для одного или нескольких VLAN.</div></figure><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="8cfb5720-2738-4850-a4eb-b87156dd173a"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><br/><br/><strong>Multiple VLAN Registration Protocol</strong> - протокол, который синхронизирует в локальной сети информацию об используемых устройствами VLAN и привязке VLAN к интерфейсам.</div></figure><h2 id="5f809e0c-e7d2-465c-bc3d-05a51e14d516" class="">Вектора атак на канальном уровне</h2><ul id="a89cee18-6edc-44ba-963f-2cedf785a41e" class="bulleted-list"><li style="list-style-type:disc"><strong>MAC address spoofing</strong><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="680ba634-80c5-4c2f-9758-c006ceb38988"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Атака канального уровня, заключающаяся в том, что на сетевой карте изменятся MAC-адрес, что заставляет коммутатор отправлять на порт, к которому подключен злоумышленник, пакеты, которые предназначены другому компьютеру, у которого был взят это MAC.</div></figure><figure id="bc96a50d-9cc3-42a7-a3e4-c03557b57777" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20c4bda998dcd548dcaf8c5b6ef0c26e6e/Screen_Shot_2022-05-07_at_21.05.21.png"><img src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20c4bda998dcd548dcaf8c5b6ef0c26e6e/Screen_Shot_2022-05-07_at_21.05.21.png"/></a></figure></li></ul><ul id="ea1edadd-b149-45df-bdf6-43cb3bae0a98" class="bulleted-list"><li style="list-style-type:disc"><strong>CAM table Overflow</strong><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="f84b1aea-2235-471e-84eb-d0a7d9a42373"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><p id="bc97fe6c-3955-44bf-beeb-fa59ccc09e15" class="">Атака, направленная на переполнение таблицы коммутации (MAC адресов) на свитче, что приводит к снижению скорости передачи трафика, вплоть до полной неработоспособности сети.<br/>Делается это с помощью генерирования большого числа широковещательных запросов с разными MAC-адресами в сторону коммутатора.<br/></p></div></figure><figure id="75b9235c-3436-4ae5-9aeb-57f7179637d3" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20c4bda998dcd548dcaf8c5b6ef0c26e6e/Screen_Shot_2022-05-07_at_21.09.27.png"><img src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20c4bda998dcd548dcaf8c5b6ef0c26e6e/Screen_Shot_2022-05-07_at_21.09.27.png"/></a></figure></li></ul><ul id="3bbf1b1f-1253-4458-99c0-2a214a666fb0" class="bulleted-list"><li style="list-style-type:disc"><strong>ARP spoofing</strong><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="4443ab95-d32d-4537-8cc8-af12223c4080"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><p id="ae49eaca-9906-451c-8490-899e09faaaac" class="">«Отравление» (подмена) ARP заключается в использовании слабых сторон ARP для нарушения назначений MAC-IP для других устройств в сети. В 1982 году, когда был представлен протокол ARP, обеспечение безопасности не было первостепенной задачей, поэтому разработчики протокола никогда <em><strong>не использовали механизмы аутентификации</strong></em> для проверки сообщений ARP. <strong>Любое устройство</strong> в сети может ответить на запрос ARP, независимо от того, является ли оно адресатом данного запроса.<br/>Например, если компьютер A запрашивает MAC-адрес компьютера B, ответить может злоумышленник на компьютере C, и компьютер A примет этот ответ как достоверный.<br/>За счет этой уязвимости было проведено огромное количество атак. Используя легкодоступные инструменты, злоумышленник может «отравить» кэш ARP других хостов в локальной сети, заполнив его неверными данными.<br/></p></div></figure><figure id="49d25825-ab2a-43f0-9dd6-848771c03c20" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20c4bda998dcd548dcaf8c5b6ef0c26e6e/Screen_Shot_2022-05-07_at_21.34.18.png"><img src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20c4bda998dcd548dcaf8c5b6ef0c26e6e/Screen_Shot_2022-05-07_at_21.34.18.png"/></a></figure></li></ul><ul id="a6f1d2f4-021b-4f9c-8af8-6157422f691f" class="bulleted-list"><li style="list-style-type:disc"><strong>VLAN Hopping</strong><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="b6a81a0a-309c-4195-9eca-f1186b1efa17"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Атака <strong>VLAN hopping</strong> может осуществляться следующим образом:<br/>если сетевой свитч установлен в режим авто-транка, злоумышленник меняет настройки так, что возникает «нужда» в постоянном канале связи (транке). То есть, на данном транковом порту становится разрешен доступ ко всем VLAN’ам.<br/></div></figure><figure id="72cf4c41-8660-4d0b-83bb-bde99ea0c850" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20c4bda998dcd548dcaf8c5b6ef0c26e6e/Screen_Shot_2022-05-07_at_21.48.48.png"><img src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20c4bda998dcd548dcaf8c5b6ef0c26e6e/Screen_Shot_2022-05-07_at_21.48.48.png"/></a></figure></li></ul><ul id="fe23ec2f-da29-4fd4-8848-58ad9f08e8fb" class="bulleted-list"><li style="list-style-type:disc"><strong>STP attacks</strong><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="73fd97a9-68aa-4f40-a0ac-a53c800324e1"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Атака помогает разорвать связующие деревья (spanning-trees) у свитчей, дестабилизировать их таблицы с MAC-адресами и удерживать сеть в непрерывном состоянии повторного выбора корневого моста. Мы можем сделать это, поскольку не существует механизма аутентификации, встроенного в протокол STP.<br/>Путем создания BPDU-фреймов несуществующего свитча с ID=1, мы можем выбрать несуществующий свитч в качестве корневого моста. Используя минимальное значение max-age в наших пакетах и не посылая пакеты в течение этого времени, мы спровоцируем повторный выбор корневого моста, а затем в то время, когда будут проходить перевыборы, вновь будем отсылать пакеты, выигрывать эти выборы и становиться корневым мостом.<br/></div></figure><figure id="f5baa6fa-b07e-461b-bac5-2986a2b91167" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20c4bda998dcd548dcaf8c5b6ef0c26e6e/Screen_Shot_2022-05-07_at_21.56.43.png"><img src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20c4bda998dcd548dcaf8c5b6ef0c26e6e/Screen_Shot_2022-05-07_at_21.56.43.png"/></a></figure><h2 id="dd069e24-0d78-4ae7-b2ca-6e677d88bdb6" class="">Широковещательный домен</h2><blockquote id="eee64d12-b84c-4494-b891-9b443b95909f" class=""><mark class="highlight-gray">Область сети, в которой происходит обмен широковещательными сообщениями, и устройства могут отправлять друг другу сообщения непосредственно, без участия маршрутизатора</mark><figure id="384b2e2e-24e9-47db-8969-aca1cc3a5c4c" class="image"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20c4bda998dcd548dcaf8c5b6ef0c26e6e/Screen_Shot_2022-05-07_at_22.00.48.png"><img src="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20c4bda998dcd548dcaf8c5b6ef0c26e6e/Screen_Shot_2022-05-07_at_22.00.48.png"/></a></figure></blockquote></li></ul><p id="3db66876-bdcb-428f-82bd-31d665cdbaea" class="">
-</p><figure id="b9264a6d-e8b9-49b4-9fe1-62724dd4b9cf" class="link-to-page"><a href="%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%20c4bda998dcd548dcaf8c5b6ef0c26e6e/%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20b9264a6de8b949b49fe162724dd4b9cf.html">Дополнительный материал</a></figure></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Материал лекции</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 237, 214, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 237, 214, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(249, 228, 188, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+
+		.checkbox-on {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+
+		.checkbox-off {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+	</style>
+</head>
+
+<body>
+	<article id="fffaa64c-9d0a-8159-8556-c0f202596f93" class="page sans">
+		<header>
+			<h1 class="page-title">Материал лекции</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<h3 id="fffaa64c-9d0a-8130-814c-e1fb26e51662" class="">Топология сети</h3>
+			<figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex"
+				id="fffaa64c-9d0a-81ea-bdff-d9b81e947991">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%"><strong>Топология сети</strong> - это описание расположения узлов (коммутаторов,
+					компьютеров, маршрутизаторов) и соединений в сети, часто передаваемых в виде графика</div>
+			</figure>
+			<figure id="fffaa64c-9d0a-8155-994c-df0a2dd787d2" class="image"><a
+					href="Материал лекции/Screen_Shot_2022-05-07_at_16.23.59.png"><img
+						src="Материал лекции/Screen_Shot_2022-05-07_at_16.23.59.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-8198-8477-d78fa5f5f8a2" class="block-color-gray"><strong>Шина.</strong><br />Изначально
+				существовала шинная топология, т.е. существовал один провод, к которому подключись компьютеры. Сетевых
+				устройств тогда еще не существовало.<br />Минус такой топологии в том, что при одновременной передачи
+				данных электрический сигнал накладывается друг на друга а, соответсвенно, изменяется, и машина-приемник
+				считать их банально не может.<br /></p>
+			<figure id="fffaa64c-9d0a-814c-bf31-e99717c15e51" class="image"><a
+					href="Материал лекции/Screen_Shot_2022-05-07_at_16.24.05.png"><img
+						src="Материал лекции/Screen_Shot_2022-05-07_at_16.24.05.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-8144-8bdb-f70924bad9b0" class="block-color-gray"><strong>Кольцо.</strong><br />После
+				шинной топологии придумали кольцевую, тоже не содержащую в себе сетевых устройств.<br />Минус такой
+				топологии в том, что при обрыве кольца весь сигнал терялся и локальная сеть, соответсвенно,
+				падала.<br /></p>
+			<figure id="fffaa64c-9d0a-8105-a578-e4a0d0d7e51a" class="image"><a
+					href="Материал лекции/Screen_Shot_2022-05-07_at_16.30.45.png"><img
+						src="Материал лекции/Screen_Shot_2022-05-07_at_16.30.45.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-8145-914d-d5f9a0e10a97" class="block-color-gray"><strong>Звезда.</strong><br />С
+				появлением сетевых устройств, также появилась топология вида “звезда”. В этой топологии все устройства
+				подключаются к свитчу или хабу, который в свою очередь подключен к другому сетевому устройству.<br />Так
+				построены многие локальные сети в современных организациях.<br /></p>
+			<figure id="fffaa64c-9d0a-811d-9c44-e96191c533d0" class="image"><a
+					href="Материал лекции/Screen_Shot_2022-05-07_at_16.30.52.png"><img
+						src="Материал лекции/Screen_Shot_2022-05-07_at_16.30.52.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-8146-80fa-e7758336d5c7" class="block-color-gray"><strong>Двойное
+					кольцо.</strong><br />Тоже современная топология, но с большей отказоустойчивостью.<br /></p>
+			<figure id="fffaa64c-9d0a-81c7-9b4f-dc9f1a0717c6" class="image"><a
+					href="Материал лекции/Screen_Shot_2022-05-07_at_16.36.46.png"><img
+						src="Материал лекции/Screen_Shot_2022-05-07_at_16.36.46.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-81cf-bb31-e270a818a070" class=""><mark class="highlight-gray"><strong>Гибридная
+						топология</strong></mark></p>
+			<h2 id="fffaa64c-9d0a-81a8-a297-c1c0933c21e2" class="">Spanning Tree Protocol (STP)</h2>
+			<blockquote id="fffaa64c-9d0a-8195-af2f-dc2cd9438a2b" class=""><mark class="highlight-gray">Как программными
+					методами защититься от петель (широковещательного шторма) в сети?</mark></blockquote>
+			<figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex"
+				id="fffaa64c-9d0a-8130-8e7e-f5a578f34c1e">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%"><strong>STP (протокол связующего дерева)</strong> - протокол, предназначенный
+					для <strong>автоматического удаления циклов</strong> из топологии сети на <em>канальном уровне</em>
+					в Ethernet-сетях.<br /><br /><strong>PVST (Per-VLAN Spanning Tree)</strong> - версия протокола STP,
+					в которой для каждого VLAN строится отдельное дерево. Работает быстрее оригинального STP и
+					используется по умолчанию в Cisco</div>
+			</figure>
+			<p id="fffaa64c-9d0a-818b-8b8e-ed778016bc62" class="">Чтобы определить какие порты заблокировать, а какие
+				будут передавать данные, STP выполняет следующий алгоритм:<br /><br /><strong>- Выбор корневого
+					дерева<br />- Определение корневых портов<br />- Определение выделенных портов<br /></strong></p>
+			<p id="fffaa64c-9d0a-8188-8b87-e8b6f8328fd9" class="">Корневым становится коммутатор с наименьшим Bridge
+				ID<br /><br /><em>Bridge ID (идентификатор моста) - это<br />-<br /></em> <strong>число задаваемое
+					администратором<br />- tag VLAN’a<br />- MAC-адрес нулевого порта<br /></strong></p>
+			<h3 id="fffaa64c-9d0a-81da-a9e8-c265d111c231" class="">Таймеры STP</h3>
+			<ul id="fffaa64c-9d0a-813b-b6a3-c26c28224bc8" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Hello Time</strong> - это интервал времени, через который
+					корневой мост отправляет конфигурационные BPDU</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8186-858f-edf7c4fa3ae4" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Forward Delay</strong> - это интервал времени, в течение
+					которого порт коммутатора находится в состояниях “Прослушивание” и “Обучение”</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8110-84ca-dceaa70baa03" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Max Age</strong> - это интервал времени, в течение которого
+					коммутатор хранит параметры текущей конфигурации связующего дерева</li>
+			</ul>
+			<h3 id="fffaa64c-9d0a-81a5-82a3-ff61de1894ce" class="">Роли портов</h3>
+			<ul id="fffaa64c-9d0a-811b-9dff-ca85f12e97d2" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Root Port</strong> - корневой порт коммутатора</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81ea-b846-c5daeb7246ae" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Designated Port</strong> - порты, находящиеся в режиме передачи
+					данных</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81ef-9a17-e493bd1d871d" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Nondesignated Port</strong> - заблокированные порты</li>
+			</ul>
+			<h3 id="fffaa64c-9d0a-81fe-b00d-f47bfcc3620f" class="">Состояния портов</h3>
+			<ul id="fffaa64c-9d0a-8107-8841-da7dab31fe1b" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Blocking</strong></li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8129-8ec7-e6cb6587d891" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Listening</strong></li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8133-b583-fa01515c9c80" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Learning</strong></li>
+			</ul>
+			<ul id="fffaa64c-9d0a-816b-8c58-d82084620562" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Forwarding</strong></li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81e7-a749-c84eff302358" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Disabled</strong></li>
+			</ul>
+			<h3 id="fffaa64c-9d0a-8179-9d91-fda1fe104c73" class="">Агрегирование каналов</h3>
+			<figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex"
+				id="fffaa64c-9d0a-8152-a392-e53675a5f6b4">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%"> <strong>Агрегирование каналов</strong> - технология, которая позволяет
+					объединить несколько физических каналов в один логический, тем самым повысив пропускную способность
+					канала.<br />Например, если соединить два гигабитных кабеля в один логический канал, то скорость
+					передачи данных будет примерно 1,8 гигабит/сек<br /></div>
+			</figure>
+			<h2 id="fffaa64c-9d0a-818d-a6f0-efc379868425" class="">Сегментация сети</h2>
+			<ol type="1" id="fffaa64c-9d0a-8145-98a0-f2f7be56407f" class="numbered-list" start="1">
+				<li><strong>Физическое разделение</strong>
+					<ol type="a" id="fffaa64c-9d0a-8155-b500-c0384f858984" class="numbered-list" start="1">
+						<li><strong>Коммутаторы</strong></li>
+					</ol>
+					<ol type="a" id="fffaa64c-9d0a-81b2-b307-dcd1688de273" class="numbered-list" start="2">
+						<li><strong>Маршрутизаторы</strong></li>
+					</ol>
+				</li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-81f2-9f93-c866e63a2a15" class="numbered-list" start="2">
+				<li><strong>Логическое разделение</strong>
+					<ol type="a" id="fffaa64c-9d0a-81af-a2f8-cd9524507d4f" class="numbered-list" start="1">
+						<li><strong>192.168.1.0/24</strong> | <strong>192.168.2.0</strong> и тд - в каждом сегменте до
+							254 узлов</li>
+					</ol>
+					<ol type="a" id="fffaa64c-9d0a-81f3-a37d-c98124974875" class="numbered-list" start="2">
+						<li><strong>192.168.0.0/25</strong> | <strong>192.168.128.0/26</strong> и тд - в сегментах до
+							126, 62 и тд узлов соответсвенно</li>
+					</ol>
+				</li>
+			</ol>
+			<h3 id="fffaa64c-9d0a-812d-9777-ceef2ce9f3ac" class="">VLAN</h3>
+			<blockquote id="fffaa64c-9d0a-8146-84a4-d22f5084ba35" class=""><mark class="highlight-gray">Технология,
+					работающая на канальном уровне и позволяющая коммутаторам отнести трафик к тому или иному сегменту
+					сети. Сегментация на уровне L2.</mark></blockquote>
+			<figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex"
+				id="fffaa64c-9d0a-8195-a7e6-c4aa5c819617">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%"><strong>Virtual Local Area Network</strong> - группа устройств, имеющих
+					возможность взаимодействовать <strong>между собой напрямую на канальном уровне</strong>, хотя
+					физически быть подключенными к разным сетевым коммутаторам.<br />Максимальное количество VLAN’ов
+					может быть 4095, но нельзя создавать 0 и 4095 VLAN<br />Лучше помещать в отдельный VLAN каждый порт
+					коммутатора, для того чтобы трафик проходил через роутер, на котором его можно фильтровать.<br />
+				</div>
+			</figure>
+			<figure id="fffaa64c-9d0a-81b6-a421-d0265c1dd287" class="image"><a
+					href="Материал лекции/Screen_Shot_2022-05-07_at_17.25.42.png"><img
+						src="Материал лекции/Screen_Shot_2022-05-07_at_17.25.42.png" /></a>
+			</figure>
+			<h3 id="fffaa64c-9d0a-811b-a9ce-cbc7fb152ca1" class="">Порты VLAN</h3>
+			<ul id="fffaa64c-9d0a-81f4-81f6-ed455660b5d4" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Access Port (порт доступа).</strong><br />К нему подключены
+					конечные узлы. Трафик между этим портов и устройством нетегированный<br /></li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8124-b29e-e71f0b3f4c25" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Trunk Port.</strong><br />Отвечает за связь сетевых устройств.
+					Внутри такой линии передается трафик нескольких VLAN’ов.<br />Trunk порт не тегирует трафик, он
+					пересылает его, в соответствии с правилами, его можно настроить на фильтрацию некоторых
+					VLAN’ов<br /></li>
+			</ul>
+			<h3 id="fffaa64c-9d0a-81b5-9f33-e59c62636149" class="">Тегирование трафика</h3>
+			<figure id="fffaa64c-9d0a-8161-96e2-e0d7eba8ff1a" class="image"><a
+					href="Материал лекции/Screen_Shot_2022-05-07_at_17.31.59.png"><img
+						src="Материал лекции/Screen_Shot_2022-05-07_at_17.31.59.png" /></a>
+			</figure>
+			<h3 id="fffaa64c-9d0a-8172-953c-fe66d938d53b" class="">VTP</h3>
+			<figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex"
+				id="fffaa64c-9d0a-819a-801c-ed26ccca9269">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%"><strong>VLAN Trunking Protocol (технология CISCO)</strong> - протокол,
+					предназначенный для создания, удаления и переименования VLAN’ов на сетевых устройствах. Он помогает
+					отправить информацию о существующих у себя VLAN’ах другим коммутаторам.</div>
+			</figure>
+			<h3 id="fffaa64c-9d0a-81ff-8e5e-f1fa7e420868" class="">GVRP и MVRP</h3>
+			<blockquote id="fffaa64c-9d0a-8137-bed3-f00fbaf8f463" class=""><mark class="highlight-gray">Тоже самое, что
+					и VTP, но у них открытая реализация и поддерживаются большинством коммутаторов.</mark></blockquote>
+			<figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex"
+				id="fffaa64c-9d0a-814d-82db-d0424c13ac57">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%"><br /><br /><strong>GARP VLAN Registration Protocol</strong> - сетевой протокол,
+					позволяющий устройству локальной сети сообщить всем соседним устройствам, что оно желает принять
+					пакеты для одного или нескольких VLAN.</div>
+			</figure>
+			<figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex"
+				id="fffaa64c-9d0a-8181-8cb4-cacd6869865d">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%"><br /><br /><strong>Multiple VLAN Registration Protocol</strong> - протокол,
+					который синхронизирует в локальной сети информацию об используемых устройствами VLAN и привязке VLAN
+					к интерфейсам.</div>
+			</figure>
+			<h2 id="fffaa64c-9d0a-816a-9cf5-e5b31eb60738" class="">Вектора атак на канальном уровне</h2>
+			<ul id="fffaa64c-9d0a-813d-8932-fea171d225c6" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>MAC address spoofing</strong>
+					<figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex"
+						id="fffaa64c-9d0a-819f-83b2-dd6382d36942">
+						<div style="font-size:1.5em"><span class="icon">💡</span></div>
+						<div style="width:100%">Атака канального уровня, заключающаяся в том, что на сетевой карте
+							изменятся MAC-адрес, что заставляет коммутатор отправлять на порт, к которому подключен
+							злоумышленник, пакеты, которые предназначены другому компьютеру, у которого был взят это
+							MAC.</div>
+					</figure>
+					<figure id="fffaa64c-9d0a-812d-a7e2-dbd2b94d742c" class="image"><a
+							href="Материал лекции/Screen_Shot_2022-05-07_at_21.05.21.png"><img
+								src="Материал лекции/Screen_Shot_2022-05-07_at_21.05.21.png" /></a>
+					</figure>
+				</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-815e-bba3-e0f61b3f48ff" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>CAM table Overflow</strong>
+					<figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex"
+						id="fffaa64c-9d0a-8183-8922-e81c56e3b5bd">
+						<div style="font-size:1.5em"><span class="icon">💡</span></div>
+						<div style="width:100%">
+							<p id="fffaa64c-9d0a-81fc-937e-c43557d20462" class="">Атака, направленная на переполнение
+								таблицы коммутации (MAC адресов) на свитче, что приводит к снижению скорости передачи
+								трафика, вплоть до полной неработоспособности сети.<br />Делается это с помощью
+								генерирования большого числа широковещательных запросов с разными MAC-адресами в сторону
+								коммутатора.<br /></p>
+						</div>
+					</figure>
+					<figure id="fffaa64c-9d0a-81a9-addf-e1d172d4fdb7" class="image"><a
+							href="Материал лекции/Screen_Shot_2022-05-07_at_21.09.27.png"><img
+								src="Материал лекции/Screen_Shot_2022-05-07_at_21.09.27.png" /></a>
+					</figure>
+				</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-811e-83b0-e6ad874532ff" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>ARP spoofing</strong>
+					<figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex"
+						id="fffaa64c-9d0a-8110-b982-fc8f8ee2c79d">
+						<div style="font-size:1.5em"><span class="icon">💡</span></div>
+						<div style="width:100%">
+							<p id="fffaa64c-9d0a-811a-8dcc-dca3b1650c9b" class="">«Отравление» (подмена) ARP заключается
+								в использовании слабых сторон ARP для нарушения назначений MAC-IP для других устройств в
+								сети. В 1982 году, когда был представлен протокол ARP, обеспечение безопасности не было
+								первостепенной задачей, поэтому разработчики протокола никогда <em><strong>не
+										использовали механизмы аутентификации</strong></em> для проверки сообщений ARP.
+								<strong>Любое устройство</strong> в сети может ответить на запрос ARP, независимо от
+								того, является ли оно адресатом данного запроса.<br />Например, если компьютер A
+								запрашивает MAC-адрес компьютера B, ответить может злоумышленник на компьютере C, и
+								компьютер A примет этот ответ как достоверный.<br />За счет этой уязвимости было
+								проведено огромное количество атак. Используя легкодоступные инструменты, злоумышленник
+								может «отравить» кэш ARP других хостов в локальной сети, заполнив его неверными
+								данными.<br /></p>
+						</div>
+					</figure>
+					<figure id="fffaa64c-9d0a-81f1-99c1-d856d0747a98" class="image"><a
+							href="Материал лекции/Screen_Shot_2022-05-07_at_21.34.18.png"><img
+								src="Материал лекции/Screen_Shot_2022-05-07_at_21.34.18.png" /></a>
+					</figure>
+				</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-811b-91bd-edbc8ddc74f8" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>VLAN Hopping</strong>
+					<figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex"
+						id="fffaa64c-9d0a-81eb-b0ea-dbde8f26cf61">
+						<div style="font-size:1.5em"><span class="icon">💡</span></div>
+						<div style="width:100%">Атака <strong>VLAN hopping</strong> может осуществляться следующим
+							образом:<br />если сетевой свитч установлен в режим авто-транка, злоумышленник меняет
+							настройки так, что возникает «нужда» в постоянном канале связи (транке). То есть, на данном
+							транковом порту становится разрешен доступ ко всем VLAN’ам.<br /></div>
+					</figure>
+					<figure id="fffaa64c-9d0a-816f-9f43-caa7f0a55129" class="image"><a
+							href="Материал лекции/Screen_Shot_2022-05-07_at_21.48.48.png"><img
+								src="Материал лекции/Screen_Shot_2022-05-07_at_21.48.48.png" /></a>
+					</figure>
+				</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8175-badb-dd2f785a45f3" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>STP attacks</strong>
+					<figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex"
+						id="fffaa64c-9d0a-81cd-8cbe-fe155fe0d7c0">
+						<div style="font-size:1.5em"><span class="icon">💡</span></div>
+						<div style="width:100%">Атака помогает разорвать связующие деревья (spanning-trees) у свитчей,
+							дестабилизировать их таблицы с MAC-адресами и удерживать сеть в непрерывном состоянии
+							повторного выбора корневого моста. Мы можем сделать это, поскольку не существует механизма
+							аутентификации, встроенного в протокол STP.<br />Путем создания BPDU-фреймов несуществующего
+							свитча с ID=1, мы можем выбрать несуществующий свитч в качестве корневого моста. Используя
+							минимальное значение max-age в наших пакетах и не посылая пакеты в течение этого времени, мы
+							спровоцируем повторный выбор корневого моста, а затем в то время, когда будут проходить
+							перевыборы, вновь будем отсылать пакеты, выигрывать эти выборы и становиться корневым
+							мостом.<br /></div>
+					</figure>
+					<figure id="fffaa64c-9d0a-8167-bc24-f0f135a625dd" class="image"><a
+							href="Материал лекции/Screen_Shot_2022-05-07_at_21.56.43.png"><img
+								src="Материал лекции/Screen_Shot_2022-05-07_at_21.56.43.png" /></a>
+					</figure>
+					<h2 id="fffaa64c-9d0a-8172-84b7-c43508cefa0d" class="">Широковещательный домен</h2>
+					<blockquote id="fffaa64c-9d0a-81ca-b717-c54223369ce0" class=""><mark class="highlight-gray">Область
+							сети, в которой происходит обмен широковещательными сообщениями, и устройства могут
+							отправлять друг другу сообщения непосредственно, без участия маршрутизатора</mark>
+						<figure id="fffaa64c-9d0a-817c-8e1f-c4a63910a956" class="image"><a
+								href="Материал лекции/Screen_Shot_2022-05-07_at_22.00.48.png"><img
+									src="Материал лекции/Screen_Shot_2022-05-07_at_22.00.48.png" /></a>
+						</figure>
+					</blockquote>
+				</li>
+			</ul>
+			<p id="fffaa64c-9d0a-813e-862e-c9a62d9b1809" class="">
+			</p>
+			<figure id="fffaa64c-9d0a-81a3-8cf0-e549b54cf417" class="link-to-page"><a
+					href="Материал лекции/Дополнительный материал.html">Дополнительный
+					материал</a></figure>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>
