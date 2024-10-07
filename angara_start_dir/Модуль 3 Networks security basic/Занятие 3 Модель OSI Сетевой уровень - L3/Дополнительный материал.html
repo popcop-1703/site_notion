@@ -1,685 +1,1584 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Дополнительный материал</title><style>
-/* cspell:disable-file */
-/* webkit printing magic: print all background colors */
-html {
-	-webkit-print-color-adjust: exact;
-}
-* {
-	box-sizing: border-box;
-	-webkit-print-color-adjust: exact;
-}
-
-html,
-body {
-	margin: 0;
-	padding: 0;
-}
-@media only screen {
-	body {
-		margin: 2em auto;
-		max-width: 900px;
-		color: rgb(55, 53, 47);
-	}
-}
-
-body {
-	line-height: 1.5;
-	white-space: pre-wrap;
-}
-
-a,
-a.visited {
-	color: inherit;
-	text-decoration: underline;
-}
-
-.pdf-relative-link-path {
-	font-size: 80%;
-	color: #444;
-}
-
-h1,
-h2,
-h3 {
-	letter-spacing: -0.01em;
-	line-height: 1.2;
-	font-weight: 600;
-	margin-bottom: 0;
-}
-
-.page-title {
-	font-size: 2.5rem;
-	font-weight: 700;
-	margin-top: 0;
-	margin-bottom: 0.75em;
-}
-
-h1 {
-	font-size: 1.875rem;
-	margin-top: 1.875rem;
-}
-
-h2 {
-	font-size: 1.5rem;
-	margin-top: 1.5rem;
-}
-
-h3 {
-	font-size: 1.25rem;
-	margin-top: 1.25rem;
-}
-
-.source {
-	border: 1px solid #ddd;
-	border-radius: 3px;
-	padding: 1.5em;
-	word-break: break-all;
-}
-
-.callout {
-	border-radius: 3px;
-	padding: 1rem;
-}
-
-figure {
-	margin: 1.25em 0;
-	page-break-inside: avoid;
-}
-
-figcaption {
-	opacity: 0.5;
-	font-size: 85%;
-	margin-top: 0.5em;
-}
-
-mark {
-	background-color: transparent;
-}
-
-.indented {
-	padding-left: 1.5em;
-}
-
-hr {
-	background: transparent;
-	display: block;
-	width: 100%;
-	height: 1px;
-	visibility: visible;
-	border: none;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
-}
-
-img {
-	max-width: 100%;
-}
-
-@media only print {
-	img {
-		max-height: 100vh;
-		object-fit: contain;
-	}
-}
-
-@page {
-	margin: 1in;
-}
-
-.collection-content {
-	font-size: 0.875rem;
-}
-
-.column-list {
-	display: flex;
-	justify-content: space-between;
-}
-
-.column {
-	padding: 0 1em;
-}
-
-.column:first-child {
-	padding-left: 0;
-}
-
-.column:last-child {
-	padding-right: 0;
-}
-
-.table_of_contents-item {
-	display: block;
-	font-size: 0.875rem;
-	line-height: 1.3;
-	padding: 0.125rem;
-}
-
-.table_of_contents-indent-1 {
-	margin-left: 1.5rem;
-}
-
-.table_of_contents-indent-2 {
-	margin-left: 3rem;
-}
-
-.table_of_contents-indent-3 {
-	margin-left: 4.5rem;
-}
-
-.table_of_contents-link {
-	text-decoration: none;
-	opacity: 0.7;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
-}
-
-table,
-th,
-td {
-	border: 1px solid rgba(55, 53, 47, 0.09);
-	border-collapse: collapse;
-}
-
-table {
-	border-left: none;
-	border-right: none;
-}
-
-th,
-td {
-	font-weight: normal;
-	padding: 0.25em 0.5em;
-	line-height: 1.5;
-	min-height: 1.5em;
-	text-align: left;
-}
-
-th {
-	color: rgba(55, 53, 47, 0.6);
-}
-
-ol,
-ul {
-	margin: 0;
-	margin-block-start: 0.6em;
-	margin-block-end: 0.6em;
-}
-
-li > ol:first-child,
-li > ul:first-child {
-	margin-block-start: 0.6em;
-}
-
-ul > li {
-	list-style: disc;
-}
-
-ul.to-do-list {
-	padding-inline-start: 0;
-}
-
-ul.to-do-list > li {
-	list-style: none;
-}
-
-.to-do-children-checked {
-	text-decoration: line-through;
-	opacity: 0.375;
-}
-
-ul.toggle > li {
-	list-style: none;
-}
-
-ul {
-	padding-inline-start: 1.7em;
-}
-
-ul > li {
-	padding-left: 0.1em;
-}
-
-ol {
-	padding-inline-start: 1.6em;
-}
-
-ol > li {
-	padding-left: 0.2em;
-}
-
-.mono ol {
-	padding-inline-start: 2em;
-}
-
-.mono ol > li {
-	text-indent: -0.4em;
-}
-
-.toggle {
-	padding-inline-start: 0em;
-	list-style-type: none;
-}
-
-/* Indent toggle children */
-.toggle > li > details {
-	padding-left: 1.7em;
-}
-
-.toggle > li > details > summary {
-	margin-left: -1.1em;
-}
-
-.selected-value {
-	display: inline-block;
-	padding: 0 0.5em;
-	background: rgba(206, 205, 202, 0.5);
-	border-radius: 3px;
-	margin-right: 0.5em;
-	margin-top: 0.3em;
-	margin-bottom: 0.3em;
-	white-space: nowrap;
-}
-
-.collection-title {
-	display: inline-block;
-	margin-right: 1em;
-}
-
-.page-description {
-    margin-bottom: 2em;
-}
-
-.simple-table {
-	margin-top: 1em;
-	font-size: 0.875rem;
-	empty-cells: show;
-}
-.simple-table td {
-	height: 29px;
-	min-width: 120px;
-}
-
-.simple-table th {
-	height: 29px;
-	min-width: 120px;
-}
-
-.simple-table-header-color {
-	background: rgb(247, 246, 243);
-	color: black;
-}
-.simple-table-header {
-	font-weight: 500;
-}
-
-time {
-	opacity: 0.5;
-}
-
-.icon {
-	display: inline-block;
-	max-width: 1.2em;
-	max-height: 1.2em;
-	text-decoration: none;
-	vertical-align: text-bottom;
-	margin-right: 0.5em;
-}
-
-img.icon {
-	border-radius: 3px;
-}
-
-.user-icon {
-	width: 1.5em;
-	height: 1.5em;
-	border-radius: 100%;
-	margin-right: 0.5rem;
-}
-
-.user-icon-inner {
-	font-size: 0.8em;
-}
-
-.text-icon {
-	border: 1px solid #000;
-	text-align: center;
-}
-
-.page-cover-image {
-	display: block;
-	object-fit: cover;
-	width: 100%;
-	max-height: 30vh;
-}
-
-.page-header-icon {
-	font-size: 3rem;
-	margin-bottom: 1rem;
-}
-
-.page-header-icon-with-cover {
-	margin-top: -0.72em;
-	margin-left: 0.07em;
-}
-
-.page-header-icon img {
-	border-radius: 3px;
-}
-
-.link-to-page {
-	margin: 1em 0;
-	padding: 0;
-	border: none;
-	font-weight: 500;
-}
-
-p > .user {
-	opacity: 0.5;
-}
-
-td > .user,
-td > time {
-	white-space: nowrap;
-}
-
-input[type="checkbox"] {
-	transform: scale(1.5);
-	margin-right: 0.6em;
-	vertical-align: middle;
-}
-
-p {
-	margin-top: 0.5em;
-	margin-bottom: 0.5em;
-}
-
-.image {
-	border: none;
-	margin: 1.5em 0;
-	padding: 0;
-	border-radius: 0;
-	text-align: center;
-}
-
-.code,
-code {
-	background: rgba(135, 131, 120, 0.15);
-	border-radius: 3px;
-	padding: 0.2em 0.4em;
-	border-radius: 3px;
-	font-size: 85%;
-	tab-size: 2;
-}
-
-code {
-	color: #eb5757;
-}
-
-.code {
-	padding: 1.5em 1em;
-}
-
-.code-wrap {
-	white-space: pre-wrap;
-	word-break: break-all;
-}
-
-.code > code {
-	background: none;
-	padding: 0;
-	font-size: 100%;
-	color: inherit;
-}
-
-blockquote {
-	font-size: 1.25em;
-	margin: 1em 0;
-	padding-left: 1em;
-	border-left: 3px solid rgb(55, 53, 47);
-}
-
-.bookmark {
-	text-decoration: none;
-	max-height: 8em;
-	padding: 0;
-	display: flex;
-	width: 100%;
-	align-items: stretch;
-}
-
-.bookmark-title {
-	font-size: 0.85em;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	height: 1.75em;
-	white-space: nowrap;
-}
-
-.bookmark-text {
-	display: flex;
-	flex-direction: column;
-}
-
-.bookmark-info {
-	flex: 4 1 180px;
-	padding: 12px 14px 14px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
-
-.bookmark-image {
-	width: 33%;
-	flex: 1 1 180px;
-	display: block;
-	position: relative;
-	object-fit: cover;
-	border-radius: 1px;
-}
-
-.bookmark-description {
-	color: rgba(55, 53, 47, 0.6);
-	font-size: 0.75em;
-	overflow: hidden;
-	max-height: 4.5em;
-	word-break: break-word;
-}
-
-.bookmark-href {
-	font-size: 0.75em;
-	margin-top: 0.25em;
-}
-
-.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
-.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
-.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
-.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
-.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
-.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
-.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
-.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
-.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
-.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
-.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
-.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
-.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
-.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
-.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
-.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
-.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
-.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
-.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
-.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
-.highlight-default {
-	color: rgba(55, 53, 47, 1);
-}
-.highlight-gray {
-	color: rgba(120, 119, 116, 1);
-	fill: rgba(120, 119, 116, 1);
-}
-.highlight-brown {
-	color: rgba(159, 107, 83, 1);
-	fill: rgba(159, 107, 83, 1);
-}
-.highlight-orange {
-	color: rgba(217, 115, 13, 1);
-	fill: rgba(217, 115, 13, 1);
-}
-.highlight-yellow {
-	color: rgba(203, 145, 47, 1);
-	fill: rgba(203, 145, 47, 1);
-}
-.highlight-teal {
-	color: rgba(68, 131, 97, 1);
-	fill: rgba(68, 131, 97, 1);
-}
-.highlight-blue {
-	color: rgba(51, 126, 169, 1);
-	fill: rgba(51, 126, 169, 1);
-}
-.highlight-purple {
-	color: rgba(144, 101, 176, 1);
-	fill: rgba(144, 101, 176, 1);
-}
-.highlight-pink {
-	color: rgba(193, 76, 138, 1);
-	fill: rgba(193, 76, 138, 1);
-}
-.highlight-red {
-	color: rgba(212, 76, 71, 1);
-	fill: rgba(212, 76, 71, 1);
-}
-.highlight-default_background {
-	color: rgba(55, 53, 47, 1);
-}
-.highlight-gray_background {
-	background: rgba(241, 241, 239, 1);
-}
-.highlight-brown_background {
-	background: rgba(244, 238, 238, 1);
-}
-.highlight-orange_background {
-	background: rgba(251, 236, 221, 1);
-}
-.highlight-yellow_background {
-	background: rgba(251, 237, 214, 1);
-}
-.highlight-teal_background {
-	background: rgba(237, 243, 236, 1);
-}
-.highlight-blue_background {
-	background: rgba(231, 243, 248, 1);
-}
-.highlight-purple_background {
-	background: rgba(244, 240, 247, 0.8);
-}
-.highlight-pink_background {
-	background: rgba(249, 238, 243, 0.8);
-}
-.highlight-red_background {
-	background: rgba(253, 235, 236, 1);
-}
-.block-color-default {
-	color: inherit;
-	fill: inherit;
-}
-.block-color-gray {
-	color: rgba(120, 119, 116, 1);
-	fill: rgba(120, 119, 116, 1);
-}
-.block-color-brown {
-	color: rgba(159, 107, 83, 1);
-	fill: rgba(159, 107, 83, 1);
-}
-.block-color-orange {
-	color: rgba(217, 115, 13, 1);
-	fill: rgba(217, 115, 13, 1);
-}
-.block-color-yellow {
-	color: rgba(203, 145, 47, 1);
-	fill: rgba(203, 145, 47, 1);
-}
-.block-color-teal {
-	color: rgba(68, 131, 97, 1);
-	fill: rgba(68, 131, 97, 1);
-}
-.block-color-blue {
-	color: rgba(51, 126, 169, 1);
-	fill: rgba(51, 126, 169, 1);
-}
-.block-color-purple {
-	color: rgba(144, 101, 176, 1);
-	fill: rgba(144, 101, 176, 1);
-}
-.block-color-pink {
-	color: rgba(193, 76, 138, 1);
-	fill: rgba(193, 76, 138, 1);
-}
-.block-color-red {
-	color: rgba(212, 76, 71, 1);
-	fill: rgba(212, 76, 71, 1);
-}
-.block-color-default_background {
-	color: inherit;
-	fill: inherit;
-}
-.block-color-gray_background {
-	background: rgba(241, 241, 239, 1);
-}
-.block-color-brown_background {
-	background: rgba(244, 238, 238, 1);
-}
-.block-color-orange_background {
-	background: rgba(251, 236, 221, 1);
-}
-.block-color-yellow_background {
-	background: rgba(251, 237, 214, 1);
-}
-.block-color-teal_background {
-	background: rgba(237, 243, 236, 1);
-}
-.block-color-blue_background {
-	background: rgba(231, 243, 248, 1);
-}
-.block-color-purple_background {
-	background: rgba(244, 240, 247, 0.8);
-}
-.block-color-pink_background {
-	background: rgba(249, 238, 243, 0.8);
-}
-.block-color-red_background {
-	background: rgba(253, 235, 236, 1);
-}
-.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
-.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
-.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
-.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
-.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
-.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
-.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
-.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
-.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
-.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
-.select-value-color-yellow { background-color: rgba(249, 228, 188, 1); }
-.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
-.select-value-color-pageGlass { background-color: undefined; }
-.select-value-color-washGlass { background-color: undefined; }
-
-.checkbox {
-	display: inline-flex;
-	vertical-align: text-bottom;
-	width: 16;
-	height: 16;
-	background-size: 16px;
-	margin-left: 2px;
-	margin-right: 5px;
-}
-
-.checkbox-on {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-
-.checkbox-off {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-	
-</style></head><body><article id="b3365ff3-1847-48bc-942e-31cc0b1d256c" class="page sans"><header><h1 class="page-title">Дополнительный материал</h1><p class="page-description"></p></header><div class="page-body"><p id="d61c18d1-8bd0-4f1b-8190-47d3c87f238f" class="">Обзор протоколов L3</p><h2 id="a7ee1707-252c-4275-beed-c9e810e09609" class="">IPv4, IPv6</h2><p id="4549e9ae-fa61-4e0d-975e-a5c785a856e7" class="">IP (интернет протокол) - отвечает за передачу пакета данных от узла к узлу.</p><h2 id="47b23bef-26ed-440a-b6f3-e950615a42f4" class="">DVMRP</h2><p id="22498a2c-5b45-4ea1-8f35-f0b4425bb2fe" class="">Distance Vector Multicast Routing Protocol (DVMRP — Протокол дистанционно-векторной многоадресной маршрутизации) — протокол маршрутизации групповых датаграмм для IP-сетей. Протокол предназначен для использования внутри автономных систем, то есть является протоколом внутридоменной маршрутизации.</p><h2 id="8b3b889d-59c1-497a-b187-a8e209abb852" class="">ICMP</h2><p id="f47c7a10-f108-4ed8-8c9b-091c0510c8b4" class="">ICMP, который расшифровывается как Internet Control Message Protocol это протокол третьего уровня модели OSI, который используется для диагностики проблем со связностью в сети. Говоря простым языком, ICMP помогает определить может ли достичь пакет адреса назначения в установленные временные рамки.</p><h2 id="239263d9-605b-4e2e-971e-791bd0482aa0" class="">IGMP</h2><p id="07786393-c7f2-4dff-8a28-0c8932531e34" class="">IGMP (англ. Internet Group Management Protocol — протокол управления группами Интернета) — протокол управления групповой (multicast) передачей данных в сетях, основанных на протоколе IP. IGMP используется маршрутизаторами и IP-узлами для организации сетевых устройств в группы. Этот протокол является частью спецификации групповой передачи пакетов в IP-сетях.</p><h2 id="980bec44-4bd3-4650-9ea6-5cf2d2e11639" class="">IPsec</h2><p id="67aae0ad-1e68-421e-94e0-c9c28bf1aba9" class="">IPsec (сокращение от IP Security) — набор протоколов для обеспечения защиты данных, передаваемых по межсетевому протоколу IP. Позволяет осуществлять подтверждение подлинности (аутентификацию), проверку целостности и/или шифрование IP-пакетов. IPsec также включает в себя протоколы для защищённого обмена ключами в сети Интернет. В основном применяется для организации VPN-соединений.</p><h2 id="a30e8ac9-2a73-4a0b-ac3f-847f5c828875" class="">RIP</h2><p id="fb45cbac-d5ab-4db7-a686-69bdb9978d32" class="">RIP протокол маршрутной информации (англ. Routing Information Protocol) — один из самых простых протоколов маршрутизации. Применяется в небольших компьютерных сетях, позволяет маршрутизаторам динамически обновлять маршрутную информацию (направление и дальность в хопах), получая ее от соседних маршрутизаторов.</p><h2 id="ce2d9da0-9ea0-4b1b-b4d6-355c24d34da8" class="">OSPF</h2><p id="3544eeb4-3797-4006-a004-7a9719f4295e" class="">OSPF (англ. Open Shortest Path First) — протокол динамической маршрутизации, основанный на технологии отслеживания состояния канала (link-state technology) и использующий для нахождения кратчайшего пути алгоритм Дейкстры.</p><h2 id="e8a5e25c-3e59-4646-b577-1aaa21a625f0" class="">BGP</h2><p id="2238d792-b95e-4ebc-8965-ad3e9ee3817c" class="">BGP (англ. Border Gateway Protocol, протокол граничного шлюза) — протокол динамической маршрутизации. Протокол BGP предназначен для обмена информацией о достижимости подсетей между автономными системами (АС, англ. AS — autonomous system), то есть группами маршрутизаторов под единым техническим и административным управлением, использующими протокол внутридоменной маршрутизации для определения маршрутов внутри себя и протокол междоменной маршрутизации для определения маршрутов доставки пакетов в другие АС.</p><p id="b883a062-ef2d-4743-81b3-4c3c105a29c5" class="">Чуть позже рассмотрим с вами подробнее такие протоколы как: RIP, OSPF, BGP</p><h1 id="1cbdaac1-d217-446c-94a6-485893a9dec5" class="">Inter-VLAN routing</h1><p id="b36651d4-a8e8-4326-b3a7-ce22c5e4c4c5" class="">VLAN не могут обмениваться данными без вмешательства устройства маршрутизации. Всякий раз, когда узлам одной сети VLAN необходимо обмениваться данными с узлами другой сети VLAN, трафик должен направляться через устройство маршрутизации. Этот процесс известен как маршрутизация между VLAN. Для успешного обмена информацией между VLAN вам понадобится маршрутизатор или коммутатор уровня 3. Существует три возможных способа реализации маршрутизации между VLAN:</p><ul id="59d4d926-6917-4541-ba0b-f63f4c04c6c6" class="bulleted-list"><li style="list-style-type:disc">Traditional Inter-VLAN Routing</li></ul><ul id="7d3d2761-9ede-4d5a-aa9e-db7a92666478" class="bulleted-list"><li style="list-style-type:disc">Router-on-a-Stick Inter-VLAN Routing</li></ul><ul id="f936e57e-1e24-485a-903e-3e2f9a4bfc70" class="bulleted-list"><li style="list-style-type:disc">Multilayer Switch Inter-VLAN Routing</li></ul><p id="91b4bef2-cd9b-42af-a116-9337388493e2" class=""><strong>Traditional Inter-VLAN Routing</strong></p><p id="e2b3b289-7215-42a8-a554-e2247aa62321" class="">Этот метод маршрутизации между VLAN основан на маршрутизаторе с несколькими физическими интерфейсами. Каждый интерфейс обычно подключается к коммутатору, по одному на каждую VLAN. Порты коммутатора, подключенные к маршрутизатору, переводятся в режим доступа, после чего каждый интерфейс маршрутизатора может принимать трафик из сети VLAN, связанной с интерфейсом коммутатора, к которому он подключен, и трафик может направляться в другие сети VLAN, подключенные к другим интерфейсам. Это означает, что каждый из IP-адресов интерфейсов маршрутизаторов станет адресом шлюза по умолчанию для каждого хоста в каждой VLAN.</p><p id="9b3fbaf4-e902-4edb-862a-1fc41b0ad458" class=""><strong>Router-on-a-Stick Inter-VLAN Routing</strong></p><p id="8918a9a9-49cb-4870-99fb-08507158e6c8" class="">Router-on-a-stick — это метод маршрутизации между VLAN, при котором маршрутизатор подключается к коммутатору с использованием одного физического интерфейса, отсюда и название «router-on-a-stick». Большинство современных реализаций маршрутизации между VLAN разработаны с использованием этого метода. В отличие от традиционного метода маршрутизации между VLAN, Router-on-stick не требует нескольких физических интерфейсов как на маршрутизаторе, так и на коммутаторе. Вместо этого операционная система маршрутизатора позволяет настроить интерфейс маршрутизатора для работы в качестве транкового канала, который затем подключается к порту коммутатора, настроенному в транковом режиме. Это означает, что на маршрутизаторе и коммутаторе требуется только один физический интерфейс для маршрутизации пакетов между несколькими VLAN. Протокол IEEE 802.1Q (Dot1q), определяющий систему маркировки VLAN для кадров Ethernet, используется для обеспечения поддержки VLAN различных производителей.<br/>Единственный физический интерфейс на маршрутизаторе связан с логическими (виртуальными) субинтерфейсами, которые можно настроить с несколькими IP-адресами, соответствующими VLAN на коммутаторе. Каждый субинтерфейс настроен для разных подсетей, соответствующих их назначению VLAN, для упрощения логической маршрутизации. Маршрутизатор выполняет маршрутизацию между VLAN, принимая трафик из всех VLAN. Затем он определяет сеть назначения на основе исходного и целевого IP-адресов в пакетах. После принятия решения о маршрутизации на основе целевой VLAN кадры данных пересылаются на коммутатор с правильной информацией о VLAN через тот же физический интерфейс, который использовался для получения трафика.<br/></p><p id="19be6f61-d173-43ba-8944-ae45faafb544" class=""><strong>Multilayer Switch Inter-VLAN Routing</strong></p><p id="9f9dccb7-eac5-41e8-bfd3-93378e5b1896" class="">Многоуровневый коммутатор Маршрутизация между сетями VLAN — это метод маршрутизации между сетями VLAN, при котором для выполнения функций маршрутизации используется коммутатор другого типа, известный как многоуровневый коммутатор. Многоуровневый коммутатор — это гибридное устройство, которое сочетает в себе функции коммутатора и маршрутизатора, что позволяет ему работать как на уровне 2 (L2), так и на уровне 3 (L3) модели OSI, отсюда и название «многоуровневый». В отличие от метода маршрутизации между сетями VLAN на основе маршрутизатора, для маршрутизации между сетями VLAN многоуровневого коммутатора не требуется выделенный маршрутизатор — все происходит внутри коммутатора. Многоуровневые коммутаторы выполняют все функции маршрутизации VLAN в сети, тем самым устраняя необходимость в выделенных маршрутизаторах или магистральных каналах.</p><p id="e424c6b7-e64e-4565-abe1-af5c7a0b3b1a" class="">Чтобы многоуровневый коммутатор мог выполнять функции маршрутизации, используются логические (виртуальные) интерфейсы, известные как Switch Virtual Interface (SVI), по одному на каждую VLAN. SVI, также известный как интерфейс VLAN, представляет собой виртуальный маршрутизируемый интерфейс, который соединяет VLAN на устройстве с механизмом маршрутизации уровня 3 в том же устройстве и может быть настроен с несколькими IP-адресами, соответствующими VLAN на коммутаторе. Каждый SVI настроен для разных подсетей, соответствующих назначенной им VLAN, для упрощения логической маршрутизации.</p><h1 id="ec254a9d-17ee-43e5-912c-9ad4b464184a" class="">Принципы маршрутизации</h1><p id="93480bf1-ed73-4406-83af-e5d75eb1fe0a" class="">Маршрутизация (Routing) — это процесс по определению/вычислению лучшего маршрута движения для данных в сетях связи. Есть еще второе определение — это передача пакетов данных от отправителя к получателю.</p><p id="bdab6e95-92aa-4a52-8941-e0198e539e73" class="">Сами маршруты могут быть статическими — задаются административно, или динамическими, т.е. рассчитываться по специальным алгоритмам-протоколам, которые базируются на данных о топологии и состоянии сети.<br/>Для маршрутизации пакета маршрутизатор должен владеть следующей информацией:<br/></p><ul id="f96a31d1-8fc5-4596-9012-4a1a9ee0f204" class="bulleted-list"><li style="list-style-type:disc">Адрес назначения</li></ul><ul id="e3cb9bb3-7de9-4ab5-a5a2-feecada51b90" class="bulleted-list"><li style="list-style-type:disc">Соседний маршрутизатор, от которого он может узнать об удаленных сетях</li></ul><ul id="660dfc3a-74be-4473-a38e-1483670e6d12" class="bulleted-list"><li style="list-style-type:disc">Доступные пути ко всем удаленным сетям</li></ul><ul id="8ae567a7-8879-4f43-9e70-f1ab5d723bdd" class="bulleted-list"><li style="list-style-type:disc">Наилучший путь к каждой удаленной сети</li></ul><ul id="174f86b8-caf0-4954-8c56-3f402c36cc6a" class="bulleted-list"><li style="list-style-type:disc">Методы обслуживания и проверки информации о маршрутизации</li></ul><p id="98ee8f57-4abf-4125-8180-4b1aeffc0baa" class="">Ранее упоминались такие протоколы как RIP, OSPF и BGP. Это протоколы динамической маршрутизации. Далее рассмотрим что такое таблица маршрутизации и как в ней выглядят статические и динамические маршруты.</p><p id="edf075e1-47b4-447e-9025-c0f84bbbe05c" class=""><strong>Таблица маршрутизации</strong></p><figure id="d41e554b-d020-4ec0-b680-e39798e67ba4" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20b3365ff3184748bc942e31cc0b1d256c/Untitled.png"><img style="width:752px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20b3365ff3184748bc942e31cc0b1d256c/Untitled.png"/></a></figure><p id="5f683e4d-5eb1-426e-aa66-4529f685add7" class="">Вот таким образом таблица маршрутизации изображается на роутерах вендора cisco. На маршрутизирующих устройствах других вендоров суть таблицы будет аналогичной, просто с немного отличающимся графическим выводом.</p><p id="659e3912-2bce-44fc-a132-a59dd4183835" class="">В таблице перечислены обозначения маршрутов, в данном примере символами С в таблице маршрутизации помечены непосредственно присоединенные к маршрутизатору сети, а символом S - созданные администратором статические маршруты к удаленным сетям.<br/>Так же можно заметить такие возможные обозначения маршрутов как – O – маршрут, полученный по протоколу OSPF, R – получен про протоколу RIP, B – BGP маршрут и так далее.<br/></p><p id="8ddef0d2-2f8a-4541-8d2a-3d3adb226cda" class=""><strong>Трассировка маршрутов</strong></p><p id="9bcd3781-2afc-4df9-8607-e34a9efeec05" class="">Для того, чтобы понять, как пакет данных путешествует по сети от адреса отправителя до адреса получателя, применяется трассировка.</p><p id="835ced7b-f59b-4c76-8f67-158fef8aa168" class="">Трассировка маршрута пакета до сетевого хоста показывает все промежуточные узлы, через которые проходит пакет, пока доберётся до указанной цели. То есть с помощью трассировки можно узнать, по каким узлам, с какими IP адресами, передаётся пакет прежде чем быть доставленным до точки назначения.</p><p id="85209334-4b28-4139-9b34-f2100afbf218" class="">Трассировка может применяться для выявления связанных с работой компьютерной сети проблем, а также для исследования сети (определения структуры сети, поиска промежуточных сетевых узлов).</p><p id="533508b7-c106-4d46-9d51-c749864e3673" class="">Трассировка работает следующим образом:<br/>Пересылаемые сетевые пакеты состоят из двух областей: заголовки и данные. В заголовках находится разная информация, например, IP адреса пункта отправки и пункта назначения, порты отправки и назначения, тип пакета, контрольная сумма пакета и прочее. Среди полей заголовка, у IP протокола есть такое поле как time to live (TTL) — время жизни пакета. Это счётчик с числом, которое уменьшается на единицу каждый раз, когда пакет проходит новый узел. Этот счётчик сделан для того, чтобы проблемный пакет (например, при ошибке, повлекшей закольцованный маршрут) не путешествовал по сети бесконечно.<br/></p><p id="21b6e083-4b5f-45d8-a493-751cfb65e4bb" class="">То есть любой пакет пройдя определённое количество узлов в конце-концов достигнет точки назначения или будет отброшен одним из узлов сети, когда закончится «время жизни».<br/>Когда счётчик TTL становится равным нулю, очередной шлюз просто не пересылает этот пакет дальше. Но при этом шлюз на тот IP адрес, откуда пришёл пакет с истёкшим временем жизни, отправляет по протоколу ICMP ответ TIME_EXCEEDED (время жизни кончилось). И этот ответ содержит IP адрес шлюза, где пакет закончил своё существование.<br/></p><p id="cc6a0e94-dd56-4f05-8f69-b0ec35b6591b" class="">Так вот, суть трассировки в том, что отправляется один пакет с временем жизни (TTL) установленным на единицу — первый шлюз уменьшает значение на единицу, смотрит, что счётчик стал равен нулю, никуда не отправляет этот пакет, зато нам отправляет ответ, что пакет отброшен. Из этого ответа нас интересует только IP адрес шлюза, где с пакетом случилось это несчастье. Затем отправляется пакет со счётчиком установленным на 2 — пакет проходит первый шлюз (его IP мы уже знаем), но теперь счётчик достигает нуля уже на втором шлюзе — мы получаем ICMP ответ с IP этого шлюза. Затем отправляется следующий пакет и так далее, пока не будут определены все узлы до нужного нам сетевого хоста.</p><h2 id="f07ee69d-7fa9-4b1b-bb98-94a898ac3b6d" class="">Основы статической маршрутизации</h2><p id="bf5aeb55-c6fc-40dc-9373-6b1d868e0af4" class="">Статическая маршрутизация — вид маршрутизации, при котором маршруты вручную указываются администратором при настройке маршрутизатора</p><p id="36ac9dd4-de8d-4223-8dd1-d9a86b2f5194" class="">Статические маршруты полностью определены администратором, поэтому они более безопасны, Однако сети, использующие статическую маршрутизацию, плохо масштабируемы, при изменении топологии требуется внесение изменений администратором в конфигурацию, что может приводить к ошибкам.</p><p id="c7aebe3c-6f6e-4c49-a691-02e7eca8553f" class=""><strong>Типы статических маршрутов</strong></p><ul id="431e1e5d-be8d-4987-9a92-7cc3d6748fde" class="bulleted-list"><li style="list-style-type:disc">Стандартный статический маршрут – настроенный вручную маршрут, который перенаправляет трафик в определённую сеть</li></ul><ul id="c84d6e04-39e6-4b3d-a983-d31a4d147536" class="bulleted-list"><li style="list-style-type:disc">Шлюз по умолчанию — сетевой шлюз на который пакет отправляется в том случае, если маршрут к сети назначения пакета не известен (не задан явным образом в таблице маршрутизации хоста)</li></ul><p id="76136948-1070-4abf-bfaa-5ef84af9ef6b" class="">Статический маршрут по умолчанию обычно используется в качестве шлюза последней надежды, который используется для любого пакета, не имеющего маршрута назначения в таблице маршрутизации. Пунктом назначения в таких случаях часто является Интернет. Адрес маршрута по умолчанию 0.0.0.0/0 означает любые адреса сетей с любыми масками.</p><p id="080a058b-edae-4ee9-a903-50a8530cf423" class=""><strong>Настройка статической маршрутизации</strong></p><p id="a93eb5e1-f5da-45fb-b5b0-2214ff30681b" class="">Для настройки статического маршрута необходимо определить несколько параметров:</p><p id="5821d86f-28c1-4614-97b0-31bb9aaa7ba8" class=""><strong>Первый</strong> – адрес подсети назначения. Если в заголовке ip адреса назначения приходящего ip пакет на интерфейс роутера будет ip адрес, входящий в указанную сеть, то тогда роутер применит такое правило маршрутизации на пакет</p><p id="c58e19b5-a5c7-41fa-b6a3-e4a70f9993d2" class=""><strong>Второй</strong> – маска подсети. Она будет определять диапазон адресов, в рамках которого проверяются приходящие пакеты</p><p id="5f17bd53-5352-43a3-b717-d09fd3263a8e" class="">И <strong>третий</strong> – ip адрес шлюза. Этот параметр определяет, на какой из соседних роутеров направить приходящий трафик для дальнейшей маршрутизации.</p><p id="36c1e54e-abc6-4628-bb06-6fc755f8dffe" class="">Формат команды:</p><p id="79e7a43d-9485-4510-96db-5d2ceecfc3a1" class=""><em>Router(config)#ip route &lt;destination-network&gt; &lt;mask&gt; &lt;next-hop&gt;</em></p><p id="c8f0572d-baf3-4d6e-b101-9b32699f7819" class=""><strong>Суперсеть</strong></p><p id="ae7d41a2-d873-4e2e-8495-877f2f9e06d2" class="">Суперсеть - это сеть интернет-протокола (IP), которая формируется путем объединения нескольких сетей (или подсетей) в более крупную сеть</p><figure id="89984ac5-fca5-43a0-8d0d-b6c9e660d904" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20b3365ff3184748bc942e31cc0b1d256c/Untitled%201.png"><img style="width:384px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20b3365ff3184748bc942e31cc0b1d256c/Untitled%201.png"/></a></figure><p id="5e774505-79db-43cd-b8e9-3440c54c4e90" class=""><strong>Рассмотрим пример</strong><br/>У нас имеется сеть как на схеме и стоит задача настроить статическую маршрутизацию.<br/>Что бы PC1 знал как добраться до PC2, PC3, PC4 ему придётся прописывать сети 18.20.1.0/24, 18.20.2.0/24 и 18.20.3.0/24. Но мы можем упростить себе задачу, объединив эти сети в суперсеть.<br/>Как это сделать? У нас имеются три сети с маской 255.255.255.0, т.е. включают в себя 256 ip-адресов (первый адрес сети, последний широковещательный) каждая. Если мы хотим объединить их в одну сеть, нам нужна сеть содержащая: 254 хоста с одной сети + 254 хоста со второй сети + 254 хоста с третьей сети + 1 адрес на саму сеть + 1 широковещательный адрес. Итого минимум нам необходимо 764 ip адреса на конкретном примере. Таким образом мы можем подобрать маску нашей суперсети. /22, /21, /20 и т.д. включают в сеть нужное количество адресов. Возьмём, например, маску 255.255.252.0 (/22), а далее дело за ip калькулятором.<br/></p><figure id="ce0ab907-379d-4403-b6c7-61702cc23139" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20b3365ff3184748bc942e31cc0b1d256c/Untitled%202.png"><img style="width:1434px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20b3365ff3184748bc942e31cc0b1d256c/Untitled%202.png"/></a></figure><p id="4d785d79-2283-4143-a81e-5a1881dd81ac" class="">В поле ip адрес указываем нашу сеть, в выпадающем списке «Маска» - 22 маску и нажимаем подсчитать. Получаем что наша суперсеть – 18.20.0.0/22. Это сеть, которая включает ip адреса от 18.20.0.1 до 18.20.3.254, т.е. объединяет все необходимые нам сети.<br/>Так три строчки «ip route …» превращаются в одну.<br/></p><p id="6e8b683d-1db9-4727-8fb6-d65438236f9f" class=""><strong>Достоинства и недостатки статической маршрутизации</strong></p><p id="9861841f-3065-4165-9dfc-66e3b003f520" class="">К преимуществам можно отнести:</p><ul id="0d46ca1e-0bcd-429a-ba1b-0ed158aeb9c6" class="bulleted-list"><li style="list-style-type:disc">Простоту настройки</li></ul><ul id="a1cf4137-2929-40f6-a9bb-277929038c17" class="bulleted-list"><li style="list-style-type:disc">Отсутствие дополнительной нагрузки на сеть</li></ul><p id="e9e4eb5a-9170-4538-974d-e4a6761b8d0a" class="">К недостаткам относится:</p><ul id="07df3573-8207-4808-bb0a-04020855b684" class="bulleted-list"><li style="list-style-type:disc">Сложность масштабирования</li></ul><ul id="f7dc07e0-a97b-4424-b16d-50986c34dbbc" class="bulleted-list"><li style="list-style-type:disc">При возникновении каких-либо изменений в сети, как правило потребуется   вмешательство администратора и настройка новых, актуальных статических маршрутов</li></ul><ul id="fe5ffea5-74ba-4e29-9967-fff0c8537afe" class="bulleted-list"><li style="list-style-type:disc">Если возникают проблемы на канальном уровне, но интерфейс по-прежнему в статусе    up, то статический маршрут остается активным, хотя данные передаваться не могут</li></ul><h2 id="21dddeb7-e899-4828-96bc-95353c087e71" class="">Основы динамической маршрутизации</h2><p id="00845b09-c11b-4864-8387-f15783c2ea4b" class="">Динамическая маршрутизация — вид маршрутизации, при котором таблица маршрутизации редактируется программно</p><p id="4c8a323b-fc01-4693-a7a0-f3c2a6ff8755" class="">Динамические протоколы делят на две группы: </p><ul id="8b54fba8-78ce-4d0e-8542-926c72d2f2f2" class="bulleted-list"><li style="list-style-type:disc"><strong>EGP</strong> (External Gateway Protocol) - внешний протокол маршрутизации для использования между AS. В группу входят - <strong>BGP</strong></li></ul><ul id="a6d1a7af-adeb-4fb1-85e2-f6c57ef7ec03" class="bulleted-list"><li style="list-style-type:disc"><strong>IGP</strong> (Interior Gateway Protocol) - внутреннего протокола маршрутизации для использования внутри AS. В группу входят - <strong>RIP, OSPF</strong></li></ul><h3 id="3798ff20-aaa3-43fa-aec3-351dd45b2e9e" class="">Протокол RIP</h3><p id="19152225-2937-4ad3-8943-d15926606b9e" class="">Один из самых простых протоколов маршрутизации – Протокол маршрутной информации (Routing Information Protocol, он же RIP - протокол маршрутизации на основе вектора расстояния). Этот протокол применяется в небольших компьютерных сетях и позволяет маршрутизаторам динамически обновлять маршрутную информацию, получая ее от соседних маршрутизаторов.</p><p id="74d4374f-fd94-452a-881e-243bdccdb799" class=""><strong>Метрика</strong></p><p id="cf3f2e59-6553-4644-9ae0-3bc58dfea705" class="">Для определения наилучшего маршрута используется Метрика. Метрика – это условная стоимость передачи по сети. Полное измерение конкретного маршрута равно сумме метрик сетей, которые включают в себя маршрут. Маршрутизатор всегда выбирает маршрут с наименьшей метрикой.</p><p id="31aef84d-817e-48cd-b354-20878af7330f" class="">Некоторые простые протоколы, такие, как RIP, рассматривают все сети как одинаковые. Для измерения расстояния между сетью-источником и сетью-получателем RIP использует единую метрику — количество переходов. Один переход – это действие прохода трафика через один роутер. Еще проход называют хопом.</p><p id="875e4360-c578-48e9-a421-3fc0e64b2a32" class="">При получении сообщения об обновлении маршрутов с новой или измененной записью о сети-получателе маршрутизатор добавляет единицу к значению метрики, указанному в сообщении и обновляет свою таблицу маршрутизации, включая в нее новый маршрут. IP-адрес отправителя используется в качестве следующего перехода.</p><p id="5d8d3334-af68-4fa2-bf05-91d38b57a864" class="">В первой версии протокола RIP не было даже аутентификации – роутеры верили всем анонсам от соседей и их легко было обмануть, обрушив маршрутизацию по всей сети или направив нужный трафик в сторону компьютера злоумышленника.</p><p id="8e13a545-1556-4847-8ebf-7fe9d017c49e" class="">Недочеты попытались устранить во второй версии протокола. Добавили возможность аутентификации для подтверждения легитимности роутеров в сети, а так же добавили возможность работы с масками подсетей.</p><p id="da445438-77b9-4e5d-87b0-ce93339a3210" class=""><strong>Обмен информацией</strong></p><p id="fa3079f7-5e24-4b01-aabb-fb57ce0b1093" class="">Используя вектор расстояния маршрутизации, каждый маршрутизатор периодически делится своей информацией об известных ему сетях со своими соседями.</p><p id="5e2d3299-fd52-41bb-b763-be7572e95299" class="">Существует три основных принципа процесса обмена информацией:</p><ol type="1" id="2a5c24f5-a5eb-4358-892c-b2643f928e74" class="numbered-list" start="1"><li> Распределение информации о существующих сетях в автономной системе. Каждый маршрутизатор распределяет информацию об известных сетях соседним маршрутизаторам.</li></ol><ol type="1" id="5526867a-898c-4f7b-aed6-cb87b78a0d37" class="numbered-list" start="2"><li>Распределение только своим соседям. Каждый маршрутизатор посылает свою информацию только к соседям, а не всем существующим роутерам. Он посылает информацию через все свои подключенные интерфейсы.</li></ol><ol type="1" id="e31c3d58-c7ef-46cf-b703-ed937aaeb138" class="numbered-list" start="3"><li>Распределение через регулярные интервалы. Каждый маршрутизатор посылает свою информацию соседним роутерам через фиксированные интервалы, в протоколе RIP это каждые 30 секунд</li></ol><p id="7d068dd4-4642-43e6-87b3-acca8435a045" class=""><strong>Обновление таблицы маршрутизации</strong></p><p id="a3886c87-663f-48a9-a8c1-49a427121bda" class="">Когда на роутерах включен протокол динамической маршрутизации, они постоянно обмениваются информацией о том, какие маршруты в какие сети знают. Маршруты могут быть как с большой метрикой, так и с маленькой. Логично, что для оптимальной работы сети нужно выделить те маршруты, метрика которых минимальна. Поэтому если изначально роутер узнал о том, что до одной сети можно добраться с помощью пяти хопов, а потом его сосед прислал ему обновление, содержащее информацию о достижимости этой сети через два хопа, то роутер должен обновить свою таблицу маршрутизации. Он удалит изначальный длинный маршрут, заменив его более коротким.</p><p id="abc58703-7ca6-461e-a29e-c9cecfb24e7b" class=""><strong>Формат сообщения</strong></p><p id="3d40181c-dfdc-4b64-9c13-19ad40b5c20c" class="">
-</p><figure id="a67bf3d6-7ece-40ee-9674-e5ff8d9041fa" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20b3365ff3184748bc942e31cc0b1d256c/%25D0%25A0%25D0%25B8%25D1%2581%25D1%2583%25D0%25BD%25D0%25BE%25D0%25BA1.png"><img style="width:1909px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20b3365ff3184748bc942e31cc0b1d256c/%25D0%25A0%25D0%25B8%25D1%2581%25D1%2583%25D0%25BD%25D0%25BE%25D0%25BA1.png"/></a></figure><p id="ff0c6558-b931-4839-9436-0d67501edaad" class="">Каждая таблица маршрутизации обновляется по сигналу RIP-сообщения, используя определенный RIP-алгоритм обновления.</p><p id="b124fe4e-8c0a-41b0-a612-882a4fadbc1f" class="">У протокола RIP стандартизованы сообщения, которые роутер отправляет своим соседям с целью поделиться знанием о тех или иных сетях. Рассмотрим заголовки такого сообщения.</p><ul id="ddf8b5b6-980b-4d14-a7e6-e3905801d610" class="bulleted-list"><li style="list-style-type:disc">Команда. Это поле длиной 8 бит задает тип сообщения: запрос (1) или ответ (2).</li></ul><ul id="1d90b28c-0ea2-4b93-b4d7-aee6251c538a" class="bulleted-list"><li style="list-style-type:disc">Версия. Это поле длиной 8 бит определяет версию протокола RIP.</li></ul><ul id="6a0b8075-81ad-45f6-be5b-70e4eed45de0" class="bulleted-list"><li style="list-style-type:disc">Семейство. Это поле длиной 16 бит определяет семейство используемых протоколов. Для TCP/IP значение равно 2.</li></ul><ul id="31dcfc6f-eaf8-46e7-bea0-85c76e7d6732" class="bulleted-list"><li style="list-style-type:disc">Адрес сети. Поле адрес определяет адрес пункта назначения. RIP отводит 14 байт для этого поля в приложении к любым протоколам. Однако IP в настоящее время использует только 4 байта. Остаток адреса заполняется нулями.</li></ul><ul id="e31dbaf0-0255-4681-8abf-9f654887f726" class="bulleted-list"><li style="list-style-type:disc">Расстояние. Это поле длиной 32 бита определяет расстояние до сети назначения, которая объявлена в поле адрес сети.</li></ul><p id="319b2d6a-1f5e-47b8-a686-952a96bc1368" class="">Рассмотрим новые заголовки, появившиеся во второй версии протокола RIP:</p><ul id="fffc12a5-5c51-4e70-aff9-992079d22e5f" class="bulleted-list"><li style="list-style-type:disc">Тэг маршрута. Это поле переносит такую информацию, как номер автономной системы. Он может использоваться для обеспечения возможности RIP получать информацию от внешнего протокола маршрутизации.</li></ul><ul id="ae8eb6c7-b0e7-4ed8-b4f6-49f6dd2525d7" class="bulleted-list"><li style="list-style-type:disc">Маска подсети. Это поле в 4 байта, которое несет маску к подсети (или префикс). Это означает, что RIP2 поддерживает классическую адресацию и бесклассовую междоменную маршрутизацию CIDR (Classless Inter Domain Routing).</li></ul><ul id="a7d6d539-206b-49bc-9b58-267e4f8daa00" class="bulleted-list"><li style="list-style-type:disc">Адрес следующего участка. Он используется, например, если две автономных системы вместе используют одну сеть. По этому сообщению можно определить маршрутизатор той же самой системы или другой автономной системы, к которому должен пройти пакет.</li></ul><p id="09c1eda4-d478-4390-bec1-9e77d890661c" class=""><strong>Аутентификация RIP версии 2</strong></p><p id="090acccb-eeea-4906-80b0-660cf0c81996" class="">Поле «Тег маршрута» переименовывается в поле «Тип аутентификации», которое для аутентификации по паролю принимает значение, равное 2. Далее следуют 16 байтов информации, содержащие пароль. Если пароль занимает менее 16 байт, он дополняется нулями. Если же пароль имеет длину более 16 байт, для аутентификации используются первые 16 байт.</p><p id="b911feab-c062-44ba-b128-b6e25d5fa535" class="">Изначально использовались текстовые пароли для аутентификации, которые легко было перехватить. Потом ввели возможность аутентификации по хешу пароля.<br/>Но даже такие технологии не спасли протокол RIP. Сейчас он уже почти не используется ввиду большого количества недостатков.<br/></p><p id="c7ca5b4a-a0ce-44c2-8111-d5495697f6ea" class=""><strong>Таймеры RIP</strong></p><p id="362bf858-7a73-4381-bb36-c0eca45062ee" class="">В протоколе RIP существует несколько разных таймеров.</p><ul id="7fcc372c-9bc7-4048-ac81-d3c805b10c21" class="bulleted-list"><li style="list-style-type:disc">Update timer — частота отправки обновлений протокола, по истечению таймера отправляется обновление. По умолчанию равен 30 секундам.</li></ul><ul id="842c173d-1a54-429d-bc50-95447d6b6e79" class="bulleted-list"><li style="list-style-type:disc">Invalid timer — Если обновление о маршруте не будет получено до истечения данного таймера, маршрут будет помечен как Invalid, то есть с метрикой 16. Такой маршрут считается недостижимым. По умолчанию таймер равен 180 секундам.</li></ul><ul id="e4f75e70-bf6d-43b4-b9f6-14dfa982e330" class="bulleted-list"><li style="list-style-type:disc">Flush timer (или garbage collection timer) — По умолчанию таймер равен 240 секундам, на 60 больше чем invalid timer. Если данный таймер истечет до прихода обновлений о маршруте, маршрут будет исключен из таблицы маршрутизации. Если маршрут удален из таблицы маршрутизации то, соответственно, удаляются и остальные таймеры, которые ему соответствовали.</li></ul><ul id="d8d994ed-4567-4a95-9b80-b480aa957210" class="bulleted-list"><li style="list-style-type:disc">Holddown timer — Запуск таймера произойдет после того, как маршрут был помечен как недостижимый. До истечения данного таймера маршрут будет находиться в памяти для предотвращения образования маршрутной петли и по этому маршруту передается трафик. По умолчанию равен 180 секундам. Таймер не является стандартным, добавлен в реализации Cisco.</li></ul><p id="f58d0f2d-9351-4dc0-804c-de72a819daaf" class=""><strong>Расщепление горизонта</strong></p><p id="6c5b2d84-6b2d-45ab-80d2-067abf5ce10d" class="">Для оптимизации и предотвращения петель маршрутизации в протоколе RIP был разработан метод Расщепление горизонта.</p><p id="ded849a2-4ea9-49bf-9507-d1d408ea9c85" class="">Петли маршрутизации в основном возникают из-за медленной сходимости этого дистанционно-векторного протокола маршрутизации.</p><p id="bb7f741a-fc50-4a4b-82a7-1b425b9eb843" class="">Правило расщеплённого горизонта говорит, что маршрутизатор не должен распространять информацию о сети через интерфейс, в которых прибыло обновление об этой сети.<br/>Обычно роутеры по протоколу RIP обмениваются своей полной таблицей маршрутизации. Получается, если роутер два отправит роутеру один информацию о подсети двадцать, то роутер один будет отправлять роутеру два информацию об этой же сети, достижимой через него. Роутер два такую информацию не примет, так как знает, что до этой сети ему ближе идти через свой непосредственно подсоединенный интерфейс. Но получается, что мы лишний раз нагружаем сеть ненужной информацией. Правило расщеплённого горизонта даст понимание роутеру 1, что раз от получил анонс от второго роутера про подсеть двадцать, то этому же второму роутеру можно не посылать часть таблицы маршрутизации с подсетью двадцать – ведь второй и так про нее знает.<br/></p><p id="a34c1a3d-871d-4504-831e-01a379c6f342" class=""><strong>Поглощение ответа</strong><br/>Поглощение ответа – вариант &quot;расщепленного горизонта&quot;. В этом методе информация, полученная маршрутизатором, используется маршрутной таблицей и затем передается всем интерфейсам. Однако вход таблицы, который получил информацию через интерфейс, устанавливает для этого интерфейса метрику 16 и исключает его из процесса рассылки обновления.<br/></p><p id="20c93641-c350-48ab-bdf3-8b62ff6d5c67" class=""><strong>Недостатки протокола</strong></p><p id="71bff73b-538b-40b4-bf6f-bc27ad5c4464" class="">Получается, протокол RIP весьма несовершенен. Резюмируем основные недостатки этого протокола:</p><p id="7fe1e754-2a55-4ec1-ba90-6482590b7b76" class=""><strong>Первый недостаток </strong>– медленная сходимость.</p><p id="4d151961-edb8-48da-832c-1855f69b5e89" class=""><strong>Второй недостаток</strong> – проблема масштабирования из-за ограничения метрики маршрута.</p><p id="fc945171-0773-4765-a362-d4151bf2d9a8" class="">И <strong>третий недостаток</strong> – RIP работает только с классовой адресацией. То есть ничего не знает про разнообразие масок подсетей. Для него есть лишь классы сетей, которые соответствуют современным маскам /8, /16 и /24.</p><h3 id="b7957f65-05eb-4608-b590-0e880cb8d808" class="">Протокол OSPF</h3><p id="8132a60e-e944-493a-afbc-549c9618a55a" class="">OSPF (Open Shortest Path First) — протокол динамической маршрутизации</p><ul id="ca2e776a-628a-4168-91ac-70c15bae78fb" class="bulleted-list"><li style="list-style-type:disc">Создан IETF в 1988 году</li></ul><ul id="d3a70512-29bc-40b2-870b-d54ac122cf0f" class="bulleted-list"><li style="list-style-type:disc">OSPFv2 это текущая версия для IPv4</li></ul><ul id="6f111291-7261-41aa-8c1b-d9ed80ad16ec" class="bulleted-list"><li style="list-style-type:disc">IGP-протокол: используется для передачи информации между маршрутизаторами в пределах одной автономной системы</li></ul><ul id="60da4d36-1ce7-476f-aa67-c36c8e3bd6f3" class="bulleted-list"><li style="list-style-type:disc">Основан на технологии link-state</li></ul><figure id="5fdd4976-ec3e-4073-80cb-ae1297710fc3" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20b3365ff3184748bc942e31cc0b1d256c/Untitled%203.png"><img style="width:432px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20b3365ff3184748bc942e31cc0b1d256c/Untitled%203.png"/></a></figure><p id="83c11fbb-5ae7-44eb-ab49-1e18c12f7d49" class="">Отличий у OSPF и ранее рассмотренного RIP на самом деле много. Если RIP ориентировался при создании метрики только на количество переходов между роутерами, то OSPF использует более верную технику – он создает метрику на основе пропускной способности канала. Такая метрика называется cost – цена маршрута. Алгоритм протокола рассчитывает суммарное значение метрики всех соединений через сеть. Меньшее число указывает лучший маршрут.<br/>На рисунке видно, что роутеры R1 и R2 соединены через десяти мегабитные интерфейсы. А связь между роутерами R1 и R3, так же как и связь между R2 и R3 проложена с помощью ста мегабитного канала. Если роутеры настроены по протоколу OSPF, то трафик от R1 к R2 пойдет через роутер R3 – а все потому, что канал шире. А значит, можно передать большее количество данных за единицу времени. Если бы мы использовали RIP, то роутеры бы недолго думая направляли бы трафик по ближайшему пути.<br/></p><p id="0aebc08d-651f-4c78-88ab-f558dabdc853" class=""><strong>LSDB</strong></p><p id="9bad5d6e-bd6d-47f6-ad11-04f0d5e871b6" class="">Способность быстро находить наикратчайшие пути в любые сети топологии и знать обо всех возможных связях между роутерами в протоколе ospf достигается за счет построения специальной базы LSDB – Link State Data Base. База LSDB будет содержать в себе информацию о маршрутах. То есть вообще обо всех возможных маршрутах в сети. Как ранее уточнялось, OSPF является внутренним протоколом маршрутизации. И теперь постепенно становится понятно, почему при его то популярности ospf не используют как внешний протокол маршрутизации. Ведь во внешней сети, то есть сети интернет, миллионы роутеров, хранить все маршруты между которыми физически невозможно.</p><p id="88b04dde-c977-4994-81c0-0ca930613577" class=""><strong>Процесс OSPF</strong></p><p id="cb3e9094-591c-4d88-bf98-932c38b97ce5" class="">Для установки соединения и обмена информацией в рассматриваемом протоколе используется несколько типов пакетов.</p><p id="e2180ef4-4a35-4ede-ab18-deb50389a977" class=""><strong>Первый пакет – Hello.</strong> Такой пакет используется, чтобы устанавливать и поддерживать отношения смежности между соседними устройствами. В этом пакете есть два специальных интервала. Первый интервал, он же hello интервал, определяет, как часто будут отправляться hello пакеты соседям. По умолчанию равен десяти секундам. А второй, dead interval, определяет период времени, по прохождению которого, сосед считается недоступным, если от него не приходило Hello пакетов. По умолчанию равен сорока секундам.</p><p id="b9d447a1-414e-4492-bf8b-4cbde8a91343" class=""><strong>Второй пакет –  DataBase Description, DBD.</strong> С его помощью роутеры обмениваются информацией о том, какие сети они знают. В этом пакете нет полного описания сети с метрикой и прочими параметрами – только адреса подсетей.</p><p id="e1fbb2ef-89f0-4cd0-b95f-d1a19fe82911" class=""><strong>Третий пакет – Link-State Request, LSR.</strong> Это запрос на обновление своей базы данных маршрутов.</p><p id="78bb804d-40c1-43f4-83a8-fd1bed1e731c" class=""><strong>Четвертый пакет – Link-State Update, LSU.</strong> Он нужен для отправки детальных данных о маршрутах, которые знает роутер.</p><p id="c489ca21-eb72-41d1-8b0d-550e47961211" class=""><strong>Пятый пакет – Link-State Acknowledgment, LSAck.</strong> Используется для подтверждения получения информации. OSPF не использует транспортный уровень и инкапсулируется в IP протокол, поэтому протоколу нужен свой собственный механизм подтверждения доставки.</p><p id="7ec0201a-ca1f-4e20-b24f-422a781ee5e8" class="">Теперь перейдем к процессу создания базы LSBD и к процессу работы протокола OSPF.</p><p id="66d0aa6b-885b-4bfb-9eb8-0b2ae09d9594" class="">Первое, что происходит в сети при запуске процесса OSPF на роутерах – обмен пакетами Hello. TTL таких пакетов равен одному, поэтому hello получат только непосредственно подсоединенные роутеры. Они не смаршрутизируют эту информацию дальше, а аналогичным способом будут рассылать свои hello соседям.<br/>Hello- пакеты содержат идентификатор устройства (Router ID), который по сути является адресом одного из интерфейсов маршрутизатора. IP адреса маршрутизирующих устройств в сети не повторяются, что обеспечивает уникальную идентификацию каждого роутера.<br/>Ещё такие пакеты содержат информацию об адресе известных роутеру соседях, интервалах hello и Dead, номере зоны, адресах DR и BDR. Последние два параметра рассмотрим чуть дальше, чтобы не нарушать последовательность повествования.<br/></p><p id="1026d883-bd25-4eaf-9e59-76cabd596d59" class="">После того, как роутеры обменяются hello-пакетами со своими соседями, они добавят router id соседей в свой список соседей.</p><p id="5e964f1b-e56e-41a5-b30b-bddc60f09b84" class="">Следующих шаг – обмен сообщениями DBD. Эти сообщения содержат описание Link State Data Base. Роутер сообщает своим соседям о том, какие подсети знает сам. В ответ на сообщение DBD роутер, получивший эту информацию, отправляет сообщение подтверждения LSAck.</p><p id="f940bcaa-162c-48dc-b1af-57819b476af3" class="">Теперь роутеры, получив информацию от других про знание подсетей, проверяют, есть ли эти подсети в их базе данных LSDB. Если информации в базе нет, то роутер запрашивает у соседа подробную информацию о неизвестной подсети. Делает он это с помощью запроса Link-State Request.</p><p id="5b50bbb3-a391-4187-886b-24832c1db48d" class="">Как только роутеры обменяются информацией между собой, они перейдут в состояние Full State. По окончании процесса база LSDB у всех роутеров должна быть одинакова.</p><p id="64497fdd-5927-4798-afce-3eb02be76f2f" class="">При этом маршрутизация между известными сетями по прежнему не происходит. Да, LSDB заполнена информацией о всех подсетях, но в таблице маршрутизации пока что ничего нет. Роутеру нужно найти наикратчайшие маршруты до подсетей и только потом поместить эти маршруты в таблицу маршрутизации устройства.</p><p id="b0899457-de70-41fb-91e5-2526e73526b6" class="">Чтобы выбрать такие маршруты, используется алгоритм Дейкстры. Суть этого алгоритма в нахождении кратчайших путей от одной из вершин графа до всех остальных. А сеть маршрутизации как раз и представляет из себя такой граф.</p><p id="d7f0f6d3-44d2-407a-b60a-b040be491a66" class="">После того, как алгоритм выберет лучшие пути в графе от каждой из вершин до всех остальных, такие пути поместятся в таблицу маршрутизации и сеть начнет работать.<br/>Теперь каждые 10 секунд каждый маршрутизатор будет отправлять Hello-пакеты, чтобы подтвердить, что он работает.<br/></p><p id="fd8e8f42-8789-4521-9973-f20a82dad6f8" class=""><strong>Зоны OSPF</strong></p><p id="e3c6ace8-09c5-4881-9209-278a554d3b27" class="">Как уточнялось ранее, в hello пакетах присутствует параметр номера зоны. Настало время рассмотреть, для чего он предназначен.</p><p id="14136103-260e-49fd-b229-2d3d7bfbaf78" class="">Если взять в пример небольшую сеть маршрутизации, то в ней ospf будет работать довольно быстро – количество связей там невелико, алгоритм просчета графа сработает быстро и роутеры тут же начнут маршрутизировать. Но с увеличением количества связей и устройств растет нагрузка и на процесс ospf – чем больше граф, тем сложнее его считать. При всех своих плюсах OSPF не используется в интернете именно поэтому – никакое устройство в мире не сможет запомнить все разнообразие связей всех маршрутизирующих устройств в глобальной сети, так как их миллионы. Да и граф там так просто не просчитать – топология постоянно изменяется, пересчитывать надо слишком часто. Именно поэтому ospf стал наиболее популярным протоколом маршрутизации только как IGP.</p><p id="baa8785d-83b0-49d2-8197-a928c070df02" class="">Но даже в локальных сетях могут быть большие топологии, справиться с которыми роутерам не под силу. Чтобы оптимизировать маршрутизацию по ospf, существует параметр зона ospf.</p><p id="72d90f63-550d-4689-87b0-0ffa02e28939" class="">Роутеры как бы делятся на отдельные зоны маршрутизации, внутри которых ospf работает как обычно, создавая LSDB и помещая лучшие маршруты в таблицу маршрутизации. А маршрутизация между зонами происходит по принципам дистанционно-векторных протоколов. Создается роутер, который знает о всех сетях двух смежных зон. При этом внутри каждой из зон все остальные роутеры строят LSDB для сетей, входящих в зону. А сети не из их зоны не обрабатываются алгоритмом дейкстры. В базе создается правило шлюза по умолчанию для всех сетей, не принадлежащих зоне, и роутером по умолчанию для таких сетей станет именно пограничный роутер.</p><p id="6e795d94-5775-436e-aeae-6a2f2b285b09" class="">В этом подходе присутствует ограничение – всегда должна существовать нулевая зона, она же зона по умолчанию. Именно эта зона будет отвечать за маршрутизацию между всему другими зонами, являясь ядром сети.</p><p id="501965ae-8563-42b9-b336-09ce9e5f7c42" class=""><strong>DR и BDR роутеры в OSPF</strong></p><p id="26f7924f-bd15-4d67-865e-753c147ccf4d" class="">Теперь же рассмотрим оставшиеся термины – роутеры DR и BDR, они же Designated Router и Backup Designated Router.</p><p id="68bdca19-6d8c-4bc9-b913-ebd28fbb54e2" class="">Это роли для роутеров, созданные с целью определить главу топологии, с которым все остальные роутеры будут синхронизировать свои базы данных LSDB. DR и BDR выбираются на основе router id – у кого этот параметр больше, тот становится DR. Второй по очереди роутер становится BDR.</p><p id="60d6403f-eed6-4e7d-960f-2a77170cad06" class="">Информация об изменениях в сети отправляется DR, маршрутизатором обнаружившим это изменение, а DR отвечает за то, чтобы эта информация была отправлена остальным маршрутизаторам сети. Недостатком в схеме работы с DR маршрутизатором является то, что при выходе его из строя должен быть выбран новый DR. Новые отношения соседства должны быть сформированы и, пока базы данных маршрутизаторов не синхронизируются с базой данных нового DR, сеть будет недоступна для пересылки пакетов. Для устранения этого недостатка выбирается BDR.</p><p id="0bd92e55-4e43-49ff-af5b-cbc780cca4e8" class="">Каждый маршрутизатор сети устанавливает отношения соседства не только с DR, но и BDR. DR и BDR также устанавливают отношения соседства и между собой. При выходе из строя DR, BDR становится главой топологии и выполняет все его функции. Так как маршрутизаторы сети установили отношения соседства с BDR, то время недоступности сети минимизируется.<br/>Обе эти роли уникальны для каждой зоны ospf. Получается, что в каждой зоне будет свой DR и BDR.<br/></p><h3 id="c26067a5-fdca-4830-ad37-19f3ed889b4f" class="">Протокол BGP</h3><p id="b2382ff5-4b46-44a0-b73c-dc7d7b6bb577" class="">Border Gateway Protocol – это основной протокол динамической маршрутизации, который используется в сети Интернет. Сеть интернет – весьма сложное объединение сетей провайдеров и организаций. Но их взаимодействие как раз обеспечивает доступ ко всем ресурсам глобальной сети. Сетевые кабели соединяют между собой провайдерские сети, позволяя обмениваться информацией межконтинентально. А на суше таких кабелей ещё больше – они соединяют как провайдеров, так и организации.</p><p id="2fea2368-b1aa-4030-a5a6-24039c7d6832" class="">Каждый провайдер или организация имеет под управлением набор ip сетей, информацию меж которыми надо маршрутизировать. Этим и занимается протокол BGP в глобальном смысле.</p><p id="c3e795bc-9d5f-4ded-b9a9-b96291224afb" class="">Так как на протоколе завязано все взаимодействие в глобальной сети, требования к нему соответствующие. В нем присутствует большое количество терминов, которые мы разберем по мере прохождения занятия с целью разобраться, как этот протокол работает.</p><p id="3bdbc820-9793-4e1b-92d7-5c83dbe75f94" class="">Итак:</p><p id="774c02b5-0db2-4bf9-9ab1-e42f7e5e9479" class=""><strong>Внутренний протокол маршрутизации (interior gateway protocol)</strong> – протокол, который используется для передачи информации о маршрутах внутри автономной системы.</p><p id="875b56e1-b24c-4621-8a6e-e412297771d3" class=""><strong>Внешний протокол маршрутизации (exterior gateway protocol)</strong> – протокол, который используется для передачи информации о маршрутах между автономными системами.</p><p id="50178a99-7389-45e3-9abd-90d5955490c6" class=""><strong>Автономная система (autonomous system, AS) </strong>— набор маршрутизаторов, имеющих единые правила маршрутизации, управляемых одной технической администрацией и работающих на одном из протоколов IGP (для внутренней маршрутизации AS может использовать и несколько IGP).</p><p id="4e2bf675-5b8d-4643-8453-8c180625333e" class=""><strong>Транзитная автономная система (transit AS</strong>) — автономная система, через которую передается трафик других автономных систем.</p><p id="44c2dd07-1b61-4037-ab73-683d95759279" class=""><strong>Путь (path)</strong> — последовательность, состоящая из номеров автономных систем, через которые нужно пройти для достижения сети назначения.</p><p id="834c7fd0-3b46-45e9-adf6-483ac6e50e2b" class=""><strong>Атрибуты пути (path attributes, PA)</strong> — характеристики пути, которые позволяют выбрать лучший путь.</p><p id="b90d391d-1842-4fdd-bba5-21feb787b0e5" class=""><strong>BGP speaker </strong>— маршрутизатор, на котором работает протокол BGP.</p><p id="0682f8e0-c6a1-48c2-9b39-ba39c520f2ef" class=""><strong>Соседи (neighbor, peer)</strong> — любые два маршрутизатора, между которыми открыто TCP-соединение для обмена информацией о маршрутизации.</p><figure id="c227f6a7-a526-4f9b-8938-29a412793e26" class="image"><a href="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20b3365ff3184748bc942e31cc0b1d256c/Untitled%204.png"><img style="width:770px" src="%D0%94%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B8%CC%86%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%20b3365ff3184748bc942e31cc0b1d256c/Untitled%204.png"/></a></figure><p id="23236895-21c0-4ec1-8891-01e91ddb4dd2" class="">На рисунке можно увидеть тот самый AS path. Чтобы добраться из автономной системы 200 в AS 300, нужно пройти через сотую AS. При таком взаимодействии она будет называться транзитной</p><p id="df44c76e-3dff-4b2d-b329-e8d948569571" class="">Еще на данном рисунке можно увидеть роутеры, являющиеся соседями BGP. Они выделены красным и зеленым цветами.</p><p id="2b66febf-ddce-46e5-8def-4a021e9770f2" class="">BGP выбирает лучшие маршруты не на основании технических характеристик пути (например, пропускной способности и задержки), а на основании политик. В локальных сетях наибольшее значение имеет скорость сходимости сети, время реагирования на изменения. И маршрутизаторы, которые используют внутренние протоколы динамической маршрутизации, при выборе маршрута, как правило, сравнивают какие-то технические характеристики пути, например, пропускную способность соединений.</p><p id="c5a25c55-213d-4bd9-b917-c88166c1dfe3" class="">При выборе между каналами двух провайдеров, зачастую имеет значение не то, у какого канала лучше технические характеристики, а определенные внутренние правила компании. Например, использование какого канала обходится компании дешевле. Поэтому в BGP выбор лучшего маршрута осуществляется на основании политик, которые настраиваются с использованием фильтров, анонсирования маршрутов и изменения атрибутов.</p><p id="e11faa4d-f875-4db5-bbdc-224d5b741045" class="">Протокол BGP бывает двух видов – Внутренний BGP (Internal BGP) и Внешний BGP (External BGP). Это ранее мы обозначили.</p><p id="adb6328a-969a-49a1-8f3e-0ef3231740f4" class="">Отличие IBGP от EBGP состоит в том, что при объявлении маршрута BGP-соседу, находящемуся в той же самой АС, маршрутизатор не должен добавлять в AS PATH номер своей автономной системы, иначе произойдет петля маршрутизации.</p><p id="1c6dec01-a7f3-4055-b8d8-e6101b9d9cb6" class=""><strong>Общие характеристики</strong></p><ul id="7fc5aa14-97b9-48a5-9dd6-134f1d6b14a9" class="bulleted-list"><li style="list-style-type:disc">Использует TCP для передачи данных, что обеспечивает надежную доставку обновлений протокола</li></ul><ul id="792ba219-9f5f-43f7-87f9-b5e25e0d6a68" class="bulleted-list"><li style="list-style-type:disc">Отправляет обновления только после изменений в сети</li></ul><ul id="7a88da4b-01e6-4577-8580-775f1193f408" class="bulleted-list"><li style="list-style-type:disc">Периодически отправляет keepalive-сообщения для проверки соединения</li></ul><ul id="eb0f2615-1793-4597-befd-bfd66d782be3" class="bulleted-list"><li style="list-style-type:disc">Метрика протокола называется path vector или атрибуты</li></ul><p id="e282febe-3983-4abd-a040-bf113e53c55d" class=""><strong>Сообщения BGP</strong></p><p id="b75a3bb0-ba71-4d38-8857-fd0a35e1cff2" class="">Для обеспечения взаимодействия роутеров по протоколу BGP используется набор сообщений.</p><p id="a3d5c6d2-7a71-4787-b143-6902f5ab54b4" class="">После установки соединения по TCP роутер отправляет сообщение OPEN. Такое сообщение отсылается только в самом начале BGP-сессии для согласования параметров. В нём передаются версия протокола, номер AS, Hold Timer и Router ID.</p><ul id="cd125b1b-dd19-4098-a5c7-f65ea78953e0" class="bulleted-list"><li style="list-style-type:disc">номер версии – предлагаемый номер версии протокола. Наибольший номер версии, поддерживаемый маршрутизаторами. Большинство реализаций BGP маршрутизации сейчас используют BGP4.</li></ul><ul id="36be03df-2371-412c-ac25-b3f95fb6c4a3" class="bulleted-list"><li style="list-style-type:disc">номер AS – номер автономной системы локального маршрутизатора. Соседний маршрутизатор проверяет эту информацию. Если получен некорректный номер AS (например, тот же, что используется и у другого роутера), то BGP сессия заканчивается.</li></ul><ul id="958a877d-1e30-42f0-8097-cbd64158718b" class="bulleted-list"><li style="list-style-type:disc">hold timer – максимальное число секунд, которое может пройти между успешными keepalive или update сообщениями отправителя, чтобы поддерживать bgp сессию. При получении open сообщения маршрутизатор вычисляет значение hold таймера путем использования меньшего значения между настроенным на маршрутизаторе и полученным в open сообщении</li></ul><ul id="3b15eaa5-9d3b-47d3-85c8-5be9d0108191" class="bulleted-list"><li style="list-style-type:disc">BGP router-ID – 32-битное поле, показывающее BGP идентификатор отправителя. BGP ID – это IP адрес, назначенный маршрутизатору, он определяется при загрузке.</li></ul><ul id="5d3401b3-a589-42b7-b2bd-fae6385e3fe9" class="bulleted-list"><li style="list-style-type:disc">дополнительные параметры – различные параметры, определенные в стандарте BGP, например, аутентификация сессии.</li></ul><p id="c0eceeb8-0020-41f5-b7a1-3d9427519326" class="">Получив OPEN от первого роутера, второй отправляет свой OPEN, а также KEEPALIVE, говорящий о том, что OPEN от первого получен – это сигнал для первого роутера переходить к следующему состоянию – Established.<br/>Это состояние означает, что запущена правильная версия BGP и все настройки консистентны.В каждом роутере можно посмотреть Uptime – как долго он находится в состоянии ESTABLISHED с соседями.<br/></p><p id="4d8e26bf-5026-4307-beb9-9b7c54636d76" class="">В первые мгновения после установки BGP-сессии в таблице BGP только информация о локальных маршрутах. Теперь переходим к обмену маршрутной информацией. </p><p id="044fc76e-b6b4-44ce-8a95-e54983cc7ad0" class="">Для это используются сообщения UPDATE. Каждое сообщение UPDATE может нести информацию об одном новом маршруте или о удалении группы старых. Причём одновременно. UPDATE передаются при каждом изменении в сети пока длится BGP-сессия.</p><p id="08d04060-cceb-400f-8b1e-3dd4e1ace553" class="">Рассмотрим подробно, какая информация передается в UPDATE:</p><ul id="40d1a82c-6f6a-4797-9ba0-74128a00d77f" class="bulleted-list"><li style="list-style-type:disc">withdrawn routes – список отображает IP адреса префиксов маршрутов, которые выведены из эксплуатации, если таковые имеются</li></ul><ul id="1a36373b-16b0-4db1-9ded-dec3c25f9838" class="bulleted-list"><li style="list-style-type:disc">path attributes – эти атрибуты включают: путь к автономной системе, происхождение маршрута, локальные политики.</li></ul><ul id="edb94615-9b0a-4181-b377-1adcabb362ff" class="bulleted-list"><li style="list-style-type:disc">network-layer reachability information – это поле содержит список префиксов IP адресов, которые доступны по этому пути.</li></ul><p id="8a4a9571-467f-4a7d-ba58-7028e235b7d0" class="">Тут стоит пояснить, что термин префикс – это по сути адрес сети с указанием маски подсети.</p><p id="9b55b2df-f09b-4600-be56-9146b171dcce" class="">На каждый UPDATE роутер отвечает KEEPALIVE для подтверждения, что информация получена.</p><p id="498610e2-6ceb-45e9-a46e-2e52d5504006" class="">При этом, даже если обновлений маршрутов не происходило, каждый BGP-маршрутизатор регулярно будет рассылать сообщения KEEPALIVE для подтверждения, что роутер ещё работает. Это происходит с истечением таймера Keepalive – по умолчанию 60 секунд.</p><p id="ad5436df-59f3-4d6b-9484-b92be300a43e" class=""><strong>Правила анонсирования маршрутов</strong></p><p id="7a86617a-3779-4391-bfea-24cf36f70081" class="">При выборе маршрута, который должен быть отправлен соседу в сообщении Update, BGP использует такие правила:</p><ul id="2d5096fe-5b3c-411a-bb6d-8a01c3a43c5e" class="bulleted-list"><li style="list-style-type:disc">Отправлять только лучшие маршруты из таблицы BGP</li></ul><ul id="c2cfc529-6907-444d-b33b-380bec8dbac7" class="bulleted-list"><li style="list-style-type:disc">Для iBGP-соседей — не анонсировать маршруты, которые были выучены от других iBGP-соседей</li></ul><ul id="a6eafe92-6460-426d-9c9b-df81ba98da62" class="bulleted-list"><li style="list-style-type:disc">Для eBGP-соседей — не анонсировать маршруты, для которых номер автономной системы соседа уже находится в атрибуте AS path</li></ul><ul id="3a224c59-3f3b-4ba8-948e-08d57ce57e8b" class="bulleted-list"><li style="list-style-type:disc">Не анонсировать маршруты, которые отфильтрованы настройками</li></ul><p id="df3fcf0e-ff62-4731-a5c8-d6556e0db268" class=""><strong>Команда Redistribute</strong></p><p id="5d60cf0c-fdba-44cb-9059-509961ad634c" class="">Чтобы подсети в автономной системе смогли взаимодействовать с внешним миром, протокола BGP будет мало, ведь внутри AS используется IGP протокол маршрутизации, который зачастую является динамическим. Чтобы постоянно не перенастраивать правила анонсирования маршрутов через BGP, может использоваться настройка  redistribute.</p><p id="0fcd50df-f4e9-4031-b804-4d2fd4bb6365" class="">Такая настройка сообщает протоколу, что необходимо по определённым правилам взять маршруты из других динамических протоколов маршрутизации и анонсировать их соседям. На самом деле это не обязательно должны быть именно динамические маршруты – перераспределять в bgp можно и статические, и непосредственно подсоединенные маршруты, все зависит от задач сетевого администратора.</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Дополнительный материал</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+
+		.checkbox-on {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+
+		.checkbox-off {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+	</style>
+</head>
+
+<body>
+	<article id="fffaa64c-9d0a-81c4-b35e-c35575df47c9" class="page sans">
+		<header>
+			<h1 class="page-title">Дополнительный материал</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<p id="fffaa64c-9d0a-8178-b27f-ce5de328314f" class="">Обзор протоколов L3</p>
+			<h2 id="fffaa64c-9d0a-8174-b66e-e94cabf7d157" class="">IPv4, IPv6</h2>
+			<p id="fffaa64c-9d0a-81fd-ba8d-fba8eeebfb9c" class="">IP (интернет протокол) - отвечает за передачу пакета
+				данных от узла к узлу.</p>
+			<h2 id="fffaa64c-9d0a-8150-89e1-f23fd8bba770" class="">DVMRP</h2>
+			<p id="fffaa64c-9d0a-81b3-b2ed-c8b09f1117c7" class="">Distance Vector Multicast Routing Protocol (DVMRP —
+				Протокол дистанционно-векторной многоадресной маршрутизации) — протокол маршрутизации групповых
+				датаграмм для IP-сетей. Протокол предназначен для использования внутри автономных систем, то есть
+				является протоколом внутридоменной маршрутизации.</p>
+			<h2 id="fffaa64c-9d0a-8123-a02d-dd7b9ae06072" class="">ICMP</h2>
+			<p id="fffaa64c-9d0a-818c-ac1c-c47e617c3d03" class="">ICMP, который расшифровывается как Internet Control
+				Message Protocol это протокол третьего уровня модели OSI, который используется для диагностики проблем
+				со связностью в сети. Говоря простым языком, ICMP помогает определить может ли достичь пакет адреса
+				назначения в установленные временные рамки.</p>
+			<h2 id="fffaa64c-9d0a-8190-a8ce-cd1d3c9a8158" class="">IGMP</h2>
+			<p id="fffaa64c-9d0a-8167-84e4-c9287c63d87d" class="">IGMP (англ. Internet Group Management Protocol —
+				протокол управления группами Интернета) — протокол управления групповой (multicast) передачей данных в
+				сетях, основанных на протоколе IP. IGMP используется маршрутизаторами и IP-узлами для организации
+				сетевых устройств в группы. Этот протокол является частью спецификации групповой передачи пакетов в
+				IP-сетях.</p>
+			<h2 id="fffaa64c-9d0a-81b9-b06f-f8f7c30901f2" class="">IPsec</h2>
+			<p id="fffaa64c-9d0a-81bc-862f-daf3c42be935" class="">IPsec (сокращение от IP Security) —
+				набор протоколов для обеспечения защиты данных, передаваемых по межсетевому протоколу IP. Позволяет
+				осуществлять подтверждение подлинности (аутентификацию), проверку целостности и/или шифрование
+				IP-пакетов. IPsec также включает в себя протоколы для защищённого обмена ключами в сети Интернет. В
+				основном применяется для организации VPN-соединений.</p>
+			<h2 id="fffaa64c-9d0a-81bb-9980-c8275e1f1229" class="">RIP</h2>
+			<p id="fffaa64c-9d0a-81d9-91be-c015636e1865" class="">RIP протокол маршрутной
+				информации (англ. Routing Information Protocol) — один из самых простых протоколов маршрутизации.
+				Применяется в небольших компьютерных сетях, позволяет маршрутизаторам динамически обновлять маршрутную
+				информацию (направление и дальность в хопах), получая ее от соседних маршрутизаторов.</p>
+			<h2 id="fffaa64c-9d0a-8101-9ea1-d5dfd0b0aa55" class="">OSPF</h2>
+			<p id="fffaa64c-9d0a-812b-97dc-c1298ec1de92" class="">OSPF (англ. Open Shortest Path First) — протокол
+				динамической маршрутизации, основанный на технологии отслеживания состояния канала (link-state
+				technology) и использующий для нахождения кратчайшего пути алгоритм Дейкстры.</p>
+			<h2 id="fffaa64c-9d0a-81b1-acff-fd75a81206ab" class="">BGP</h2>
+			<p id="fffaa64c-9d0a-8129-a4e3-c3670b6c68c5" class="">BGP (англ. Border Gateway Protocol, протокол
+				граничного шлюза) — протокол динамической маршрутизации. Протокол BGP предназначен для обмена
+				информацией о достижимости подсетей между автономными системами (АС, англ. AS — autonomous system), то
+				есть группами маршрутизаторов под единым техническим и административным управлением,
+				использующими протокол внутридоменной маршрутизации для определения маршрутов внутри себя и протокол
+				междоменной маршрутизации для определения маршрутов доставки пакетов в другие АС.</p>
+			<p id="fffaa64c-9d0a-8175-a073-f7fd889aa200" class="">Чуть позже рассмотрим с вами подробнее такие протоколы
+				как: RIP, OSPF, BGP</p>
+			<h1 id="fffaa64c-9d0a-8126-bbaf-d8ff3a859441" class="">Inter-VLAN routing</h1>
+			<p id="fffaa64c-9d0a-818f-b0b6-fcfd8e670b3e" class="">VLAN не могут обмениваться данными без вмешательства
+				устройства маршрутизации. Всякий раз, когда узлам одной сети VLAN необходимо обмениваться данными с
+				узлами другой сети VLAN, трафик должен направляться через устройство маршрутизации. Этот процесс
+				известен как маршрутизация между VLAN. Для успешного обмена информацией между VLAN вам понадобится
+				маршрутизатор или коммутатор уровня 3. Существует три возможных способа реализации маршрутизации между
+				VLAN:</p>
+			<ul id="fffaa64c-9d0a-81f8-86ca-c7b8524e4762" class="bulleted-list">
+				<li style="list-style-type:disc">Traditional Inter-VLAN Routing</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81bf-97ba-ddf8ffd9859e" class="bulleted-list">
+				<li style="list-style-type:disc">Router-on-a-Stick Inter-VLAN Routing</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8126-b689-fca13a126734" class="bulleted-list">
+				<li style="list-style-type:disc">Multilayer Switch Inter-VLAN Routing</li>
+			</ul>
+			<p id="fffaa64c-9d0a-81ec-b402-fe11d24e735f" class=""><strong>Traditional Inter-VLAN Routing</strong></p>
+			<p id="fffaa64c-9d0a-81e7-8048-d883deda6a4d" class="">Этот метод маршрутизации между VLAN основан на
+				маршрутизаторе с несколькими физическими интерфейсами. Каждый интерфейс обычно подключается к
+				коммутатору, по одному на каждую VLAN. Порты коммутатора, подключенные к маршрутизатору, переводятся в
+				режим доступа, после чего каждый интерфейс маршрутизатора может принимать трафик из сети VLAN, связанной
+				с интерфейсом коммутатора, к которому он подключен, и трафик может направляться в другие сети VLAN,
+				подключенные к другим интерфейсам. Это означает, что каждый из IP-адресов интерфейсов маршрутизаторов
+				станет адресом шлюза по умолчанию для каждого хоста в каждой VLAN.</p>
+			<p id="fffaa64c-9d0a-81d9-bebc-d55c49d4a375" class=""><strong>Router-on-a-Stick Inter-VLAN Routing</strong>
+			</p>
+			<p id="fffaa64c-9d0a-81cd-aa04-fa1bd76bd3b4" class="">Router-on-a-stick — это метод маршрутизации между
+				VLAN, при котором маршрутизатор подключается к коммутатору с использованием одного физического
+				интерфейса, отсюда и название «router-on-a-stick». Большинство современных реализаций маршрутизации
+				между VLAN разработаны с использованием этого метода. В отличие от традиционного метода маршрутизации
+				между VLAN, Router-on-stick не требует нескольких физических интерфейсов как на маршрутизаторе, так и на
+				коммутаторе. Вместо этого операционная система маршрутизатора позволяет настроить интерфейс
+				маршрутизатора для работы в качестве транкового канала, который затем подключается к порту коммутатора,
+				настроенному в транковом режиме. Это означает, что на маршрутизаторе и коммутаторе требуется только один
+				физический интерфейс для маршрутизации пакетов между несколькими VLAN. Протокол IEEE 802.1Q (Dot1q),
+				определяющий систему маркировки VLAN для кадров Ethernet, используется для обеспечения поддержки VLAN
+				различных производителей.<br />Единственный физический интерфейс на маршрутизаторе связан с логическими
+				(виртуальными) субинтерфейсами, которые можно настроить с несколькими IP-адресами, соответствующими VLAN
+				на коммутаторе. Каждый субинтерфейс настроен для разных подсетей, соответствующих их назначению VLAN,
+				для упрощения логической маршрутизации. Маршрутизатор выполняет маршрутизацию между VLAN, принимая
+				трафик из всех VLAN. Затем он определяет сеть назначения на основе исходного и целевого IP-адресов в
+				пакетах. После принятия решения о маршрутизации на основе целевой VLAN кадры данных пересылаются на
+				коммутатор с правильной информацией о VLAN через тот же физический интерфейс, который использовался для
+				получения трафика.<br /></p>
+			<p id="fffaa64c-9d0a-81a9-92d7-eb1c1010b852" class=""><strong>Multilayer Switch Inter-VLAN Routing</strong>
+			</p>
+			<p id="fffaa64c-9d0a-81e3-846d-ddcff654c193" class="">Многоуровневый коммутатор Маршрутизация между сетями
+				VLAN — это метод маршрутизации между сетями VLAN, при котором для выполнения функций маршрутизации
+				используется коммутатор другого типа, известный как многоуровневый коммутатор. Многоуровневый коммутатор
+				— это гибридное устройство, которое сочетает в себе функции коммутатора и маршрутизатора, что позволяет
+				ему работать как на уровне 2 (L2), так и на уровне 3 (L3) модели OSI, отсюда и название
+				«многоуровневый». В отличие от метода маршрутизации между сетями VLAN на основе маршрутизатора, для
+				маршрутизации между сетями VLAN многоуровневого коммутатора не требуется выделенный маршрутизатор — все
+				происходит внутри коммутатора. Многоуровневые коммутаторы выполняют все функции маршрутизации VLAN в
+				сети, тем самым устраняя необходимость в выделенных маршрутизаторах или магистральных каналах.</p>
+			<p id="fffaa64c-9d0a-8127-a66f-e23103117406" class="">Чтобы многоуровневый коммутатор мог выполнять функции
+				маршрутизации, используются логические (виртуальные) интерфейсы, известные как Switch Virtual Interface
+				(SVI), по одному на каждую VLAN. SVI, также известный как интерфейс VLAN, представляет собой виртуальный
+				маршрутизируемый интерфейс, который соединяет VLAN на устройстве с механизмом маршрутизации уровня 3 в
+				том же устройстве и может быть настроен с несколькими IP-адресами, соответствующими VLAN на
+				коммутаторе. Каждый SVI настроен для разных подсетей, соответствующих назначенной им VLAN, для упрощения
+				логической маршрутизации.</p>
+			<h1 id="fffaa64c-9d0a-819d-ba1e-dfaf7f3ef2f4" class="">Принципы маршрутизации</h1>
+			<p id="fffaa64c-9d0a-814e-a1c8-dafe6a730f8a" class="">Маршрутизация (Routing) — это процесс по
+				определению/вычислению лучшего маршрута движения для данных в сетях связи. Есть еще второе определение —
+				это передача пакетов данных от отправителя к получателю.</p>
+			<p id="fffaa64c-9d0a-81f6-8e72-c9568e705964" class="">Сами маршруты могут быть статическими — задаются
+				административно, или динамическими, т.е. рассчитываться по специальным алгоритмам-протоколам, которые
+				базируются на данных о топологии и состоянии сети.<br />Для маршрутизации пакета маршрутизатор должен
+				владеть следующей информацией:<br /></p>
+			<ul id="fffaa64c-9d0a-8162-8463-e197eadc0883" class="bulleted-list">
+				<li style="list-style-type:disc">Адрес назначения</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-819e-867b-fe9291caaaaa" class="bulleted-list">
+				<li style="list-style-type:disc">Соседний маршрутизатор, от которого он может узнать об удаленных сетях
+				</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8139-ae38-ed8c53d27cfc" class="bulleted-list">
+				<li style="list-style-type:disc">Доступные пути ко всем удаленным сетям</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81a8-99a5-c3d480f693d8" class="bulleted-list">
+				<li style="list-style-type:disc">Наилучший путь к каждой удаленной сети</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81b4-97c9-d452346f811a" class="bulleted-list">
+				<li style="list-style-type:disc">Методы обслуживания и проверки информации о маршрутизации</li>
+			</ul>
+			<p id="fffaa64c-9d0a-810c-b927-dfb8c6f0afd2" class="">Ранее упоминались такие протоколы как RIP, OSPF и BGP.
+				Это протоколы динамической маршрутизации. Далее рассмотрим что такое таблица маршрутизации и как в ней
+				выглядят статические и динамические маршруты.</p>
+			<p id="fffaa64c-9d0a-8149-b594-fb2fdb136582" class=""><strong>Таблица маршрутизации</strong></p>
+			<figure id="fffaa64c-9d0a-810a-bc62-e459fb6a9a53" class="image"><a
+					href="Дополнительный материал/Untitled.png"><img
+						style="width:707.984375px"
+						src="Дополнительный материал/Untitled.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-81b8-be88-f9ebd0d60d57" class="">Вот таким образом таблица маршрутизации изображается
+				на роутерах вендора cisco. На маршрутизирующих устройствах других вендоров суть таблицы будет
+				аналогичной, просто с немного отличающимся графическим выводом.</p>
+			<p id="fffaa64c-9d0a-8138-b27f-faba2a9246fb" class="">В таблице перечислены обозначения маршрутов, в данном
+				примере символами С в таблице маршрутизации помечены непосредственно присоединенные к маршрутизатору
+				сети, а символом S - созданные администратором статические маршруты к удаленным сетям.<br />Так же можно
+				заметить такие возможные обозначения маршрутов как – O – маршрут, полученный по протоколу OSPF, R –
+				получен про протоколу RIP, B – BGP маршрут и так далее.<br /></p>
+			<p id="fffaa64c-9d0a-817c-9724-d6ceb2ad79e8" class=""><strong>Трассировка маршрутов</strong></p>
+			<p id="fffaa64c-9d0a-81e5-9edb-f877941dfcb1" class="">Для того, чтобы понять, как пакет данных путешествует
+				по сети от адреса отправителя до адреса получателя, применяется трассировка.</p>
+			<p id="fffaa64c-9d0a-8126-abcc-c17910a33062" class="">Трассировка маршрута пакета до сетевого хоста
+				показывает все промежуточные узлы, через которые проходит пакет, пока доберётся до указанной цели. То
+				есть с помощью трассировки можно узнать, по каким узлам, с какими IP адресами, передаётся пакет прежде
+				чем быть доставленным до точки назначения.</p>
+			<p id="fffaa64c-9d0a-810d-a18f-e4f82f35f485" class="">Трассировка может применяться для выявления связанных
+				с работой компьютерной сети проблем, а также для исследования сети (определения структуры сети, поиска
+				промежуточных сетевых узлов).</p>
+			<p id="fffaa64c-9d0a-812d-8eac-f1b4e10bfd70" class="">Трассировка работает следующим
+				образом:<br />Пересылаемые сетевые пакеты состоят из двух областей: заголовки и данные. В заголовках
+				находится разная информация, например, IP адреса пункта отправки и пункта назначения, порты отправки и
+				назначения, тип пакета, контрольная сумма пакета и прочее. Среди полей заголовка, у IP протокола есть
+				такое поле как time to live (TTL) — время жизни пакета. Это счётчик с числом, которое уменьшается на
+				единицу каждый раз, когда пакет проходит новый узел. Этот счётчик сделан для того, чтобы проблемный
+				пакет (например, при ошибке, повлекшей закольцованный маршрут) не путешествовал по сети
+				бесконечно.<br /></p>
+			<p id="fffaa64c-9d0a-811d-8ddb-c179fa4a056d" class="">То есть любой пакет пройдя определённое количество
+				узлов в конце-концов достигнет точки назначения или будет отброшен одним из узлов сети, когда закончится
+				«время жизни».<br />Когда счётчик TTL становится равным нулю, очередной шлюз просто не пересылает этот
+				пакет дальше. Но при этом шлюз на тот IP адрес, откуда пришёл пакет с истёкшим временем жизни,
+				отправляет по протоколу ICMP ответ TIME_EXCEEDED (время жизни кончилось). И этот ответ содержит IP адрес
+				шлюза, где пакет закончил своё существование.<br /></p>
+			<p id="fffaa64c-9d0a-81bd-aa1f-e20a6f7bf722" class="">Так вот, суть трассировки в том, что отправляется один
+				пакет с временем жизни (TTL) установленным на единицу — первый шлюз уменьшает значение на единицу,
+				смотрит, что счётчик стал равен нулю, никуда не отправляет этот пакет, зато нам отправляет ответ, что
+				пакет отброшен. Из этого ответа нас интересует только IP адрес шлюза, где с пакетом случилось это
+				несчастье. Затем отправляется пакет со счётчиком установленным на 2 — пакет проходит первый шлюз (его IP
+				мы уже знаем), но теперь счётчик достигает нуля уже на втором шлюзе — мы получаем ICMP ответ с IP этого
+				шлюза. Затем отправляется следующий пакет и так далее, пока не будут определены все узлы до нужного нам
+				сетевого хоста.</p>
+			<h2 id="fffaa64c-9d0a-818f-a84f-f4d7b7b943c0" class="">Основы статической маршрутизации</h2>
+			<p id="fffaa64c-9d0a-817d-9484-c6ee58051f1f" class="">Статическая маршрутизация — вид маршрутизации, при
+				котором маршруты вручную указываются администратором при настройке маршрутизатора</p>
+			<p id="fffaa64c-9d0a-8168-9432-f94ed6c14780" class="">Статические маршруты полностью определены
+				администратором, поэтому они более безопасны, Однако сети, использующие статическую маршрутизацию, плохо
+				масштабируемы, при изменении топологии требуется внесение изменений администратором в конфигурацию, что
+				может приводить к ошибкам.</p>
+			<p id="fffaa64c-9d0a-810b-b0ef-e034d709194f" class=""><strong>Типы статических маршрутов</strong></p>
+			<ul id="fffaa64c-9d0a-8182-b05c-fd67a3ba2ecb" class="bulleted-list">
+				<li style="list-style-type:disc">Стандартный статический маршрут – настроенный вручную маршрут, который
+					перенаправляет трафик в определённую сеть</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81ee-8df0-d7074914e3fc" class="bulleted-list">
+				<li style="list-style-type:disc">Шлюз по умолчанию — сетевой шлюз на который пакет отправляется в том
+					случае, если маршрут к сети назначения пакета не известен (не задан явным образом в таблице
+					маршрутизации хоста)</li>
+			</ul>
+			<p id="fffaa64c-9d0a-8129-bbf9-fbe6fc4933bc" class="">Статический маршрут по умолчанию обычно используется в
+				качестве шлюза последней надежды, который используется для любого пакета, не имеющего маршрута
+				назначения в таблице маршрутизации. Пунктом назначения в таких случаях часто является Интернет. Адрес
+				маршрута по умолчанию 0.0.0.0/0 означает любые адреса сетей с любыми масками.</p>
+			<p id="fffaa64c-9d0a-819d-b1ba-c8f5dd7872b9" class=""><strong>Настройка статической маршрутизации</strong>
+			</p>
+			<p id="fffaa64c-9d0a-8128-9969-f5f6122bedbf" class="">Для настройки статического маршрута необходимо
+				определить несколько параметров:</p>
+			<p id="fffaa64c-9d0a-81c7-a744-e31ba82ca164" class=""><strong>Первый</strong> – адрес подсети назначения.
+				Если в заголовке ip адреса назначения приходящего ip пакет на интерфейс роутера будет ip адрес, входящий
+				в указанную сеть, то тогда роутер применит такое правило маршрутизации на пакет</p>
+			<p id="fffaa64c-9d0a-811d-9a39-f75dcbc1a5b0" class=""><strong>Второй</strong> – маска подсети. Она будет
+				определять диапазон адресов, в рамках которого проверяются приходящие пакеты</p>
+			<p id="fffaa64c-9d0a-814a-811d-d47ce0b5b3b9" class="">И <strong>третий</strong> – ip адрес шлюза. Этот
+				параметр определяет, на какой из соседних роутеров направить приходящий трафик для дальнейшей
+				маршрутизации.</p>
+			<p id="fffaa64c-9d0a-8128-947a-ee8ec4e3d9a7" class="">Формат команды:</p>
+			<p id="fffaa64c-9d0a-81a7-b851-e56affcc8609" class=""><em>Router(config)#ip route
+					&lt;destination-network&gt; &lt;mask&gt; &lt;next-hop&gt;</em></p>
+			<p id="fffaa64c-9d0a-8195-8fe2-f7b269c0917f" class=""><strong>Суперсеть</strong></p>
+			<p id="fffaa64c-9d0a-8187-9cbe-f61de74f9eec" class="">Суперсеть - это сеть интернет-протокола (IP), которая
+				формируется путем объединения нескольких сетей (или подсетей) в более крупную сеть</p>
+			<figure id="fffaa64c-9d0a-81d0-9da3-e3b11b50afa2" class="image"><a
+					href="Дополнительный материал/Untitled%201.png"><img
+						style="width:384px"
+						src="Дополнительный материал/Untitled%201.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-81e0-b3a4-fd8900674691" class=""><strong>Рассмотрим пример</strong><br />У нас имеется
+				сеть как на схеме и стоит задача настроить статическую маршрутизацию.<br />Что бы PC1 знал как добраться
+				до PC2, PC3, PC4 ему придётся прописывать сети 18.20.1.0/24, 18.20.2.0/24 и 18.20.3.0/24. Но мы можем
+				упростить себе задачу, объединив эти сети в суперсеть.<br />Как это сделать? У нас имеются три сети с
+				маской 255.255.255.0, т.е. включают в себя 256 ip-адресов (первый адрес сети, последний
+				широковещательный) каждая. Если мы хотим объединить их в одну сеть, нам нужна сеть содержащая: 254 хоста
+				с одной сети + 254 хоста со второй сети + 254 хоста с третьей сети + 1 адрес на саму сеть + 1
+				широковещательный адрес. Итого минимум нам необходимо 764 ip адреса на конкретном примере. Таким образом
+				мы можем подобрать маску нашей суперсети. /22, /21, /20 и т.д. включают в сеть нужное количество
+				адресов. Возьмём, например, маску 255.255.252.0 (/22), а далее дело за ip калькулятором.<br /></p>
+			<figure id="fffaa64c-9d0a-81cd-9ad0-ed0ae4c77213" class="image"><a
+					href="Дополнительный материал/Untitled%202.png"><img
+						style="width:707.984375px"
+						src="Дополнительный материал/Untitled%202.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-8138-a601-ea0de9a15168" class="">В поле ip адрес указываем нашу сеть, в выпадающем
+				списке «Маска» - 22 маску и нажимаем подсчитать. Получаем что наша суперсеть – 18.20.0.0/22. Это сеть,
+				которая включает ip адреса от 18.20.0.1 до 18.20.3.254, т.е. объединяет все необходимые нам
+				сети.<br />Так три строчки «ip route …» превращаются в одну.<br /></p>
+			<p id="fffaa64c-9d0a-8186-9c6d-ef844a55e416" class=""><strong>Достоинства и недостатки статической
+					маршрутизации</strong></p>
+			<p id="fffaa64c-9d0a-8181-8f15-fd7169812c62" class="">К преимуществам можно отнести:</p>
+			<ul id="fffaa64c-9d0a-8112-b7aa-eaa5bbab8a13" class="bulleted-list">
+				<li style="list-style-type:disc">Простоту настройки</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81f6-afc5-f31269a2c729" class="bulleted-list">
+				<li style="list-style-type:disc">Отсутствие дополнительной нагрузки на сеть</li>
+			</ul>
+			<p id="fffaa64c-9d0a-8122-8ca2-ffe2b4f2cdaf" class="">К недостаткам относится:</p>
+			<ul id="fffaa64c-9d0a-8196-867f-d99312df7214" class="bulleted-list">
+				<li style="list-style-type:disc">Сложность масштабирования</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-815d-8c99-f48d6a6eec1c" class="bulleted-list">
+				<li style="list-style-type:disc">При возникновении каких-либо изменений в сети, как правило потребуется
+					вмешательство администратора и настройка новых, актуальных статических маршрутов</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-814d-a6ca-f90fc5f75104" class="bulleted-list">
+				<li style="list-style-type:disc">Если возникают проблемы на канальном уровне, но интерфейс по-прежнему в
+					статусе up, то статический маршрут остается активным, хотя данные передаваться не могут</li>
+			</ul>
+			<h2 id="fffaa64c-9d0a-81ef-b4f2-f21c3fbf2dd5" class="">Основы динамической маршрутизации</h2>
+			<p id="fffaa64c-9d0a-818e-80a2-e776868b84e3" class="">Динамическая маршрутизация — вид маршрутизации, при
+				котором таблица маршрутизации редактируется программно</p>
+			<p id="fffaa64c-9d0a-819f-9bee-efe38b195920" class="">Динамические протоколы делят на две группы: </p>
+			<ul id="fffaa64c-9d0a-819a-902c-ddc8c1d2cad3" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>EGP</strong> (External Gateway Protocol) - внешний протокол
+					маршрутизации для использования между AS. В группу входят - <strong>BGP</strong></li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8138-9d2e-e20f20838255" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>IGP</strong> (Interior Gateway Protocol) - внутреннего
+					протокола маршрутизации для использования внутри AS. В группу входят - <strong>RIP, OSPF</strong>
+				</li>
+			</ul>
+			<h3 id="fffaa64c-9d0a-81e9-bc2a-c1e2c23c64a8" class="">Протокол RIP</h3>
+			<p id="fffaa64c-9d0a-8103-b5aa-fa23a8ab201a" class="">Один из самых простых протоколов маршрутизации –
+				Протокол маршрутной информации (Routing Information Protocol, он же RIP - протокол маршрутизации на
+				основе вектора расстояния). Этот протокол применяется в небольших компьютерных сетях и позволяет
+				маршрутизаторам динамически обновлять маршрутную информацию, получая ее от соседних маршрутизаторов.</p>
+			<p id="fffaa64c-9d0a-8120-b4cd-de2c8e4a6350" class=""><strong>Метрика</strong></p>
+			<p id="fffaa64c-9d0a-81de-b43d-de7755e4fd6c" class="">Для определения наилучшего маршрута используется
+				Метрика. Метрика – это условная стоимость передачи по сети. Полное измерение конкретного маршрута равно
+				сумме метрик сетей, которые включают в себя маршрут. Маршрутизатор всегда выбирает маршрут с наименьшей
+				метрикой.</p>
+			<p id="fffaa64c-9d0a-814b-8071-ef9067242a72" class="">Некоторые простые протоколы, такие, как RIP,
+				рассматривают все сети как одинаковые. Для измерения расстояния между сетью-источником и
+				сетью-получателем RIP использует единую метрику — количество переходов. Один переход – это действие
+				прохода трафика через один роутер. Еще проход называют хопом.</p>
+			<p id="fffaa64c-9d0a-813c-a7e6-f3924d3a4315" class="">При получении сообщения об обновлении маршрутов с
+				новой или измененной записью о сети-получателе маршрутизатор добавляет единицу к значению метрики,
+				указанному в сообщении и обновляет свою таблицу маршрутизации, включая в нее новый маршрут. IP-адрес
+				отправителя используется в качестве следующего перехода.</p>
+			<p id="fffaa64c-9d0a-8108-aff6-db3282b79a27" class="">В первой версии протокола RIP не было даже
+				аутентификации – роутеры верили всем анонсам от соседей и их легко было обмануть, обрушив маршрутизацию
+				по всей сети или направив нужный трафик в сторону компьютера злоумышленника.</p>
+			<p id="fffaa64c-9d0a-8174-9c8a-e2b3295021b4" class="">Недочеты попытались устранить во второй версии
+				протокола. Добавили возможность аутентификации для подтверждения легитимности роутеров в сети, а так же
+				добавили возможность работы с масками подсетей.</p>
+			<p id="fffaa64c-9d0a-81bd-b8fa-ebf14b61dd12" class=""><strong>Обмен информацией</strong></p>
+			<p id="fffaa64c-9d0a-815b-b179-f0aeeae75ed8" class="">Используя вектор расстояния маршрутизации, каждый
+				маршрутизатор периодически делится своей информацией об известных ему сетях со своими соседями.</p>
+			<p id="fffaa64c-9d0a-8146-bdf4-ccb6159c0542" class="">Существует три основных принципа процесса обмена
+				информацией:</p>
+			<ol type="1" id="fffaa64c-9d0a-8199-8d92-efcc800a743e" class="numbered-list" start="1">
+				<li> Распределение информации о существующих сетях в автономной системе. Каждый маршрутизатор
+					распределяет информацию об известных сетях соседним маршрутизаторам.</li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-8120-8763-e637ea85c259" class="numbered-list" start="2">
+				<li>Распределение только своим соседям. Каждый маршрутизатор посылает свою информацию только к соседям,
+					а не всем существующим роутерам. Он посылает информацию через все свои подключенные интерфейсы.</li>
+			</ol>
+			<ol type="1" id="fffaa64c-9d0a-8172-bcfe-c4313235d8ed" class="numbered-list" start="3">
+				<li>Распределение через регулярные интервалы. Каждый маршрутизатор посылает свою информацию соседним
+					роутерам через фиксированные интервалы, в протоколе RIP это каждые 30 секунд</li>
+			</ol>
+			<p id="fffaa64c-9d0a-8131-9b6b-eb3c8812e5d5" class=""><strong>Обновление таблицы маршрутизации</strong></p>
+			<p id="fffaa64c-9d0a-81ee-bea1-ceb61768d02a" class="">Когда на роутерах включен протокол динамической
+				маршрутизации, они постоянно обмениваются информацией о том, какие маршруты в какие сети знают. Маршруты
+				могут быть как с большой метрикой, так и с маленькой. Логично, что для оптимальной работы сети нужно
+				выделить те маршруты, метрика которых минимальна. Поэтому если изначально роутер узнал о том, что до
+				одной сети можно добраться с помощью пяти хопов, а потом его сосед прислал ему обновление, содержащее
+				информацию о достижимости этой сети через два хопа, то роутер должен обновить свою таблицу
+				маршрутизации. Он удалит изначальный длинный маршрут, заменив его более коротким.</p>
+			<p id="fffaa64c-9d0a-8133-a3fd-ebde3addd92e" class=""><strong>Формат сообщения</strong></p>
+			<p id="fffaa64c-9d0a-8188-b8b8-d2d2584f5f42" class="">
+			</p>
+			<figure id="fffaa64c-9d0a-81d8-b456-e9335fedbd8c" class="image"><a
+					href="Дополнительный материал/check.png"><img
+						style="width:707.984375px"
+						src="Дополнительный материал/check.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-8165-ba3e-d2d7b9403046" class="">Каждая таблица маршрутизации обновляется по сигналу
+				RIP-сообщения, используя определенный RIP-алгоритм обновления.</p>
+			<p id="fffaa64c-9d0a-814a-acd8-d4724e319ea9" class="">У протокола RIP стандартизованы сообщения, которые
+				роутер отправляет своим соседям с целью поделиться знанием о тех или иных сетях. Рассмотрим заголовки
+				такого сообщения.</p>
+			<ul id="fffaa64c-9d0a-8194-bfff-df51d07e77c5" class="bulleted-list">
+				<li style="list-style-type:disc">Команда. Это поле длиной 8 бит задает тип сообщения: запрос (1) или
+					ответ (2).</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-816e-b043-e723f4f02a7c" class="bulleted-list">
+				<li style="list-style-type:disc">Версия. Это поле длиной 8 бит определяет версию протокола RIP.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8163-856f-feb3b6d4a7d4" class="bulleted-list">
+				<li style="list-style-type:disc">Семейство. Это поле длиной 16 бит определяет семейство используемых
+					протоколов. Для TCP/IP значение равно 2.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81e8-9170-c6d453876a06" class="bulleted-list">
+				<li style="list-style-type:disc">Адрес сети. Поле адрес определяет адрес пункта назначения. RIP отводит
+					14 байт для этого поля в приложении к любым протоколам. Однако IP в настоящее время использует
+					только 4 байта. Остаток адреса заполняется нулями.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81a1-9d62-e0c32eb48b98" class="bulleted-list">
+				<li style="list-style-type:disc">Расстояние. Это поле длиной 32 бита определяет расстояние до сети
+					назначения, которая объявлена в поле адрес сети.</li>
+			</ul>
+			<p id="fffaa64c-9d0a-81dc-922c-d2b7f66ec900" class="">Рассмотрим новые заголовки, появившиеся во второй
+				версии протокола RIP:</p>
+			<ul id="fffaa64c-9d0a-81ee-8ee6-eddae0a4ff7d" class="bulleted-list">
+				<li style="list-style-type:disc">Тэг маршрута. Это поле переносит такую информацию, как номер автономной
+					системы. Он может использоваться для обеспечения возможности RIP получать информацию от внешнего
+					протокола маршрутизации.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-819f-977d-fd6bb03cd709" class="bulleted-list">
+				<li style="list-style-type:disc">Маска подсети. Это поле в 4 байта, которое несет маску к подсети (или
+					префикс). Это означает, что RIP2 поддерживает классическую адресацию и бесклассовую междоменную
+					маршрутизацию CIDR (Classless Inter Domain Routing).</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81e7-a0fe-fd260f6b439d" class="bulleted-list">
+				<li style="list-style-type:disc">Адрес следующего участка. Он используется, например, если две
+					автономных системы вместе используют одну сеть. По этому сообщению можно определить маршрутизатор
+					той же самой системы или другой автономной системы, к которому должен пройти пакет.</li>
+			</ul>
+			<p id="fffaa64c-9d0a-81cb-afbb-eb2571793308" class=""><strong>Аутентификация RIP версии 2</strong></p>
+			<p id="fffaa64c-9d0a-8170-b5fe-d78f30ee1d35" class="">Поле «Тег маршрута» переименовывается в поле «Тип
+				аутентификации», которое для аутентификации по паролю принимает значение, равное 2. Далее следуют 16
+				байтов информации, содержащие пароль. Если пароль занимает менее 16 байт, он дополняется нулями. Если же
+				пароль имеет длину более 16 байт, для аутентификации используются первые 16 байт.</p>
+			<p id="fffaa64c-9d0a-8165-a530-c93faf42ec58" class="">Изначально использовались текстовые пароли для
+				аутентификации, которые легко было перехватить. Потом ввели возможность аутентификации по хешу
+				пароля.<br />Но даже такие технологии не спасли протокол RIP. Сейчас он уже почти не используется ввиду
+				большого количества недостатков.<br /></p>
+			<p id="fffaa64c-9d0a-811a-941a-d32e537fe298" class=""><strong>Таймеры RIP</strong></p>
+			<p id="fffaa64c-9d0a-8163-9b09-f5f3609c258f" class="">В протоколе RIP существует несколько разных таймеров.
+			</p>
+			<ul id="fffaa64c-9d0a-8145-9a4b-fe08bbe76a38" class="bulleted-list">
+				<li style="list-style-type:disc">Update timer — частота отправки обновлений протокола, по истечению
+					таймера отправляется обновление. По умолчанию равен 30 секундам.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81e1-91f4-cedad4c14ac1" class="bulleted-list">
+				<li style="list-style-type:disc">Invalid timer — Если обновление о маршруте не будет получено до
+					истечения данного таймера, маршрут будет помечен как Invalid, то есть с метрикой 16. Такой маршрут
+					считается недостижимым. По умолчанию таймер равен 180 секундам.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81db-b988-e1949c5232a5" class="bulleted-list">
+				<li style="list-style-type:disc">Flush timer (или garbage collection timer) — По умолчанию таймер равен
+					240 секундам, на 60 больше чем invalid timer. Если данный таймер истечет до прихода обновлений о
+					маршруте, маршрут будет исключен из таблицы маршрутизации. Если маршрут удален из таблицы
+					маршрутизации то, соответственно, удаляются и остальные таймеры, которые ему соответствовали.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-819c-aaf1-ec0614436075" class="bulleted-list">
+				<li style="list-style-type:disc">Holddown timer — Запуск таймера произойдет после того, как маршрут был
+					помечен как недостижимый. До истечения данного таймера маршрут будет находиться в памяти для
+					предотвращения образования маршрутной петли и по этому маршруту передается трафик. По умолчанию
+					равен 180 секундам. Таймер не является стандартным, добавлен в реализации Cisco.</li>
+			</ul>
+			<p id="fffaa64c-9d0a-816d-bf2b-cef0e1710108" class=""><strong>Расщепление горизонта</strong></p>
+			<p id="fffaa64c-9d0a-81cb-bee8-d76ac25bf8a0" class="">Для оптимизации и предотвращения петель маршрутизации
+				в протоколе RIP был разработан метод Расщепление горизонта.</p>
+			<p id="fffaa64c-9d0a-812b-b2ac-eed2d30647da" class="">Петли маршрутизации в основном возникают из-за
+				медленной сходимости этого дистанционно-векторного протокола маршрутизации.</p>
+			<p id="fffaa64c-9d0a-815f-b797-f9e4152c1ceb" class="">Правило расщеплённого горизонта говорит, что
+				маршрутизатор не должен распространять информацию о сети через интерфейс, в которых прибыло обновление
+				об этой сети.<br />Обычно роутеры по протоколу RIP обмениваются своей полной таблицей маршрутизации.
+				Получается, если роутер два отправит роутеру один информацию о подсети двадцать, то роутер один будет
+				отправлять роутеру два информацию об этой же сети, достижимой через него. Роутер два такую информацию не
+				примет, так как знает, что до этой сети ему ближе идти через свой непосредственно подсоединенный
+				интерфейс. Но получается, что мы лишний раз нагружаем сеть ненужной информацией. Правило расщеплённого
+				горизонта даст понимание роутеру 1, что раз от получил анонс от второго роутера про подсеть двадцать, то
+				этому же второму роутеру можно не посылать часть таблицы маршрутизации с подсетью двадцать – ведь второй
+				и так про нее знает.<br /></p>
+			<p id="fffaa64c-9d0a-8187-b832-fa03f962abcc" class=""><strong>Поглощение ответа</strong><br />Поглощение
+				ответа – вариант &quot;расщепленного горизонта&quot;. В этом методе информация, полученная
+				маршрутизатором, используется маршрутной таблицей и затем передается всем интерфейсам. Однако вход
+				таблицы, который получил информацию через интерфейс, устанавливает для этого интерфейса метрику 16 и
+				исключает его из процесса рассылки обновления.<br /></p>
+			<p id="fffaa64c-9d0a-81b1-a4f7-ecd5114e3a3d" class=""><strong>Недостатки протокола</strong></p>
+			<p id="fffaa64c-9d0a-81b0-b784-eb0d61caef1a" class="">Получается, протокол RIP весьма несовершенен.
+				Резюмируем основные недостатки этого протокола:</p>
+			<p id="fffaa64c-9d0a-8138-a4f0-ea9b065a3d3c" class=""><strong>Первый недостаток </strong>– медленная
+				сходимость.</p>
+			<p id="fffaa64c-9d0a-81a8-bdf4-ef81f7db3990" class=""><strong>Второй недостаток</strong> – проблема
+				масштабирования из-за ограничения метрики маршрута.</p>
+			<p id="fffaa64c-9d0a-8189-b90d-ebf43f0555d0" class="">И <strong>третий недостаток</strong> – RIP работает
+				только с классовой адресацией. То есть ничего не знает про разнообразие масок подсетей. Для него есть
+				лишь классы сетей, которые соответствуют современным маскам /8, /16 и /24.</p>
+			<h3 id="fffaa64c-9d0a-81c2-be51-e81e5ea784f9" class="">Протокол OSPF</h3>
+			<p id="fffaa64c-9d0a-817c-84e2-eee1a67ecda2" class="">OSPF (Open Shortest Path First) — протокол
+				динамической маршрутизации</p>
+			<ul id="fffaa64c-9d0a-8104-b5d2-c768e3bd5ce7" class="bulleted-list">
+				<li style="list-style-type:disc">Создан IETF в 1988 году</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8135-b2a8-c2db17de1257" class="bulleted-list">
+				<li style="list-style-type:disc">OSPFv2 это текущая версия для IPv4</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8106-aa48-fd2eaf853a0e" class="bulleted-list">
+				<li style="list-style-type:disc">IGP-протокол: используется для передачи информации между
+					маршрутизаторами в пределах одной автономной системы</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81e6-a581-e99154fbadd0" class="bulleted-list">
+				<li style="list-style-type:disc">Основан на технологии link-state</li>
+			</ul>
+			<figure id="fffaa64c-9d0a-8135-ab15-f1b2aaa8dcd0" class="image"><a
+					href="Дополнительный материал/Untitled%203.png"><img
+						style="width:432px"
+						src="Дополнительный материал/Untitled%203.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-81e3-853f-d6729683760b" class="">Отличий у OSPF и ранее рассмотренного RIP на самом
+				деле много. Если RIP ориентировался при создании метрики только на количество переходов между роутерами,
+				то OSPF использует более верную технику – он создает метрику на основе пропускной способности канала.
+				Такая метрика называется cost – цена маршрута. Алгоритм протокола рассчитывает суммарное значение
+				метрики всех соединений через сеть. Меньшее число указывает лучший маршрут.<br />На рисунке видно, что
+				роутеры R1 и R2 соединены через десяти мегабитные интерфейсы. А связь между роутерами R1 и R3, так же
+				как и связь между R2 и R3 проложена с помощью ста мегабитного канала. Если роутеры настроены по
+				протоколу OSPF, то трафик от R1 к R2 пойдет через роутер R3 – а все потому, что канал шире. А значит,
+				можно передать большее количество данных за единицу времени. Если бы мы использовали RIP, то роутеры бы
+				недолго думая направляли бы трафик по ближайшему пути.<br /></p>
+			<p id="fffaa64c-9d0a-81a1-a702-c10157d6f3ca" class=""><strong>LSDB</strong></p>
+			<p id="fffaa64c-9d0a-8143-992d-c1aabb53f5d8" class="">Способность быстро находить наикратчайшие пути в любые
+				сети топологии и знать обо всех возможных связях между роутерами в протоколе ospf достигается за счет
+				построения специальной базы LSDB – Link State Data Base. База LSDB будет содержать в себе информацию о
+				маршрутах. То есть вообще обо всех возможных маршрутах в сети. Как ранее уточнялось, OSPF является
+				внутренним протоколом маршрутизации. И теперь постепенно становится понятно, почему при его то
+				популярности ospf не используют как внешний протокол маршрутизации. Ведь во внешней сети, то есть сети
+				интернет, миллионы роутеров, хранить все маршруты между которыми физически невозможно.</p>
+			<p id="fffaa64c-9d0a-8108-86bc-c7a6afc6ae7c" class=""><strong>Процесс OSPF</strong></p>
+			<p id="fffaa64c-9d0a-81e7-9c17-e2a5dcea6ed5" class="">Для установки соединения и обмена информацией в
+				рассматриваемом протоколе используется несколько типов пакетов.</p>
+			<p id="fffaa64c-9d0a-8153-bb5d-f172d569a3ac" class=""><strong>Первый пакет – Hello.</strong> Такой пакет
+				используется, чтобы устанавливать и поддерживать отношения смежности между соседними устройствами. В
+				этом пакете есть два специальных интервала. Первый интервал, он же hello интервал, определяет, как часто
+				будут отправляться hello пакеты соседям. По умолчанию равен десяти секундам. А второй, dead interval,
+				определяет период времени, по прохождению которого, сосед считается недоступным, если от него не
+				приходило Hello пакетов. По умолчанию равен сорока секундам.</p>
+			<p id="fffaa64c-9d0a-81a3-97d7-db6600fdb0cf" class=""><strong>Второй пакет – DataBase Description,
+					DBD.</strong> С его помощью роутеры обмениваются информацией о том, какие сети они знают. В этом
+				пакете нет полного описания сети с метрикой и прочими параметрами – только адреса подсетей.</p>
+			<p id="fffaa64c-9d0a-81f6-bf48-f6764d3d71a4" class=""><strong>Третий пакет – Link-State Request,
+					LSR.</strong> Это запрос на обновление своей базы данных маршрутов.</p>
+			<p id="fffaa64c-9d0a-814f-a9eb-d61eeef270a6" class=""><strong>Четвертый пакет – Link-State Update,
+					LSU.</strong> Он нужен для отправки детальных данных о маршрутах, которые знает роутер.</p>
+			<p id="fffaa64c-9d0a-81f5-956a-c1f55894d908" class=""><strong>Пятый пакет – Link-State Acknowledgment,
+					LSAck.</strong> Используется для подтверждения получения информации. OSPF не использует транспортный
+				уровень и инкапсулируется в IP протокол, поэтому протоколу нужен свой собственный механизм подтверждения
+				доставки.</p>
+			<p id="fffaa64c-9d0a-81cd-b9c1-c5ecb471bffc" class="">Теперь перейдем к процессу создания базы LSBD и к
+				процессу работы протокола OSPF.</p>
+			<p id="fffaa64c-9d0a-8108-8833-daa69f070855" class="">Первое, что происходит в сети при запуске процесса
+				OSPF на роутерах – обмен пакетами Hello. TTL таких пакетов равен одному, поэтому hello получат только
+				непосредственно подсоединенные роутеры. Они не смаршрутизируют эту информацию дальше, а аналогичным
+				способом будут рассылать свои hello соседям.<br />Hello- пакеты содержат идентификатор устройства
+				(Router ID), который по сути является адресом одного из интерфейсов маршрутизатора. IP адреса
+				маршрутизирующих устройств в сети не повторяются, что обеспечивает уникальную идентификацию каждого
+				роутера.<br />Ещё такие пакеты содержат информацию об адресе известных роутеру соседях, интервалах hello
+				и Dead, номере зоны, адресах DR и BDR. Последние два параметра рассмотрим чуть дальше, чтобы не нарушать
+				последовательность повествования.<br /></p>
+			<p id="fffaa64c-9d0a-81e2-bc38-cf91d9e9958c" class="">После того, как роутеры обменяются hello-пакетами со
+				своими соседями, они добавят router id соседей в свой список соседей.</p>
+			<p id="fffaa64c-9d0a-8102-a99c-c5a0a691c1cf" class="">Следующих шаг – обмен сообщениями DBD. Эти сообщения
+				содержат описание Link State Data Base. Роутер сообщает своим соседям о том, какие подсети знает сам. В
+				ответ на сообщение DBD роутер, получивший эту информацию, отправляет сообщение подтверждения LSAck.</p>
+			<p id="fffaa64c-9d0a-8117-8d72-c9878d85cc53" class="">Теперь роутеры, получив информацию от других про
+				знание подсетей, проверяют, есть ли эти подсети в их базе данных LSDB. Если информации в базе нет, то
+				роутер запрашивает у соседа подробную информацию о неизвестной подсети. Делает он это с помощью запроса
+				Link-State Request.</p>
+			<p id="fffaa64c-9d0a-8190-bdb6-d1280af0439e" class="">Как только роутеры обменяются информацией между собой,
+				они перейдут в состояние Full State. По окончании процесса база LSDB у всех роутеров должна быть
+				одинакова.</p>
+			<p id="fffaa64c-9d0a-8103-9252-f1398b83233b" class="">При этом маршрутизация между известными сетями по
+				прежнему не происходит. Да, LSDB заполнена информацией о всех подсетях, но в таблице маршрутизации пока
+				что ничего нет. Роутеру нужно найти наикратчайшие маршруты до подсетей и только потом поместить эти
+				маршруты в таблицу маршрутизации устройства.</p>
+			<p id="fffaa64c-9d0a-81c0-8067-f7692a8d83fd" class="">Чтобы выбрать такие маршруты, используется алгоритм
+				Дейкстры. Суть этого алгоритма в нахождении кратчайших путей от одной из вершин графа до всех остальных.
+				А сеть маршрутизации как раз и представляет из себя такой граф.</p>
+			<p id="fffaa64c-9d0a-81a9-b082-cafcbe33323d" class="">После того, как алгоритм выберет лучшие пути в графе
+				от каждой из вершин до всех остальных, такие пути поместятся в таблицу маршрутизации и сеть начнет
+				работать.<br />Теперь каждые 10 секунд каждый маршрутизатор будет отправлять Hello-пакеты, чтобы
+				подтвердить, что он работает.<br /></p>
+			<p id="fffaa64c-9d0a-81b3-928e-c4d34a3da08b" class=""><strong>Зоны OSPF</strong></p>
+			<p id="fffaa64c-9d0a-8179-85a1-cab6a7bdbc05" class="">Как уточнялось ранее, в hello пакетах присутствует
+				параметр номера зоны. Настало время рассмотреть, для чего он предназначен.</p>
+			<p id="fffaa64c-9d0a-81b4-b2b7-e283c16468f8" class="">Если взять в пример небольшую сеть маршрутизации, то в
+				ней ospf будет работать довольно быстро – количество связей там невелико, алгоритм просчета графа
+				сработает быстро и роутеры тут же начнут маршрутизировать. Но с увеличением количества связей и
+				устройств растет нагрузка и на процесс ospf – чем больше граф, тем сложнее его считать. При всех своих
+				плюсах OSPF не используется в интернете именно поэтому – никакое устройство в мире не сможет запомнить
+				все разнообразие связей всех маршрутизирующих устройств в глобальной сети, так как их миллионы. Да и
+				граф там так просто не просчитать – топология постоянно изменяется, пересчитывать надо слишком часто.
+				Именно поэтому ospf стал наиболее популярным протоколом маршрутизации только как IGP.</p>
+			<p id="fffaa64c-9d0a-81b9-92a9-f4151607d64e" class="">Но даже в локальных сетях могут быть большие
+				топологии, справиться с которыми роутерам не под силу. Чтобы оптимизировать маршрутизацию по ospf,
+				существует параметр зона ospf.</p>
+			<p id="fffaa64c-9d0a-8108-a3fb-dc342a8fd14d" class="">Роутеры как бы делятся на отдельные зоны
+				маршрутизации, внутри которых ospf работает как обычно, создавая LSDB и помещая лучшие маршруты в
+				таблицу маршрутизации. А маршрутизация между зонами происходит по принципам дистанционно-векторных
+				протоколов. Создается роутер, который знает о всех сетях двух смежных зон. При этом внутри каждой из зон
+				все остальные роутеры строят LSDB для сетей, входящих в зону. А сети не из их зоны не обрабатываются
+				алгоритмом дейкстры. В базе создается правило шлюза по умолчанию для всех сетей, не принадлежащих зоне,
+				и роутером по умолчанию для таких сетей станет именно пограничный роутер.</p>
+			<p id="fffaa64c-9d0a-819a-a757-cf232ae5b449" class="">В этом подходе присутствует ограничение – всегда
+				должна существовать нулевая зона, она же зона по умолчанию. Именно эта зона будет отвечать за
+				маршрутизацию между всему другими зонами, являясь ядром сети.</p>
+			<p id="fffaa64c-9d0a-813b-90d0-c6d6a991ad7a" class=""><strong>DR и BDR роутеры в OSPF</strong></p>
+			<p id="fffaa64c-9d0a-8138-82bc-dd8e6b904602" class="">Теперь же рассмотрим оставшиеся термины – роутеры DR и
+				BDR, они же Designated Router и Backup Designated Router.</p>
+			<p id="fffaa64c-9d0a-817b-b356-cfce35f3bb64" class="">Это роли для роутеров, созданные с целью определить
+				главу топологии, с которым все остальные роутеры будут синхронизировать свои базы данных LSDB. DR и BDR
+				выбираются на основе router id – у кого этот параметр больше, тот становится DR. Второй по очереди
+				роутер становится BDR.</p>
+			<p id="fffaa64c-9d0a-812f-965a-f657dfec80cf" class="">Информация об изменениях в сети отправляется DR,
+				маршрутизатором обнаружившим это изменение, а DR отвечает за то, чтобы эта информация была отправлена
+				остальным маршрутизаторам сети. Недостатком в схеме работы с DR маршрутизатором является то, что при
+				выходе его из строя должен быть выбран новый DR. Новые отношения соседства должны быть сформированы и,
+				пока базы данных маршрутизаторов не синхронизируются с базой данных нового DR, сеть будет недоступна для
+				пересылки пакетов. Для устранения этого недостатка выбирается BDR.</p>
+			<p id="fffaa64c-9d0a-814b-8fd7-e14f8e2695c3" class="">Каждый маршрутизатор сети устанавливает отношения
+				соседства не только с DR, но и BDR. DR и BDR также устанавливают отношения соседства и между собой. При
+				выходе из строя DR, BDR становится главой топологии и выполняет все его функции. Так как маршрутизаторы
+				сети установили отношения соседства с BDR, то время недоступности сети минимизируется.<br />Обе эти роли
+				уникальны для каждой зоны ospf. Получается, что в каждой зоне будет свой DR и BDR.<br /></p>
+			<h3 id="fffaa64c-9d0a-81fb-8275-c3697a6b4b19" class="">Протокол BGP</h3>
+			<p id="fffaa64c-9d0a-810b-bc5c-daf273e3bbfa" class="">Border Gateway Protocol – это основной протокол
+				динамической маршрутизации, который используется в сети Интернет. Сеть интернет – весьма сложное
+				объединение сетей провайдеров и организаций. Но их взаимодействие как раз обеспечивает доступ ко всем
+				ресурсам глобальной сети. Сетевые кабели соединяют между собой провайдерские сети, позволяя обмениваться
+				информацией межконтинентально. А на суше таких кабелей ещё больше – они соединяют как провайдеров, так и
+				организации.</p>
+			<p id="fffaa64c-9d0a-8146-ad9f-ca51f1a34ee9" class="">Каждый провайдер или организация имеет под управлением
+				набор ip сетей, информацию меж которыми надо маршрутизировать. Этим и занимается протокол BGP в
+				глобальном смысле.</p>
+			<p id="fffaa64c-9d0a-8133-b0e6-cb9b6955ce75" class="">Так как на протоколе завязано все взаимодействие в
+				глобальной сети, требования к нему соответствующие. В нем присутствует большое количество терминов,
+				которые мы разберем по мере прохождения занятия с целью разобраться, как этот протокол работает.</p>
+			<p id="fffaa64c-9d0a-813f-8a6b-efb746be6145" class="">Итак:</p>
+			<p id="fffaa64c-9d0a-8192-ab23-c91ba9cac81e" class=""><strong>Внутренний протокол маршрутизации (interior
+					gateway protocol)</strong> – протокол, который используется для передачи информации о маршрутах
+				внутри автономной системы.</p>
+			<p id="fffaa64c-9d0a-81c2-b7b3-df35c96ee1ed" class=""><strong>Внешний протокол маршрутизации (exterior
+					gateway protocol)</strong> – протокол, который используется для передачи информации о маршрутах
+				между автономными системами.</p>
+			<p id="fffaa64c-9d0a-8159-a9f7-d3f8d80d94a6" class=""><strong>Автономная система (autonomous system,
+					AS) </strong>— набор маршрутизаторов, имеющих единые правила маршрутизации, управляемых одной
+				технической администрацией и работающих на одном из протоколов IGP (для внутренней маршрутизации AS
+				может использовать и несколько IGP).</p>
+			<p id="fffaa64c-9d0a-8140-b4f7-d7062c85ed4d" class=""><strong>Транзитная автономная система (transit
+					AS</strong>) — автономная система, через которую передается трафик других автономных систем.</p>
+			<p id="fffaa64c-9d0a-8186-a4aa-e7dadf082aee" class=""><strong>Путь (path)</strong> — последовательность,
+				состоящая из номеров автономных систем, через которые нужно пройти для достижения сети назначения.</p>
+			<p id="fffaa64c-9d0a-8139-a60f-ca4c631093e8" class=""><strong>Атрибуты пути (path attributes, PA)</strong> —
+				характеристики пути, которые позволяют выбрать лучший путь.</p>
+			<p id="fffaa64c-9d0a-810b-a86c-cb14cdfd6dfc" class=""><strong>BGP speaker </strong>— маршрутизатор, на
+				котором работает протокол BGP.</p>
+			<p id="fffaa64c-9d0a-81db-993e-ef475be56e3b" class=""><strong>Соседи (neighbor, peer)</strong> — любые два
+				маршрутизатора, между которыми открыто TCP-соединение для обмена информацией о маршрутизации.</p>
+			<figure id="fffaa64c-9d0a-815d-86fa-fd4bfdc21edb" class="image"><a
+					href="Дополнительный материал/Untitled%204.png"><img
+						style="width:707.96875px"
+						src="Дополнительный материал/Untitled%204.png" /></a>
+			</figure>
+			<p id="fffaa64c-9d0a-81ea-ad8f-c01718a288ea" class="">На рисунке можно увидеть тот самый AS path. Чтобы
+				добраться из автономной системы 200 в AS 300, нужно пройти через сотую AS. При таком взаимодействии она
+				будет называться транзитной</p>
+			<p id="fffaa64c-9d0a-8168-b3e9-edd823587ec0" class="">Еще на данном рисунке можно увидеть роутеры,
+				являющиеся соседями BGP. Они выделены красным и зеленым цветами.</p>
+			<p id="fffaa64c-9d0a-814c-be89-c0e811ca640c" class="">BGP выбирает лучшие маршруты не на основании
+				технических характеристик пути (например, пропускной способности и задержки), а на основании политик. В
+				локальных сетях наибольшее значение имеет скорость сходимости сети, время реагирования на изменения. И
+				маршрутизаторы, которые используют внутренние протоколы динамической маршрутизации, при выборе маршрута,
+				как правило, сравнивают какие-то технические характеристики пути, например, пропускную способность
+				соединений.</p>
+			<p id="fffaa64c-9d0a-81ee-90f3-e1f1ccc9bee5" class="">При выборе между каналами двух провайдеров, зачастую
+				имеет значение не то, у какого канала лучше технические характеристики, а определенные внутренние
+				правила компании. Например, использование какого канала обходится компании дешевле. Поэтому в BGP выбор
+				лучшего маршрута осуществляется на основании политик, которые настраиваются с использованием фильтров,
+				анонсирования маршрутов и изменения атрибутов.</p>
+			<p id="fffaa64c-9d0a-816a-ac1b-ec858226d2dd" class="">Протокол BGP бывает двух видов – Внутренний BGP
+				(Internal BGP) и Внешний BGP (External BGP). Это ранее мы обозначили.</p>
+			<p id="fffaa64c-9d0a-8178-bbbd-f5cb142b8ed2" class="">Отличие IBGP от EBGP состоит в том, что при объявлении
+				маршрута BGP-соседу, находящемуся в той же самой АС, маршрутизатор не должен добавлять в AS PATH номер
+				своей автономной системы, иначе произойдет петля маршрутизации.</p>
+			<p id="fffaa64c-9d0a-81ad-936a-dd177073966f" class=""><strong>Общие характеристики</strong></p>
+			<ul id="fffaa64c-9d0a-8193-ad98-da7470a40efc" class="bulleted-list">
+				<li style="list-style-type:disc">Использует TCP для передачи данных, что обеспечивает надежную доставку
+					обновлений протокола</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8130-9ce5-e49553219783" class="bulleted-list">
+				<li style="list-style-type:disc">Отправляет обновления только после изменений в сети</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8112-beae-d021a8d68fd7" class="bulleted-list">
+				<li style="list-style-type:disc">Периодически отправляет keepalive-сообщения для проверки соединения
+				</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-813d-9561-fcfd03eb5a34" class="bulleted-list">
+				<li style="list-style-type:disc">Метрика протокола называется path vector или атрибуты</li>
+			</ul>
+			<p id="fffaa64c-9d0a-813e-9b2d-efe0db373fd8" class=""><strong>Сообщения BGP</strong></p>
+			<p id="fffaa64c-9d0a-81a1-821f-c08eb21136b2" class="">Для обеспечения взаимодействия роутеров по протоколу
+				BGP используется набор сообщений.</p>
+			<p id="fffaa64c-9d0a-8138-8f5b-d9dbf6416aaa" class="">После установки соединения по TCP роутер отправляет
+				сообщение OPEN. Такое сообщение отсылается только в самом начале BGP-сессии для согласования параметров.
+				В нём передаются версия протокола, номер AS, Hold Timer и Router ID.</p>
+			<ul id="fffaa64c-9d0a-8154-b609-e24dde2ab6a7" class="bulleted-list">
+				<li style="list-style-type:disc">номер версии – предлагаемый номер версии протокола. Наибольший номер
+					версии, поддерживаемый маршрутизаторами. Большинство реализаций BGP маршрутизации сейчас используют
+					BGP4.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81e0-9ffc-c5bf2d0c5840" class="bulleted-list">
+				<li style="list-style-type:disc">номер AS – номер автономной системы локального маршрутизатора. Соседний
+					маршрутизатор проверяет эту информацию. Если получен некорректный номер AS (например, тот же, что
+					используется и у другого роутера), то BGP сессия заканчивается.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81b3-af78-fd24043fb0cb" class="bulleted-list">
+				<li style="list-style-type:disc">hold timer – максимальное число секунд, которое может пройти между
+					успешными keepalive или update сообщениями отправителя, чтобы поддерживать bgp сессию. При получении
+					open сообщения маршрутизатор вычисляет значение hold таймера путем использования меньшего значения
+					между настроенным на маршрутизаторе и полученным в open сообщении</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-814f-8f1a-c40d778c5ff6" class="bulleted-list">
+				<li style="list-style-type:disc">BGP router-ID – 32-битное поле, показывающее BGP идентификатор
+					отправителя. BGP ID – это IP адрес, назначенный маршрутизатору, он определяется при загрузке.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-813e-a682-ea1c22ce1f47" class="bulleted-list">
+				<li style="list-style-type:disc">дополнительные параметры – различные параметры, определенные в
+					стандарте BGP, например, аутентификация сессии.</li>
+			</ul>
+			<p id="fffaa64c-9d0a-8164-91c0-eb26f116e3ad" class="">Получив OPEN от первого роутера, второй отправляет
+				свой OPEN, а также KEEPALIVE, говорящий о том, что OPEN от первого получен – это сигнал для первого
+				роутера переходить к следующему состоянию – Established.<br />Это состояние означает, что запущена
+				правильная версия BGP и все настройки консистентны.В каждом роутере можно посмотреть Uptime – как долго
+				он находится в состоянии ESTABLISHED с соседями.<br /></p>
+			<p id="fffaa64c-9d0a-815c-840d-edeba601e60f" class="">В первые мгновения после установки BGP-сессии в
+				таблице BGP только информация о локальных маршрутах. Теперь переходим к обмену маршрутной информацией.
+			</p>
+			<p id="fffaa64c-9d0a-819d-a955-fa82dbc830df" class="">Для это используются сообщения UPDATE. Каждое
+				сообщение UPDATE может нести информацию об одном новом маршруте или о удалении группы старых. Причём
+				одновременно. UPDATE передаются при каждом изменении в сети пока длится BGP-сессия.</p>
+			<p id="fffaa64c-9d0a-81a6-a082-f6e29fa4e6cb" class="">Рассмотрим подробно, какая информация передается в
+				UPDATE:</p>
+			<ul id="fffaa64c-9d0a-814b-a771-ddd04da841c6" class="bulleted-list">
+				<li style="list-style-type:disc">withdrawn routes – список отображает IP адреса префиксов маршрутов,
+					которые выведены из эксплуатации, если таковые имеются</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8150-be3b-e546a2fb9fe4" class="bulleted-list">
+				<li style="list-style-type:disc">path attributes – эти атрибуты включают: путь к автономной системе,
+					происхождение маршрута, локальные политики.</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-8172-9ca2-ce6a3d61d077" class="bulleted-list">
+				<li style="list-style-type:disc">network-layer reachability information – это поле содержит список
+					префиксов IP адресов, которые доступны по этому пути.</li>
+			</ul>
+			<p id="fffaa64c-9d0a-8119-ba79-c1478c2caf95" class="">Тут стоит пояснить, что термин префикс – это по сути
+				адрес сети с указанием маски подсети.</p>
+			<p id="fffaa64c-9d0a-811b-b8dd-d4d39c35a685" class="">На каждый UPDATE роутер отвечает KEEPALIVE для
+				подтверждения, что информация получена.</p>
+			<p id="fffaa64c-9d0a-8148-8266-cfb7b8758c54" class="">При этом, даже если обновлений маршрутов не
+				происходило, каждый BGP-маршрутизатор регулярно будет рассылать сообщения KEEPALIVE для подтверждения,
+				что роутер ещё работает. Это происходит с истечением таймера Keepalive – по умолчанию 60 секунд.</p>
+			<p id="fffaa64c-9d0a-81bd-a701-d69f8187497c" class=""><strong>Правила анонсирования маршрутов</strong></p>
+			<p id="fffaa64c-9d0a-811d-8add-db39ca70a619" class="">При выборе маршрута, который должен быть отправлен
+				соседу в сообщении Update, BGP использует такие правила:</p>
+			<ul id="fffaa64c-9d0a-8171-b141-d3c455228e87" class="bulleted-list">
+				<li style="list-style-type:disc">Отправлять только лучшие маршруты из таблицы BGP</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81a3-a31c-c21441846110" class="bulleted-list">
+				<li style="list-style-type:disc">Для iBGP-соседей — не анонсировать маршруты, которые были выучены от
+					других iBGP-соседей</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81e9-834b-d3569391e9e9" class="bulleted-list">
+				<li style="list-style-type:disc">Для eBGP-соседей — не анонсировать маршруты, для которых номер
+					автономной системы соседа уже находится в атрибуте AS path</li>
+			</ul>
+			<ul id="fffaa64c-9d0a-81a5-a050-cecd4ddd3253" class="bulleted-list">
+				<li style="list-style-type:disc">Не анонсировать маршруты, которые отфильтрованы настройками</li>
+			</ul>
+			<p id="fffaa64c-9d0a-816b-9520-ca953848535c" class=""><strong>Команда Redistribute</strong></p>
+			<p id="fffaa64c-9d0a-815e-8a6c-ed5c61aa2335" class="">Чтобы подсети в автономной системе смогли
+				взаимодействовать с внешним миром, протокола BGP будет мало, ведь внутри AS используется IGP протокол
+				маршрутизации, который зачастую является динамическим. Чтобы постоянно не перенастраивать правила
+				анонсирования маршрутов через BGP, может использоваться настройка redistribute.</p>
+			<p id="fffaa64c-9d0a-81e9-98ff-f9c83064dd71" class="">Такая настройка сообщает протоколу, что необходимо по
+				определённым правилам взять маршруты из других динамических протоколов маршрутизации и анонсировать их
+				соседям. На самом деле это не обязательно должны быть именно динамические маршруты – перераспределять в
+				bgp можно и статические, и непосредственно подсоединенные маршруты, все зависит от задач сетевого
+				администратора.</p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>
