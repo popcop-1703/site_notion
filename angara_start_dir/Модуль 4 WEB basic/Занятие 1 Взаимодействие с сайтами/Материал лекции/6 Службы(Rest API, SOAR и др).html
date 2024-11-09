@@ -1,0 +1,1381 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>6. Службы(Rest API, SOAR и др.), общение с API с помощью curl и Powershell</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+
+		.checkbox-on {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+
+		.checkbox-off {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-81fe-a265-ddf288d31ce9" class="page sans">
+		<header>
+			<h1 class="page-title">6. Службы(Rest API, SOAR и др.), общение с API с помощью curl и Powershell</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<nav id="131aa64c-9d0a-814c-b5ef-d5d7cd5bb6ad" class="block-color-gray table_of_contents">
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8105-9614-f88a62dd0f96">Службы</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8129-805a-c0ef322b1c31"><strong>Протоколы веб-сервисов</strong></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8102-ad81-d5780f6d2cce">REST API</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81a0-bdb9-efa43f7579da">Для чего используют</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8145-bb2e-c31a6c123c95">Формат общения с приложением</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8169-b4c8-fb1d4f5cd4eb"><strong>SOAP против REST</strong></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-816c-ab37-c28118d501e8">Что такое API в общих чертах</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-819e-b7bd-c1d022503899">Зачем нужно тестировать API?</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-817c-bd0b-d652f262784c">Немного взаимодействия с API</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8192-bcfd-d5d6f9d14ea2"><mark class="highlight-default">Взаимодействие с
+							API через curl</mark></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-814d-a8aa-ffbf365455b7"><mark class="highlight-default">Взаимодействие с
+							API через powershell</mark></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8170-8c88-c1eb7d855b67">Какие существуют утилиты для тестирования?</a>
+				</div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81d8-a748-f0a304e85643">Postman</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81fd-b7ee-ec4b883d857e">Немного о работе с Postman</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81eb-9172-d8375abea9fd">Burp Suite</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81f2-9372-f9af8d6bb233">Расширения браузеров</a></div>
+			</nav>
+			<h1 id="131aa64c-9d0a-8105-9614-f88a62dd0f96" class="">Службы</h1>
+			<p id="131aa64c-9d0a-8113-9337-d71fea68621b" class="">Прежде всего, веб-сервисы (или веб-службы) — это
+				технология. И как и любая другая технология, они имеют довольно четко очерченную среду применения.</p>
+			<p id="131aa64c-9d0a-81cb-af48-e7135ea73ff7" class="">Если посмотреть на веб-сервисы в разрезе стека сетевых
+				протоколов, мы увидим, что это, в классическом случае, не что иное, как еще одна надстройка поверх
+				протокола HTTP.</p>
+			<p id="131aa64c-9d0a-8108-a54f-f3c01f439731" class="">С другой стороны, если гипотетически разделить
+				Интернет на несколько слоев, мы сможем выделить, как минимум, два концептуальных типа приложений —
+				вычислительные узлы, которые реализуют нетривиальные функции и прикладные веб-ресурсы. При этом вторые,
+				зачастую заинтересованы в услугах первых.</p>
+			<p id="131aa64c-9d0a-81e3-9da4-ca7fa1cab660" class="">Но и сам Интернет — разнороден, т. е. различные
+				приложения на различных узлах сети функционируют на разных аппаратно-программных платформах, и
+				используют различные технологии и языки.</p>
+			<p id="131aa64c-9d0a-812b-a712-f29702ecfe81" class="">Чтобы связать все это и предоставить возможность одним
+				приложениям обмениваться данными с другими, и были придуманы веб-сервисы.</p>
+			<p id="131aa64c-9d0a-8168-8085-cc5e6396f2ff" class="">По сути, веб-сервисы — это реализация абсолютно четких
+				интерфейсов обмена данными между различными приложениями, которые написаны не только на разных языках,
+				но и распределены на разных узлах сети.</p>
+			<p id="131aa64c-9d0a-8175-a55d-d06d09f5e1e3" class="">Именно с появлением веб-сервисов развилась идея
+				<strong>SOA</strong> — сервис-ориентированной архитектуры веб-приложений (<strong>Service Oriented
+					Architecture</strong>).</p>
+			<p id="131aa64c-9d0a-8198-9b1b-c9f5aa863386" class=""><strong>Примеры веб-служб</strong></p>
+			<p id="131aa64c-9d0a-81fa-8f40-e411aff9af90" class="">Взаимодействие между авиакомпаниями и бюро
+				путешествий. Первые предоставляют через веб-службы полезную информацию, которую вторые используют при
+				поиске оптимальных предложений своим клиентам.</p>
+			<p id="131aa64c-9d0a-818c-9055-c741a1b757f3" class="">Google с 2002 до 2009 года предоставлял веб-службу,
+				которая позволяла заказчикам искать необходимую информацию в интернете так же, как это делают обычные
+				пользователи. По удобству это несравнимо, например, с автоматическим разбором HTML-текста Google всяких
+				страниц.</p>
+			<p id="131aa64c-9d0a-816e-b4e6-c976653009bc" class="">Amazon.com имеет веб-службу, предоставляющую различные
+				веб-базированные услуги.</p>
+			<h1 id="131aa64c-9d0a-8129-805a-c0ef322b1c31" class=""><strong>Протоколы веб-сервисов</strong></h1>
+			<p id="131aa64c-9d0a-81f2-b427-ed7e4e75134f" class="">На сегодняшний день наибольшее распространение
+				получили следующие протоколы реализации веб-сервисов:</p>
+			<ul id="131aa64c-9d0a-81c8-94b1-dc7c2211948f" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>SOAP (Simple Object Access Protocol)</strong> — по сути это
+					тройка стандартов SOAP/WSDL/UDDI</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81ea-a029-ea82c34b644a" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>REST (Representational State Transfer)</strong></li>
+			</ul>
+			<ul id="131aa64c-9d0a-81f8-9c96-e095c455c5b1" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>XML-RPC</strong> <strong>(XML Remote Procedure Call)</strong>
+				</li>
+			</ul>
+			<p id="131aa64c-9d0a-81e0-adbd-d8ee946c5f9a" class="">На самом деле, SOAP произошел от XML-RPC и является
+				следующей ступенью его развития. В то время как REST — это концепция, в основе которой лежит скорее
+				архитектурный стиль, нежели новая технология, основанный на теории манипуляции объектами CRUD (Create
+				Read Update Delete) в контексте концепций WWW.</p>
+			<p id="131aa64c-9d0a-816e-bff8-daf5adb39d19" class="">Безусловно, существуют и иные протоколы, но, поскольку
+				они не получили широкого распространения, мы остановимся в этом кратком обзоре на двух основных — SOAP и
+				REST. XML-RPC ввиду того, что является несколько «устаревшим», мы рассматривать подробно не будем.</p>
+			<h1 id="131aa64c-9d0a-8102-ad81-d5780f6d2cce" class="">REST API</h1>
+			<p id="131aa64c-9d0a-81cc-b628-d8e43867da70" class="">В современных приложениях часто используют архитектуру
+				REST. </p>
+			<h3 id="131aa64c-9d0a-81a0-bdb9-efa43f7579da" class="">Для чего используют</h3>
+			<p id="131aa64c-9d0a-815c-aac8-fbfc227712e5" class="">Помимо архитектурных преимуществ, среди которых:
+				маштабируемость, простота интерфейсов, легкость внесения изменений, это лучший интерфейс для
+				взаимодействия между клиентской частью и бэкендом. Через javascript удобнее отправлять и получать
+				запросы через json, и реализуя отдельно фронтенд часть от бэкенда, уже стало де фактом использование
+				json.</p>
+			<h3 id="131aa64c-9d0a-8145-bb2e-c31a6c123c95" class="">Формат общения с приложением</h3>
+			<p id="131aa64c-9d0a-81ff-8fa0-e95c69ea7e9e" class="">Реализуя архитектуру REST, часто общение между
+				бэкендом (сервером), реализуют через JSON, реже XML.</p>
+			<p id="131aa64c-9d0a-81a5-a57d-e07f664a845d" class="">Пример тела HTTP запроса:</p>
+			<p id="131aa64c-9d0a-816b-800e-d7a08df7b97d" class="">
+				<code>{&quot;username&quot;:&quot;username&quot;, &quot;password&quot;: &quot;password&quot;, &quot;age&quot;: 1337}</code>
+			</p>
+			<p id="131aa64c-9d0a-81e3-b10e-df00f13e144c" class="">Тогда как эквивалент через стандартный html form:</p>
+			<p id="131aa64c-9d0a-81a5-b38a-f5df4442b282" class="">
+				<code>username=username&amp;password=password&amp;age=1337</code></p>
+			<p id="131aa64c-9d0a-8123-8c71-e8237a27478a" class="">Также необходимо в HTTP заголовках указать, что
+				используемый тип тела запроса - json, указав:</p>
+			<p id="131aa64c-9d0a-81e1-9036-dd21b12a0ac4" class=""><code>Content-Type: application/json</code></p>
+			<p id="131aa64c-9d0a-818e-a7a1-e96a5ce30499" class="">или если xml:</p>
+			<p id="131aa64c-9d0a-814f-91b7-ff191a245acf" class=""><code>Content-Type: application/xml</code></p>
+			<p id="131aa64c-9d0a-8104-89f4-d155eac171e7" class="">Пример HTTP общения:</p>
+			<figure id="131aa64c-9d0a-81e1-b6c5-de7535771bbe" class="image"><a
+					href="6 Службы(Rest API, SOAR и др)/25e61481d47947e7bdef9a93f89851d6.png"><img
+						style="width:594px"
+						src="6 Службы(Rest API, SOAR и др)/25e61481d47947e7bdef9a93f89851d6.png" /></a>
+			</figure>
+			<h1 id="131aa64c-9d0a-8169-b4c8-fb1d4f5cd4eb" class=""><strong>SOAP против REST</strong></h1>
+			<p id="131aa64c-9d0a-812c-9528-e373fff4d795" class="">SOAP более применим в сложных архитектурах, где
+				взаимодействие с объектами выходит за рамки теории CRUD, а вот в тех приложениях, которые не покидают
+				рамки данной теории, вполне применимым может оказаться именно REST ввиду своей простоты и прозрачности.
+				Действительно, если любым объектам вашего сервиса не нужны более сложные взаимоотношения, кроме:
+				«Создать», «Прочитать», «Изменить», «Удалить» (как правило — в 99% случаев этого достаточно), возможно,
+				именно REST станет правильным выбором. Кроме того, REST по сравнению с SOAP, может оказаться и более
+				производительным, так как не требует затрат на разбор сложных XML команд на сервере (выполняются обычные
+				HTTP запросы — PUT, GET, POST, DELETE). Хотя SOAP, в свою очередь, более надежен и безопасен.</p>
+			<h1 id="131aa64c-9d0a-816c-ab37-c28118d501e8" class="">Что такое API в общих чертах</h1>
+			<p id="131aa64c-9d0a-81da-a8e6-f9b88b455dc2" class="">API представляет собой программный интерфейс, который
+				описывает способ взаимодействия между различными программными компонентами. Он определяет методы вызова
+				и обмена данными между системами, а также устанавливает правила и форматы данных, которые должны быть
+				соблюдены при обмене информацией.</p>
+			<p id="131aa64c-9d0a-81fc-805d-dadc43f7fa5e" class="">API играют значительную роль в разработке программного
+				обеспечения и подлежат тщательному тестированию на функциональность, производительность, безопасность и
+				надежность. Важно гарантировать, что API работает корректно и эффективно, чтобы обеспечить стабильное
+				функционирование программных систем, к которым они предоставляют доступ.</p>
+			<h2 id="131aa64c-9d0a-819e-b7bd-c1d022503899" class="">Зачем нужно тестировать API?</h2>
+			<p id="131aa64c-9d0a-811e-8820-c1c60f8a57eb" class="">Тестирование API является одним из методов
+				тестирования программного обеспечения, при котором API проверяются на уровне обмена сообщениями, таких
+				как веб-сервисы SOAP, REST API и другие.</p>
+			<p id="131aa64c-9d0a-8145-9eff-e67167da430c" class="">Действительно, вручную тестировать API сложно. Ведь их
+				функциональность не связана непосредственно с пользовательским интерфейсом, и фронтенд не предоставляет
+				возможности для взаимодействия с пользователем. Поэтому для успешного тестирования API требуются
+				специальные инструменты и подходы.</p>
+			<p id="131aa64c-9d0a-81ca-99ff-e75b8e851a6b" class="">Для тестирования API существуют разнообразные
+				инструменты, включая фреймворки автоматизации, утилиты для отправки HTTP-запросов, средства для создания
+				тестовых данных и многие другие. Эти инструменты позволяют создавать и отправлять запросы к API, а также
+				проверять возвращаемые результаты на соответствие ожидаемым значениям.</p>
+			<p id="131aa64c-9d0a-8106-bc19-c6bb0f24c3a4" class="">Использование этих инструментов упрощает тестирование
+				и позволяет проверять функциональность, производительность, безопасность и надежность API. Это помогает
+				обеспечить высокое качество программного обеспечения и надежность взаимодействия между различными
+				системами через API.</p>
+			<p id="131aa64c-9d0a-8159-bcd8-f63514e0dc52" class="">
+			</p>
+			<p id="131aa64c-9d0a-8186-894e-e62b900bdc33" class="">
+			</p>
+			<h1 id="131aa64c-9d0a-817c-bd0b-d652f262784c" class="">Немного взаимодействия с API</h1>
+			<p id="131aa64c-9d0a-8150-9434-f0aaa85f7332" class=""><mark class="highlight-default">Воспользуемся
+					специальным ресурсом, для отработки своих навыков: </mark><mark class="highlight-default"><a
+						href="https://dummyapi.io/">https://dummyapi.io/</a></mark></p>
+			<p id="131aa64c-9d0a-8198-9be3-f0941eb4dda1" class=""><mark class="highlight-default">Для его использования,
+					вам придется на нем зарегистрироваться.</mark></p>
+			<p id="131aa64c-9d0a-81bb-b4cc-f6d616555502" class=""><mark class="highlight-red">Если вдруг вышеупомянутый
+					сайт не работает, то можно воспользоваться аналогом </mark><a
+					href="https://reqres.in/">https://reqres.in/</a></p>
+			<p id="131aa64c-9d0a-817e-a69a-ef3bb7cd3126" class=""><mark class="highlight-default">после регистрации вам
+					необходимо сгенерировать App ID для работы с сервисом</mark></p>
+			<figure id="131aa64c-9d0a-8164-ad8a-fd431e7b4352" class="image"><a
+					href="6 Службы(Rest API, SOAR и др)/Untitled.png"><img
+						style="width:1503px"
+						src="6 Службы(Rest API, SOAR и др)/Untitled.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81ea-bc9f-e2f5981ec160" class=""><mark class="highlight-default">Давайте отследим
+					процесс создания App ID, очистите события вкладки Network</mark></p>
+			<p id="131aa64c-9d0a-8110-a12c-f9151d4578a2" class=""><mark class="highlight-default">и нажмите еще раз
+					создать App ID</mark></p>
+			<p id="131aa64c-9d0a-81b8-a10c-fd7cab22d924" class=""><mark class="highlight-default">После создания нового
+					App ID, можно увидеть во вкладке Network появления двух событий</mark></p>
+			<figure id="131aa64c-9d0a-8117-a137-cdf295d046da" class="image"><a
+					href="6 Службы(Rest API, SOAR и др)/Untitled%201.png"><img
+						style="width:2696px"
+						src="6 Службы(Rest API, SOAR и др)/Untitled%201.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8102-bcc9-c1c0ac727046" class=""><mark class="highlight-default">Первое событие это
+					запрос POST который отправляет определенный набор данных на сервер для получения App ID</mark></p>
+			<figure id="131aa64c-9d0a-81c6-9407-dc5b21a56fcf" class="image"><a
+					href="6 Службы(Rest API, SOAR и др)/Untitled%202.png"><img
+						style="width:1375px"
+						src="6 Службы(Rest API, SOAR и др)/Untitled%202.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8100-83af-f2312f3984a4" class="">
+			</p>
+			<p id="131aa64c-9d0a-817c-a62d-e6b2ee4ef2ec" class=""><mark class="highlight-default">Второй же пакет - это
+					GET ответ от севера, который говорит нам, что мы получили успешный ответ сервера на запрос нового
+					App ID, и выдал нам его.</mark></p>
+			<figure id="131aa64c-9d0a-81ee-8e75-f1d76a817df3" class="image"><a
+					href="6 Службы(Rest API, SOAR и др)/Untitled%203.png"><img
+						style="width:1356px"
+						src="6 Службы(Rest API, SOAR и др)/Untitled%203.png" /></a>
+			</figure>
+			<h2 id="131aa64c-9d0a-8192-bcfd-d5d6f9d14ea2" class=""><mark class="highlight-default">Взаимодействие с API
+					через curl</mark></h2>
+			<p id="131aa64c-9d0a-8182-9d44-de166d4b9a50" class=""><mark class="highlight-default">Давайте рассмотрим
+					запрос с методом POST подробнее и выполним его только без браузера, используя консоли Linux Bash и
+					Windows PowerShell (и то и другое можно использовать и из одной операционной системы, будем
+					использовать две для наглядности и тренировки - навыки общения с помощью curl и powershell нам еще
+					пригодятся)</mark></p>
+			<p id="131aa64c-9d0a-8118-b249-e265c316e3a9" class=""><mark class="highlight-default">Рассмотрев подробнее
+					пакет мы видим информацию:</mark></p>
+			<ul id="131aa64c-9d0a-81e4-a2c7-d6d7ea4b6c25" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-default">на какой url был отправлен
+						запрос</mark></li>
+			</ul>
+			<ul id="131aa64c-9d0a-813d-b568-f0041899ffc7" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-default">каким методом были переданы
+						данные</mark></li>
+			</ul>
+			<ul id="131aa64c-9d0a-81ab-bc13-ec30af783516" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-default">статус код ответа сервера</mark></li>
+			</ul>
+			<ul id="131aa64c-9d0a-8139-9c05-ee897382a4d5" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-default">ip адрес cервиса</mark></li>
+			</ul>
+			<ul id="131aa64c-9d0a-8120-bc21-d9dfac8bcdf7" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-default">Заголовки запроса</mark></li>
+			</ul>
+			<ul id="131aa64c-9d0a-8126-949d-c7e26bb5d841" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-default">Заголовки ответа</mark></li>
+			</ul>
+			<p id="131aa64c-9d0a-81d9-b39f-d12e01df1972" class=""><mark class="highlight-default">Подробнее про пакеты
+					было описано в предыдущих лекциях.</mark></p>
+			<figure id="131aa64c-9d0a-8145-b3a4-c5b335d287d8" class="image"><a
+					href="6 Службы(Rest API, SOAR и др)/Untitled%204.png"><img
+						style="width:1355px"
+						src="6 Службы(Rest API, SOAR и др)/Untitled%204.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81e4-b870-c16ba9a0e03e" class=""><mark class="highlight-default">Давайте создадим еще
+					один App ID используя CURL (Будем делать это через ОС Kali Linux - вы можете использовать то, что
+					удобно вам)</mark></p>
+			<p id="131aa64c-9d0a-81c9-87ba-d355b1bfe882" class=""><mark class="highlight-default">Проанализировав пакет
+					POST, мы можем понять какие значения нам нужно отправить вручную, чтобы создать токен:</mark></p>
+			<ul id="131aa64c-9d0a-81e4-a76a-fdc81bd489fa" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-default">Request URL</mark></li>
+			</ul>
+			<ul id="131aa64c-9d0a-815f-b6a5-f8640cbc8490" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-default">Method POST</mark></li>
+			</ul>
+			<ul id="131aa64c-9d0a-81ed-8789-e394d0d13dc1" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-default">Header 1 Content-Type</mark></li>
+			</ul>
+			<ul id="131aa64c-9d0a-8148-ad65-d4ed232e01dd" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-default">Header 2 Authorization</mark></li>
+			</ul>
+			<figure id="131aa64c-9d0a-81ce-afa7-e80c0ada00af" class="image"><a
+					href="6 Службы(Rest API, SOAR и др)/Untitled%205.png"><img
+						style="width:1064px"
+						src="6 Службы(Rest API, SOAR и др)/Untitled%205.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81fb-bedb-d3eac8f57140" class=""><mark class="highlight-default">Синтаксис
+					следующий:</mark></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-815d-ab57-ff33c6a72cfe"
+				class="code"><code class="language-Bash">curl &#x27;Request URL&#x27; -X &#x27;Method&#x27; -H &#x27;Header 1&#x27; -H &#x27;Header 2&#x27; </code></pre>
+			<p id="131aa64c-9d0a-81da-8539-f578e202175b" class=""><mark class="highlight-default">Обратите внимание, что
+					у Заголовка Authorization определен вид, в данном случае это Bearer его также нужно указать</mark>
+			</p>
+			<p id="131aa64c-9d0a-8135-888e-c26fd425a01d" class=""><mark class="highlight-default">В ответ мы получим наш
+					новый App ID подчеркнут красным</mark></p>
+			<figure id="131aa64c-9d0a-8196-81b9-fabbbf28e184" class="image"><a
+					href="6 Службы(Rest API, SOAR и др)/Untitled%206.png"><img
+						style="width:3793px"
+						src="6 Службы(Rest API, SOAR и др)/Untitled%206.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81a6-8821-d66f68f8600e" class=""><mark class="highlight-default">Можете перезагрузить
+					страницу в браузере и вы увидите, что появился еще один App ID</mark></p>
+			<h2 id="131aa64c-9d0a-814d-a8aa-ffbf365455b7" class=""><mark class="highlight-default">Взаимодействие с API
+					через powershell</mark></h2>
+			<p id="131aa64c-9d0a-8157-a035-e896aa9d03fc" class=""><mark class="highlight-default">Все тоже самое можно
+					реализовать и через PowerShell, нам понадобится все тот же набор компонентов</mark></p>
+			<ul id="131aa64c-9d0a-81fb-8b6d-ea856e7a9e7d" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-default">Request URL</mark></li>
+			</ul>
+			<ul id="131aa64c-9d0a-8176-9523-e535cbb5848f" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-default">Method POST</mark></li>
+			</ul>
+			<ul id="131aa64c-9d0a-8117-b3fa-cd6401a3c869" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-default">Header 1 Content-Type</mark></li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c7-9091-cf1be0d19721" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-default">Header 2 Authorization</mark></li>
+			</ul>
+			<p id="131aa64c-9d0a-81b7-aeda-ea70af4f6949" class=""><mark class="highlight-default">Но изменится синтаксис
+					(Рекомендуется использовать PowerShell v7+ для использования современных методов синтаксиса):</mark>
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81f8-9d6b-cf4484b42c13"
+				class="code"><code class="language-PowerShell" style="white-space:pre-wrap;word-break:break-all">Invoke-WebRequest -UseBasicParsing -Uri &quot;Request URL&quot; -Method &quot;Method&quot; -Headers $headers -ContentType &quot;value content-type&quot;</code></pre>
+			<p id="131aa64c-9d0a-8140-86d1-c773b94b12ee" class=""><mark class="highlight-default">Можно заметить, что
+					после обозначения флага “-Headers” идет что-то неясное, это называется переменная, и чтобы ее
+					использовать, ее необходимо предварительно создать</mark></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8190-9cac-f2879f937486"
+				class="code"><code class="language-PowerShell" style="white-space:pre-wrap;word-break:break-all">$headers = @{} //означает создание массива</code></pre>
+			<p id="131aa64c-9d0a-8186-9034-cd994855d278" class=""><mark class="highlight-default">Чтобы наполнить
+					массив</mark></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-811f-88d4-cc97bf131ebc"
+				class="code"><code class="language-PowerShell" style="white-space:pre-wrap;word-break:break-all">$headers.Add(&quot;Authorization&quot;, &quot;TokenType $token&quot;)</code></pre>
+			<p id="131aa64c-9d0a-81b7-9d98-ed6a61fd315f" class=""><mark class="highlight-default">Создание токена</mark>
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8113-8800-c89817c9b76d"
+				class="code"><code class="language-PowerShell" style="white-space:pre-wrap;word-break:break-all">$token = &quot;token value&quot;</code></pre>
+			<p id="131aa64c-9d0a-81ac-921e-f16f77685e36" class=""><mark class="highlight-default"> В итоге получим
+					следующее</mark></p>
+			<figure id="131aa64c-9d0a-81d0-91a8-e3e54ddc8648" class="image"><a
+					href="6 Службы(Rest API, SOAR и др)/Untitled%207.png"><img
+						style="width:1716px"
+						src="6 Службы(Rest API, SOAR и др)/Untitled%207.png" /></a>
+			</figure>
+			<figure id="131aa64c-9d0a-8158-bd83-ea4614852e2c" class="image"><a
+					href="6 Службы(Rest API, SOAR и др)/Untitled%208.png"><img
+						style="width:1702px"
+						src="6 Службы(Rest API, SOAR и др)/Untitled%208.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8152-8d7c-d5bc94ee800a" class=""><mark class="highlight-default">Теперь можно отправить
+					полный запрос и получить ответ(подчеркнуто красной линией)</mark></p>
+			<figure id="131aa64c-9d0a-813b-ab13-ec1b77064df7" class="image"><a
+					href="6 Службы(Rest API, SOAR и др)/Untitled%209.png"><img
+						style="width:1719px"
+						src="6 Службы(Rest API, SOAR и др)/Untitled%209.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81fe-8acc-e76c1a187ede" class=""><mark class="highlight-default">Опять же можно
+					перезагрузить страницу в браузере и увидите свой новый App ID</mark></p>
+			<h1 id="131aa64c-9d0a-8170-8c88-c1eb7d855b67" class="">Какие существуют утилиты для тестирования?</h1>
+			<h2 id="131aa64c-9d0a-81d8-a748-f0a304e85643" class="">Postman</h2>
+			<p id="131aa64c-9d0a-81b9-9c1e-cbafe7c2dc8f" class="">Postman - мощный и интуитивно понятный инструмент,
+				предназначенный специально для тестирования и разработки API.</p>
+			<p id="131aa64c-9d0a-814f-be9c-cc1326c362ac" class="">Основные возможности:</p>
+			<ol type="1" id="131aa64c-9d0a-81af-a317-d763ba0d1493" class="numbered-list" start="1">
+				<li>Отправка HTTP-запросов: Postman позволяет легко создавать и отправлять различные типы HTTP-запросов,
+					такие как GET, POST, PUT, DELETE и другие. Тестировщик может настраивать параметры запросов,
+					передавать заголовки, параметры и тело запроса.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-819b-a1c3-f3020bd47718" class="numbered-list" start="2">
+				<li>Тестирование API: Postman позволяет создавать тесты для проверки ответов от сервера. Тестировщик
+					может определить ожидаемые значения и условия, чтобы автоматически проверить, что API возвращает
+					правильные результаты.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8196-937f-c7b65a7a2bd2" class="numbered-list" start="3">
+				<li>Коллекции и среды: Postman позволяет организовывать запросы и тесты в коллекции, что упрощает
+					управление большим числом запросов. Коллекции также можно использовать для автоматизации тестов или
+					их запуска в определенной последовательности. Среды позволяют переключаться между различными
+					конфигурациями окружения (например, тестовое, разработка, продакшн).</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8116-a775-c76abbf12bbf" class="numbered-list" start="4">
+				<li>Работа с переменными: Postman поддерживает использование переменных, что облегчает тестировщикам
+					управление и переиспользование данных в запросах, тестах и окружениях.</li>
+			</ol>
+			<h3 id="131aa64c-9d0a-81fd-b7ee-ec4b883d857e" class="">Немного о работе с Postman</h3>
+			<p id="131aa64c-9d0a-8157-82dc-dfc3b7b8ddee" class="">Для начала нужно зарегистрироваться на сайте <a
+					href="https://www.postman.com/">https://www.postman.com/</a></p>
+			<p id="131aa64c-9d0a-8199-a35c-c7e0c444250e" class=""><mark class="highlight-default">После авторизации, вы
+					попадете в свое рабочее окружение, вам потребуется перейти в раздел Рабочей области</mark></p>
+			<figure id="131aa64c-9d0a-81f3-a4a5-e99ff611899d" class="image"><a
+					href="6 Службы(Rest API, SOAR и др)/Untitled%2010.png"><img
+						style="width:1843px"
+						src="6 Службы(Rest API, SOAR и др)/Untitled%2010.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8175-8731-f65245ea760a" class="">
+			</p>
+			<p id="131aa64c-9d0a-819d-95c5-d8cc4bbe1a67" class=""><mark class="highlight-default">Дальше создать свою
+					новую Рабочую область</mark></p>
+			<figure id="131aa64c-9d0a-81ec-a488-f64a409137e0" class="image"><a
+					href="6 Службы(Rest API, SOAR и др)/Untitled%2011.png"><img
+						style="width:1776px"
+						src="6 Службы(Rest API, SOAR и др)/Untitled%2011.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81ec-9d75-e9b14c58e588" class=""><mark class="highlight-default">Выбираете для чего он
+					будет использоваться, в нашем случае - это тестирование API<br /><br /></mark></p>
+			<figure id="131aa64c-9d0a-81dc-9cd2-fee7aa67d494" class="image"><a
+					href="6 Службы(Rest API, SOAR и др)/Untitled%2012.png"><img
+						style="width:1075px"
+						src="6 Службы(Rest API, SOAR и др)/Untitled%2012.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81fd-a184-e1a84a40b219" class=""><mark class="highlight-default">Даем название, и
+					Рабочая область создана<br /><br /></mark></p>
+			<figure id="131aa64c-9d0a-81f0-ac28-f9f432d8a6b7" class="image"><a
+					href="6 Службы(Rest API, SOAR и др)/Untitled%2013.png"><img
+						style="width:728px"
+						src="6 Службы(Rest API, SOAR и др)/Untitled%2013.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-813c-b35a-eedf304a57cc" class=""><mark class="highlight-default">Создадим отдельный
+					каталог для наших запросов для сайта dummyAPI и дадим ему имя </mark></p>
+			<figure id="131aa64c-9d0a-8179-bf11-c900ee91dcd9" class="image"><a
+					href="6 Службы(Rest API, SOAR и др)/Untitled%2014.png"><img
+						style="width:604px"
+						src="6 Службы(Rest API, SOAR и др)/Untitled%2014.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-815a-80e4-f58f2644ff13" class=""><mark class="highlight-default">Теперь нам необходимо
+					создать новый запрос</mark></p>
+			<figure id="131aa64c-9d0a-8140-b52f-cfb6c5d42ee3" class="image"><a
+					href="6 Службы(Rest API, SOAR и др)/image.png"><img
+						style="width:394px"
+						src="6 Службы(Rest API, SOAR и др)/image.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81f0-aad6-fda599ac58f3" class=""><mark class="highlight-default">аете имя запросу в
+					соответствие с типом действия происходящим на сайте (Название сайта_тип_действия)</mark></p>
+			<p id="131aa64c-9d0a-81ed-8693-c36a841c304a" class="">
+			</p>
+			<p id="131aa64c-9d0a-81a1-aa5b-dba0a0817db1" class=""><mark class="highlight-default">Первый у нас
+				</mark><mark class="highlight-default"><strong>Создание нового App ID</strong></mark></p>
+			<figure id="131aa64c-9d0a-81ba-b150-f3090790e4d7" class="image"><a
+					href="6 Службы(Rest API, SOAR и др)/Untitled%2015.png"><img
+						style="width:2630px"
+						src="6 Службы(Rest API, SOAR и др)/Untitled%2015.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8131-ac1c-c2049f65401d" class=""><mark class="highlight-default">Вспоминаем, что нам
+					потребуется для отправки запроса:</mark></p>
+			<ul id="131aa64c-9d0a-81bf-a2e5-c4c805abcfa1" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-default">Method POST</mark></li>
+			</ul>
+			<ul id="131aa64c-9d0a-81b5-9703-cbd1fcf2f3f8" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-default">Authorization token</mark></li>
+			</ul>
+			<ul id="131aa64c-9d0a-81ec-a039-ef87fbf4bdbb" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-default">Header Content-Type</mark></li>
+			</ul>
+			<ul id="131aa64c-9d0a-8125-a544-fc86c9d26993" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-default">Request URL</mark></li>
+			</ul>
+			<p id="131aa64c-9d0a-8164-bdac-e25563d60df0" class="">
+			</p>
+			<p id="131aa64c-9d0a-8117-ba1a-e28d5d460276" class=""><mark class="highlight-default">Начнем с выбора типа
+					запроса и указания URL</mark></p>
+			<figure id="131aa64c-9d0a-81ea-87b3-f44fc55c996a" class="image"><a
+					href="6 Службы(Rest API, SOAR и др)/Untitled%2016.png"><img
+						style="width:1243px"
+						src="6 Службы(Rest API, SOAR и др)/Untitled%2016.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81d1-9810-cdcef1588242" class=""><mark class="highlight-default">Затем укажем нужный
+					нам заголовок во вкладке заголовков после чего во вкладке авторизации укажем наш токен</mark></p>
+			<figure id="131aa64c-9d0a-81c4-85a8-c5303d7f2ff8" class="image"><a
+					href="6 Службы(Rest API, SOAR и др)/Untitled%2017.png"><img
+						style="width:1296px"
+						src="6 Службы(Rest API, SOAR и др)/Untitled%2017.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81bf-a761-d9ca2b4d4041" class=""><mark class="highlight-default">Во вкладке заголовков
+					указываем Content-Type</mark></p>
+			<figure id="131aa64c-9d0a-8107-9e43-d4b6a893bd32" class="image"><a
+					href="6 Службы(Rest API, SOAR и др)/Untitled%2018.png"><img
+						style="width:1670px"
+						src="6 Службы(Rest API, SOAR и др)/Untitled%2018.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8100-8991-c64b71e3af59" class=""><mark class="highlight-default">и указываем его
+					значение</mark></p>
+			<p id="131aa64c-9d0a-8146-a716-da0234d76cab" class="">
+			</p>
+			<figure id="131aa64c-9d0a-811e-a802-db1cf81f785b" class="image"><a
+					href="6 Службы(Rest API, SOAR и др)/Untitled%2019.png"><img
+						style="width:2212px"
+						src="6 Службы(Rest API, SOAR и др)/Untitled%2019.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8106-a3a7-ff66c05b533f" class="">
+			</p>
+			<p id="131aa64c-9d0a-815c-8cf4-f2a90e32fd64" class=""><mark class="highlight-default">Во вкладке авторизации
+					указываем Тип авторизации и добавляем токен</mark></p>
+			<figure id="131aa64c-9d0a-81b8-bbf0-dfd636f7f1bb" class="image"><a
+					href="6 Службы(Rest API, SOAR и др)/Untitled%2020.png"><img
+						style="width:2352px"
+						src="6 Службы(Rest API, SOAR и др)/Untitled%2020.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8161-824f-dc9b676163ec" class="">
+			</p>
+			<p id="131aa64c-9d0a-81bb-b1b3-c69c91eee89f" class=""><mark class="highlight-default">После всего этого мы
+					можем отправить наш запрос нажатием кнопки “Send”</mark></p>
+			<p id="131aa64c-9d0a-81a0-8975-ddc426661757" class=""><mark class="highlight-default">Если вы все сделали
+					правильно то вы увидите ответ в виде созданного токена</mark></p>
+			<figure id="131aa64c-9d0a-8125-8500-e41f423c5ada" class="image"><a
+					href="6 Службы(Rest API, SOAR и др)/Untitled%2021.png"><img
+						style="width:1428px"
+						src="6 Службы(Rest API, SOAR и др)/Untitled%2021.png" /></a>
+			</figure>
+			<h2 id="131aa64c-9d0a-81eb-9172-d8375abea9fd" class="">Burp Suite</h2>
+			<p id="131aa64c-9d0a-8186-884f-c4ee5d75facf" class="">Burp, является одним из самых мощных инструментов для
+				тестирования на безопасность WEB сервисов.</p>
+			<p id="131aa64c-9d0a-8173-a470-f43c2345a1b9" class="">Про полноценное использование Burp мы поговорим чуть
+				позже, однако стоит обратить внимание, что данное ПО прекрасно справляется с задачами тестирования API
+			</p>
+			<p id="131aa64c-9d0a-817c-ad6b-c429df77b3ec" class="">Процесс заключается в проксировании трафика клиента
+				через Burp , а затем его тестировании обычным способом.</p>
+			<p id="131aa64c-9d0a-81a7-8405-f79095878374" class="">Большинство атак, возможных для типичного
+				веб-приложения, возможны при тестировании REST API.</p>
+			<h2 id="131aa64c-9d0a-81f2-9372-f9af8d6bb233" class="">Расширения браузеров</h2>
+			<p id="131aa64c-9d0a-81b8-a9b2-d1f36d8c983a" class="">Для тестирования API не обязательно использовать
+				отдельное ПО. Достаточно установить расширение в браузер.</p>
+			<ol type="1" id="131aa64c-9d0a-81c1-b21a-d7080990c55a" class="numbered-list" start="1">
+				<li><strong>Postman Interceptor</strong> - еще один продукт разработчиков Postman, cреди возможностей
+					стоит отметить автоматизацию тестов, возможность отправлять заголовки без использования Proxy. Есть
+					и минусы, вроде интерфейса, с которым сложно разобраться поначалу. И ещё требуется дополнительная
+					установка Interceptor Bridge.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8156-9c8b-f239feab5f08" class="numbered-list" start="2">
+				<li><strong>Talend API Tester.</strong> Это расширение поддерживает импорт данных из Postman
+					Collections, Swagger, OAS, Open API и HAR. Запись логов возможна локально и в облако. А ещё Talend
+					API Tester очень прост в понимании. Можно создавать динамические запросы с различными переменными,
+					заголовками и прочими штуками. Ответы можно сравнивать с предыдущими прогонами. Есть поддержка
+					совместной работы.</li>
+			</ol>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+</html>

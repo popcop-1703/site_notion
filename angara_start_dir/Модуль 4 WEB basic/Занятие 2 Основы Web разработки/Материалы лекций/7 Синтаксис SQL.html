@@ -1,0 +1,1104 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>7. Синтаксис SQL</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-81b4-97d9-f07266a86463" class="page sans">
+		<header>
+			<div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/book_gray.svg" />
+			</div>
+			<h1 class="page-title">7. Синтаксис SQL</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<h1 id="131aa64c-9d0a-81df-a27f-d42f9e9820f5" class="">Синтаксис SQL</h1>
+			<p id="131aa64c-9d0a-81ba-b018-f0620e1fee62" class="">SQL — это язык программирования, используемый в
+				большинстве реляционных баз данных<br /> для запросов, обработки и определения данных, а также контроля
+				доступа. SQL был разработан в IBM в 1970-х годах. Со временем у стандарта SQL ANSI появились
+				многочисленные расширения, разработанные такими компаниями как IBM, Oracle и Microsoft. Хотя в настоящее
+				время SQL все еще широко используется, начали появляться новые языки программирования запросов.<br />
+			</p>
+			<p id="131aa64c-9d0a-81ff-b0e8-c602f14512b5" class="">Назначение SQL:</p>
+			<ul id="131aa64c-9d0a-8136-9508-c7bd9ee77a03" class="bulleted-list">
+				<li style="list-style-type:disc">создание БД и таблицы с полным описанием их структуры;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8151-96d2-c3030a8eb1ac" class="bulleted-list">
+				<li style="list-style-type:disc">выполнение основных операций манипулирования данными (такие как
+					вставка, модификация и удаление данных из таблиц);</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8199-a53f-e9827f695f33" class="bulleted-list">
+				<li style="list-style-type:disc">выполнение простых и сложных запросов.</li>
+			</ul>
+			<p id="131aa64c-9d0a-81ae-9f68-d8fab7c5c3a8" class="">Одна из ключевых особенностей языка SQL заключается в
+				том, что с его помощью формируются запросы, описывающие, какую информацию из базы данных необходимо
+				получить, а пути решения этой задачи программа определяет сама.</p>
+			<h2 id="131aa64c-9d0a-819b-bb84-f922ea5844f7" class="">Принцип работы запросов</h2>
+			<p id="131aa64c-9d0a-81fc-a8db-c9163c043fed" class="">Чтобы разобраться, как именно работает магия запроса,
+				давайте представим его путь от пользователя до нужных ему данных:</p>
+			<p id="131aa64c-9d0a-81ab-a152-d5a3ba77f9f4" class="">Пользователь → Клиент → Запрос → Система управления →
+				База данных → Таблица с базами данных</p>
+			<p id="131aa64c-9d0a-8173-af11-f7120a0f19c1" class="">Данные для работы с SQL хранятся в таблицах. Как
+				именно они устроены — разберемся ниже; пока же просто представим их. На пути от пользователя к таблице
+				находится несколько посредников:</p>
+			<ul id="131aa64c-9d0a-8174-a892-e69d7d76a2c9" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Клиент —</strong> способ введения запроса. В случае с Google,
+					например, клиентом будет поисковая строка браузера, в которую пользователь вводит сформулированный
+					запрос.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8156-bf9a-c652aa23c084" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Система управления базами данных (СУБД) —</strong> комплекс
+					программ, которые позволяют управлять данными. Эта система помогает таблицам понять, чего хочет
+					пользователь, а пользователю — что ему отвечают таблицы.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8108-b9e7-dbe686974449" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>База данных —</strong> система хранения таблиц, в которой они
+					связаны между собой. База данных сама по себе не умеет манипулировать информацией — это просто
+					хранилище, где у каждого объекта есть свое место.</li>
+			</ul>
+			<h2 id="131aa64c-9d0a-8176-9fc3-da310ecf774f" class=""><strong>SQL-операторы</strong></h2>
+			<p id="131aa64c-9d0a-8107-bd34-f1338686aca0" class="">Работать с данными помогают операторы — определенные
+				слова или символы, которые используются для выполнения конкретной операции — например, для выбора из
+				множества по конкретному параметру. Если нам нужно из всех видов пиццы отсортировать те, в которых есть
+				пармезан, — нужно использовать оператор SELECT (выбор в соответствии с условием).</p>
+			<p id="131aa64c-9d0a-8159-9ef1-f6544b29360f" class="">Операторы в SQL делятся на несколько групп в
+				соответствии с задачами, которые они решают.</p>
+			<p id="131aa64c-9d0a-81f7-b03c-e886beada4ac" class="">
+			</p>
+			<p id="131aa64c-9d0a-81cb-bd5d-cf3072df246b" class=""><strong>DDL (Data Definition Language)
+					—</strong> операторы определения данных. Они работают с объектами, то есть с целыми таблицами. Если
+				базу нужно дополнить таблицей с новыми данными или, наоборот, убрать одну из таблиц с ошибочными данными
+				— используется этот набор операторов.</p>
+			<ul id="131aa64c-9d0a-8146-afc5-f625b5dad0f0" class="bulleted-list">
+				<li style="list-style-type:disc"><code>CREATE</code> — создание объекта в базе данных</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81a5-999a-d5d1a1d21ecf" class="bulleted-list">
+				<li style="list-style-type:disc"><code>ALTER</code> — изменение объекта</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81ae-b8f9-f59f46f832f7" class="bulleted-list">
+				<li style="list-style-type:disc"><code>DROP</code> — удаление объекта</li>
+			</ul>
+			<p id="131aa64c-9d0a-8176-9f28-c09e0da677ab" class="">
+			</p>
+			<p id="131aa64c-9d0a-811b-8984-f573a797bdd8" class=""><strong>DML (Data Manipulation Language)
+					—</strong> операторы манипуляции данными. Эти операторы уже работают с содержимым таблиц — строками,
+				атрибутами и значениями. С их помощью можно вносить изменения в конкретное значение. Например, заменить
+				поле в колонке «Фамилия» в строке с данными сотрудницы компании посте того, как она вышла замуж. Или
+				удалить строку с данными уволенного сотрудника.</p>
+			<ul id="131aa64c-9d0a-811c-b75d-e164b2102607" class="bulleted-list">
+				<li style="list-style-type:disc"><code>SELECT</code> — выбор данных в соответствии с условием</li>
+			</ul>
+			<ul id="131aa64c-9d0a-810f-9cae-ee24d33e7998" class="bulleted-list">
+				<li style="list-style-type:disc"><code>INSERT</code> — добавление новых данных</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81e5-9029-c5778ed0424f" class="bulleted-list">
+				<li style="list-style-type:disc"><code>UPDATE</code> — изменение существующих данных</li>
+			</ul>
+			<ul id="131aa64c-9d0a-816a-846f-fc56fd03a3fb" class="bulleted-list">
+				<li style="list-style-type:disc"><code>DELETE</code> — удаление данных</li>
+			</ul>
+			<p id="131aa64c-9d0a-813a-a9e8-f1d693aededf" class="">
+			</p>
+			<p id="131aa64c-9d0a-81d7-b554-c960d452402e" class=""><strong>DCL (Data Control Language)
+					—</strong> оператор определения доступа к данным. Он определяет, кто из пользователей может
+				отправлять запросы к базе, менять объекты и значения. Например, можно отозвать доступ у сотрудника,
+				перешедшего в другой отдел, а также открыть доступ к базе новому маркетологу или разработчику.</p>
+			<ul id="131aa64c-9d0a-81ae-868d-ed43e2524bdd" class="bulleted-list">
+				<li style="list-style-type:disc"><code>GRANT</code> — предоставление доступа к объекту</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8139-ba76-c10b07c6370c" class="bulleted-list">
+				<li style="list-style-type:disc"><code>REVOKE</code> — отзыв ранее выданного разрешения</li>
+			</ul>
+			<ul id="131aa64c-9d0a-817c-861b-dbd56c59b150" class="bulleted-list">
+				<li style="list-style-type:disc"><code>DENY</code> — запрет, который является приоритетным над
+					разрешением</li>
+			</ul>
+			<p id="131aa64c-9d0a-8117-81d7-db2a8cddc3f9" class="">
+			</p>
+			<p id="131aa64c-9d0a-813e-952f-f4209c088f81" class=""><strong>TCL (Transaction Control Language)
+					—</strong> язык управления транзакциями. Транзакции — это набор команд, которые выполняются
+				поочередно. Если все команды выполнены, транзакция считается успешной, а если где-то произошла ошибка —
+				транзакция откатывается назад, отменяя все выполненные команды. Наглядный пример такой транзакции —
+				оплата онлайн, когда банк просит сначала ввести сумму и получателя, затем проверить и подтвердить
+				операцию, а после ввести одноразовый код. На каждом из этих этапов оплату можно отменить и транзакция
+				откатится назад.</p>
+			<ul id="131aa64c-9d0a-81ac-ac7b-e3a9deff5172" class="bulleted-list">
+				<li style="list-style-type:disc"><code>BEGIN TRANSACTION</code> — обозначение начала транзакции</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81fa-99dc-e678b53cb159" class="bulleted-list">
+				<li style="list-style-type:disc"><code>COMMIT TRANSACTION</code> — изменение команд внутри транзакции
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-819f-980a-c6c7f88c08c7" class="bulleted-list">
+				<li style="list-style-type:disc"><code>ROLLBACK TRANSACTION</code> — откат транзакции</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81fb-9af5-f79fe2e3ef4b" class="bulleted-list">
+				<li style="list-style-type:disc"><code>SAVE TRANSACTION</code> — указание промежуточной точки сохранения
+					внутри транзакции</li>
+			</ul>
+			<p id="131aa64c-9d0a-8190-80d0-ed79bd47e3d6" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-81dd-b08f-c5f38b78f0fa" class="">Синтаксис SQL запроса</h2>
+			<p id="131aa64c-9d0a-817b-b1f6-c3bbc994a152" class="">Одна из основных функций SQL — получение данных из
+				СУБД. Для построения всевозможных запросов к базе данных используется оператор <code>SELECT</code>. Он
+				позволяет выполнять сложные проверки и обработку данных.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8190-9dd4-cf791c6a08b8" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">SELECT [DISTINCT | ALL] поля_таблиц
+FROM список_таблиц
+[WHERE условия_на_ограничения_строк]
+[GROUP BY условия_группировки]
+[HAVING условия_на_ограничения_строк_после_группировки]
+[ORDER BY порядок_сортировки [ASC | DESC]]
+[LIMIT ограничение_количества_записей]</code></pre>
+			<h3 id="131aa64c-9d0a-810a-b799-df0b79cbf2b5" class=""><strong>Параметры оператора</strong></h3>
+			<ul id="131aa64c-9d0a-815a-b1fe-f1974d3a71d0" class="bulleted-list">
+				<li style="list-style-type:disc"><code>DISTINCT</code> используется для исключения повторяющихся строк
+					из результата ALL (по умолчанию) используется для получения всех данных, в том числе и повторений
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81ee-8c85-f8333d2a7ee8" class="bulleted-list">
+				<li style="list-style-type:disc"><code>FROM</code> перечисляет используемые в запросе таблицы из базы
+					данных</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8193-a981-cf92fc2f05cb" class="bulleted-list">
+				<li style="list-style-type:disc"><code>WHERE</code> — это условный оператор, который используется для
+					ограничения строк по какому-либо условию</li>
+			</ul>
+			<ul id="131aa64c-9d0a-812f-a396-f5b51ffde008" class="bulleted-list">
+				<li style="list-style-type:disc"><code>GROUP BY</code> используется для группировки строк</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8172-bac7-cbf592a6ec14" class="bulleted-list">
+				<li style="list-style-type:disc"><code>HAVING</code> применяется после группировки строк для фильтрации
+					по значениям агрегатных функций</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81db-b8b6-ffc57c28aa2f" class="bulleted-list">
+				<li style="list-style-type:disc"><code>ORDER BY</code> используется для сортировки. У него есть два
+					параметра:<ul id="131aa64c-9d0a-8123-846d-d295c0f09c12" class="bulleted-list">
+						<li style="list-style-type:circle"><code>ASC</code> (по умолчанию) используется для сортировки
+							по возрастанию</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81a3-b9cd-ea6fba595708" class="bulleted-list">
+						<li style="list-style-type:circle"><code>DESC</code> — по убыванию</li>
+					</ul>
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81a0-bd17-cc658cc520f8" class="bulleted-list">
+				<li style="list-style-type:disc"><code>LIMIT</code> используется для ограничения количества строк для
+					вывода</li>
+			</ul>
+			<h3 id="131aa64c-9d0a-8158-bb10-cbcaaae1e683" class=""><strong>Порядок выполнения инструкций</strong></h3>
+			<p id="131aa64c-9d0a-810c-ad4d-ebcc2ea5329f" class="">Следующие действия демонстрируют логический порядок
+				обработки инструкции <code>SELECT</code>. Этот порядок определяет, когда объекты, определенные в одном
+				шаге, становятся доступными для предложений в последующих шагах.</p>
+			<p id="131aa64c-9d0a-81cd-a83e-df270bac660c" class="">Например, в предложении <code>WHERE</code> не доступны
+				псевдонимы столбцов, определяемых в предложении <code>SELECT</code>, потому что, согласно списку, оно
+				выполняется до <code>SELECT</code>.</p>
+			<ul id="131aa64c-9d0a-81e7-94fb-fad4395f0266" class="bulleted-list">
+				<li style="list-style-type:disc"><code>FROM</code></li>
+			</ul>
+			<ul id="131aa64c-9d0a-8152-962e-d0439456911c" class="bulleted-list">
+				<li style="list-style-type:disc"><code>WHERE</code></li>
+			</ul>
+			<ul id="131aa64c-9d0a-8184-b487-cea6781a28ae" class="bulleted-list">
+				<li style="list-style-type:disc"><code>GROUP BY</code></li>
+			</ul>
+			<ul id="131aa64c-9d0a-813f-86dd-db3f1fc6d179" class="bulleted-list">
+				<li style="list-style-type:disc"><code>HAVING</code></li>
+			</ul>
+			<ul id="131aa64c-9d0a-8109-b7cc-fe13cc2fe09d" class="bulleted-list">
+				<li style="list-style-type:disc"><code>SELECT</code></li>
+			</ul>
+			<ul id="131aa64c-9d0a-81a4-9cb0-eee230d00079" class="bulleted-list">
+				<li style="list-style-type:disc"><code>DISTINCT</code></li>
+			</ul>
+			<ul id="131aa64c-9d0a-813d-98ed-ed5abafe7dc8" class="bulleted-list">
+				<li style="list-style-type:disc"><code>ORDER BY</code></li>
+			</ul>
+			<p id="131aa64c-9d0a-818b-ad9c-fc8cbe54eb4c" class="">Фактическое выполнение инструкций определяется СУБД и
+				порядок из этого списка может значительно отличаться.</p>
+			<h3 id="131aa64c-9d0a-81d9-9f0f-c54c6f5bba57" class="">Примеры использования</h3>
+			<p id="131aa64c-9d0a-81cc-b3d1-c09a51f1f036" class="">Вы можете выводить любые строки и числа вместо
+				столбцов:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8144-8e88-e90b64b3483b"
+				class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">SELECT &quot;Hello world&quot;, 1;</code></pre>
+			<p id="131aa64c-9d0a-8126-9dad-cf27fb158192" class="">Для того, чтобы вывести все данные из таблицы Company,
+				вы можете использовать символ «<code>*</code>», который буквально означает «все столбцы»:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8193-93c6-cd2d935455c7"
+				class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">SELECT * FROM Company;</code></pre>
+			<p id="131aa64c-9d0a-818b-89f3-c1b98ccc0994" class="">Вы можете вывести любой столбец, определённый в
+				таблице, например, town_to из таблицы Trip: </p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81f9-bbf8-e0bce867f555"
+				class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">SELECT town_to FROM Trip;</code></pre>
+			<p id="131aa64c-9d0a-81cf-87c7-f9b1fc7bf5e8" class="">Также вы можете вывести несколько столбцов. Для этого
+				их нужно перечислить через запятую:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81cf-b8fc-e7300ef85604"
+				class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">SELECT member_name, state FROM FamilyMembers;</code></pre>
+			<p id="131aa64c-9d0a-810a-8fc1-d8083d1e6108" class="">Иногда возникают ситуации, в которых нужно получить
+				только уникальные записи. Для этого вы можете использовать <code>DISTINCT</code>. Например, выведем
+				список городов без повторений, в которые летали самолеты:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8188-8d87-e32fecc36308"
+				class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">SELECT DISTINCT town_to FROM Trip;</code></pre>
+			<p id="131aa64c-9d0a-81da-8ace-d03c6f46ca1d" class="">
+			</p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

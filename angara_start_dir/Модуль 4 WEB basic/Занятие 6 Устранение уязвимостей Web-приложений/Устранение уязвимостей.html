@@ -1,0 +1,1244 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Устранение уязвимостей</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+
+		.checkbox-on {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+
+		.checkbox-off {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-8149-afa8-c2d332ab70c2" class="page sans">
+		<header>
+			<div class="page-header-icon undefined"><img class="icon"
+					src="https://www.notion.so/icons/battery-charging_gray.svg" /></div>
+			<h1 class="page-title">Устранение уязвимостей</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<p id="131aa64c-9d0a-81c4-be6c-f59e1f2c18a7" class="">
+			</p>
+			<nav id="131aa64c-9d0a-81b4-8fb3-c9a75a5575ca" class="block-color-gray table_of_contents">
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-814f-8dcd-d94843da7f4d">Цель:</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8177-96d3-f8d1605f4815">Задача:</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-815d-addf-e939df5bb86d">Задание:</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81f9-a670-e94c581fb7ae">Краткая инструкция:</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81da-8ad2-de9dfbba24ec">Устранение SQLi</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81f0-ad4d-efe81c3b8f4b">Устранение XSS</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81d3-a297-da4a74413b6c">Устранение PHPi</a></div>
+			</nav>
+			<p id="131aa64c-9d0a-8116-b42e-d23444ba4969" class="">
+			</p>
+			<p id="131aa64c-9d0a-8150-84e5-cafc1032a2d7" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-814f-8dcd-d94843da7f4d" class="">Цель:</h2>
+			<p id="131aa64c-9d0a-81ee-9b2a-d89ff6c02e94" class="">Научиться закрывать уязвимости Web-приложений за счет
+				написания безопасного кода</p>
+			<h2 id="131aa64c-9d0a-8177-96d3-f8d1605f4815" class="">Задача:</h2>
+			<blockquote id="131aa64c-9d0a-8175-b580-f7b111d5f0cd" class="block-color-gray_background">Устранить
+				уязвимости в написанном ранее сайте</blockquote>
+			<p id="131aa64c-9d0a-81d0-865d-f43e9a28c9d9" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-815d-addf-e939df5bb86d" class="">Задание:</h2>
+			<ol type="1" id="131aa64c-9d0a-8191-ad7e-f0ac65cf6118" class="numbered-list" start="1">
+				<li>Устранить SQLi</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81b6-804d-f536e224febd" class="numbered-list" start="2">
+				<li>Устранить XSS</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81f7-a6aa-edef13c337e4" class="numbered-list" start="3">
+				<li>Устранить PHPi</li>
+			</ol>
+			<h1 id="131aa64c-9d0a-81f9-a670-e94c581fb7ae" class="">Краткая инструкция:</h1>
+			<figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex"
+				id="131aa64c-9d0a-814e-9ec6-fd8b5bae63eb">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%">Использовать WAF как средство защиты в целом отличная практика, но не стоит
+					забывать, что и в WAFе могут быть уязвимости. Поэтому, точно так же как и в период до появления WAF
+					систем, необходимо писать безопасный код.<br /><br />Предлагаю исправить те нелепые ошибки
+					безопасности в коде, которые мы допустили.<br /></div>
+			</figure>
+			<h2 id="131aa64c-9d0a-81da-8ad2-de9dfbba24ec" class="">Устранение SQLi</h2>
+			<p id="131aa64c-9d0a-812a-9b74-c9348a33b49f" class="">Перейдем к уязвимости, которая у нас была в файле
+				<strong>posts.php, </strong>именно в этом файле мы эксплуатировали уязвимость <strong>SQLi</strong>,
+				хотя уязвимость присутствует и в других файлах.</p>
+			<p id="131aa64c-9d0a-81c2-a336-de7c09a7e0a4" class="">
+			</p>
+			<p id="131aa64c-9d0a-81ff-8006-feb173f0c428" class="">Для начала посмотрим на код <strong>php </strong>этого
+				файла</p>
+			<figure id="131aa64c-9d0a-8161-a2e5-d1170a642c22" class="image"><a
+					href="Устранение уязвимостей/Untitled.png"><img
+						style="width:552px"
+						src="Устранение уязвимостей/Untitled.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8189-baff-f417ddd3c182" class="">
+			</p>
+			<p id="131aa64c-9d0a-81d0-8ad6-e00d35b0be5b" class="">Самый простой способ защиты от SQLi - это приведение к
+				целочисленному типу, но это работает только там, где используются числовые значения, что хорошо подходит
+				к нашему случаю.</p>
+			<p id="131aa64c-9d0a-8133-9826-c8eea84fa6d2" class="">
+			</p>
+			<p id="131aa64c-9d0a-81cd-8af8-d8254752c0e7" class="">Допишем в код, сразу после получения значения
+				<code>id</code> приведение к целочисленному значению</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81f7-8e54-c64beac59536"
+				class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">settype($id, &#x27;integer&#x27;);</code></pre>
+			<p id="131aa64c-9d0a-812c-849f-ec5a3d322d3c" class="">В итоге получим вот такой код</p>
+			<figure id="131aa64c-9d0a-81f9-b976-e2265e4d1028" class="image"><a
+					href="Устранение уязвимостей/Untitled%201.png"><img
+						style="width:734px"
+						src="Устранение уязвимостей/Untitled%201.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81d5-a26d-e0a290164a30" class="">И если мы повторно попробуем проэксплуатировать
+				уязвимость, то у нас это не выйдет (мы получим пустую страницу)</p>
+			<figure id="131aa64c-9d0a-8136-b697-d91e31a9a1e6" class="image"><a
+					href="Устранение уязвимостей/Untitled%202.png"><img
+						style="width:1231px"
+						src="Устранение уязвимостей/Untitled%202.png" /></a>
+			</figure>
+			<figure id="131aa64c-9d0a-81b8-892f-f9997f11febf" class="image"><a
+					href="Устранение уязвимостей/Untitled%203.png"><img
+						style="width:1374px"
+						src="Устранение уязвимостей/Untitled%203.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81c1-9ad0-fd97c01c996d" class="">Таким не хитрым способом, мы избавились от
+				<strong>SQLi</strong></p>
+			<h2 id="131aa64c-9d0a-81f0-ad4d-efe81c3b8f4b" class="">Устранение XSS</h2>
+			<p id="131aa64c-9d0a-8130-b93f-f84525778649" class="">Рассмотрим изначальный код, в котором у нас имеется
+				возможность внедрения XSS<br /><br /></p>
+			<figure id="131aa64c-9d0a-8138-88b2-f2ae222d034c" class="image"><a
+					href="Устранение уязвимостей/Untitled%204.png"><img
+						style="width:1209px"
+						src="Устранение уязвимостей/Untitled%204.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-817e-b572-e3b0cd6f10a8" class="">Здесь, помимо того, что есть SQLi, есть и наша XSS
+				инъекция. <br />Давайте закроем обе уязвимости сразу.<br /></p>
+			<ul id="131aa64c-9d0a-81b0-a6fe-db3822ae4379" class="bulleted-list">
+				<li style="list-style-type:disc">Первое: нам необходимо экранировать все спец.символы, для этого будем
+					использовать функцию <br /><br /><code>htmlspecialchars()</code> , она используется для
+					преобразования специальных символов в HTML-сущности, таких
+					как <code>&lt;</code> в <code>&amp;lt;</code> и <code>&gt;</code> в <code>&amp;gt;</code> </li>
+			</ul>
+			<p id="131aa64c-9d0a-817e-82ab-ee363ac625ac" class="">
+			</p>
+			<p id="131aa64c-9d0a-810e-bf8e-d48ddde00a1e" class="">Для SQLi воспользуемся следующим:</p>
+			<ul id="131aa64c-9d0a-81a7-9c57-da03b98cc145" class="bulleted-list">
+				<li style="list-style-type:disc"><code>mysqli_real_escape_string()</code> для предотвращения
+					SQL-инъекций</li>
+			</ul>
+			<p id="131aa64c-9d0a-8139-a932-dc36b2ada4a9" class="">
+			</p>
+			<p id="131aa64c-9d0a-8181-b911-c4ac47f18b57" class="">В итоге у нас получится следующий код</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8139-a406-f5b506dcc391" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">if (isset($_POST[&#x27;submit&#x27;])) {
+
+    $title = mysqli_real_escape_string($link, $_POST[&#x27;title&#x27;]);
+    $main_text = mysqli_real_escape_string($link, $_POST[&#x27;text&#x27;]);
+
+    if (!$title || !$main_text) die(&quot;Заполните все поля&quot;);
+
+    $title = htmlspecialchars($title, ENT_QUOTES, &#x27;UTF-8&#x27;);
+    $main_text = htmlspecialchars($main_text, ENT_QUOTES, &#x27;UTF-8&#x27;);
+
+    $sql = &quot;INSERT INTO posts (title, main_text) VALUES (&#x27;$title&#x27;, &#x27;$main_text&#x27;)&quot;;
+
+    if(!mysqli_query($link, $sql)) die(&quot;не удалось добавить пост&quot;);
+}</code></pre>
+			<p id="131aa64c-9d0a-818d-b734-d01d442c8673" class="">Если попробовать провернуть нашу атаку теперь, то у
+				нас ничего не выйдет</p>
+			<p id="131aa64c-9d0a-81b1-8a30-c41a120cabed" class="">Посмотрим, что у нас выведет наш браузер после
+				инъекции</p>
+			<figure id="131aa64c-9d0a-81d1-8f59-ed10a4a98f5f" class="image"><a
+					href="Устранение уязвимостей/Untitled%205.png"><img
+						style="width:420px"
+						src="Устранение уязвимостей/Untitled%205.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8133-8e8b-d0d32e7fee6e" class="">Вроде как он записал все то что мы ввели, но если
+				посмотреть как это интерпритирует браузер то увидим, что все спец символы были заменены</p>
+			<p id="131aa64c-9d0a-811c-b277-e9b2616da5db" class="">Откроем нашу БД и увидим, что там все записано иначе
+			</p>
+			<figure id="131aa64c-9d0a-81a4-970d-d291a1e0cc14" class="image"><a
+					href="Устранение уязвимостей/Untitled%206.png"><img
+						style="width:1227px"
+						src="Устранение уязвимостей/Untitled%206.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81d6-b9b7-d6cf86764bb2" class="">В отличие от того, что мы видим под постом номер
+				5.<br /><br /></p>
+			<p id="131aa64c-9d0a-8187-8f7f-d2a501e6c277" class="">Давайте также избавимся и от того, чтобы теги HTML
+				также не записывались.<br />Для этого существует функция <br /><code>strip_tags()</code> , она позволяет
+				удалить все HTML теги перед дальнейшей обработкой.<br />Добавим данную функцию сразу при получении
+				данных<br /><br /></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81aa-8ea8-ea6f801b4dc2" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">$title = strip_tags($_POST[&#x27;title&#x27;]);
+$main_text = strip_tags($_POST[&#x27;text&#x27;]);</code></pre>
+			<figure id="131aa64c-9d0a-8175-8a56-d6863055ffa2" class="image"><a
+					href="Устранение уязвимостей/Untitled%207.png"><img
+						style="width:859px"
+						src="Устранение уязвимостей/Untitled%207.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-817f-8396-f879779b8b90" class="">Теперь, повторим нашу XSS и она не
+				сработает.<br />Посмотрим, как в БД записался наш текст.<br /></p>
+			<figure id="131aa64c-9d0a-8146-8cf1-fb985660e5f2" class="image"><a
+					href="Устранение уязвимостей/Untitled%208.png"><img
+						style="width:1008px"
+						src="Устранение уязвимостей/Untitled%208.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8158-8fe9-d5c775e4c448" class="">Тем самым мы еще дополнительно обезопасились от атак
+				типа XSS.</p>
+			<p id="131aa64c-9d0a-8180-b476-cdabae1d7a92" class="">
+			</p>
+			<p id="131aa64c-9d0a-81f8-9a6d-c6a131e26ab4" class="">Естественно это не полностью защищает от XSS, и такой
+				метод защиты тоже можно обойти, но на начальном уровне это уже хороший шаг в сторону безопасности.</p>
+			<h2 id="131aa64c-9d0a-81d3-a297-da4a74413b6c" class="">Устранение PHPi</h2>
+			<p id="131aa64c-9d0a-819e-bf06-fe3e64244bf4" class="">Вспомним наш код по загрузке файлов на сервер, и что
+				мы легко смогли обмануть сервер и залить свой <strong>shell. <br /><br /></strong>Исправим и этот код
+			</p>
+			<p id="131aa64c-9d0a-8104-a3ab-c45e10be77cb" class="">
+			</p>
+			<p id="131aa64c-9d0a-8112-a8cb-cb017ecdf428" class="">Для начала вспомним, какой код там был
+				написан<br /><br /><br /></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81bb-8a1b-c07491c398eb" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">if(!empty($_FILES[&quot;file&quot;]))
+    {
+        if (((@$_FILES[&quot;file&quot;][&quot;type&quot;] == &quot;image/gif&quot;) || (@$_FILES[&quot;file&quot;][&quot;type&quot;] == &quot;image/jpeg&quot;)
+        || (@$_FILES[&quot;file&quot;][&quot;type&quot;] == &quot;image/jpg&quot;) || (@$_FILES[&quot;file&quot;][&quot;type&quot;] == &quot;image/pjpeg&quot;)
+        || (@$_FILES[&quot;file&quot;][&quot;type&quot;] == &quot;image/x-png&quot;) || (@$_FILES[&quot;file&quot;][&quot;type&quot;] == &quot;image/png&quot;))
+        &amp;&amp; (@$_FILES[&quot;file&quot;][&quot;size&quot;] &lt; 102400))
+        {
+            move_uploaded_file($_FILES[&quot;file&quot;][&quot;tmp_name&quot;], &quot;upload/&quot; . $_FILES[&quot;file&quot;][&quot;name&quot;]);
+            echo &quot;Load in:  &quot; . &quot;upload/&quot; . $_FILES[&quot;file&quot;][&quot;name&quot;];
+        }
+        else
+        {
+            echo &quot;upload failed!&quot;;
+        }
+    }</code></pre>
+			<p id="131aa64c-9d0a-81d0-8145-ef6460d848c2" class="">
+			</p>
+			<p id="131aa64c-9d0a-8135-a28d-f6ef0912583c" class="">Если внимательно посмотреть код, то можно понять
+				несколько проблем</p>
+			<p id="131aa64c-9d0a-816c-9d8c-c4ac439761fc" class="">Пойдем по очереди:</p>
+			<ul id="131aa64c-9d0a-81f5-b128-eac5b6444a1a" class="bulleted-list">
+				<li style="list-style-type:disc">Проверка типа файла:<br />Здесь мы использовали <br /><code>@</code>
+					для предотвращения ошибок при доступе к <code>$_FILES[”file”][”type”]</code> <br />Такой способ
+					проверки может привести к тому, что если тип файла не будет определен, или подменен (как мы это
+					делали при эксплуатации уязвимости), то проверка файла будет пропущена и файл будет загружен без
+					проверки.<br />Поэтому необходимо сначала определить типы разрешенных файлов, после чего настроить
+					валидацию MIME-типа (стандарт, описания формата файла), чтобы не было возможности подменить тип
+					загружаемого файла.<br /><br /></li>
+			</ul>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8142-9be3-c3eeecec6c66" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">$allowedtypes = [&#x27;image/gif&#x27;, &#x27;image/jpeg&#x27;, &#x27;image/jpg&#x27;, &#x27;image/pjpeg&#x27;, &#x27;image/x-png&#x27;, &#x27;image/png&#x27;];
+
+$fileType = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $_FILES[&#x27;file&#x27;][&#x27;tmp_name&#x27;]);
+    if (!in_array($fileType, $allowedTypes)) {
+        $errors[] = &#x27;Недопустимый тип файла.&#x27;;
+    } //что такое $errors[] будет описано ниже</code></pre>
+			<ul id="131aa64c-9d0a-818b-a7ba-c488ed11c1f3" class="bulleted-list">
+				<li style="list-style-type:disc">Размер файла:<br />Следующая проблема которую мы не эксплуатировали -
+					это подмена размера файла, по нашему коду загружаемый файл не должен превышать
+					<br /><code>102400 Байт</code>, что соответствует <code>100 Кбайтам</code>. Но если злоумышленник
+					захочет загрузить файл большего размера, то он просто подменит размер. Следовательно, необходимо
+					строго проверять реальный размер файла, например с помощью функции <code>filesize()</code>
+					<br /><br /></li>
+			</ul>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81a2-8f70-fcd846788d01" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">$maxFileSize = 102400;
+$realFileSize = filesize($_FILES[&#x27;file&#x27;][&#x27;tmp_name&#x27;]);
+    if ($realFileSize &gt; $maxFileSize) {
+        $errors[] = &#x27;Файл слишком большой.&#x27;;
+    }</code></pre>
+			<ul id="131aa64c-9d0a-81b5-bb0d-dccb8bdc3bee" class="bulleted-list">
+				<li style="list-style-type:disc">Имена файлов:<br />В нашем коде файлы сохраняются с исходным именем,
+					что может привести к перезаписи существующих файлов или атакам типа
+					<br /><code>directory traversal</code> . Чтобы избежать этого рекомендуется генерировать уникальные
+					имена для загружаемых файлов.<br /><br /></li>
+			</ul>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81f4-bfcb-c60b497d1320"
+				class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">$tempPath = $_FILES[&#x27;file&#x27;][&#x27;tmp_name&#x27;];
+        $destinationPath = &#x27;upload/&#x27; . uniqid() . &#x27;_&#x27; . basename($_FILES[&#x27;file&#x27;][&#x27;name&#x27;]); //здесь мы генерируем уникальное название и добавляем к нему через _ оригинальное навание</code></pre>
+			<ul id="131aa64c-9d0a-81b2-8cbf-ef9a82b37b58" class="bulleted-list">
+				<li style="list-style-type:disc">Проверка наличия ошибок:<br />В коде отсутствует проверка на наличие
+					ошибок, необходимо проверять наличие ошибок во время загрузки файла используя массив
+					<br /><code>$_FILES[&#x27;file&#x27;][&#x27;error&#x27;]</code> <br /><br /></li>
+			</ul>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81b4-8665-eb1aee6a893e" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">$errors = [];
+if ($_FILES[&#x27;file&#x27;][&#x27;error&#x27;] !== UPLOAD_ERR_OK) {
+        $errors[] = &#x27;Произошла ошибка при загрузке файла.&#x27;;
+    }</code></pre>
+			<ul id="131aa64c-9d0a-8106-907f-dca0f3d27ef7" class="bulleted-list">
+				<li style="list-style-type:disc">Обработка ошибок:<br />Если происходит ошибка загрузки, она должна быть
+					обработана и сообщение об ошибке должно быть предоставлено пользователю.<br /></li>
+			</ul>
+			<ul id="131aa64c-9d0a-81b2-aa19-ff934782adbd" class="bulleted-list">
+				<li style="list-style-type:disc">Антивирусная защита:<br />Файлы, загруженные пользователями, могут
+					содержать вредоносное ПО. Рекомендуется использовать антивирусную проверку перед сохранением файлов.
+					(данный пункт реализовывать мы не будем)<br /></li>
+			</ul>
+			<p id="131aa64c-9d0a-81dc-84dc-cacaddf8043f" class="">
+			</p>
+			<p id="131aa64c-9d0a-818d-a60d-c957b3cce67d" class="">Осталось только все объединить</p>
+			<p id="131aa64c-9d0a-8133-bb24-dfac753890b5" class="">последним шагом только необходимо сделать проверку на
+				наличие ошибок, после чего можно загружать файл</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8119-b577-f1e8da298a6a" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">if (empty($errors)) {
+        //
+				//тут добавить код на изменение имени файла
+				//
+        if (move_uploaded_file($tempPath, $destinationPath)) {
+            echo &quot;Файл загружен успешно: &quot; . $destinationPath;
+        } else {
+            $errors[] = &#x27;Не удалось переместить загруженный файл.&#x27;;
+        }
+    } else {
+        foreach ($errors as $error) {
+            echo $error . &#x27;&lt;br&gt;&#x27;;
+        }
+    }</code></pre>
+			<p id="131aa64c-9d0a-81a5-9d59-fcf3b668fd1b" class="">
+			</p>
+			<p id="131aa64c-9d0a-81d6-9158-d7f8a920c85c" class="">В итоге получаем следующий код</p>
+			<figure id="131aa64c-9d0a-818e-9b23-f93d938994a7" class="image"><a
+					href="Устранение уязвимостей/Untitled%209.png"><img
+						style="width:1538px"
+						src="Устранение уязвимостей/Untitled%209.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81ca-9fd8-edc364175c92" class="">
+			</p>
+			<p id="131aa64c-9d0a-81fe-b2bf-fb0e8bac291c" class="">Теперь попробуем провернуть ту же самую атаку.</p>
+			<p id="131aa64c-9d0a-8193-af33-ed3e4d3eb932" class="">После отправки измененного запроса через
+				<strong>BurpSuite </strong></p>
+			<p id="131aa64c-9d0a-81a8-a0f3-f9730bc58f2e" class="">Видим следующее</p>
+			<p id="131aa64c-9d0a-812c-b8d1-c4aa4e604eaa" class="">изменили тип</p>
+			<figure id="131aa64c-9d0a-81e9-99a5-cca365e153a1" class="image"><a
+					href="Устранение уязвимостей/Untitled%2010.png"><img
+						style="width:903px"
+						src="Устранение уязвимостей/Untitled%2010.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81e5-b31d-d7f6188ca87f" class="">Видим ответ</p>
+			<figure id="131aa64c-9d0a-8182-91f0-fac76f061dac" class="image"><a
+					href="Устранение уязвимостей/Untitled%2011.png"><img
+						style="width:604px"
+						src="Устранение уязвимостей/Untitled%2011.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81b1-9da9-ce7f6c66c191" class="">Тем самым мы закрыли уязвимость. Естественно и данный
+				код можно сделать еще более безопасным, но для базового понимания этого достаточно.</p>
+			<p id="131aa64c-9d0a-817c-9442-ec5693c2eacd" class="">
+			</p>
+			<blockquote id="131aa64c-9d0a-81f1-9b78-e19f9ab9dee4" class="block-color-gray_background">Проверьте код еще
+				раз, и устраните оставшиеся SQLi.</blockquote>
+			<p id="131aa64c-9d0a-81cd-ad5b-cafc2c730ea4" class="">
+			</p>
+			<figure class="block-color-gray_background callout" 
+				id="131aa64c-9d0a-810e-b922-c4ff4b584aa7">
+				<div style="font-size:1em"><span class="icon">💡</span></div>
+				<div style="width:100%">Для успешной сдачи данной работы вам также необходимо выполнить следующие
+					задания на PortSwigger<br /><br /><a
+						href="https://portswigger.net/web-security/sql-injection/lab-retrieve-hidden-data">Задание
+						1</a><br /><br /><a
+						href="https://portswigger.net/web-security/sql-injection/lab-login-bypass">Задание
+						2</a><br /><br /><a
+						href="https://portswigger.net/web-security/sql-injection/examining-the-database/lab-querying-database-version-mysql-microsoft">Задание
+						3</a><br /><br /><a
+						href="https://portswigger.net/web-security/sql-injection/union-attacks/lab-retrieve-data-from-other-tables">Задание
+						4</a><br /><br /><a
+						href="https://portswigger.net/web-security/cross-site-scripting/stored/lab-html-context-nothing-encoded">Задание
+						5</a><br /><br /><a
+						href="https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-document-write-sink">Задание
+						6</a><br /><br /><a
+						href="https://portswigger.net/web-security/cross-site-scripting/contexts/lab-javascript-string-angle-brackets-html-encoded">Задание
+						7</a><br /><br /><a
+						href="https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-dom-xss-reflected">Задание
+						8</a><br /><br /><a
+						href="https://portswigger.net/web-security/deserialization/exploiting/lab-deserialization-arbitrary-object-injection-in-php">Задание
+						9</a><br /><br /></div>
+			</figure>
+			<p id="131aa64c-9d0a-81cb-a24e-e2db42b4e7e8" class="">
+			</p>
+			<p id="131aa64c-9d0a-8119-a7e1-f27fb22bc5df" class="">
+			</p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

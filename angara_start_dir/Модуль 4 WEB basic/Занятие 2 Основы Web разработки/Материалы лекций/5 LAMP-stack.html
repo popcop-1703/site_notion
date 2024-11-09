@@ -1,0 +1,1099 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>5. LAMP-stack</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+
+
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-81ee-a381-d5b702960c47" class="page sans">
+		<header>
+			<div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/book_gray.svg" />
+			</div>
+			<h1 class="page-title">5. LAMP-stack</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<h1 id="131aa64c-9d0a-8115-9025-d525199a153a" class=""><strong>Что такое LAMP?</strong></h1>
+			<nav id="131aa64c-9d0a-8116-9958-f3298449b03c" class="block-color-gray table_of_contents">
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8115-9025-d525199a153a"><strong>Что такое LAMP?</strong></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8109-a385-f4943efbec52">Архитектура LAMP</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-813c-9206-ea830ef2adc4">Как работает стек LAMP?</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8151-b95f-f8e1f1bd8da6">Базовая настройка LAMP-stack</a></div>
+			</nav>
+			<p id="131aa64c-9d0a-81eb-9f11-e1d50116dbdd" class="">LAMP стек - четыре различные технологии, которые
+				разработчики используют для создания веб сайтов и веб-приложений. LAMP – это аббревиатура от
+				операционной системы Linux, веб-сервера Apache, сервера баз данных MySQL и языка программирования PHP.
+				Все четыре из этих технологий имеют открытый исходный код, что означает, что они поддерживаются
+				сообществом и свободно доступны для использования всеми. </p>
+			<figure id="131aa64c-9d0a-810d-8d9d-cfcc6a5c9c40" class="image"><a
+					href="5 LAMP-stack/Untitled.png"><img style="width:327px"
+						src="5 LAMP-stack/Untitled.png" /></a></figure>
+			<h1 id="131aa64c-9d0a-8109-a385-f4943efbec52" class="">Архитектура LAMP</h1>
+			<p id="131aa64c-9d0a-8121-a2b6-fda1e3c60d57" class="">архитектура LAMP состоит из четырех программных
+				технологий, которые работают за кулисами для создания рабочего веб-приложения. Здесь описывается, как
+				каждая из этих технологий веб-разработки взаимодействует друг с другом на компьютерном сервере.
+				Архитектура LAMP состоит из указанных ниже уровней.</p>
+			<p id="131aa64c-9d0a-814d-8bcb-efba69aac0ee" class=""><strong>Linux</strong><br />Linux – это операционная
+				система с открытым исходным кодом, которую можно установить и настроить в соответствии с различными
+				требованиями приложений. Linux находится на первом уровне стека LAMP и поддерживает другие компоненты на
+				верхних уровнях.<br /></p>
+			<p id="131aa64c-9d0a-817e-a1a3-e91d03abd8e8" class=""><strong>Apache<br /><br /></strong>Apache – это
+				веб-сервер с открытым исходным кодом, который образует второй уровень стека LAMP. Модуль Apache хранит
+				файлы веб-сайта и обменивается информацией с браузером с помощью HTTP, интернет-протокола для передачи
+				информации о веб-сайте в виде обычного текста. Например, когда браузер запрашивает веб-страницу,
+				HTTP-сервер Apache выполняет указанное ниже.</p>
+			<ol type="1" id="131aa64c-9d0a-81b7-a0e1-ea0eaa8184e4" class="numbered-list" start="1">
+				<li>Получение запроса</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8153-940c-f44d9bdb8d14" class="numbered-list" start="2">
+				<li>Обработка запроса и поиск необходимого файла подкачки</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8137-a17e-fae5294cb9f6" class="numbered-list" start="3">
+				<li>Отправка соответствующей информации обратно в браузер</li>
+			</ol>
+			<p id="131aa64c-9d0a-81d5-8ef4-fdb1fa754651" class=""><strong>MySQL</strong><br />MySQL – это система
+				управления реляционными базами данных с открытым исходным кодом и третий уровень стека LAMP. Модель LAMP
+				использует MySQL для хранения и запроса информации в реляционных базах данных, а также управления ею.
+				Например, разработчики хранят данные приложений, такие как записи о клиентах, продажах и запасах. Когда
+				пользователь ищет информацию, веб-сервер запрашивает сохраненные данные в MySQL. Запрос относится к
+				специальным инструкциям по манипулированию данными в реляционной базе данных на языке SQL.<br /></p>
+			<p id="131aa64c-9d0a-8157-bee1-f9aa6e846fc6" class=""><strong>PHP</strong><br />Файл PHP, который
+				расшифровывается как препроцессор гипертекста, является четвертым и последним слоем стека LAMP. Это язык
+				сценариев, который позволяет веб-сайтам запускать динамические процессы. Динамический процесс включает
+				информацию в программном обеспечении, которое постоянно меняется. Веб-разработчики встраивают язык
+				программирования PHP в HTML, чтобы отображать на веб-сайтах информацию в реальном времени или
+				обновленную информацию. Они используют PHP, чтобы веб-сервер, база данных и операционная система могли
+				согласованно обрабатывать запросы от браузеров.<br /></p>
+			<p id="131aa64c-9d0a-8169-8a4a-fe69584f9a06" class=""><strong>HTML и PHP</strong><br />Веб-разработчики
+				используют HTML для фронтенд-разработки, например для разработки макета веб-страниц. Между тем, они
+				используют PHP для определения поведения определенных компонентов при загрузке веб-страницы
+				пользователями. Например, веб-разработчики создают графический макет онлайн-каталога продуктов с помощью
+				HTML. Затем они используют PHP-код для получения последней цены продукта с внутреннего сервера.<br />
+			</p>
+			<h1 id="131aa64c-9d0a-813c-9206-ea830ef2adc4" class="">Как работает стек LAMP?</h1>
+			<p id="131aa64c-9d0a-8164-a0f9-dbe0941ad181" class="">Веб-приложения используют стек LAMP для ответа на
+				запросы веб-браузеров. Веб-сервер Apache и база данных MySQL работают под управлением операционной
+				системы Linux и взаимодействуют с помощью PHP. Когда вы открываете веб-страницу в браузере, стек LAMP
+				проходит следующий процесс.</p>
+			<p id="131aa64c-9d0a-815b-bb58-e23f3dfc8937" class=""><strong>Получение запросов</strong><br />Веб-сервер
+				Apache получает входящий запрос от браузера. Если запрос заключается в загрузке статического файла,
+				сервер Apache отвечает непосредственно соответствующим содержимым. Если запрос относится к динамическому
+				контенту, сервер Apache передает запрос компоненту PHP. Компонент PHP находит и загружает
+				соответствующий PHP-файл, который может обработать запрос.<br /></p>
+			<p id="131aa64c-9d0a-811b-868c-f1c30e7ea4d1" class=""><strong>Обработка запросов</strong><br />Файл PHP
+				содержит функции PHP, которые представляют собой коды для генерации динамического контента. Компонент
+				PHP обрабатывает функции PHP, такие как преобразование единиц измерения или создание диаграммы продаж.
+				Для некоторых функций PHP может потребоваться информация из базы данных. В таких случаях PHP-код
+				извлекает сохраненную информацию из базы данных и использует ее для обработки функции.<br /></p>
+			<p id="131aa64c-9d0a-811f-9e59-e0f139dcee24" class=""><strong>Возвращение ответов</strong><br />Файл PHP
+				передает вычисленные результаты веб-серверу в формате HTML. В то же время он хранит новые данные в базе
+				данных MySQL. HTTP-сервер Apache отправляет динамические результаты HTML в браузер пользователя.<br />
+			</p>
+			<p id="131aa64c-9d0a-81e1-9a0c-ed8a100872b6" class="">
+			</p>
+			<h1 id="131aa64c-9d0a-8151-b95f-f8e1f1bd8da6" class="">Базовая настройка LAMP-stack</h1>
+			<p id="131aa64c-9d0a-8146-a4ab-fdb826486f5b" class="">В качестве виртуальной машины будем использовать Kali
+				Linux, но вы можете использовать и другую UNIX подобную систему<br />Для начала полностью обновим
+				систему:<br /></p>
+			<figure id="131aa64c-9d0a-8168-982a-c60d1b944339" class="image"><a
+					href="5 LAMP-stack/Untitled%201.png"><img style="width:1599px"
+						src="5 LAMP-stack/Untitled%201.png" /></a></figure>
+			<p id="131aa64c-9d0a-8191-9bb0-c124fa03e36a" class="">Установим Apache и php:</p>
+			<figure id="131aa64c-9d0a-81d7-a9c1-e0703793294c" class="image"><a
+					href="../Основы web-разработки/Untitled%2021.png"><img
+						style="width:824px"
+						src="../Основы web-разработки/Untitled%2021.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-816a-8b47-dc96aa01714f" class="">Отметим, что в Kali Linux в свежих выпусках, для стека
+				LAMP уже все предустановлено и нам надо просто проверить работоспособность web-сервера</p>
+			<p id="131aa64c-9d0a-8136-8b9c-f9128de04c63" class="">Запустим apache2 и проверим его работоспособность</p>
+			<figure id="131aa64c-9d0a-81da-b47a-f986eab4381e" class="image"><a
+					href="5 LAMP-stack/Untitled%202.png"><img style="width:2751px"
+						src="5 LAMP-stack/Untitled%202.png" /></a></figure>
+			<p id="131aa64c-9d0a-81d4-9679-d1b6cc7acd86" class="">Как видим веб-сервер работает, посмотрим в браузере
+			</p>
+			<figure id="131aa64c-9d0a-81c7-88e7-c8214d92806b" class="image"><a
+					href="../Основы web-разработки/Untitled%2022.png"><img
+						style="width:3455px"
+						src="../Основы web-разработки/Untitled%2022.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8132-9037-c43830795617" class="">По умолчанию файлы apache, которые предназначены для
+				клиентов web-сервера лежат в /var/www/html</p>
+			<figure id="131aa64c-9d0a-81b2-9e58-f80e34a8a1df" class="image"><a
+					href="../Основы web-разработки/Untitled%2023.png"><img
+						style="width:925px"
+						src="../Основы web-разработки/Untitled%2023.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-816c-be6b-d9f50063c326" class="">Но этот путь при необходимости можно изменить,
+				настроив соответствующий конфигурационный файл:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8183-b518-ea4b487159f8"
+				class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">nano /etc/apache2/sites-enabled/000-default.conf</code></pre>
+			<figure id="131aa64c-9d0a-819b-8f2a-c13795053704" class="image"><a
+					href="../Основы web-разработки/Untitled%2024.png"><img
+						style="width:1854px"
+						src="../Основы web-разработки/Untitled%2024.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81c0-8ca5-c7a585c6ce02" class="">Для обучения пока ничего менять не будем.</p>
+			<p id="131aa64c-9d0a-8193-97a1-f9c4664dc1c4" class="">
+			</p>
+			<p id="131aa64c-9d0a-81be-ae2b-f0cc7e28952b" class="">Так как LAMP мы настраиваем для наших тестов, то
+				ограничим доступ к нему только по localhost</p>
+			<p id="131aa64c-9d0a-815d-88ea-c91d0299eb02" class="">Для этого необходимо изменить конфиг apache2</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8163-88a1-db4bdf0f5d83"
+				class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">nano /etc/apache2/apache2.conf</code></pre>
+			<p id="131aa64c-9d0a-810e-8b3c-de0080a53867" class="">Допишем в начало файла следующее:</p>
+			<figure id="131aa64c-9d0a-8111-870d-d7a82bd6e402" class="image"><a
+					href="../Основы web-разработки/Untitled%2025.png"><img
+						style="width:834px"
+						src="../Основы web-разработки/Untitled%2025.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-811c-9158-cfe2660b804c" class="">Каталог /html/ и все файлы в нем принадлежат группе и
+				пользователю root</p>
+			<figure id="131aa64c-9d0a-8182-8d07-fae6d70b3331" class="image"><a
+					href="5 LAMP-stack/Untitled%203.png"><img style="width:1367px"
+						src="5 LAMP-stack/Untitled%203.png" /></a></figure>
+			<p id="131aa64c-9d0a-8173-ae19-ec3077820aa6" class="">Это достаточно безопасно и работает, так как
+				пользователь www-data, от которого работает web-сервер, может читать и выдавать страницы клиентам, но
+				есть в этом минус - данный пользователь не может создавать и записывать новые файлы, что плохо. Поэтому
+				мы сменим группу и владельца данной директории и файлов внутри.</p>
+			<p id="131aa64c-9d0a-81d1-954a-e2999603dcd4" class="">В таком случает, web-сервер сможет загружать к себе
+				файлы пользователей, так как у него будет достаточно для этого прав.</p>
+			<p id="131aa64c-9d0a-8133-989c-c957ab4e1d5c" class="">Изменение прав:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81d3-9765-d40d19369c04"
+				class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">sudo chown -R www-data:www-data html/</code></pre>
+			<figure id="131aa64c-9d0a-8141-b970-d82ca41391f7" class="image"><a
+					href="5 LAMP-stack/Untitled%204.png"><img style="width:1555px"
+						src="5 LAMP-stack/Untitled%204.png" /></a></figure>
+			<p id="131aa64c-9d0a-8153-ae5f-fe5060e77d50" class="">Это повлияет на безопасность, так как если взломают
+				web-сервер, то у злоумышленника будет столько же прав сколько и у www-data. С этим ничего не поделать,
+				за исключением, что надо писать безопасные приложения.</p>
+			<p id="131aa64c-9d0a-8104-8afb-fee5326a3942" class="">
+			</p>
+			<p id="131aa64c-9d0a-8159-bc72-f44bae459835" class="">Давайте протестим работу web-сервера, создадим от
+				root-пользователя файл, который будет выводить информацию по php.</p>
+			<figure id="131aa64c-9d0a-8187-a908-c98146beed5c" class="image"><a
+					href="5 LAMP-stack/Untitled%205.png"><img style="width:691px"
+						src="5 LAMP-stack/Untitled%205.png" /></a></figure>
+			<figure id="131aa64c-9d0a-8162-9d47-e84ae18ed35e" class="image"><a
+					href="../Основы web-разработки/Untitled%2026.png"><img
+						style="width:1539px"
+						src="../Основы web-разработки/Untitled%2026.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81ba-9b1d-f76c031ed26e" class="">Проверим работу в браузере:</p>
+			<figure id="131aa64c-9d0a-813b-87eb-d1dbb8865da2" class="image"><a
+					href="../Основы web-разработки/Untitled%2027.png"><img
+						style="width:3499px"
+						src="../Основы web-разработки/Untitled%2027.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-810a-8428-fb3941f107a2" class="">Так же нам понадобится База данных.</p>
+			<p id="131aa64c-9d0a-812d-801c-e4e8af5a5f91" class="">Будем использовать MariaDB. Установим её:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-817c-a0b5-ec3911023eb1"
+				class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">sudo apt install mariadb-server</code></pre>
+			<figure id="131aa64c-9d0a-81c4-85dd-fe08e3292d41" class="image"><a
+					href="5 LAMP-stack/Untitled%206.png"><img style="width:1122px"
+						src="5 LAMP-stack/Untitled%206.png" /></a></figure>
+			<p id="131aa64c-9d0a-8193-8e6a-dbfc300c0d62" class="">Запустим нашу БД и проверим её статус:</p>
+			<figure id="131aa64c-9d0a-81f5-94aa-e1d79fe0bdd1" class="image"><a
+					href="5 LAMP-stack/Untitled%207.png"><img
+						src="5 LAMP-stack/Untitled%207.png" /></a></figure>
+			<p id="131aa64c-9d0a-813e-a3eb-e51eeece34ca" class="">Для повышения безопасности MariaDB запустим скрипт.
+			</p>
+			<p id="131aa64c-9d0a-81cc-b3f9-f1f11a2c5b18" class="">!!!Начиная с <a
+					href="https://mariadb.com/kb/en/what-is-mariadb-105/">MariaDB 10.5</a> клиент
+				называется <code>mariadb-secure-installation</code>.!!!!</p>
+			<p id="131aa64c-9d0a-81df-b53e-d187147a43f1" class="">Будет предложен ряд вопросов, на все вопросы отвечаем
+				“Да”, за исключением вопроса “Switch to unix_socket authentication”:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8130-8f8b-d245c6f12408"
+				class="code"><code class="language-Bash">sudo mariadb_secure_installation</code></pre>
+			<figure id="131aa64c-9d0a-813e-ac13-cd531189abc5" class="image"><a
+					href="5 LAMP-stack/image.png"><img style="width:441px"
+						src="5 LAMP-stack/image.png" /></a></figure>
+			<figure id="131aa64c-9d0a-8158-a46d-cab96972b480" class="image"><a
+					href="5 LAMP-stack/image%201.png"><img style="width:623px"
+						src="5 LAMP-stack/image%201.png" /></a></figure>
+			<figure id="131aa64c-9d0a-81dd-a104-ee7157749ca1" class="image"><a
+					href="../Основы web-разработки/Untitled%2029.png"><img
+						style="width:1471px"
+						src="../Основы web-разработки/Untitled%2029.png" /></a>
+			</figure>
+			<figure id="131aa64c-9d0a-818c-8611-db96d310cea6" class="image"><a
+					href="../Основы web-разработки/Untitled%2030.png"><img
+						style="width:1498px"
+						src="../Основы web-разработки/Untitled%2030.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-817f-abe7-c9df4bf3ff54" class="">Чтобы убедиться в работоспособности MariaDB, изменим
+				содержимое файла <strong>information.php</strong>, который мы недавно создавали.</p>
+			<figure id="131aa64c-9d0a-8103-81eb-def18c338281" class="image"><a
+					href="../Основы web-разработки/Untitled%2031.png"><img
+						style="width:1446px"
+						src="../Основы web-разработки/Untitled%2031.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81ee-8ba9-d5a792eb4234" class="">Если все успешно, то в браузере отобразится сообщение
+				“Good!”. Давайте проверим:</p>
+			<figure id="131aa64c-9d0a-81be-97fe-d088bd68d93d" class="image"><a
+					href="../Основы web-разработки/Untitled%2032.png"><img
+						style="width:902px"
+						src="../Основы web-разработки/Untitled%2032.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8130-8899-e991719ec767" class="">Все отлично работает, мы настроили LAMP-стек.</p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

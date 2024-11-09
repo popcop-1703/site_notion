@@ -1,0 +1,2135 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Уязвимости Web-приложений</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-819f-84a2-c7781c1bf06f" class="page sans">
+		<header>
+			<div class="page-header-icon undefined"><img class="icon"
+					src="https://www.notion.so/icons/battery-charging_gray.svg" /></div>
+			<h1 class="page-title">Уязвимости Web-приложений</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<nav id="131aa64c-9d0a-81e4-8008-e63799ba418e" class="block-color-gray table_of_contents">
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81bf-bf84-e931a93fe62c">Цель:</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8133-bf50-dd05b9595c8a">Задача:</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8193-9dd1-e1128c44b748">Задание:</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-815a-b488-f4daa51566d2">Краткая инструкция</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81e9-b8f9-e1ef190a5c57">bd.php</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-819c-bf48-fafc8ec61119">registration.php</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81c9-8dda-d1d54812a359">login.php</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81c7-be6d-d29bca34da3f">profile.php</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81e4-8577-f47d304ae5d7">index.php</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-818e-ab57-d552dac97ae5">posts.php</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-813b-a21d-df85806b8bd2">Эксплуатация уязвимостей</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81ba-b622-f316308ae510">SQL injection</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8134-8d13-c9e2ee7da254">XSS</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81d1-8910-e62cc9ecf6fc">PHP injection</a></div>
+			</nav>
+			<h2 id="131aa64c-9d0a-81bf-bf84-e931a93fe62c" class="">Цель:</h2>
+			<p id="131aa64c-9d0a-8102-9c8e-f43308312cda" class="">Закончить написание сайта, а также заложить несколько
+				уязвимостей в наш код и в последствие проэксплуатировать написанные уязвимости</p>
+			<h2 id="131aa64c-9d0a-8133-bf50-dd05b9595c8a" class="">Задача:</h2>
+			<blockquote id="131aa64c-9d0a-81e3-b80c-c68b12e87a55" class="block-color-gray_background">1. Структурировать
+				наш сайт<br />2. Добавить SQLi<br />3. Добавить XSS<br />4. Добавить PHPi<br /></blockquote>
+			<p id="131aa64c-9d0a-81e4-b24e-dc88aa41024d" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-8193-9dd1-e1128c44b748" class="">Задание:</h2>
+			<ol type="1" id="131aa64c-9d0a-811e-8284-d4cac3cc3eb1" class="numbered-list" start="1">
+				<li>Реализовать подключение к БД</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81b2-b96a-ff63af9285df" class="numbered-list" start="2">
+				<li>Реализовать страницы регистрации и авторизации</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-818d-afaf-d191e592c773" class="numbered-list" start="3">
+				<li>Реализовать страницу постов</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8189-9f7b-c4a0792886e1" class="numbered-list" start="4">
+				<li>Проэксплуатировать уязвимость SQLi</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8193-8140-ddb790ff0072" class="numbered-list" start="5">
+				<li>Проэксплуатировать уязвимость XSS</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81b2-802b-d780342980e9" class="numbered-list" start="6">
+				<li>Проэксплуатировать уязвимость PHPi</li>
+			</ol>
+			<p id="131aa64c-9d0a-812f-bb87-f3e958357b5c" class="">
+			</p>
+			<p id="131aa64c-9d0a-8155-8a30-d26e6ac00e32" class="">
+			</p>
+			<figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex"
+				id="131aa64c-9d0a-81ce-b10f-e64856244fc7">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%">Не отступайте и не модернизируйте тот код, что будет приведен в этом задании, за
+					исключением тех мест, где сказано, что это можно делать.</div>
+			</figure>
+			<p id="131aa64c-9d0a-815b-a909-ecd32ab3d58d" class="">
+			</p>
+			<h1 id="131aa64c-9d0a-815a-b488-f4daa51566d2" class="">Краткая инструкция</h1>
+			<p id="131aa64c-9d0a-8156-9eb2-e77dee0950d2" class="">На данный момент у нас реализовано какое-то подобие
+				сайта, но нам не хватает некоторых компонентов и страниц</p>
+			<p id="131aa64c-9d0a-8129-b22d-d595813c0e18" class="">Начнем с того, что нам надо добавить несколько
+				файлов/страниц </p>
+			<p id="131aa64c-9d0a-813e-bee9-e6a389563109" class=""><strong>login.php registration.php db.php</strong></p>
+			<p id="131aa64c-9d0a-810e-9c8c-d81da2bcc077" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-81e9-b8f9-e1ef190a5c57" class="">bd.php</h3>
+			<p id="131aa64c-9d0a-8195-9c9c-e26bd2d81749" class="">Начнем с файла Базы Данных <strong>db.php</strong></p>
+			<p id="131aa64c-9d0a-817b-86d4-f125ff4d1cf0" class="">Что надо:</p>
+			<ul id="131aa64c-9d0a-81e6-a889-f252a032f2b8" class="bulleted-list">
+				<li style="list-style-type:disc">Реализовать подключение к БД</li>
+			</ul>
+			<ul id="131aa64c-9d0a-814d-8529-f6f4b5db2852" class="bulleted-list">
+				<li style="list-style-type:disc">Создать таблицу</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81e9-bb94-d494cfea10ca" class="bulleted-list">
+				<li style="list-style-type:disc">Написать запросы к БД</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81f5-bb04-e1862cd23119" class="bulleted-list">
+				<li style="list-style-type:disc">Закрыть соединение с БД</li>
+			</ul>
+			<p id="131aa64c-9d0a-81a4-947c-f3189869d6a5" class="">
+			</p>
+			<p id="131aa64c-9d0a-811d-88bb-cacba9c68fe8" class="">первым шагом надо определить несколько переменных для
+				подключения</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ea-a53c-e99db08217fd" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">$servername = &quot;127.0.0.1&quot;;
+$username = &quot;your_user_name&quot;;
+$password = &quot;password&quot;;
+$dbName = &quot;db_name&quot;;</code></pre>
+			<p id="131aa64c-9d0a-8165-8ecc-c80531ebca14" class="">
+			</p>
+			<p id="131aa64c-9d0a-815d-b549-d059da9e3d45" class="">Следующим шагом подключение к БД</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-817a-89f7-cdb21f296e24"
+				class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">$link = mysqli_connect($servername, $username, $password);</code></pre>
+			<p id="131aa64c-9d0a-81cc-a452-c380a0fe03a0" class="">Предусмотрим возможность возникновения ошибок при
+				подключении, выведем ошибку</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81da-a588-e0ce9d996865" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">if (!link) {
+  die(&quot;Ошибка подключения: &quot; . mysqli_connection_error());
+}</code></pre>
+			<p id="131aa64c-9d0a-8142-8980-d85a53c691ec" class="">Команда создания таблицы, если ее еще нет</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-813a-8671-d25f443b50d6"
+				class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">$sql = &quot;CREATE DATABASE IF NOT EXIST $dbName&quot;;</code></pre>
+			<p id="131aa64c-9d0a-81f0-bea6-e41994fcf8f0" class="">Сообщение об ошибке, если не удалось создать базу</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8145-8f63-eca09e535375" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">if (!mysqli_query($link, $sql)) {
+  echo &quot;Не удалось создать БД&quot;;
+}</code></pre>
+			<p id="131aa64c-9d0a-8148-a19d-fbe651b4abb1" class=""> Закрытие подключение с MariaDB</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81f3-9bca-ea5dabcf88fd"
+				class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">mysqli_close($link);</code></pre>
+			<p id="131aa64c-9d0a-819f-97c0-f5e1bd95772a" class="">Подключение к БД которую мы создали</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-819c-9471-ef12045e877d"
+				class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">$link = mysqli_connect($servername, $username, $password, $dbName);</code></pre>
+			<p id="131aa64c-9d0a-81c3-b318-e7766a6970df" class="">Теперь реализуем запрос к БД на языке SQL для создания
+				таблицы пользователей если ее не существует</p>
+			<p id="131aa64c-9d0a-81cd-b299-fcffa7b01f78" class="">Будет состоять из следующих столбцов:</p>
+			<ul id="131aa64c-9d0a-8113-9409-de2cd58cd2ac" class="bulleted-list">
+				<li style="list-style-type:disc">id - порядковый номер записи</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81e7-bc73-f9ce00812bea" class="bulleted-list">
+				<li style="list-style-type:disc">username - имя пользователя, зададим ограничение длины 15 различных
+					символов</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81b9-a648-c87919522daf" class="bulleted-list">
+				<li style="list-style-type:disc">email - почта, зададим ограничение длины 50 различных символов</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81de-8e42-c9d079728989" class="bulleted-list">
+				<li style="list-style-type:disc">password - пароль, зададим ограничение длины 20 различных символов</li>
+			</ul>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81cf-8e42-d44ea5601462" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">$sql = &quot;CREATE TABLE IF NOT EXISTS users(
+  id  INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  username VARCHAR(15) NOT NULL,
+  email VARCHAR(50) NOT NULL,
+  password VARCHAR(20) NOT NULL
+)&quot;;</code></pre>
+			<p id="131aa64c-9d0a-81c5-9be4-f8630bae4339" class="">Выводим ошибку, если что-то пошло не так</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81a5-a566-dffe1c4bb126" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">if(!mysqli_qyery($link, $sql)) {
+  echo &quot;Не удалось создать таблицу Users&quot;;
+}</code></pre>
+			<p id="131aa64c-9d0a-8116-8271-e2283088bda9" class="">Создадим еще одну таблицу, в которой будут сохраняться
+				наши записи пользователя, и в случае неудачи выведем ошибку</p>
+			<p id="131aa64c-9d0a-811f-8f9e-c6eb01e5edd8" class="">Все по аналогии с предыдущей таблицей, только столбцы
+				сделаем “название” и “содержание”</p>
+			<p id="131aa64c-9d0a-81cc-a6f4-fe28e65ea241" class="">С этим вы уже в состоянии справиться сами<br /><br />
+			</p>
+			<p id="131aa64c-9d0a-819b-8adf-e9814b82fc27" class="">После этого закроем подключение</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81cd-9a93-edfa80d63dc3"
+				class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">mysqli_close($link);</code></pre>
+			<p id="131aa64c-9d0a-81f7-b759-f3a1a17a868e" class="">
+			</p>
+			<p id="131aa64c-9d0a-81dd-8e96-c3c733f8af49" class="">В итоге получим что-то вроде этого</p>
+			<figure id="131aa64c-9d0a-8107-980b-c07309a6ff04" class="image"><a
+					href="Уязвимости Web-приложений/Untitled.png"><img
+						style="width:1088px"
+						src="Уязвимости Web-приложений/Untitled.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-813f-aa05-dba4de90247a" class="">Мы написали файл для подключения к БД и ее таблицам,
+				именно этот файл мы будем вызывать для создания новых записей при регистрации пользователей и при
+				добавлении пользователями информации на своих страницах</p>
+			<p id="131aa64c-9d0a-8108-9df0-c719374fbe58" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-819c-bf48-fafc8ec61119" class="">registration.php</h3>
+			<p id="131aa64c-9d0a-81be-b8a6-ded05c3d9c9d" class="">Перейдем к файлу регистрации</p>
+			<p id="131aa64c-9d0a-8122-b007-eb1296f74f1f" class="">За основу возьмем наш файл profile.php c с пустым
+				тегом <strong>body</strong></p>
+			<p id="131aa64c-9d0a-81d5-a6b3-d0365721be44" class="">В теге <strong>body </strong>добавим форму для
+				регистрации с полями:</p>
+			<ul id="131aa64c-9d0a-81a3-b60d-fd71477d75c5" class="bulleted-list">
+				<li style="list-style-type:disc">почта</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8125-9e95-ca65368290d0" class="bulleted-list">
+				<li style="list-style-type:disc">логин</li>
+			</ul>
+			<ul id="131aa64c-9d0a-819b-af5e-cb06cf0fbf9f" class="bulleted-list">
+				<li style="list-style-type:disc">пароль</li>
+			</ul>
+			<p id="131aa64c-9d0a-81a3-a4ea-e87c3bd558d7" class="">и добавим кнопку для продолжения</p>
+			<p id="131aa64c-9d0a-8151-8cdd-f13e3ed485b6" class="">В теге <strong>form </strong>также необходимо добавить
+				метод отправки данных, мы будем использовать метод <strong>POST </strong>а так же, необходимо указать
+				название файла, которое будет принимать и передавать поступившие данные, в нашем случае - это этот же
+				файл, для указания файла используется метод <strong>action</strong></p>
+			<p id="131aa64c-9d0a-815d-aee4-ee0a74757e36" class="">А у кнопки необходимо добавить тип <strong>submit,
+				</strong>который будет давать в будущем понимание, что данные передаются</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-818a-ada7-fd155daae7f8"
+				class="code"><code class="language-HTML" style="white-space:pre-wrap;word-break:break-all">&lt;form method=&#x27;POST&#x27; action=&#x27;/registration.php&#x27;&gt;</code></pre>
+			<figure id="131aa64c-9d0a-8148-b1e2-fd812e2ca7bc" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%201.png"><img
+						style="width:576px"
+						src="Уязвимости Web-приложений/Untitled%201.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-816e-8b24-c3fe71d0745a" class="">не забываем добавлять стили</p>
+			<p id="131aa64c-9d0a-81ef-b70f-c51bb91b0251" class="">Так же, чтобы форма корректно работала и добавляла
+				пользователей при регистрации в БД нам необходимо это описать</p>
+			<p id="131aa64c-9d0a-8123-9489-da58164b428c" class="">после закрывающего тега <strong>html </strong>добавим
+				код на <strong>php</strong></p>
+			<p id="131aa64c-9d0a-8185-893c-e45e42f03f17" class="">Сначала подключаемся к <strong>db.php</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-817d-9b94-de1b6c1d3ae2"
+				class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">require_once(&#x27;db.php&#x27;);</code></pre>
+			<p id="131aa64c-9d0a-8104-b006-e92f7230bfa2" class="">Теперь подключаемся к самой БД</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-811f-9637-dbbee6974c65"
+				class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">$link = mysqli_connect(&#x27;127.0.0.1&#x27;, &#x27;root&#x27;, &#x27;password&#x27;, &#x27;name_db&#x27;);</code></pre>
+			<p id="131aa64c-9d0a-8141-a212-ffef926153a6" class="">Следующим шагом необходимо определить функцию, которая
+				будет проверять наличие значений, который будут находиться в тегах <strong>input</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8122-8fc8-c85a16a7e14a" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">if (isset($_POST[&#x27;submit&#x27;])) {
+  $email = $_POST[&#x27;email&#x27;];
+  $username = $_POST[&#x27;username&#x27;];
+  $password = $_POST[&#x27;password&#x27;];
+}</code></pre>
+			<p id="131aa64c-9d0a-814c-a6fc-c16f1eceb93c" class="">Так же внутри этой функции необходимо добавить
+				проверку на то, что все блоки были заполнены</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ca-b2c1-f1161c1b8eab"
+				class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">if (!$email || !$username || !$password) die (&#x27;Пожалуйста введите все значения!&#x27;);</code></pre>
+			<p id="131aa64c-9d0a-81d7-8677-fbfe87f8a57a" class="">Теперь, так же внутри этой функции необходимо
+				определить SQL запрос, для занесения данных в таблицу пользователей</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-815c-b06c-cca8149f6365"
+				class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">$sql = &quot;INSERT INTO users (email, username, password) VALUES (&#x27;$email&#x27;, &#x27;$username&#x27;, &#x27;$password&#x27;)&quot;;</code></pre>
+			<p id="131aa64c-9d0a-81fc-a8b4-cdaa8d6e6c55" class="">И сделаем проверку на ошибки</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-811b-aa6b-dc6d3291dd73" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">if(!mysqli_query($link, $sql)) {
+  echo &quot;Не удалось добавить пользователя&quot;;
+}</code></pre>
+			<p id="131aa64c-9d0a-81ab-a505-cd9c493cef5e" class="">У нас получится следующее</p>
+			<figure id="131aa64c-9d0a-812f-a79d-c8a80fee70c6" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%202.png"><img
+						style="width:1331px"
+						src="Уязвимости Web-приложений/Untitled%202.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-814f-bff0-d6f5e7d59329" class="">
+			</p>
+			<p id="131aa64c-9d0a-812e-b3e7-f1465d68f456" class="">Давайте проверим наш код, попробуем зарегистрировать
+				пользователя</p>
+			<figure id="131aa64c-9d0a-81d9-9197-c8940dfc5a25" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%203.png"><img
+						style="width:2759px"
+						src="Уязвимости Web-приложений/Untitled%203.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8119-bc3f-c605e3581df7" class="">После нажатия на кнопку у вас ничего скорее всего не
+				произойдет, но давайте проверим нашу БД</p>
+			<p id="131aa64c-9d0a-81cd-b58d-c94d674fbbf8" class="">Подключаемся к БД:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-812f-b718-d786829d0963"
+				class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">sudo mariadb -u root</code></pre>
+			<figure id="131aa64c-9d0a-8158-b4bc-d21c552f378f" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%204.png"><img
+						style="width:1015px"
+						src="Уязвимости Web-приложений/Untitled%204.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8197-b7fa-faaa76bfbdc0" class="">Вводим пароль и выводим все БД</p>
+			<figure id="131aa64c-9d0a-8179-9904-e7a9ed71a6c6" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%205.png"><img
+						style="width:721px"
+						src="Уязвимости Web-приложений/Untitled%205.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8142-8d20-e84366f22b8c" class="">Выбираем необходимую</p>
+			<figure id="131aa64c-9d0a-81b0-bd4d-de847d2b6586" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%206.png"><img
+						style="width:801px"
+						src="Уязвимости Web-приложений/Untitled%206.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8109-aa0b-f53d02de6271" class="">выводим список всех таблиц</p>
+			<figure id="131aa64c-9d0a-81a7-b8dc-cfb10019bd24" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%207.png"><img
+						style="width:595px"
+						src="Уязвимости Web-приложений/Untitled%207.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81df-8d9b-fc26d099cb1e" class="">Отправляем запрос, чтобы вывести содержимое
+				интересующей нас таблицы</p>
+			<p id="131aa64c-9d0a-811c-b160-f1170dc95980" class="">И видим, что у нас появилась запись о пользователе</p>
+			<figure id="131aa64c-9d0a-8112-9218-d1c6b78c7447" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%208.png"><img
+						style="width:451px"
+						src="Уязвимости Web-приложений/Untitled%208.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81a5-808a-c90efc011faa" class="">Тем самым мы убедились, что пользователь действительно
+				создался</p>
+			<p id="131aa64c-9d0a-8127-b684-cebc8bdcfb64" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-81c9-8dda-d1d54812a359" class="">login.php</h3>
+			<p id="131aa64c-9d0a-810e-af38-e3311ab51a4f" class="">Теперь перейдем к файлу авторизации
+				<strong>login.php</strong></p>
+			<p id="131aa64c-9d0a-814f-9ca0-da7744f629f2" class="">В целом данный файл сильно будет похож на файл
+				регистрации, поэтому возьмем его за основу</p>
+			<p id="131aa64c-9d0a-8199-a4a1-dc70903fc5b9" class="">В блоке формы в html верстке оставим только</p>
+			<ul id="131aa64c-9d0a-8160-88ab-d425f8a88536" class="bulleted-list">
+				<li style="list-style-type:disc">login</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81fd-b1e4-f77a1511e90b" class="bulleted-list">
+				<li style="list-style-type:disc">password</li>
+			</ul>
+			<p id="131aa64c-9d0a-81a8-a233-ec3eac85a35a" class="">В качестве параметра <strong>action укажем наш файл
+					логина</strong></p>
+			<figure id="131aa64c-9d0a-8147-8adb-cdb1eba2e9d6" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%209.png"><img
+						style="width:1347px"
+						src="Уязвимости Web-приложений/Untitled%209.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-812d-b98f-fe0b717438b5" class="">А вот над кодом <strong>php </strong>немного
+				поработаем</p>
+			<ul id="131aa64c-9d0a-8128-8c67-c39fc69f5d17" class="bulleted-list">
+				<li style="list-style-type:disc">так же оставляем подключение файла <strong>db.php</strong></li>
+			</ul>
+			<ul id="131aa64c-9d0a-818c-b080-c70e34dd4615" class="bulleted-list">
+				<li style="list-style-type:disc">оставляем подключение к таблице</li>
+			</ul>
+			<ul id="131aa64c-9d0a-814f-8364-e313608f9c8e" class="bulleted-list">
+				<li style="list-style-type:disc">в отправке запроса убираем email</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8157-8cc3-d9b6e739a0d1" class="bulleted-list">
+				<li style="list-style-type:disc">в проверке введенных значений убираем email</li>
+			</ul>
+			<p id="131aa64c-9d0a-8149-92c1-daaa01d7627a" class="">А дальше немного переписываем</p>
+			<p id="131aa64c-9d0a-8147-b693-c048cb579d1b" class="">Сначала изменим запрос</p>
+			<p id="131aa64c-9d0a-81b6-9c0b-d8208c78dc62" class="">если до этого у нас был запрос на добавление записи в
+				БД, то теперь будет запрос на получение данных</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8170-a9aa-ed4bd445005c"
+				class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">$sql = &quot;SELECT * FROM users WHERE username=&#x27;$login&#x27; AND passwod=&#x27;$pass&#x27;&quot;;</code></pre>
+			<p id="131aa64c-9d0a-8147-8e36-fd4a79fe4c5a" class="">отправляем запрос к БД</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81e5-b1be-d683c50a4a45"
+				class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">$result = mysqli_query($link, $sql);</code></pre>
+			<p id="131aa64c-9d0a-815a-85a8-e64e46c9218a" class="">В случае, если у нас будет найден результат, то мы
+				установим куку, действие куки определим на 2 часа (время указывается в секундах, т.е. 2 часа = 7200
+				секунд)<br />Так же перенаправим пользователя, после успешной авторизации на его профиль, т.е. файл
+				<br /><strong>profile.php</strong></p>
+			<p id="131aa64c-9d0a-812d-a6ee-c35b31518726" class="">В случае не найденного совпадения в БД выведем ошибку
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81e5-8a33-c6312a39bb24" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">if (mysqli_num_rows($result) == 1) {
+  setcookie(&quot;User&quot;, $username, time()+7200);
+  header(&#x27;Location: profile.php&#x27;);
+} else {
+  echo &quot;не правильное имя или пароль&quot;;
+}</code></pre>
+			<p id="131aa64c-9d0a-81d9-9c5e-e0bd85e59e09" class="">Получаем следующее</p>
+			<figure id="131aa64c-9d0a-81d9-ae50-df0d0a61b71d" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2010.png"><img
+						style="width:1123px"
+						src="Уязвимости Web-приложений/Untitled%2010.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81a0-b4cf-cdc6898fa539" class="">Теперь перепроверим вход</p>
+			<figure id="131aa64c-9d0a-815c-b00a-d84b6c6c7157" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2011.png"><img
+						style="width:2883px"
+						src="Уязвимости Web-приложений/Untitled%2011.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-816a-9a5d-f7d6c1c7a63c" class="">В случае, если все сделано без ошибок, мы получим уже
+				знакомую нам страницу</p>
+			<figure id="131aa64c-9d0a-819d-a824-c873c68514aa" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2012.png"><img
+						style="width:3100px"
+						src="Уязвимости Web-приложений/Untitled%2012.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8165-bbbf-cc0ef6c19287" class="">А если в консоли разработчика зайти в Storage то
+				увидим наличие куки</p>
+			<figure id="131aa64c-9d0a-81ec-a006-cc65a3d61783" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2013.png"><img
+						style="width:3820px"
+						src="Уязвимости Web-приложений/Untitled%2013.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81c8-8f14-f4db8d2edb10" class="">Предлагаю так же добавить в файл регистрации и
+				авторизации код проверки на куки, в случае еще активной куки, сайт сразу будет перенаправлять на
+				страницу профиля</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8151-a64d-df8dcebf6054" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">if (isset($_COOKIE[&#x27;User&#x27;])) {
+    header(&quot;Location: profile.php&quot;);
+}</code></pre>
+			<p id="131aa64c-9d0a-819a-abbf-de0bbe31be09" class="">Добавьте этот код сразу после подключения файла БД</p>
+			<p id="131aa64c-9d0a-81fe-9229-da5818246c50" class="">В регистрации пусть перенаправляет не на
+				<strong>profile.php, </strong>а на <strong>login.php</strong></p>
+			<p id="131aa64c-9d0a-814e-bc6f-d36717ed62fe" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-81c7-be6d-d29bca34da3f" class="">profile.php</h3>
+			<p id="131aa64c-9d0a-8128-ba79-d7ad31065336" class="">Давайте немного изменим наш файл <strong>profile.php
+				</strong>и сделаем возможность добавления каких-нибудь статей или постов.</p>
+			<p id="131aa64c-9d0a-819f-94ff-ccea5e0fa9c4" class="">
+			</p>
+			<p id="131aa64c-9d0a-8186-836a-d2a18b774cfd" class="">Давайте после кнопки на странице добавим форму, для
+				создания постов.</p>
+			<p id="131aa64c-9d0a-812c-893c-cf5637397ee0" class="">
+			</p>
+			<figure id="131aa64c-9d0a-81ac-b2ca-de541942195a" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2014.png"><img
+						style="width:1452px"
+						src="Уязвимости Web-приложений/Untitled%2014.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8110-a44f-f89e30f39457" class="">Обратите внимание, у нас есть заголовок <strong>h1
+				</strong> в котором выводится приветственное сообщение для того пользователя, который залогинен.</p>
+			<p id="131aa64c-9d0a-819a-82f1-dbaa14482dd3" class="">Естественно, чтобы наши посты сохранялись в БД, нам
+				также необходимо написать скрипт php который будет отправлять введенные данные.
+			<div class="indented">
+				<p id="131aa64c-9d0a-8110-a78b-c82d8294fd69" class="">
+				</p>
+			</div>
+			</p>
+			<p id="131aa64c-9d0a-815e-b89f-f58e6068deb7" class="">Напишем его сразу после закрывающего тега
+				<strong>html</strong></p>
+			<p id="131aa64c-9d0a-8163-b928-e3a72144c384" class="">Первое, что надо сделать, подключить наш файл
+				<strong>db.php, </strong>а также подключиться к БД, вы это сможете сделать самостоятельно</p>
+			<p id="131aa64c-9d0a-8132-96da-ebbc99910ff4" class="">
+			</p>
+			<p id="131aa64c-9d0a-8104-83ed-e7cf779355dd" class="">После чего нам необходимо условие отправки введенных
+				данных</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81dc-9d50-fca67e6dd36a" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">if (isset($_POST[&#x27;submit&#x27;])) {
+}</code></pre>
+			<p id="131aa64c-9d0a-81c3-b8fc-e59ffcca5e93" class="">Внутри нужно забрать введенные значения</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81f0-86a5-c54a839b82b7" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">$title = $_POST[&#x27;title&#x27;];
+$main_text = $_POST[&#x27;text&#x27;];</code></pre>
+			<p id="131aa64c-9d0a-8192-9a4b-f1f62f0f3d87" class="">В случае если заполнены не все поля вывести сообщение,
+				о том, что надо заполнить все поля</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81b9-abc5-df2919edc952"
+				class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">if (!$title || !$main_text) die (&quot;Заполните все поля&quot;);</code></pre>
+			<p id="131aa64c-9d0a-81db-ba65-dec41eed4ea1" class="">после чего, отправляем запрос на добавление записи в
+				таблицу БД</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8107-b418-f4b3fce59d7f"
+				class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">$sql = &quot;INSERT INTO posts (title, main_text) VALUES (&#x27;$title&#x27;, &#x27;$main_text&#x27;)&quot;;</code></pre>
+			<p id="131aa64c-9d0a-812f-ab58-c12ce57c7d39" class="">И выведем ошибку, в случае, если не получилось
+				добавить пост</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81cd-95d1-cb432afe5057"
+				class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">if (!mysqli_query($link, $sql)) die (&quot;Не удалось добавить пост&quot;);</code></pre>
+			<p id="131aa64c-9d0a-816d-9c95-d5d1b5182a30" class="">В итоге получим следующее</p>
+			<figure id="131aa64c-9d0a-8110-ba9b-ebc23f5c87e1" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2015.png"><img
+						style="width:1092px"
+						src="Уязвимости Web-приложений/Untitled%2015.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81cc-81a2-d83b00ee5ca4" class="">Не забываем поправить стили для страницы, если
+				необходимо</p>
+			<p id="131aa64c-9d0a-8184-b0a0-ea5887b19d77" class="">Теперь, можно проверить, как это выглядит в браузере,
+				давайте залогинимся и посмотрим</p>
+			<p id="131aa64c-9d0a-81bf-a438-c00311a9b759" class="">
+			</p>
+			<figure id="131aa64c-9d0a-8127-98c8-c6a3c0ddaf7f" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2016.png"><img
+						style="width:3400px"
+						src="Уязвимости Web-приложений/Untitled%2016.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-819b-82b0-fafd0f72e42e" class="">Давайте, напишем в эту форму, что-нибудь</p>
+			<figure id="131aa64c-9d0a-8129-95a1-f366232318d3" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2017.png"><img
+						style="width:3000px"
+						src="Уязвимости Web-приложений/Untitled%2017.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8114-8f10-ca51d2eba071" class="">После нажатия на кнопку сохранить, поля опустошатся
+			</p>
+			<p id="131aa64c-9d0a-81f1-bf6d-d4e30cd7dd8d" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-81e4-8577-f47d304ae5d7" class="">index.php</h3>
+			<p id="131aa64c-9d0a-81ab-8f45-ec0bbefa5dac" class="">Если вспомнить, то файл <strong>index.php </strong>мы
+				не до конца дописали, давайте допишем его</p>
+			<p id="131aa64c-9d0a-817f-972f-e50d05c381f5" class="">Сейчас он выглядит так:</p>
+			<p id="131aa64c-9d0a-8192-b5e7-e7af9f67750f" class=""> </p>
+			<figure id="131aa64c-9d0a-8137-82a6-e8a00024b0b5" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2018.png"><img
+						style="width:1239px"
+						src="Уязвимости Web-приложений/Untitled%2018.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81bf-9b06-d377a842dcc8" class="">У нас отсутствует подключение к БД</p>
+			<p id="131aa64c-9d0a-818b-b47e-f109f6418510" class="">Раз у нас уже есть проверка на наличие куки, пусть в
+				таком случае на странице отображается информация о том, что размещают пользователи</p>
+			<p id="131aa64c-9d0a-8136-bfb5-d6722003f7da" class="">Подключимся к БД</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8170-b6bb-fea8a2376433"
+				class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">$link = mysqli_connect(&#x27;127.0.0.1&#x27;, &#x27;root&#x27;, &#x27;your_password&#x27;, &#x27;nameDB&#x27;);</code></pre>
+			<p id="131aa64c-9d0a-812f-89c7-c46d4da33752" class="">Отправим запрос на получение всех записей в нашей
+				второй таблице posts</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81fd-82a7-dbcfccddc1a3" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">$sql = &quot;SELECT * FROM posts&quot;;
+$res = mysqli_query($link, $sql);</code></pre>
+			<p id="131aa64c-9d0a-8164-9b88-f74157c85e53" class="">Если в таблице есть записи, то выведем список всех
+				статей<br />В противном случае скажем, что записей нет<br /></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8128-948f-e8df6fb9a0b3" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">if (mysqli_num_rows($res) &gt;  0) {
+            while ($post = mysqli_fetch_array($res)) {
+                echo &quot;&lt;a href=&#x27;/posts.php?id=&quot; . $post[&quot;id&quot;] . &quot;&#x27;&gt;&quot; . $post[&#x27;title&#x27;] . &quot;&lt;/a&gt;&lt;br&gt;&quot;;
+            }
+           } else {
+                echo &quot;Записей пока нет&quot;;
+           }</code></pre>
+			<p id="131aa64c-9d0a-81b5-a480-f01d261915e8" class="">Получаем следующее</p>
+			<figure id="131aa64c-9d0a-813c-8b7e-fcc0389158b9" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2019.png"><img
+						style="width:1463px"
+						src="Уязвимости Web-приложений/Untitled%2019.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8112-acb7-e1452094ce76" class="">Если, после авторизации зайти на страниц
+				<strong>index.php </strong>то мы увидим ссылку на наш пост, который мы создавали выше</p>
+			<figure id="131aa64c-9d0a-81d3-82ff-efea3484ac0e" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2020.png"><img
+						style="width:2492px"
+						src="Уязвимости Web-приложений/Untitled%2020.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81d1-b609-f1aa9cc812e6" class="">Надпись “Авторизуйтесь” нам не сильно подходит,
+				поэтому исправим это</p>
+			<figure id="131aa64c-9d0a-8133-98b9-c106d989a855" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2021.png"><img
+						style="width:2896px"
+						src="Уязвимости Web-приложений/Untitled%2021.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81fd-a7a3-f1e511b405b5" class="">Так-то лучше!</p>
+			<p id="131aa64c-9d0a-812c-b074-eee5f851861b" class="">
+			</p>
+			<p id="131aa64c-9d0a-813d-b5f6-e0b4e41dfbf0" class="">Но если мы нажмем на нашу ссылку на статью, то мы
+				ничего не увидим, так как у нас нет страницы с постами.</p>
+			<p id="131aa64c-9d0a-8105-b663-f58224560c4e" class="">
+			</p>
+			<p id="131aa64c-9d0a-81b1-b456-d3c91bd2966f" class="">не забывайте заливать обновления на гит</p>
+			<p id="131aa64c-9d0a-81dd-833a-eafac15e1f53" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-818e-ab57-d552dac97ae5" class="">posts.php</h3>
+			<p id="131aa64c-9d0a-81dc-954e-d337c75b2ddf" class="">Давайте реализуем страницу Постов</p>
+			<p id="131aa64c-9d0a-8115-97b2-d7f567abc658" class="">
+			</p>
+			<p id="131aa64c-9d0a-8143-abac-c01407d08ebc" class="">Создадим файл <strong>posts.php</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8126-b394-d2ab9c2ed8d5"
+				class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">touch posts.php</code></pre>
+			<p id="131aa64c-9d0a-8180-9f75-c1f2fb84818d" class="">как и до этого, возьмем за основу файл
+				<strong>profile.php </strong>с пустым телом</p>
+			<p id="131aa64c-9d0a-814e-b03c-d8791196828b" class="">До html тега напишем код на <strong>php </strong>для
+				подключения к БД</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81cd-9996-eec1251fcdfb"
+				class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">$link = mysqli_connect(&#x27;127.0.0.1&#x27;, &#x27;root&#x27;, &#x27;password&#x27;, &#x27;nameDB&#x27;);</code></pre>
+			<p id="131aa64c-9d0a-81a0-a0e6-f7f8831f11c4" class="">Из нашей строки поиска получим GET параметр, такой,
+				как id</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8168-bc66-f1e9ecac9320"
+				class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">$id = $_GET[&#x27;id&#x27;];</code></pre>
+			<p id="131aa64c-9d0a-813b-b1d9-ed3ccaa18487" class="">Отправим запрос к таблице постов</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8118-975a-e7d5557fc2ca"
+				class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">$sql = &quot;SELECT * FROM posts WHERE id=$id&quot;;</code></pre>
+			<p id="131aa64c-9d0a-8144-8a13-eb0a50e0b114" class="">Обратите внимание, так как у нас значение id - это
+				число, то мы его передаем в запросе без кавычек</p>
+			<p id="131aa64c-9d0a-819b-aec1-c86c3b7be0ca" class="">Отправим запрос</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-817c-94b9-ce43f4e24979"
+				class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">$res = mysqli_query($link, $sql);</code></pre>
+			<p id="131aa64c-9d0a-8190-8ce8-f72c7e364066" class="">Достанем необходимые нам значения, заголовок и
+				содержание</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-811b-bbe6-ee59d6bf86c8" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">$rows = mysqli_fetch_array($res);
+$title = $rows[&#x27;title&#x27;];
+$main_text = $rows[&#x27;main_text&#x27;];</code></pre>
+			<p id="131aa64c-9d0a-817c-82e0-ef6e90819c06" class="">Получим следующее</p>
+			<p id="131aa64c-9d0a-8197-bd70-c8c197150afc" class="">А, чтобы отобразить эти данные на странице, в теле
+				разметки <strong>html </strong>напишем еще код на php внутри тега <strong>body</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81df-afad-fb2a1a293d5f" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">echo &quot;&lt;h1&gt;$title&lt;/h1&gt;&quot;;
+echo &quot;&lt;p&gt;$main_text&lt;/p&gt;&quot;;</code></pre>
+			<p id="131aa64c-9d0a-8152-8424-cab0fba3b013" class="">
+			</p>
+			<figure id="131aa64c-9d0a-8161-a6a3-f46844b5c9ab" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2022.png"><img
+						style="width:1556px"
+						src="Уязвимости Web-приложений/Untitled%2022.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8186-9fc8-db4ee7f37b24" class="">Проверяем в браузере</p>
+			<figure id="131aa64c-9d0a-810c-ab91-d682aa414108" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2023.png"><img
+						style="width:1865px"
+						src="Уязвимости Web-приложений/Untitled%2023.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81b8-b80d-e8adc886bfd8" class="">Теперь мы можем читать посты</p>
+			<p id="131aa64c-9d0a-819e-a1bb-fd227e55a2f7" class="">На этом написание нашего примитивного сайта
+				закончилось</p>
+			<p id="131aa64c-9d0a-8174-b14a-d2c99a7eec23" class="">
+			</p>
+			<p id="131aa64c-9d0a-81f7-87e5-e9a266d70ba4" class="">Давайте еще добавим возможность добавления файлов к
+				нашим постам</p>
+			<p id="131aa64c-9d0a-8193-a28c-d4d1d15fc207" class="">поправим файл <strong>profile.php</strong></p>
+			<p id="131aa64c-9d0a-816c-b056-f8c4a2d20f3c" class="">Создадим папку <strong>upload </strong>и дадим ей
+				права www-data:www-data </p>
+			<figure id="131aa64c-9d0a-81be-90da-eecaccf8b487" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2024.png"><img
+						style="width:846px"
+						src="Уязвимости Web-приложений/Untitled%2024.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81f7-babc-d19dc5d4a6c4" class="">в нашей форме для постов добавим еще одну строку</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81a4-8cba-ecd2751709fc"
+				class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">&lt;input type=&quot;file&quot; name=&quot;file&quot; /&gt;&lt;br&gt;</code></pre>
+			<p id="131aa64c-9d0a-816e-8615-dd2844b4c71e" class="">А в теге <strong>form </strong>допишем еще два
+				атрибута</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81c2-a8d7-d47299433068"
+				class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">enctype=&quot;multipart/form-data&quot; name=&quot;upload&quot;</code></pre>
+			<p id="131aa64c-9d0a-8118-ae8d-f9ab96bbf931" class="">Получим следующее</p>
+			<figure id="131aa64c-9d0a-817f-85a7-c6eea91c087a" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2025.png"><img
+						style="width:1572px"
+						src="Уязвимости Web-приложений/Untitled%2025.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-814b-a439-e3db5aa0998c" class="">И модернизируем наш блок <strong>php, </strong>чтобы
+				мы могли загружать файлы.</p>
+			<p id="131aa64c-9d0a-81ec-b96b-fdca41629af8" class="">допишем после вывода ошибки, что не удалось добавить
+				пост следующее</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8193-81cd-fd29c677d941" class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">if(!empty($_FILES[&quot;file&quot;]))
+    {
+        if (((@$_FILES[&quot;file&quot;][&quot;type&quot;] == &quot;image/gif&quot;) || (@$_FILES[&quot;file&quot;][&quot;type&quot;] == &quot;image/jpeg&quot;)
+        || (@$_FILES[&quot;file&quot;][&quot;type&quot;] == &quot;image/jpg&quot;) || (@$_FILES[&quot;file&quot;][&quot;type&quot;] == &quot;image/pjpeg&quot;)
+        || (@$_FILES[&quot;file&quot;][&quot;type&quot;] == &quot;image/x-png&quot;) || (@$_FILES[&quot;file&quot;][&quot;type&quot;] == &quot;image/png&quot;))
+        &amp;&amp; (@$_FILES[&quot;file&quot;][&quot;size&quot;] &lt; 102400))
+        {
+            move_uploaded_file($_FILES[&quot;file&quot;][&quot;tmp_name&quot;], &quot;upload/&quot; . $_FILES[&quot;file&quot;][&quot;name&quot;]);
+            echo &quot;Load in:  &quot; . &quot;upload/&quot; . $_FILES[&quot;file&quot;][&quot;name&quot;];
+        }
+        else
+        {
+            echo &quot;upload failed!&quot;;
+        }
+    }</code></pre>
+			<p id="131aa64c-9d0a-813d-b0eb-dcd40061c48c" class="">Здесь у нас реализована проверка на типы файлов,
+				которые мы можем загружать, в данном случае это картинки, а также написан предельный размер файла.</p>
+			<p id="131aa64c-9d0a-8189-9bc7-d1bfc38896db" class="">Проверим как это выглядит в браузере</p>
+			<figure id="131aa64c-9d0a-8106-abe6-e9f076a30474" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2026.png"><img
+						style="width:3098px"
+						src="Уязвимости Web-приложений/Untitled%2026.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81f0-8673-d78dff6ab52d" class="">Теперь мы так же можем и загружать картинки.</p>
+			<p id="131aa64c-9d0a-8197-95d5-cb66e1d4788e" class="">
+			</p>
+			<figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex"
+				id="131aa64c-9d0a-8198-8d37-d5fc7a74a4cc">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%">Обратите внимание, что картинки загружаются в отдельный каталог, и чтобы их
+					просмотреть, необходимо пройти по этому пути. </div>
+			</figure>
+			<blockquote id="131aa64c-9d0a-81cd-bd38-f33306fe6cae" class="">Вам также самостоятельно необходимо сделать
+				так, чтобы картинку можно было посмотреть как и по отдельному пути, так и чтобы она отображалась в том
+				посту, к которому она прикреплялась.</blockquote>
+			<p id="131aa64c-9d0a-8107-83e9-deff6111be6f" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-813b-a21d-df85806b8bd2" class="">Эксплуатация уязвимостей</h2>
+			<h3 id="131aa64c-9d0a-81ba-b622-f316308ae510" class="">SQL injection</h3>
+			<p id="131aa64c-9d0a-811b-9b79-ff746a304c5f" class="">Можно заметить, что тот код который мы написали в
+				нашем сайте не совсем безопасен<br />В частности он не безопасен для SQL инъекций<br /></p>
+			<p id="131aa64c-9d0a-81ac-9a10-d5c6dab7ed9c" class="">Можно догадаться, что те поля, которые мы используем
+				для регистрации, авторизации, параметры GET запроса в адресной строке и т.д. подвержены SQL инъекциям
+			</p>
+			<p id="131aa64c-9d0a-812f-8b1b-ee3f3832dc8c" class="">Естественно пробовать эксплуатировать SQL инъекции
+				можно прям в браузере, но для наглядности воспользуемся <strong>BurpSuite</strong></p>
+			<p id="131aa64c-9d0a-8101-a770-ecc8bcc4c7db" class="">Запускаем Burp</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8184-a9d3-fa7eb6eb310a"
+				class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">burpsuite</code></pre>
+			<figure id="131aa64c-9d0a-811e-9eeb-d26cabf36414" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2027.png"><img
+						style="width:1272px"
+						src="Уязвимости Web-приложений/Untitled%2027.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8183-8e1b-f47c95bd2ed8" class="">Перейдем в окно Proxy а от туда откроем встроенный
+				браузер BurpSuite`а </p>
+			<p id="131aa64c-9d0a-8174-bb89-ee280a7af211" class="">и перейдем на наш сайт по <a
+					href="http://localhost">localhost</a>, и залогинимся.</p>
+			<p id="131aa64c-9d0a-81ff-b159-c7b04f1f073b" class="">Перейдем на страницу с постами и откроем какой-нибудь
+				из них.</p>
+			<p id="131aa64c-9d0a-810b-9de9-e4db5116357d" class="">
+			</p>
+			<p id="131aa64c-9d0a-819f-b21d-f288883e50c5" class="">После этого перейдем в burpsuite.</p>
+			<p id="131aa64c-9d0a-8140-aa8d-fc22560392fb" class="">В окне HTTP History увидим все наши запросы, что мы
+				отправляли в браузере.</p>
+			<p id="131aa64c-9d0a-814e-9fc5-c2342e9528c9" class="">Выберем тот, что обращался к статье.</p>
+			<p id="131aa64c-9d0a-812e-8b65-cbf6a6fd453b" class="">Нажмем на него ПКМ и перенесем в Repeater.</p>
+			<figure id="131aa64c-9d0a-815e-b7a2-c06ac5493ee8" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2028.png"><img
+						style="width:760px"
+						src="Уязвимости Web-приложений/Untitled%2028.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81ab-bf11-c26fd57a722a" class="">Перейдем в окно Repeater.</p>
+			<p id="131aa64c-9d0a-8180-bcb1-f739dc78a437" class="">Здесь мы можем модернизировать наш запрос и отправлять
+				его по новой.</p>
+			<figure id="131aa64c-9d0a-8184-b516-e84e11b51ad1" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2029.png"><img
+						style="width:3246px"
+						src="Уязвимости Web-приложений/Untitled%2029.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-812e-908f-dd26f3038ff4" class="">Из запроса видно, что он отправляется методом GET и в
+				параметрах метода передается id и передается оно числом, внедрим инъекцию.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81b2-8ad1-d124faa2820c"
+				class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">or 1 -- -</code></pre>
+			<p id="131aa64c-9d0a-81aa-b970-f5839cdb5afe" class="">и отправим ее.</p>
+			<p id="131aa64c-9d0a-818b-88fa-fa16984468f5" class="">Увидим, что запрос успешно прошел, а значит в запросе
+				не как не фильтруются значения, а так же значение действительно передается числом.</p>
+			<p id="131aa64c-9d0a-81ae-baa5-c8a574bb728b" class="">усложняем инъекцию, найдем, сколько полей у нас в
+				таблице.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-814c-8a8d-e9c8e73d31af"
+				class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">order by 1 -- -</code></pre>
+			<p id="131aa64c-9d0a-81de-91e7-f7a98c07421c" class="">Будем перебирать значения, пока не получим ошибку.</p>
+			<p id="131aa64c-9d0a-8164-9820-cad34924e737" class="">На значении 4 мы получим ошибку.</p>
+			<figure id="131aa64c-9d0a-81e6-8ae3-dd5b494e04ba" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2030.png"><img
+						style="width:2662px"
+						src="Уязвимости Web-приложений/Untitled%2030.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8190-90bb-d260a869cfc1" class="">А это значит, что в таблице у нас 3 поля.</p>
+			<p id="131aa64c-9d0a-8143-837b-dcdc3eb4811d" class="">Узнаем Версию БД.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81b0-ac7f-d514e84857b8"
+				class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">union select null,null,version() -- -</code></pre>
+			<p id="131aa64c-9d0a-817e-b2e3-e3c15aa26f20" class="">Но если мы в таком виде отправим запрос, то он нам
+				выдаст то, что есть под id=1 выберем несуществующий id.</p>
+			<p id="131aa64c-9d0a-81c6-a428-c5a6021aafe3" class="">и отправим запрос.</p>
+			<figure id="131aa64c-9d0a-81c8-aff0-c5d8bb03ecd5" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2031.png"><img
+						style="width:3270px"
+						src="Уязвимости Web-приложений/Untitled%2031.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8147-8941-deef96851c03" class="">Видим, что мы узнали какая БД используется и какая у
+				нее версия.</p>
+			<p id="131aa64c-9d0a-815c-83d8-efacf2b657c8" class="">Давайте попробуем узнать какие вообще у нас есть
+				таблицы и как называется наша БД.</p>
+			<p id="131aa64c-9d0a-81f0-aa65-c3ba6bfa670b" class="">заменим version() на database().</p>
+			<p id="131aa64c-9d0a-81aa-8436-c7a461ef2c80" class="">
+			</p>
+			<figure id="131aa64c-9d0a-811d-914e-e966acb71962" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2032.png"><img
+						style="width:3285px"
+						src="Уязвимости Web-приложений/Untitled%2032.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81a0-9d56-e96ae4503f44" class="">Зная БД, можем узнать таблицы.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81e7-8931-cf500feb6d91"
+				class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">union select null,null,table_name from information_schema.tables where table_schema=database() -- -</code></pre>
+			<figure id="131aa64c-9d0a-812c-b6fd-dc0d31b8a50a" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2033.png"><img
+						style="width:3184px"
+						src="Уязвимости Web-приложений/Untitled%2033.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-815a-b9ec-e84742e439a6" class="">посмотрим какие есть колонки.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8113-8ef3-f3ebf40a7937"
+				class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">union select null,null,column_name from information_schema.columns where table_name=&#x27;users&#x27; limit 1,1 -- -</code></pre>
+			<p id="131aa64c-9d0a-8152-87a1-eb3e419e22cc" class="">Добавили пункт limit для перебора всех колонок.</p>
+			<figure id="131aa64c-9d0a-8105-b7b7-d352059792d2" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2034.png"><img
+						style="width:2995px"
+						src="Уязвимости Web-приложений/Untitled%2034.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-814c-9623-dd61d27f87d6" class="">Чтобы не перебирать руками, отправим наш запрос в
+				intruder.</p>
+			<p id="131aa64c-9d0a-8184-9ed9-cb4a46221470" class="">Выберем позицию перебора, это у нас первое значение
+				limit.</p>
+			<figure id="131aa64c-9d0a-814a-b5f4-e17dcfa1a55d" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2035.png"><img
+						style="width:1682px"
+						src="Уязвимости Web-приложений/Untitled%2035.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8165-94ac-db3c26f7bd92" class="">Во вкладке Payloads выбираем тип Числовой и выбираем
+				до какого числа перебирать.<br /><br /></p>
+			<figure id="131aa64c-9d0a-8123-a13b-f6c29b0fadfd" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2036.png"><img
+						style="width:793px"
+						src="Уязвимости Web-приложений/Untitled%2036.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81a9-87a4-f4b7ffd9cc00" class="">Запускаем атаку.</p>
+			<p id="131aa64c-9d0a-81d8-a853-c96bd74893da" class="">И увидим что у нас несколько колонок .</p>
+			<figure id="131aa64c-9d0a-8188-b2bc-ecd4488447d7" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2037.png"><img
+						style="width:1312px"
+						src="Уязвимости Web-приложений/Untitled%2037.png" /></a>
+			</figure>
+			<figure id="131aa64c-9d0a-81a1-9aeb-fea703752985" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2038.png"><img
+						style="width:1420px"
+						src="Уязвимости Web-приложений/Untitled%2038.png" /></a>
+			</figure>
+			<figure id="131aa64c-9d0a-81c6-aec4-d6dbcdc6e0ee" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2039.png"><img
+						style="width:1482px"
+						src="Уязвимости Web-приложений/Untitled%2039.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-817f-b0ac-c352f7becd44" class="">Зная колонки, можем достать необходимую нам
+				информацию, это логин и пароль.</p>
+			<p id="131aa64c-9d0a-81e4-a0ce-e44b5b97b387" class="">Вернемся в Repeater и подправим запрос.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ed-920c-d4a5485ddfca"
+				class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">union select null,username,pass from first.users -- -</code></pre>
+			<p id="131aa64c-9d0a-81f9-9104-f66c43a64be0" class="">Увидим креды.</p>
+			<figure id="131aa64c-9d0a-81c8-878e-c4f36d2a34c5" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2040.png"><img
+						style="width:860px"
+						src="Уязвимости Web-приложений/Untitled%2040.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-817d-8073-d11f2e2c293b" class="">Но это не все, что мы можем сделать.</p>
+			<p id="131aa64c-9d0a-8147-a19d-dfbabba0daef" class="">В данном случае критичнее другое, что мы можем
+				просматривать файлы системы.</p>
+			<p id="131aa64c-9d0a-81d3-892a-dad6aaf1d14c" class="">Функция load_file() может отображать содержимое файлов
+				системы, давайте откроем какой-нибудь файл который точно есть в линуксе, например, passwd.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81b2-857e-c6dc5c832641"
+				class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">union select null,null, load_file(&#x27;/etc/passwd&#x27;) -- -</code></pre>
+			<figure id="131aa64c-9d0a-8180-b795-f1af9bab8afa" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2041.png"><img
+						style="width:2804px"
+						src="Уязвимости Web-приложений/Untitled%2041.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-817b-b2a6-c1db72accdc0" class="">
+			</p>
+			<figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex"
+				id="131aa64c-9d0a-81f4-a612-c5e459ac0ae0">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%">Не только в этом месте имеется уязвимость SQLi, реализуйте и в других местах,
+					например регистрация и авторизация. Необходимо реализовать полностью всю атаку и получить все данные
+					таблиц. <br /><br />Использовать такие средства как SQLmap и подобные запрещено.<br /><br />Все
+					делать вручную, и отобразить в отчете. <br /><br />Стандартный функционал burpsuite можно
+					использовать, без дополнительных дополнений/расширений.<br /></div>
+			</figure>
+			<p id="131aa64c-9d0a-81aa-a453-f97d92c89888" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-8134-8d13-c9e2ee7da254" class="">XSS</h3>
+			<p id="131aa64c-9d0a-8175-8fc0-dca87b17e727" class="">Так как мы достали креды пользователя теперь мы можем
+				под ним залогиниться, и увидим, что у нас есть поля создания статей</p>
+			<p id="131aa64c-9d0a-8129-b91d-ffb61277c34d" class="">Здесь мы можем провернуть Хранимую XSS инъекцию</p>
+			<p id="131aa64c-9d0a-81c9-b87e-fa1ffe0903c9" class="">Все очень просто, если проанализировать, что текст
+				статей и их название отображается в каких-то тегах, то можно написать тег скрипта JS</p>
+			<figure id="131aa64c-9d0a-810f-9f6b-d5ec65f13270" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2042.png"><img
+						style="width:468px"
+						src="Уязвимости Web-приложений/Untitled%2042.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81b4-be7f-f2d8111f3dd3" class="">Чтобы вызвать xss</p>
+			<p id="131aa64c-9d0a-8189-bb91-ce486d12d3f0" class="">создадим новую статью, и в тексте напишем код JS</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ca-a3d7-caa07e50133e"
+				class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">&lt;script&gt;alert(&quot;XSS&quot;);&lt;/script&gt;</code></pre>
+			<figure id="131aa64c-9d0a-8160-8406-c2bf3bff2bb0" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2043.png"><img
+						style="width:1564px"
+						src="Уязвимости Web-приложений/Untitled%2043.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8145-821e-e3aabc901943" class=""> Теперь при открытии нашей ново статьи мы увидим
+				сообщение</p>
+			<figure id="131aa64c-9d0a-813d-8311-cd38baa728a0" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2044.png"><img
+						style="width:754px"
+						src="Уязвимости Web-приложений/Untitled%2044.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8130-9846-d50f5ec1f24b" class="">Естественно, за счет XSS можно реализовать и что-то
+				более сложное, например перехват cookie для тех кто просмотрит нашу статью.</p>
+			<figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex"
+				id="131aa64c-9d0a-8115-96d6-f523d39b33d0">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%">
+					<p id="131aa64c-9d0a-810e-8cba-c9a9c9ab1695" class="">Реализуйте еще одну хранимую XSS для кражи
+						cookie пользователей. Отобразите в отчете, что она действительно
+						перехватывается.<br /><br />Реализуйте подмену cookie с помощью “украденной” cookie.<br /></p>
+				</div>
+			</figure>
+			<h3 id="131aa64c-9d0a-81d1-8910-e62cc9ecf6fc" class="">PHP injection</h3>
+			<p id="131aa64c-9d0a-81cb-8dd6-c2539cc0eaf5" class="">Помним наш блок с загрузкой файлов, давайте посмотрим
+				как он работает.</p>
+			<p id="131aa64c-9d0a-817c-b7ae-ea8a1ba3e6d9" class="">
+			</p>
+			<p id="131aa64c-9d0a-81b9-b1c4-f994ed4b3a5a" class="">Выберем какую-то картинку и загрузим ее, перед этим
+				запустив BurpSuite</p>
+			<figure id="131aa64c-9d0a-813f-97c5-e15ca1ef199c" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2045.png"><img
+						style="width:1565px"
+						src="Уязвимости Web-приложений/Untitled%2045.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8126-a9c2-e71679465e2a" class="">Отправив пост мы видим сообщение о том, что наша
+				картинка успешно загружена</p>
+			<figure id="131aa64c-9d0a-811f-b301-fe34e8939069" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2046.png"><img
+						style="width:434px"
+						src="Уязвимости Web-приложений/Untitled%2046.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-813d-acdd-d684492a985d" class="">Если перейти по этому пути в браузере то мы увидим ту
+				картинку, что мы загрузили</p>
+			<p id="131aa64c-9d0a-81a8-8be9-e2d91b5d1f80" class="">А теперь посмотрим на запрос отправки картинки в
+				<strong>BurpSute</strong></p>
+			<figure id="131aa64c-9d0a-81b5-b5b1-fc1728467ce6" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2047.png"><img
+						style="width:3655px"
+						src="Уязвимости Web-приложений/Untitled%2047.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81ad-a623-eedfca5195ab" class="">Выглядит страшно, но это всего лишь наша картинка</p>
+			<p id="131aa64c-9d0a-81a8-9143-e33767c9af97" class="">Давайте попробуем загрузить туда текстовый файл</p>
+			<figure id="131aa64c-9d0a-8172-a538-d0266ca74599" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2048.png"><img
+						style="width:1556px"
+						src="Уязвимости Web-приложений/Untitled%2048.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8142-8466-c532b330d007" class="">Если мы попытаемся отправить этот файл то увидим
+				ошибку отправки</p>
+			<figure id="131aa64c-9d0a-817c-b86b-fbb72eeabcd9" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2049.png"><img
+						style="width:203px"
+						src="Уязвимости Web-приложений/Untitled%2049.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8155-a90b-c27eb7f12b4c" class="">Посмотрим и этот запрос в <strong>BurpSuite</strong>
+			</p>
+			<figure id="131aa64c-9d0a-813e-919a-f4cc17467dd9" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2050.png"><img
+						style="width:3297px"
+						src="Уязвимости Web-приложений/Untitled%2050.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81ef-be26-f17c1809bbf5" class="">Сравнив два запроса увидим, что у нас изменился
+				заголовок запроса: <strong>Content-Type</strong></p>
+			<p id="131aa64c-9d0a-818d-a7c1-eb51dc870e43" class="">Давайте отправим в Repeater неудачный запрос</p>
+			<p id="131aa64c-9d0a-812a-8d12-e3d0630e7a8e" class="">И изменим значение <strong>Content-Type: </strong>на
+				то, что в успешном запросе</p>
+			<figure id="131aa64c-9d0a-81df-94cc-f4db7a5b9391" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2051.png"><img
+						style="width:832px"
+						src="Уязвимости Web-приложений/Untitled%2051.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81af-a970-c26ef3e388c6" class="">И теперь пробуем отправить</p>
+			<p id="131aa64c-9d0a-8185-8598-f1dd3b0da31a" class="">В ответ увидим, что файл успешно загружен.</p>
+			<figure id="131aa64c-9d0a-819c-90dd-eb7de9c95518" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2052.png"><img
+						style="width:294px"
+						src="Уязвимости Web-приложений/Untitled%2052.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-817f-a8ed-d73822909a40" class="">В таком случае возникает идея, что можно загрузить на
+				сервер что-то более серьезное, например <strong>reverse shell</strong></p>
+			<p id="131aa64c-9d0a-8116-a0f3-f349830aeaa2" class=""> Чтобы не усложнять себе жизнь и не писать собственную
+				полезную нагрузку, воспользуемся готовыми решениями с github например: <a
+					href="https://github.com/pentestmonkey/php-reverse-shell">ссылка</a></p>
+			<p id="131aa64c-9d0a-816d-9a15-fd20187feac7" class="">Создадим файл с реверс шелом на php</p>
+			<figure id="131aa64c-9d0a-81c3-bb92-f9e2e612e3f1" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2053.png"><img
+						style="width:321px"
+						src="Уязвимости Web-приложений/Untitled%2053.png" /></a>
+			</figure>
+			<figure id="131aa64c-9d0a-81f5-b2b8-cef5115c0dff" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2054.png"><img
+						style="width:1061px"
+						src="Уязвимости Web-приложений/Untitled%2054.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81c2-a554-e8b8da6d97fb" class="">Загрузим его</p>
+			<figure id="131aa64c-9d0a-8137-872a-d48cc9101103" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2055.png"><img
+						style="width:1977px"
+						src="Уязвимости Web-приложений/Untitled%2055.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8135-aa1d-eb1613930aad" class="">Естественно, что он не загрузится, но мы знаем, что
+				нужно поправить в BurpSuite чтобы он загрузился</p>
+			<p id="131aa64c-9d0a-81ff-9dfc-f9080833c0d6" class="">сделаем это</p>
+			<p id="131aa64c-9d0a-8110-806b-c2536337c72e" class="">Увидим, что он успешно загружен</p>
+			<figure id="131aa64c-9d0a-81ef-9a60-da05d6417dc4" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2056.png"><img
+						style="width:2485px"
+						src="Уязвимости Web-приложений/Untitled%2056.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81b9-8933-c2d88261dc5c" class="">Если изучить shell то увидим, что он будет обращаться
+				к <a href="http://localhost">localhost</a> на порт 1234</p>
+			<figure id="131aa64c-9d0a-815a-8acf-f5a6239c552e" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2057.png"><img
+						style="width:338px"
+						src="Уязвимости Web-приложений/Untitled%2057.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81de-b52b-df224468974d" class="">Давайте включим прослушку этого порта у нас на машине
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ac-be66-f909e39d2722"
+				class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">nc -lnvp 1234</code></pre>
+			<figure id="131aa64c-9d0a-81dc-9ca5-ec7a9dd46a3e" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2058.png"><img
+						style="width:403px"
+						src="Уязвимости Web-приложений/Untitled%2058.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81f0-b59d-cf5b5d123dbf" class="">Теперь обратимся в браузере к нашему шелу</p>
+			<figure id="131aa64c-9d0a-81ef-b071-cc56671fee7a" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2059.png"><img
+						style="width:475px"
+						src="Уязвимости Web-приложений/Untitled%2059.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8128-b5de-d86f7f17b6f3" class="">После чего, вернувшись в окно терминала, где у нас
+				висит прослушка, увидим, что мы подключились к серверу</p>
+			<figure id="131aa64c-9d0a-812b-a002-df4fdef9fcc3" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2060.png"><img
+						style="width:1143px"
+						src="Уязвимости Web-приложений/Untitled%2060.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81d1-8e8d-e2161a0c137b" class="">Давайте посмотрим под какой учетной записью мы
+				находимся</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8130-9c46-d57c19e602f7"
+				class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">whoami</code></pre>
+			<figure id="131aa64c-9d0a-81ae-bf80-ca116915eb7e" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2061.png"><img
+						style="width:317px"
+						src="Уязвимости Web-приложений/Untitled%2061.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8119-af53-eb205f2b98a1" class="">мы получили shell с правами веб сервера<br />и можем
+				гулять по серверу как захотим<br /></p>
+			<p id="131aa64c-9d0a-81aa-98e2-d1b6b89b9b41" class="">например можем посмотреть содержимое файла /etc/passwd
+			</p>
+			<figure id="131aa64c-9d0a-81a8-a38c-d94d89234401" class="image"><a
+					href="Уязвимости Web-приложений/Untitled%2062.png"><img
+						style="width:1052px"
+						src="Уязвимости Web-приложений/Untitled%2062.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8151-b1ee-e39339397b97" class="">На этом наша лабораторная работа закончена, ну а как
+				защититься от таких атак мы разберем позже.</p>
+			<p id="131aa64c-9d0a-8109-a137-e9286215f237" class="">
+			</p>
+			<p id="131aa64c-9d0a-814b-b9b0-f811073a1b9e" class="">
+			</p>
+			<p id="131aa64c-9d0a-8159-b402-e35aef56852c" class="">
+			</p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

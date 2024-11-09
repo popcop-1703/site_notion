@@ -1,0 +1,1194 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>1. HTML</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+
+		.checkbox-on {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+
+		.checkbox-off {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-819b-9b60-d2865d6cf410" class="page sans">
+		<header>
+			<div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/book_gray.svg" />
+			</div>
+			<h1 class="page-title">1. HTML</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<h1 id="131aa64c-9d0a-8161-b2a5-c45b986ec06f" class="">HTML (<em>HyperText Markup Language)</em></h1>
+			<nav id="131aa64c-9d0a-814c-a05f-d0dc9c20f948" class="block-color-gray table_of_contents">
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8161-b2a5-c45b986ec06f">HTML (<em>HyperText Markup Language)</em></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81b8-b866-d40ad631a3f7">Элементы и теги</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8128-99a9-c1ebb7012309">Пустые элементы</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8162-9b53-cbf0fdd8f24b">Разметка текста</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81d9-b694-cf8546a66859">Исправление ошибок браузером</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81a4-a656-cfb1439f7f2e">Наш первый сайт</a></div>
+			</nav>
+			<p id="131aa64c-9d0a-8129-89f1-ef83be3df3f6" class="">HTML - стандартизированный язык разметки документов
+				для просмотра <a
+					href="https://ru.wikipedia.org/wiki/%D0%92%D0%B5%D0%B1-%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B0">веб-страниц</a>
+				в <a href="https://ru.wikipedia.org/wiki/%D0%91%D1%80%D0%B0%D1%83%D0%B7%D0%B5%D1%80">браузере</a>.
+				Веб-браузеры получают HTML документ от сервера по протоколам <a
+					href="https://ru.wikipedia.org/wiki/HTTP">HTTP</a>/<a
+					href="https://ru.wikipedia.org/wiki/HTTPS">HTTPS</a> или открывают с локального диска, далее
+				интерпретируют код в интерфейс, который будет отображаться на экране монитора.</p>
+			<p id="131aa64c-9d0a-8190-ab9e-c5fb7c0d3c5a" class=""><a
+					href="https://ru.wikipedia.org/wiki/%D0%AD%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82%D1%8B_HTML">Элементы
+					HTML</a> являются строительными блоками HTML страниц. С помощью HTML разные конструкции, изображения
+				и другие объекты, такие как <a
+					href="https://ru.wikipedia.org/wiki/%D0%A4%D0%BE%D1%80%D0%BC%D0%B0_(HTML)">интерактивная
+					веб-форма</a>, могут быть встроены в отображаемую страницу. HTML предоставляет средства для создания
+				заголовков, абзацев, списков, ссылок, цитат и других элементов. Элементы HTML выделяются тегами,
+				записанными с использованием угловых скобок. Такие теги, как <code>&lt;img /&gt;</code> и
+				<code>&lt;input /&gt;</code>, напрямую вводят контент на страницу. Другие теги, такие как
+				<code>&lt;p&gt;</code>, окружают и оформляют текст внутри себя и могут включать другие теги в качестве
+				подэлементов. Браузеры не отображают HTML-теги, но используют их для интерпретации содержимого страницы.
+			</p>
+			<p id="131aa64c-9d0a-81fc-9dc7-c1a374748907" class="">(из википедии)</p>
+			<p id="131aa64c-9d0a-8178-99d2-f4db15400629" class="">Т.е html образует каркас веб страницы. В нем мы
+				описываем объекты, которые будут находиться на нашей веб странице.</p>
+			<h3 id="131aa64c-9d0a-81b8-b866-d40ad631a3f7" class="">Элементы и теги</h3>
+			<p id="131aa64c-9d0a-818e-b6ad-d157250f2928" class="">HTML-элементы — основа языка HTML. Каждый
+				HTML-документ состоит из дерева HTML-элементов и текста. Каждый HTML-элемент обозначается начальным
+				(открывающим) и конечным (закрывающим) тегом. Открывающий и закрывающий теги содержат имя элемента.</p>
+			<p id="131aa64c-9d0a-816e-9238-c2ebec9289c7" class="">Ограждающие теги могут сделать слово или изображение
+				ссылкой на что-то ещё, могут сделать слова курсивом, сделать шрифт больше или меньше и так далее.
+				Например, возьмём следующую строку контента:</p>
+			<figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex"
+				id="131aa64c-9d0a-81b1-b8e9-dc0ee9357d73">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%">Я очень люблю учиться</div>
+			</figure>
+			<p id="131aa64c-9d0a-81be-bcaf-e70f909096c1" class="">Если бы мы хотели, чтобы строка стояла сама по себе,
+				мы могли бы указать, что это абзац, заключая его в теги абзаца:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-819d-a9a7-c6933fdc6f7b"
+				class="code"><code class="language-HTML">&lt;p&gt;Я очень люблю учиться.&lt;/p&gt;</code></pre>
+			<p id="131aa64c-9d0a-8130-8331-ef3d4ba467f7" class="">Главными частями элемента являются:</p>
+			<ul id="131aa64c-9d0a-8185-a07d-c3b203c200f5" class="bulleted-list">
+				<li style="list-style-type:disc">Открывающий тег (Opening tag): Состоит из имени элемента (в данном
+					случае, &quot;p&quot;), заключённого в открывающие и закрывающие угловые скобки. Открывающий тег
+					указывает, где элемент начинается или начинает действовать, в данном случае — где начинается абзац.
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8193-b530-f6bfc6904b4e" class="bulleted-list">
+				<li style="list-style-type:disc">Закрывающий тег (Closing tag): Это то же самое, что и открывающий тег,
+					за исключением того, что он включает в себя косую черту перед именем элемента. Закрывающий элемент
+					указывает, где элемент заканчивается, в данном случае — где заканчивается абзац. Отсутствие
+					закрывающего тега является одной из наиболее распространённых ошибок начинающих и может приводить к
+					странным результатам.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8177-85df-c24a2c837f42" class="bulleted-list">
+				<li style="list-style-type:disc">Контент (Content): Это контент элемента, который в данном случае
+					является просто текстом.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8106-a0ad-e23b348aef97" class="bulleted-list">
+				<li style="list-style-type:disc">Элемент (Element): Открывающий тег, закрывающий тег и контент вместе
+					составляют элемент.</li>
+			</ul>
+			<p id="131aa64c-9d0a-81f1-967d-c315d1d4dc57" class="">Также возможно поместить один элемент в другой,
+				например выделить отдельное слово возможно с помощью элемента <code>&lt;strong&gt;</code></p>
+			<p id="131aa64c-9d0a-81a1-822b-c5a9d90d5261" class="">Преобразим предыдущую строку:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ac-b645-f12011cd1e5d"
+				class="code"><code class="language-HTML">&lt;p&gt; Я очень &lt;strong&gt;люблю&lt;/strong&gt; учиться.&lt;/p&gt;</code></pre>
+			<p id="131aa64c-9d0a-8167-83e5-f604fd666380" class="">Следует следить за порядком открытия и закрытия
+				элементов, вначале в данном случае первым открыли элемент <code>&lt;p&gt;</code>, затем
+				<code>&lt;strong&gt;</code>, закрывать их нужно в обратном порядке, сначала
+				<code>&lt;/strong&gt;</code>, следом <code>&lt;/p&gt;</code>.</p>
+			<h3 id="131aa64c-9d0a-8128-99a9-c1ebb7012309" class="">Пустые элементы</h3>
+			<p id="131aa64c-9d0a-8108-820d-d58cb301055a" class="">Некоторые элементы не имеют контента, и называются
+				пустыми элементами.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ae-95be-d171fd0612d6"
+				class="code"><code class="language-HTML">&lt;img src=&quot;myimage.jpg&quot; alt=&quot;image description&quot;/&gt;</code></pre>
+			<p id="131aa64c-9d0a-8112-9e8d-c4ee8ea1950d" class="">Элемент <code>&lt;img&gt;</code> содержит два
+				атрибута, но не имеет закрывающего тега <code>&lt;/img&gt;</code>, и никакого внутреннего контента. Это
+				потому, что элемент изображения не оборачивает контент для влияния на него. Его целью является вставка
+				изображения в HTML страницу в нужном месте.</p>
+			<p id="131aa64c-9d0a-81f9-b26c-e3596cfd0386" class="">Структура HTML</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8120-8659-f74c054cf6be" class="code"><code class="language-HTML">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset=&quot;utf-8&quot;&gt;
+		&lt;title&gt;Моя страница&lt;/title&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;img src=&quot;myimage.jpg&quot; alt=&quot;image description&quot;/&gt;
+	&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+			<p id="131aa64c-9d0a-81cd-a363-d573cf11ed56" class="">Здесь мы имеем:</p>
+			<ul id="131aa64c-9d0a-816f-b800-e458d144aab6" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>&lt;!DOCTYPE html&gt; — </strong> Первой строкой принято
+					обозначать версию HTML документа, если не указать, браузер будет использовать HTML5.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-810b-91f8-cb4b7d7dfdc7" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>&lt;html&gt;&lt;/html&gt; — элемент &lt;html&gt;</strong>. Этот
+					элемент оборачивает весь контент на всей странице, и иногда известен как корневой элемент.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-817a-96ab-fec5a8ea6202" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>&lt;head&gt;&lt;/head&gt; — элемент &lt;head&gt;</strong>. Этот
+					элемент выступает в качестве контейнера для всего, что вы пожелаете включить на HTML страницу, но не
+					являющегося контентом, который вы показываете пользователям вашей страницы. К ним относятся такие
+					вещи, как ключевые слова и описание страницы, которые будут появляться в результатах поиска, CSS
+					стили нашего контента, кодировка и многое другое.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81d0-a2c3-e07b787096df" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>&lt;body&gt;&lt;/body&gt; — элемент &lt;body&gt;</strong>. В
+					нем содержится весь контент, который вы хотите показывать пользователям, когда они посещают вашу
+					страницу, будь то текст, изображения, видео, игры, проигрываемые аудиодорожки или что-то ещё.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-810e-84bf-e7242aedae8a" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>&lt;meta charset=&quot;utf-8&quot;&gt;</strong> — этот элемент
+					устанавливает UTF-8 кодировку вашего документа, которая включает в себя большинство символов из всех
+					известных человечеству языков. По сути, теперь документ может обрабатывать любой текстовый контент,
+					который вы в него вложите. Нет причин не устанавливать её, так как это может помочь избежать
+					некоторых проблем в дальнейшем.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8194-a740-fbd57447e88a" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>&lt;title&gt;&lt;/title&gt; — элемент &lt;title&gt;</strong>.
+					Этот элемент устанавливает заголовок для вашей страницы, который является названием, появляющимся на
+					вкладке браузера загружаемой страницы, и используется для описания страницы, когда вы добавляете её
+					в закладки/избранное.</li>
+			</ul>
+			<h3 id="131aa64c-9d0a-8162-9b53-cbf0fdd8f24b" class="">Разметка текста</h3>
+			<p id="131aa64c-9d0a-81f6-a2e3-c18fd05858d2" class="">В этом разделе рассмотрим некоторые из основных HTML
+				элементов.</p>
+			<p id="131aa64c-9d0a-819e-8669-fa49e73de8b1" class=""><strong>Заголовки</strong></p>
+			<p id="131aa64c-9d0a-8103-a691-ff5f6f40db23" class="">Элементы заголовка позволяют вам указывать
+				определённые части вашего контента в качестве заголовков или подзаголовков. HTML включает шесть уровней
+				заголовков &lt;h1&gt; – &lt;h6&gt;.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81df-a75d-c3cef676e8b9" class="code"><code class="language-HTML">&lt;h1&gt;Мой главный заголовок&lt;/h1&gt;
+&lt;h2&gt;Мой заголовок верхнего уровня&lt;/h2&gt;
+&lt;h3&gt;Мой подзаголовок&lt;/h3&gt;
+&lt;h4&gt;Мой под-подзаголовок&lt;/h4&gt;</code></pre>
+			<p id="131aa64c-9d0a-81ae-9c7a-d61ad8a4f48c" class=""><strong>Абзацы</strong><br />Элемент &lt;p&gt;
+				предназначен для абзацев текста:<br /></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8180-b4fb-c3cbc4ef5ffc"
+				class="code"><code class="language-HTML">&lt;p&gt;Это одиночный абзац&lt;/p&gt;</code></pre>
+			<p id="131aa64c-9d0a-8188-9c41-dfd3046bb954" class=""><strong>Списки</strong></p>
+			<p id="131aa64c-9d0a-8122-ace8-da33617bcad0" class="">Большая часть веб-контента является списками и HTML
+				имеет специальные элементы для них. Разметка списка всегда состоит по меньшей мере из двух элементов.
+				Наиболее распространёнными типами списков являются нумерованные и ненумерованные списки:</p>
+			<p id="131aa64c-9d0a-81e1-984e-cada236839ab" class="">Ненумерованные списки - это списки, где порядок
+				пунктов не имеет значения, как в списке покупок. Они оборачиваются в элемент <code>&lt;ul&gt;</code>.
+			</p>
+			<p id="131aa64c-9d0a-81f9-8ae1-cb69d778c2de" class="">Нумерованные списки - это списки, где порядок пунктов
+				имеет значение, как в рецепте. Они оборачиваются в элемент <code>&lt;ol&gt;</code>.</p>
+			<p id="131aa64c-9d0a-81f3-8d5f-c1a93f909f10" class="">Каждый пункт внутри списков располагается внутри
+				элемента <code>&lt;li&gt;</code> (list item, элемент списка).</p>
+			<p id="131aa64c-9d0a-815c-9af1-ea0f3c98ba5c" class=""><strong>Ссылки</strong></p>
+			<p id="131aa64c-9d0a-8198-86c5-cee8440b444c" class="">Ссылки очень важны — это то, что делает Интернет
+				Интернетом. Чтобы добавить ссылку, нам нужно использовать простой элемент — <code>&lt;a&gt;</code> — “a”
+				это сокращение от “anchor” (”якорь”).</p>
+			<p id="131aa64c-9d0a-8145-97e2-f126a50fbb27" class="">Пример:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-818a-93bd-f5d4c1bec305"
+				class="code"><code class="language-HTML">&lt;a href=&quot;https://example.com/about&quot;&gt;link&lt;/a&gt;</code></pre>
+			<h2 id="131aa64c-9d0a-81d9-b694-cf8546a66859" class="">Исправление ошибок браузером</h2>
+			<p id="131aa64c-9d0a-810d-b105-f919d1ad7987" class="">Язык HTML является очень простым, и в браузерах
+				существует множество механизмов исправления ошибок, поэтому достаточно просто создать пустой файл с
+				расширением <code>.html </code>чтобы его начал обрабатывать браузер.</p>
+			<p id="131aa64c-9d0a-810f-9e47-c72a0b5eeb21" class="">Можете увидеть ниже, что в структуре элементов
+				браузера, находится пустые теги <code>html</code>, <code>head</code>, <code>body</code>, хотя мы их не
+				прописывали в файле.</p>
+			<figure id="131aa64c-9d0a-81d4-9f8d-eddc2f9be4ea" class="image"><a
+					href="1 HTML/c2ef6c36c2ff4c8fb3d283e0784d6fb1.png"><img
+						style="width:797px"
+						src="1 HTML/c2ef6c36c2ff4c8fb3d283e0784d6fb1.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8106-ac9f-c87193f8c012" class="">Из вариантов исправления: это не закрытые html теги,
+				кавычки, разный регистр у html тегов, пробелы, табуляция. Более подробно об этом написано на ресурсе: <a
+					href="https://www.html5rocks.com/ru/tutorials/internals/howbrowserswork/#Browsers_error_tolerance">html5rocks.com</a>
+			</p>
+			<h1 id="131aa64c-9d0a-81a4-a656-cfb1439f7f2e" class="">Наш первый сайт</h1>
+			<p id="131aa64c-9d0a-819f-8013-daae75d610f3" class="">Создайте новый файл с названием index.html</p>
+			<p id="131aa64c-9d0a-8144-a0e0-ea0bbd75b849" class="">Это будет наш основной файл на данный момент, с
+				которым мы будем работать.</p>
+			<p id="131aa64c-9d0a-812d-8c17-cfb77ba03c0e" class="">
+			</p>
+			<p id="131aa64c-9d0a-8174-b216-c9a4fe644a4c" class="">Первым делом зададим первоначальную структуру нашей
+				будущей страницы:</p>
+			<ul id="131aa64c-9d0a-81bc-8bd7-d78245d215b2" class="bulleted-list">
+				<li style="list-style-type:disc">определяем тип файла;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-817f-94bf-d5921145dcca" class="bulleted-list">
+				<li style="list-style-type:disc">задаем основной тег html в котором будут находиться все остальные теги;
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-817a-b7e5-f356edfb02bc" class="bulleted-list">
+				<li style="list-style-type:disc">задаем два тега head и body;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-815f-a79c-d292fd9e5db5" class="bulleted-list">
+				<li style="list-style-type:disc">Зададим тег title внутри тега head и запишем в него название вашей
+					страницы.</li>
+			</ul>
+			<figure id="131aa64c-9d0a-81b8-a766-f55f282ad25e" class="image"><a
+					href="1 HTML/image.png"><img style="width:1047px"
+						src="1 HTML/image.png" /></a></figure>
+			<p id="131aa64c-9d0a-81dc-acae-f831d2c1da9a" class="">На данный момент, мы реализуем основную страницу
+				вашего будущего сайта, и на этой странице мы напишем информацию о вас.</p>
+			<p id="131aa64c-9d0a-8194-845a-dcb282c78cfb" class="">Тег <strong>head </strong>используется для определения
+				заголовочной части страницы и этот тег не отображается для пользователя.</p>
+			<p id="131aa64c-9d0a-8133-b37e-d56101fdebcf" class="">Тег <strong>body </strong>предназначен для отображения
+				и хранения информации страницы, именно этот тег отображается на сайтах.</p>
+			<p id="131aa64c-9d0a-814e-9d38-db33bf2f9e9d" class="">Для простоты написания страницы представляйте ее в
+				виде сетки.</p>
+			<p id="131aa64c-9d0a-81b9-b439-c85d4ee9ba64" class="">В нашем случае сетка будет состоять из:</p>
+			<ul id="131aa64c-9d0a-8118-80c6-f0080f1b576f" class="bulleted-list">
+				<li style="list-style-type:disc">колонок/столбцов (будем использовать 12 столбцов)</li>
+			</ul>
+			<ul id="131aa64c-9d0a-819c-a482-f8c7e2ee469f" class="bulleted-list">
+				<li style="list-style-type:disc">строк (неограниченное количество)</li>
+			</ul>
+			<ul id="131aa64c-9d0a-819b-ac6d-dec74840f97b" class="bulleted-list">
+				<li style="list-style-type:disc">контейнеров (неограниченное количество)</li>
+			</ul>
+			<p id="131aa64c-9d0a-8111-bfaa-c8db39372a76" class="">Каждый контейнер может содержать множество строк,
+				каждая строка может содержать множество колонок/столбцов, но мы уже определились, что их будет не более
+				12</p>
+			<p id="131aa64c-9d0a-8101-94e6-f5544a0b51c5" class="">Один контейнер - будет представлять как блок
+				информации</p>
+			<p id="131aa64c-9d0a-811f-83a3-d33897ea8777" class="">Выглядит это примерно так</p>
+			<figure id="131aa64c-9d0a-81ed-8bd9-eb291d61f0d5" class="image"><a
+					href="1 HTML/Untitled.png"><img style="width:1274px"
+						src="1 HTML/Untitled.png" /></a></figure>
+			<p id="131aa64c-9d0a-81be-b52d-c1d79d9a211b" class="">Естественно, можно и не так подходить к разработке, но
+				это наиболее наглядный пример.</p>
+			<p id="131aa64c-9d0a-8151-90a5-d9db8cb74b9c" class="">
+			</p>
+			<p id="131aa64c-9d0a-815f-bffa-c3ff9b369824" class="">Накидаем нашу предварительную сетку:</p>
+			<ol type="1" id="131aa64c-9d0a-8172-9e6a-d3fde2e798e0" class="numbered-list" start="1">
+				<li>создадим контейнер;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8177-9fee-e6d63c371690" class="numbered-list" start="2">
+				<li>внутри контейнера несколько строк;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-812d-9876-fc2a99440bb2" class="numbered-list" start="3">
+				<li>внутри строк несколько колонок.</li>
+			</ol>
+			<p id="131aa64c-9d0a-81aa-8257-f11f4fea550d" class="">
+			</p>
+			<p id="131aa64c-9d0a-814f-b84b-e92eaf7defdc" class="">Колонки будем определять цифрами, от 1 до 12
+				включительно, чем больше значение, тем более широкая будет колонка (если мы одной колонкой заняли 3
+				позиции, то у нас останется свободно 9).</p>
+			<p id="131aa64c-9d0a-8119-8fba-c6507ee956db" class="">
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-814c-a144-dcba8c08836e" class="code"><code class="language-HTML" style="white-space:pre-wrap;word-break:break-all">&lt;div class=&quot;container&quot;&gt;
+	&lt;div class=&quot;row&quot;&gt;
+		&lt;div class=&quot;col-12&quot;&gt; // col-12 будет означать, что одна колонка заняла все сразу
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+			<figure id="131aa64c-9d0a-8176-9ff4-febdab63e6b4" class="image"><a
+					href="1 HTML/image%201.png"><img style="width:984px"
+						src="1 HTML/image%201.png" /></a></figure>
+			<p id="131aa64c-9d0a-8118-8235-da67d7da53af" class="">Внутри тегов напишем какую-нибудь информацию.</p>
+			<p id="131aa64c-9d0a-81ea-93a2-ee77633e07f1" class="">В первую строку напишем основную информацию, допустим
+				заголовок <strong>“Это мой первый сайт”</strong></p>
+			<figure id="131aa64c-9d0a-8150-a5ba-dc16f627a2cc" class="image"><a
+					href="1 HTML/image%202.png"><img style="width:991px"
+						src="1 HTML/image%202.png" /></a></figure>
+			<p id="131aa64c-9d0a-81cc-b80a-cc601a13feed" class="">Обновим страницу</p>
+			<figure id="131aa64c-9d0a-8182-86db-dd27a9dcdec0" class="image"><a
+					href="1 HTML/image%203.png"><img style="width:1029px"
+						src="1 HTML/image%203.png" /></a></figure>
+			<p id="131aa64c-9d0a-8182-91b6-e15adc66b66b" class="">Добавим фото, немного описания и подпись к фото.</p>
+			<p id="131aa64c-9d0a-8146-a255-e689fc0bd2f3" class="">рекомендую создать в нашей папке еще одну папку с
+				названием image, именно в ней мы будем хранить наши картинки и из нее выводить на страницу</p>
+			<p id="131aa64c-9d0a-81d6-ba0c-e839c9d54d99" class="">Добавьте туда свое фото (можете любую прикольную
+				картинку)</p>
+			<p id="131aa64c-9d0a-81b3-9498-c4712b1e080c" class="">
+			</p>
+			<p id="131aa64c-9d0a-8132-9862-c58b981abada" class="">Способов добавления картинок на страницу множество, но
+				для начала мы воспользуемся специальным тегом <strong>img:</strong></p>
+			<figure id="131aa64c-9d0a-8169-a736-d930c94420bf" class="image"><a
+					href="1 HTML/image%204.png"><img style="width:1064px"
+						src="1 HTML/image%204.png" /></a></figure>
+			<p id="131aa64c-9d0a-8132-9d04-d4d42e642106" class="">В целом наш первый сайт готов, это максимальные азы
+				составления html разметки, крайне рекомендуем поэкспериментировать и изучить что-то новое.</p>
+			<figure id="131aa64c-9d0a-81a6-ba77-eee28f5dcdf8" class="image"><a
+					href="1 HTML/image%205.png"><img style="width:867px"
+						src="1 HTML/image%205.png" /></a></figure>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

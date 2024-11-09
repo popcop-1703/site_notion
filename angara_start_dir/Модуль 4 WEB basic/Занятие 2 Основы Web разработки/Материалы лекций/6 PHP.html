@@ -1,0 +1,1127 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>6. PHP</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-81c5-8b73-e19b16c65786" class="page sans">
+		<header>
+			<div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/book_gray.svg" />
+			</div>
+			<h1 class="page-title">6. PHP</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<h2 id="131aa64c-9d0a-81ce-9788-c2c4b4cd900b" class="">Что такое PHP?</h2>
+			<p id="131aa64c-9d0a-812a-ad55-f840d7146d11" class="">PHP - распространенный язык программирования с
+				открытым исходным кодом, часто используется для web разработок.</p>
+			<p id="131aa64c-9d0a-81ef-b05c-da8c6993949b" class="">Скрипт PHP содержит HTML с встроенным кодом, сам код
+				PHP определяется начальным тегом <code>&lt;?php</code> и конечным тегом<code> ?&gt;</code></p>
+			<p id="131aa64c-9d0a-8168-b8ec-da5c4ccca377" class="">Пример кода PHP</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81c0-a9ff-efd284520823" class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;title&gt;Пример&lt;/title&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+    &lt;?php
+    echo &quot;Данная строка выводится с помощью PHP&quot;;
+    ?&gt;
+	&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+			<p id="131aa64c-9d0a-81a9-a143-c0e97fdfc6a9" class="">Главное отличие PHP от JavaScript в том, что
+				PHP-скрипты выполняются на сервере и генерируют HTML, который посылается клиенту. Если бы у вас на
+				сервере был размещён скрипт, подобный вышеприведённому, клиент получил бы только результат его
+				выполнения, но не смог бы выяснить, какой именно код его произвёл. Вы даже можете настроить свой сервер
+				таким образом, чтобы обычные HTML-файлы обрабатывались процессором PHP, так что клиенты даже не смогут
+				узнать, получают ли они обычный HTML-файл или результат выполнения скрипта.</p>
+			<p id="131aa64c-9d0a-8111-87a5-e0bd9630eb3b" class="">Для чего используют PHP?</p>
+			<ol type="1" id="131aa64c-9d0a-81ed-a41a-f9693fde7619" class="numbered-list" start="1">
+				<li><strong>Создание скриптов для выполнения на стороне сервера.</strong> PHP традиционно и наиболее
+					широко используется именно таким образом. Для этого вам будут необходимы три вещи. Интерпретатор PHP
+					(в виде программы CGI или серверного модуля), веб-сервер и браузер. Для того чтобы можно было
+					просматривать результаты выполнения PHP-скриптов в браузере, нужен работающий веб-сервер и
+					установленный PHP. Просмотреть вывод PHP-программы можно в браузере, получив PHP-страницу,
+					сгенерированную сервером. В случае, если вы просто экспериментируете, вы вполне можете использовать
+					свой домашний компьютер вместо сервера. </li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8170-b44b-c0b472fb7f3a" class="numbered-list" start="2">
+				<li><strong>Создание скриптов для выполнения в командной строке.</strong> Вы можете создать PHP-скрипт,
+					способный запускаться без сервера или браузера. Все, что вам потребуется - парсер PHP. Такой способ
+					использования PHP идеально подходит для скриптов, которые должны выполняться регулярно, например, с
+					помощью cron (на платформах *nix или Linux) или с помощью планировщика задач (Task Scheduler) на
+					платформах Windows. Эти скрипты также могут быть использованы в задачах простой обработки текстов.
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-819c-8186-ef6aa8c7ee58" class="numbered-list" start="3">
+				<li><strong>Создание оконных приложений, выполняющихся на стороне клиента.</strong> Возможно, PHP
+					является не самым лучшим языком для создания подобных приложений, но, если вы очень хорошо знаете
+					PHP и хотели бы использовать некоторые его возможности в своих клиентских приложениях, вы можете
+					использовать PHP-GTK для создания таких приложений. Подобным образом вы можете создавать и
+					кросс-платформенные приложения. PHP-GTK является модулем PHP и не поставляется вместе с основным
+					дистрибутивом PHP.</li>
+			</ol>
+			<p id="131aa64c-9d0a-8145-a3f1-d7ed552001f3" class="">Использование PHP не ограничивается выводом HTML.
+				Возможности PHP включают вывод файлов различных типов, таких как изображения или PDF-файлы, шифрование
+				данных и отправку электронной почты. Вы также можете легко выводить любой текст, например JSON или XML.
+				PHP может автоматически генерировать эти файлы и сохранять их в файловой системе вместо вывода на
+				печать, формируя серверный кеш для динамического содержимого.</p>
+			<p id="131aa64c-9d0a-8182-9060-c797bb887681" class="">PHP также поддерживает взаимодействие с другими
+				сервисами через такие протоколы, как LDAP, IMAP, SNMP, NNTP, POP3, HTTP, COM (на платформах Windows) и
+				многих других. Кроме того, вы получаете возможность работать с сетевыми сокетами напрямую. PHP
+				поддерживает стандарт обмена сложными структурами данных WDDX практически между всеми языками
+				веб-программирования. Обращая внимание на взаимодействие между различными языками, следует упомянуть о
+				поддержке объектов Java и возможности их использования в качестве объектов PHP.</p>
+			<h2 id="131aa64c-9d0a-81e6-b552-e10f014138f9" class="">Cинтаксис PHP</h2>
+			<h3 id="131aa64c-9d0a-81b8-a499-dabae3e82f81" class="">Теги</h3>
+			<p id="131aa64c-9d0a-81ad-8d12-fac617522109" class="">Когда PHP обрабатывает файл, он ищет открывающие и
+				закрывающие теги, такие как <code>&lt;?php</code> и <code>?&gt;</code>, которые указывают PHP, когда
+				начинать и заканчивать обработку кода между ними. Подобный способ обработки позволяет PHP внедряться во
+				все виды различных документов, так как всё, что находится вне пары открывающих и закрывающих тегов,
+				будет проигнорировано парсером PHP.</p>
+			<p id="131aa64c-9d0a-818d-8add-e546eea7fbe3" class="">PHP включает в себя короткий
+				echo-тег <code>&lt;?=</code>, который является сокращением для более
+				многословного <code>&lt;?php echo</code>.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81c9-ab78-e21d255c1847"
+				class="code"><code class="language-PHP">&lt;?php echo &#x27;php ищет в файле данные теги&#x27;; ?&gt;</code></pre>
+			<p id="131aa64c-9d0a-81d8-b42f-d423c501bc56" class="">2. Следует заметить, что </p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81bb-8fd9-ffba41960902"
+				class="code"><code class="language-PHP">&lt;?= &#x27;Тут наша строка&#x27; ?&gt;</code></pre>
+			<p id="131aa64c-9d0a-8170-adfb-e5b5187d3de2" class="">эквивалентен такому коду</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81b0-8b23-ed396906ac76"
+				class="code"><code class="language-PHP">&lt;?php echo &#x27;тут наша строка&#x27; ?&gt;</code></pre>
+			<h3 id="131aa64c-9d0a-8176-ac41-d3297798792b" class="">Типы выражений в PHP</h3>
+			<ul id="131aa64c-9d0a-81e5-b9b1-d3287ea9a507" class="bulleted-list">
+				<li style="list-style-type:disc">null</li>
+			</ul>
+			<ul id="131aa64c-9d0a-817c-9dd2-e48b938df21c" class="bulleted-list">
+				<li style="list-style-type:disc">bool</li>
+			</ul>
+			<ul id="131aa64c-9d0a-816f-a0cc-cbcc6524f933" class="bulleted-list">
+				<li style="list-style-type:disc">int</li>
+			</ul>
+			<ul id="131aa64c-9d0a-817e-8272-da787758664e" class="bulleted-list">
+				<li style="list-style-type:disc">float (floating-point number)</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81f0-b423-f62441e7cbaf" class="bulleted-list">
+				<li style="list-style-type:disc">string</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8199-80e9-f483e65fcee2" class="bulleted-list">
+				<li style="list-style-type:disc">array</li>
+			</ul>
+			<ul id="131aa64c-9d0a-816b-8a52-f26fe010ed49" class="bulleted-list">
+				<li style="list-style-type:disc">object</li>
+			</ul>
+			<p id="131aa64c-9d0a-81fb-b3d1-dc8fa037157e" class="">callable</p>
+			<p id="131aa64c-9d0a-81af-8275-db6c7fbe3981" class="">resource</p>
+			<p id="131aa64c-9d0a-8167-92f2-e6770a3a1290" class="">Тип null — это единичный тип PHP, то есть он имеет
+				только одно значение: null.</p>
+			<p id="131aa64c-9d0a-81ad-8c45-f1d69779e672" class="">Неопределённые и удалённые языковой конструкцией
+				unset() переменные преобразуются в значение null.</p>
+			<table id="131aa64c-9d0a-8148-a57c-caee650318d6" class="simple-table">
+				<tbody>
+					<tr id="131aa64c-9d0a-81a2-bca8-f427ae3edcba">
+						<td id="FEFf" class="">null</td>
+						<td id="T=Ip" class="">Тип null — это единичный тип PHP, то есть он имеет только одно значение:
+							null.<br />Неопределённые и удалённые языковой конструкцией unset() переменные преобразуются
+							в значение null.<br /></td>
+					</tr>
+					<tr id="131aa64c-9d0a-8160-9645-dfd806f594d8">
+						<td id="FEFf" class="">bool</td>
+						<td id="T=Ip" class="">У логического типа (bool) есть только два значения и они выражают
+							истинность значения. Он может быть либо <strong>true</strong>, либо <strong>false</strong>.
+						</td>
+					</tr>
+					<tr id="131aa64c-9d0a-819f-9d25-c6d0c88b7904">
+						<td id="FEFf" class="">int</td>
+						<td id="T=Ip" class="">int — это число из множества ℤ = {..., -2, -1, 0, 1, 2, ...}</td>
+					</tr>
+					<tr id="131aa64c-9d0a-8192-888e-c47af2b8b6d4">
+						<td id="FEFf" class="">float (floating-point number)</td>
+						<td id="T=Ip" class="">Числа с плавающей точкой или числа с плавающей
+							запятой.<br />&lt;?php<br />$a = 1.234;<br />$b = 1.2e3;<br />$c = 7E-10;<br />$d =
+							1_234.567; // начиная с PHP 7.4.0<br />?&gt;<br /></td>
+					</tr>
+					<tr id="131aa64c-9d0a-81f9-9acd-f86482605946">
+						<td id="FEFf" class="">string</td>
+						<td id="T=Ip" class="">Строка</td>
+					</tr>
+					<tr id="131aa64c-9d0a-8130-80fa-eee2c3d378f5">
+						<td id="FEFf" class="">array</td>
+						<td id="T=Ip" class="">Массив</td>
+					</tr>
+					<tr id="131aa64c-9d0a-81d0-a424-f904e8988957">
+						<td id="FEFf" class="">resource</td>
+						<td id="T=Ip" class="">то переменная, содержащая ссылку на внешний ресурс.</td>
+					</tr>
+				</tbody>
+			</table>
+			<p id="131aa64c-9d0a-81e7-bae7-fb133605113a" class=""><strong>Переменные</strong></p>
+			<p id="131aa64c-9d0a-81d8-898f-dcae4980e14f" class="">Переменные в PHP представлены знаком доллара с
+				последующим именем переменной. Имя переменной чувствительно к регистру.</p>
+			<p id="131aa64c-9d0a-81a1-9543-e8961e9d5aee" class="">Правильное имя переменной должно начинаться с буквы
+				или символа подчёркивания и состоять из букв, цифр и символов подчёркивания в любом количестве. </p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81fe-b72a-e2b30feb75ff"
+				class="code"><code class="language-PHP">$3hi = ‘не верное обозначение, начинается с цифры’</code></pre>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8114-92d9-cbc3c6e4e99b"
+				class="code"><code class="language-PHP">$_hi = ‘Верно, начинается с подчеркивания’</code></pre>
+			<p id="131aa64c-9d0a-817d-b20f-dff0921d56a0" class=""><strong>Область видимости переменной</strong></p>
+			<p id="131aa64c-9d0a-8173-808b-ed3b2f054575" class="">Область видимости переменной - это контекст, в котором
+				эта переменная определена. В большинстве случаев все переменные PHP имеют только одну область видимости.
+				Эта единая область видимости охватывает также включаемые (include) и требуемые (require) файлы.</p>
+			<p id="131aa64c-9d0a-81ad-a631-ca4a7da0337c" class="">Определение (тело) пользовательской функции задаёт
+				локальную область видимости данной функции. Любая используемая внутри функции переменная по умолчанию
+				ограничена локальной областью видимости функции. Например:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ee-a4fa-da84a03fdc11" class="code"><code class="language-PHP">&lt;?php
+$a = 1; /* глобальная область видимости *
+/function test()
+	{
+	echo $a; /* ссылка на переменную в локальной области видимости */
+	}
+test();
+?&gt;</code></pre>
+			<p id="131aa64c-9d0a-8199-b065-f3024ec54765" class="">Этот скрипт выдаст диагностику неопределённой
+				переменной E_WARNING (или E_NOTICE до версии PHP 8.0.0). Однако если в настройках INI display_errors
+				установлено скрытие такой диагностики, то ничего выводиться не будет. Это связано с тем, что оператор
+				echo указывает на локальную версию переменной $a, а в пределах этой области видимости ей не было
+				присвоено значение. Возможно вы заметили, что это немного отличается от языка C в том, что глобальные
+				переменные в C автоматически доступны функциям, если только они не были перезаписаны локальным
+				определением. Это может вызвать некоторые проблемы, поскольку люди могут нечаянно изменить глобальную
+				переменную. В PHP, если глобальная переменная будет использоваться внутри функции, она должна быть
+				объявлена глобальной внутри определения функции.</p>
+			<h1 id="131aa64c-9d0a-8178-ae47-ce94062a1aad" class="">Применяем php на практике</h1>
+			<p id="131aa64c-9d0a-81cc-844d-cee4125d88fc" class="">Давайте сделаем так, чтобы неавторизированный
+				пользователь не попадал на нашу страницу, а перед этим пройдет либо авторизацию, либо регистрацию.</p>
+			<p id="131aa64c-9d0a-8117-9703-e34be5b1849c" class="">Переименуем нашу страницу в profile.php:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-818d-ac95-f660d7f53109"
+				class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">mv index.html profile.php</code></pre>
+			<p id="131aa64c-9d0a-816a-8ded-e7c128a3d1d5" class="">И создадим новый файл index.php:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-813e-8aa4-cb6384eb82b3"
+				class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">touch index.php</code></pre>
+			<p id="131aa64c-9d0a-8112-b42d-d4c07bb4e06f" class="">Содержимое возьмем из файла profile.php, но с пустым
+				тегом <strong>body</strong></p>
+			<p id="131aa64c-9d0a-81a5-ab0c-d72b9f4e8086" class="">В теге <strong>body допишем код на php
+				</strong>который будет просить зарегистрироваться либо авторизоваться:</p>
+			<p id="131aa64c-9d0a-81d4-afb9-fec30d0a2857" class="">
+			</p>
+			<p id="131aa64c-9d0a-81ac-a478-e90913b1c220" class="">Добавить код php</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-813b-b306-e4fcb8143bdf" class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">&lt;?php
+//ваш код
+?&gt;</code></pre>
+			<p id="131aa64c-9d0a-812a-ae12-e191df5e71d5" class="">Внутри добавьте условие:</p>
+			<p id="131aa64c-9d0a-81e4-bda5-fa473f1158a5" class="">Если куки нет, то вывести “Зарегистрироваться или
+				авторизоваться”<br />Поле иначе оставим пустым<br /></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ef-994e-c97e87ecd1c9" class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">if (!isset($_COOKIE[&#x27;User&#x27;])) {
+       ?&gt;
+           &lt;a href=&quot;/registration.php&quot;&gt;Зарегистрируйтесь&lt;/a&gt; или &lt;a href=&quot;/login.php&quot;&gt;войдите&lt;/a&gt;, чтобы просматривать контент!
+       &lt;?php
+       } else {
+           // подключение к БД
+       }</code></pre>
+			<p id="131aa64c-9d0a-81f2-9e1a-f44c35690309" class="">не забываем про стили</p>
+			<figure id="131aa64c-9d0a-81f3-a2f5-e5713396362d" class="image"><a
+					href="../Основы web-разработки/Untitled%2033.png"><img
+						style="width:1528px"
+						src="../Основы web-разработки/Untitled%2033.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81f8-90ac-c6d64664c17c" class="">Если не забыли про стили, то получим следующее:</p>
+			<figure id="131aa64c-9d0a-81dd-a614-f966de8a7c4e" class="image"><a
+					href="../Основы web-разработки/Untitled%2034.png"><img
+						style="width:3835px"
+						src="../Основы web-разработки/Untitled%2034.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8118-9ffe-ef51d8ff5d3f" class="">Естественно, кнопки “Зарегистрируйтесь” и “войдите”
+				пока не работают, их еще надо реализовать</p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>
