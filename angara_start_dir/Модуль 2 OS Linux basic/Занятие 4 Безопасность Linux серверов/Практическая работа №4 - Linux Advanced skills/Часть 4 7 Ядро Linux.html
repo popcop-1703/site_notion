@@ -1,0 +1,1493 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Часть 4.7 Ядро Linux</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-81a2-bdb2-dadbb013e22e" class="page sans">
+		<header><img class="page-cover-image"
+				src="Часть 4 7 Ядро Linux/kandinsky-download-1705859747684.png"
+				style="object-position:center 50%" />
+			<div class="page-header-icon page-header-icon-with-cover"><span class="icon">🔣</span></div>
+			<h1 class="page-title">Часть 4.7 Ядро Linux</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<hr id="131aa64c-9d0a-8173-be8d-ea67da92578d" />
+			<h1 id="131aa64c-9d0a-817c-b206-ebef1185a9f2" class="">Модули ядра OS Linux</h1>
+			<ul id="131aa64c-9d0a-81ca-8aac-cede8cb19a54" class="toggle">
+				<li>
+					<details open="">
+						<summary><strong>План работы</strong></summary>
+						<figure id="131aa64c-9d0a-8115-ae86-c072d4eec3d4" class="image"><a
+								href="https://i.imgur.com/0S8oUk4.png"><img src="https://i.imgur.com/0S8oUk4.png" /></a>
+						</figure>
+					</details>
+				</li>
+			</ul>
+			<h2 id="131aa64c-9d0a-8141-bd88-df33b2177f96" class=""><strong>Цель работы:</strong></h2>
+			<ol type="1" id="131aa64c-9d0a-8177-8e64-fbe763848b1c" class="numbered-list" start="1">
+				<li>Узнать, какие модули ядра запущены (загружены);</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8196-b078-dd865dcf8162" class="numbered-list" start="2">
+				<li>Узнать, какой используется драйвер для указанного устройства и как получить Информацию о данном
+					драйвере;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ef-8a53-f08234ddd918" class="numbered-list" start="3">
+				<li>Как надёжно отключит устройства (например, сетевые карты, веб камеры и другие), Чтобы их невозможно
+					было включить и использовать;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81b3-8675-eb814e5d0109" class="numbered-list" start="4">
+				<li>Как попробовать новый драйвер без его установки в систему;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-818a-992c-c7a7acaf7872" class="numbered-list" start="5">
+				<li>Как заблокировать все сетевые интерфейсы на компьютере;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-819e-9937-f939db7bfb74" class="numbered-list" start="6">
+				<li>Как узнать, какие модули (драйверы) используются USB и PCI.</li>
+			</ol>
+			<h2 id="131aa64c-9d0a-8192-af5d-e0f53dc0dd23" class=""><strong>Задача:</strong></h2>
+			<ol type="1" id="131aa64c-9d0a-81f7-91ed-f9235e9e6249" class="numbered-list" start="1">
+				<li><strong>Просмотреть и вникнуть в</strong>
+					<code><strong><a href="https://www.notion.so/aad1def7a4214891a335cf9e485b778e?pvs=21">лекцию-презентацию</a></strong></code><code><a href="https://hackmd.io/@IgorLitvin/r1FS9Iwwj"> </a></code><code><strong>&quot;Ядро Linux&quot;</strong></code>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81aa-a83b-f5a9490791dd" class="numbered-list" start="2">
+				<li>Получить информацию о модулях OS Linux;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-815d-81b4-fa76ec514301" class="numbered-list" start="3">
+				<li>Автоматическая загрузка модуля с помощью systemd;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81dc-a8b1-effad47e1d8f" class="numbered-list" start="4">
+				<li>Ручная обработка модуля (включение и отключение модулей и драйверов);</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81cd-97d4-fd2dc6ab4f23" class="numbered-list" start="5">
+				<li>Как задействовать драйвер без его установки;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81af-b443-dec446f2baa2" class="numbered-list" start="6">
+				<li>Установить последнюю версию ядра;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-812e-9ede-ef86d5f377d3" class="numbered-list" start="7">
+				<li>Проверить, был ли загружен модуль;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-812c-8e1c-e0228b1fc4ea" class="numbered-list" start="8">
+				<li>Запрет на включение модулей (чёрный список модулей):<ol type="a"
+						id="131aa64c-9d0a-81f6-8777-ee1224a151af" class="numbered-list" start="1">
+						<li>/etc/modprobe.d/;</li>
+					</ol>
+					<ol type="a" id="131aa64c-9d0a-81a7-9283-fce9faea127e" class="numbered-list" start="2">
+						<li>blacklist.</li>
+					</ol>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-811e-994e-e4345abe0275" class="numbered-list" start="9">
+				<li>Блокировать модуль в начале загрузки Linux (отключение модулей в командной строке ядра);</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8145-a277-f5efab89b989" class="numbered-list" start="10">
+				<li><code><strong><a href="https://www.notion.so/3fac8490dac94f7a8dea69105e1b7c0b?pvs=21">Выполнить практическую работу &quot;GRUB и Сброс пароля root на примере Kali&quot;</a></strong></code><code>;</code>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8146-b44f-fcdb15d8fdce" class="numbered-list" start="11">
+				<li>Как заблокировать все сетевые интерфейсы на компьютере;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-815c-8209-c9772474a594" class="numbered-list" start="12">
+				<li>Как узнать, какие модули (драйверы) используются USB и PCI устройствами;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8183-ac6e-debd7cc3c501" class="numbered-list" start="13">
+				<li>Как отключить Bluetooth без возможности подключения.</li>
+			</ol>
+			<p id="131aa64c-9d0a-817a-b1ce-f20b051ba2c2" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-8178-9f3e-e027fe75c43c" class="">Отчёт:</h2>
+			<ul id="131aa64c-9d0a-8199-a20e-df05297043c3" class="bulleted-list">
+				<li style="list-style-type:disc">Результаты выполнения пунктов в звдаче нужно заскринить с описанием к
+					каждому скриншоту и приложить к отчёту.</li>
+			</ul>
+			<p id="131aa64c-9d0a-814a-9dc4-cadb49609b71" class=""><br />Модули ядра — это фрагменты кода, которые могут
+				быть загружены и выгружены в ядро по требованию. Они расширяют функциональность ядра без необходимости
+				перезагрузки системы. Модуль может быть настроен как встроенный в ядро или загружаемый во время работы
+				операционной системы.<br /><br /><br /><strong>Упрощенно процесс загрузки выглядит следующим
+					образом:</strong></p>
+			<ol type="1" id="131aa64c-9d0a-81e7-b0cc-cb231ec50166" class="numbered-list" start="1">
+				<li>BIOS или загрузочная программа компьютера загружается и запускает загрузчик.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8100-a25e-f1a3a80f2d0b" class="numbered-list" start="2">
+				<li>Загрузчик находит образ ядра на диске, загружает его в память и запускает.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8143-88e4-f25d140a4cbc" class="numbered-list" start="3">
+				<li>Ядро инициализирует устройства и их драйверы.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8105-affa-da822d631560" class="numbered-list" start="4">
+				<li>Ядро монтирует корневую файловую систему.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-819f-887f-eab13c7345ee" class="numbered-list" start="5">
+				<li>Ядро запускает программу под названием init с идентификатором процесса 1. Эта точка является началом
+					пользовательского пространства.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8141-a83a-d523258466e0" class="numbered-list" start="6">
+				<li>Программа init приводит в действие остальные системные процессы.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ff-8780-c6b8d1508ad8" class="numbered-list" start="7">
+				<li>В какой-то момент запускается процесс, позволяющий пользователю войти в систему, обычно в конце или
+					ближе к концу процесса загрузки.<br /><br /></li>
+			</ol>
+			<p id="131aa64c-9d0a-81f3-8482-e2b985650914" class=""><br /><br /><strong>При запуске ядро Linux
+					инициализируется в таком порядке:</strong></p>
+			<ol type="1" id="131aa64c-9d0a-8157-8ebf-fc28c2589b2b" class="numbered-list" start="1">
+				<li>Проверка процессора.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-813c-9b23-fd90976d5672" class="numbered-list" start="2">
+				<li>Проверка памяти.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81cc-a750-df74a6d165c6" class="numbered-list" start="3">
+				<li>Обнаружение шины устройства.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81dc-8725-f3aa83d04f6d" class="numbered-list" start="4">
+				<li>Обнаружение устройств.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81cb-95e9-ef90c0b9ed65" class="numbered-list" start="5">
+				<li>Настройка вспомогательной подсистемы ядра (сеть и т. п.).</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81bd-a12f-e65a6ce605e0" class="numbered-list" start="6">
+				<li>Монтирование корневой файловой системы.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8178-adb8-e1f3d50864e2" class="numbered-list" start="7">
+				<li>Запуск пользовательского пространства.<br /><br /></li>
+			</ol>
+			<p id="131aa64c-9d0a-814a-8da7-ca7636f7e372" class=""><br /><br /><strong>Аварийная загрузка системы и
+					однопользовательский режим</strong><br /><br /></p>
+			<p id="131aa64c-9d0a-8185-8cbe-eefa1f7e3ddc" class="">Когда что-то не так с системой, пользователи обычно
+				первым делом загружают систему с помощью «живого» образа дистрибутива или специального образа
+				восстановления, например SystemRescueCD, который можно поместить на съемный носитель. «Живой» образ —
+				это просто система Linux, которая может загружаться и запускаться без процесса установки, установочные
+				образы большинства дистрибутивов дублируются как «живые» образы.</p>
+			<p id="131aa64c-9d0a-8134-b24e-dbe3d737c4e2" class=""><strong>Настройка работы системы после сбоя включает в
+					себя следующие действия:</strong></p>
+			<ul id="131aa64c-9d0a-810f-b1d9-d31fa2028108" class="bulleted-list">
+				<li style="list-style-type:disc">проверку файловых систем;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-816f-afd0-db93620bdf7c" class="bulleted-list">
+				<li style="list-style-type:disc">сброс забытого пароля;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81f2-b54a-f7092cea1574" class="bulleted-list">
+				<li style="list-style-type:disc">исправление проблем в критически важных файлах, таких как /etc/fstab и
+					/etc/passwd;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8171-a532-c0e000ab95f7" class="bulleted-list">
+				<li style="list-style-type:disc">восстановление резервных копий.</li>
+			</ul>
+			<p id="131aa64c-9d0a-818c-9137-fb711e797f00" class="">Еще одним вариантом быстрой загрузки является
+				однопользовательский режим <strong>(single-user mode)</strong>. Суть его заключается в том, что система
+				быстро загружается в корневую оболочку, вместо того чтобы проходить через все множество служб. В System
+				V init однопользовательский режим обычно выполняется на уровне 1. В systemd он представлен как
+				rescue.target. Для загрузчика применяется параметр -s. Возможно, вам потребуется ввести пароль
+				суперпользователя, чтобы войти в однопользовательский режим.</p>
+			<p id="131aa64c-9d0a-8178-a9ca-c17bf584ccb1" class=""><em>Самая большая проблема с однопользовательским
+					режимом заключается в том, что он не особо удобен. Сеть почти наверняка будет недоступна (а если и
+					будет доступна, то ее окажется сложно использовать), нет графического интерфейса, и даже терминал
+					может работать неправильно. По этой причине загрузка с «живых» образов более предпочтительна и
+					эффективна.</em><br /><br /></p>
+			<p id="131aa64c-9d0a-8163-976b-fbbc064b5294" class=""><em>Примеры модулей ядра — это драйверы различных
+					устройств.</em></p>
+			<h3 id="131aa64c-9d0a-81d1-b241-defe7638381a" class="">1. Получение информации о модулях</h3>
+			<p id="131aa64c-9d0a-81fe-a107-e010850f5968" class=""><strong>Модули хранятся в директории
+					/usr/lib/modules/ВЫПУСК_ЯДРА. Текущую папку с модулями можно узнать командой:</strong></p>
+			<p id="131aa64c-9d0a-8153-a8c3-e15959555c80" class=""><code>echo /lib/modules/uname -r</code></p>
+			<p id="131aa64c-9d0a-8132-ae70-d138375c0249" class=""><strong>Пример вывода:</strong></p>
+			<figure id="131aa64c-9d0a-8196-80dd-e4411239fe5e" class="image"><a
+					href="https://i.imgur.com/omPqZJl.png"><img src="https://i.imgur.com/omPqZJl.png" /></a></figure>
+			<p id="131aa64c-9d0a-81f9-8e57-d8a741ad6514" class="">Имена модулей часто содержат символы подчёркивания (_)
+				или дефисы (-); при этом данные символы являются взаимозаменяемыми в командах modprobe и в
+				конфигурационных файлах в директории /etc/modprobe.d/.</p>
+			<p id="131aa64c-9d0a-8199-9179-d150ded8c549" class="">Команда lsmod показывает драйверы и другие модули,
+				которые загружены в данный момент.</p>
+			<p id="131aa64c-9d0a-8132-a3a2-c266bc3a6c36" class=""><strong>Чтобы увидеть, какие модули загружены в данный
+					момент, выполните:</strong></p>
+			<p id="131aa64c-9d0a-81e7-a5ff-f0a718b32e0b" class=""><code>lsmod</code></p>
+			<figure id="131aa64c-9d0a-81fe-868b-de872122b1c9" class="image"><a
+					href="https://i.imgur.com/vLI3weA.png"><img src="https://i.imgur.com/vLI3weA.png" /></a></figure>
+			<p id="131aa64c-9d0a-81a5-8129-e9084dd86400" class="">или команду</p>
+			<p id="131aa64c-9d0a-819f-b052-d328adefa244" class=""><code>kmod list</code></p>
+			<p id="131aa64c-9d0a-81c8-b23d-c2a9c64e43a8" class="">На самом деле, это одно и то же. Информация
+				считывается из /proc/modules и данные команды только выводят её в более понятном для восприятия виде.
+			</p>
+			<figure id="131aa64c-9d0a-81c8-8de5-d387029df186" class="image"><a
+					href="https://i.imgur.com/sTalTmm.png"><img src="https://i.imgur.com/sTalTmm.png" /></a></figure>
+			<p id="131aa64c-9d0a-81a0-b97b-f3ed27e3136d" class=""><strong>Для показа информации о модуле используется
+					команда modinfo:</strong></p>
+			<p id="131aa64c-9d0a-818e-80f6-d8c26a81460b" class="">modinfo ИМЯ_МОДУЛЯ</p>
+			<p id="131aa64c-9d0a-815d-b0ca-eef4fed82200" class="">Если вы получили ошибку:</p>
+			<p id="131aa64c-9d0a-8149-a771-e041885e33f3" class=""><strong>bash: modinfo: команда не найдена</strong></p>
+			<p id="131aa64c-9d0a-81b3-ae11-df256a6f3276" class=""><code>То запустите modinfo с sudo</code></p>
+			<p id="131aa64c-9d0a-81a7-86b6-c600f56ce8f8" class=""><strong>К примеру, чтобы узнать информацию о модуле
+					bluetooth:</strong></p>
+			<p id="131aa64c-9d0a-81bc-b1e0-e6282ce93aaf" class=""><code>modinfo bluetooth</code></p>
+			<figure id="131aa64c-9d0a-814a-aef8-ec3701696947" class="image"><a
+					href="https://i.imgur.com/ZmyBQLd.png"><img src="https://i.imgur.com/ZmyBQLd.png" /></a></figure>
+			<p id="131aa64c-9d0a-816a-83d4-e235f0e48f48" class=""><strong>Как понять вывод modinfo:</strong></p>
+			<p id="131aa64c-9d0a-81f9-95ed-e1c02e5fe3b2" class=""><em>Вывод modinfo обширен и содержит много
+					информации:</em></p>
+			<ul id="131aa64c-9d0a-8189-bf91-c5d2cf0ca2e4" class="bulleted-list">
+				<li style="list-style-type:disc">Строка «filename» показывает полный путь до файла модуля;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-810e-98cb-e80db888f0e3" class="bulleted-list">
+				<li style="list-style-type:disc">В строке «author» содержится информация о создателе модуля</li>
+			</ul>
+			<ul id="131aa64c-9d0a-816d-823f-cd71f28bdca6" class="bulleted-list">
+				<li style="list-style-type:disc">В строке «description» описание модуля.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c5-84ac-e745456d1c5f" class="bulleted-list">
+				<li style="list-style-type:disc">firmware - многим устройствам для правильной работы нужны две вещи:
+					драйвер и прошивка. Драйвер запрашивает прошивку из файловой системы в /lib/firmware. Это
+					специальный файл, необходимый для аппаратного обеспечения, это не бинарный файл. Затем дайвер делает
+					всё, что нужно для загрузки прошивки в устройство. Прошивка выполняет программирование оборудования
+					внутри устройства.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81bd-a515-d5e5b5299827" class="bulleted-list">
+				<li style="list-style-type:disc">alias - модель устройства (бывают следующие параметры - pci: тип
+					устройства, pci или usb, v обозначает идентификатор поставщика, он идентифицирует производителя
+					оборудования, d обозначает идентификатор устройства, выбранный производителем, sv*, sd*: версия
+					поставщика подсистемы и версия устройства подсистемы для дальнейшей идентификации устройства (*
+					указывает, что оно будет соответствовать чему угодно, bc03: базовый класс. Это определяет, что это
+					за устройство; Интерфейс IDE, контроллер Ethernet, контроллер USB, … bc03 означает контроллер
+					дисплея. Вы можете заметить их из вывода lspci, потому что lspci сопоставляет число и класс
+					устройства).</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8120-85be-ef809cc9eada" class="bulleted-list">
+				<li style="list-style-type:disc">intree: Y - Все модули ядра начинают свои разработки как вне дерева.
+					Как только модуль принимается для включения, он становится модулем внутри дерева. Модули без этого
+					флага (установленного в N) могут испортить ядро.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-819f-8ba7-e7b40ae356a7" class="bulleted-list">
+				<li style="list-style-type:disc">vermagic - при загрузке модуля строка vermagic проверяются на
+					совпадение с текущей версией ядра. Если они не совпадают, вы получите ошибку, и ядро откажется
+					загружать модуль. Вы можете преодолеть это, используя в modprobe флаг --force. Естественно, эти
+					проверки существуют для вашей защиты, поэтому использование этой опции опасно.</li>
+			</ul>
+			<p id="131aa64c-9d0a-8167-b7db-f927aa6b021d" class=""><strong>Для вывода списка опций, установленных для
+					загруженного модуля:</strong></p>
+			<p id="131aa64c-9d0a-81e9-a1a7-c883648f8c29" class=""><code>systool -v -m ИМЯ_МОДУЛЯ</code></p>
+			<p id="131aa64c-9d0a-81a6-aa94-fda7eabb1495" class=""><strong>Если вы получили ошибку:</strong></p>
+			<p id="131aa64c-9d0a-8153-b8e6-de6a8f17df84" class=""><code>bash: systool: команда не найдена</code></p>
+			<p id="131aa64c-9d0a-810c-a065-d85cd6343370" class="">То установите пакет <strong>sysfsutils</strong>.</p>
+			<p id="131aa64c-9d0a-81b0-929b-c3c47c18e554" class=""><strong>Пример вывода для модуля bluetooth:</strong>
+			</p>
+			<p id="131aa64c-9d0a-8101-aee9-c1c2c0996f6c" class=""><code>systool -v -m bluetooth</code></p>
+			<figure id="131aa64c-9d0a-8166-853d-cedb9a384d03" class="image"><a
+					href="https://i.imgur.com/K0HQxIq.png"><img src="https://i.imgur.com/K0HQxIq.png" /></a></figure>
+			<p id="131aa64c-9d0a-81ff-8c90-d221d2e4488c" class=""><strong>Для отображения полной конфигурации всех
+					модулей:</strong></p>
+			<p id="131aa64c-9d0a-81f2-8dee-f2f5af578dc2" class=""><code>modprobe -c | less</code></p>
+			<p id="131aa64c-9d0a-81d5-b9b3-c1fd6f972f82" class=""><strong>Чтобы отобразить конфигурацию определённого
+					модуля:</strong></p>
+			<p id="131aa64c-9d0a-8113-bd71-d7e8eba57b75" class=""><code>modprobe -c | grep ИМЯ_МОДУЛЯ</code></p>
+			<p id="131aa64c-9d0a-81cf-a161-e969e56de0c5" class=""><strong>Чтобы перечислить зависимости модуля (или
+					псевдонима), включая сам модуль:</strong></p>
+			<p id="131aa64c-9d0a-8153-926e-f01717bddb5d" class=""><code>modprobe --show-depends ИМЯ_МОДУЛЯ</code></p>
+			<h3 id="131aa64c-9d0a-814e-b4cd-c82839030fbe" class="">2.Автоматическая загрузка модуля с помощью systemd
+			</h3>
+			<p id="131aa64c-9d0a-818a-b0cf-c4a7c54ef17a" class="">Сегодня загрузка всех необходимых модулей выполняется
+				udev автоматически, поэтому нет необходимости помещать модули в какой-либо файл конфигурации. Однако в
+				некоторых случаях вам может потребоваться загрузить дополнительный модуль во время процесса загрузки
+				компьютера или добавить в чёрный список другой модуль для правильной работы компьютера.</p>
+			<p id="131aa64c-9d0a-816d-bf47-f7299d95194b" class="">Модули ядра могут быть явно перечислены в файлах в
+				<code>/etc/modules-load.d/</code> для systemd, чтобы загрузить их во время включения компьютера. Каждый
+				файл конфигурации имеет имя в стиле <code>/etc/modules-load.d/&lt;program&gt;.conf</code>. Файлы
+				конфигурации просто содержат список имён модулей ядра для загрузки, разделённых символами новой строки.
+				Пустые строки и строки, чей первый непробельный символ - # (решётка) или ; (точка с запятой)
+				игнорируются</p>
+			<p id="131aa64c-9d0a-81dc-b8cb-cc9a7cd8cf96" class="">Пример файла
+				<code>/etc/modules-load.d/virtio-net.conf</code></p>
+			<p id="131aa64c-9d0a-8142-b297-fa119d68b7aa" class="">Кроме указанной директории, также считываются файлы
+				конфигурации из <code>/run/modules-load.d/*.conf и /usr/lib/modules-load.d/*.conf</code>.</p>
+			<figure id="131aa64c-9d0a-8187-8b8e-e0e903c18ca7" class="image"><a
+					href="https://i.imgur.com/KB4m7eL.png"><img src="https://i.imgur.com/KB4m7eL.png" /></a></figure>
+			<p id="131aa64c-9d0a-8180-b08d-d66853541764" class="">Обратите внимание, что обычно лучше полагаться на
+				автоматическую загрузку модулей с помощью идентификаторов PCI, USB-идентификаторов, идентификаторов DMI
+				или аналогичных триггеров, закодированных в самих модулях ядра, вместо статической конфигурации,
+				подобной этой. Фактически, большинство современных модулей ядра уже подготовлены для автоматической
+				загрузки.</p>
+			<h3 id="131aa64c-9d0a-81bf-b0ef-ddf6325e9fbf" class="">3. Ручная обработка модуля (включение и отключение
+				модулей и драйверов)</h3>
+			<p id="131aa64c-9d0a-8187-a085-ecf48b677897" class="">Модули ядра обрабатываются инструментами,
+				предоставляемыми пакетом kmod. Вы можете использовать эти инструменты вручную.</p>
+			<p id="131aa64c-9d0a-81cc-aaa6-c3af376354be" class="">Примечание. Если вы обновили ядро, но ещё не
+				перезагрузили компьютер, modprobe завершится с ошибкой без сообщения об ошибке и выйдет с кодом 1,
+				поскольку путь <code>/usr/lib/modules/$(uname -r)</code>/ больше не существует.</p>
+			<p id="131aa64c-9d0a-81dd-a194-ea08a82fe840" class=""><strong>Чтобы загрузить модуль применяется команда
+					вида:</strong></p>
+			<p id="131aa64c-9d0a-81b2-8204-d04aac1a2def" class=""><code>sudo modprobe ИМЯ_МОДУЛЯ</code></p>
+			<p id="131aa64c-9d0a-8135-8d05-ffff69a3d5e4" class=""><strong>Чтобы загрузить модуль по имени файла (то
+					есть, тот, который не установлен в /usr/lib/modules/$(uname -r)/):</strong></p>
+			<p id="131aa64c-9d0a-8172-9db7-fb16d59dae92" class=""><code>sudo insmod ИМЯ_ФАЙЛА [АРГУМЕНТЫ]</code></p>
+			<p id="131aa64c-9d0a-81ba-a585-e2fd03079961" class=""><strong>Для выгрузки (выключения) модуля:</strong></p>
+			<p id="131aa64c-9d0a-817d-8bef-d584654df018" class=""><code>sudo modprobe -r ИМЯ_МОДУЛЯ</code></p>
+			<p id="131aa64c-9d0a-814a-8d61-c61d72d8473f" class=""><strong>Или альтернативная команда:</strong></p>
+			<p id="131aa64c-9d0a-81e0-8f8e-ecbaf90d87a8" class=""><code>sudo rmmod ИМЯ_МОДУЛЯ</code></p>
+			<h3 id="131aa64c-9d0a-8166-bae5-da51a1315b75" class="">4. Как задействовать драйвер без его установки</h3>
+			<p id="131aa64c-9d0a-81db-bdd9-ef36cdfcf9ac" class="">Рассмотрим реальный пример, когда может пригодиться
+				запуск драйвера из файла.</p>
+			<p id="131aa64c-9d0a-8171-b5ae-db8fbbaa47b7" class="">Возьмём в качестве примера репозиторий драйверов для
+				чипсета RTL8812AU/21AU и RTL8814AU.</p>
+			<p id="131aa64c-9d0a-810e-9149-c5a974668cff" class=""><strong>Эти драйвера предназначены для работы таких
+					современных карт с поддержкой стандарта Wi-Fi AC как:</strong></p>
+			<ul id="131aa64c-9d0a-81ce-9731-d80605b2560c" class="bulleted-list">
+				<li style="list-style-type:disc">Alfa AWUS1900 (чипсет: Realtek RTL8814AU)</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8150-84b2-c197df8e7f69" class="bulleted-list">
+				<li style="list-style-type:disc">TRENDnet TEW-809UB (чипсет: Realtek RTL8814AU)</li>
+			</ul>
+			<ul id="131aa64c-9d0a-816c-bf33-ea83296d6c83" class="bulleted-list">
+				<li style="list-style-type:disc">ASUS USB-AC68 (чипсет: Realtek RTL8814AU)</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8183-a1e0-fd6b31eb0f8f" class="bulleted-list">
+				<li style="list-style-type:disc">Alfa AWUS036ACH (чипсет: Realtek RTL8812AU)</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8131-9ecd-e78258023069" class="bulleted-list">
+				<li style="list-style-type:disc">Alfa AWUS036AC (чипсет: Realtek RTL8812AU)</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8113-8359-ff5eefd93cdc" class="bulleted-list">
+				<li style="list-style-type:disc">ASUS USB-AC56 (чипсет: Realtek RTL8812AU)</li>
+			</ul>
+			<p id="131aa64c-9d0a-8161-90c4-e48a45ce989a" class="">Эти драйвера поддерживают режим монитора и
+				беспроводную инъекцию, то есть подходят для аудита безопасности Wi-Fi сетей на 2.4 и 5 Ghz, в том числе
+				с поддержкой Wi-Fi стандарта AC.</p>
+			<p id="131aa64c-9d0a-811e-aba2-c5ac3ebdc8e5" class=""><strong>В принципе, в репозиториях Kali Linux уже
+					имеется данный драйвер:</strong></p>
+			<p id="131aa64c-9d0a-81f6-9c04-cddd947b7bf7" class=""><code>apt show realtek-rtl88xxau-dkms</code></p>
+			<p id="131aa64c-9d0a-8172-8c02-ff1e14741794" class=""><strong>Клонируем репозиторий — обратите внимание на
+					использование опции -b с которой указана интересующая нас ветка (в данном случае название ветки
+					совпадает с версией драйвера):</strong></p>
+			<p id="131aa64c-9d0a-819a-a548-c0da61c30888" class="">
+				<code>git clone -b v5.6.4.2 &lt;https://github.com/aircrack-ng/rtl8812au.git</code>&gt;</p>
+			<figure id="131aa64c-9d0a-81ec-a1d8-cef5b37521b6" class="image"><a
+					href="https://i.imgur.com/GDiXahB.png"><img src="https://i.imgur.com/GDiXahB.png" /></a></figure>
+			<p id="131aa64c-9d0a-81b2-ad9c-ec3783af92c2" class=""><strong>Компилируем, но не делаем установку, поскольку
+					мы в принципе не хотим устанавливать этот модуль:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8103-ba73-d55295254a1b" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">cd rtl8812au
+make</code></pre>
+			<figure id="131aa64c-9d0a-8150-8824-d3fd20b4b272" class="image"><a
+					href="https://i.imgur.com/2gtuEeK.png"><img src="https://i.imgur.com/2gtuEeK.png" /></a></figure>
+			<p id="131aa64c-9d0a-81d7-9ef7-d470c186d3c5" class="">success<br />У нас есть два способа загрузить
+				(включить) модуль — с помощью insmod или с помощью команды modprobe. Команда insmod удобнее, т. к. можно
+				указать скомпилированный файл драйвера, а команда modprobe лучше обрабатывает зависимости, поэтому
+				рассмотрим оба варианта.<br /></p>
+			<h3 id="131aa64c-9d0a-8118-abbc-e1abbbc0475e" class="">4.1 Загрузка модуля без установки (используя insmod)
+			</h3>
+			<p id="131aa64c-9d0a-81b8-8834-d1773b3717b6" class=""><strong>Проверим текущую версию ядра:</strong></p>
+			<p id="131aa64c-9d0a-819c-b142-ec67aa63f0db" class=""><code>uname -a</code></p>
+			<p id="131aa64c-9d0a-8110-ab03-f563ab31f69a" class=""><strong>Для установки последней версии ядра достаточно
+					выполнить следующие команды:</strong></p>
+			<p id="131aa64c-9d0a-81bb-989f-f9c81a3fe3f4" class="">
+				<code>echo &#x27;deb &lt;http://deb.xanmod.org&gt; releases main&#x27; | sudo tee /etc/apt/sources.list.d/xanmod-kernel.list</code>
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8176-8f2f-fe3c57e820e0" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">wget -qO - &lt;https://dl.xanmod.org/gpg.key&gt; | sudo apt-key --keyring /etc/apt/trusted.gpg.d/xanmod-kernel.gpg add -
+sudo apt update &amp;&amp; sudo apt install linux-xanmod
+</code></pre>
+			<figure id="131aa64c-9d0a-813f-833f-cfe9045e7b85" class="image"><a
+					href="https://i.imgur.com/SFX9bry.png"><img src="https://i.imgur.com/SFX9bry.png" /></a></figure>
+			<p id="131aa64c-9d0a-8114-8995-cfbb5a38b120" class=""><em><strong>Дождитесь завершения работы и
+						перезагрузитесь.</strong></em></p>
+			<p id="131aa64c-9d0a-81c0-a664-cba7a6b92979" class=""><strong>Ещё раз проверим версию ядра:</strong></p>
+			<p id="131aa64c-9d0a-81fd-8a4c-e6b508618bfc" class=""><code>uname -a</code></p>
+			<figure id="131aa64c-9d0a-8153-a1aa-ccff2ae87b00" class="image"><a
+					href="https://i.imgur.com/UXrQn4M.png"><img src="https://i.imgur.com/UXrQn4M.png" /></a></figure>
+			<p id="131aa64c-9d0a-813e-b3c4-c3f4b5eec576" class=""><strong>Для включения модуля из файла используйте
+					команду вида:</strong></p>
+			<p id="131aa64c-9d0a-81c1-adf4-fb7d9444edd0" class=""><code>sudo insmod ИМЯ_ФАЙЛА [АРГУМЕНТЫ]</code></p>
+			<p id="131aa64c-9d0a-81d4-b608-c9dc511bf524" class=""><strong>Файлы модулей имеют расширение .ko, в нашем
+					случае имя файла 88XXau.ko, поэтому команда следующая:</strong></p>
+			<figure id="131aa64c-9d0a-811c-98c1-fd05fa400fff" class="image"><a
+					href="https://i.imgur.com/nXIwisa.png"><img src="https://i.imgur.com/nXIwisa.png" /></a></figure>
+			<p id="131aa64c-9d0a-81aa-92b7-d00f344cd4ff" class=""><code>sudo insmod ./88XXau.ko</code></p>
+			<p id="131aa64c-9d0a-8158-9a70-fbe7dc0a20b9" class=""><strong>Проверяем, был ли загружен модуль:</strong>
+			</p>
+			<p id="131aa64c-9d0a-817f-b17f-cdf3fcd6f1f4" class=""><code>sudo lsmod | grep 88XXau</code></p>
+			<figure id="131aa64c-9d0a-81c8-94bd-c54adff4f8cc" class="image"><a
+					href="https://i.imgur.com/Wtk2JLE.png"><img src="https://i.imgur.com/Wtk2JLE.png" /></a></figure>
+			<p id="131aa64c-9d0a-810b-a9a9-f604b0c00873" class="">если будет ошибка
+				<code>modprobe: FATAL: Module 88XXau not found in directory /lib/modules/4.19.0-22-amd64</code>, то
+				есть, неизвестный символ в модуле. Суть такая же — модуль не найден, но ранее существовал, поэтому от
+				него остались упоминания в списках зависимостей.</p>
+			<p id="131aa64c-9d0a-813a-ad52-d78834586e7c" class=""><strong>Установим зависимости, необходимые для
+					компиляции данного драйвера:</strong></p>
+			<p id="131aa64c-9d0a-8198-b662-dcd7729336ea" class="">
+				<code>sudo apt install build-essential bc libelf-dev</code></p>
+			<p id="131aa64c-9d0a-8121-9f9a-e3d82da01106" class="">Первая строка показывается, что модуль 88XXau
+				загружен, а в последующих строках показаны модули, которые использует 88XXau (то есть которые являются
+				для него зависимостями).</p>
+			<p id="131aa64c-9d0a-817e-82be-f8a638a50b67" class="">Первая строка показывается, что модуль 88XXau
+				загружен, а в последующих строках показаны модули, которые использует 88XXau (то есть которые являются
+				для него зависимостями).</p>
+			<p id="131aa64c-9d0a-81d7-ac22-eaf6e155a788" class="">Загрузка модуля без установки (используя modprobe)</p>
+			<p id="131aa64c-9d0a-8129-8719-cac145b2cccd" class="">Второй вариант чуть более сложный в настройке, но для
+				загрузки модуля не нужно указывать полный путь до файла драйвера.</p>
+			<p id="131aa64c-9d0a-81e7-95b4-fbefa1922fde" class=""><strong>Выгрузим модуль, если он был загружен
+					ранее:</strong></p>
+			<figure id="131aa64c-9d0a-81ea-a634-e916989a4598" class="image"><a
+					href="https://i.imgur.com/bh12ZyI.png"><img src="https://i.imgur.com/bh12ZyI.png" /></a></figure>
+			<h3 id="131aa64c-9d0a-8162-b947-e0f2f46b0eb2" class="">5. Запрет на включение модулей (чёрный список
+				модулей)</h3>
+			<p id="131aa64c-9d0a-8133-a0b9-e3a68ab575cd" class="">Чёрный список в контексте модулей ядра — это механизм,
+				предотвращающий загрузку модуля ядра. Это может быть полезно, если, например, связанное оборудование не
+				требуется или если загрузка этого модуля вызывает проблемы: например, могут быть два модуля ядра,
+				которые пытаются управлять одним и тем же компонентом оборудования, и загрузка их вместе приведёт к
+				конфликту.</p>
+			<p id="131aa64c-9d0a-8117-8079-c45ca3121b12" class="">Использование файлов в <code>/etc/modprobe.d/</code>
+			</p>
+			<p id="131aa64c-9d0a-81cd-84b4-ea17ae5f1648" class="">Создайте файл .conf внутри
+				<code>/etc/modprobe.d/</code> и добавьте строку для каждого модуля, который вы хотите добавить в черный
+				список, используя ключевое слово <code>blacklist</code>. Например, если вы хотите запретить загрузку
+				модуля <code>pcspkr</code>, создайте файл <code>/etc/modprobe.d/nobeep.conf</code> и <strong>добавьте в
+					него строку:</strong></p>
+			<p id="131aa64c-9d0a-8121-8afa-ca4194d81cf6" class=""><code>blacklist pcspkr</code></p>
+			<figure id="131aa64c-9d0a-8190-a992-c3dc0b220014" class="image"><a
+					href="https://i.imgur.com/v5Nj1DT.png"><img src="https://i.imgur.com/v5Nj1DT.png" /></a></figure>
+			<figure id="131aa64c-9d0a-8101-ac23-ded9497519bb" class="image"><a
+					href="https://i.imgur.com/RchBgmL.png"><img src="https://i.imgur.com/RchBgmL.png" /></a></figure>
+			<p id="131aa64c-9d0a-818f-8e58-db5e1f4909ad" class=""><strong>Некоторые модули загружаются как часть
+					initramfs. То есть можно выделить модули, которые:</strong></p>
+			<ul id="131aa64c-9d0a-81d5-93d5-c42a308f207c" class="bulleted-list">
+				<li style="list-style-type:disc">загружаются из файлов .ko</li>
+			</ul>
+			<ul id="131aa64c-9d0a-810e-a0ed-fe95e314de38" class="bulleted-list">
+				<li style="list-style-type:disc">загружаются как часть initramfs (initial ramdisk)</li>
+			</ul>
+			<p id="131aa64c-9d0a-816f-9020-c41c9ae97715" class="">Для запрета загрузки модулей первого типа (загружаемые
+				из файлов .ko) достаточно внести запись об этом модуле в файл <code>/etc/modprobe.d/*.conf</code> с
+				директивой <code>blacklist</code>.<br />Для модулей второго типа (загружаемые как часть initramfs),
+				кроме создания конфигурационного файла, также необходимо пересоздать initramfs.<br /></p>
+			<p id="131aa64c-9d0a-8138-b322-c8fd861f6965" class="">
+			</p>
+			<p id="131aa64c-9d0a-81f2-bf9e-c55f61abe772" class="">Примечание: initramfs (initial ramdisk) — это
+				начальная среда ramdisk для загрузки ядра Linux. Начальный ramdisk — это, по сути, очень маленькая среда
+				(раннее пользовательское пространство), которая загружает различные модули ядра и настраивает
+				необходимые вещи перед передачей управления init. Это позволяет, например, иметь зашифрованные корневые
+				файловые системы и корневые файловые системы на программном массиве RAID.</p>
+			<p id="131aa64c-9d0a-81fb-aeea-fff45d1ae000" class=""><br />Примечание. Команда blacklist внесёт модуль в
+				чёрный список, чтобы он не загружался автоматически. Но при этом модуль может быть загружен, если от
+				него зависит другой модуль, не включенный в чёрный список, а также по прежнему можно загрузить модуль
+				вручную. Тем не менее есть обходной путь для этого поведения; Команда <br /><code>install</code>
+				указывает <code>modprobe</code> запускать пользовательскую команду вместо того, чтобы как обычно
+				вставлять модуль в ядро, поэтому вы можете принудительно заставить модуль всегда не загружаться с
+				помощью рассмотренной далее конструкции. Допустим, вы создали файл
+				<code>/etc/modprobe.d/blacklist.conf</code> чтобы заблокировать загрузку модуля ИМЯ_МОДУЛЯ.</p>
+			<p id="131aa64c-9d0a-81ba-90d1-fbe6d0103ba4" class=""><strong>Чтобы это сделать надёжно, добавьте в этот
+					файл:</strong></p>
+			<ul id="131aa64c-9d0a-8167-ad1d-e38aaf7e3a58" class="bulleted-list">
+				<li style="list-style-type:disc">blacklist ИМЯ_МОДУЛЯ</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81a4-b293-c3f66cbb9ec8" class="bulleted-list">
+				<li style="list-style-type:disc">install ИМЯ_МОДУЛЯ /bin/true</li>
+			</ul>
+			<p id="131aa64c-9d0a-8159-b091-dd658d13ba8d" class=""><strong>Это надёжно заблокирует загрузку указанного
+					модуля, а также любого другого, зависящего от него.</strong></p>
+			<p id="131aa64c-9d0a-81ed-b86a-c2db8288011c" class="">Если вы блокируете модули, которые загружаются из
+				initramfs, то после их добавления в файл <code>/etc/modprobe.d/*.conf</code>, необходимо пересоздать
+				<code>initramfs</code>.</p>
+			<p id="131aa64c-9d0a-81ae-8247-c048b3056454" class=""><strong>На Debian, Kali Linux, Linux Mint, Ubuntu и их
+					производных это делается так:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81d1-a853-d858356aee43" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">sudo update-initramfs -u
+sudo reboot
+</code></pre>
+			<p id="131aa64c-9d0a-8144-900d-fe993dca8ed6" class=""><strong>В Arch Linux, BlackArch и их производных это
+					делается так:</strong></p>
+			<p id="131aa64c-9d0a-8164-b30d-e8bb68a1c4c7" class="">
+				<code>sudo mkinitcpio -g /boot/initramfs-linux.img -k /b</code></p>
+			<h3 id="131aa64c-9d0a-810d-b95d-c531fb9f19bc" class="">6. Блокировка модулей в начале загрузки Linux
+				(отключение модулей в командной строке ядра)</h3>
+			<p id="131aa64c-9d0a-8128-9add-f04d14f2ebd4" class="">Это может быть очень полезно, если неисправный модуль
+				делает невозможным загрузку вашей системы. Вы можете занести в чёрный список модули в меню загрузчика.
+			</p>
+			<p id="131aa64c-9d0a-81a0-b6bd-f41e3a183025" class="">Просто добавьте в строку с параметрами загрузки ядра:
+			</p>
+			<p id="131aa64c-9d0a-8142-b728-ed540a42020f" class="">
+				<code>module_blacklist=ИМЯ-МОДУЛЯ1,ИМЯ-МОДУЛЯ2,ИМЯ-МОДУЛЯ3</code></p>
+			<p id="131aa64c-9d0a-818e-8202-da3644d34335" class="">Примеры редактирования параметров загрузки ядра для
+				популярных дистрибутивов вы найдёте в: <strong><a
+						href="https://hackmd.io/@IgorLitvin/Sy3Lyx9mF">Практической работа &quot;Сброс пароля root на
+						примере Kali&quot;</a></strong></p>
+			<h3 id="131aa64c-9d0a-815f-871f-ca45ac7f378a" class="">7. Как заблокировать все сетевые интерфейсы на
+				компьютере</h3>
+			<p id="131aa64c-9d0a-8122-a449-eda448e9cd44" class="">Предположим, необходимо, чтобы на компьютере была
+				заблокирована любая сетевая активность, то есть и проводные, и беспроводные сети. Существует команда
+				rfkill, но она предназначена для блокировки только беспроводных сетей. Поэтому найдём другой способ.</p>
+			<p id="131aa64c-9d0a-81e1-878d-f2ee78d70a8d" class=""><strong>Алгоритм действий следующий:</strong></p>
+			<p id="131aa64c-9d0a-819c-a2d6-d621bc244040" class=""><strong>Мы определим, какие драйверы используются
+					сетевыми устройствами<br />Заблокируем эти драйверы<br /></strong></p>
+			<p id="131aa64c-9d0a-813e-be35-dd9b9583b24a" class=""><strong>Чтобы узнать, какие драйверы задействованы в
+					Linux для работы сетевых карт, выполните команду:</strong></p>
+			<p id="131aa64c-9d0a-813f-b8df-dc7489af043f" class=""><code>sudo apt install lshw</code></p>
+			<p id="131aa64c-9d0a-81c6-91a0-c09b10ee55d6" class=""><code>sudo lshw -C network</code></p>
+			<figure id="131aa64c-9d0a-8158-81bb-c36a94f462db" class="image"><a
+					href="https://i.imgur.com/mf2vkxW.png"><img src="https://i.imgur.com/mf2vkxW.png" /></a></figure>
+			<p id="131aa64c-9d0a-8170-aeff-ddd55f0d64b5" class="">Строки «<strong>configuration:</strong>» содержат
+				информацию о драйверах. Для беспроводной карты это «<strong>если есть wi-fi: driver=iwlwifi</strong>», а
+				для проводного сетевого интерфейса это «<strong>driver=e1000</strong>».</p>
+			<p id="131aa64c-9d0a-813a-a071-ccf38989cd3b" class="">Создаём файл
+				<code>/etc/modprobe.d/block-network.conf</code> и <strong>добавляем в него:</strong></p>
+			<figure id="131aa64c-9d0a-8164-9ebb-d007e7106314" class="image"><a
+					href="https://i.imgur.com/6ul2NZk.png"><img src="https://i.imgur.com/6ul2NZk.png" /></a></figure>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81b6-8cff-dcd98d302e44" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">blacklist iwlwifi
+install iwlwifi /bin/true
+
+blacklist e1000
+install e1000 /bin/true
+
+sudo update-initramfs -u
+
+sudo reboot
+</code></pre>
+			<p id="131aa64c-9d0a-8198-bfd2-f0fa672619e3" class=""><strong>Так выглядит настройка сети в нормальном
+					состоянии, виден проводной и если есть беспроводной адаптеры:</strong></p>
+			<figure id="131aa64c-9d0a-8154-8d1d-fb1f458e9bff" class="image"><a
+					href="https://i.imgur.com/b2sHbmz.png"><img src="https://i.imgur.com/b2sHbmz.png" /></a></figure>
+			<figure id="131aa64c-9d0a-818e-b0a2-c4f962f70436" class="image"><a
+					href="https://i.imgur.com/LDO2mvO.png"><img src="https://i.imgur.com/LDO2mvO.png" /></a></figure>
+			<p id="131aa64c-9d0a-81fe-9c23-d54fbe9b9436" class=""><strong>После перезагрузки невозможно будет включить
+					сеть, поскольку компьютер не сможет использовать сетевые интерфейсы без драйверов:</strong></p>
+			<figure id="131aa64c-9d0a-81d4-a4c4-e7049f18747d" class="image"><a
+					href="https://i.imgur.com/o5cgxNw.png"><img src="https://i.imgur.com/o5cgxNw.png" /></a></figure>
+			<figure id="131aa64c-9d0a-813f-8eb4-e4a1b9466ec4" class="image"><a
+					href="https://i.imgur.com/oPCjsv6.png"><img src="https://i.imgur.com/oPCjsv6.png" /></a></figure>
+			<p id="131aa64c-9d0a-81ab-8073-db8814ba8bcb" class=""><br />Вы не сможете включить любую сеть вплоть до
+				удаления файла <br /><code>/etc/modprobe.d/block-network.conf</code> и перезагрузки. Тем не менее при
+				подключении других сетевых адаптеров, они будут использоваться. Данный способ надёжно защитит от
+				случайного использования сети при условии, что вы контролируете подключение новых физических устройств к
+				компьютеру.</p>
+			<h3 id="131aa64c-9d0a-815c-81b1-e5d1adae9c7c" class="">8. Как надёжно выключить веб камеру</h3>
+			<p id="131aa64c-9d0a-81c4-ae1f-dfbc1a64d6b1" class="">На некоторых новых моделях ноутбуков веб-камеру можно
+				закрыть шторкой — на тот случай, если вы опасаетесь, что хакер может взломать ваш компьютер и следить за
+				вами.</p>
+			<p id="131aa64c-9d0a-81a2-abae-e39b626cd024" class="">Сейчас мы научимся отключать драйвер веб-камеры, чтобы
+				её невозможно было использовать.</p>
+			<p id="131aa64c-9d0a-816b-b4c0-f3e268e1a41d" class=""><strong>Даже если у вас ноутбук, скорее всего,
+					веб-камера подключена внутри корпуса к USB хабу, то есть это USB устройство. Вывести список USB
+					устройств в системе можно командой:</strong></p>
+			<p id="131aa64c-9d0a-81d2-93a1-da8a7b7fcc27" class=""><code>lsusb</code></p>
+			<figure id="131aa64c-9d0a-81ff-806c-ca071c4914df" class="image"><a
+					href="https://i.imgur.com/TMuApPk.png"><img src="https://i.imgur.com/TMuApPk.png" /></a></figure>
+			<h3 id="131aa64c-9d0a-818a-8412-e2f4c63f71c2" class="">8.1 Как узнать, какие модули (драйверы) используются
+				USB и PCI устройствами</h3>
+			<h3 id="131aa64c-9d0a-8147-9e0c-ebf272e77055" class="">8.1.1 Какие драйверы использует USB-устройство</h3>
+			<p id="131aa64c-9d0a-811f-84ec-ce772c924abf" class=""><strong>Пакет usbutils включает скрипт, называемый
+					usb-devices. Если вы запустите его, он выведет информацию об устройствах в системе, включая
+					используемый драйвер:</strong></p>
+			<p id="131aa64c-9d0a-8170-b1f8-f564f3f327e2" class=""><code>usb-devices</code></p>
+			<figure id="131aa64c-9d0a-8101-95e6-f872323f9c93" class="image"><a
+					href="https://i.imgur.com/Rn8PhMx.png"><img src="https://i.imgur.com/Rn8PhMx.png" /></a></figure>
+			<h3 id="131aa64c-9d0a-81de-b35a-f657d8e3983c" class="">8.1.2 Используемые драйверы в lsusb</h3>
+			<p id="131aa64c-9d0a-81bb-9497-fb532cf6e44f" class=""><strong>С помощью lsusb также можно увидеть
+					используемые USB-устройством драйверы:</strong></p>
+			<p id="131aa64c-9d0a-812b-b21a-fab07c40fc5a" class=""><code>lsusb -t -v -v</code></p>
+			<p id="131aa64c-9d0a-81ce-86a4-fdea1c005c0a" class=""><strong>Но может возникнуть трудность с идентификацией
+					устройства. В комбинации с lsusb без опций можно сопоставить устройства и драйверы:</strong></p>
+			<p id="131aa64c-9d0a-8133-92e3-f6a07f16274d" class=""><code>lsusb</code></p>
+			<figure id="131aa64c-9d0a-819f-a938-f77782514850" class="image"><a
+					href="https://i.imgur.com/EE3DwjY.png"><img src="https://i.imgur.com/EE3DwjY.png" /></a></figure>
+			<h3 id="131aa64c-9d0a-81bc-ae1b-d909103dce90" class="">8.1.3 lshw</h3>
+			<p id="131aa64c-9d0a-81d1-8bb0-f3f6ab3a3a7c" class=""><strong>Программа lshw показывает подробную информацию
+					о железе (аппаратной составляющей) компьютера. В том числе выводит информацию о задействованных
+					каждым устройством драйверах:</strong></p>
+			<p id="131aa64c-9d0a-8172-9960-cfc133acca86" class=""><code>sudo lshw</code></p>
+			<figure id="131aa64c-9d0a-81e3-a7c3-ca46dfe889b5" class="image"><a
+					href="https://i.imgur.com/u6RGA7D.png"><img src="https://i.imgur.com/u6RGA7D.png" /></a></figure>
+			<h3 id="131aa64c-9d0a-8139-b0c3-ced83c34b0f2" class="">8.1.4 Драйверы, используемые PCI устройством</h3>
+			<p id="131aa64c-9d0a-818d-a09e-f582ce8b9aa1" class=""><strong>Если вас интересует, какой модуль ядра и какой
+					драйвер использует PCI устройство, то выполните следующую команду:</strong></p>
+			<p id="131aa64c-9d0a-8168-aa33-e9e14a721bc2" class=""><code>sudo lspci -k</code></p>
+			<figure id="131aa64c-9d0a-8104-9299-e33f309a0334" class="image"><a
+					href="https://i.imgur.com/M57HWpE.png"><img src="https://i.imgur.com/M57HWpE.png" /></a></figure>
+			<h3 id="131aa64c-9d0a-81d1-bc09-e7cb4040949e" class="">8.1 usb-devices</h3>
+			<p id="131aa64c-9d0a-81e3-97b7-c5a90edafb6e" class="">Чтобы определить драйверы, которые нужны для работы
+				любого USB или с PCI устройства в вашей системе, <strong>воспользуемся следующей командой:</strong></p>
+			<p id="131aa64c-9d0a-8146-b527-dda0e2a0a004" class=""><code>sudo usb-devices</code></p>
+			<figure id="131aa64c-9d0a-816c-892c-defe31be4582" class="image"><a
+					href="https://i.imgur.com/PsS7J7F.png"><img src="https://i.imgur.com/PsS7J7F.png" /></a></figure>
+			<p id="131aa64c-9d0a-81d0-8ec1-ddb2d20f4b27" class="">Видим, что для устройства <strong>Pro Webcam
+					C920</strong> используется драйвер <strong>uvcvideo</strong>.</p>
+			<p id="131aa64c-9d0a-8141-9f0c-cdd9d9c2c54a" class=""><strong>Создаём файл
+				</strong><code><strong>/etc/modprobe.d/block-webcam.conf</strong></code><strong> и блокируем в нём
+					запуск модуля ядра </strong><code><strong>uvcvideo</strong></code><strong>:</strong></p>
+			<figure id="131aa64c-9d0a-8190-9ae1-fa5ca0f22eed" class="image"><a
+					href="https://i.imgur.com/TOXvyPc.png"><img src="https://i.imgur.com/TOXvyPc.png" /></a></figure>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81c3-8631-e3c2dee06753" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">blacklist uvcvideo
+install uvcvideo /bin/true
+
+sudo update-initramfs -u
+sudo reboot
+</code></pre>
+			<p id="131aa64c-9d0a-81c2-9393-efe9b575f3a9" class="">После перезагрузки система не сможет использовать
+				веб-камеру, пока не будет удалён файл <code>block-webcam.conf</code> и выполнена перезагрузка.</p>
+			<figure id="131aa64c-9d0a-8158-ab35-c86b8ff96035" class="image"><a
+					href="https://i.imgur.com/BAVaSPe.png"><img src="https://i.imgur.com/BAVaSPe.png" /></a></figure>
+			<h3 id="131aa64c-9d0a-8168-8d54-e75508b9c836" class="">9. Как отключить Bluetooth без возможности
+				подключения</h3>
+			<p id="131aa64c-9d0a-817a-adc4-d8cfd716ea6a" class="">Модуль ядра bluetooth включён в ядро, поэтому
+				удалением каких-то пакетов вроде bluez и blueman задачу отключения Bluetooth не решить — если удалить
+				указанные пакеты у нас не будет инструментов и графических апплетов для наблюдением за Bluetooth, но это
+				не означает, что на уровне ядра не будет выполнятся подключение Bluetooth устройств (например, USB
+				адаптера Bluetooth), либо периферийные устройства не будут сопрягаться.</p>
+			<p id="131aa64c-9d0a-81a0-a8fe-f43af75d997a" class="">Реализовать на примере предедущих действий!</p>
+			<figure id="131aa64c-9d0a-812d-80a9-e295f06ad2bc" class="image"><a
+					href="https://i.imgur.com/5hXmhHD.png"><img src="https://i.imgur.com/5hXmhHD.png" /></a></figure>
+			<h3 id="131aa64c-9d0a-81ea-859a-ebacaf3d8178" class="">Вывод:</h3>
+			<p id="131aa64c-9d0a-8199-a1eb-f7ef737320b9" class=""><strong>В данной практической работе научились
+					работать с модулями ядра OS Linux.</strong></p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

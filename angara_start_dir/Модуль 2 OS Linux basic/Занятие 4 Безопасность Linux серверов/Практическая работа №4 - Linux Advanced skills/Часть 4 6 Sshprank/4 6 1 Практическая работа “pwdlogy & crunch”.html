@@ -1,0 +1,1297 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>4.6.1 Практическая работа “pwdlogy &amp; crunch”</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-8155-9d12-e79aff090872" class="page sans">
+		<header>
+			<div class="page-header-icon undefined"><img class="icon"
+					src="https://www.notion.so/icons/drafts_gray.svg" /></div>
+			<h1 class="page-title"><strong>4.6.1 Практическая работа “pwdlogy &amp; crunch”</strong></h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<p id="131aa64c-9d0a-815b-be65-e653be3211fb" class="">
+			</p>
+			<figure id="131aa64c-9d0a-8182-a598-c25be84b30dd" class="image"><a
+					href="4 6 1 Практическая работа “pwdlogy & crunch”/Untitled.png"><img
+						style="width:1202px"
+						src="4 6 1 Практическая работа “pwdlogy & crunch”/Untitled.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81b9-9f05-e2e9088920bd" class="">
+			</p>
+			<p id="131aa64c-9d0a-81e6-a876-d6cca4277f10" class=""><strong>Цель работы:</strong></p>
+			<ul id="131aa64c-9d0a-8125-bbae-e5e6962b870e" class="bulleted-list">
+				<li style="list-style-type:disc">Научиться работать с pwdlogy &amp; crunch</li>
+			</ul>
+			<p id="131aa64c-9d0a-8139-a640-dadad39b3d49" class=""><strong>Задача:</strong></p>
+			<ol type="1" id="131aa64c-9d0a-81fd-a0a7-d3e39b2be1c2" class="numbered-list" start="1">
+				<li>Научиться собирать метаданные</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8164-a0da-e9e9af3e54b7" class="numbered-list" start="2">
+				<li>Научиться производить установку утилит</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8168-b80a-df94ab10b94e" class="numbered-list" start="3">
+				<li>Составить словарь с помощью pwdlogy</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81a2-a8eb-cc5cc4ebf40d" class="numbered-list" start="4">
+				<li>Составить словарь с помощью crunch</li>
+			</ol>
+			<p id="131aa64c-9d0a-8198-b72f-c16f695c5a48" class=""><strong>Защита:</strong></p>
+			<ul id="131aa64c-9d0a-818a-b558-cde61fd53baf" class="bulleted-list">
+				<li style="list-style-type:disc">Подобрать метаданные, сгенерировать словари на основе метаданных,
+					продемонстрировать работу утилит.</li>
+			</ul>
+			<details open="">
+				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Ответить на вопросы
+					(самопроверка).</summary>
+				<div class="indented">
+					<p id="131aa64c-9d0a-81d6-85ea-d8129baedfaa" class="">1. Что такое Pwdlogy и как она используется в
+						Linux? </p>
+					<p id="131aa64c-9d0a-81a7-aab4-edc96c1e2bb5" class="">2. Какой файл в Linux отвечает за хранение
+						зашифрованных паролей пользователей? </p>
+					<p id="131aa64c-9d0a-8143-a6f3-ee11e2142066" class="">3. Как проверить сложность пароля в Linux и
+						настроить ее на сервере? </p>
+					<p id="131aa64c-9d0a-8130-a21a-edd76cb2df15" class="">4. Как обезопасить пароли пользователей в
+						Linux? </p>
+					<p id="131aa64c-9d0a-812a-843c-edf35f90680b" class="">5. Как применить Pwdlogy на практике? </p>
+					<p id="131aa64c-9d0a-81fc-97c6-d762fb5945d1" class="">6. Какие инструменты Linux могут
+						использоваться при аудите паролей? </p>
+					<p id="131aa64c-9d0a-81a6-beb7-fb6fc089bd50" class="">7. Что такое crunch и как его использовать в
+						Linux? </p>
+					<p id="131aa64c-9d0a-8151-869a-ed9eafd7478a" class="">8. Как сгенерировать пароли с помощью crunch?
+					</p>
+					<p id="131aa64c-9d0a-8103-bb65-e84a96cc9fc7" class="">9. Как создать словарь слов с помощью crunch?
+					</p>
+					<p id="131aa64c-9d0a-818e-bfe2-e2db95df863d" class="">10. Какие параметры можно использовать с
+						crunch для настройки генерации паролей или словарей? </p>
+					<p id="131aa64c-9d0a-8193-99e4-f45bd4bdfd2e" class="">11. Какие альтернативы существуют для crunch в
+						Linux? В чем различия? </p>
+					<p id="131aa64c-9d0a-81ec-83f1-f7d655b9ae42" class="">12. Какие методы можно использовать для защиты
+						от атак, использующих пароли, созданные с помощью crunch? </p>
+					<p id="131aa64c-9d0a-8119-ac93-fc653ffb433d" class="">13. Какие виды атак можно произвести с помощью
+						паролей, созданных с помощью crunch? Как их избежать?</p>
+					<p id="131aa64c-9d0a-8168-9b66-d7a9ed55f6a5" class="">14. Что такое MetaExtractor? </p>
+					<p id="131aa64c-9d0a-81f6-aec9-d7721328c9cc" class="">15. Для чего MetaExtractor используется? </p>
+					<p id="131aa64c-9d0a-81c1-ac27-fa72d3b32a4f" class="">16. Какие форматы файлов поддерживает
+						MetaExtractor? </p>
+					<p id="131aa64c-9d0a-8146-accd-cc2e36c210bc" class="">17. Какие метаданные извлекает MetaExtractor?
+					</p>
+					<p id="131aa64c-9d0a-81e4-990b-fc7fb126a5ae" class="">18. Как происходит установка и настройка
+						MetaExtractor? </p>
+					<p id="131aa64c-9d0a-81c2-accc-d3d133d3e751" class="">19. Какие ключевые особенности MetaExtractor
+						можно выделить? </p>
+					<p id="131aa64c-9d0a-811c-8767-c961fb39333d" class="">20. Какие операционные системы поддерживает
+						MetaExtractor? </p>
+					<p id="131aa64c-9d0a-817d-84af-dbbf9238177e" class="">21. Что такое ExifTool и для чего он
+						используется? </p>
+					<p id="131aa64c-9d0a-8131-a017-c008827337fd" class="">22. Какие типы файлов можно обработать с
+						помощью ExifTool? </p>
+					<p id="131aa64c-9d0a-81e0-859a-ec33bda43cd9" class="">23. Какие тэги Exif можно считывать с помощью
+						ExifTool? </p>
+					<p id="131aa64c-9d0a-8152-932b-fc2363a7a1c5" class="">24. Как определить и изменить имя автора в
+						фотографии с помощью ExifTool? </p>
+					<p id="131aa64c-9d0a-8113-9a70-ea8b8b60b83a" class="">25. Как определить и изменить дату фотографии
+						с помощью ExifTool? </p>
+					<p id="131aa64c-9d0a-8137-9fa1-fcbf91a18885" class="">26. Как определить и изменить географическое
+						положение с помощью ExifTool? </p>
+					<ol type="1" id="131aa64c-9d0a-811d-a21d-eb755207ad52" class="numbered-list" start="27">
+						<li>Как прочитать Exif-данные в изображении, используя ExifTool? </li>
+					</ol>
+					<p id="131aa64c-9d0a-8156-8bf0-e17169f3e1fa" class="">28. Как использовать ExifTool для удаления
+						метаданных изображения?</p>
+					<p id="131aa64c-9d0a-8155-b738-e6e91bfe0c53" class="">
+					</p>
+				</div>
+			</details>
+			<p id="131aa64c-9d0a-81c9-bdb1-c3ce28fc34a7" class="">
+			</p>
+			<p id="131aa64c-9d0a-815f-94c6-f97fb367870f" class="">Если вы потратите время на то, чтобы правильно
+				определить масштаб и способы взаимодействия с вашим клиентом, это сэкономит вам обоим очень много
+				времени и усилий. Безусловно, здесь вам поможет умение задавать правильные вопросы. Некоторые
+				специалисты по социальной инженерии утверждают, что их работа – сеять хаос в компании. Хотя в каком-то
+				смысле это верно, у вас обязательно должен быть продуманный план для этого безумия, чтобы гарантировать,
+				что в конечном итоге все участники только выиграют. Вы получите оплату за проделанную работу и
+				продолжите укреплять свою репутацию, в то время как клиент получит то, что он заказал и за что заплатил.
+				Это повысит безопасность его организации и, надеюсь, будет означать повторение сделки для вас.</p>
+			<h3 id="131aa64c-9d0a-8169-8b76-ffd4878b03e0" class="">1. MetaExtractor</h3>
+			<p id="131aa64c-9d0a-815e-a1bc-e8ee58343b05" class=""><br />Помимо основной информации, файлы Microsoft
+				Office и PDF могут содержать достаточно большое количество метаданных, фактически сведений о файлах. Эти
+				данные включают в себя имя автора, название темы, ключевые слова, приложение, в котором был создан
+				документ, время его создания и редактирования, количество страниц и так далее. В свойствах документов
+				для просмотра доступна только малая часть этих данных.<br /></p>
+			<p id="131aa64c-9d0a-8140-ac4f-d7b12064ac79" class="">В таких случаях лучше воспользоваться MetaExtractor —
+				бесплатной утилитой для извлечения метаинформации из файлов PDF и офисных
+				документов. MetaExtractor поддерживает анализ файлов OpenOffice, Microsoft Office, Adobe PDF, созданных
+				в SolidWorks чертежей CAD, извлечение более 40 типов метаданных, работу в пакетном режиме, сохранение
+				извлеченной информации в CSV-файл.<br /><br /></p>
+			<figure id="131aa64c-9d0a-81b7-8b64-db23d491f207" class="image"><a
+					href="https://i.imgur.com/aMrR7rH.png"><img src="https://i.imgur.com/aMrR7rH.png" /></a></figure>
+			<p id="131aa64c-9d0a-819e-8c87-f849452f0171" class=""><br />Чтобы проанализировать файл, нужно нажать в
+				главном меню иконку пустого файла, если файлов много, их нужно поместить в одну папку и указать ее через
+				то же меню, нажав иконку в виде каталога.<br />Утилита проанализирует документы и выведет метаданные
+				горизонтальным списком для каждого файла, тогда как сами файлы будут выведены вертикальным списком. При
+				необходимости полученную информацию можно передать в CSV-файл. <br /><br />MetaExtractor не поддерживает
+				редактирование метаданных, только их просмотр, из дополнительных возможностей утилиты можно отметить
+				разве что сортировку полученной информации.<br /><br /></p>
+			<h3 id="131aa64c-9d0a-817b-bf50-ede394227cd3" class="">2. ExifTool</h3>
+			<p id="131aa64c-9d0a-8110-a5a4-d278612a33f2" class=""><br />Утилита exiftool - это свободная и бесплатная
+				программа, которая позволяет получить метаданные из различных медиафайлов, таких как PDF, видео и
+				изображения. Чаще всего возникает необходимость посмотреть метаданные для фотографий.<br /></p>
+			<p id="131aa64c-9d0a-81b4-b3fb-df09fdb4a63a" class="">Метаданные фотографий - это дополнительные данные,
+				которые добавляются в файлы. Например, камера, с помощью которой была сделана фотография, или время,
+				когда она была сделана. Эти типы метаданных изображения могут быть в различных форматах. Информация,
+				содержащаяся в метаданных, может быть любого типа., от названия компании до названия компьютера через
+				теги, даты изменения, местоположение и т. д.</p>
+			<p id="131aa64c-9d0a-81f4-a225-d9a962377d4b" class="">ExifTool поддерживает множество различных форматов
+				метаданных, включая EXIF, GPS, IPTC, XMP, JFIF, GeoTIFF, ICC Profile, Photoshop IRB, FlashPix, AFCP и
+				ID3, а также метаданные изображений цифровых камер. Как вы понимаете метаданные не только для
+				изображений, но может применяться ко всем типам файлов.<br /><br /></p>
+			<p id="131aa64c-9d0a-81b9-a972-d2fa0c7c5ca3" class=""><strong>Загрузите исполняемый файл Windows с
+					официального сайта: ExifTool by Phil Harvey</strong></p>
+			<figure id="131aa64c-9d0a-819d-a7ea-da5f7409c4b9" class="image"><a
+					href="https://i.imgur.com/8LcHh2U.png"><img src="https://i.imgur.com/8LcHh2U.png" /></a></figure>
+			<ul id="131aa64c-9d0a-813a-89fb-e3765fb47de4" class="bulleted-list">
+				<li style="list-style-type:disc">Извлеките из файла &quot;exiftool(-k).exe&quot; и поместите его на
+					рабочий стол.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-814a-9fad-e24aab6dcd10" class="bulleted-list">
+				<li style="list-style-type:disc">(Дважды щелкните «exiftool-12.49.zip», чтобы открыть архив, затем
+					перетащите «exiftool(-k).exe» на рабочий стол.).zip</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8168-ad10-f49e8db4bab6" class="bulleted-list">
+				<li style="list-style-type:disc">Теперь вы можете дважды щелкнуть «exiftool(-k).exe», чтобы прочитать
+					документацию по приложению, или перетащить файлы и папки, чтобы запустить exiftool для выбранных
+					файлов. Чтобы установить exiftool для использования из командной строки, выполните следующие
+					действия: exiftool(-k).exe</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81f3-9a93-dd55a11d5a33" class="bulleted-list">
+				<li style="list-style-type:disc">Переименовать в &quot;exiftool.exe&quot;. (или &quot;exiftool(-k)&quot;
+					на &quot;exiftool&quot;, если расширения имен файлов скрыты в вашей системе) exiftool(-k).exe</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81dc-a9ee-eae10cbdccb4" class="bulleted-list">
+				<li style="list-style-type:disc">Переместите &quot;exiftool.exe&quot; в каталог (или любой другой
+					каталог в вашем PATH). C:\WINDOWS</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8163-9759-d3e4748db8cd" class="bulleted-list">
+				<li style="list-style-type:disc">Теперь вы можете запустить exiftool, введя exiftool в командной строке.
+				</li>
+			</ul>
+			<figure id="131aa64c-9d0a-81f4-bdc0-eac09646cca3" class="image"><a
+					href="https://i.imgur.com/nrtK8Dd.png"><img src="https://i.imgur.com/nrtK8Dd.png" /></a></figure>
+			<figure id="131aa64c-9d0a-81c7-896b-c3d8528c9cbd" class="image"><a
+					href="https://i.imgur.com/WttOhcd.png"><img src="https://i.imgur.com/WttOhcd.png" /></a></figure>
+			<p id="131aa64c-9d0a-81c7-b395-dce26deec46e" class=""><strong>Поместите файл в папку:</strong></p>
+			<figure id="131aa64c-9d0a-81b8-a136-e059d99c581f" class="image"><a
+					href="https://i.imgur.com/Jv4iJFV.png"><img src="https://i.imgur.com/Jv4iJFV.png" /></a></figure>
+			<p id="131aa64c-9d0a-818f-b26b-de9145f8f244" class=""><strong>Запустите программу, укажите файл в
+					папке:</strong></p>
+			<figure id="131aa64c-9d0a-8187-96cb-f99465f1a565" class="image"><a
+					href="https://i.imgur.com/vXTVilf.png"><img src="https://i.imgur.com/vXTVilf.png" /></a></figure>
+			<p id="131aa64c-9d0a-8186-970a-e5849271593c" class=""><strong>То же самое с файлом другого типа:</strong>
+			</p>
+			<figure id="131aa64c-9d0a-81a8-9ae9-fdb1ed6fdf09" class="image"><a
+					href="https://i.imgur.com/KtD1u6i.png"><img src="https://i.imgur.com/KtD1u6i.png" /></a></figure>
+			<figure id="131aa64c-9d0a-8163-88c1-c8fcf4592d54" class="image"><a
+					href="https://i.imgur.com/yehNkAu.png"><img src="https://i.imgur.com/yehNkAu.png" /></a></figure>
+			<p id="131aa64c-9d0a-8183-9764-d490e31fcaf7" class=""><strong>Теперь так же с PDF-файлом:</strong></p>
+			<figure id="131aa64c-9d0a-8114-a739-f3a9506e41d6" class="image"><a
+					href="https://i.imgur.com/g74Qmsn.png"><img src="https://i.imgur.com/g74Qmsn.png" /></a></figure>
+			<figure id="131aa64c-9d0a-8110-9cb9-f4b0b33aef93" class="image"><a
+					href="https://i.imgur.com/HnGmsM6.png"><img src="https://i.imgur.com/HnGmsM6.png" /></a></figure>
+			<h3 id="131aa64c-9d0a-8176-bf10-d24ea2b9a019" class="">3. Git</h3>
+			<p id="131aa64c-9d0a-811e-85fb-eab46fed45ae" class="">
+			</p>
+			<ul id="131aa64c-9d0a-815f-8ee1-c2c10db10f47" class="bulleted-list">
+				<li style="list-style-type:disc">Git (произн. «гит») - распределённая система управления версиями
+					файлов. Проект был создан Линусом Торвальдсом для управления разработкой ядра Linux. На сегодняшний
+					день поддерживается Джунио Хамано.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8150-a67e-e1c121bc255d" class="bulleted-list">
+				<li style="list-style-type:disc">Система спроектирована как набор программ, специально разработанных с
+					учётом их использования в скриптах.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8124-9af0-e4fe5645bcdc" class="bulleted-list">
+				<li style="list-style-type:disc">Git поддерживает быстрое разделение и слияние версий, включает
+					инструменты для визуализации и навигации по нелинейной истории разработки. Как и Darcs, BitKeeper,
+					Mercurial, SVK, Bazaar и Monotone, Git предоставляет каждому разработчику локальную копию всей
+					истории разработки; изменения копируются из одного репозитория в другой.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8138-a15e-d046cff279f2" class="bulleted-list">
+				<li style="list-style-type:disc">Удалённый доступ к репозиториям Git обеспечивается git-daemon, gitosis,
+					SSH- или HTTP-сервером. TCP-сервис git-daemon входит в дистрибутив Git и является наряду с SSH
+					наиболее распространённым и надёжным методом доступа. Метод доступа по HTTP, несмотря на ряд
+					ограничений, очень популярен в контролируемых сетях, потому что позволяет использовать существующие
+					конфигурации сетевых фильтров.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81b3-af52-ef3a0570b2c3" class="bulleted-list">
+				<li style="list-style-type:disc">git clone — создание копии (удаленного) репозитория, для начала работы
+					с центральным репозиторием, следует создать копию оригинального проекта со всей его историей
+					локально.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81bb-a359-d001ee392b5d" class="bulleted-list">
+				<li style="list-style-type:disc">Клонируем репозиторий, используя протокол http: git clone <a
+						href="https://github.com/tch1001/pwdlogy">https://github.com/tch1001/pwdlogy</a><br /><br />
+				</li>
+			</ul>
+			<figure id="131aa64c-9d0a-810f-bf85-d77e76cc688c" class="image"><a
+					href="https://i.imgur.com/AY8et1N.png"><img src="https://i.imgur.com/AY8et1N.png" /></a></figure>
+			<h3 id="131aa64c-9d0a-81f5-8c72-c8d6ba85b6c2" class="">4. Pwdlogy</h3>
+			<p id="131aa64c-9d0a-816a-8665-d307e7010818" class="">
+			</p>
+			<ul id="131aa64c-9d0a-817f-a95d-c5550dac7585" class="bulleted-list">
+				<li style="list-style-type:disc">Pwdlogy поможет нам создавать файлы с паролями, скажем, для одной
+					жертвы, о которой необходимо собрать как можно больше личной информации.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81df-8d15-c43aad0f92b5" class="bulleted-list">
+				<li style="list-style-type:disc">Взлом паролей не так прост, как создание словаря. Pwdlogy только
+					позволит создать профильный словарь, он генерирует список возможных паролей по заданному набору
+					ключевых слов, дней рождения и т.д. Мы можем использовать Pwdlogy с широким набором инструментов,
+					таких как Burpsuite, THC-Hydra, Hashcat, и многих других.<br /><br /></li>
+			</ul>
+			<figure id="131aa64c-9d0a-81b8-ad07-da6d7a973837" class="image"><a
+					href="https://i.imgur.com/ilwQdER.png"><img src="https://i.imgur.com/ilwQdER.png" /></a></figure>
+			<p id="131aa64c-9d0a-81e5-9d52-d22d74985487" class=""><strong>Запуск производим от пользователя, состоящего
+					в группе sudo:</strong></p>
+			<figure id="131aa64c-9d0a-818c-9e19-cb852a2dc73a" class="image"><a
+					href="https://i.imgur.com/IpC1M6B.png"><img src="https://i.imgur.com/IpC1M6B.png" /></a></figure>
+			<figure id="131aa64c-9d0a-8131-a86c-fc35e41afff0" class="image"><a
+					href="https://i.imgur.com/NxUmmOv.png"><img src="https://i.imgur.com/NxUmmOv.png" /></a></figure>
+			<p id="131aa64c-9d0a-814e-b98a-c543aecd5f9f" class=""><strong>Использование:</strong></p>
+			<ol type="1" id="131aa64c-9d0a-81d8-b8f3-d304fb7a06d1" class="numbered-list" start="1">
+				<li>Узнайте имя, ник, хобби, любимую спортивную команду, любимую еду, словом все, что вы можете узнать о
+					жертве, что возможно будет отображаться в ее паролях.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81f7-a933-cd2f81178931" class="numbered-list" start="2">
+				<li>Дни рождения, имена домашних питомцев, имена членов семьи, друзей.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8181-81bb-ca50aa966a84" class="numbered-list" start="3">
+				<li>Поместите все ключевые слова, которые, по вашему мнению, пригодятся в формировании словаря в
+					файл keywords.txt</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-810c-b86b-fe5d55683a59" class="numbered-list" start="4">
+				<li>Ключевые фразы вы можете добавить в файл – commonPhrases.txt</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-816a-bfd9-fc09f15692cb" class="numbered-list" start="5">
+				<li>Всю добытую информацию о днях рождения и прочих датах, которые как вы полагаете, важны в
+					файл birthday.txt – в этом файле есть пример, как все это туда вписывать.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8171-98a6-ce1dba56b34b" class="numbered-list" start="6">
+				<li>Запустив pwdlogy, выполните команду “start”</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8100-9b5d-fd3ee986017e" class="numbered-list" start="7">
+				<li>Дождитесь завершения. Сгенерированный словарь будет называться gen.txt, и будет находиться в папке c
+					программой.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81a4-9241-e43a4915939a" class="numbered-list" start="8">
+				<li>Для просмотра дополнительных настроек воспользуйтесь командой “help”</li>
+			</ol>
+			<p id="131aa64c-9d0a-81c8-9700-ef6f4dc4b320" class=""><strong>Для просмотра дополнительных настроек
+					воспользуйтесь командой “help”:</strong></p>
+			<figure id="131aa64c-9d0a-8184-ba92-d50fcbaec662" class="image"><a
+					href="https://i.imgur.com/BGLK3eM.png"><img src="https://i.imgur.com/BGLK3eM.png" /></a></figure>
+			<p id="131aa64c-9d0a-811a-b7c1-eaa649a6316e" class=""><strong>1.</strong></p>
+			<figure id="131aa64c-9d0a-814d-ab14-d5cc58eca4ef" class="image"><a
+					href="https://i.imgur.com/6pBCaH1.png"><img src="https://i.imgur.com/6pBCaH1.png" /></a></figure>
+			<p id="131aa64c-9d0a-81d6-bc85-ffe0acf83f35" class=""><strong>2.</strong></p>
+			<figure id="131aa64c-9d0a-8149-aee9-dc8b0a3990c3" class="image"><a
+					href="https://i.imgur.com/OhkHP6t.png"><img src="https://i.imgur.com/OhkHP6t.png" /></a></figure>
+			<p id="131aa64c-9d0a-8150-879e-cbb3fcb74fa0" class=""><strong>3.</strong></p>
+			<figure id="131aa64c-9d0a-818c-b1e6-fd16c00bcc83" class="image"><a
+					href="https://i.imgur.com/rSeVaXc.png"><img src="https://i.imgur.com/rSeVaXc.png" /></a></figure>
+			<p id="131aa64c-9d0a-810b-b2ee-ff47a22437c1" class=""><strong>4.</strong></p>
+			<figure id="131aa64c-9d0a-8114-bbd4-e199dea3349a" class="image"><a
+					href="https://i.imgur.com/IZFz3zu.png"><img src="https://i.imgur.com/IZFz3zu.png" /></a></figure>
+			<p id="131aa64c-9d0a-8129-8e22-d8b23658ab77" class=""><strong>Результат генерации:</strong></p>
+			<p id="131aa64c-9d0a-81b2-b5dc-e938a8fab048" class=""><strong>1.</strong></p>
+			<figure id="131aa64c-9d0a-819e-ab18-d87abb0c8eac" class="image"><a
+					href="https://i.imgur.com/2faRVao.png"><img src="https://i.imgur.com/2faRVao.png" /></a></figure>
+			<p id="131aa64c-9d0a-81e9-adaa-eade0c9e046e" class=""><strong>2.</strong></p>
+			<figure id="131aa64c-9d0a-8143-bd8b-cbcba1c446f5" class="image"><a
+					href="https://i.imgur.com/KCPgy3L.png"><img src="https://i.imgur.com/KCPgy3L.png" /></a></figure>
+			<p id="131aa64c-9d0a-8104-ab29-dd09d5ac3efe" class=""><strong>3.</strong></p>
+			<figure id="131aa64c-9d0a-8172-bab2-f04e03b44228" class="image"><a
+					href="https://i.imgur.com/EBh5qDZ.png"><img src="https://i.imgur.com/EBh5qDZ.png" /></a></figure>
+			<p id="131aa64c-9d0a-81bf-885c-fd07868ecb71" class=""><strong>4.</strong></p>
+			<figure id="131aa64c-9d0a-813e-990a-c77054591e99" class="image"><a
+					href="https://i.imgur.com/yzkcU54.png"><img src="https://i.imgur.com/yzkcU54.png" /></a></figure>
+			<h3 id="131aa64c-9d0a-8127-9a09-c7c80d991046" class="">5. Apt-get install</h3>
+			<p id="131aa64c-9d0a-81c1-b02e-d8892881eb6e" class=""><br /><br /><strong>Что такое APT</strong></p>
+			<ul id="131aa64c-9d0a-8149-b4a6-ef6d901c51c8" class="bulleted-list">
+				<li style="list-style-type:disc">APT (сокращение от Advanced Packaging Tool) — это набор утилит для
+					установки, удаления, обновления, поиска пакетов в Linux, а также для управления репозиториями. APT
+					еще называют пакетным менеджером.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8117-bf9d-db995bb6f906" class="bulleted-list">
+				<li style="list-style-type:disc">APT использует репозитории пакетов. Список репозиториев для APT
+					хранится в файле /etc/apt/sources.list, а также в директории /etc/apt/sources.list.d/.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8123-8e38-f975e2b26439" class="bulleted-list">
+				<li style="list-style-type:disc">APT используется в дистрибутивах, основанных на Dedian и Ubuntu.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81d7-982c-cda40a8d3f0b" class="bulleted-list">
+				<li style="list-style-type:disc">Для управления APT существуют разные утилиты, но самые популярные
+					из них это утилиты командной строки apt-get и apt.</li>
+			</ul>
+			<p id="131aa64c-9d0a-8102-ad71-e0f2fc8d8d31" class="">
+			</p>
+			<p id="131aa64c-9d0a-8149-a9ab-e10ac91281a4" class=""><strong>Чем отличаются apt и apt-get</strong></p>
+			<ul id="131aa64c-9d0a-815b-b5eb-e135f3e6aaae" class="bulleted-list">
+				<li style="list-style-type:disc">Кратко ответим на очень популярный вопрос, а в чем разница между
+					командами apt и apt-get?</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8104-8fca-c8a8cb62c2b4" class="bulleted-list">
+				<li style="list-style-type:disc">apt это утилита, которая появилась, как альтернатива apt-get. Она
+					выполняет практически все те же функции, что и apt-get, но с ней проще и понятнее работать.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8159-b709-fec92a420ca4" class="bulleted-list">
+				<li style="list-style-type:disc">Например, все команды apt имеют простой синтаксис: apt
+					название_команды. А у apt-get есть дополнительные команды, например, apt-cache. Таким образом, при
+					использовании apt, пользователю не нужно запоминать дополнительные наборы команд.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c7-b5bd-fec7debdfde5" class="bulleted-list">
+				<li style="list-style-type:disc">Помимо упрощения работы с командами, apt нагляднее выводит информацию,
+					вроде бы мелочи, но работать удобнее. Например, apt умеет показывать прогресс бар, а при
+					выполнении apt update можно увидеть сколько пакетов можно обновить.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-817a-a14c-e686d44e46bf" class="bulleted-list">
+				<li style="list-style-type:disc">Стоит отметить, что утилита apt-get более функциональна, чем apt.
+					Но для рядового пользователя apt будет более чем достаточно.<br /><br /></li>
+			</ul>
+			<p id="131aa64c-9d0a-81c9-9f4d-d25de2e1485a" class=""><br /><br /><strong>Синтаксис команды apt
+					следующий:</strong><br />sudo apt &lt;действие&gt; &lt;пакет(ы)&gt; &lt;доп. параметры&gt;<br /></p>
+			<p id="131aa64c-9d0a-81e2-83bc-f0c138f6a5f4" class=""><strong>Обновить список пакетов:</strong><br />sudo
+				apt update<br /></p>
+			<p id="131aa64c-9d0a-8166-8cbc-dd6a556e4cc7" class=""><strong>Обновить установленные
+					пакеты:</strong><br />sudo apt upgrade<br /></p>
+			<p id="131aa64c-9d0a-81d1-8d7c-c6d347c94722" class=""><strong>Данная команда выполняет обновление пакетов,
+					а также удаляет или устанавливает новые пакеты, если это потребуется для разрешения
+					зависимостей:</strong><br />sudo apt full-upgrade<br /></p>
+			<p id="131aa64c-9d0a-8107-9721-fb99c9894363" class=""><strong>Установить пакет:</strong><br />sudo apt
+				install &lt;пакет&gt;<br /></p>
+			<p id="131aa64c-9d0a-8177-acf3-f126cebf8255" class=""><strong>Удалить пакет:</strong><br />sudo apt remove
+				&lt;пакет&gt;<br /></p>
+			<h3 id="131aa64c-9d0a-818f-8d47-c9d565167775" class="">6. Crunch</h3>
+			<p id="131aa64c-9d0a-81d8-8ae9-ee01abf11e72" class=""><br /><br /><strong>Crunch – генератор словарей
+					паролей, в которых можно определить стандартную или заданную кодировку. Crunch может произвести все
+					возможные комбинации и перестановки.</strong></p>
+			<p id="131aa64c-9d0a-8128-b258-c25064192f66" class=""><strong>Особенности:</strong></p>
+			<ol type="1" id="131aa64c-9d0a-81ff-b4c1-f306844618a9" class="numbered-list" start="1">
+				<li>crunch генерирует списки слов (WordList) как методом комбинации, так и методом перестановки;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81d1-a24b-e2162c9b2498" class="numbered-list" start="2">
+				<li>он может разбить вывод по количеству строк или размеру файла;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8179-a154-d61b962357af" class="numbered-list" start="3">
+				<li>поддерживается возобновление процесса после остановки;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-819f-b3b8-df86b353966c" class="numbered-list" start="4">
+				<li>образец (паттерн) поддерживает числа и символы;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-810c-b4fe-dd88d8ffb843" class="numbered-list" start="5">
+				<li>образец поддерживает по отдельности символы верхнего и нижнего регистра;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81b4-bf4b-f1367db3e78a" class="numbered-list" start="6">
+				<li>работая с несколькими файлами, выводит отчёт о статусе;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8150-8a7f-fa1cf7d4db8b" class="numbered-list" start="7">
+				<li>новая опция -l для буквальной поддержки, @,% ^;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-818f-a855-e2c802c53f80" class="numbered-list" start="8">
+				<li>новая опция -d для ограничения дублирования символов, смотрите man-файл для деталей;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81f6-b2a1-fd91235e4104" class="numbered-list" start="9">
+				<li>поддержка unicode.<br /><br /></li>
+			</ol>
+			<p id="131aa64c-9d0a-8170-a4bb-f2b4e35eaadc" class="">В методах взламывания пароля, WordList (список слов) –
+				один из самых важных файлов. В этом списке созданы все возможные комбинации пароля.</p>
+			<p id="131aa64c-9d0a-8173-a33e-f057a667eaef" class=""><strong>Методы взламывания пароля бывают:</strong></p>
+			<ol type="1" id="131aa64c-9d0a-8186-897e-edd884acedeb" class="numbered-list" start="1">
+				<li>Dictionary attack. Перебор по словарю. Словари содержат наиболее часто используемые пароли. Плюсами
+					данной атаки является повышение шанса подобрать пароль при значительной экономии времени. Минус — не
+					даёт 100% уверенности в подборе пароля.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-812b-a40c-e1eba35f4748" class="numbered-list" start="2">
+				<li>Brute Force Attack. Плюс — если перебрать все возможные комбинации, то можно говорить 100%
+					уверенности о взломе пароля. Минус — необходимость большого количества ресурсов (вычислительных
+					мощностей и времени).</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8178-9085-c9f9d690c7cb" class="numbered-list" start="3">
+				<li>Hybrid Attack. Работа ведётся по словарю, но добавляются некоторые числа и символы к словам.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8167-b4f6-d1bd75e0db26" class="numbered-list" start="4">
+				<li>Syllable Attack. Это – комбинация brute force attack и dictionary attack.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81f9-b8d1-feb9b103b0f9" class="numbered-list" start="5">
+				<li>Rule-Based Attack. Нападение, основанное на правилах. Используется, когда нападавший получает
+					некоторую информацию о пароле.</li>
+			</ol>
+			<p id="131aa64c-9d0a-81e8-833e-cbc1bbdc58b1" class="">
+			</p>
+			<p id="131aa64c-9d0a-8118-aeeb-d403da6b40d2" class="">Простой пример использования: crunch
+				&lt;минимальная-длина&gt; &lt;максимальная-длина&gt; [набор символов]</p>
+			<p id="131aa64c-9d0a-81d1-8c5c-d7ccb96b7d62" class="">Данный пример создаст все пароли от 3 до 7 символов,
+				содержащих символы &quot;abcdef&quot; в качестве набора символов и выведет всё это в стандартный вывод.
+			</p>
+			<p id="131aa64c-9d0a-8113-952c-ed0db117c4b1" class=""><strong>Например:</strong></p>
+			<p id="131aa64c-9d0a-81db-b6c7-e4ca06725501" class=""><code>crunch 3 7 abcdef</code></p>
+			<p id="131aa64c-9d0a-81bd-8369-e16237d30e0e" class=""><strong>Ещё один пример:</strong></p>
+			<p id="131aa64c-9d0a-8116-8753-cebcfd4538e2" class="">
+				<code>crunch &lt;минимальная-длинна&gt; &lt;максимальная длина&gt; [-f &lt;путь до charset.lst&gt; имя-набора-символов] [-o wordlist.txt или START] [-t [FIXED]@@@@] [-s startblock]</code>
+			</p>
+			<ol type="1" id="131aa64c-9d0a-819a-b810-dcda5e82199f" class="numbered-list" start="1">
+				<li>@ означает символы в нижнем регистре</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81d3-9336-e217fa9b1ec0" class="numbered-list" start="2">
+				<li>, означает символы в верхнем регистре</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8118-9b8b-eafa929afded" class="numbered-list" start="3">
+				<li>% означает цифры</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-816b-b04c-f0ba328cfb57" class="numbered-list" start="4">
+				<li>^ означает разные символы, общим количеством 33.</li>
+			</ol>
+			<p id="131aa64c-9d0a-81a6-adfd-c5688725d066" class=""><strong>Вы можете посмотреть их командой:</strong></p>
+			<p id="131aa64c-9d0a-81d1-94f5-df028620a7f7" class=""><code>Crunch 1 1 –t ^</code><br /><br /></p>
+			<p id="131aa64c-9d0a-8108-85d8-d3b8b20b0442" class=""><strong>1.</strong></p>
+			<figure id="131aa64c-9d0a-8104-be0b-d64e027bd18b" class="image"><a
+					href="https://i.imgur.com/ucqwhdn.png"><img src="https://i.imgur.com/ucqwhdn.png" /></a></figure>
+			<p id="131aa64c-9d0a-81a5-9346-da8161497e41" class=""><strong>2.</strong></p>
+			<figure id="131aa64c-9d0a-818b-bfef-f23b3b42c0d9" class="image"><a
+					href="https://i.imgur.com/on3IWPu.png"><img src="https://i.imgur.com/on3IWPu.png" /></a></figure>
+			<p id="131aa64c-9d0a-8161-a4e5-e125213b2bcb" class=""><strong>3.</strong></p>
+			<figure id="131aa64c-9d0a-8198-a169-d922525bd847" class="image"><a
+					href="https://i.imgur.com/vu1sYsC.png"><img src="https://i.imgur.com/vu1sYsC.png" /></a></figure>
+			<p id="131aa64c-9d0a-8112-9c1d-cf7a9e613e1e" class=""><strong>4.</strong></p>
+			<figure id="131aa64c-9d0a-816e-bb71-f7a00902a712" class="image"><a
+					href="https://i.imgur.com/PgRMDzT.png"><img src="https://i.imgur.com/PgRMDzT.png" /></a></figure>
+			<h3 id="131aa64c-9d0a-819f-b966-cc810ae5e5c7" class="">7. Вывод: в этой практической работе научились
+				собирать метаданные, составлять словари для подстановки их в методы переборов паролей.</h3>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

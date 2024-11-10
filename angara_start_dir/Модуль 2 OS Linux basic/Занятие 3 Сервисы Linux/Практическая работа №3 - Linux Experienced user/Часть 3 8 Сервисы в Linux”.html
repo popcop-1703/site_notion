@@ -1,0 +1,1584 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Часть 3.8 &quot;Сервисы в Linux”</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-81f1-966b-c4a684707092" class="page sans">
+		<header>
+			<div class="page-header-icon undefined"><img class="icon"
+					src="https://www.notion.so/icons/computer_lightgray.svg" /></div>
+			<h1 class="page-title">Часть 3.8 &quot;Сервисы в Linux”</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<hr id="131aa64c-9d0a-81a2-912e-f0857c96f114" />
+			<h2 id="131aa64c-9d0a-8166-b14f-c4d0060ea159" class="">Практическая работа &quot;Сервисы в Linux&quot;</h2>
+			<h3 id="131aa64c-9d0a-81d3-a874-ea181a03cc2b" class=""><strong>Цель работы:</strong></h3>
+			<ul id="131aa64c-9d0a-81f1-8523-db4b87f88f13" class="bulleted-list">
+				<li style="list-style-type:disc">Научиться работать с базовыми сервисами Linux.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81bc-90a6-d67462583d3e" class="bulleted-list">
+				<li style="list-style-type:disc">Проделать всё своими ручками, написать свою инструкцию по проделанной
+					работе.</li>
+			</ul>
+			<h3 id="131aa64c-9d0a-816f-91c3-c4ea62ad7efe" class="">Задача:</h3>
+			<ul id="131aa64c-9d0a-818d-8b98-c6d4addad0f2" class="bulleted-list">
+				<li style="list-style-type:disc">Научиться работать на уровне пользователя с сервисами (повторить
+					команды в работе):<ol type="1" id="131aa64c-9d0a-8163-8a5e-f3d0edc756bb" class="numbered-list"
+						start="1">
+						<li>Apache</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8112-98c0-ce9c220b40c8" class="numbered-list" start="2">
+						<li>Telnet</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8196-a33f-c2ef3a1f314e" class="numbered-list" start="3">
+						<li>FTP</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8154-aca2-cb9ba39d9c45" class="numbered-list" start="4">
+						<li>SMB<figure id="131aa64c-9d0a-8113-b693-edb32522bcb0" class="link-to-page"><a
+									href="Часть 3 8 Сервисы в Linux”/3 8 4 Выполнить практическую работу по Samba.html"><img
+										class="icon" src="https://www.notion.so/icons/layers_green.svg" />3.8.4
+									Выполнить практическую работу по Samba</a></figure>
+						</li>
+					</ol>
+				</li>
+			</ul>
+			<p id="131aa64c-9d0a-8158-86c6-ed8ed00ca518" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-813d-a497-e1c73f7d3914" class="">Что такое сервисы в Linux</h3>
+			<p id="131aa64c-9d0a-81ba-a1bb-c6b646763433" class="">Сервисы или службы — это программы, которые работают в
+				системе Linux в фоновом режиме. Обычно они запускаются при загрузке системы. Большинство сервисов
+				необходимы для полноценной работы системы, то есть они являются своего рода кирпичиками, из которых
+				строится работающая система.</p>
+			<p id="131aa64c-9d0a-8194-8681-c125c6fc62e6" class="">При запуске системы загружается целый ряд сервисов,
+				которые включены для автозагрузки. Сервисы работают пока система запущена, и выгружаются при выключении
+				системы.</p>
+			<p id="131aa64c-9d0a-81ed-98a9-fe37bdc51477" class="">Чаще всего в Linux дистрибутивах для инициализации
+				сервисов используется демон Systemd. К Systemd-дистрибутивам относятся Ubuntu, Debian, Linux Mint,
+				Fedora, openSUSE, Solus и другие.</p>
+			<p id="131aa64c-9d0a-8100-b66f-fa410d4d3b2d" class="">Есть дистрибутивы, которые не используют Systemd.
+				Вместо Systemd могут использоваться такие системы инициализации, как Upstart, SysV.</p>
+			<p id="131aa64c-9d0a-810a-8530-fe21170c9575" class="">В качестве примеров сервисов можно привести:
+				веб-сервер Apache, Network Manager, фаервол Ufw и другие.</p>
+			<p id="131aa64c-9d0a-8115-bee0-e1a21a5c898b" class="">Для управления сервисами (Systemd) используется
+				утилита systemctl. Ниже мы рассмотрим основные команды данной утилиты.</p>
+			<h3 id="131aa64c-9d0a-8175-9224-dfa0d51f1dd1" class="">Apache</h3>
+			<p id="131aa64c-9d0a-8174-bc1e-fbbd6b6c8770" class=""><strong>Apache</strong> — это кроссплатформенное
+				программное обеспечение для гибкой настройки надежных веб-серверов. На базе Apache строится огромное
+				количество веб-сервисов и сайтов.</p>
+			<p id="131aa64c-9d0a-81e0-b4cc-d559f0241f52" class="">Этот инструмент для создания серверов очень популярен
+				в мире за счет высокого уровня безопасности и обширного количества модулей, которые можно подключить,
+				чтобы упростить управление веб-ресурсами.</p>
+			<p id="131aa64c-9d0a-81d2-acff-f4d37829451c" class="">Apache считается свободным программным обеспечением,
+				поэтому разрабатывается и поддерживается сообществом, а не отдельной компанией. Соответственно, и
+				распространяется он бесплатно.</p>
+			<h3 id="131aa64c-9d0a-8156-8ac6-ec8058e17d1e" class="">Telnet &amp; SSH</h3>
+			<p id="131aa64c-9d0a-8121-9352-d5437795ab0c" class=""><strong>TELNET</strong> — сетевой протокол для
+				реализации текстового терминального интерфейса по сети (в современной форме — при помощи транспорта
+				TCP). Название «telnet» имеют также некоторые утилиты, реализующие клиентскую часть
+				протокола.<br />Выполняет функции протокола прикладного уровня модели OSI. Протокол telnet использовался
+				для удалённого администрирования различными сетевыми устройствами и программными серверами, но уступил
+				ssh из-за безопасности. Тем не менее может являться единственной возможностью взаимодействовать через
+				cli с embedded systems, например, router, т.к. на них отсутствует ssh.<br /></p>
+			<p id="131aa64c-9d0a-81b8-bfdd-cc7fae7c5248" class=""><strong>SSH</strong> (Secure Shell) - это сетевой
+				протокол, который обеспечивает безопасное удаленное соединение между двумя системами. Системные
+				администраторы используют утилиты SSH для управления компьютерами, копирования или перемещения файлов
+				между системами. Поскольку SSH передает данные по зашифрованным каналам, безопасность находится на
+				высоком уровне.</p>
+			<h3 id="131aa64c-9d0a-8149-9911-e9f03e01ba7a" class="">FTP</h3>
+			<p id="131aa64c-9d0a-8155-afa8-dd20a2da728d" class="">FTP (англ. File Transfer Protocol) — протокол передачи
+				файлов по сети, появившийся в 1971 году задолго до HTTP и даже до TCP/IP, благодаря чему является одним
+				из старейших прикладных протоколов. Изначально FTP работал поверх протокола NC (nc - реализация
+				подключений и ожиданий входящих соединений, через TCP и UDP), на сегодняшний день широко используется
+				для распространения ПО и доступа к удалённым хостам. В отличие от TFTP, гарантирует передачу (либо
+				выдачу ошибки) за счёт применения квотируемого протокола.<br />Протокол построен на архитектуре
+				«клиент-сервер» и использует разные сетевые соединения для передачи команд и данных между клиентом и
+				сервером. Пользователи FTP могут пройти аутентификацию, передавая логин и пароль открытым текстом.<br />
+			</p>
+			<h3 id="131aa64c-9d0a-8161-b1ec-ce4e8cfe00f2" class="">SMB</h3>
+			<p id="131aa64c-9d0a-81ce-b115-fa9d0ad5bd7b" class="">Samba — это программа, которая позволяет компьютерам
+				UNIX/Linux имитировать машины Windows. При помощи Samba компьютеры могут обмениваться файлами или
+				управлять заданиями на печать как файл-серверы или серверы печати под Windows. Подобно операционной
+				системе UNIX/Linux, на которой она работает, Samba представляет собой разработанное множеством
+				программистов ПО с открытым исходным кодом.<br />Протокол SMB используется Microsoft Windows 2000, NT и
+				95/98 для организации доступа к дискам и принтерам. Используя набор утилит Samba от Andrew Tridgell
+				(<br /><a href="mailto:Andrew.Tridgell@anu.edu.au">Andrew.Tridgell@anu.edu.au</a>), UNIX-машины (включая
+				Linux) могут организовывать доступ к дискам и принтерам для Windows-машин.</p>
+			<h3 id="131aa64c-9d0a-81b9-bb66-ff07b8e09b26" class="">1.Сервисы или службы</h3>
+			<ul id="131aa64c-9d0a-8161-8060-cc559baa2a14" class="bulleted-list">
+				<li style="list-style-type:disc">это программы, которые работают в системе Linux в фоновом режиме.
+					Обычно они запускаются при загрузке системы. Большинство сервисов необходимы для полноценной работы
+					системы, то есть они являются своего рода кирпичиками, из которых строится работающая система.</li>
+			</ul>
+			<p id="131aa64c-9d0a-81be-b524-eb191dfd5078" class="">При запуске системы загружается целый ряд сервисов,
+				которые включены для автозагрузки. Сервисы работают пока система запущена, и выгружаются при выключении
+				системы.</p>
+			<p id="131aa64c-9d0a-8159-8450-f8e6ac666742" class=""><strong>Чтобы посмотреть какие сервисы у нас работают
+					необходимо ввести команду</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8191-b8e3-d0bfe116173b"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">service --status-all</code></pre>
+			<figure id="131aa64c-9d0a-8169-a75f-fe4b644c27da" class="image"><a
+					href="https://i.imgur.com/ptoMZ9V.png"><img src="https://i.imgur.com/ptoMZ9V.png" /></a></figure>
+			<p id="131aa64c-9d0a-81ed-b9ea-d003c08cdeca" class=""><code>systemd</code> — подсистема инициализации и
+				управления службами в Linux, фактически вытеснившая в 2010-е годы традиционную подсистему init.</p>
+			<p id="131aa64c-9d0a-819b-bb93-e289fcd8f3c5" class="">Раньше использовался такой сервис как sysvinit,
+				который был фактически на языке Bash и не имел широких возможностей как
+				<code>systemd</code><br />история управления сервисов начинается с 1983 года<br /></p>
+			<p id="131aa64c-9d0a-81c3-bcaf-da2afcfcc13a" class=""><strong>Сравнение сервисов</strong></p>
+			<p id="131aa64c-9d0a-8141-8a4f-f0b38808aee0" class=""><a
+					href="https://www.opennet.ru/opennews/art.shtml?num=30412">https://www.opennet.ru/opennews/art.shtml?num=30412</a>
+			</p>
+			<p id="131aa64c-9d0a-81fb-bc26-cc1b31963cb6" class="">Но некоторые дистрибутивы, которые на ранних стадиях
+				отделились по ветке истории, старые команды управления сервисов:</p>
+			<p id="131aa64c-9d0a-81df-99b6-db0bc9369780" class=""><a
+					href="https://nosystemd.org/">https://nosystemd.org/</a> - <em>для расширения понятия и кругозора
+					советую ознакомиться</em></p>
+			<p id="131aa64c-9d0a-8108-905d-d94c9ad0f2ec" class=""><code>service --status-all</code></p>
+			<figure id="131aa64c-9d0a-8103-8ed3-f0d8bf1d2f90" class="image"><a
+					href="https://i.imgur.com/ptoMZ9V.png"><img src="https://i.imgur.com/ptoMZ9V.png" /></a></figure>
+			<p id="131aa64c-9d0a-8192-8021-c45357cb1369" class=""><strong>тут мы видим что где стоят +, то они включены
+					и запускаются при загрузке системы</strong></p>
+			<h3 id="131aa64c-9d0a-8122-980c-c9d2501a25f0" class="">2.Давайте приступим к командам по управлению
+				сервисами:</h3>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8151-b3b3-fd84c0f3faf3"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">sudo service apache2 status</code></pre>
+			<figure id="131aa64c-9d0a-81ac-a86b-c0920b0a7fa1" class="image"><a
+					href="https://i.imgur.com/8KixNHG.png"><img src="https://i.imgur.com/8KixNHG.png" /></a></figure>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ab-86b2-c779463c5eab"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">если он не установлен, то установим его</code></pre>
+			<figure id="131aa64c-9d0a-819c-b457-da60d3273098" class="image"><a
+					href="https://i.imgur.com/d8p9eTl.png"><img src="https://i.imgur.com/d8p9eTl.png" /></a></figure>
+			<p id="131aa64c-9d0a-81b3-b072-f261d4c4d398" class="">и если введём снова
+				<code>service --status-all</code><br />то увидим, что он добавился<br /></p>
+			<p id="131aa64c-9d0a-81f8-9078-f28b87167169" class=""><em>далее, если он не запущен</em></p>
+			<figure id="131aa64c-9d0a-81a9-bd30-e1d9ec13081e" class="image"><a
+					href="https://i.imgur.com/J5GQwNs.png"><img src="https://i.imgur.com/J5GQwNs.png" /></a></figure>
+			<p id="131aa64c-9d0a-819e-a002-d5937b9a4b26" class=""><em>то запустим его с помощью</em></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-817e-a987-da11bf7d66af"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">sudo service apache2 start</code></pre>
+			<figure id="131aa64c-9d0a-8159-b6af-ce4486fa414e" class="image"><a
+					href="https://i.imgur.com/tM6tvRl.png"><img src="https://i.imgur.com/tM6tvRl.png" /></a></figure>
+			<p id="131aa64c-9d0a-8131-9837-d54d12a187f1" class=""><em>и введём</em></p>
+			<p id="131aa64c-9d0a-8175-9714-d351665e1ad6" class=""><code>sudo service apache2 status</code></p>
+			<figure id="131aa64c-9d0a-8152-9f4c-e8b883fd9bf8" class="image"><a
+					href="https://i.imgur.com/BkHFuLF.png"><img src="https://i.imgur.com/BkHFuLF.png" /></a></figure>
+			<p id="131aa64c-9d0a-8166-99b8-d4da3fc981e8" class=""><em>увидим, что он запустился</em></p>
+			<p id="131aa64c-9d0a-8151-b91a-f34d2252dcf8" class=""><em>также введём команду</em></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81b6-a1af-c184b28ddb5a"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">service --status-all</code></pre>
+			<figure id="131aa64c-9d0a-81eb-b22c-faeaabd1695e" class="image"><a
+					href="https://i.imgur.com/UqmSEZ7.png"><img src="https://i.imgur.com/UqmSEZ7.png" /></a></figure>
+			<p id="131aa64c-9d0a-81a8-92e2-c201c1c4ce81" class=""><em>увидим, что он добавился как сервис который
+					работает</em></p>
+			<h3 id="131aa64c-9d0a-8186-979f-fbb99d9ea455" class="">2.1 Затем давайте попробуем зайти на страничку нашего
+				Apache2</h3>
+			<p id="131aa64c-9d0a-814b-8674-c8fb2d5a0b15" class=""><em>для этого делаем следующее:</em></p>
+			<p id="131aa64c-9d0a-81e2-b2e7-fb21825710eb" class=""><em>открываем браузер и вводим в строке ip-адрес
+					127.0.0.1</em></p>
+			<figure id="131aa64c-9d0a-8153-88bd-cf73a111f938" class="image"><a
+					href="https://i.imgur.com/p1F8Wma.png"><img src="https://i.imgur.com/p1F8Wma.png" /></a></figure>
+			<p id="131aa64c-9d0a-8122-ae16-f1c031e50a87" class="">и мы видим страничку сервиса Apache2, если её заменить
+				web-приложением, то мы уже будем видеть страничку приложения.<br />Таким образом проверяем, что
+				web-сервер работает.<br /></p>
+			<p id="131aa64c-9d0a-81c4-81eb-fb6237ef7719" class="">Далее давайте отключим web-сервер и посмотрим какой
+				вывод нам даст браузер, отключается следущей командой:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8142-9d6e-cab9c7c67ceb"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">sudo service apache2 stop</code></pre>
+			<figure id="131aa64c-9d0a-8120-ab3d-f3de11e1297a" class="image"><a
+					href="https://i.imgur.com/WNBKc75.png"><img src="https://i.imgur.com/WNBKc75.png" /></a></figure>
+			<figure id="131aa64c-9d0a-8193-950e-edb6b850794b" class="image"><a
+					href="https://i.imgur.com/LszkblK.png"><img src="https://i.imgur.com/LszkblK.png" /></a></figure>
+			<p id="131aa64c-9d0a-81b3-9c6d-c8ac672904b0" class=""><em>и соответственно видим, что сервис выключился</em>
+			</p>
+			<p id="131aa64c-9d0a-8120-b785-e1e43361b503" class="">теперь давайте рассмотрим аналоги: systemctl</p>
+			<p id="131aa64c-9d0a-815c-a533-d880887f3af4" class=""><strong>введём</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8154-ab73-f636384f0aab"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">sudo systemctl status</code></pre>
+			<figure id="131aa64c-9d0a-81db-bfb0-fa9cf3704dba" class="image"><a
+					href="https://i.imgur.com/XFA7oVo.png"><img src="https://i.imgur.com/XFA7oVo.png" /></a></figure>
+			<p id="131aa64c-9d0a-8174-8d3e-d0513d0a8ba4" class=""><strong>также можно управлять сервисами:</strong></p>
+			<p id="131aa64c-9d0a-81b0-ae54-f3e2dd7271c1" class="">
+				<code>sudo systemctl start apache2sudo systemctl stop apache2</code><br />все команды аналогичны<br />
+			</p>
+			<p id="131aa64c-9d0a-8108-afab-eb53d543b2e3" class="">Если мы выполняем через команды управления сервисами,
+				то это никак не влияет на автозагрузку сервиса</p>
+			<p id="131aa64c-9d0a-810b-9114-eedc9c64709d" class="">Но если есть необходимость добавить сервис в
+				автозагрузку, то нужно ввести:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81b6-95a9-d4748870268a"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">sudo systemctl enable apache2</code></pre>
+			<p id="131aa64c-9d0a-8158-a9fe-d43c6ac9e253" class=""><em>тем самым мы добавим сервис в автозагрузку</em>
+			</p>
+			<figure id="131aa64c-9d0a-8159-bb3e-eadecd2c89ac" class="image"><a
+					href="https://i.imgur.com/PhuRbAY.png"><img src="https://i.imgur.com/PhuRbAY.png" /></a></figure>
+			<p id="131aa64c-9d0a-8134-b290-e25f95ec0211" class="">после этой команды сервис будет запущен при старте,
+				если нам надо исключить сервис из автозагрузке, сделаем следующее:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8126-97dc-ff4143bfad1b"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">sudo systemctl disable apache2</code></pre>
+			<figure id="131aa64c-9d0a-81ce-aaa4-e3b1a189bbbf" class="image"><a
+					href="https://i.imgur.com/KM4yU3o.png"><img src="https://i.imgur.com/KM4yU3o.png" /></a></figure>
+			<p id="131aa64c-9d0a-819b-a24e-ee6b121fa0e9" class=""><a
+					href="https://wiki.merionet.ru/servernye-resheniya/43/kak-zapustit-ostanovit-i-perezapustit-servisy-v-linux/">https://wiki.merionet.ru/servernye-resheniya/43/kak-zapustit-ostanovit-i-perezapustit-servisy-v-linux/</a>
+				- <em>для тех кому будет интересно, можно ознакомиться в этой статье.</em></p>
+			<h3 id="131aa64c-9d0a-81b1-87e7-c509ca924cb5" class="">2.2 сервис Telnet</h3>
+			<p id="131aa64c-9d0a-8127-a034-d634c1864267" class=""><strong>он актуален для pentesta, но не актуален для
+					администрирования</strong></p>
+			<p id="131aa64c-9d0a-81b6-ba82-da087ddc5d48" class=""><em>если данный сервис не установлен, то делаем
+					следующее</em></p>
+			<p id="131aa64c-9d0a-81ee-b4bc-eabb399584fe" class=""><code>sudo apt-get install telnet</code></p>
+			<p id="131aa64c-9d0a-8181-a49b-c147971fae0f" class=""><strong>у Telnet есть несколько режимов
+					работы:</strong></p>
+			<ul id="131aa64c-9d0a-81cc-b635-e85849bf811b" class="bulleted-list">
+				<li style="list-style-type:disc">Режим «Тестирование»<br />Другой не менее популярный вариант –
+					тестирование веб-ресурсов. Чем удобен такой режим? Клиентская машина обрабатывает только текст, без
+					загрузки графики. Например, введём в терминале:<br /><br /><strong>telnet </strong><strong><a
+							href="http://opennet.ru/">opennet.ru</a></strong><strong> 80</strong><br />Утилита отправит
+					запрос сайту <br /><a href="http://opennet.ru/">opennet.ru</a> на порт под номером 80. Далее вводим
+					ключ: GET / для показа кода страницы.</li>
+			</ul>
+			<p id="131aa64c-9d0a-81ca-841d-cc043fe7a892" class=""><em>Результат представится в виде текстового сообщения
+					с «кракозябрами», поскольку утилита не работает с русскими шрифтами.</em></p>
+			<figure id="131aa64c-9d0a-81c7-ba08-cba6b7580dac" class="image"><a
+					href="https://i.imgur.com/Fok6Khm.png"><img src="https://i.imgur.com/Fok6Khm.png" /></a></figure>
+			<p id="131aa64c-9d0a-8119-bb90-fb067c0e3aa8" class="">также можно узнать есть ли на host ssh сервер с
+				помощью telnet:</p>
+			<p id="131aa64c-9d0a-81b9-a7dd-e3c8d24f36c7" class=""><code>telnet -d ip-адрес 22</code></p>
+			<p id="131aa64c-9d0a-8112-ad7f-ebe4ab41a4c6" class=""><strong>Для установки сервера Telnet</strong></p>
+			<p id="131aa64c-9d0a-8100-86dd-eddda4e05fb6" class="">Введите команду на удалённом сервере</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8110-8809-e411cbd90968"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">apt-get install telnetd</code></pre>
+			<figure id="131aa64c-9d0a-815e-8265-df86113a87aa" class="image"><a
+					href="https://i.imgur.com/k86kjFE.png"><img src="https://i.imgur.com/k86kjFE.png" /></a></figure>
+			<p id="131aa64c-9d0a-8142-88ee-ebc77b92696c" class=""><em>после чего на свой машинке вводим команду</em></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8116-ae3d-f41fe68e498d"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">telnet -d ip-адрес 23</code></pre>
+			<figure id="131aa64c-9d0a-8119-a738-d4a323daec25" class="image"><a
+					href="https://i.imgur.com/BSZXeIT.png"><img src="https://i.imgur.com/BSZXeIT.png" /></a></figure>
+			<p id="131aa64c-9d0a-810d-8656-f2d6ffc40733" class=""><em>и мы заходим на удалённый сервер</em></p>
+			<figure id="131aa64c-9d0a-8168-81bc-f282ce1d9afe" class="image"><a
+					href="https://i.imgur.com/JGFiWi9.png"><img src="https://i.imgur.com/JGFiWi9.png" /></a></figure>
+			<p id="131aa64c-9d0a-81f9-bcbe-e79a17c8454b" class=""><strong>Использовать его очень нерекомендуется из-за
+					того, что протокол без шифрования.</strong></p>
+			<h3 id="131aa64c-9d0a-8193-a8df-ccb2a02d8883" class="">2.3 SSH</h3>
+			<p id="131aa64c-9d0a-8156-9a50-d10fc744fc03" class="">SSH (англ. Secure SHell — «безопасная оболочка») –
+				протокол передачи данных, позволяющий производить безопасное и защищенное управление операционной
+				системой и данными. Это сетевой протокол прикладного уровня, который дает возможность шифрования
+				передаваемых данных и паролей. К тому же позволяет передавать любой другой протокол.<br />Первая версия
+				протокола SSH была разработана аж в 1995 году. С тех пор были обнаружены некоторые слабые места и
+				программа претерпела ряд существенных изменений. Таким образом, уже через год, в 1996 году, в свет вышла
+				вторая версия SSH – 2. Она не совместима с первой версией и, говоря о SSH сегодня, всегда
+				подразумевается SSH – 2. С тех пор SSH не изменила значительно стандарты своей работы и широко
+				используется по сей день.<br />SSH является сугубо коммерческим продуктом и предоставляется на платной
+				основе. Однако повсеместно доступна и ее бесплатная версия, которая носит название OpenSSH. Не смотря на
+				то, что OpenSSH является лишь одной из версий SSH, она намного чаще используется программистами.
+				Некоторые даже считают, то он более безопасен и удобен в использовании, благодаря своему открытому
+				исходному коду.<br /></p>
+			<p id="131aa64c-9d0a-8180-bfd4-c0cf50fa4ab9" class=""><strong>Возможности SSH</strong></p>
+			<ul id="131aa64c-9d0a-81a5-be3e-dc8b04a6a256" class="bulleted-list">
+				<li style="list-style-type:disc">Позволяет удаленно работать на компьютере через командную оболочку.
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8158-a5cd-d5acb1000f75" class="bulleted-list">
+				<li style="list-style-type:disc">Позволяет осуществлять шифрование с помощью различных алгоритмов.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8114-80d6-df587e5d0132" class="bulleted-list">
+				<li style="list-style-type:disc">Так как SSH позволяет безопасно передавать практически любой сетевой
+					протокол, это позволяет передавать по шифрованному каналу звуковые и видео файлы.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8105-961a-d120a84c4548" class="bulleted-list">
+				<li style="list-style-type:disc">Производит сжатие файлов для их последующего шифрования и передачи.
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81b8-9efa-cfe607f0bd0f" class="bulleted-list">
+				<li style="list-style-type:disc">Защищает передачу данных по каналу и предотвращает возможность
+					включения в установленную сессию и перехватить данные.</li>
+			</ul>
+			<p id="131aa64c-9d0a-818d-8fc8-d35d0e421816" class=""><strong>для установки сервера нужно:</strong></p>
+			<p id="131aa64c-9d0a-81eb-98f0-f91ab99dd4ef" class=""><code>sudo apt-get install openssh-server</code></p>
+			<p id="131aa64c-9d0a-81d3-bbc6-f5eba20835b8" class=""><strong>конфигурацию меняем в sudo nano
+					/etc/ssh/sshd_config</strong></p>
+			<figure id="131aa64c-9d0a-814d-aae7-f6c6099eb4d8" class="image"><a
+					href="https://i.imgur.com/kgPQ01n.png"><img src="https://i.imgur.com/kgPQ01n.png" /></a></figure>
+			<p id="131aa64c-9d0a-8169-becc-e907f28d294b" class=""><strong>На данном ресурсе можно посмотрть какие порты
+					чаше всего сканируют злоумышлиники:</strong></p>
+			<p id="131aa64c-9d0a-8197-9b71-e3fc4894da03" class=""><a
+					href="https://scan.netlab.360.com/#/dashboard">https://scan.netlab.360.com/#/dashboard</a></p>
+			<figure id="131aa64c-9d0a-8197-9fac-cb33bfa7b8ff" class="image"><a
+					href="https://i.imgur.com/SzktVZX.png"><img src="https://i.imgur.com/SzktVZX.png" /></a></figure>
+			<p id="131aa64c-9d0a-813d-ac0a-cc183ca47cf8" class=""><code>самая подробная инструкция - это man :)</code>
+			</p>
+			<p id="131aa64c-9d0a-81d7-9885-eab79556c09e" class=""><strong>Давайте рассмотрим несколько
+					параметров:</strong></p>
+			<p id="131aa64c-9d0a-81a9-b768-f49f238a47b8" class=""><a
+					href="http://tdkare.ru/sysadmin/index.php/Sshd_config">http://tdkare.ru/sysadmin/index.php/Sshd_config</a>
+				- ссылка с подробным описанием параметров конфигурационного файла.</p>
+			<figure id="131aa64c-9d0a-8145-8b10-e61ef5e25cd0" class="image"><a
+					href="https://i.imgur.com/rgyRFhD.png"><img src="https://i.imgur.com/rgyRFhD.png" /></a></figure>
+			<ul id="131aa64c-9d0a-81ca-af37-d9696cd3fb89" class="bulleted-list">
+				<li style="list-style-type:disc">sudo sshd -t</li>
+			</ul>
+			<ul id="131aa64c-9d0a-814c-bb98-cff9947fa854" class="bulleted-list">
+				<li style="list-style-type:disc">sudo service ssh restart</li>
+			</ul>
+			<ul id="131aa64c-9d0a-813c-b5ab-dd9eba15cc6c" class="bulleted-list">
+				<li style="list-style-type:disc">sudo service ssh stop</li>
+			</ul>
+			<ul id="131aa64c-9d0a-810a-b94d-ee4031522bf4" class="bulleted-list">
+				<li style="list-style-type:disc">sudo service ssh start</li>
+			</ul>
+			<p id="131aa64c-9d0a-8199-961c-c8c130031efd" class="">При внесении изменений в конфигурацию SSH,
+				целесообразно перезапустить сервис. Настоятельно рекомендую перед запуском проверять конфигурацию
+				(sshd_config). Это можно сделать используя флаг test mode. Этот дополнительный шаг позволяет убедиться,
+				что синтаксис и опции корректны.<br /><br /><code>sudo sshd -t</code> - <strong>Команда не должна
+					возвращать текст или ошибки.</strong></p>
+			<p id="131aa64c-9d0a-818d-ae15-f457ab21cc99" class="">Перезапуск сервиса
+				ssh<br /><br /><code>sudo service ssh restart</code></p>
+			<p id="131aa64c-9d0a-81e1-bf31-e6fbba009c52" class="">Остановка сервиса
+				ssh<br /><br /><code>sudo service ssh stop</code></p>
+			<p id="131aa64c-9d0a-81b3-bfba-c240ae1b323d" class="">Запуск сервиса
+				ssh<br /><br /><code>sudo service ssh start</code></p>
+			<h3 id="131aa64c-9d0a-81e3-aa7f-d8f91078e4c3" class="">2.4 FTP</h3>
+			<p id="131aa64c-9d0a-8185-82bc-ceb92c6955c8" class="">FTP (File Transfer Protocol) — протокол передачи
+				файлов. FTP придумали в 1971 году, еще до того, как появились протоколы TCP/IP. Сначала FTP работал
+				поверх протокола NCP. Версия на основе TCP/IP появилась в 1980 году. А в 1985 году была принята
+				спецификация FTP, которой пользуются до сих пор, позже в неё были добавлены полезные расширения, такие
+				как, пассивный режим и поддержка IPv6.</p>
+			<p id="131aa64c-9d0a-8101-979e-de9266291c32" class=""><em>Место протокола FTP в стеке TCP/IP<br />В стеке
+					TCP/IP протокол находится на прикладном уровне.<br /></em></p>
+			<figure id="131aa64c-9d0a-81b2-9888-e9a3cdefa70b" class="image"><a
+					href="https://i.imgur.com/ZBpIOqF.png"><img src="https://i.imgur.com/ZBpIOqF.png" /></a></figure>
+			<p id="131aa64c-9d0a-8192-bae8-f9b9b1c7778b" class=""><strong>Принцип работы протокола FTP</strong></p>
+			<p id="131aa64c-9d0a-81fb-8c42-c27b02a265eb" class="">Протокол FTP работает в режиме клиент сервер. На
+				сервере есть файловая система, это структура каталогов в которой находятся файлы. Клиент по протоколу
+				FTP подключается к серверу и может работать с файловой системой, просматривать каталоги, переходить
+				между ними, загружать и записывать файлы сервера, перемещать их между разными каталогами и выполнять
+				другие операции, которые можно делать с файловой системой.</p>
+			<figure id="131aa64c-9d0a-8199-b410-fddfebd632ea" class="image"><a
+					href="https://i.imgur.com/1XLJIdO.png"><img src="https://i.imgur.com/1XLJIdO.png" /></a></figure>
+			<p id="131aa64c-9d0a-81ef-b18a-f6270f4f9233" class=""><strong>Протокол FTP, также как и HTTP для адресации
+					файлов использует url.</strong></p>
+			<p id="131aa64c-9d0a-81fe-ad6f-e2c48bc57353" class="">Например, <a
+					href="ftp://ftp-server.ru/pub/documents/latex/example1.tex">ftp://ftp-server.ru/pub/documents/latex/example1.tex</a>.
+			</p>
+			<p id="131aa64c-9d0a-8161-84ce-ca1b2747a47f" class=""><strong>URL состоит из 3-х частей:</strong></p>
+			<ul id="131aa64c-9d0a-81a8-b2a9-d86f26fe5b0c" class="bulleted-list">
+				<li style="list-style-type:disc">первая часть ftp — идентификатор протокола;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-813d-8ae5-f13e80f2a2df" class="bulleted-list">
+				<li style="list-style-type:disc">вторая часть <a href="http://ftp-server.ru/">ftp-server.ru</a> — имя
+					сервера, здесь может быть DNS имя либо IP адрес;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81cd-83df-c431f9d374e5" class="bulleted-list">
+				<li style="list-style-type:disc">третья часть pub/documents/latex/example1.tex — путь к файлу, файловой
+					системе и само имя файла.</li>
+			</ul>
+			<p id="131aa64c-9d0a-81d6-974a-fdbc2d656776" class=""><em>В отличии от других протоколов прикладного уровня,
+					протокол FTP использует два отдельных соединения. Первое соединение управляющее, второе соединение
+					для передачи данных.</em></p>
+			<figure id="131aa64c-9d0a-815e-a9bc-dd5589bed861" class="image"><a
+					href="https://i.imgur.com/SsbaRTS.png"><img src="https://i.imgur.com/SsbaRTS.png" /></a></figure>
+			<p id="131aa64c-9d0a-812b-856e-e33867a1339f" class=""><strong>Взаимодействие с транспортным уровнем</strong>
+			</p>
+			<p id="131aa64c-9d0a-81a7-8eb1-d7d5f1bfb12f" class="">FTP использует протокол транспортного уровня TCP, а
+				для управляющего соединения на сервере используется порт 21. Соединение для данных может быть
+				установлено в двух режимах: в активном и пассивном, при этом используются разные номера портов.</p>
+			<p id="131aa64c-9d0a-8155-8fd7-d805f390ddee" class="">В активном режиме FTP инициатором установки соединения
+				для передачи данных является сервер. В этом случае используется порт 20 на сервере, а со стороны клиента
+				порт больше 1024.</p>
+			<figure id="131aa64c-9d0a-81c6-958f-df08f3ec07f9" class="image"><a
+					href="https://i.imgur.com/aoSIszL.png"><img src="https://i.imgur.com/aoSIszL.png" /></a></figure>
+			<p id="131aa64c-9d0a-816a-8e83-e59f2ac3c20c" class="">Однако, если между сервером и клиентом находится
+				межсетевой экран или устройство трансляции сетевых адресов NAT, то сервер установить соединение с
+				клиентом не сможет. В этом случае используется пассивный режим, при котором соединение для передачи
+				данных устанавливает клиент. В пассивном режиме и на клиенте и на сервере используются порты с номерами
+				больше, чем 1024.</p>
+			<figure id="131aa64c-9d0a-814a-b508-f59098964027" class="image"><a
+					href="https://i.imgur.com/1852x8z.png"><img src="https://i.imgur.com/1852x8z.png" /></a></figure>
+			<ul id="131aa64c-9d0a-81a4-9dc4-cfa300a7f567" class="bulleted-list">
+				<li style="list-style-type:disc">Команды USER и PASS используются для аутентификации;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-814e-8de0-d8b8e9f890e4" class="bulleted-list">
+				<li style="list-style-type:disc">LIST позволяет посмотреть содержимое текущего каталога;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81bd-8083-ca253efbe4b8" class="bulleted-list">
+				<li style="list-style-type:disc">CWD поменять текущий каталог;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-817d-b916-d9ae235e13a3" class="bulleted-list">
+				<li style="list-style-type:disc">RETR позволяет загрузить файл с сервера на клиент;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-816d-89a8-cd43caf4e58f" class="bulleted-list">
+				<li style="list-style-type:disc">STOR позволяет сохранить файл на сервере;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81dc-afcf-c9a7e37b057a" class="bulleted-list">
+				<li style="list-style-type:disc">Протокол FTP может передавать данные в двух режимах, текстовом и
+					бинарном. В текстовом режиме возможна отправка управляющих символов, которые будут обработаны
+					специальным образом. В бинарном режиме, обработка специальных символов не производится. Для выбора
+					режима, который будет использоваться для передачи файлов, служит команда TYPE;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8111-b03b-efa9ca2cae0b" class="bulleted-list">
+				<li style="list-style-type:disc">DELE позволяет удалить файлы;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-811b-b41b-fb5e335973aa" class="bulleted-list">
+				<li style="list-style-type:disc">Команды MKD и RMD используются для создания и удаления каталога;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81fd-a0f9-d63383beae26" class="bulleted-list">
+				<li style="list-style-type:disc">По умолчанию FTP сервер работает в активном режиме, т.е. соединение для
+					передачи данных устанавливает сервер. Команда PASV служит для перехода в пассивный режим;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-815b-b45d-c18755920536" class="bulleted-list">
+				<li style="list-style-type:disc">Команда QUIT используется для корректного закрытия соединения FTP после
+					того, как все необходимые операции с файлами и каталогами были завершены.</li>
+			</ul>
+			<p id="131aa64c-9d0a-8156-a7aa-f3010530f921" class="">
+				Установка:<br /><br /><code>sudo apt install vsftpd</code></p>
+			<figure id="131aa64c-9d0a-8119-9977-eb781defc85d" class="image"><a
+					href="https://i.imgur.com/w9QHsDY.png"><img src="https://i.imgur.com/w9QHsDY.png" /></a></figure>
+			<ul id="131aa64c-9d0a-8173-a2df-ee723e95e287" class="bulleted-list">
+				<li style="list-style-type:disc">apt - если, чтото делается вручную</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8126-a64f-d886dc11a70b" class="bulleted-list">
+				<li style="list-style-type:disc">get - если используются скрипты</li>
+			</ul>
+			<p id="131aa64c-9d0a-8165-9073-f72334b55171" class=""><em>поэтомы лучше использовать</em></p>
+			<p id="131aa64c-9d0a-81f6-96e8-df947e021dff" class=""><code>apt-get</code></p>
+			<p id="131aa64c-9d0a-817f-8964-d8c61df52777" class=""><strong>заходим в конфигурационный файл</strong></p>
+			<p id="131aa64c-9d0a-814f-927d-d7d41b064d80" class=""><a
+					href="https://jakondo.ru/fajl-konfiguratsii-vsftpd-conf/">https://jakondo.ru/fajl-konfiguratsii-vsftpd-conf/</a>
+				- подробное описание конфигурационного файла</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81cd-94f7-fe9a78d11cd9"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">sudo nano /etc/vsftpd.conf</code></pre>
+			<figure id="131aa64c-9d0a-8184-8000-e17a8d48c7b9" class="image"><a
+					href="https://i.imgur.com/iMi53hS.png"><img src="https://i.imgur.com/iMi53hS.png" /></a></figure>
+			<figure id="131aa64c-9d0a-818e-8c0e-ec246eba8810" class="image"><a
+					href="https://i.imgur.com/iHW81OM.png"><img src="https://i.imgur.com/iHW81OM.png" /></a></figure>
+			<ul id="131aa64c-9d0a-81f9-9241-ef97d21d7a1f" class="bulleted-list">
+				<li style="list-style-type:disc">listen=NO</li>
+			</ul>
+			<p id="131aa64c-9d0a-8151-b5e9-f000104df797" class="">Если опция включена сервер стартует в независимом от
+				inetd/xinetd режиме &quot;standalone mode&quot;. В этом случае он сам заботится о прослушивании и
+				определении входящих соединений.<br />Default: NO<br /></p>
+			<ul id="131aa64c-9d0a-811b-bcc3-e523e3733a1c" class="bulleted-list">
+				<li style="list-style-type:disc">listen_ipv6</li>
+			</ul>
+			<p id="131aa64c-9d0a-8131-bb02-ef3e44526208" class="">Тоже самое что listen, за исключением того что vsftpd
+				слушает IPv6 протокол включительно. Этот параметр и listen взаимно исключаемые.<br />Default: NO<br />
+			</p>
+			<ul id="131aa64c-9d0a-81f1-a5e3-ec5e7202cf92" class="bulleted-list">
+				<li style="list-style-type:disc">anonymous_enable</li>
+			</ul>
+			<p id="131aa64c-9d0a-8110-bb48-c3449b134611" class="">Разрешает или запрещает вход анонимных пользователей.
+				Если разрешено, пользователи с именами ftp и anonymous распознаются как анонимные
+				пользователи.<br />Default: YES<br /></p>
+			<p id="131aa64c-9d0a-8112-9e63-c3fb5f2eab03" class=""><strong>Например:</strong></p>
+			<p id="131aa64c-9d0a-8104-8606-f27c74caf77e" class=""><a
+					href="https://ftp.dlink.ru/pub/">https://ftp.dlink.ru/pub/</a></p>
+			<figure id="131aa64c-9d0a-81c4-8bfb-c6fa479ffc54" class="image"><a
+					href="https://i.imgur.com/7VEZl0s.png"><img src="https://i.imgur.com/7VEZl0s.png" /></a></figure>
+			<p id="131aa64c-9d0a-81b5-a84e-c9ee217ef9ac" class="">мы когда подключаемся мы анонимны для этого сайта</p>
+			<ul id="131aa64c-9d0a-811b-90ab-dc782821f64c" class="bulleted-list">
+				<li style="list-style-type:disc">local_enable</li>
+			</ul>
+			<p id="131aa64c-9d0a-81b3-ae27-f4064514823a" class="">Разрешить анонимный вход под локальными логинами или
+				нет? Если включено, то для авторизации могут использоваться обычные нормальные учётные записи
+				пользователей из «/etc/passwd» (или оттуда, куда ссылается ваша настройка PAM). Это должно быть включено
+				для того, чтобы работал любой НЕ «anonymous» логин, включая и виртуальных
+				пользователей.<br />По-умолчанию: NO<br /></p>
+			<ul id="131aa64c-9d0a-8131-9afc-f7526e4ec3da" class="bulleted-list">
+				<li style="list-style-type:disc">dirmessage_enable</li>
+			</ul>
+			<p id="131aa64c-9d0a-8153-921f-ce0ac69fb72b" class="">Если включено, то пользователям FTP-сервера можно
+				показывать сообщения, когда они переходят в каталог. По-умолчанию каталог сканируется на наличие файла
+				«.message», но вы можете указать другой файл, изменив расположение в значении параметра
+				«message_file».<br />По-умолчанию: NO (но демонстрационный файл настроек содержит YES)<br /></p>
+			<ul id="131aa64c-9d0a-81cf-ba5a-c1ee37632a3a" class="bulleted-list">
+				<li style="list-style-type:disc">use_localtime</li>
+			</ul>
+			<p id="131aa64c-9d0a-8134-8d76-eb529a9aa8e4" class="">Если параметр установлен в «YES», то vsftpd будет
+				отображать время в вашей локальной временной зоне в списке содержимого в каталоге. По-умолчанию
+				отображается GMT. Этот параметр может затронуть также время, возвращаемое FTP-командой
+				«MDTM».<br />По-умолчанию: NO<br /></p>
+			<ul id="131aa64c-9d0a-8177-92bb-f60f74861afa" class="bulleted-list">
+				<li style="list-style-type:disc">xferlog_enable</li>
+			</ul>
+			<p id="131aa64c-9d0a-8120-815e-cd3c2051753a" class="">Если параметр установлен в «YES», то лог-файл будет
+				содержать детальную информацию о загрузках на vsftpd и закачках с vsftpd. По-умолчанию, этот файл
+				находится в «/var/log/vsftpd.log», но путь к файлу может быть изменён установкой значения параметра
+				«vsftpd_log_file».<br />По-умолчанию: NO<br /></p>
+			<ul id="131aa64c-9d0a-8119-b9f7-eeac6e50ce55" class="bulleted-list">
+				<li style="list-style-type:disc">connect_from_port_20</li>
+			</ul>
+			<p id="131aa64c-9d0a-81c5-89c1-c286a456a251" class="">Включение этого параметра указывает исходящим с
+				сервера соединениям использовать 20 порт (ftp-data). По соображением безопасности, некоторые клиенты
+				могут настаивать на таком случае (чтобы параметр был установлен в YES). Наоборот, отключение этого
+				параметра позволяет vsftpd запускаться с меньшими привилегиями.<br />По-умолчанию: NO (но
+				демонстрационный файл настроек содержит YES)<br /></p>
+			<ul id="131aa64c-9d0a-81c1-be6d-f47f7dc3478b" class="bulleted-list">
+				<li style="list-style-type:disc">secure_chroot_dir</li>
+			</ul>
+			<p id="131aa64c-9d0a-81c2-9dd4-fb71d636efe2" class="">Параметр должен содержать имя пустого каталога. Так же
+				этот каталог не должен быть доступен для записи ftp-пользователем. Каталог используется безопасной
+				клеткой chroot() во время, когда vsftpd не требует доступ к файловой системе.<br />По-умолчанию:
+				/usr/share/empty<br /></p>
+			<ul id="131aa64c-9d0a-812b-b902-f7306b8293fc" class="bulleted-list">
+				<li style="list-style-type:disc">rsa_cert_file</li>
+			</ul>
+			<p id="131aa64c-9d0a-810c-8c46-cceb04f92238" class="">Параметр содержит путь в файловой системе до
+				сертификата RSA для использования в шифрованных SSL-соединениях.<br />По-умолчанию:
+				/usr/share/ssl/certs/vsftpd.pem<br /></p>
+			<p id="131aa64c-9d0a-81f6-9705-eb50fe8d3b44" class=""><em>Давайте выполним дополнительную конфигурацию по
+					дополнению сервиса в атозагрузку:</em></p>
+			<p id="131aa64c-9d0a-8199-b9ac-d09524b4e07b" class=""><code>sudo systemctl enable vsftpfd</code></p>
+			<figure id="131aa64c-9d0a-81f7-bd18-c32954c5b0f8" class="image"><a
+					href="https://i.imgur.com/bOI6FnG.png"><img src="https://i.imgur.com/bOI6FnG.png" /></a></figure>
+			<p id="131aa64c-9d0a-8106-8e95-eb95dd22759c" class=""><em>посмотрим статус сервера</em></p>
+			<p id="131aa64c-9d0a-8162-8ec2-dd107dfb0379" class=""><code>sudo service vsftpd status</code></p>
+			<figure id="131aa64c-9d0a-814b-b3d4-e2873deed1a4" class="image"><a
+					href="https://i.imgur.com/cYl5C4m.png"><img src="https://i.imgur.com/cYl5C4m.png" /></a></figure>
+			<p id="131aa64c-9d0a-81a4-b4c6-f49d03dde445" class="">и теперь открываем браузер в Kali и вбиваем <a
+					href="ftp://192.168.1.80/">ftp://192.168.1.80</a><em>вводим логин<br />вводи пароль<br /></em></p>
+			<p id="131aa64c-9d0a-8100-bcc3-cb17f7c03e30" class="">что-бы увидеть всю файловую систему на сервисе
+				необходимо в файле конфигурации снять комментарий и изменить YES на NO</p>
+			<p id="131aa64c-9d0a-816b-b0c3-c62dabc8b747" class=""><code>chroot_local_user=YES</code></p>
+			<p id="131aa64c-9d0a-8142-a075-f29857884324" class=""><a
+					href="https://jakondo.ru/fajl-konfiguratsii-vsftpd-conf/">https://jakondo.ru/fajl-konfiguratsii-vsftpd-conf/</a>
+				- подробное описание конфигурационного файла</p>
+			<p id="131aa64c-9d0a-8111-99dc-c7501cea5b7a" class=""><strong>есть программа, которая здорово облегчет жизнь
+					именно с работой FTP</strong></p>
+			<p id="131aa64c-9d0a-810f-a74b-f287f699f7d2" class="">это <em>file zilla</em><a
+					href="https://filezilla.ru/get/">https://filezilla.ru/get/</a></p>
+			<p id="131aa64c-9d0a-816f-85c5-c8cdb7d99dd2" class=""><strong>Как можно продемонстрировать, что сервис ftp
+					не шифруется</strong></p>
+			<p id="131aa64c-9d0a-813d-b1c6-ff4fd9a52e30" class=""><em>запускаем Wireshark</em></p>
+			<p id="131aa64c-9d0a-81dc-9b75-d00951010374" class=""><em>и запускаем FileZilla на Windows подключаемся к
+					нашей kali и видим следующее:</em></p>
+			<figure id="131aa64c-9d0a-814f-89eb-cdeecf727b65" class="image"><a
+					href="https://i.imgur.com/DACHNBT.png"><img src="https://i.imgur.com/DACHNBT.png" /></a></figure>
+			<p id="131aa64c-9d0a-81ca-9cee-fa29f42bfbfc" class=""><strong>Видим пароль, который мы вводили.</strong></p>
+			<p id="131aa64c-9d0a-811e-9c54-e2cec0dcd97e" class=""><em>Таким образом можно перехватить трафик FTP.</em>
+			</p>
+			<h3 id="131aa64c-9d0a-8115-bac0-dad30c00c88a" class="">2.5 Samba</h3>
+			<figure id="131aa64c-9d0a-8113-b693-edb32522bcb0" class="link-to-page"><a
+					href="Часть 3 8 Сервисы в Linux”/3 8 4 Выполнить практическую работу по Samba.html"><img
+						class="icon" src="https://www.notion.so/icons/layers_green.svg" />3.8.4 Выполнить практическую
+					работу по Samba</a></figure>
+			<p id="131aa64c-9d0a-81a2-b77c-ebf6a71ee097" class=""><strong>Введение</strong></p>
+			<p id="131aa64c-9d0a-81e4-80cd-d8229775f8d6" class="">В общей структуре корпоративных сетей Microsoft
+				Windows и Linux зачастую существуют как разобщенные миры. Попытки обеспечить «прозрачный» доступ сетевых
+				клиентов Windows к ресурсам UNIX зачастую порождают множество проблем. Одним из способов, позволяющих их
+				решить, является использование в UNIX/Linux протокола Server Message Block (SMB — Samba), который иногда
+				также называется протоколом Session Message Block (SMB), протоколом NetBIOS или протоколом LanManager.
+				Этот протокол не является разработкой Microsoft, однако он хорошо адаптирован для использования в сетях
+				на основе Windows. Хотя эта статья и посвящена Linux, тем не менее Samba может работать на большинстве
+				UNIX-подобных операционных систем. И еще одно замечание: в данной статье мы рассмотрим пакет SMB с точки
+				зрения малого предприятия, которому нужен локальный файл- или принт-сервер, либо домашнего пользователя,
+				имеющего несколько компьютеров и желающего, чтобы машины совместно использовали ресурсы. Поэтому даже
+				начинающий администратор UNIX/Linux может принять эту статью как руководство к действию.</p>
+			<p id="131aa64c-9d0a-812d-a9b9-d9724c34690b" class=""><strong>Что умеет Samba</strong></p>
+			<p id="131aa64c-9d0a-8124-b333-f9257d0f1212" class="">Samba — это программа, которая позволяет компьютерам
+				UNIX/Linux имитировать машины Windows. При помощи Samba компьютеры могут обмениваться файлами или
+				управлять заданиями на печать как файл-серверы или серверы печати под Windows. Подобно операционной
+				системе UNIX/Linux, на которой она работает, Samba представляет собой разработанное множеством
+				программистов ПО с открытым исходным кодом.</p>
+			<p id="131aa64c-9d0a-818d-9863-cc49a8e28d87" class="">Протокол SMB используется Microsoft Windows 2000, NT и
+				95/98 для организации доступа к дискам и принтерам. Используя набор утилит Samba от Andrew Tridgell (<a
+					href="mailto:Andrew.Tridgell@anu.edu.au">Andrew.Tridgell@anu.edu.au</a>), UNIX-машины (включая
+				Linux) могут организовывать доступ к дискам и принтерам для Windows-машин. Утилиты smbfs, написанные
+				Paal-Kr. Engstad (<a href="mailto:pke@engstad.ingok.hitos.no">pke@engstad.ingok.hitos.no</a>) и Volker
+				Lendecke (<a href="mailto:lendecke@namu01.gwdg.de">lendecke@namu01.gwdg.de</a>), дают возможность
+				машинам с UNIX монтировать SMB-ресурсы, доступные на машинах с Windows или Samba.</p>
+			<p id="131aa64c-9d0a-81eb-a3b4-d37f8c48a5fe" class=""><strong>C помощью Samba можно реализовать следующие
+					наиболее распространенные:</strong></p>
+			<ul id="131aa64c-9d0a-813a-bf15-d571bf1bc20e" class="bulleted-list">
+				<li style="list-style-type:disc">Давать доступ к дискам Linux Windows-машинам.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8131-b2af-dee13e28bd09" class="bulleted-list">
+				<li style="list-style-type:disc">Получать доступ к дискам Windows для машин под Linux.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-812a-979d-e419f5b2d620" class="bulleted-list">
+				<li style="list-style-type:disc">Давать доступ к принтерам Linux для Windows-машин.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81af-b3fa-c5cd032b0395" class="bulleted-list">
+				<li style="list-style-type:disc">Получать доступ к принтерам Windows из Linux-систем.</li>
+			</ul>
+			<p id="131aa64c-9d0a-811d-a8a7-dc1b78f6e65b" class=""><em>для начала необходимо установить sambu</em></p>
+			<p id="131aa64c-9d0a-8139-8b22-e33673f7c6c1" class=""><code>sudo apt-get install samba</code></p>
+			<figure id="131aa64c-9d0a-8133-b4ec-f42a693ca9ec" class="image"><a
+					href="https://i.imgur.com/5aP8sY3.png"><img src="https://i.imgur.com/5aP8sY3.png" /></a></figure>
+			<p id="131aa64c-9d0a-816b-acb2-c2a1e96af35f" class=""><strong>переходим в конфигурационный файл</strong></p>
+			<p id="131aa64c-9d0a-8193-8a4a-fa675f22aa9c" class=""><code>sudo nano /etc/samba/smb.conf</code></p>
+			<p id="131aa64c-9d0a-8164-a2f4-ee6e4797dc92" class="">всё о этом конфигурационном файле тут <a
+					href="https://smb-conf.ru/aio-write-behind-s.html">https://smb-conf.ru/aio-write-behind-s.html</a>
+			</p>
+			<p id="131aa64c-9d0a-81a6-9a05-df9625806cb8" class=""><strong>есть команда</strong></p>
+			<p id="131aa64c-9d0a-8198-8ed8-e9099317d03f" class=""><code>sudo testparm</code></p>
+			<p id="131aa64c-9d0a-816c-9903-c40a5f2f8a55" class=""><em>Который позволяет убедиться о конфигурации samba и
+					что она работает нормально</em></p>
+			<p id="131aa64c-9d0a-81ac-8183-f1fab7784ea0" class=""><em>Давайте перейдём к настройке samba для того чтобы
+					расшарить папку</em></p>
+			<figure id="131aa64c-9d0a-8125-844c-c9c444d53e8c" class="image"><a
+					href="https://i.imgur.com/y2nV1Hu.png"><img src="https://i.imgur.com/y2nV1Hu.png" /></a></figure>
+			<ul id="131aa64c-9d0a-81eb-b948-e1b57df58c14" class="bulleted-list">
+				<li style="list-style-type:disc">[shared] — имя общей папки, которое увидят пользователи, подключившись
+					к серверу.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8100-ab6f-c691b2ab3ece" class="bulleted-list">
+				<li style="list-style-type:disc">comment — комментарий для удобства.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81a8-9b09-cdcd63a845b7" class="bulleted-list">
+				<li style="list-style-type:disc">path — путь на сервере, где будут храниться данные.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81e2-90a0-d667aa1d6246" class="bulleted-list">
+				<li style="list-style-type:disc">public — для общего доступа. Установите в yes, если хотите, чтобы все
+					могли работать с ресурсом.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8196-9d2f-fc43344ed83b" class="bulleted-list">
+				<li style="list-style-type:disc">writable — разрешает запись на сетевой ресурс.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8140-a637-df04bcdd4ae7" class="bulleted-list">
+				<li style="list-style-type:disc">read only — только для чтения. Установите no, если у пользователей
+					должна быть возможность создавать папки и файлы.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8123-a336-d2613eb76ae9" class="bulleted-list">
+				<li style="list-style-type:disc">guest ok — разрешает доступ к папке гостевой учетной записи.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81e5-a4d8-c80af0de2b12" class="bulleted-list">
+				<li style="list-style-type:disc">create mask, directory mask, force create mode, force directory mode —
+					при создании новой папки или файла назначаются полные права.</li>
+			</ul>
+			<ol type="1" id="131aa64c-9d0a-81cf-81c4-d343c38e1f52" class="numbered-list" start="1">
+				<li>john - имя шары</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81fa-ad41-d08954285e9b" class="numbered-list" start="2">
+				<li>browseablr - чтобы была видна</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81e2-9361-fa0189a83ba7" class="numbered-list" start="3">
+				<li>path - директория</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8196-b6f5-d41ea990c7b5" class="numbered-list" start="4">
+				<li>quest ok - важная опция, можно использовать любого пользователя</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81d4-a23a-d9603beb1e93" class="numbered-list" start="5">
+				<li>read only - можно добавлять и удалять анонимным пользователям</li>
+			</ol>
+			<p id="131aa64c-9d0a-8193-b4b1-f635da75b708" class=""><strong>Далее мы добавляем сервис в автозагрузку и
+					запускаем его</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-816a-97ea-dd7995eb2e39" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">sudo systemctl enable smbd
+sudo systemctl start smbd
+</code></pre>
+			<p id="131aa64c-9d0a-81a5-9e2b-cdd527f6e041" class="">затем для доступа через Windows надо сделать следующие
+			</p>
+			<figure id="131aa64c-9d0a-8147-b358-dbe054a052be" class="image"><a
+					href="https://i.imgur.com/QPXHNsV.png"><img src="https://i.imgur.com/QPXHNsV.png" /></a></figure>
+			<figure id="131aa64c-9d0a-8189-8674-d412401864c6" class="image"><a
+					href="https://i.imgur.com/5dFkffE.png"><img src="https://i.imgur.com/5dFkffE.png" /></a></figure>
+			<p id="131aa64c-9d0a-81e5-8968-c91d49cb6d7b" class=""><em>Затем создаём текстовый файл и 222.txt
+					редактируем, идём в linux и затем уже в директорию tmp</em></p>
+			<p id="131aa64c-9d0a-81f6-8a3e-ff986ba9fd1d" class=""><a
+					href="https://www.samba.org/">https://www.samba.org/</a></p>
+			<p id="131aa64c-9d0a-8115-99df-cdf6a9a840ad" class=""><strong>Вывод:<br />В этой практической работе вы
+					научились базовой работе с сервисами Linux.<br /></strong></p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

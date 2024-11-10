@@ -1,0 +1,1308 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>4.1.5. Утилита webmin</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-81c5-8116-d623ce68bb33" class="page sans">
+		<header><img class="page-cover-image"
+				src="4 1 5 Утилита webmin/kandinsky-download-1705921543710.png"
+				style="object-position:center 50%" />
+			<div class="page-header-icon page-header-icon-with-cover"><img class="icon"
+					src="https://www.notion.so/icons/microscope_green.svg" /></div>
+			<h1 class="page-title">4.1.5. Утилита w<strong>ebmin</strong></h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<details open="">
+				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><strong>План работы</strong>
+				</summary>
+				<div class="indented">
+					<nav id="131aa64c-9d0a-81cc-9c5a-cdc7fa110321" class="block-color-gray table_of_contents">
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-81d2-984e-fcfd93235ce2"><strong>План работы</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-811c-97ef-f2be18f172f2"><strong>Цель работы:</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-81c2-8226-c9a68a4d063d"><strong>Задача:</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-817d-8af4-fbf766b1be05">Теория</a></div>
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-81f9-bdea-c9a9d5b87c98"><strong>1. Установка Webmin в Ubuntu
+									20.04</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-81ad-b1b8-e0d7532db28a"><strong>1.1 Добавление репозитория и
+									обновление списка пакетов:</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-818d-b112-f010bc935f5a"><strong>1.2 Установка Webmin</strong></a>
+						</div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-81a7-abbf-f321641bb89f"><strong>1.3 Работа с Webmin</strong></a>
+						</div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-815a-8716-d10553c13378"><strong>1.4 Установим сервера samba и
+									apache2</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-81bb-a48a-c2f5b8f91380"><strong>1.5 Конфигурирование linux сервера
+									с помощью Webmin</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-81ee-bc11-d39c7fec66d9"><strong>2. Конфигурация серверов с помощью
+									Webmin.</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-81bf-9d87-eeba8530cdf6"><strong>2.1 Apache</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-81a0-bf0d-fd9c95ecf2e9"><strong>2.2 Samba</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-81cf-9e98-d6960a69c9cd"><strong>2.3 DHCP</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-81d9-b0da-c4f9d396b5ef"><strong>2.4 Fail2ban</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-81ad-96d0-f505ef959d57"><strong>3. Теперь рассмотрим безопасность
+									данного сервиса</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-81ff-9ff2-f54b6e370aab"><strong>3.1 Изменить порт
+									Webmin</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-8158-bdbb-f28646efc53d"><strong>3.2 Включить Webmin
+									SSL</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-8128-a469-d2e486e1129d"><strong>3.3 Активируйте дополнительные
+									модули</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-816d-aeb9-d83093acb2d0"><strong>3.4 Проверка Nmap</strong></a>
+						</div>
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-81cc-9812-f878c037feb9"><strong>Вывод</strong></a></div>
+					</nav>
+				</div>
+			</details>
+			<h3 id="131aa64c-9d0a-811c-97ef-f2be18f172f2" class=""><strong>Цель работы:</strong></h3>
+			<ul id="131aa64c-9d0a-813c-9efd-e25a47c78e55" class="bulleted-list">
+				<li style="list-style-type:disc">Понять как работает утилита Webmin;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8130-9ebc-db9a0a813e9b" class="bulleted-list">
+				<li style="list-style-type:disc">Разобраться в конфигурации утилиты.</li>
+			</ul>
+			<h3 id="131aa64c-9d0a-81c2-8226-c9a68a4d063d" class=""><strong>Задача:</strong></h3>
+			<ul id="131aa64c-9d0a-818e-9858-c4402ea2a7a3" class="bulleted-list">
+				<li style="list-style-type:disc">Установить Webmin;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81de-a73c-eadf97acb2e3" class="bulleted-list">
+				<li style="list-style-type:disc">Разобраться каким образом подключиться по web-интерфейсу;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81a7-8986-c43e83db2a45" class="bulleted-list">
+				<li style="list-style-type:disc">Понять какие параметры показывает страница Dashboard;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8104-8444-ca9e5ca99867" class="bulleted-list">
+				<li style="list-style-type:disc">Установить сервер Samba и Apache, убедиться что webmin их обнаружил;
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81cd-baea-f6b054c8895e" class="bulleted-list">
+				<li style="list-style-type:disc">Настроить SSH-сервер, сменить порт по умолчанию;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8173-8d2e-f7eae08d0ed8" class="bulleted-list">
+				<li style="list-style-type:disc">Установить DHCP сервер;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-818e-89d5-c745784b7136" class="bulleted-list">
+				<li style="list-style-type:disc">Установить и настроить Fail2ban для SSH-server.</li>
+			</ul>
+			<h1 id="131aa64c-9d0a-817d-8af4-fbf766b1be05" class="">Теория</h1>
+			<figure class="block-color-blue_background callout" style=" display:flex"
+				id="131aa64c-9d0a-81c4-bfa8-eea6d705c94b">
+				<div style="font-size:1.5em"><span class="icon">ℹ️</span></div>
+				<div style="width:100%"><strong>Webmin</strong> — программный комплекс, позволяющий администрировать
+					операционную систему через веб-интерфейс, в большинстве случаев, позволяя обойтись без использования
+					командной строки и запоминания системных команд и их параметров. </div>
+			</figure>
+			<p id="131aa64c-9d0a-815e-93ae-dc0dc680dfd2" class="">Используя любой браузер, администратор сервера может
+				создавать новые учётные записи пользователей, почтовые ящики, изменять настройки служб и сервисов,
+				например: веб-сервера Apache, DNS. Однако, в некоторых случаях необходимо знание операционной системы и
+				редактирование конфигурационных файлов вручную. Кроме того, не все возможности операционной системы и не
+				все программы можно конфигурировать через интерфейс Webmin, например nginx пока не входит в базовый
+				набор.</p>
+			<p id="131aa64c-9d0a-8180-bf5b-fcec333400e4" class="">Webmin состоит из простого веб-сервера и большого
+				количества скриптов (&gt;500), которые осуществляют связь между командами администратора (через
+				веб-интерфейс) и их исполнением на уровне операционной системы и прикладных программ. Webmin написан на
+				языке Perl и не использует никаких дополнительных нестандартных модулей. Простота, лёгкость и быстрота
+				выполнения команд — одно из главных преимуществ данной панели управления.</p>
+			<p id="131aa64c-9d0a-817b-9a92-ea04de152c6a" class="">Другое важное преимущество — возможность исправлять
+				конфигурационные файлы вручную, так как Webmin не «портит» конфигурационные файлы, в отличие от
+				некоторых других панелей управления, и, как правило, следует политикам дистрибутивов по конфигурированию
+				программ.</p>
+			<p id="131aa64c-9d0a-81d8-987b-fd9bf3862ba8" class="">Данная панель управления бесплатна на условиях
+				лицензии BSD и распространяется для коммерческого и некоммерческого использования. Авторы этой программы
+				позволяют всем желающим не только бесплатно использовать программу, но и изменять её по своему
+				усмотрению.</p>
+			<p id="131aa64c-9d0a-81f3-8319-f76b3cb441cb" class="">Работать с Webmin достаточно просто — нужно запустить
+				браузер, набрать <code>https://имя_домена.com:10000/</code> (недоступная ссылка) (по умолчанию) и
+				попасть на страницу администрирования.</p>
+			<p id="131aa64c-9d0a-8178-8403-f193bf897d21" class="">Модули</p>
+			<p id="131aa64c-9d0a-81e0-bf87-dd9fc74f2e07" class="">Webmin состоит из модулей, которые можно подключать
+				или отключать по необходимости. На официальном сайте представлено более 300 модулей. Модули Webmin могут
+				обеспечить настройку и управление почти всем функционалом сервера.</p>
+			<p id="131aa64c-9d0a-8154-9c85-fc6e026258b1" class=""><strong>Стандартный набор модулей</strong></p>
+			<p id="131aa64c-9d0a-8176-856c-e4a9062510d8" class="">В стандартный набор дистрибутива Webmin входит 127
+				модулей. Ниже перечислены некоторые модули стандартного набора.</p>
+			<ul id="131aa64c-9d0a-81b1-8340-c48fc6bc11ce" class="toggle">
+				<li>
+					<details open="">
+						<summary><strong>Модули стандартного набора</strong></summary>
+						<ul id="131aa64c-9d0a-81d1-80b7-e3673891cd7a" class="bulleted-list">
+							<li style="list-style-type:disc"><strong>Apache Webserver</strong> — настройка веб-сервера
+								Apache, позволяет редактировать почти все инструкции.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-811e-a4f8-c6ef1058888b" class="bulleted-list">
+							<li style="list-style-type:disc"><strong>Command Shell</strong> — позволяет выполнить
+								удаленно команду и просмотреть вывод.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-81c5-960e-c401065e3723" class="bulleted-list">
+							<li style="list-style-type:disc"><strong>Custom Commands</strong> — создание кнопки для
+								часто используемых команд.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-8191-aed8-ce340ce8d6ca" class="bulleted-list">
+							<li style="list-style-type:disc"><strong>DHCP Server</strong> — управление общей сетью,
+								хостами, и группами.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-813e-a938-d5014da66014" class="bulleted-list">
+							<li style="list-style-type:disc"><strong>Disk Quotas </strong>— установка и настройка квот
+								для пользователей или групп пользователей, на данной файловой системе.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-816a-b198-dbffe4e9879a" class="bulleted-list">
+							<li style="list-style-type:disc"><strong>File Manager</strong> — работа с файлами на
+								сервере.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-8189-b016-ecef53cbd5a4" class="bulleted-list">
+							<li style="list-style-type:disc"><strong>GRUB Boot Loader</strong> — настройка загрузчика
+								GRUB.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-8127-b97f-e4d02eb76b40" class="bulleted-list">
+							<li style="list-style-type:disc"><strong>Linux Firewall</strong> — настройка брандмауэра
+								Linux.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-81b8-964f-f68f5449a450" class="bulleted-list">
+							<li style="list-style-type:disc"><strong>MySQL Database Server </strong>— настройка базы
+								данных, таблицы и разрешения на сервере баз данных MySQL.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-815e-9586-d7362edfa696" class="bulleted-list">
+							<li style="list-style-type:disc"><strong>Perl Modules </strong>— просмотр установленных Perl
+								модулей и возможность установить новые.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-81aa-926a-dc7baf077f99" class="bulleted-list">
+							<li style="list-style-type:disc"><strong>Running Processes </strong>— список запущенных
+								процессов в вашей системе с возможностью убить или изменять приоритет процесса.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-8134-9505-d9db39fa55d8" class="bulleted-list">
+							<li style="list-style-type:disc"><strong>SSH Server </strong>— настройка SSH сервера.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-8135-9c16-e3269a7054a1" class="bulleted-list">
+							<li style="list-style-type:disc"><strong>Software Packages </strong>— менеджер пакетов, с
+								возможностью установить новые.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-8178-a4a3-f1eff505dec2" class="bulleted-list">
+							<li style="list-style-type:disc"><strong>System Logs</strong> — настройка сервера системных
+								журналов в вашей системе и просмотр журналов.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-8123-862a-f222697dc125" class="bulleted-list">
+							<li style="list-style-type:disc"><strong>Users and Groups</strong> — создание и
+								редактирование Unix пользователей и групп пользователей.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-8106-9e69-c11a6b705ff0" class="bulleted-list">
+							<li style="list-style-type:disc"><strong>Webmin Configuration </strong>— настройки Webmin’а.
+							</li>
+						</ul>
+					</details>
+				</li>
+			</ul>
+			<h1 id="131aa64c-9d0a-81f9-bdea-c9a9d5b87c98" class=""><strong>1. Установка Webmin в Ubuntu 20.04</strong>
+			</h1>
+			<h2 id="131aa64c-9d0a-81ad-b1b8-e0d7532db28a" class=""><strong>1.1 Добавление репозитория и обновление
+					списка пакетов:</strong></h2>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-818e-8f4f-eff09f1d4c3b"
+				class="code"><code class="language-Bash">wget http://www.webmin.com/jcameron-key.asc</code></pre>
+			<figure id="131aa64c-9d0a-81d4-afa1-c0a97052d5a7" class="image"><a
+					href="https://i.imgur.com/GwKOycW.png"><img src="https://i.imgur.com/GwKOycW.png" /></a></figure>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8174-a5df-f2910906dc2b"
+				class="code"><code class="language-Bash">sudo apt-key add jcameron-key.asc</code></pre>
+			<figure id="131aa64c-9d0a-81be-97af-d4326842ac26" class="image"><a
+					href="https://i.imgur.com/S3yHeAb.png"><img src="https://i.imgur.com/S3yHeAb.png" /></a></figure>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81f0-ba91-e969e31064f5"
+				class="code"><code class="language-Bash">sudo apt-add-repository &quot;deb http://download.webmin.com/download/repository sarge contrib&quot;</code></pre>
+			<figure id="131aa64c-9d0a-8171-8425-cc84067b4478" class="image"><a
+					href="https://i.imgur.com/fKx5OQK.png"><img src="https://i.imgur.com/fKx5OQK.png" /></a></figure>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81c8-a818-cde8f1201530"
+				class="code"><code class="language-Bash">sudo apt-get update</code></pre>
+			<figure id="131aa64c-9d0a-81b9-a898-efdef5879e75" class="image"><a
+					href="https://i.imgur.com/EadFAfH.png"><img src="https://i.imgur.com/EadFAfH.png" /></a></figure>
+			<h2 id="131aa64c-9d0a-818d-b112-f010bc935f5a" class=""><strong>1.2 Установка Webmin</strong></h2>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81c7-ade7-e3e80e71d5f2"
+				class="code"><code class="language-Bash">sudo apt install webmin</code></pre>
+			<figure id="131aa64c-9d0a-81e3-9b9d-d1e52cb3b3c8" class="image"><a
+					href="https://i.imgur.com/Vfp5aA9.png"><img src="https://i.imgur.com/Vfp5aA9.png" /></a></figure>
+			<p id="131aa64c-9d0a-8153-b426-d4282f1535b7" class=""><strong>Если при установке происходит аналог такой
+					ошибки, то делаем следующее:</strong></p>
+			<figure id="131aa64c-9d0a-81b5-ad8f-dc69d7ff1d41" class="image"><a
+					href="https://i.imgur.com/uvK9lvX.png"><img src="https://i.imgur.com/uvK9lvX.png" /></a></figure>
+			<p id="131aa64c-9d0a-81c7-af69-c9b59f61a271" class=""><code>kill 4911</code> <em><strong>т.е. мы убиваем
+						(останавливаем) процесс</strong></em></p>
+			<h2 id="131aa64c-9d0a-81a7-abbf-f321641bb89f" class=""><strong>1.3 Работа с Webmin</strong></h2>
+			<p id="131aa64c-9d0a-811d-b039-f88437216c9c" class=""><strong>Открываем браузер через Windows или
+					Linux:</strong></p>
+			<p id="131aa64c-9d0a-811c-9a56-dda3a55090a1" class=""><code>https://192.168.127.136:10000/</code></p>
+			<figure id="131aa64c-9d0a-8120-85ac-cd13b9be1b08" class="image"><a
+					href="https://i.imgur.com/7d3BU85.png"><img src="https://i.imgur.com/7d3BU85.png" /></a></figure>
+			<p id="131aa64c-9d0a-8175-bef8-d2faa47a396c" class=""><strong>Если будет сообщение, что сайт является
+					небезопасным, то нажимаем “Всё равно подключиться”:</strong></p>
+			<figure id="131aa64c-9d0a-81df-b189-eaba0ecaf5b6" class="image"><a
+					href="https://i.imgur.com/V4NobtQ.png"><img style="width:384px"
+						src="https://i.imgur.com/V4NobtQ.png" /></a></figure>
+			<p id="131aa64c-9d0a-813d-8c2d-c0b5ec5554ba" class=""><strong>Проваливаемся в Dashboard Webmin и видим
+					следующую информацию:</strong></p>
+			<p id="131aa64c-9d0a-8115-9fb5-d2ff0c5766b2" class=""><strong>1.</strong></p>
+			<figure id="131aa64c-9d0a-8116-b472-d22aa3a0c62a" class="image"><a
+					href="https://i.imgur.com/6luK2Sb.png"><img src="https://i.imgur.com/6luK2Sb.png" /></a></figure>
+			<p id="131aa64c-9d0a-81ec-af16-e5b22c4c2b91" class=""><strong>2.</strong></p>
+			<figure id="131aa64c-9d0a-81c4-ab71-f8662b3cc9da" class="image"><a
+					href="https://i.imgur.com/tcRNZBV.png"><img src="https://i.imgur.com/tcRNZBV.png" /></a></figure>
+			<p id="131aa64c-9d0a-81b9-b929-e6bc54f34dbd" class=""><strong>Переходим на вкладку Webmin - Tools - System
+					and Server Status</strong></p>
+			<p id="131aa64c-9d0a-8145-b399-ff746c3cdcf6" class=""><em>Видим на слайде, статус каких серверов показывает
+					Webmin:</em></p>
+			<figure id="131aa64c-9d0a-8188-b0e6-d1daf2375b4f" class="image"><a
+					href="https://i.imgur.com/EkIUUYY.png"><img src="https://i.imgur.com/EkIUUYY.png" /></a></figure>
+			<p id="131aa64c-9d0a-81e7-9ebe-d174421e8e93" class=""><strong>Проверим какие сервисы доступны на
+					linux:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8106-a352-ce914a7ca19b"
+				class="code"><code class="language-Bash">service --status-all</code></pre>
+			<figure id="131aa64c-9d0a-81a8-b14d-f89fd2dea9bf" class="image"><a
+					href="https://i.imgur.com/00Cwjdk.png"><img src="https://i.imgur.com/00Cwjdk.png" /></a></figure>
+			<h2 id="131aa64c-9d0a-815a-8716-d10553c13378" class=""><strong>1.4 Установим сервера samba и
+					apache2</strong></h2>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8104-b633-f81aafbdbf50"
+				class="code"><code class="language-Bash">apt-get install samba</code></pre>
+			<figure id="131aa64c-9d0a-811f-8b3d-fdd1b5929e18" class="image"><a
+					href="https://i.imgur.com/cXT6AP0.png"><img src="https://i.imgur.com/cXT6AP0.png" /></a></figure>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81e3-a926-e7f283c432f2"
+				class="code"><code class="language-Bash">apt-get install apache2</code></pre>
+			<figure id="131aa64c-9d0a-818a-9589-e554d78e2539" class="image"><a
+					href="https://i.imgur.com/a7weUve.png"><img src="https://i.imgur.com/a7weUve.png" /></a></figure>
+			<p id="131aa64c-9d0a-8102-b092-f0438c48a172" class=""><strong>Проверим на linux сервере, что сервисы
+					установились:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-818e-b03c-d297800c1321"
+				class="code"><code class="language-Bash">service --status-all</code></pre>
+			<figure id="131aa64c-9d0a-8101-83d4-da85ab37623b" class="image"><a
+					href="https://i.imgur.com/nSGytEb.png"><img src="https://i.imgur.com/nSGytEb.png" /></a></figure>
+			<p id="131aa64c-9d0a-8148-9e94-c72455638c5e" class=""><strong>Далее переходим в Webmin и убедимся, что он
+					отобразил наши сервисы, предварительно обновим страничку в браузере:</strong></p>
+			<figure id="131aa64c-9d0a-8174-8cbb-e5a6a2e0e161" class="image"><a
+					href="https://i.imgur.com/G4tOy0p.png"><img src="https://i.imgur.com/G4tOy0p.png" /></a></figure>
+			<h2 id="131aa64c-9d0a-81bb-a48a-c2f5b8f91380" class=""><strong>1.5 Конфигурирование linux сервера с помощью
+					Webmin</strong></h2>
+			<p id="131aa64c-9d0a-8107-9d97-da6eaa2b5410" class=""><strong>Перейдём во вкладку Webmin - System - Change
+					Password:</strong></p>
+			<p id="131aa64c-9d0a-819f-99fb-d15c90481d04" class=""><em>В данной вкладке возможно изменение пароля.</em>
+			</p>
+			<figure id="131aa64c-9d0a-810d-9bb6-e9ffddba4fe2" class="image"><a
+					href="https://i.imgur.com/X7RUojs.png"><img src="https://i.imgur.com/X7RUojs.png" /></a></figure>
+			<p id="131aa64c-9d0a-813e-9255-df18aa7d07d3" class=""><strong>Перейдя в Software Package Updates мы увидим
+					какие пакеты нуждаются в обновлении:</strong></p>
+			<figure id="131aa64c-9d0a-81d2-ba4b-e667d78d7f8f" class="image"><a
+					href="https://i.imgur.com/NQy8RyA.png"><img src="https://i.imgur.com/NQy8RyA.png" /></a></figure>
+			<p id="131aa64c-9d0a-81d0-9d30-e92d094245a8" class=""><strong>Перейдём в настройки SSH-сервера,
+					Webmin-Servers-SSH Server:</strong></p>
+			<figure id="131aa64c-9d0a-81bc-afe5-dcefbb1cf4f7" class="image"><a
+					href="https://i.imgur.com/XjSE4yl.png"><img src="https://i.imgur.com/XjSE4yl.png" /></a></figure>
+			<p id="131aa64c-9d0a-8132-b511-ec30b8301a94" class=""><strong>Перейдём в настройку “Edit Config Files” и
+					сменим пароль по умолчанию:</strong></p>
+			<p id="131aa64c-9d0a-8158-b9af-f56a58ec6815" class=""><strong>1.</strong></p>
+			<figure id="131aa64c-9d0a-81d2-b99d-e076b964c2d0" class="image"><a
+					href="https://i.imgur.com/l4sggp0.png"><img src="https://i.imgur.com/l4sggp0.png" /></a></figure>
+			<p id="131aa64c-9d0a-81fc-b6bf-faecab9b2c62" class=""><strong>2.</strong></p>
+			<p id="131aa64c-9d0a-8168-96b3-e604e660036a" class="">Изменим порт, сохраним и выходим.</p>
+			<figure id="131aa64c-9d0a-81c6-806e-ffd7d910e126" class="image"><a
+					href="https://i.imgur.com/25WVuOb.png"><img src="https://i.imgur.com/25WVuOb.png" /></a></figure>
+			<figure id="131aa64c-9d0a-81f2-adfc-f8791da73106" class="image"><a
+					href="https://i.imgur.com/832Cryz.png"><img src="https://i.imgur.com/832Cryz.png" /></a></figure>
+			<figure id="131aa64c-9d0a-81ee-b527-e4796cdb4a08" class="image"><a
+					href="https://i.imgur.com/7QCQzuZ.png"><img src="https://i.imgur.com/7QCQzuZ.png" /></a></figure>
+			<figure id="131aa64c-9d0a-811e-a04a-d4788b7e0ff4" class="image"><a
+					href="https://i.imgur.com/5viVwcE.png"><img src="https://i.imgur.com/5viVwcE.png" /></a></figure>
+			<figure id="131aa64c-9d0a-816f-bdbb-f57779cd210c" class="image"><a
+					href="https://i.imgur.com/xwJ1L4Y.png"><img src="https://i.imgur.com/xwJ1L4Y.png" /></a></figure>
+			<figure id="131aa64c-9d0a-815c-9a18-ede00d8e2409" class="image"><a
+					href="https://i.imgur.com/bSlmiv6.png"><img src="https://i.imgur.com/bSlmiv6.png" /></a></figure>
+			<figure id="131aa64c-9d0a-81ed-8838-fa80a55d187a" class="image"><a
+					href="https://i.imgur.com/VJlRjnK.png"><img src="https://i.imgur.com/VJlRjnK.png" /></a></figure>
+			<p id="131aa64c-9d0a-8137-9e74-c4d339d6b5a6" class="">через команду ip a мы видим следующее:</p>
+			<figure id="131aa64c-9d0a-81be-a49d-fc1b325ed098" class="image"><a
+					href="https://i.imgur.com/1Wubss3.png"><img src="https://i.imgur.com/1Wubss3.png" /></a></figure>
+			<p id="131aa64c-9d0a-8137-b1be-d25aaed58e1f" class=""><strong>Переходя в настройки Hardware - Partitions on
+					Local Disks, увидим какие жесткие диски подключены к системе.</strong></p>
+			<figure id="131aa64c-9d0a-8146-8b2d-de9c99f031e4" class="image"><a
+					href="https://i.imgur.com/m2xMONQ.png"><img src="https://i.imgur.com/m2xMONQ.png" /></a></figure>
+			<h1 id="131aa64c-9d0a-81ee-bc11-d39c7fec66d9" class=""><strong>2. Конфигурация серверов с помощью
+					Webmin.</strong></h1>
+			<p id="131aa64c-9d0a-811e-8f40-f2c22052e9a7" class=""><strong>Перейдя в настройки Un-used Modules можно
+					производить конфигурацию сервисов linux-сервера:</strong></p>
+			<h2 id="131aa64c-9d0a-81bf-9d87-eeba8530cdf6" class=""><strong>2.1 Apache</strong></h2>
+			<figure id="131aa64c-9d0a-811f-9ac1-d143a3884673" class="image"><a
+					href="https://i.imgur.com/8ppaNko.png"><img src="https://i.imgur.com/8ppaNko.png" /></a></figure>
+			<h2 id="131aa64c-9d0a-81a0-bf0d-fd9c95ecf2e9" class=""><strong>2.2 Samba</strong></h2>
+			<figure id="131aa64c-9d0a-8158-bbcf-d3467688d26f" class="image"><a
+					href="https://i.imgur.com/biBgwb4.png"><img src="https://i.imgur.com/biBgwb4.png" /></a></figure>
+			<h2 id="131aa64c-9d0a-81cf-9e98-d6960a69c9cd" class=""><strong>2.3 DHCP</strong></h2>
+			<figure id="131aa64c-9d0a-81ea-bf83-d81596299b22" class="image"><a
+					href="https://i.imgur.com/Kiqvpkz.png"><img src="https://i.imgur.com/Kiqvpkz.png" /></a></figure>
+			<p id="131aa64c-9d0a-81fd-ae77-fabae32e7851" class=""><strong>Давайте установим DHCP-сервер:</strong></p>
+			<p id="131aa64c-9d0a-81dc-b142-c791e3858785" class=""><strong>1.</strong></p>
+			<figure id="131aa64c-9d0a-8161-9227-ca5243d4bf07" class="image"><a
+					href="https://i.imgur.com/WjkDwC6.png"><img src="https://i.imgur.com/WjkDwC6.png" /></a></figure>
+			<p id="131aa64c-9d0a-81e2-a12d-e49d8293d26f" class=""><strong>2.</strong></p>
+			<figure id="131aa64c-9d0a-8133-8e68-c59d2d0e6953" class="image"><a
+					href="https://i.imgur.com/zwx5fGR.png"><img src="https://i.imgur.com/zwx5fGR.png" /></a></figure>
+			<p id="131aa64c-9d0a-81c4-9da0-f96a64132c70" class=""><strong>3.</strong></p>
+			<figure id="131aa64c-9d0a-81f6-9259-ea35c69c366f" class="image"><a
+					href="https://i.imgur.com/iZpwb52.png"><img src="https://i.imgur.com/iZpwb52.png" /></a></figure>
+			<p id="131aa64c-9d0a-8168-addf-da79a9f6889f" class=""><strong>4.</strong></p>
+			<figure id="131aa64c-9d0a-8180-a2ee-e1a4d8ca6be0" class="image"><a
+					href="https://i.imgur.com/jq4kfXz.png"><img src="https://i.imgur.com/jq4kfXz.png" /></a></figure>
+			<h2 id="131aa64c-9d0a-81d9-b0da-c4f9d396b5ef" class=""><strong>2.4 Fail2ban</strong></h2>
+			<p id="131aa64c-9d0a-8116-9187-df749aa53bb1" class=""><strong>1.</strong></p>
+			<figure id="131aa64c-9d0a-8145-8c24-f0d43980d3ad" class="image"><a
+					href="https://i.imgur.com/FQ4pnsX.png"><img src="https://i.imgur.com/FQ4pnsX.png" /></a></figure>
+			<p id="131aa64c-9d0a-8118-a848-fdfb843263c9" class=""><strong>2.</strong></p>
+			<figure id="131aa64c-9d0a-811e-9f72-c6c5acf014eb" class="image"><a
+					href="https://i.imgur.com/aiNXGpQ.png"><img src="https://i.imgur.com/aiNXGpQ.png" /></a></figure>
+			<p id="131aa64c-9d0a-81b3-95be-c4f29108b317" class=""><strong>3.</strong></p>
+			<figure id="131aa64c-9d0a-81c1-a4d5-c382917dde49" class="image"><a
+					href="https://i.imgur.com/fjKr29z.png"><img src="https://i.imgur.com/fjKr29z.png" /></a></figure>
+			<p id="131aa64c-9d0a-81fe-92c7-d6089abbb5f7" class=""><strong>4.</strong></p>
+			<figure id="131aa64c-9d0a-8198-a572-e777293d1d63" class="image"><a
+					href="https://i.imgur.com/QG6hwKd.png"><img src="https://i.imgur.com/QG6hwKd.png" /></a></figure>
+			<p id="131aa64c-9d0a-81d2-8062-ff1dffe1d095" class=""><strong>5.</strong></p>
+			<figure id="131aa64c-9d0a-81af-b04f-ed73dc0c343c" class="image"><a
+					href="https://i.imgur.com/bMYFNQr.png"><img src="https://i.imgur.com/bMYFNQr.png" /></a></figure>
+			<p id="131aa64c-9d0a-8135-91dc-d6c5d2bbdea9" class=""><strong>6.</strong></p>
+			<figure id="131aa64c-9d0a-81ba-9d33-d3954a719053" class="image"><a
+					href="https://i.imgur.com/chaZa3A.png"><img src="https://i.imgur.com/chaZa3A.png" /></a></figure>
+			<p id="131aa64c-9d0a-8140-9310-e4137c79a8c2" class=""><strong>7.</strong></p>
+			<figure id="131aa64c-9d0a-816e-b7b2-ea3ed3deb57f" class="image"><a
+					href="https://i.imgur.com/FGnvkz5.png"><img src="https://i.imgur.com/FGnvkz5.png" /></a></figure>
+			<h1 id="131aa64c-9d0a-81ad-96d0-f505ef959d57" class=""><strong>3. Теперь рассмотрим безопасность данного
+					сервиса</strong></h1>
+			<h2 id="131aa64c-9d0a-81ff-9ff2-f54b6e370aab" class=""><strong>3.1 Изменить порт Webmin</strong></h2>
+			<p id="131aa64c-9d0a-8135-b629-f0a7de0da4c0" class="">По умолчанию Webmin работает через порт 10000.
+				Большинство хакеров знают это. Поэтому настоятельно рекомендуется изменить порт Webmin и заставить его
+				прослушивать что-либо, кроме порта 10000 (ничто не сравнится с надежным брандмауэром + паролем). Вы
+				можете выбрать любой доступный случайный порт между 1024 и 65535.</p>
+			<h2 id="131aa64c-9d0a-8158-bdbb-f28646efc53d" class=""><strong>3.2 Включить Webmin SSL</strong></h2>
+			<p id="131aa64c-9d0a-81bd-b4b6-d83a1add69ab" class="">Как и изменение номера порта, включение SSL для Webmin
+				также является мерой безопасности для противодействия паролю / перехвату данных. Webmin уже поставляется
+				с SSL-сертификатами по умолчанию, поэтому вам не нужно будет их создавать. Но у вас есть возможность
+				создавать свои собственные неподписанные или подписанные сертификаты. Сертификаты, подписанные
+				сертифицирующим органом, не будут выдавать предупреждение «Неподписанный сертификат» при открытии Webmin
+				через браузер.</p>
+			<h2 id="131aa64c-9d0a-8128-a469-d2e486e1129d" class=""><strong>3.3 Активируйте дополнительные
+					модули</strong></h2>
+			<p id="131aa64c-9d0a-81d1-b48a-ec1f1ce86128" class="">Финал взлома Webmin включает активацию дополнительных
+				модулей webmin. Например, если у вас есть система резервного копирования Bacula для вашего сервера, то
+				есть модуль Webmin, который позволяет вам управлять настройкой Bacula через интерфейс Webmin. На
+				веб-сайте Webmin перечислены все сторонние модули и стандартные модули. Обратите внимание, что не все
+				они обновляются.</p>
+			<h2 id="131aa64c-9d0a-816d-aeb9-d83093acb2d0" class=""><strong>3.4 Проверка Nmap</strong></h2>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-817a-ab35-ff16cef8547a"
+				class="code"><code class="language-Bash">nmap -T4 -A -O 192.168.127.136</code></pre>
+			<figure id="131aa64c-9d0a-812f-ab39-ccf781590f84" class="image"><a
+					href="https://i.imgur.com/DMIGOji.png"><img src="https://i.imgur.com/DMIGOji.png" /></a></figure>
+			<h1 id="131aa64c-9d0a-81cc-9812-f878c037feb9" class=""><strong>Вывод</strong></h1>
+			<p id="131aa64c-9d0a-8194-b38b-ff7b1a8f4999" class="">Как видим, много открытых портов и для использования
+				данной утилиты надо качественно настраивать безопасность сервера, сервера без настройки безопасности не
+				желательно держать с непосредственным выходом в интернет по белому IP-адресу или DMZ зоны. Если
+				использовать их то, только внутри локальной сети с настроенными сертификатами и firewall, fail2ban и
+				т.д.</p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

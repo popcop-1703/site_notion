@@ -1,0 +1,1407 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Часть 4.3 Многофакторная аутентификация для SSH в Linux</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-819a-ad5e-d6d3da66a2ef" class="page sans">
+		<header>
+			<div class="page-header-icon undefined"><img class="icon"
+					src="https://www.notion.so/icons/window_brown.svg" /></div>
+			<h1 class="page-title">Часть 4.3 <strong>Многофакторная аутентификация для SSH в Linux</strong></h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<p id="131aa64c-9d0a-8182-8f3e-cf16669239ea" class="">
+			</p>
+			<figure id="131aa64c-9d0a-8127-af20-fcfdab034363" class="image"><a
+					href="Часть 4 3 Многофакторная аутентификация для SSH в/Untitled.png"><img
+						style="width:1559px"
+						src="Часть 4 3 Многофакторная аутентификация для SSH в/Untitled.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-811c-9910-daa392c04bcf" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-81fe-a6ef-c42edc123955" class=""><strong>Цель работы:</strong></h3>
+			<ul id="131aa64c-9d0a-81ad-b2d0-c2a55b56ab83" class="bulleted-list">
+				<li style="list-style-type:disc">Научиться настраивать многофакторная аутентификацию для SSH;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c8-9d78-f1cd021ce311" class="bulleted-list">
+				<li style="list-style-type:disc">После настройки проверить подключение.</li>
+			</ul>
+			<h3 id="131aa64c-9d0a-8103-b9be-ed13ef2cdbdb" class=""><strong>Задача:</strong></h3>
+			<ul id="131aa64c-9d0a-8112-80b1-c1de0dbc7a4d" class="bulleted-list">
+				<li style="list-style-type:disc">Составить отчёт в виде инструкции;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8156-a6b8-cc83e4ff03c4" class="bulleted-list">
+				<li style="list-style-type:disc">Показать рабочее подключение;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8194-81f0-eb09325358b3" class="bulleted-list">
+				<li style="list-style-type:disc">Приложить скриншоты с описание к отчёту.</li>
+			</ul>
+			<h1 id="131aa64c-9d0a-8136-9e4a-ec07f11f4a7a" class=""><strong>1. Введение</strong></h1>
+			<p id="131aa64c-9d0a-8120-8a95-dc72e98761bb" class="">Безопасность - это серьезный вопрос.</p>
+			<figure class="block-color-blue_background callout" style=" display:flex"
+				id="131aa64c-9d0a-81cc-980c-d0841a5b60a9">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%">SSH, что означает Secure Shell, — это сетевой протокол, который позволяет
+					пользователям подключаться к удаленным машинам (серверам) и получать доступ к ресурсам.</div>
+			</figure>
+			<p id="131aa64c-9d0a-8146-ad29-c061fae301e6" class="">Протокол ssh реализует два типа безопасности, а именно
+				аутентификацию на основе пароля и аутентификацию на основе ключа.</p>
+			<p id="131aa64c-9d0a-8125-b5a3-f7264cc1aba7" class="">Аутентификация на основе ключа (открытый → закрытый)
+				считается более безопасной по сравнению с аутентификацией на основе пароля, и большинство руководств по
+				усилению SSH рекомендуют отключить аутентификацию на основе пароля и включить только аутентификацию на
+				основе ключа.</p>
+			<figure class="block-color-teal_background callout" style=" display:flex"
+				id="131aa64c-9d0a-81f8-a8fe-c9a131456bdc">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%">Независимо от того, какой механизм аутентификации вы выберете, вы можете сделать
+					ssh более безопасным, применив многофакторную аутентификацию.</div>
+			</figure>
+			<p id="131aa64c-9d0a-8155-aab7-f08fdf3da09e" class="">Подключаемые модули аутентификации РАМ
+				(Pluggable Authentication Modules)· предоставляют администраторам дополнительные методы подтверждения
+				подлинности пользователя. Модули РАМ - это не новинка в мире Linux. Они были разработаны очень давно, но
+				до сих пор есть даже в самых современных дистрибутивах Linux, поскольку заменить их, по сути, нечем.</p>
+			<p id="131aa64c-9d0a-8156-94ee-cf02be945ccb" class="">Модули РАМ позволяют использовать несколько схем
+				аутентификации. Большинство приложений, которые нуждаются в проверке подлинности пользователя,
+				используют РАМ. Модули РАМ позволяют реализовать альтернативную аутентификацию, например, по отпечаткам
+				пальцев или по сетчатке глаз, но для этого необходимо дополнительное оборудование, например, сканер
+				отпечатков. В этой книге мы рассмотрим традиционный вариант использования РАМ - когда аутентификация
+				происходит посредством ввода пароля с клавиатуры.</p>
+			<p id="131aa64c-9d0a-81a7-95be-e160696541b4" class="">Основной файл конфигурации называется /etc/pam.conf. В
+				каталоге /etc/pam.d/ находится конфигурация для разных сервисов, которые поддерживают РАМ, например, в
+				/etc/pam.d/sshd находится конфигурация РАМ-модулей для SSH, в /etc/pam.d/gdm-passwd - конфигурация
+				пароля для менеджера дисплея GDM и т.д. В каталоге /etc/security также есть файлы конфигурации,
+				относящиеся к РАМ, например, файл ассеss.соnf управляет доступом в систему.</p>
+			<p id="131aa64c-9d0a-8186-beac-cd56a4295721" class="">Безопасность вашей системы зависит от используемых
+				вами модулей. Модули хранятся в каталоге /lib/security или /lib64/security (для 64-битных систем),
+				однако некоторые дистрибутивы не следуют этому стандарту. К примеру, в некоторых системах модули можно
+				найти в каталоге /usr/lib/security. При желании можно написать и собственные модули (см. раздел
+				Источники информации), но для начала следует разобраться с уже имеющимися. Ниже приведен список наиболее
+				часто используемых модулей. Больше информации по каждому из них можно получить, набрав man модуль, к
+				примеру man pam_pwcheck. Обратите внимание, что нет &quot;стандартного списка&quot; модулей. Их состав
+				варьируется от дистрибутива к дистрибутиву.</p>
+			<ul id="131aa64c-9d0a-81c7-8685-d9e1e1e58dbf" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>pam_access</strong> - разрешает или запрещает доступ, в
+					зависимости от IР-адреса, имени пользователя, имени хоста или доменного имени и т.п. По умолчанию,
+					правила доступа определены в файле /etc/security/access.conf. Когда пользователь входит, проверяются
+					правила доступа до первого совпадения, и делается решение, разрешить или запретить доступ. Также
+					смотри модуль pam_time - там другие ограничения.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c6-a3a4-c718d14a8732" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>pam_cracklib и pam_pwcbeck</strong> - предоставляют функции
+					проверки прочности пароля (проверки на легкость угадывания или повторяемость). У пользователя
+					спрашивают пароль, и если он проходит предустановленные правила и считается прочным, тогда нужно
+					ввести его еще раз для проверки правильности ввода.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81d9-92cf-d807b84c6b77" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>pam_deny</strong> - безусловно запрещает доступ: Этот модуль
+					можно использовать для блокирования пользователей, как политику по умолчанию cмотрите также
+					pam_permit.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-814d-a3cf-dd75e26756b9" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>pam_ecbo</strong> - выводит предустановленное текстовое
+					сообщение смотрите также pam motd.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8198-8b8a-cfe7dc32966a" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>pam_env</strong> - позволяет присвоение значений переменных
+					окружения. Правила по умолчанию берутся из файла /etc/security/pam_env.conf.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-818b-8432-e88c59c3d4fe" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>pam_exec</strong> - вызывает внешнюю программу.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8188-921c-f6329d84476f" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>pam_lastlog</strong> - выводит дату и время последнего входа в
+					систему.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-810b-8248-e4e49871e2da" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>раm_limits</strong> - устанавливает ограничения на системные
+					ресурсы, используемые пользователем. Ограничения по умолчанию берутся из файла
+					/etc/security/limits.conf.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-814e-8ecc-ffdb1ebb1639" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>pam_Iistfile</strong> - разрешает или запрещает сервис в
+					зависимости от значений в файле. К примеру, ecли нужно открыть FТР-доступ лишь для некоторых
+					пользователей, перечень которых указан в файле /etc/ftpusers ok, нужно добавить строку:</li>
+			</ul>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8112-b82d-c78efb6873c4"
+				class="code"><code class="language-Plain Text" style=" word-break:break-all">auth required pam_listfile.so item=user sense=allow file=/etc/ftpusers_ok onerr=fail // в файл /etc/pam.d/ftpd</code></pre>
+			<ul id="131aa64c-9d0a-818f-bb2b-cd092bdd917d" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>pam_mail</strong> - сообщает пользователю о наличии свежей
+					электронной почты.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8164-8331-d888b8b4396b" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>pam_mkhomedir</strong> - создает домашний каталог пользователя,
+					если он не существует на локальной машине. Таким образом, можно использовать централизованную
+					авторизацию (к примеру, в NIS или LDAP) и создавать домашние каталоги лишь при необходимости.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8152-894e-ebe2edffad3d" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>раm_mоtd</strong> - выводит “сообщение дня”. смотрите также
+					модуль pam_echo.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8182-87ae-e9f475097b64" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>pam_nologin</strong> - запрещает доступ, когда существует файл
+					/etc/nologin .</li>
+			</ul>
+			<ul id="131aa64c-9d0a-810f-8f73-c59f8be6c768" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>pam_permit</strong> - безусловно разрешает доступ - очень
+					небезопасно! См. также модуль pam_ deny.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8152-8d16-f91070515455" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>pam_rootok</strong> - разрешает доступ для пользователя root
+					без дополнительных проверок. Обычно этот модуль используется в /etc/pam.d/su, чтобы пользователь
+					root мог войти под любым другим пользователем даже без ввода пароля. Файл должен содержать следующие
+					строки (обратите внимание на вторую строку, см. модуль pam wheel):<ul
+						id="131aa64c-9d0a-81e1-9d88-d7b709d35ea4" class="bulleted-list">
+						<li style="list-style-type:circle"><code>auth sufficient pam_rootok.so</code></li>
+					</ul>
+					<ul id="131aa64c-9d0a-81ce-b009-eabba854ca5b" class="bulleted-list">
+						<li style="list-style-type:circle"><code>auth required pam_wheel.so</code></li>
+					</ul>
+					<ul id="131aa64c-9d0a-814c-9ab7-d2d737a083a3" class="bulleted-list">
+						<li style="list-style-type:circle"><code>auth required pam_unix.so</code></li>
+					</ul>
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81aa-8506-e47974751f64" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>pam_succecd_if</strong> - проверяет некоторые характеристики
+					учетной записи, к примеру, принадлежность к определенной группе, значение UID и т.п.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-811c-add8-f7563c8d8976" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>pam time</strong> - запрещает доступ к службе в зависимости от
+					дня недели и времени дня. По умолчанию правила берутся из файла /etc/security/time. conf. Однако,
+					запрет накладывается лишь на момент входа в систему. Способа принудительно заставить пользователя
+					выйти из системы нет.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8149-80ec-f75135501cf2" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>pam_umask</strong> - устанавливает маску создания файлов.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8158-b565-c6796e28bb9a" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>pam_unix или раm_uniх2</strong> - классическая аутентификация в
+					UNIХ-стиле, основана на файлах /etc/passwd и /etc/shadow. смотрите также модуль pam_userdb.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81db-9dc2-cb5596192c17" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>pam userdb</strong> - аутентифицирует пользователя с помощью
+					базы данных. смотрите также модуль pam_unix.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8144-9bd4-f33a9c6201fa" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>pam warn</strong> - заносит название службы, номер терминала,
+					пользователя и другие данные в системный журнал. Модуль можно использовать везде, он не влияет на
+					процесс аутентификации.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c9-9485-d1c7d4febeaf" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>pam wheel</strong> - позволяет rооt-доступ лишь для членов
+					группы wheel. Часто этот модуль используется для su, чтобы лишь избранные пользователи могли
+					пользоваться этой программой. Пример использования можно найти в описании модуля pam_rootok.</li>
+			</ul>
+			<h1 id="131aa64c-9d0a-81c9-a3cd-fabb8ab6e756" class=""><strong>2. Что такое многофакторная
+					аутентификация?</strong></h1>
+			<figure class="block-color-blue_background callout" style=" display:flex"
+				id="131aa64c-9d0a-81d8-9fce-c4cc51f2a2df">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%">Многофакторная аутентификация (сокращенно MFA) - это безопасный процесс
+					аутентификации, который требует использования более одной техники аутентификации, выбираемых из
+					независимых категорий идентификационных данных.</div>
+			</figure>
+			<p id="131aa64c-9d0a-8166-be5c-c70cf50f4b64" class="">Многофакторную аутентификацию также иногда называют
+				«двухфакторной аутентификацией (2FA)».</p>
+			<p id="131aa64c-9d0a-816b-b9a3-d8a6cb8666ea" class="">В проверке подлинности того, за кого вы себя выдаете,
+				участвуют два фактора. Первым фактором является пароль, который создается при создании учетной записи
+				пользователя.</p>
+			<p id="131aa64c-9d0a-81e5-a2e3-fa242a8fe7ca" class="">Вторым фактором будет любое приложение, генерирующее
+				OTP, или любой протокол, отправляющий вам текстовые сообщения или совершающий звонок на ваше устройство.
+			</p>
+			<p id="131aa64c-9d0a-81a7-9efc-cd6089c039ce" class=""><strong>В зависимости от того, как реализовано
+					приложение, способы аутентификации различаются. Некоторые общие инструменты, используемые для MFA,
+					следующие:</strong></p>
+			<ul id="131aa64c-9d0a-819e-89f2-f50d98b5f53d" class="bulleted-list">
+				<li style="list-style-type:disc">Приложение, установленное на мобильном устройстве, которое генерирует
+					токены.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-810a-bdda-e88ad7e1fdfd" class="bulleted-list">
+				<li style="list-style-type:disc">Внешнее устройство, например Yubikey.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8140-8c60-d773f01425a2" class="bulleted-list">
+				<li style="list-style-type:disc">Отпечаток пальца.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8146-bca2-fb68657d738b" class="bulleted-list">
+				<li style="list-style-type:disc">Распознавание лица.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-812c-af90-c7ae1a4695ed" class="bulleted-list">
+				<li style="list-style-type:disc">OTP-пароль на основе текстового сообщения или звонка.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8124-b848-ca24649c7338" class="bulleted-list">
+				<li style="list-style-type:disc">Для включения многофакторной аутентификации для ssh мы будем
+					использовать приложение «Google Authenticator», которое использует протокол OATH-TOTP. Существуют и
+					другие альтернативные инструменты, такие как Twilio Authy или FreeOTP, которые вы можете установить
+					и опробовать.</li>
+			</ul>
+			<p id="131aa64c-9d0a-813d-bcdb-e688ac0e3f33" class=""><strong>Мы начнем с установки приложения Google
+					Authenticator на сервер и мобильное устройство, попробуем включить MFA и пройти валидацию.</strong>
+			</p>
+			<h1 id="131aa64c-9d0a-811a-a1e8-e9c858175b14" class=""><strong>3. Установка Google Authenticator</strong>
+			</h1>
+			<ol type="1" id="131aa64c-9d0a-811b-9d72-f94149d878e5" class="numbered-list" start="1">
+				<li>Для начала установите приложение Google Authenticator на свои устройства Android или IOS через
+					playstore/Itunes.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8126-99ce-fa7683cbfe35" class="numbered-list" start="2">
+				<li>Теперь установите приложение Google Authenticator в Linux.</li>
+			</ol>
+			<p id="131aa64c-9d0a-8120-ba6a-cbbc860b7e51" class=""><strong>В зависимости от дистрибутива выполните
+					следующие команды установки.</strong></p>
+			<p id="131aa64c-9d0a-810d-9134-e7a59619e132" class=""><em>В Ubuntu и его производных дистрибутивах выполните
+					следующую команду.</em></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81cb-acb4-e753487b2e80"
+				class="code"><code class="language-Bash">sudo apt install libpam-google-authenticator</code></pre>
+			<figure id="131aa64c-9d0a-81e2-875e-e5826234ef43" class="image"><a
+					href="https://i.imgur.com/xos2607.png"><img style="width:576px"
+						src="https://i.imgur.com/xos2607.png" /></a></figure>
+			<p id="131aa64c-9d0a-813c-b25e-ccdde933f260" class=""><strong>В дистрибутивах на базе RHEL выполните
+					следующую команду.</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8104-a9ca-e347425ea7b3"
+				class="code"><code class="language-Bash">sudo dnf install google-authenticator -y</code></pre>
+			<p id="131aa64c-9d0a-814f-a35f-cbd0c42209bd" class=""><strong>Для дистрибутивов на базе Arch выполните
+					следующую команду.</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81b3-b032-dfd6b4bf1d04"
+				class="code"><code class="language-Bash">sudo pacman -S libpam-google-authenticator</code></pre>
+			<p id="131aa64c-9d0a-8192-b7b1-ca26b6a13a38" class=""><strong>Генерирование начального токена для
+					пользователя</strong></p>
+			<p id="131aa64c-9d0a-8182-8cdd-f8a32083f5f8" class="">В качестве первого шага в настройке MFA необходимо
+				выполнить следующую команду из терминала. Она выполнит начальную настройку и сгенерирует ключ TOTP. Этот
+				ключ предназначен для пользователя, выполняющего команду, и не применим ко всем остальным пользователям
+				системы.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8173-819e-f1e838c9062d"
+				class="code"><code class="language-Bash">google-authenticator</code></pre>
+			<figure id="131aa64c-9d0a-81a8-99d1-d6b6e33b9346" class="image"><a
+					href="https://i.imgur.com/a4pA3hf.png"><img style="width:624px"
+						src="https://i.imgur.com/a4pA3hf.png" /></a></figure>
+			<p id="131aa64c-9d0a-8118-9347-d903756b1cb4" class=""><strong>Существует определенная последовательность
+					шагов, при выполнении которых будет предложено выбрать вариант (y/n).</strong></p>
+			<p id="131aa64c-9d0a-81e0-95b9-f8413804446e" class="">Будет предложено выбрать токены аутентификации на
+				основе времени. Токены аутентификации по времени будут генерировать новый код каждые 30 секунд. Нажмите
+				«y», чтобы продолжить.</p>
+			<p id="131aa64c-9d0a-8175-9d10-d2712383ef79" class="">Секретный токен будет сгенерирован вместе с QR-кодом.
+				Откройте мобильное приложение Google Authenticator и отсканируйте QR-код или введите секретный ключ
+				вручную, чтобы зарегистрировать устройство. После этого приложение начнет генерировать токены каждые 30
+				секунд.</p>
+			<figure id="131aa64c-9d0a-811d-b811-d6ff6f605322" class="image"><a
+					href="https://i.imgur.com/ULFvc9c.png"><img style="width:432px"
+						src="https://i.imgur.com/ULFvc9c.png" /></a></figure>
+			<figure id="131aa64c-9d0a-81ab-9e7c-d249f06c2bb4" class="image"><a
+					href="https://i.imgur.com/waPf1fA.png"><img style="width:432px"
+						src="https://i.imgur.com/waPf1fA.png" /></a></figure>
+			<figure id="131aa64c-9d0a-8157-9893-f3ed7cefaca2" class="image"><a
+					href="https://i.imgur.com/mxaKNKP.png"><img style="width:432px"
+						src="https://i.imgur.com/mxaKNKP.png" /></a></figure>
+			<p id="131aa64c-9d0a-819f-9d0c-f55d6d0d1915" class=""><strong>На этом этапе вам будет предложено обновить
+					файл .google_authenticator в домашнем каталоге. В этом файле сохраняются все секретные ключи, код
+					проверки, аварийные коды. Нажмите «y», чтобы продолжить.</strong></p>
+			<figure id="131aa64c-9d0a-817b-9bbe-d2a00bc87f16" class="image"><a
+					href="https://i.imgur.com/oNWpaWE.png"><img style="width:576px"
+						src="https://i.imgur.com/oNWpaWE.png" /></a></figure>
+			<p id="131aa64c-9d0a-8194-9901-e699f2f6943b" class=""><strong>При выборе «y» на этом шаге срок действия
+					токена истечет сразу после того, как вы использовали его для аутентификации. В этом случае, даже
+					если хакеры получат ваш токен, он будет просрочен.</strong></p>
+			<p id="131aa64c-9d0a-8131-a754-cc8cb2ebe64b" class=""><strong>Этот шаг определяет, сколько токенов будет
+					разрешено, а также временные рамки. Если выбрать «n», то будет разрешено 3 токена в течение 90
+					секунд. Если выбрать «y», то будет разрешено 17 токенов в течение 240 секунд.</strong></p>
+			<figure id="131aa64c-9d0a-816e-97e2-de28d49fbd97" class="image"><a
+					href="https://i.imgur.com/QVbBxsQ.png"><img style="width:576px"
+						src="https://i.imgur.com/QVbBxsQ.png" /></a></figure>
+			<p id="131aa64c-9d0a-8191-8960-cbfb19d6ee95" class=""><strong>На этом шаге вам будет предложено включить
+					ограничение частоты. Ограничение частоты позволяет злоумышленнику предпринимать только 3 попытки
+					входа в систему каждые 30 секунд. Если токены неверны, то ему придется ждать временной интервал N,
+					чтобы повторить попытку.</strong></p>
+			<figure id="131aa64c-9d0a-8170-a332-c58582b2a2ea" class="image"><a
+					href="https://i.imgur.com/1Ez1NIb.png"><img style="width:576px"
+						src="https://i.imgur.com/1Ez1NIb.png" /></a></figure>
+			<figure id="131aa64c-9d0a-81ac-9cce-d5f3621a675b" class="image"><a
+					href="https://i.imgur.com/be0kOTX.png"><img src="https://i.imgur.com/be0kOTX.png" /></a></figure>
+			<p id="131aa64c-9d0a-81a0-85e4-d4378c3e75a7" class=""><strong>Завершили первый шаг.</strong> Откройте
+				файл <code>~/.google_authenticator</code> и вы увидите все настройки и секретные коды, которые сделали в
+				ходе всех этих шагов.</p>
+			<figure id="131aa64c-9d0a-81e8-b4f0-c2cbc9f85eea" class="image"><a
+					href="https://i.imgur.com/ZO1onJW.png"><img style="width:576px"
+						src="https://i.imgur.com/ZO1onJW.png" /></a></figure>
+			<p id="131aa64c-9d0a-819c-a92b-eb217f66bbf1" class=""><strong>Также можете передать аргументы команде
+					google-authenticator, которая создаст ключи и другие настройки без выполнения данной
+					последовательности шагов.</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8127-9a82-de791d409bb1"
+				class="code"><code class="language-Bash">google-authenticator -q -t -d -f -r 3 -R 30 -w 3</code></pre>
+			<p id="131aa64c-9d0a-817f-8e84-f38e346a4873" class=""><strong>Обратитесь к разделу помощи аутентификатора
+					Google, чтобы узнать, что эти аргументы означают.</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81a9-80e7-d2432e8d96ee"
+				class="code"><code class="language-Bash">google-authenticator --help</code></pre>
+			<figure id="131aa64c-9d0a-81bb-b004-cfdb938bb308" class="image"><a
+					href="https://i.imgur.com/6PYx0rl.png"><img style="width:576px"
+						src="https://i.imgur.com/6PYx0rl.png" /></a></figure>
+			<p id="131aa64c-9d0a-8147-b23c-c1da20c80450" class=""><strong>Необходимо внести некоторые изменения в
+					конфигурацию openSSH, чтобы можно было начать использовать MFA.</strong></p>
+			<p id="131aa64c-9d0a-811f-8b13-df92f2cea970" class=""><strong>Выполните следующие команды для резервного
+					копирования файлов конфигурации SSH.</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ee-9444-f6526d2d566d"
+				class="code"><code class="language-Bash" style=" word-break:break-all">sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.backup</code></pre>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8170-a5c1-c558572768e8"
+				class="code"><code class="language-Bash">sudo cp /etc/pam.d/sshd /etc/pam.d/sshd.backup</code></pre>
+			<p id="131aa64c-9d0a-8119-9aa4-cd6f117535c3" class=""><strong>Для начала нужно разрешить SSH использовать
+					MFA, установив в файле:</strong></p>
+			<p id="131aa64c-9d0a-81d2-b94a-c14a49f9c939" class=""><code>/etc/ssh/sshd_config</code> опцию
+				<code>ChallengeResponseAuthentication</code> в значение <code>«yes».</code></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8120-8786-e8b786ea0b70" class="code"><code class="language-Plain Text" style=" word-break:break-all"># Change to yes to enable challenge-response passwords (beware issues with
+# some PAM modules and threads)
+ChallengeResponseAuthentication yes
+</code></pre>
+			<figure id="131aa64c-9d0a-8120-8d4b-c7958dd3cff4" class="image"><a
+					href="https://i.imgur.com/vjBOtry.png"><img style="width:576px"
+						src="https://i.imgur.com/vjBOtry.png" /></a></figure>
+			<p id="131aa64c-9d0a-81b0-a61b-cb647ee88902" class=""><strong>Затем отредактируйте
+					файл</strong> <code>/etc/pam.d/sshd:</code></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-816f-a32a-f2cc7b5f4274"
+				class="code"><code class="language-Bash">sudo vi /etc/pam.d/sshd</code></pre>
+			<p id="131aa64c-9d0a-8130-a999-ca974f0e9a15" class=""><strong>И добавить следующие строки в конец
+					файла.</strong></p>
+			<p id="131aa64c-9d0a-81cc-b5ae-ffd66712629d" class="">
+				<code>auth required pam_google_authenticator.so nullok</code> ## делает этот метод необязательным</p>
+			<p id="131aa64c-9d0a-812f-844d-d43844ea2683" class=""><code>auth required pam_permit.so</code> ## разрешить
+				пользователю войти в систему, если не используется MFA</p>
+			<figure id="131aa64c-9d0a-81f2-8016-e6dedec19c18" class="image"><a
+					href="https://i.imgur.com/FD0okgg.png"><img style="width:576px"
+						src="https://i.imgur.com/FD0okgg.png" /></a></figure>
+			<p id="131aa64c-9d0a-8144-bfae-f1415d27cbf9" class=""><strong>Если вы хотите сделать MFA обязательным для
+					всех пользователей, удалите слово «nullok».</strong></p>
+			<p id="131aa64c-9d0a-81f0-9e46-eb18e58b6d1c" class="">Перезапустить службу ssh, чтобы изменения вступили в
+				силу.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81f5-ad9e-c70455184452"
+				class="code"><code class="language-Bash">sudo systemctl restart sshd</code></pre>
+			<figure id="131aa64c-9d0a-81ae-9fea-eb84ecaf1a30" class="image"><a
+					href="https://i.imgur.com/V350KJZ.png"><img style="width:576px"
+						src="https://i.imgur.com/V350KJZ.png" /></a></figure>
+			<h3 id="131aa64c-9d0a-8127-ad65-e426778cb808" class=""><strong>4. Пришло время проверить, насколько
+					эффективны внесенные изменения.</strong></h3>
+			<p id="131aa64c-9d0a-81a8-aaa5-ff968615aac0" class="">Подключитесь к серверу через SSH, и вам будет
+				предложено ввести пароль в качестве первого фактора, а затем проверочный код в качестве второго фактора
+				аутентификации, как показано на изображении ниже.</p>
+			<p id="131aa64c-9d0a-81db-98bf-d96eb64fa270" class=""><code>$ ssh username@hostname/IPaddress</code></p>
+			<figure id="131aa64c-9d0a-81c5-87ea-c0ee0ef206a2" class="image"><a
+					href="https://i.imgur.com/Ohi6RQa.png"><img src="https://i.imgur.com/Ohi6RQa.png" /></a></figure>
+			<p id="131aa64c-9d0a-81e0-ad0a-ff7ca5935246" class=""><strong>После ввода пароля SSH и проверочного кода вы
+					сможете войти в систему.</strong></p>
+			<p id="131aa64c-9d0a-812a-8e96-dedf819ced09" class=""><strong>Что будет, если не включить MFA как
+					обязательный для всех пользователей?</strong></p>
+			<p id="131aa64c-9d0a-812a-a1fe-d813a2ddb45d" class="">Можно войти в систему и без проверочного кода, если не
+				озаботиться об включении MFA для всех пользователей.</p>
+			<h3 id="131aa64c-9d0a-81ed-92b3-fb7ba877c1c5" class=""><strong>5.Многофакторная аутентификация при
+					аутентификации на основе ключей</strong></h3>
+			<p id="131aa64c-9d0a-8105-85f8-c1dc45c281f3" class="">Если настроили аутентификацию на основе ключей, то вам
+				не будут предлагать ввести пароль или проверочные коды. Почему?</p>
+			<p id="131aa64c-9d0a-81e1-88b5-cd9023cd5629" class="">Потому что по умолчанию ssh сначала использует
+				аутентификацию на основе открытого ключа, и если ключ найден, то аутентификация выполняется с его
+				помощью. В случае, если ключ не найден, он будет использовать аутентификацию на основе пароля.</p>
+			<p id="131aa64c-9d0a-813d-b91a-f61aa658c219" class="">Можно использовать режим verbose, чтобы проверить это.
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81a2-8a5d-ce1280a363c2" class="code"><code class="language-Plain Text" style=" word-break:break-all">$ ssh -v -i ~/.ssh/id_rsa username@hostname/IPaddress
+debug1: Authentications that can continue: publickey,password,keyboard-interactive
+debug1: Next authentication method: publickey
+debug1: Offering public key: /home/igor/.ssh/testserver ED25519 SHA256:K7aVJIfSsPec9gfgDbzOAnwCSAYJZxqvW/ST6fGHtUM explicit
+debug1: Server accepts key: /home/igor/.ssh/testserver ED25519 SHA256:K7aVJIfSsPec9gfgDbzOAnwCSAYJZxqvW/ST6fGHtUM explicit
+Authenticated to 192.168.127.158 ([192.168.127.158]:22) using &quot;publickey&quot;.
+</code></pre>
+			<p id="131aa64c-9d0a-81ac-a21c-e588ddf19393" class=""><strong>Добавьте следующую строку в конец
+					файла</strong> <code>/etc/ssh/sshd_config:</code></p>
+			<p id="131aa64c-9d0a-81ca-ae34-f00c475cdfa4" class="">
+				<code>AuthenticationMethods publickey,password publickey,keyboard-interactive</code></p>
+			<p id="131aa64c-9d0a-8159-8f8d-c857cb99d552" class=""><strong>Затем
+					откройте</strong> <code>/etc/pam.d/sshd</code> и закомментируйте следующую строку.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81d0-930c-c1d31f400c8a" class="code"><code class="language-Plain Text" style=" word-break:break-all"># PAM configuration for the Secure Shell service
+
+# Standard Un*x authentication.
+#@include common-auth
+</code></pre>
+			<p id="131aa64c-9d0a-818f-8dcf-fc9097463b32" class="">Если не закомментировать «@include common-auth», то
+				это позволит использовать более двух факторов для аутентификации. Сначала будет выполняться
+				аутентификация с использованием ключей, затем пароля и токенов.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81af-a4a7-c3ef0b019df4" class="code"><code class="language-Plain Text" style=" word-break:break-all">debug1: Authentications that can continue: publickey
+debug1: Next authentication method: publickey
+debug1: Offering public key: /home/igor/.ssh/testserver ED25519 SHA256:K7aVJIfSsPec9gfgDbzOAnwCSAYJZxqvW/ST6fGHtUM explicit
+debug1: Server accepts key: /home/igor/.ssh/testserver ED25519 SHA256:K7aVJIfSsPec9gfgDbzOAnwCSAYJZxqvW/ST6fGHtUM explicit
+Authenticated using &quot;publickey&quot; with partial success.
+debug1: Authentications that can continue: password,keyboard-interactive
+debug1: Next authentication method: keyboard-interactive
+(igor@192.168.127.158) Password:
+(igor@192.168.127.158) Verification code:
+Authenticated to 192.168.127.158 ([192.168.127.158]:22) using &quot;keyboard-interactive&quot;
+</code></pre>
+			<p id="131aa64c-9d0a-814d-bbc6-fce3d7ec73ac" class=""><strong>Для проверки подлинности нам нужен только ключ
+					и токен, поэтому отключим аутентификацию с использованием пароля.</strong></p>
+			<p id="131aa64c-9d0a-8145-838d-f242fcbcf69b" class=""><strong>Необходимо перезапустить службу sshd и
+					проверим, работают ли изменения.</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8112-8a56-f8edfd0bb4c6"
+				class="code"><code class="language-Bash">sudo systemctl restart sshd</code></pre>
+			<p id="131aa64c-9d0a-81fb-8bcb-e05a16a19efa" class=""><strong>Если попытаемся подключиться, в качестве
+					первого фактора используется открытый ключ, а в качестве второго - код проверки
+					подлинности.</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8131-a205-e1ae36acfa1b" class="code"><code class="language-Plain Text" style=" word-break:break-all">debug1: Authentications that can continue: publickey
+debug1: Next authentication method: publickey
+debug1: Offering public key: /home/igor/.ssh/testserver ED25519 SHA256:K7aVJIfSsPec9gfgDbzOAnwCSAYJZxqvW/ST6fGHtUM explicit
+debug1: Server accepts key: /home/igor/.ssh/testserver ED25519 SHA256:K7aVJIfSsPec9gfgDbzOAnwCSAYJZxqvW/ST6fGHtUM explicit
+Authenticated using &quot;publickey&quot; with partial success.
+debug1: Authentications that can continue: password,keyboard-interactive
+debug1: Next authentication method: keyboard-interactive
+(igor@192.168.127.158) Verification code:
+Authenticated to 192.168.127.158 ([192.168.127.158]:22) using &quot;keyboard-interactive&quot;
+</code></pre>
+			<h3 id="131aa64c-9d0a-8136-8383-eb9f84a5623c" class=""><strong>6. Шаги восстановления.</strong></h3>
+			<p id="131aa64c-9d0a-81b1-962e-f9d6feea9d0f" class="">Иногда возникает ситуация, когда вы теряете или
+				меняете свое мобильное устройство. В этом случае вам придется переустановить приложение
+				google-authenticator и зарегистрировать секретный ключ, чтобы начать генерировать токены.</p>
+			<p id="131aa64c-9d0a-81df-8cc6-de1e06ffe068" class="">Если вы заблокированы в системе, то вам придется войти
+				непосредственно на сервер, чтобы создать новые секретные ключи для регистрации и использования. Но есть
+				и альтернативный подход, когда вы можете войти в систему по ssh и сгенерировать ключи вновь.</p>
+			<p id="131aa64c-9d0a-819d-8c9e-ffee455767d4" class="">Помните коды, которые генерируются на начальном этапе?
+				Вы можете использовать аварийный скретч-код в качестве маркера для входа в систему. Каждый скретч-код
+				можно использовать только один раз. Сохраните его в надежном месте, чтобы он мог быть использован в
+				нужный момент.</p>
+			<p id="131aa64c-9d0a-811f-8d03-fad208ba86a2" class=""><strong>Коды сохраняются в файле
+					~/.google_authenticator.</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8120-a4cb-ca1ad71c59d5"
+				class="code"><code class="language-Bash">cat ~/.google_authenticator</code></pre>
+			<p id="131aa64c-9d0a-8182-b2f9-c9ecb369d597" class="">Вывод: в этой практической работе научились
+				настраивать многофакторную аутентификацию для SSH в Linux.</p>
+			<p id="131aa64c-9d0a-814c-9997-cbc470f8ae6d" class="">
+			</p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

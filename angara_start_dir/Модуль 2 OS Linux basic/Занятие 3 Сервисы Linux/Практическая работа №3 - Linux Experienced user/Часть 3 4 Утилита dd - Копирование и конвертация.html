@@ -1,0 +1,2091 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Часть 3.4 Утилита dd - Копирование и конвертация данных между источником и целью</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-815f-a761-ce75ef40926f" class="page sans">
+		<header><img class="page-cover-image"
+				src="Часть 3 4 Утилита dd - Копирование и конвертация/kanv.png"
+				style="object-position:center 100%" />
+			<div class="page-header-icon page-header-icon-with-cover"><img class="icon"
+					src="https://www.notion.so/icons/cards_red.svg" /></div>
+			<h1 class="page-title">Часть 3.4 Утилита <code><strong>dd</strong></code><strong> - </strong>Копирование и
+				конвертация данных между источником и целью</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<p id="131aa64c-9d0a-8180-8322-db9c300b4193" class="">Утилита <code><strong>dd</strong></code> в Linux
+				предназначена для копирования и конвертации данных. Она широко используется для работы с дисками и
+				файловыми системами. Я описал максимально подробное утилиту <code><strong>dd</strong></code> с 10
+				практическими работами, целями, задачами, решениями и описанием вывода для каждой из них. Эти
+				практические работы могут быть полезными в реальной инфраструктуре для управления данными и дисками.</p>
+			<h3 id="131aa64c-9d0a-813f-b0a0-eaebfa155af0" class=""><strong>Утилита
+				</strong><code><strong>dd</strong></code></h3>
+			<h3 id="131aa64c-9d0a-8150-9f29-db1e9ce0f6d9" class="">Цель: копирование и конвертация данных между
+				источником и целью.</h3>
+			<p id="131aa64c-9d0a-8132-a592-d93a5d05a32f" class=""><mark class="highlight-red"><strong>Для выполнении
+						практики нужен стенд </strong></mark><mark class="highlight-red"><a
+						href="https://www.notion.so/349a8b49aecd444083190e8891d45093?pvs=21">“Настройка сети в Linux (на
+						примере Ubuntu)”</a></mark></p>
+			<h3 id="131aa64c-9d0a-81f9-af50-d26cb90fd37e" class="">Задачи:</h3>
+			<ol type="1" id="131aa64c-9d0a-81ad-890a-e35ae9d7e665" class="numbered-list" start="1">
+				<li><mark class="highlight-default"> Копирование
+							данных с одного диска на другой.</a></mark></li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-813d-b704-fd03e5e2a9a2" class="numbered-list" start="2">
+				<li><mark class="highlight-default"> Создание
+							образа диска.</a></mark></li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-818e-b340-dc5b30ba2266" class="numbered-list" start="3">
+				<li><mark class="highlight-default"> Клонирование
+							USB-флешки.</a></mark></li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-814c-a741-e52f36eef3f2" class="numbered-list" start="4">
+				<li><mark class="highlight-default"> Запись
+							образа на диск или флешку.</a></mark></li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-815f-b501-ea06069d3d0c" class="numbered-list" start="5">
+				<li><mark class="highlight-default"> Удаление
+							данных с диска.</a></mark></li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-819c-8b05-ddeb2b6fc3aa" class="numbered-list" start="6">
+				<li><mark class="highlight-default"> Изменение
+							размера образа.</a></mark></li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-810c-b4b0-f68577f42b48" class="numbered-list" start="7">
+				<li><mark class="highlight-default"> Преобразование
+							текстового файла в бинарный формат и наоборот.</a></mark></li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-812b-a7f1-c73de7b4fcc0" class="numbered-list" start="8">
+				<li><mark class="highlight-default"> Чтение
+							и запись данных в определенном формате.</a></mark></li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8137-8e7d-ea476c05a4c2" class="numbered-list" start="9">
+				<li><mark class="highlight-default"> Создание
+							случайных данных.</a></mark></li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ca-9043-dc22c9b02dc2" class="numbered-list" start="10">
+				<li><mark class="highlight-default"> Измерение
+							производительности дисков.</a></mark></li>
+			</ol>
+			<details open="">
+				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Вопросы для защиты, в отчёт
+					не добавляются. (самопроверка)</summary>
+				<div class="indented">
+					<p id="131aa64c-9d0a-817f-9f7a-d9e19ae90525" class=""><strong>Копирование данных с одного диска на
+							другой:</strong></p>
+					<ol type="1" id="131aa64c-9d0a-81e9-a979-cab849d88c6d" class="numbered-list" start="1">
+						<li>Какие методы копирования данных с одного диска на другой вы знаете?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81f0-b222-e8a7b40088f9" class="numbered-list" start="2">
+						<li>Какой командой можно скопировать файлы с помощью командной строки в Unix/Linux?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-813d-9bf8-e8ef55cd36ae" class="numbered-list" start="3">
+						<li>Какие факторы следует учитывать при выборе метода копирования данных между дисками?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81e8-9367-e6ce5915b452" class="numbered-list" start="4">
+						<li>Какой программой можно копировать данные между разными разделами на Windows?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81e7-a3dc-cfadc14f4087" class="numbered-list" start="5">
+						<li>Какие меры предосторожности следует принимать перед началом процесса копирования данных?
+						</li>
+					</ol>
+					<p id="131aa64c-9d0a-81ab-b243-c6923ef87b16" class=""><strong>Создание образа диска:</strong></p>
+					<ol type="1" id="131aa64c-9d0a-8107-b0a8-ee0e22baeb87" class="numbered-list" start="6">
+						<li>Что такое образ диска, и для чего он используется?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8103-b335-d416fbc4084e" class="numbered-list" start="7">
+						<li>Какие программы позволяют создавать образы дисков?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8103-ae6e-de930888a381" class="numbered-list" start="8">
+						<li>Какой формат файла часто используется для хранения образов дисков?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81ae-a5ef-c4c419d4c036" class="numbered-list" start="9">
+						<li>Какие данные включаются в образ диска?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-812b-abb4-cd653688e445" class="numbered-list" start="10">
+						<li>Как можно проверить целостность и работоспособность созданного образа диска?</li>
+					</ol>
+					<p id="131aa64c-9d0a-8119-99c2-c3cb584fd4ba" class=""><strong>Клонирование USB-флешки:</strong></p>
+					<ol type="1" id="131aa64c-9d0a-8161-aa9f-f03e8c7209d7" class="numbered-list" start="11">
+						<li>Как можно клонировать USB-флешку?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81a5-abd2-c45e41d18290" class="numbered-list" start="12">
+						<li>Какие программы предоставляют функциональность клонирования USB-флешек?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8119-87b8-d967f02f3f6d" class="numbered-list" start="13">
+						<li>Как можно убедиться, что клонирование прошло успешно?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81a1-bab0-f10aafe7b70a" class="numbered-list" start="14">
+						<li>Какие сценарии использования могут потребовать клонирования USB-флешки?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8123-9108-c6791f8d360a" class="numbered-list" start="15">
+						<li>Какие проблемы могут возникнуть при клонировании USB-флешки, и как их решить?</li>
+					</ol>
+					<p id="131aa64c-9d0a-81db-a54d-c6eb0d4472b3" class=""><strong>Запись образа на диск или
+							флешку:</strong></p>
+					<ol type="1" id="131aa64c-9d0a-81ba-8876-e46e496b87b5" class="numbered-list" start="16">
+						<li>Какой программой можно записать образ диска на DVD?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8123-b9a1-ccfaa7f9af5c" class="numbered-list" start="17">
+						<li>Какой процесс записи образа на USB-флешку в Linux?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81d2-b328-cfb51e841681" class="numbered-list" start="18">
+						<li>Какие параметры следует учесть при записи образа диска?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-811e-9ca9-cd4da4da2d49" class="numbered-list" start="19">
+						<li>Как можно убедиться, что запись образа прошла успешно и диск является загрузочным?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8137-9e71-f20c2ec604c9" class="numbered-list" start="20">
+						<li>Какие альтернативные методы записи образа можно использовать?</li>
+					</ol>
+					<p id="131aa64c-9d0a-817d-a132-ce762df2e86c" class=""><strong>Удаление данных с диска:</strong></p>
+					<ol type="1" id="131aa64c-9d0a-81fc-8c2e-cea5954c1a3e" class="numbered-list" start="21">
+						<li>Какие методы безопасного удаления данных с диска существуют?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8139-a5fb-f111745401ca" class="numbered-list" start="22">
+						<li>Что такое &quot;перезапись&quot; данных на диске, и как это может помочь в удалении данных?
+						</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8108-be82-e36fb04c2528" class="numbered-list" start="23">
+						<li>Какой инструмент можно использовать для безвозвратного удаления файлов на Linux?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-819f-9845-eb61313e90d2" class="numbered-list" start="24">
+						<li>Как можно проверить, что данные были успешно удалены и не могут быть восстановлены?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81a0-ba19-cb4df733080d" class="numbered-list" start="25">
+						<li>Почему важно правильно удалять конфиденциальные данные с диска?</li>
+					</ol>
+					<p id="131aa64c-9d0a-81d8-b956-c5c7babbc8b0" class=""><strong>Изменение размера образа:</strong></p>
+					<ol type="1" id="131aa64c-9d0a-81f8-aaf3-c0d8f9c27e69" class="numbered-list" start="26">
+						<li>Почему может потребоваться изменение размера образа диска?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8186-a610-dad606508998" class="numbered-list" start="27">
+						<li>Какие инструменты позволяют изменять размер образа диска?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8107-a8bc-f44eb626805a" class="numbered-list" start="28">
+						<li>Какой процесс изменения размера образа диска в VMware?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81a7-bb64-ec7d728a03cf" class="numbered-list" start="29">
+						<li>Как можно убедиться, что изменение размера образа прошло успешно без потери данных?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81bc-9cd5-d9c2120a131f" class="numbered-list" start="30">
+						<li>Какие рекомендации можно дать при изменении размера образа диска?</li>
+					</ol>
+					<p id="131aa64c-9d0a-8160-8e1f-def64878a78b" class=""><strong>Преобразование текстового файла в
+							бинарный формат и наоборот:</strong></p>
+					<ol type="1" id="131aa64c-9d0a-8143-bbba-c906d672b193" class="numbered-list" start="31">
+						<li>Чем отличается текстовый файл от бинарного?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8199-8134-c876de63c4a1" class="numbered-list" start="32">
+						<li>Какие программы могут использоваться для преобразования текстового файла в бинарный формат и
+							наоборот?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8134-89d0-e0aa7361aaeb" class="numbered-list" start="33">
+						<li>Какие кодировки часто используются при работе с текстовыми файлами?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81be-9420-d82e04b5d8b8" class="numbered-list" start="34">
+						<li>Как можно преобразовать изображение в бинарный формат и обратно?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-812b-96a6-c5eb895940cb" class="numbered-list" start="35">
+						<li>В каких случаях может потребоваться преобразование данных между текстовым и бинарным
+							форматами?</li>
+					</ol>
+					<p id="131aa64c-9d0a-812e-b452-e931830e6565" class=""><strong>Чтение и запись данных в определенном
+							формате:</strong></p>
+					<ol type="1" id="131aa64c-9d0a-8189-997b-ca5b3b261baa" class="numbered-list" start="36">
+						<li>Что такое формат данных, и почему он важен при чтении и записи данных?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81d9-9fa1-e3816d7f9212" class="numbered-list" start="37">
+						<li>Какой инструмент можно использовать для чтения и записи данных в формате CSV?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81f8-b2b6-e5d477bf7a24" class="numbered-list" start="38">
+						<li>Как можно организовать запись данных в формате JSON с помощью Python?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81b5-a3e6-fa135ac04d0e" class="numbered-list" start="39">
+						<li>Какие преимущества и недостатки формата XML при работе с данными?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81d2-a164-c406e113d68d" class="numbered-list" start="40">
+						<li>Какие средства программирования облегчают работу с форматами данных, такими как XML и JSON?
+						</li>
+					</ol>
+					<p id="131aa64c-9d0a-8186-9baa-e183c12dc1d2" class=""><strong>Создание случайных данных:</strong>
+					</p>
+					<ol type="1" id="131aa64c-9d0a-8124-9603-c4ec03596274" class="numbered-list" start="41">
+						<li>Зачем может понадобиться создание случайных данных?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81c9-afcc-ee8bc5132cde" class="numbered-list" start="42">
+						<li>Как можно генерировать случайные числа в определенном диапазоне?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81f9-9ae6-cfc0d78065f6" class="numbered-list" start="43">
+						<li>Как можно создавать случайные строки символов?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8184-b948-d1fd09e7b760" class="numbered-list" start="44">
+						<li>Какие примеры использования случайных данных вы можете привести из реального мира?</li>
+					</ol>
+					<p id="131aa64c-9d0a-8155-93a8-d4c32f0f9935" class=""><strong>Измерение производительности
+							дисков:</strong></p>
+					<ol type="1" id="131aa64c-9d0a-81e3-8d72-ce5030d0ced7" class="numbered-list" start="45">
+						<li>Какие параметры используются для измерения производительности диска?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8117-a725-fd52ec6058ac" class="numbered-list" start="46">
+						<li>Какие инструменты позволяют проводить бенчмаркинг дисков?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81d2-85bb-c65c2bd10e2a" class="numbered-list" start="47">
+						<li>Как можно оценить скорость чтения и записи данных на жестком диске?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8199-b579-c9c45eec1514" class="numbered-list" start="48">
+						<li>Какие факторы могут влиять на производительность диска?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81b3-8bd8-d9a19e6451e6" class="numbered-list" start="49">
+						<li>Как можно улучшить производительность диска на практике?</li>
+					</ol>
+				</div>
+			</details>
+			<h3 id="131aa64c-9d0a-8140-945d-c548a41a2c43" class=""><strong>Практическая работа 3.4.1: Копирование данных
+					с одного диска на другой</strong></h3>
+			<p id="131aa64c-9d0a-81f4-b23d-e4699966e6f2" class=""><strong>Цель:</strong> Скопировать данные с одного
+				диска на другой.</p>
+			<p id="131aa64c-9d0a-8112-8064-f5949efd729b" class=""><strong>Задачи:</strong></p>
+			<ol type="1" id="131aa64c-9d0a-81f1-b5a0-e59c3ab0f4aa" class="numbered-list" start="1">
+				<li>Используйте <code><strong>dd</strong></code> для копирования данных с исходного диска
+					<code><strong>/dev/sda</strong></code> на целевой диск <code><strong>/dev/sdb</strong></code>.</li>
+			</ol>
+			<p id="131aa64c-9d0a-81e3-9f78-f9aff6d8dede" class=""><strong>Решение:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8146-a147-efbf868aa971"
+				class="code"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">sudo dd if=/dev/sda of=/dev/sdb bs=4M status=progress</code></pre>
+			<p id="131aa64c-9d0a-816b-895e-c7cb2b12191a" class=""><strong>Вывод:</strong><br /><br /></p>
+			<figure id="131aa64c-9d0a-81dc-ae0c-c5b0fbd8d4b4" class="image"><a
+					href=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled.png"><img
+						style="width:684px"
+						src=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8167-a141-c6b6e2342d2e" class="">
+			</p>
+			<ul id="131aa64c-9d0a-8145-add8-f53f3e585fcb" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>sudo</strong></code>: это ключевое слово, которое
+					предоставляет привилегии суперпользователя для выполнения следующей команды. Оно используется, так
+					как операции с дисками часто требуют административных прав.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8190-bf6b-fb5f30efbe76" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>dd</strong></code>: утилита
+					<code><strong>dd</strong></code>, как уже было упомянуто, используется для копирования и конвертации
+					данных.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c4-b86e-e170b48176da" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>if=/dev/sda</strong></code>: это опция
+					<code><strong>if</strong></code> (input file), которая указывает исходное устройство или файл,
+					откуда будут считываться данные. В данном случае <code><strong>/dev/sda</strong></code> представляет
+					исходный диск.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8157-9990-e66c04f9e5a9" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>of=/dev/sdb</strong></code>: это опция
+					<code><strong>of</strong></code> (output file), которая указывает целевое устройство или файл, куда
+					будут записываться скопированные данные. Здесь <code><strong>/dev/sdb</strong></code> представляет
+					целевой диск.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c5-8f12-dc2f9cc79a02" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>bs=4M</strong></code>: это опция
+					<code><strong>bs</strong></code> (block size), которая задает размер блока данных, который будет
+					считываться и записываться за одну операцию. В данном случае размер блока установлен на 4 мегабайта
+					(4M). Изменение этого параметра может влиять на скорость копирования и потребление ресурсов.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81b1-b78e-df54c16ef129" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>status=progress</strong></code>: это опция
+					<code><strong>status</strong></code>, которая добавляет вывод информации о текущем прогрессе
+					выполнения операции. Она показывает текущее состояние операции, сколько данных уже было скопировано
+					и скорость копирования.</li>
+			</ul>
+			<p id="131aa64c-9d0a-8124-9f07-d7fe7df2a1f1" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-8102-96fe-e067ea5264b7" class=""><strong>Практическая работа 3.4.2: Создание образа
+					диска</strong></h3>
+			<p id="131aa64c-9d0a-8197-b6f5-ce481bf4b9a6" class=""><strong>Цель:</strong> Создать образ диска для
+				резервного копирования.</p>
+			<p id="131aa64c-9d0a-813b-b574-ced53bca5954" class=""><strong>Задачи:</strong></p>
+			<ol type="1" id="131aa64c-9d0a-814d-89b0-cd5d2d994e5a" class="numbered-list" start="1">
+				<li>Используйте <code><strong>dd</strong></code> для создания образа диска
+					<code><strong>/dev/sda</strong></code> и сохраните его в файле
+					<code><strong>disk_image.img</strong></code>.</li>
+			</ol>
+			<p id="131aa64c-9d0a-8125-9327-d94c57c49c51" class=""><strong>Решение:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8177-8704-f9722eaf3bc3"
+				class="code"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">sudo dd if=/dev/sda of=disk_image.img bs=4M status=progress</code></pre>
+			<p id="131aa64c-9d0a-8181-a563-f8b4bcc33d52" class=""><strong>Вывод:</strong></p>
+			<figure id="131aa64c-9d0a-8195-a67c-eb445e9cb735" class="image"><a
+					href=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%201.png"><img
+						style="width:785px"
+						src=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%201.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8144-b4a3-d417abc062d7" class="">
+			</p>
+			<ul id="131aa64c-9d0a-8143-b81d-dd09187a8da6" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>sudo</strong></code>: это ключевое слово, которое
+					предоставляет привилегии суперпользователя для выполнения команды. Поскольку операции с дисками
+					часто требуют прав администратора, <code><strong>sudo</strong></code> используется для выполнения
+					этой команды с административными правами.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81ff-9a5e-feb258e7f2ad" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>dd</strong></code>: утилита
+					<code><strong>dd</strong></code> используется для копирования и конвертации данных.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c2-9352-dcfd2dededb9" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>if=/dev/sda</strong></code>: опция
+					<code><strong>if</strong></code> (input file) указывает исходное устройство или файл, откуда будут
+					считываться данные. В данном случае <code><strong>/dev/sda</strong></code> представляет собой
+					исходный диск, с которого будут скопированы данные.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8120-b055-eec69a91a580" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>of=disk_image.img</strong></code>: опция
+					<code><strong>of</strong></code> (output file) указывает целевой файл, в который будут записаны
+					скопированные данные. В данном случае, файл <code><strong>disk_image.img</strong></code> будет
+					создан в текущем рабочем каталоге и будет содержать образ диска.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-818e-9d6d-f19ba6145502" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>bs=4M</strong></code>: опция
+					<code><strong>bs</strong></code> (block size) задает размер блока данных, который будет считываться
+					и записываться за одну операцию. Здесь размер блока установлен на 4 мегабайта (4M). Изменение этого
+					параметра может повлиять на скорость копирования и использование ресурсов.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-819b-9563-c2eded908e6c" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>status=progress</strong></code>: опция
+					<code><strong>status</strong></code> добавляет вывод информации о текущем прогрессе выполнения
+					операции. Это позволяет видеть текущее состояние операции, сколько данных уже скопировано и скорость
+					копирования.</li>
+			</ul>
+			<p id="131aa64c-9d0a-81b0-81a4-ced424734284" class="">После выполнения этой команды,
+				<code><strong>dd</strong></code> начнет копирование данных с диска
+				<code><strong>/dev/sda</strong></code> и сохранит их в файл
+				<code><strong>disk_image.img</strong></code>. В процессе выполнения операции будет выводиться информация
+				о текущем прогрессе, и по завершении операции вы получите информацию о скорости и времени выполнения.
+			</p>
+			<p id="131aa64c-9d0a-814e-8be4-e6f4376a5df2" class="">Образ диска будет сохранен в файле
+				<code><strong>disk_image.img</strong></code> и может быть использован, например, для резервного
+				копирования или восстановления данных с этого диска в будущем.</p>
+			<h3 id="131aa64c-9d0a-81f7-bc68-f2ad56086bbc" class=""><strong>Практическая работа 3.4.3: Клонирование
+					USB-флешки</strong></h3>
+			<p id="131aa64c-9d0a-819b-99a4-ffc099634567" class=""><strong>Цель:</strong> Клонировать содержимое
+				USB-флешки.</p>
+			<p id="131aa64c-9d0a-8171-8f13-e4ce3f1b4d04" class=""><strong>Задачи:</strong></p>
+			<ol type="1" id="131aa64c-9d0a-8160-9f57-f8a520b6d008" class="numbered-list" start="1">
+				<li>Используйте <code><strong>dd</strong></code> для клонирования содержимого USB-флешки
+					<code><strong>/dev/sdc</strong></code> на другую флешку <code><strong>/dev/sdd</strong></code>.</li>
+			</ol>
+			<p id="131aa64c-9d0a-8154-b1eb-d1e4ca7400e5" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-8111-860f-f3c46b806cd2" class="">Для начала разберёмся как работать с флешь
+				накопителем:</h2>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8111-9b4b-d3cd3e2ea861"
+				class="code"><code class="language-JavaScript">sudo lsblk</code></pre>
+			<p id="131aa64c-9d0a-8120-9400-d53e0df645c7" class="">Команда <code><strong>sudo lsblk</strong></code>
+				используется для вывода информации о блочных устройствах (включая диски и разделы) в системе. Если вы
+				выполнили эту команду, она должна вывести список блочных устройств, их размеры, монтируемые точки и
+				другую информацию.</p>
+			<p id="131aa64c-9d0a-8130-a29c-f52f2197d31c" class=""><strong>Пример вывода команды
+				</strong><code><strong>sudo lsblk</strong></code><strong> может выглядеть примерно так:</strong></p>
+			<figure id="131aa64c-9d0a-81d8-9795-e8745cf60010" class="image"><a
+					href=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%202.png"><img
+						style="width:732px"
+						src=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%202.png" /></a>
+			</figure>
+			<ul id="131aa64c-9d0a-819f-b9bf-f7b3ee6da164" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>NAME</strong></code> - это имя устройства.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8107-baa2-ce433c06613d" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>MAJ:MIN</strong></code> - это мажорный и минорный номера
+					устройства.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81ba-9df2-ebaa6985dfb2" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>RM</strong></code> - это флаг, указывающий, является ли
+					устройство съемным (1 - да, 0 - нет).</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81f2-bd46-d6a209923f20" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>SIZE</strong></code> - размер устройства.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-817a-bb11-cbf2b2b9e5fa" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>RO</strong></code> - флаг, указывающий, доступно ли
+					устройство только для чтения (1 - да, 0 - нет).</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8152-be00-fc6099435684" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>TYPE</strong></code> - тип устройства (disk - диск, part
+					- раздел).</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81b6-ba38-fafe48fda4fd" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>MOUNTPOINT</strong></code> - точка монтирования
+					устройства (если оно смонтировано).</li>
+			</ul>
+			<p id="131aa64c-9d0a-8170-9699-c04ee4363262" class="">В выводе вы можете видеть информацию о дисках (sda,
+				sdb), разделах (sda1, sda2, sda3, и так далее) и точках монтирования. Эта информация полезна для анализа
+				состояния дисков и их использования в системе.</p>
+			<p id="131aa64c-9d0a-8144-96c0-d7f3335a82de" class="">Команда <code><strong>df -h</strong></code>
+				используется для вывода информации о доступном месте на файловых системах в системе. Опция
+				<code><strong>-h</strong></code> делает вывод более читаемым для человека, представляя размеры в более
+				удобных единицах (например, гигабайтах и мегабайтах, а не в блоках).</p>
+			<figure id="131aa64c-9d0a-81ed-a866-c9f8402f13e6" class="image"><a
+					href=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%203.png"><img
+						style="width:1180px"
+						src=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%203.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81c6-bc19-e4ef7f7810b1" class="">Команда
+				<code><strong>sudo mount /dev/sdb1 /home/litvinigor/usb</strong></code> используется для монтирования
+				(подключения) файловой системы, находящейся на устройстве <code><strong>/dev/sdb1</strong></code>, в
+				каталог <code><strong>/home/litvinigor/usb</strong></code>.</p>
+			<p id="131aa64c-9d0a-818d-a945-d9c26b4727ca" class=""><strong>В данной команде:</strong></p>
+			<ul id="131aa64c-9d0a-8195-87cd-e95459839709" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>sudo</strong></code>: ключевое слово
+					<code><strong>sudo</strong></code> используется для выполнения команды с правами суперпользователя
+					(администратора), так как монтирование файловых систем обычно требует привилегий администратора.
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-815f-8940-ddbd156e6ac3" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>mount</strong></code>: это сама команда для монтирования
+					файловых систем.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8143-9bd1-f0548dd41666" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>/dev/sdb1</strong></code>: это исходное устройство,
+					которое вы хотите монтировать. В данном случае, <code><strong>/dev/sdb1</strong></code> представляет
+					собой раздел или устройство, которое будет доступно в каталоге
+					<code><strong>/home/litvinigor/usb</strong></code>.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8178-b51a-d596928c3d63" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>/home/litvinigor/usb</strong></code>: это место, куда
+					будет смонтирована файловая система. Файловая система, находящаяся на устройстве
+					<code><strong>/dev/sdb1</strong></code>, будет доступна по этому пути.</li>
+			</ul>
+			<p id="131aa64c-9d0a-81b4-93e1-e237bd6f0756" class="">После выполнения этой команды, файловая система с
+				раздела <code><strong>/dev/sdb1</strong></code> будет смонтирована в каталоге
+				<code><strong>/home/litvinigor/usb</strong></code>, и вы сможете обращаться к данным на этой файловой
+				системе через этот каталог.</p>
+			<p id="131aa64c-9d0a-8114-9cdc-da14d0892591" class=""><strong>Команда</strong>
+				<code><strong>sudo ls /home/litvinigor/usb/</strong></code> используется для отображения списка файлов и
+				каталогов в директории <code><strong>/home/litvinigor/usb/</strong></code>, которая, как указали в
+				предыдущей команде, является точкой монтирования для файловой системы, подключенной с устройства
+				<code><strong>/dev/sdb1</strong></code>.</p>
+			<figure id="131aa64c-9d0a-811a-9619-d6f2e1f2f0c3" class="image"><a
+					href=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%204.png"><img
+						style="width:730px"
+						src=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%204.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8111-b6ab-f9831edda469" class=""><strong>Команда</strong>
+				<code><strong>sudo umount /home/litvinigor/usb</strong></code> используется для размонтирования
+				(отключения) файловой системы, которая была ранее смонтирована в каталоге
+				<code><strong>/home/litvinigor/usb</strong></code>. Это важно сделать перед тем, как извлечь устройство
+				или флешку, чтобы избежать потери данных или повреждения файловой системы.</p>
+			<p id="131aa64c-9d0a-81de-b468-e1d5f76e9d21" class="">После выполнения этой команды, файловая система будет
+				отключена от указанного каталога, и вы сможете безопасно извлечь устройство или флешку из системы.</p>
+			<p id="131aa64c-9d0a-814c-99a2-cb6c506204c4" class="">Убедитесь, что у вас нет открытых файловых
+				дескрипторов или процессов, которые могли бы использовать эту файловую систему, прежде чем выполнять
+				команду <code><strong>umount</strong></code>, чтобы избежать потери данных или повреждения файлов.</p>
+			<p id="131aa64c-9d0a-81e6-8e77-d902d3518ccc" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-819a-a463-ef1eca3c9291" class="">Возвращаемся непосредственно к практической работе
+			</h3>
+			<p id="131aa64c-9d0a-81c5-a19e-fbdf908461fc" class="">Подготовим наши устройства для работы:</p>
+			<figure id="131aa64c-9d0a-8185-aea4-e7d782a29271" class="image"><a
+					href=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%205.png"><img
+						style="width:969px"
+						src=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%205.png" /></a>
+			</figure>
+			<figure id="131aa64c-9d0a-8151-bfac-c14f2d33ff63" class="image"><a
+					href=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%206.png"><img
+						style="width:1077px"
+						src=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%206.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81ac-95d7-e86f0b681e8c" class=""><strong>Решение:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81d8-85d7-db16d2a03733"
+				class="code"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">sudo dd if=/dev/sdc of=/dev/sdd bs=4M status=progress</code></pre>
+			<p id="131aa64c-9d0a-8112-9165-ce59abb8b468" class=""><strong>Команда</strong>
+				<code><strong>sudo dd if=/dev/sdb1 of=/dev/sdc1 bs=4M status=progress</strong></code> используется для
+				клонирования или копирования содержимого одного блочного устройства
+				(<code><strong>/dev/sdb1</strong></code>) на другое блочное устройство
+				(<code><strong>/dev/sdc1</strong></code>) с использованием утилиты <code><strong>dd</strong></code> в
+				Linux. <strong>Давайте разберем каждую часть этой команды:</strong></p>
+			<ul id="131aa64c-9d0a-8127-a5cb-efee4ebc8485" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>sudo</strong></code>: это ключевое слово, которое
+					используется для выполнения следующей команды с привилегиями суперпользователя, так как операции с
+					блочными устройствами обычно требуют административных прав.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81e5-9c8f-fce85d68172b" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>dd</strong></code>: утилита
+					<code><strong>dd</strong></code> используется для копирования и конвертации данных.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81f8-9c68-c3bc4f81d0dd" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>if=/dev/sdb1</strong></code>: это опция
+					<code><strong>if</strong></code> (input file), которая указывает исходное блочное устройство, с
+					которого будут считываться данные. В данном случае <code><strong>/dev/sdb1</strong></code>
+					представляет исходное устройство.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8186-9819-ff72098af40a" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>of=/dev/sdc1</strong></code>: это опция
+					<code><strong>of</strong></code> (output file), которая указывает целевое блочное устройство, куда
+					будут записываться скопированные данные. Здесь <code><strong>/dev/sdc1</strong></code> представляет
+					целевое устройство.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81d7-a806-d52d17f0b385" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>bs=4M</strong></code>: это опция
+					<code><strong>bs</strong></code> (block size), которая задает размер блока данных, который будет
+					считываться и записываться за одну операцию. В данном случае размер блока установлен на 4 мегабайта
+					(4M). Изменение этого параметра может влиять на скорость копирования и потребление ресурсов.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8109-aba5-f6845bb7f2d9" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>status=progress</strong></code>: это опция
+					<code><strong>status</strong></code>, которая добавляет вывод информации о текущем прогрессе
+					выполнения операции. Она показывает текущее состояние операции, сколько данных уже было скопировано
+					и скорость копирования.</li>
+			</ul>
+			<figure id="131aa64c-9d0a-81e6-afcd-ef2ed72e3a92" class="image"><a
+					href=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%207.png"><img
+						style="width:701px"
+						src=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%207.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8142-ac69-ef634b0897ce" class=""><strong>После выполнения этой команды</strong>,
+				<code><strong>dd</strong></code> начнет копирование данных с блочного устройства
+				<code><strong>/dev/sdb1</strong></code> на блочное устройство <code><strong>/dev/sdc1</strong></code>. В
+				выводе команды будет отображаться текущий прогресс операции, и по завершении копирования вы увидите
+				информацию о скорости и времени выполнения.</p>
+			<p id="131aa64c-9d0a-8177-84d9-c613fa6495df" class="">Пожалуйста, будьте очень осторожны при использовании
+				<code><strong>dd</strong></code> для подобных операций, так как неправильное использование этой утилиты
+				может привести к потере данных. Убедитесь, что вы правильно выбрали исходное и целевое блочные
+				устройства перед выполнением подобных команд.</p>
+			<p id="131aa64c-9d0a-81a9-af5b-d82bdee43839" class=""><strong>Вывод:</strong></p>
+			<figure id="131aa64c-9d0a-815e-8b66-f073c070a6c9" class="image"><a
+					href=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%208.png"><img
+						style="width:1001px"
+						src=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%208.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81f3-8dd8-da03064c8d33" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-8117-bffd-f9cc2e871bb9" class=""><strong>Практическая работа 4: Запись образа на диск
+					или флешку</strong></h3>
+			<p id="131aa64c-9d0a-81aa-aaf9-faf672f99c35" class=""><strong>Цель:</strong> Записать ранее созданный образ
+				диска на новый диск или флешку.</p>
+			<p id="131aa64c-9d0a-813a-bc63-e206a33abfdc" class=""><strong>Задачи:</strong></p>
+			<ol type="1" id="131aa64c-9d0a-81f9-94cd-d97458ce2648" class="numbered-list" start="1">
+				<li>Используйте <code><strong>dd</strong></code> для записи образа диска
+					<code><strong>disk_image.img</strong></code> на новый диск <code><strong>/dev/sdс</strong></code>.
+				</li>
+			</ol>
+			<p id="131aa64c-9d0a-81bf-9da6-dcddc1a5310d" class=""><strong>Решение:</strong></p>
+			<h3 id="131aa64c-9d0a-818a-8853-f4a6e6353c96" class=""><strong>Первая Ubuntu:</strong></h3>
+			<figure id="131aa64c-9d0a-81d9-944f-df8677fdd67d" class="image"><a
+					href=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%209.png"><img
+						style="width:991px"
+						src=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%209.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81b3-9409-d94794905813" class="">
+			</p>
+			<p id="131aa64c-9d0a-810f-a4f9-e688534308b2" class=""><strong>Мы делаем дамп или копию/образ раздела sda3,
+					который зашифрован при установке.</strong></p>
+			<figure id="131aa64c-9d0a-812a-99e7-dad9b7d62375" class="image"><a
+					href=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%2010.png"><img
+						style="width:752px"
+						src=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%2010.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8113-a69d-fa464f907995" class="">
+			</p>
+			<figure id="131aa64c-9d0a-81eb-8f25-f425193b38a8" class="image"><a
+					href=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%2011.png"><img
+						style="width:1044px"
+						src=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%2011.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8168-8129-f89347cac509" class="">
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81b8-b01b-f8115c57ef2a" class="code"><code class="language-JavaScript">sudo dd if=/dev/sda3 of=/home/litvinigor/data/sda3.img bs=4M status=progress
+20325597184 bytes (20 GB, 19 GiB) copied, 139 s, 146 MB/s
+4863+1 records in
+4863+1 records out
+20397948928 bytes (20 GB, 19 GiB) copied, 139.502 s, 146 MB/s</code></pre>
+			<p id="131aa64c-9d0a-813c-802b-c8bbc51d1252" class="">Команда
+				<code><strong>sudo dd if=/dev/sda3 of=/home/litvinigor/data/sda3.img bs=4M status=progress</strong></code>
+				создает образ раздела <code><strong>/dev/sda3</strong></code> и сохраняет его в файл
+				<code><strong>/home/litvinigor/data/sda3.img</strong></code>. В данном случае, образ будет создан с
+				блочным размером 4 мегабайта и будет отображать прогресс операции.</p>
+			<p id="131aa64c-9d0a-8114-9982-f825d8c141f6" class="">По завершении этой команды, вы получите файл
+				<code><strong>sda3.img</strong></code>, который содержит точную копию содержимого раздела
+				<code><strong>/dev/sda3</strong></code>. Вы сможете использовать этот образ для резервного копирования
+				данных или для восстановления раздела, если это будет необходимо.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81b5-ae4f-f27aca7d27e8" class="code"><code class="language-JavaScript">sudo dd if=/home/litvinigor/data/sda3.img of=/dev/sdc bs=4M status=progress
+20396900352 bytes (20 GB, 19 GiB) copied, 1405 s, 14.5 MB/s
+4863+1 records in
+4863+1 records out
+20397948928 bytes (20 GB, 19 GiB) copied, 1460.66 s, 14.0 MB/s</code></pre>
+			<p id="131aa64c-9d0a-8195-b31d-c28470009093" class="">Команда
+				<code><strong>sudo dd if=/home/litvinigor/data/sda3.img of=/dev/sdc bs=4M status=progress</strong></code>
+				выполняет обратную операцию и записывает содержимое образа раздела
+				<code><strong>/home/litvinigor/data/sda3.img</strong></code> на устройство
+				<code><strong>/dev/sdc</strong></code>. Это позволит восстановить содержимое раздела
+				<code><strong>/dev/sda3</strong></code> на устройстве <code><strong>/dev/sdc</strong></code>.</p>
+			<p id="131aa64c-9d0a-81cf-9c06-cf42f6a8539a" class="">При выполнении этой команды образ будет записан на
+				выбранное устройство блочными порциями размером 4 мегабайта, и вы увидите прогресс операции. После
+				завершения команды, данные из образа будут восстановлены на устройство
+				<code><strong>/dev/sdc</strong></code>. Будьте осторожны, так как это перезапишет данные на
+				<code><strong>/dev/sdc</strong></code>, и все существующие данные на этом устройстве будут утеряны.
+				Убедитесь, что выбрали правильное устройство для записи.</p>
+			<p id="131aa64c-9d0a-8107-bc99-de3683743bd5" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-812e-a3a8-d50ae22f10a9" class="">Вторая Ubuntu:</h3>
+			<figure id="131aa64c-9d0a-81a7-a3a7-cf5c2c71013e" class="image"><a
+					href=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%2012.png"><img
+						style="width:1171px"
+						src=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%2012.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8173-880a-d74150923df6" class=""><strong>На другой системе необходимо
+					выполнить:</strong></p>
+			<figure id="131aa64c-9d0a-81db-bff7-d1bfd99373e3" class="image"><a
+					href=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%2013.png"><img
+						style="width:563px"
+						src=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%2013.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81f9-a6f9-d0ff218b7b14" class="">
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8122-bd8b-c3467076576c"
+				class="code"><code class="language-JavaScript">sudo cryptsetup luksOpen /dev/sdc my-dm_crypt-1</code></pre>
+			<p id="131aa64c-9d0a-81d9-8945-e59f48101b3e" class="">Команда
+				<code><strong>sudo cryptsetup luksOpen /dev/sdc my-dm_crypt-1</strong></code> открывает устройство
+				<code><strong>/dev/sdc</strong></code> с помощью LUKS шифрования и называет его
+				<code><strong>my-dm_crypt-1</strong></code>. После успешного выполнения этой команды, устройство будет
+				доступно для использования в виде <code><strong>/dev/mapper/my-dm_crypt-1</strong></code>. Вы можете
+				использовать это устройство для монтирования файловых систем или выполнения других операций, требующих
+				доступа к данным на зашифрованном диске.</p>
+			<figure id="131aa64c-9d0a-81c1-aa67-ef828bda3c76" class="image"><a
+					href=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%2014.png"><img
+						style="width:652px"
+						src=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%2014.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-811b-8e2e-f098405f1e9b" class="">
+			</p>
+			<figure id="131aa64c-9d0a-8173-8963-c7ed2d987818" class="image"><a
+					href=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%2015.png"><img
+						style="width:609px"
+						src=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%2015.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8179-bba5-e49f13b17c5c" class="">
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8178-bee3-fb5b07aedcb8"
+				class="code"><code class="language-JavaScript">igor@ubuntu:~$ sudo apt install vgchange</code></pre>
+			<p id="131aa64c-9d0a-8104-a9ff-c3264b561c3d" class="">Команда <code><strong>vgchange</strong></code> не
+				является отдельным пакетом для установки. Эта команда входит в состав утилиты LVM (Logical Volume
+				Management), которая обычно уже установлена в большинстве дистрибутивов Linux, включая Ubuntu.</p>
+			<p id="131aa64c-9d0a-8150-aa2a-ebdff13ca0e1" class="">Чтобы использовать команду
+				<code><strong>vgchange</strong></code>, вам не нужно устанавливать ее отдельно. Вы можете выполнять эту
+				команду непосредственно в терминале после установки системы. Если вы столкнулись с проблемами при
+				выполнении этой команды, убедитесь, что у вас установлены пакеты LVM. Вы можете убедиться, что они
+				установлены, выполнив следующую команду:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8186-a831-c3e97d0df44d"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">sudo apt install lvm2 - может не сработать</code></pre>
+			<p id="131aa64c-9d0a-81df-9590-f6e2fef05bd6" class="">
+			</p>
+			<p id="131aa64c-9d0a-813d-a619-f33ee732c9f1" class=""><strong>Тогда:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81db-8634-e84f01c6ad8d"
+				class="code"><code class="language-JavaScript">igor@ubuntu:~$ sudo rm /var/cache/apt/archives/lock</code></pre>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81a7-820a-c0071b92170b"
+				class="code"><code class="language-JavaScript">igor@ubuntu:~$ sudo rm /var/lib/dpkg/lock-frontend</code></pre>
+			<p id="131aa64c-9d0a-81a0-8761-c2ac46835d5d" class="">
+			</p>
+			<p id="131aa64c-9d0a-8177-9f0f-e255d3ff33f5" class="">Удаление файла
+				<code><strong>/var/cache/apt/archives/lock</strong></code> может привести к разблокировке кеша APT, но
+				это не является рекомендуемым способом устранения блокировки. Лучше использовать следующий способ:</p>
+			<ol type="1" id="131aa64c-9d0a-81f1-84c7-e338835d80d5" class="numbered-list" start="1">
+				<li>Убедитесь, что нет активных процессов APT. Вы можете проверить это с помощью следующей команды:
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-81a7-a543-f62afc9d70f3"
+						class="code"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">ps aux | grep -i apt</code></pre>
+					<p id="131aa64c-9d0a-8175-a8f3-e3ce5418bb58" class="">Если вы видите процессы
+						<code><strong>apt</strong></code> или <code><strong>dpkg</strong></code>, дождитесь их
+						завершения.</p>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8108-bf87-fbe73d92c64e" class="numbered-list" start="2">
+				<li>Если все процессы APT завершены, но блокировка осталась, удалите файл блокировки следующей командой:
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-811f-b700-cc29a6d657d0"
+						class="code"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">sudo rm /var/lib/dpkg/lock-frontend</code></pre>
+				</li>
+			</ol>
+			<p id="131aa64c-9d0a-8195-ad90-d5dee56c59b9" class="">
+			</p>
+			<p id="131aa64c-9d0a-81fa-b19d-fbb351e979d4" class=""><strong>Повторите команды:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-811c-b4ef-e74ed67d4dd8"
+				class="code"><code class="language-JavaScript">igor@ubuntu:~$ sudo apt-get update</code></pre>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-810d-9e0b-e568c20ed3b5"
+				class="code"><code class="language-JavaScript">igor@ubuntu:~$ sudo apt-get install lvm2</code></pre>
+			<p id="131aa64c-9d0a-8144-9b6b-d25ad24c3234" class="">
+			</p>
+			<figure id="131aa64c-9d0a-8182-815a-c635d1ace47d" class="image"><a
+					href=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%2016.png"><img
+						style="width:1169px"
+						src=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%2016.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8122-a463-c0dd8d87dcb5" class="">
+			</p>
+			<figure id="131aa64c-9d0a-81a7-97c9-c648ea5afbe3" class="image"><a
+					href=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%2017.png"><img
+						style="width:1121px"
+						src=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%2017.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81d2-81a4-cccd79957d21" class="">
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-817d-85a0-e7ad94d4e038"
+				class="code"><code class="language-JavaScript">igor@ubuntu:~$ sudo vgscan</code></pre>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81c8-a5b5-c3cb1b8370fb"
+				class="code"><code class="language-JavaScript">igor@ubuntu:~$ sudo vgchange -ay</code></pre>
+			<p id="131aa64c-9d0a-8187-bdbb-ebd858852616" class="">
+			</p>
+			<ol type="1" id="131aa64c-9d0a-816f-8008-e8ee81cf768c" class="numbered-list" start="1">
+				<li><code><strong>sudo vgscan</strong></code>:<ul id="131aa64c-9d0a-8152-a55b-d84c594ccf25"
+						class="bulleted-list">
+						<li style="list-style-type:disc">Эта команда сканирует систему на предмет групп томов (VG) с
+							использованием метаданных LVM2.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8183-b2ee-c58e07c2ee20" class="bulleted-list">
+						<li style="list-style-type:disc">Когда вы выполнили эту команду, она обнаружила группу томов с
+							именем &quot;ubuntu-vg&quot;, использующую метаданные типа LVM2 в вашей системе.</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-816d-8386-d9b8ac4beed4" class="numbered-list" start="2">
+				<li><code><strong>sudo vgchange -ay</strong></code>:<ul id="131aa64c-9d0a-81b4-be04-d26fc0e58222"
+						class="bulleted-list">
+						<li style="list-style-type:disc">Эта команда активирует (или включает) группу томов, указанную в
+							конфигурации LVM.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81e9-be3d-f5a27b57e762" class="bulleted-list">
+						<li style="list-style-type:disc">В вашем случае она активировала группу томов
+							&quot;ubuntu-vg&quot;.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81cb-a392-c7c02e3a6fca" class="bulleted-list">
+						<li style="list-style-type:disc">Вывод &quot;1 logical volume(s) in volume group
+							&#x27;ubuntu-vg&#x27; now active&quot; указывает на то, что один логический том внутри
+							группы томов &quot;ubuntu-vg&quot; был активирован и теперь доступен для использования.</li>
+					</ul>
+				</li>
+			</ol>
+			<p id="131aa64c-9d0a-81f8-b624-cf75438eaf3a" class="">В итоге, вы успешно выполнили сканирование и активацию
+				группы томов &quot;ubuntu-vg&quot;, что позволило сделать ее логические тома доступными и готовыми к
+				использованию в вашей системе.</p>
+			<p id="131aa64c-9d0a-81ae-a6b6-e8cf5eded612" class="">
+			</p>
+			<figure id="131aa64c-9d0a-8166-b770-efe2a5b06f82" class="image"><a
+					href=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%2018.png"><img
+						style="width:841px"
+						src=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%2018.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81d2-875d-d1b77277e17c" class="">
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8145-8b5a-f8272431a66a"
+				class="code"><code class="language-JavaScript">sudo mount /dev/ubuntu-vg/ubuntu-lv /home/igor/usb</code></pre>
+			<p id="131aa64c-9d0a-81a7-812e-f78cf08e627b" class="">
+			</p>
+			<p id="131aa64c-9d0a-819a-8935-fc6f01fe2530" class="">Вы попытались примонтировать логический том
+				<code><strong>/dev/ubuntu-vg/ubuntu-lv</strong></code> в директорию
+				<code><strong>/home/igor/usb</strong></code>. Если вы не получили сообщений об ошибках, то монтирование
+				должно было выполниться успешно. Ваш логический том теперь доступен по пути
+				<code><strong>/home/igor/usb</strong></code>. Вы можете просматривать его содержимое и работать с
+				данными в этой директории</p>
+			<p id="131aa64c-9d0a-81f1-a432-dbe4c6d78ea2" class="">
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8118-9729-df816c4b508f"
+				class="code"><code class="language-JavaScript">ls /home/igor/usb</code></pre>
+			<figure id="131aa64c-9d0a-8126-91f2-e64b6823f44d" class="image"><a
+					href=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%2019.png"><img
+						style="width:1145px"
+						src=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%2019.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81fc-a4a4-d3b7bd4b2e31" class="">
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81b0-be55-c5b68e66c19f"
+				class="code"><code class="language-JavaScript">sudo umount /dev/ubuntu-vg/ubuntu-lv /home/igor/usb</code></pre>
+			<p id="131aa64c-9d0a-81c3-af58-f47058b22abb" class="">Команда
+				<code><strong>sudo umount /dev/ubuntu-vg/ubuntu-lv /home/igor/usb</strong></code> выполняет
+				отмонтирование двух разделов:</p>
+			<ol type="1" id="131aa64c-9d0a-81fa-8ab0-e2e0396a9649" class="numbered-list" start="1">
+				<li><code><strong>/dev/ubuntu-vg/ubuntu-lv</strong></code>: Это логический раздел внутри тома LVM
+					(Logical Volume Management) с именем &quot;ubuntu-vg&quot;. LVM предоставляет гибкую систему
+					управления разделами. Эта команда отмонтирует логический раздел &quot;ubuntu-lv&quot;, который,
+					вероятно, был предварительно примонтирован.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ca-bb29-dbb0736b0c87" class="numbered-list" start="2">
+				<li><code><strong>/home/igor/usb</strong></code>: Это каталог или точка монтирования, в которую мог быть
+					предварительно примонтирован файловый раздел. Команда также отмонтирует этот раздел.</li>
+			</ol>
+			<p id="131aa64c-9d0a-8139-9287-c7d3f99b3495" class="">Обратите внимание, что эта команда требует прав
+				администратора (через <code><strong>sudo</strong></code>), поскольку отмонтирование разделов обычно
+				требует привилегий суперпользователя.</p>
+			<figure id="131aa64c-9d0a-8181-b050-ced9cd8253e1" class="image"><a
+					href=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%2020.png"><img
+						style="width:857px"
+						src=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%2020.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-818e-9321-cc8f820bcf13" class="">
+			</p>
+			<p id="131aa64c-9d0a-8186-9a63-d225e371a6ec" class="">Чтобы отключить (деактивировать) том с помощью
+				<code><strong>vgchange</strong></code>, вы можете использовать опцию <code><strong>-an</strong></code>,
+				которая означает &quot;отключить все тома&quot;. </p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81fc-a2c9-db524db1fb6f"
+				class="code"><code class="language-PHP" style="white-space:pre-wrap;word-break:break-all">sudo vgchange -an &lt;имя-тома&gt;</code></pre>
+			<p id="131aa64c-9d0a-810b-b6a8-c7aadabbca7c" class="">Замените
+				<code><strong>&lt;имя-тома&gt;</strong></code> на имя вашего LVM-тома, который вы хотите отключить.
+				Например:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-815c-9359-f93d6e98714c"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">sudo vgchange -an ubuntu-vg</code></pre>
+			<p id="131aa64c-9d0a-8160-bed1-d0808f39d4a3" class="">После выполнения этой команды том будет отключен и не
+				будет доступен для использования до тех пор, пока его не активируют снова с помощью
+				<code><strong>vgchange -ay</strong></code>.</p>
+			<figure id="131aa64c-9d0a-81ec-90b4-d264d36295fa" class="image"><a
+					href=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%2021.png"><img
+						style="width:904px"
+						src=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%2021.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81d6-bf12-e739cc2cfcf6" class="">
+			</p>
+			<p id="131aa64c-9d0a-817e-9d35-dc7b949b90e2" class="">Команда
+				<code><strong>sudo cryptsetup close my-dm_crypt-1</strong></code> предполагает закрытие (отключение)
+				LUKS-контейнера с именем <code><strong>my-dm_crypt-1</strong></code>. </p>
+			<p id="131aa64c-9d0a-814f-8a48-f4f232f48f8e" class="">Для успешного закрытия LUKS-контейнера, сначала
+				убедитесь, что контейнер был успешно открыт. Вы можете использовать команду
+				<code><strong>sudo cryptsetup luksOpen /dev/sdX my-dm_crypt-1</strong></code>, где
+				<code><strong>/dev/sdX</strong></code> - это ваш LUKS-контейнер, а
+				<code><strong>my-dm_crypt-1</strong></code> - имя, которое вы хотите присвоить открытому устройству.
+				После успешного открытия контейнера вы сможете закрыть его с помощью
+				<code><strong>sudo cryptsetup close my-dm_crypt-1</strong></code>.</p>
+			<figure id="131aa64c-9d0a-8137-a8c7-fba543a11653" class="image"><a
+					href=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%2022.png"><img
+						style="width:901px"
+						src=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%2022.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81fc-ba3d-eb18eca7fc02" class="">
+			</p>
+			<p id="131aa64c-9d0a-8128-97fb-c0abcb877106" class="">Нажмите <code><strong>Tab</strong></code> команды
+				<code><strong>sudo cryptsetup</strong></code>, и вам отобразился список доступных подкоманд и операций,
+				которые можно выполнять с <strong>LUKS (Linux Unified Key Setup)</strong> контейнерами.</p>
+			<ol type="1" id="131aa64c-9d0a-818c-891a-c9308d6d4996" class="numbered-list" start="1">
+				<li><code><strong>benchmark</strong></code>: эта команда позволяет выполнить бенчмарк (тест
+					производительности) на LUKS-контейнере.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8193-979d-ef3bd4543277" class="numbered-list" start="2">
+				<li><code><strong>close</strong></code>: закрыть (отключить) LUKS-контейнер.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-811d-8907-c3ed426929df" class="numbered-list" start="3">
+				<li><code><strong>luksChangeKey</strong></code>: изменить ключ (пароль) для LUKS-контейнера.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8114-9294-c758f4d694b1" class="numbered-list" start="4">
+				<li><code><strong>luksDump</strong></code>: вывести информацию о LUKS-контейнере, включая его параметры
+					и заголовок.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ea-acb8-f499c4a35646" class="numbered-list" start="5">
+				<li><code><strong>luksFormat</strong></code>: форматировать устройство для использования
+					LUKS-контейнером.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-817a-a2b8-e5e3a568a4ce" class="numbered-list" start="6">
+				<li><code><strong>luksRemoveKey</strong></code>: удалить ключ (пароль) из LUKS-контейнера.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81c1-bfb1-c6831c3b94c8" class="numbered-list" start="7">
+				<li><code><strong>open</strong></code>: открыть (подключить) LUKS-контейнер для доступа к данным.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8139-88b7-c4034c21da16" class="numbered-list" start="8">
+				<li><code><strong>status</strong></code>: отобразить текущий статус LUKS-контейнера.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81e1-bd7c-d74025c3a34a" class="numbered-list" start="9">
+				<li><code><strong>repair</strong></code>: попытаться восстановить поврежденный LUKS-контейнер.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-818b-9cad-f78f88a8c204" class="numbered-list" start="10">
+				<li><code><strong>resize</strong></code>: изменить размер LUKS-контейнера.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8166-8fb3-dda8f501b8ff" class="numbered-list" start="11">
+				<li><code><strong>isLuks</strong></code>: проверить, является ли устройство LUKS-контейнером.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8101-b66f-c5a3babac4aa" class="numbered-list" start="12">
+				<li><code><strong>erase</strong></code>: стереть данные из LUKS-контейнера (предостережение: это
+					безвозвратно удалит данные).</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81e6-9758-e3ed140c183e" class="numbered-list" start="13">
+				<li><code><strong>tcryptDump</strong></code>: вывести информацию о TCRYPT-контейнере
+					(TrueCrypt-compatible), если поддерживается.</li>
+			</ol>
+			<p id="131aa64c-9d0a-81bc-98a7-e2589dc186dd" class="">Вы можете выбрать необходимую подкоманду, а затем
+				выполнить соответствующую операцию с вашим LUKS-контейнером. Например, для открытия контейнера
+				используйте команду <code><strong>sudo cryptsetup open /dev/sdX mycontainer</strong></code>, где
+				<code><strong>/dev/sdX</strong></code> - это ваш LUKS-контейнер, а
+				<code><strong>mycontainer</strong></code> - имя, которое вы выбрали для открытого устройства.</p>
+			<p id="131aa64c-9d0a-8112-8a3f-d4dc09c86b4a" class="">
+			</p>
+			<p id="131aa64c-9d0a-81c4-adeb-c7c9b291cc88" class="">
+			</p>
+			<p id="131aa64c-9d0a-81ca-8e2e-c8436d22b153" class=""><strong>Доступные подкоманды</strong>
+				<code><strong>sudo cryptsetup luks</strong></code>:</p>
+			<ol type="1" id="131aa64c-9d0a-8177-8465-f165dbd4d57a" class="numbered-list" start="1">
+				<li><code><strong>luksAddKey</strong></code>: добавление нового ключа шифрования к LUKS-зашифрованному
+					устройству.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81d0-a826-f01e3b7ecde9" class="numbered-list" start="2">
+				<li><code><strong>luksChangeKey</strong></code>: изменение существующего ключа шифрования.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81d6-86fa-d72241f0586e" class="numbered-list" start="3">
+				<li><code><strong>luksDump</strong></code>: вывод информации о текущем состоянии LUKS-зашифрованного
+					устройства, такой как количество слотов и используемые ключи.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8111-8fcb-dcb728ad6378" class="numbered-list" start="4">
+				<li><code><strong>luksFormat</strong></code>: форматирование устройства как LUKS-зашифрованное
+					устройство и создание первичного ключа.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8176-913f-f26d5df8cbe9" class="numbered-list" start="5">
+				<li><code><strong>luksHeaderBackup</strong></code>: создание резервной копии заголовка LUKS в файле.
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8176-9fb8-e2d519d09271" class="numbered-list" start="6">
+				<li><code><strong>luksHeaderRestore</strong></code>: восстановление заголовка LUKS из резервной копии.
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8121-ad60-eb5248da530c" class="numbered-list" start="7">
+				<li><code><strong>luksKillSlot</strong></code>: удаление ключа шифрования из указанного слота.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8105-af26-e4d39e4f20f2" class="numbered-list" start="8">
+				<li><code><strong>luksRemoveKey</strong></code>: удаление ключа шифрования.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-811c-8f61-e34076658f52" class="numbered-list" start="9">
+				<li><code><strong>luksResume</strong></code>: возобновление работы системы после приостановки
+					(предназначено для систем с гибернацией).</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ff-978c-c2946a095511" class="numbered-list" start="10">
+				<li><code><strong>luksSuspend</strong></code>: приостановка работы системы (предназначено для систем с
+					гибернацией).</li>
+			</ol>
+			<p id="131aa64c-9d0a-81f2-9ea5-e567e65a8d28" class="">Вы можете использовать эти подкоманды для управления
+				ключами шифрования и выполнения других операций с LUKS-зашифрованными устройствами.</p>
+			<p id="131aa64c-9d0a-81e4-bb7a-fed9859ac352" class="">
+			</p>
+			<p id="131aa64c-9d0a-8174-9266-f2c4f625998d" class=""><strong>Контейнер успешно отмонтирован и
+					отключён.</strong></p>
+			<h3 id="131aa64c-9d0a-81fe-b9af-d1a59939a212" class=""><strong>Вывод</strong></h3>
+			<figure id="131aa64c-9d0a-81a9-8fe5-c853fe8d093f" class="image"><a
+					href=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%2023.png"><img
+						style="width:868px"
+						src=" Часть 3 4 Утилита dd - Копирование и конвертация/Untitled%2023.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81a7-9418-df4b6cc8a16f" class="">
+			</p>
+			<p id="131aa64c-9d0a-8102-ba0c-c3cfcfb48850" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-8174-bd95-e5ac34ce27fc" class=""><strong>Практическая работа 3.4.5: Удаление данных с
+					диска</strong></h3>
+			<p id="131aa64c-9d0a-81f1-9f87-e28b598148cb" class=""><strong>Цель:</strong> полностью удалить данные с
+				диска.</p>
+			<p id="131aa64c-9d0a-814e-beaa-cd61102ee4c0" class=""><strong>Задачи:</strong></p>
+			<ol type="1" id="131aa64c-9d0a-81a3-af72-f32a2dd80507" class="numbered-list" start="1">
+				<li>Используйте <code><strong>dd</strong></code> для записи случайных данных на весь диск
+					<code><strong>/dev/sdf</strong></code>.</li>
+			</ol>
+			<p id="131aa64c-9d0a-81a4-bb2d-eb275fefd4e0" class=""><strong>Решение:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-819a-bca4-d3d399ee2a99"
+				class="code"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">sudo dd if=/dev/urandom of=/dev/sdf bs=4M status=progress</code></pre>
+			<p id="131aa64c-9d0a-812e-afff-f727f46309da" class=""><strong>Вывод:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8114-9dab-c7e8ee8667cc" class="code"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">51200+0 записей в
+51200+0 записей из
+214748364800 байт (215 GB, 200 GiB) скопировано, 2346.36 s, 91.4 MB/s</code></pre>
+			<h3 id="131aa64c-9d0a-8121-ab8d-e2ad128c1be6" class=""><strong>Практическая работа 3.4.6: Изменение размера
+					образа</strong></h3>
+			<p id="131aa64c-9d0a-816c-bb7a-cba7f131a3e7" class=""><strong>Цель:</strong> Изменить размер ранее
+				созданного образа диска.</p>
+			<p id="131aa64c-9d0a-812b-843a-e3905534806a" class=""><strong>Задачи:</strong></p>
+			<ol type="1" id="131aa64c-9d0a-8131-a04c-f3ad39732f62" class="numbered-list" start="1">
+				<li>Используйте <code><strong>dd</strong></code> для изменения размера образа диска
+					<code><strong>disk_image.img</strong></code> до 2 ГБ.</li>
+			</ol>
+			<p id="131aa64c-9d0a-818e-9947-dc044a119169" class=""><strong>Решение:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81a0-a6a7-d2eeeecc6abd"
+				class="code"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">truncate -s 2G disk_image.img</code></pre>
+			<p id="131aa64c-9d0a-81f4-a345-f9d66616b240" class=""><strong>Вывод:</strong></p>
+			<p id="131aa64c-9d0a-81a3-ab90-e95156180423" class="">Нет вывода, но размер образа будет изменен на 2 ГБ.
+			</p>
+			<h3 id="131aa64c-9d0a-819f-bd2d-fb623a63683f" class=""><strong>Практическая работа 3.4.7: Преобразование
+					текстового файла</strong></h3>
+			<p id="131aa64c-9d0a-8101-b3bb-ce46745a8ea6" class=""><strong>Цель:</strong> преобразовать текстовый файл в
+				бинарный и наоборот.</p>
+			<p id="131aa64c-9d0a-81eb-b524-fd23b42d0f11" class=""><strong>Задачи:</strong></p>
+			<ol type="1" id="131aa64c-9d0a-8127-bc80-f703f5291acb" class="numbered-list" start="1">
+				<li>Используйте <code><strong>dd</strong></code> для преобразования текстового файла
+					<code><strong>input.txt</strong></code> в бинарный файл <code><strong>output.bin</strong></code>.
+				</li>
+			</ol>
+			<p id="131aa64c-9d0a-81fd-aed2-eb45969ffd99" class=""><strong>Решение:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8193-815c-c761906be205"
+				class="code"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">dd if=input.txt of=output.bin conv=ebcdic bs=1 count=100</code></pre>
+			<p id="131aa64c-9d0a-8164-88cf-eb6fabdf1f55" class=""><strong>Вывод:</strong></p>
+			<p id="131aa64c-9d0a-81a4-ac96-c2f35fd6b83a" class="">Нет вывода, но содержимое файла
+				<code><strong>input.txt</strong></code> будет сконвертировано в бинарный формат и сохранено в файле
+				<code><strong>output.bin</strong></code>.</p>
+			<h3 id="131aa64c-9d0a-815e-8916-f68f8ad8d649" class=""><strong>Практическая работа 3.4.8: Чтение и запись
+					данных в определенном формате</strong></h3>
+			<p id="131aa64c-9d0a-810f-a82b-d2fa38ab55f3" class=""><strong>Цель:</strong> чтение и запись данных в
+				определенном формате.</p>
+			<p id="131aa64c-9d0a-8161-af81-f0df2eddd5b7" class=""><strong>Задачи:</strong></p>
+			<ol type="1" id="131aa64c-9d0a-811b-ac92-ed58957e2d6e" class="numbered-list" start="1">
+				<li>Используйте <code><strong>dd</strong></code> для чтения и записи данных в формате EBCDIC.</li>
+			</ol>
+			<p id="131aa64c-9d0a-81d7-910a-d2ee3358ca7c" class=""><strong>Решение:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81f3-b90f-ef984d45bd57"
+				class="code"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">dd if=input.ebcdic of=output.ascii conv=ascii</code></pre>
+			<p id="131aa64c-9d0a-81e1-960d-f830f1515078" class=""><strong>Вывод:</strong></p>
+			<p id="131aa64c-9d0a-8116-a915-c2fb73640c38" class="">Нет вывода, но данные из файла
+				<code><strong>input.ebcdic</strong></code> будут преобразованы из формата EBCDIC в ASCII и сохранены в
+				файле <code><strong>output.ascii</strong></code>.</p>
+			<h3 id="131aa64c-9d0a-81a0-a747-d0815a9950cd" class=""><strong>Практическая работа 3.4.9: Создание случайных
+					данных</strong></h3>
+			<p id="131aa64c-9d0a-815e-b2ae-f93f994577d1" class=""><strong>Цель:</strong> создать файл с случайными
+				данными.</p>
+			<p id="131aa64c-9d0a-81a7-82e0-d0d3b3b99775" class=""><strong>Задачи:</strong></p>
+			<ol type="1" id="131aa64c-9d0a-8178-911a-da4f6511c72d" class="numbered-list" start="1">
+				<li>Используйте <code><strong>dd</strong></code> для создания файла
+					<code><strong>random_data.bin</strong></code> с 1 ГБ случайных данных.</li>
+			</ol>
+			<p id="131aa64c-9d0a-81ef-9cd5-c9c4b07e43a4" class=""><strong>Решение:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8169-982f-d6a93ca55045"
+				class="code"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">dd if=/dev/urandom of=random_data.bin bs=1M count=1024</code></pre>
+			<p id="131aa64c-9d0a-810e-b5d5-e50a2479cc94" class=""><strong>Вывод:</strong></p>
+			<p id="131aa64c-9d0a-8191-8ef7-f9e9b0fac1bc" class="">Нет вывода, но файл
+				<code><strong>random_data.bin</strong></code> будет создан с случайными данными объемом 1 ГБ.</p>
+			<h3 id="131aa64c-9d0a-81fb-b958-c0ae19dd3810" class=""><strong>Практическая работа 3.4.10: Измерение
+					производительности дисков</strong></h3>
+			<p id="131aa64c-9d0a-81e2-8cd4-ffdf49c4e9b9" class=""><strong>Цель:</strong> измерить скорость чтения и
+				записи на диске.</p>
+			<p id="131aa64c-9d0a-8186-a340-c207126667b6" class=""><strong>Задачи:</strong></p>
+			<ol type="1" id="131aa64c-9d0a-817c-a3cc-df639da03a34" class="numbered-list" start="1">
+				<li>Используйте <code><strong>dd</strong></code> для измерения скорости чтения и записи на диск
+					<code><strong>/dev/sdg</strong></code>.</li>
+			</ol>
+			<p id="131aa64c-9d0a-81d4-bc47-d6194918d3cd" class=""><strong>Решение:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8134-a267-c1fbe7c7dbdd"
+				class="code"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">dd if=/dev/zero of=/dev/sdg bs=4M count=1000 oflag=direct</code></pre>
+			<p id="131aa64c-9d0a-81b5-a570-ff504cf09bf9" class=""><strong>Вывод:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8158-91e6-c07078148640" class="code"><code class="language-YAML" style="white-space:pre-wrap;word-break:break-all">1000+0 записей в
+1000+0 записей из
+4194304000 байт (4.2 GB, 4.0 GiB) скопировано, 2.0507 s, 2.0 GB/s</code></pre>
+			<h3 id="131aa64c-9d0a-81c1-9b99-e2b423dd8685" class=""><strong>Область применения:</strong></h3>
+			<ol type="1" id="131aa64c-9d0a-8138-98c3-e8d66fdcb731" class="numbered-list" start="1">
+				<li>Создание резервных копий дисков и флешек.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8129-80c9-c78bb7791c66" class="numbered-list" start="2">
+				<li>Клонирование операционных систем на несколько машин.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-816f-bd50-c337928b4dd8" class="numbered-list" start="3">
+				<li>Удаление данных с дисков перед их переработкой или продажей.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81af-8528-ef281c9e4883" class="numbered-list" start="4">
+				<li>Конвертация данных между различными форматами.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8183-a557-fff3f6b1e4cc" class="numbered-list" start="5">
+				<li>Создание тестовых данных для тестирования производительности систем.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-814b-804f-d287c00d7142" class="numbered-list" start="6">
+				<li>Мониторинг скорости чтения и записи дисков для оптимизации хранения данных.</li>
+			</ol>
+			<p id="131aa64c-9d0a-814a-bb1d-c96ae527d639" class="">
+			</p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

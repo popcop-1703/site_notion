@@ -1,0 +1,1275 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Материал лекции</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-815f-918d-f8abf994f901" class="page sans">
+		<header>
+			<div class="page-header-icon undefined"><img class="icon"
+					src="https://www.notion.so/icons/graduate_gray.svg" /></div>
+			<h1 class="page-title">Материал лекции</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<h1 id="131aa64c-9d0a-81f5-8c33-e4f3307f35e9" class="">Основы Linux</h1>
+			<p id="131aa64c-9d0a-8179-8152-fba59d7c261b" class="">
+			</p>
+			<p id="131aa64c-9d0a-81c9-a0d1-d5dbfdf2078f" class="">Простая и прозрачная операционная система, с высоким
+				уровнем защиты.</p>
+			<ul id="131aa64c-9d0a-8120-8c47-dd0328bb1801" class="bulleted-list">
+				<li style="list-style-type:disc">Файловая система</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8192-a8b6-e58f11541b35" class="bulleted-list">
+				<li style="list-style-type:disc">Командная строка</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8184-819b-c70d542aab3d" class="bulleted-list">
+				<li style="list-style-type:disc">Пакетный менеджер</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81f9-a794-e2c500238f04" class="bulleted-list">
+				<li style="list-style-type:disc">Права доступа</li>
+			</ul>
+			<h1 id="131aa64c-9d0a-8123-9a2c-d95aa9064ab3" class="">Файловая система Linux</h1>
+			<p id="131aa64c-9d0a-81f1-82a0-c8563b41761b" class="">Представляет собой древовидную структуру, т.к. все
+				файлы расположены в виде дерева и его ветвей. Самый верхний каталог называется корневым. </p>
+			<figure id="131aa64c-9d0a-8149-a705-f497c93a5e8e" class="image"><a
+					href="Материал лекции/Untitled.png"><img
+						style="width:1371px"
+						src="Материал лекции/Untitled.png" /></a>
+				<figcaption>Рис.1 Файловая система Linux</figcaption>
+			</figure>
+			<p id="131aa64c-9d0a-81e6-b0bf-ee8093c73154" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-8146-9bc7-e8af2586462b" class="">Стандартные каталоги</h3>
+			<ul id="131aa64c-9d0a-8192-ad06-f9d3d06c375e" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-blue"><strong>/ </strong></mark>— главный
+					каталог, содержащий в себе всю иерархию системы</li>
+			</ul>
+			<ul id="131aa64c-9d0a-816a-9053-deab13963ebb" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-blue"><strong>/boot </strong></mark>— директория
+					загрузки системы</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8153-b20f-ebf4c0a31c67" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-blue"><strong>/root и /home </strong></mark>—
+					домашние директории, использующиеся пользователями</li>
+			</ul>
+			<ul id="131aa64c-9d0a-813f-878c-ebb3fc390fc3" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-blue"><strong>/bin </strong></mark>— директория
+					хранения исполняемых файлов</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8192-b132-e24cb206fe86" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-blue"><strong>/etc </strong></mark>— директория
+					хранения конфигураций общей системы</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8119-b7a7-caf0d3b4db6d" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-blue"><strong>/dev </strong></mark>— директория
+					хранения физических устройств, связанных с компьютером</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8101-b13d-ff43c192492b" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-blue"><strong>/mnt</strong></mark> — каталог для
+					временного подключения файловых систем</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c3-a1fc-eb52726ca8d0" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-blue"><strong>/var </strong></mark>— директория
+					файлов переменных данных</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81af-ad01-c92527559bd4" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-blue"><strong>/tmp</strong></mark> — каталог
+					предназначенный для временных файлов</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8125-b8cb-dbd92f494b7f" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-blue"><strong>/opt </strong></mark>— директория
+					дополнительных приложений</li>
+			</ul>
+			<p id="131aa64c-9d0a-812e-b481-e10d5c22509a" class="">
+			</p>
+			<h1 id="131aa64c-9d0a-8154-9874-c67adb5073bf" class="">Работа с командной строкой </h1>
+			<p id="131aa64c-9d0a-8159-a47b-f7b66b03da8b" class=""><mark class="highlight-blue"><strong>CLI (Command Line
+						Interface) </strong></mark>— текстовый интерфейс для работы с операционной системой</p>
+			<p id="131aa64c-9d0a-81e7-b858-f4feeff18d82" class=""><mark class="highlight-blue"><strong>Sh
+					</strong></mark>— командная оболочка по умолчанию</p>
+			<p id="131aa64c-9d0a-8187-8a12-d8c6001b787a" class=""><mark class="highlight-blue"><strong>Bash
+					</strong></mark>— более приятная и удобная для пользователя оболочка с расширенным функционалом</p>
+			<p id="131aa64c-9d0a-8177-a7d0-f204f5f04090" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-8199-bc46-d397c3d244dd" class="">Адресация</h3>
+			<ul id="131aa64c-9d0a-8152-ae62-e23be5be9498" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-blue"><strong>Абсолютная </strong></mark>— путь
+					к каталогу указывается, начиная с корневого и далее вниз по дереву</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8108-94e2-d7458e9b52cc" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-blue"><strong>Относительная </strong></mark>—
+					путь к каталогу указывается, относительно текущего каталога</li>
+			</ul>
+			<p id="131aa64c-9d0a-8190-81e0-db5bbaeef422" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-81d1-8fb6-ca2da0c0fc9e" class=""><strong>Использование команд </strong></h3>
+			<p id="131aa64c-9d0a-81a0-a54c-d5572a0d366f" class="">Существует <strong><span
+						style="border-bottom:0.05em solid">команда</span></strong><strong> </strong>и её <strong><span
+						style="border-bottom:0.05em solid">параметры</span></strong>. <br />Параметры делятся на
+				<br /><strong><span style="border-bottom:0.05em solid">опции</span></strong><strong> </strong>(как
+				должна быть выполнена операция) и <strong><span
+						style="border-bottom:0.05em solid">аргументы</span></strong><strong> </strong>(относительно чего
+				выполняется команда). <br />Изменяя опции и аргументы можно изменять поведение программы.<br /></p>
+			<p id="131aa64c-9d0a-819e-8cfc-d01f8d565c9b" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-81e9-9d26-e86551da1274" class="">Основные команды</h3>
+			<ol type="1" id="131aa64c-9d0a-81c7-980e-c0761a5028fb" class="numbered-list" start="1">
+				<li><mark class="highlight-blue"><strong>cd (change directory) </strong></mark>— используется для
+					перехода в директорию<ul id="131aa64c-9d0a-81fb-bc2a-c74a18301fed" class="bulleted-list">
+						<li style="list-style-type:disc"><mark class="highlight-blue"><strong>cd ..</strong></mark> —
+							переход на уровень выше</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81bc-81d8-e696185850cf" class="bulleted-list">
+						<li style="list-style-type:disc"><mark class="highlight-blue"><strong>cd /</strong></mark> —
+							переход в корневой каталог</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81f4-b154-ef3ad7f7f124" class="bulleted-list">
+						<li style="list-style-type:disc"><mark class="highlight-blue"><strong>cd
+									path/to/dir</strong></mark> — переход в указанный каталог</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81fa-a943-e3e58e9e65c1" class="bulleted-list">
+						<li style="list-style-type:disc"><mark class="highlight-blue"><strong>cd -</strong></mark> —
+							переход в предыдущий каталог</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ec-a95f-e7fe484b0450" class="numbered-list" start="2">
+				<li><strong>Просмотр содержимого в файлах</strong>
+					<ul id="131aa64c-9d0a-818e-8d7c-dd97ed27120d" class="bulleted-list">
+						<li style="list-style-type:disc"><mark class="highlight-blue"><strong>cat
+									(concatenate)</strong></mark> — вывод содержимого файла в командной строке</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8106-b132-cbbb86d259f9" class="bulleted-list">
+						<li style="list-style-type:disc"><mark class="highlight-blue"><strong>tac </strong></mark>—
+							вывод файла начиная с последней строки</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8164-b72d-d1bc24269503" class="numbered-list" start="3">
+				<li><mark class="highlight-blue"><strong>pwd </strong></mark>— вывод абсолютного пути к текущему
+					каталогу</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8129-a087-d45c62b19c0e" class="numbered-list" start="4">
+				<li><mark class="highlight-blue"><strong>touch </strong></mark>— создание нового пустого файла</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8197-aa24-de603864a003" class="numbered-list" start="5">
+				<li><mark class="highlight-blue"><strong>rm file </strong></mark>— удалить файл<ul
+						id="131aa64c-9d0a-8116-b2b4-c956a3971c75" class="bulleted-list">
+						<li style="list-style-type:disc"><mark class="highlight-blue"><strong>rm -r
+									folder</strong></mark> — удалить каталог</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81ec-ae4a-d3f0d646aad1" class="bulleted-list">
+						<li style="list-style-type:disc"><mark class="highlight-blue"><strong>rm -rf</strong></mark>
+							<mark class="highlight-blue"><strong>folder</strong></mark> — удалить каталог и его
+							содержимого </li>
+					</ul>
+					<ul id="131aa64c-9d0a-810a-83bc-e59baf6cdff5" class="bulleted-list">
+						<li style="list-style-type:disc"><mark class="highlight-blue"><strong>rm -v file</strong></mark>
+							— вывод информации об удаляемых файлах </li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8100-8d74-c60e2eaaf06e" class="numbered-list" start="6">
+				<li><mark class="highlight-blue"><strong>history </strong></mark>— история введённых команд</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-811c-a395-c84c43fdd004" class="numbered-list" start="7">
+				<li><mark class="highlight-blue"><strong>ls</strong></mark> — вывод содержимого текущего каталога<ul
+						id="131aa64c-9d0a-816d-ac1c-d6751416deaf" class="bulleted-list">
+						<li style="list-style-type:disc"><mark class="highlight-blue"><strong>ls -l</strong></mark> —
+							вывод содержимого каталога длинным списком</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81b8-8668-d8b5c8ab2e92" class="bulleted-list">
+						<li style="list-style-type:disc"><mark class="highlight-blue"><strong>ls -a </strong></mark>—
+							вывод содержимого вместе со скрытыми файлами и каталогами</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81c9-84aa-e29f67213cef" class="bulleted-list">
+						<li style="list-style-type:disc"><mark class="highlight-blue"><strong>ls -t </strong></mark>—
+							вывод списка файлов по дате создания, начиная с самого нового</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8180-bbca-d7fd254a12b0" class="bulleted-list">
+						<li style="list-style-type:disc"><mark class="highlight-blue"><strong>ls -r </strong></mark>—
+							вывод содержимого каталога в обратном порядке</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81d0-93ca-ffc23d4c85d3" class="bulleted-list">
+						<li style="list-style-type:disc"><mark class="highlight-blue"><strong>ls -h </strong></mark>—
+							вывод размера файлов (используя вместе с опцией <mark
+								class="highlight-blue"><strong>-l</strong></mark>)</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-815e-8f33-c7bdaad6b52d" class="numbered-list" start="8">
+				<li><mark class="highlight-blue"><strong>mkdir newfolder </strong></mark>— создать новый каталог c
+					указанием название нового каталога</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8196-a13a-e60e2ef7eaf6" class="numbered-list" start="9">
+				<li><mark class="highlight-blue"><strong>cp что куда</strong></mark> — скопировать файл/директорию в
+					указанный файл/директорию</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8126-a242-c5123de7a395" class="numbered-list" start="10">
+				<li><mark class="highlight-blue"><strong>mv [опции] что куда </strong></mark>— перемещение
+					файлов/директорий в другую директорию</li>
+			</ol>
+			<p id="131aa64c-9d0a-81d6-9b68-fe47cf2f9cb5" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-81f0-886a-cf053cd9a040" class="">Фильтры вывода</h3>
+			<ul id="131aa64c-9d0a-8109-ac4b-c500727d9bdd" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-blue"><strong>head </strong></mark>— вывод
+					первых строк файла<br /><br /><mark class="highlight-blue"><strong>head -20 file1</strong></mark>
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-810e-be12-f78b68956bd5" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-blue"><strong>tail</strong></mark> — вывод
+					последних строк файла<br /><br /><mark class="highlight-blue"><strong>tail -20 file1</strong></mark>
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81be-855b-fc75862bb54c" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-blue"><strong>less </strong></mark>— вывод файла
+					по одной странице за раз</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8132-8875-fa1580964491" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-blue"><strong>more </strong></mark>— устаревший
+					аналог less, может читать только вперед</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81cd-8452-e3ca42d4e70c" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-blue"><strong>nl </strong></mark>— вывод с
+					добавлением номера строки</li>
+			</ul>
+			<ul id="131aa64c-9d0a-811c-ab03-ef2b0ad30c3f" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-blue"><strong>sort </strong></mark>— вывод строк
+					файла в определенном порядке (по умолчанию — по алфавиту)<br /><br /><strong>Опции </strong><mark
+						class="highlight-blue"><strong>sort</strong></mark><strong>:</strong>
+					<ul id="131aa64c-9d0a-813f-9870-e8487c78dd9b" class="bulleted-list">
+						<li style="list-style-type:circle"><mark class="highlight-blue"><strong>-r </strong></mark>—
+							сортировка в обратном по рядке</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8195-a907-eced98bfb188" class="bulleted-list">
+						<li style="list-style-type:circle"><mark class="highlight-blue"><strong>-n </strong></mark>—
+							сравнение в соответствии с числовым значением</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8175-a1dc-c7bea166f9b3" class="bulleted-list">
+						<li style="list-style-type:circle"><mark class="highlight-blue"><strong>-u </strong></mark>—
+							вывод только уникальных строк</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81f6-9725-f10dfdc0a96c" class="bulleted-list">
+						<li style="list-style-type:circle"><mark class="highlight-blue"><strong>-b </strong></mark>—
+							игнорировать пробелы</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81cd-b866-e3f67bd4199c" class="bulleted-list">
+						<li style="list-style-type:circle"><mark class="highlight-blue"><strong>-d </strong></mark>—
+							учитывать только пробелы и буквенно-цифровые символы</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81e3-80ab-ee806a765b74" class="bulleted-list">
+						<li style="list-style-type:circle"><mark class="highlight-blue"><strong>-o </strong></mark>—
+							записать результат в файл, вместо вывода в консоль</li>
+					</ul>
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8146-b360-e1f57e830d26" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-blue"><strong>uniq </strong></mark>— вывод строк
+					без повторения<br /><br /><strong>Опции </strong><mark
+						class="highlight-blue"><strong>uniq</strong></mark><strong>:</strong>
+					<ul id="131aa64c-9d0a-81f2-8074-e31cb96841e8" class="bulleted-list">
+						<li style="list-style-type:circle"><mark class="highlight-blue"><strong>-u</strong></mark> —
+							вывод только строк без повтора</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8140-a11a-ee3eb76b143a" class="bulleted-list">
+						<li style="list-style-type:circle"><mark class="highlight-blue"><strong>-d</strong></mark> —
+							вывод только повторяющихся строк</li>
+					</ul>
+					<p id="131aa64c-9d0a-81f9-909d-d917805dd2f5" class="">
+					</p>
+				</li>
+			</ul>
+			<h1 id="131aa64c-9d0a-8165-875b-d1096ee45684" class="">Пакетный менеджер </h1>
+			<p id="131aa64c-9d0a-81ce-9cff-f12617855908" class="">Набор программных средств, которые автоматизируют
+				процесс установки, обновления, настройки и удаления компьютерных программ</p>
+			<p id="131aa64c-9d0a-8156-85a9-e677ff9dc4ec" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-81da-9d07-c088520366d9" class="">apt</h3>
+			<p id="131aa64c-9d0a-81bd-9d1c-f9c61eee2e6e" class="">Консольная утилита, выполняющая роль поисковика и
+				загрузчика пакетов из репозитория</p>
+			<ul id="131aa64c-9d0a-81bb-ac8f-f602ea8f2e24" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-blue"><strong>apt-get install program
+						</strong></mark>— установить/обновить программу</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81ea-9ff7-ca06e6041605" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-blue"><strong>apt-get remove program
+						</strong></mark>— удалить программу, сохранив файлы конфигурации</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8119-9cd5-d916e1c59680" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-blue"><strong>apt-get purge program
+						</strong></mark>— удалить программу и ее файлы конфигурации</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8107-8d3f-f0123bd74e31" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-blue"><strong>apt-get check </strong></mark>—
+					проверить зависимости</li>
+			</ul>
+			<ul id="131aa64c-9d0a-817d-9bf7-dcea44c54a56" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-blue"><strong>apt-get autoclean
+						</strong></mark>— удалить старые архивные пакеты</li>
+			</ul>
+			<p id="131aa64c-9d0a-81d1-882a-d437f1206bc9" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-816a-81ed-e34661a2dc50" class="">dpkg</h3>
+			<p id="131aa64c-9d0a-8131-b0f7-f83638693796" class="">Низкоуровневый пакетный менеджер для работы с
+				локальными DEB пакетами<br />Не может самостоятельно разрешать зависимости и скачивать пакеты из
+				репозиториев<br /></p>
+			<ul id="131aa64c-9d0a-8109-99dc-d2005549f11b" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-blue"><strong>dpkg -S /bin/netstat
+						</strong></mark>— поиск пакета и к какому дистрибутиву он относится</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81ef-854d-d655679618cb" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-blue"><strong>dpkg -L net-tools
+						</strong></mark>— просмотр состава пакета или дистрибутива</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81ea-b9e2-c3c0a5ed9499" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-blue"><strong>dpkg --purge foo </strong></mark>—
+					удалить пакет и его файлы конфигурации</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81aa-abef-ced0dd938801" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-blue"><strong>dpkg --remove foo
+						</strong></mark>— удалить пакет , сохранив файлы конфигурации</li>
+			</ul>
+			<p id="131aa64c-9d0a-81e0-ba49-eac592e4c37d" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-819e-9a2d-c8713b674635" class="">yum</h3>
+			<p id="131aa64c-9d0a-81c8-baa0-d94f794955ff" class="">Высокоуровневый пакетный менеджер, написанный для
+				систем RED HAT</p>
+			<ul id="131aa64c-9d0a-817f-a7e9-e59fb951da34" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-blue"><strong>yum install
+							program</strong></mark> — установка указанной утилиты</li>
+			</ul>
+			<ul id="131aa64c-9d0a-815d-adb3-e9366abdb724" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-blue"><strong>yum update program</strong></mark>
+					— обновление указанной утилиты</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8157-90ef-fd73c4bf4704" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-blue"><strong>yum list all</strong></mark> —
+					показать установленные утилиты</li>
+			</ul>
+			<ul id="131aa64c-9d0a-818c-931c-c19f3fdc4969" class="bulleted-list">
+				<li style="list-style-type:disc"><mark class="highlight-blue"><strong>yum remove program</strong></mark>
+					— удаление указанной утилиты</li>
+			</ul>
+			<p id="131aa64c-9d0a-810e-a4fd-f3042aa55dd6" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-8114-9486-cf2e8aa1ab47" class="">Пакетный менеджер yum</h2>
+			<figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex"
+				id="131aa64c-9d0a-8103-a68e-c1afc470c4dd">
+				<div style="font-size:1.5em"><span class="icon">🆕</span></div>
+				<div style="width:100%"><strong>YUM (Yellowdog Updater, Modified)</strong> — высокоуровневый пакетный
+					менеджер, написанный на Python для системы RED HAT (RHEL, CentOS, Fedora)</div>
+			</figure>
+			<p id="131aa64c-9d0a-810b-a094-da8a048ec909" class=""><code>yum intsall htop</code> — установка указанной
+				утилиты или пакета</p>
+			<p id="131aa64c-9d0a-8141-80b8-f555a9800d0c" class=""><code>yum update wireshark</code> — обновлнение
+				указанной утилиты или пакета</p>
+			<p id="131aa64c-9d0a-81f4-b9cb-d4d5677b3aeb" class=""><code>yum list all</code> — показать установленные
+				утилиты</p>
+			<h2 id="131aa64c-9d0a-81b8-94c4-ee490c700fb4" class="">Права доступа</h2>
+			<p id="131aa64c-9d0a-814d-938f-fec5aaeff387" class="">В системе Linux есть несколько видлв пользователей:
+			</p>
+			<ol type="1" id="131aa64c-9d0a-8166-9529-eac5d7b54f32" class="numbered-list" start="1">
+				<li><strong>Обычные пользователи</strong><br /><br /><mark class="highlight-gray">Они создаются
+						системным администратором. Каждый пользователь имеет числовой идентификатор пользователя,
+						называемый </mark><mark class="highlight-gray"><strong>UID</strong></mark></li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81c2-881a-ec560fb22155" class="numbered-list" start="2">
+				<li><strong>Системные пользователи</strong><br /><br /><mark class="highlight-gray">Системные
+						пользователи создаются самой операционной системой. Скорее всего они используются какими-либо
+						приложениями</mark></li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ba-82d5-ca7ed5bdb4a8" class="numbered-list" start="3">
+				<li><strong>Root<br /><br /></strong><mark class="highlight-gray">Данный пользователь имеет UID =
+						0<br />Root может выполнять все операции на низком уровне, запись в критическую область памяти и
+						прочее<br />Работать с<br /></mark><mark class="highlight-gray"><strong> root
+						</strong></mark><mark class="highlight-gray">правами не рекомендуется</mark></li>
+			</ol>
+			<p id="131aa64c-9d0a-81eb-a691-f48f02a6dadc" class="">
+			</p>
+			<p id="131aa64c-9d0a-81a2-88dd-d932ee504d6b" class="">Чтобы изменить права на файл в linux вы можете
+				использовать утилиту chmod.</p>
+			<p id="131aa64c-9d0a-8147-8cef-c900190f8761" class="">
+				<code><strong>$ chmod опции категория действие флаг файл</strong></code></p>
+			<p id="131aa64c-9d0a-814a-ac04-ea69f9310120" class="">
+			</p>
+			<ul id="131aa64c-9d0a-81dc-b115-ed4e87d4b33e" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Чтение</strong> (<code>r</code>) - разрешает получать
+					содержимое файла, но на запись нет. Для каталога позволяет получить список файлов и каталогов,
+					расположенных в нем;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81f9-9ee0-f807e3725876" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Запись</strong> (<code>w</code>)- разрешает записывать новые
+					данные в файл или изменять существующие, а также позволяет создавать и изменять файлы и каталоги;
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81de-b36d-d256bf0fdef0" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Выполнение</strong> (<code>x</code>)- вы не можете выполнить
+					программу, если у нее нет флага выполнения. Этот атрибут устанавливается для всех программ и
+					скриптов, именно с помощью него система может понять, что этот файл нужно запускать как программу.
+				</li>
+			</ul>
+			<p id="131aa64c-9d0a-81f5-822a-de03a0dacab2" class="">
+			</p>
+			<ul id="131aa64c-9d0a-81c7-9d49-d862e8fb1c1c" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>u</strong> - владелец файла;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8173-9b71-fc6fe7082d41" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>g</strong> - группа файла;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-816f-ba48-eaef0fd5c5df" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>o</strong> - другие пользователи.</li>
+			</ul>
+			<p id="131aa64c-9d0a-8115-9b71-f8be63f5fa25" class="">
+			</p>
+			<p id="131aa64c-9d0a-814c-b76c-e88c9153d84e" class="">Например, дать всем пользователям полный доступ к
+				файлу test5</p>
+			<p id="131aa64c-9d0a-8137-ab39-da3037e3dec1" class=""><code>chmod ugo+rwx test5</code></p>
+			<h2 id="131aa64c-9d0a-81c1-99f8-ec60587c3797" class="">nl и uniq</h2>
+			<ul id="131aa64c-9d0a-819e-98f6-e003f7e5af5e" class="bulleted-list">
+				<li style="list-style-type:disc"><code>nl</code> - выводит текст файла с добавлением номера строк</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8173-a311-dbef44fd6da2" class="bulleted-list">
+				<li style="list-style-type:disc"><code>uniq</code> - с помощью этой команды можно вывести строки без
+					повторения</li>
+			</ul>
+			<h2 id="131aa64c-9d0a-817a-8d57-cbf24c561c20" class="">Логические операторы</h2>
+			<p id="131aa64c-9d0a-81dc-8e13-c932855f27f9" class="">Логическое И обозначается <strong>&amp;&amp;</strong>
+			</p>
+			<p id="131aa64c-9d0a-81b2-834d-ccfea21e57bf" class="">Логическое ИЛИ обозначается <strong>||</strong></p>
+			<figure id="131aa64c-9d0a-81af-814f-c30a0df1c8d2" class="image"><a
+					href="Материал лекции/Untitled%201.png"><img
+						style="width:624px"
+						src="Материал лекции/Untitled%201.png" /></a>
+			</figure>
+			<figure id="131aa64c-9d0a-81e1-8f6b-e126339ed21a" class="link-to-page"><a
+					href="Материал лекции/Дополнительный материал.html">Дополнительный
+					материал</a></figure>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

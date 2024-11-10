@@ -1,0 +1,1571 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Часть 3.1 Продвинутое понимание GREP</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-8105-8740-e240f3bb1acb" class="page sans">
+		<header>
+			<div class="page-header-icon undefined"><img class="icon"
+					src="https://www.notion.so/icons/window_gray.svg" /></div>
+			<h1 class="page-title">Часть 3.1 Продвинутое понимание <strong>GREP</strong></h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<p id="131aa64c-9d0a-8179-ab04-c6d8314dcd74" class="">
+			</p>
+			<figure id="131aa64c-9d0a-814c-92d6-f0dd110e31f2" class="image"><a
+					href="Часть 3 1 Продвинутое понимание GREP/Untitled.png"><img
+						style="width:1575px"
+						src="Часть 3 1 Продвинутое понимание GREP/Untitled.png" /></a>
+			</figure>
+			<h2 id="131aa64c-9d0a-8165-a8a7-dc1436b5bdb6" class=""><strong>Цель:</strong></h2>
+			<ul id="131aa64c-9d0a-8133-a307-e97b347fb5ef" class="bulleted-list">
+				<li style="list-style-type:disc">Научиться работе с GREP.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8109-990a-df15f77de615" class="bulleted-list">
+				<li style="list-style-type:disc">Для практической работы желательно использовать следующие методические
+					материалы:<figure id="131aa64c-9d0a-81ad-aed8-fd5dd138ef9e" class="link-to-page"><a
+							href="Часть 3 1 Продвинутое понимание GREP/Методическое указание по grep.html"><span
+								class="icon">📟</span>Методическое указание по grep</a></figure>
+				</li>
+			</ul>
+			<h2 id="131aa64c-9d0a-8113-92c2-e33be4bb8a33" class=""><strong>Задачи:</strong></h2>
+			<ol type="1" id="131aa64c-9d0a-81a3-ad17-e6c0f9e5b8b3" class="numbered-list" start="1">
+				<li>Вы проводите поиск в Интернете, и видите, что используются две разные версии Python, и вы не знаете,
+					какая из них был установлен в вашей системе установщиком Ubuntu, и устанавливал ли он какие-либо
+					дополнительные модули?</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8112-9ae7-c5d1ef831f27" class="numbered-list" start="2">
+				<li>Допустим, у вас возникли проблемы с вашим веб-сервером Apache, и вы обратились к одному из многих
+					форумов в сети с просьбой о помощи. Добрая душа, которая вам ответила, попросила вас отправить
+					содержимое вашего файла <code>/etc/apache2/sites-available/default-ssl</code>. Разве вам не было бы
+					не легче, если бы вы могли просто удалить все закомментированные строки?</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-812e-97fa-f615f64da6ee" class="numbered-list" start="3">
+				<li>Например, предположим, что у вас есть целая папка, полная музыкальных файлов разных форматов. Вы
+					хотите найти все файлы <code>.mp3</code> у исполнителя ABC, но вы не хотите никаких ремиксов. Как
+					поступить?</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ce-9058-fe59f2e59483" class="numbered-list" start="4">
+				<li>Выполните следующие задания:<ul id="131aa64c-9d0a-8194-8451-c267932fd0bc" class="bulleted-list">
+						<li style="list-style-type:disc">Как отобразить количество строк до или после строки поиска?
+						</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8100-934e-fc500aa0dbd5" class="bulleted-list">
+						<li style="list-style-type:disc">Как вывести количество строк совпадения?</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81aa-9369-eac6e444b593" class="bulleted-list">
+						<li style="list-style-type:disc">Как выяснить количество совпадений?</li>
+					</ul>
+					<ul id="131aa64c-9d0a-814f-8c9e-d124295de0e4" class="bulleted-list">
+						<li style="list-style-type:disc">Как найти файлы по заданным номерам строк?</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81cd-bd7a-d6ea4197827b" class="bulleted-list">
+						<li style="list-style-type:disc">Произвести поиск рекурсивной строки во всех каталогах.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8155-bd0f-fc8b48f46223" class="bulleted-list">
+						<li style="list-style-type:disc">Произвести поиск строк в архивах файлах Gzip. (создать zip
+							архив см.п.10.1)</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8188-8258-cceec01f3f77" class="numbered-list" start="5">
+				<li>Найти все строки, содержащие слово &quot;error&quot; в файле <code>logfile.txt</code> </li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81f0-be36-ff15c7ef6ed1" class="numbered-list" start="6">
+				<li>Найти все файлы в каталоге <code>/var/log</code>, содержащие слово &quot;kernel&quot; в их именах
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8120-9e45-c2ee4ffc4617" class="numbered-list" start="7">
+				<li>Найти строки во всех файлах, соответствующих шаблону &quot;error.log&quot;, в подкаталогах
+					<code>/var/log</code>.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81de-b6a9-d86daa70b124" class="numbered-list" start="8">
+				<li>Найти строки во всех файлах, не учитывая регистр, соответствующие шаблону
+					&quot;<code>warning</code>&quot;.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-811f-85c0-d3fe26a7998d" class="numbered-list" start="9">
+				<li>Найти все строки в файле <code>access.log</code>, где IP-адрес повторяется более одного раза, и
+					вывести эти IP-адреса вместе с количеством их повторений, по всему файлу.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ce-b25a-f0de01d83edc" class="numbered-list" start="10">
+				<li>Найти все строки во всех файлах в каталоге <code>/var/log</code>, содержащие дату в формате
+					&quot;dd/mm/yyyy hh:mm:ss&quot;, и вывести количество вхождений каждой уникальной даты</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81b6-a759-e23e1e047642" class="numbered-list" start="11">
+				<li>Найти все строки в файлах с расширением <code>.conf</code> в каталоге <code>/etc</code>, содержащие
+					ключевое слово &quot;Listen&quot;, и вывести номера строк и имена файлов, где они находятся</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8150-b36f-fc68524f1c25" class="numbered-list" start="12">
+				<li>Найти все строки в файлах с расширением <code>.conf</code> в каталоге <code>/etc</code>, содержащие
+					блоки конфигурации <code>Section</code>, и вывести только содержимое каждого блока</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8140-ae56-f6f4c3511abf" class="numbered-list" start="13">
+				<li>Найти все строки в файлах с расширением <code>.log</code> в каталоге, где каждая строка начинается с
+					даты в формате &quot;yyyy-mm-dd&quot;, и вывести эти строки вместе с именами файлов и номерами всех
+					строк.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81c2-a116-e1835b4c9476" class="numbered-list" start="14">
+				<li>Найти все комментарии в файле <code>script.py</code>, которые начинаются с символа <code>#</code>, и
+					вывести только те комментарии, которые содержат слово &quot;TODO&quot;? (Необходимо написать скрипт)
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-814d-a89f-e069dcd82140" class="numbered-list" start="15">
+				<li>Найти все строки в файлах с расширением <code>.html</code>, где атрибут <code>href</code> содержит
+					ссылку на внешний сайт, и вывести только имена файлов и URL-адреса</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8186-bf35-e6412eef1b66" class="numbered-list" start="16">
+				<li>Найти все строки в файлах с расширением <code>.py</code>, которые содержат строковые литералы
+					(строки в кавычках) с символами Unicode, и вывести только имена файлов и номера строк</li>
+			</ol>
+			<h3 id="131aa64c-9d0a-81f1-83ec-fc991e5964bb" class=""><strong>Отчёт:</strong></h3>
+			<ul id="131aa64c-9d0a-813c-a753-c76511a90a8d" class="bulleted-list">
+				<li style="list-style-type:disc">Предоставить работу каждого пункта.</li>
+			</ul>
+			<h1 id="131aa64c-9d0a-81a4-8c57-f8a70fc1201e" class="">1<strong>. Методические указания к
+					выполнению</strong></h1>
+			<p id="131aa64c-9d0a-81a0-a415-e309b40de3b1" class="">
+			</p>
+			<figure class="block-color-teal_background callout" style=" display:flex"
+				id="131aa64c-9d0a-8198-9b4f-f0445f5677c6">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%">Grep - это утилита командной строки в Linux, которая используется для поиска
+					текстовых данных в одном или нескольких файлах. Grep производит поиск в файле или файловой системе,
+					а затем отображает все строки, содержащие заданный шаблон. Grep может использоваться для поиска
+					файлов, содержащих определенное слово, для поиска файлов, содержащих определенный паттерн и многого
+					другого.</div>
+			</figure>
+			<h2 id="131aa64c-9d0a-8143-8979-f91aa640fe63" class="">1<strong>.1 Поиск файлов</strong></h2>
+			<p id="131aa64c-9d0a-810d-bc8c-cc6912476ff5" class="">Предположим, что вы только что установили новую версию
+				Ubuntu на ваш компьютер собираетесь добавить к Python некоторые скрипты. Вы проводите поиск в Интернете,
+				и видите, что используются две разные версии Python, и вы не знаете, какая из них был установлен в вашей
+				системе установщиком Ubuntu, и устанавливал ли он какие-либо дополнительные модули. Чтобы с этим
+				разобраться, просто запустите эту команду:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81e1-889f-c47d05dc1206"
+				class="code"><code class="language-Bash">dpkg -l | grep -i python</code></pre>
+			<blockquote id="131aa64c-9d0a-8139-8df3-d98232e923d9" class="">Команда
+				<code><strong>dpkg -l | grep -i python</strong></code> выполняет поиск в списке всех установленных
+				пакетов (<code><strong>dpkg -l</strong></code>) строк, содержащих фразу &quot;python&quot; (с учетом
+				регистра, благодаря опции <code><strong>-i</strong></code> в <code><strong>grep</strong></code>). В
+				операционных системах на базе Debian и их производных, таких как Ubuntu,
+				<code><strong>dpkg</strong></code> является инструментом для управления пакетами. В данном контексте,
+				<code><strong>dpkg -l</strong></code> отображает список всех установленных пакетов на вашей системе.
+			</blockquote>
+			<p id="131aa64c-9d0a-818b-a1b0-da7c0967f282" class="">
+			</p>
+			<p id="131aa64c-9d0a-8147-ba36-c8e48dd6b867" class=""><strong>Пример вывода:</strong></p>
+			<ul id="131aa64c-9d0a-81e3-a710-ec8663aa2d82" class="bulleted-list">
+				<li style="list-style-type:disc">ii python 2.7 2.7.3-0ubuntu3.4 Interactive high-level object-oriented
+					language (version 2.7)</li>
+			</ul>
+			<ul id="131aa64c-9d0a-811a-b516-d753448fbe9c" class="bulleted-list">
+				<li style="list-style-type:disc">ii python2.7-minimal 2.7.3-0ubuntu3.4 Minimal subset of the Python
+					language (version 2.7)</li>
+			</ul>
+			<ul id="131aa64c-9d0a-815f-a529-e51e9f603888" class="bulleted-list">
+				<li style="list-style-type:disc">ii python-openssl 0.12-1ubuntu2.1 Python wrapper around the OpenSSL
+					library</li>
+			</ul>
+			<ul id="131aa64c-9d0a-815a-9b0d-ec72754abc3f" class="bulleted-list">
+				<li style="list-style-type:disc">ii python-pam 0.4.2-12.2ubuntu4 A Python interface to the PAM library
+				</li>
+			</ul>
+			<p id="131aa64c-9d0a-8179-a4a3-c2172f880a9d" class="">Сначала мы запустили dpkg -l, чтобы вывести
+				установленные <code>*.deb</code> пакеты в вашей системе. Далее мы передали этот вывод в grep -i python.
+				Опция -i используется, чтобы игнорировать регистр, поскольку grep чувствителен к нему. Использование
+				опции -i — хорошая привычка, если вы конечно, не пытаетесь выполнить более конкретный поиск.</p>
+			<h2 id="131aa64c-9d0a-812c-83bc-dbbc15e70ce0" class="">1<strong>.2 Поиск и фильтрация файлов</strong></h2>
+			<p id="131aa64c-9d0a-813e-a3c6-e44f85ed6d73" class="">Grep также может использоваться для поиска и
+				фильтрации внутри одного или нескольких файлов. Давайте рассмотрим эту функцию:</p>
+			<p id="131aa64c-9d0a-8168-b9dc-daafdc9c660b" class="">Допустим, у вас возникли проблемы с вашим веб-сервером
+				Apache, и вы обратились к одному из многих форумов в сети с просьбой о помощи. Добрая душа, которая вам
+				ответила, попросила вас отправить содержимое вашего файла <code>/etc/host</code>s. Разве вам не было бы
+				не легче, если бы вы могли просто удалить все закомментированные строки? А ведь вы это можете!
+				П<strong>росто выполните эту команду:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-819c-a521-c7349e49fac3"
+				class="code"><code class="language-Bash">grep -v &#x27;#&#x27; /etc/hosts</code></pre>
+			<blockquote id="131aa64c-9d0a-8158-ae00-feda4ffb7749" class="">Команда
+				<code><strong>grep -v &#x27;#&#x27; /etc/hosts</strong></code> используется для поиска в файле
+				<code><strong>/etc/hosts</strong></code> строк, которые не начинаются с символа
+				<code><strong>#</strong></code>. В операционных системах UNIX и их производных, таких как Linux, файл
+				<code><strong>/etc/hosts</strong></code> используется для соответствия IP-адресов именам хостов.
+			</blockquote>
+			<blockquote id="131aa64c-9d0a-81db-8047-fcc9deb7d003" class="">После выполнения этой команды, вы получите
+				результат, который представляет собой содержимое файла <code><strong>/etc/hosts</strong></code>, за
+				исключением строк, начинающихся с символа <code><strong>#</strong></code>. Символ
+				<code><strong>#</strong></code> обычно используется для обозначения комментариев в конфигурационных
+				файлах, поэтому использование <code><strong>-v</strong></code> в <code><strong>grep</strong></code>
+				исключает строки с комментариями, оставляя только строки, содержащие конфигурационные записи.
+			</blockquote>
+			<p id="131aa64c-9d0a-8101-93dc-cea86c761105" class="">
+			</p>
+			<p id="131aa64c-9d0a-819f-b173-dc27dd353a3c" class="">Опция -v указывает grep инвертировать свой вывод, что
+				означает, что вместо печати совпадающих строк grep сделает противоположное и выведутся строки, которые
+				не соответствуют выражению, в этом случае – закомментированные строки.</p>
+			<h1 id="131aa64c-9d0a-8111-a95e-d4e2d24ff790" class="">2<strong>. Найти все файлы .mp3</strong></h1>
+			<p id="131aa64c-9d0a-8138-b842-d757abeb6e43" class="">Grep может быть очень полезен для фильтрации из
+				stdout. Например, предположим, что у вас есть целая папка, полная музыкальных файлов разных форматов. Вы
+				хотите найти все файлы <code>*.mp3</code> у исполнителя ABC, но вы не хотите никаких ремиксов.
+				Использование команды find с несколькими опциями grep запросто проделает этот трюк:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-817d-a839-d202051207ed"
+				class="code"><code class="language-Bash">find . –name &quot;*.mp3&quot; | grep –i ABC | grep –vi &quot;remix&quot;</code></pre>
+			<p id="131aa64c-9d0a-81b7-a0fe-d0fd1acc07b5" class="">Первый фильтр:
+				<code><strong>find . -name &quot;*.mp3&quot;</strong></code></p>
+			<p id="131aa64c-9d0a-81dc-b1b0-d2c56544fc6c" class="">Это команда <code><strong>find</strong></code>,
+				которая начинает поиск файлов в текущем каталоге (<code><strong>.</strong></code>) и его подкаталогах.
+				Опция <code><strong>-name &quot;*.mp3&quot;</strong></code> говорит <code><strong>find</strong></code>
+				искать файлы только с расширением <code><strong>.mp3</strong></code>.</p>
+			<p id="131aa64c-9d0a-818e-9df9-fe59d0efe7e9" class=""><code><strong>grep -i ABC</strong></code></p>
+			<p id="131aa64c-9d0a-81cc-8224-ecaadd31e84b" class="">Этот фильтр <code><strong>grep</strong></code> ищет
+				строки, содержащие фразу &quot;ABC&quot; в имени файла. Опция <code><strong>-i</strong></code> делает
+				поиск регистронезависимым, то есть игнорирует регистр
+				символов.<br /><br /><code><strong>grep -vi &quot;remix”</strong></code><br />Этот фильтр
+				<br /><code><strong>grep</strong></code> исключает строки, содержащие слово &quot;remix&quot;. Опция
+				<code><strong>-v</strong></code> отображает только строки, которые не содержат &quot;remix&quot;, а
+				<code><strong>-i</strong></code> делает поиск регистронезависимым.<br /><br /></p>
+			<p id="131aa64c-9d0a-81f5-9946-f64cc6eb9abc" class="">В этом примере мы используем find для вывода всех
+				файлов с расширением *.mp3, связывая поиск с grep -i, чтобы отфильтровать и вывести все файлы с именем
+				«ABC», а затем еще одна опция для grep -vi, которая фильтрует и не выводит все имена файлов со словом
+				«remix».</p>
+			<h1 id="131aa64c-9d0a-81c3-b340-cc9629bc3fb5" class="">3<strong>. Отображение количества строк до или после
+					строки поиска</strong></h1>
+			<p id="131aa64c-9d0a-818c-ae4d-ccf44ccadc32" class="">Еще пара опций — это функции -A и -B, которые
+				отображают согласованные строки и количество строк, которые присутствуют до или после строки поиска. В
+				то время как справочная страница дает более подробное объяснение, нам легче запомнить параметры как -A —
+				after и -B — before:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8137-ac6e-cdd1978f52fe"
+				class="code"><code class="language-Bash">ifconfig | grep -A 4 eth0</code></pre>
+			<blockquote id="131aa64c-9d0a-81c1-a7ac-c7c0cb0b2c35" class="">После выполнения команды
+				<code><strong>ifconfig</strong></code>, вы получите подробную информацию о сетевых интерфейсах, включая
+				их IP-адреса, состояние подключения, MAC-адреса и другие параметры.</blockquote>
+			<blockquote id="131aa64c-9d0a-81cf-b7ac-c6737d235cd5" class="">Однако команда
+				<code><strong>grep -A 4 eth0</strong></code> применяется к выводу <code><strong>ifconfig</strong></code>
+				и используется для фильтрации результатов:</blockquote>
+			<ul id="131aa64c-9d0a-81b4-ad26-de6116c523de" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep</strong></code>: Это утилита для поиска текста в
+					выводе команд.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c0-abec-d1d2a955471e" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>A 4</strong></code>: Опция
+					<code><strong>A</strong></code> указывает, что после каждого совпадения выводится указанное
+					количество строк после строки совпадения. В данном случае <code><strong>4</strong></code> означает,
+					что после каждого совпадения будет выведено 4 строки.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81d7-85a5-f6729ca38ce7" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>eth0</strong></code>: Это аргумент, который вы ищете в
+					выводе <code><strong>ifconfig</strong></code>. В данном случае, скорее всего, это имя сетевого
+					интерфейса Ethernet.</li>
+			</ul>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81fd-87de-cbe2eaa15c17"
+				class="code"><code class="language-Bash">ifconfig | grep -B 2 UP</code></pre>
+			<blockquote id="131aa64c-9d0a-8117-990d-ce3c03ac00d9" class="">Команда
+				<code><strong>grep -B 2 UP</strong></code> применяется к выводу <code><strong>ifconfig</strong></code> и
+				используется для фильтрации результатов:</blockquote>
+			<ul id="131aa64c-9d0a-8189-a784-f2fbb5dcab25" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep</strong></code>: Это утилита для поиска текста в
+					выводе команд.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8134-b7c9-ecb5f2940acc" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>B 2</strong></code>: Опция
+					<code><strong>B</strong></code> указывает, что перед каждым совпадением выводятся указанные строки
+					перед строкой совпадения. В данном случае <code><strong>2</strong></code> означает, что перед каждым
+					совпадением будет выведено 2 строки.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8153-a970-c89c7c18615d" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>UP</strong></code>: Это аргумент, который вы ищете в
+					выводе <code><strong>ifconfig</strong></code>. В контексте сетевых интерфейсов &quot;UP&quot; обычно
+					указывает на то, что интерфейс включен и активен.</li>
+			</ul>
+			<h1 id="131aa64c-9d0a-81a9-92e0-c2d353758a5f" class="">4<strong>. Вывод количества строк совпадения</strong>
+			</h1>
+			<p id="131aa64c-9d0a-811d-b960-cb031f6a92a8" class="">Параметр -C для grep вместо того, чтобы проверять
+				строки, которые появляются до или после искомой строки, он проверяет строки в любом направлении:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81bd-a47b-dd069c4e2d45"
+				class="code"><code class="language-Bash">ifconfig | grep -C 2 lo</code></pre>
+			<blockquote id="131aa64c-9d0a-819f-8c2b-db3d8108a671" class="">Команда
+				<code><strong>grep -C 2 lo</strong></code> применяется к выводу <code><strong>ifconfig</strong></code> и
+				используется для фильтрации результатов:</blockquote>
+			<ul id="131aa64c-9d0a-811f-8ebf-ecfc4e110cd1" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep</strong></code>: Это утилита для поиска текста в
+					выводе команд.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81cb-9665-cff84c04b092" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>C 2</strong></code>: Опция
+					<code><strong>C</strong></code> указывает, что вместе с каждым совпадением выводится указанное
+					количество строк как перед совпадением, так и после него. В данном случае
+					<code><strong>2</strong></code> означает, что перед и после каждого совпадения будет выведено по 2
+					строки.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8132-b1ea-f10bd2094db9" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>lo</strong></code>: Это аргумент, который вы ищете в
+					выводе <code><strong>ifconfig</strong></code>. <code><strong>lo</strong></code> - это сетевой
+					интерфейс &quot;loopback&quot;, который используется для обратной связи на локальном устройстве.
+				</li>
+			</ul>
+			<h1 id="131aa64c-9d0a-8116-8ea2-de51fc20a4d0" class="">5<strong>. Количество совпадений</strong></h1>
+			<p id="131aa64c-9d0a-81b2-8bca-d1e5ac9638c7" class="">Grep так же может запросто подсчитать количество
+				совпадений:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-819a-bef3-d58042983d1b"
+				class="code"><code class="language-Bash">ifconfig | grep -c inet6</code></pre>
+			<blockquote id="131aa64c-9d0a-8119-a1be-f8810e376820" class="">Команда
+				<code><strong>grep -c inet6</strong></code> применяется к выводу <code><strong>ifconfig</strong></code>
+				и используется для подсчета количества строк, содержащих строку <code><strong>inet6</strong></code>. В
+				сетевых контекстах <code><strong>inet6</strong></code> обычно относится к адресам IPv6.</blockquote>
+			<ul id="131aa64c-9d0a-81ea-a856-d14491c84a91" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep</strong></code>: Это утилита для поиска текста в
+					выводе команд.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81a0-b8db-df5fef5f798e" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>c</strong></code>: Опция <code><strong>c</strong></code>
+					используется для вывода только количества строк, соответствующих критериям поиска, а не самих строк.
+				</li>
+			</ul>
+			<h1 id="131aa64c-9d0a-81cd-a45e-d3bc586cf9b0" class="">6<strong>. Поиск файлов по заданным номерам
+					строк</strong></h1>
+			<p id="131aa64c-9d0a-81f3-a344-f516f4c0be8d" class="">Параметр -n для grep очень полезен при отладке файлов
+				во время компиляции. Он отображает номер строки в файле поиска:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8163-9cef-fa7007350b6a"
+				class="code"><code class="language-Bash">grep -n &#x27;main&#x27; setup.py</code></pre>
+			<blockquote id="131aa64c-9d0a-81ba-8ab2-df36a8169319" class="">Команда
+				<code><strong>grep -n &#x27;main&#x27; setup.py</strong></code> используется для поиска всех строк в
+				файле <code><strong>setup.py</strong></code>, содержащих слово &#x27;main&#x27;, и вывода их с номерами
+				строк.</blockquote>
+			<ul id="131aa64c-9d0a-81b4-a263-deff73f44968" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep</strong></code>: Это утилита для поиска текста в
+					файле.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8162-b4cc-fd87125131ad" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>n</strong></code>: Опция <code><strong>n</strong></code>
+					используется для отображения номеров строк вместе с результатами поиска.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8138-8e4d-eb255d129348" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>&#x27;main&#x27;</strong></code>: Это шаблон, который
+					<code><strong>grep</strong></code> ищет в файле <code><strong>setup.py</strong></code>. В данном
+					случае он ищет строки, содержащие слово &#x27;main&#x27;.</li>
+			</ul>
+			<h1 id="131aa64c-9d0a-8192-8c87-e2653f35e160" class="">7<strong>. Поиск рекурсивной строки во всех
+					каталогах</strong></h1>
+			<p id="131aa64c-9d0a-81dc-bcd2-f4cc9677329a" class="">Если вы хотите найти строку в текущем каталоге вместе
+				со всеми подкаталогами, вы можете указать параметр -r для поиска рекурсивно:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81c6-97ae-db2184c8d0a4"
+				class="code"><code class="language-Bash">grep –r &quot;function&quot; *</code></pre>
+			<blockquote id="131aa64c-9d0a-819a-9179-c5b3fd830f38" class="">Команда
+				<code><strong>grep -r &quot;function&quot; *</strong></code> выполняет поиск всех вхождений строки
+				&quot;function&quot; в содержимом файлов в текущем каталоге и его подкаталогах.</blockquote>
+			<ul id="131aa64c-9d0a-8101-8748-d771bf24d5ea" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep</strong></code>: Это утилита для поиска текста в
+					файле или наборе файлов.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81b2-8eb2-d2a3086216b9" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>r</strong></code>: Опция <code><strong>r</strong></code>
+					(или <code><strong>-recursive</strong></code>) указывает <code><strong>grep</strong></code>у
+					рекурсивно просматривать все подкаталоги.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-819b-bddf-e413db6f275d" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>&quot;function&quot;</strong></code>: Это строка, которую
+					<code><strong>grep</strong></code> ищет в файлах.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8127-a16a-d7fd54d0944d" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong></strong></code>: Это маска, которая соответствует всем
+					файлам и подкаталогам в текущем каталоге.</li>
+			</ul>
+			<h1 id="131aa64c-9d0a-81fe-9c7d-e826b19d8adf" class="">8<strong>. Поиск по всему шаблону</strong></h1>
+			<p id="131aa64c-9d0a-817f-9523-e7229f999291" class="">Опции -w для grep ищет весь шаблон, который находится
+				в строке. Например, используя:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-810f-b7d6-f75d34f9486a"
+				class="code"><code class="language-Bash">ifconfig | grep -w &quot;RUNNING&quot;</code></pre>
+			<blockquote id="131aa64c-9d0a-810f-bf8f-f1bf87fc4cc9" class="">Команда
+				<code><strong>grep -w &quot;RUNNING&quot;</strong></code> применяется к выводу
+				<code><strong>ifconfig</strong></code> и используется для фильтрации результатов:</blockquote>
+			<ul id="131aa64c-9d0a-816e-93a3-d1f0efb6893e" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep</strong></code>: Это утилита для поиска текста в
+					выводе команд.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8185-a610-e996d3434ac7" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>w</strong></code>: Опция <code><strong>w</strong></code>
+					в <code><strong>grep</strong></code> ищет только целые слова. Это означает, что
+					<code><strong>grep</strong></code> будет искать только полные совпадения с словом
+					&quot;RUNNING&quot;, игнорируя части слов или подстроки.</li>
+			</ul>
+			<p id="131aa64c-9d0a-81c4-9423-c9a700f7765a" class="">Выведет строку, содержащую шаблон в кавычках. С другой
+				стороны, если вы попытаетесь:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8123-8cd9-fb1fe0268f46"
+				class="code"><code class="language-Bash">ifconfig | grep -w &#x27;RUN&#x27;</code></pre>
+			<blockquote id="131aa64c-9d0a-8175-aa30-d17c04f3174d" class="">Команда
+				<code><strong>grep -w &#x27;RUN&#x27;</strong></code> применяется к выводу
+				<code><strong>ifconfig</strong></code> и используется для фильтрации результатов:</blockquote>
+			<ul id="131aa64c-9d0a-81ce-b5c1-e4d2996cdde3" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep</strong></code>: Это утилита для поиска текста в
+					выводе команд.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8172-ba2e-e36a1e516cd9" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>w</strong></code>: Опция <code><strong>w</strong></code>
+					в <code><strong>grep</strong></code> ищет только целые слова. Это означает, что
+					<code><strong>grep</strong></code> будет искать только полные совпадения с словом &quot;RUN&quot;,
+					игнорируя части слов или подстроки.</li>
+			</ul>
+			<p id="131aa64c-9d0a-81b0-937d-f53303907265" class="">Ничего не будет возвращено, поскольку мы ищем не
+				шаблон, а целое слово.</p>
+			<h1 id="131aa64c-9d0a-81c9-ac2e-d5724f6f94c8" class="">9<strong>. Поиск строки в архивах файлах
+					Gzip</strong></h1>
+			<p id="131aa64c-9d0a-81a4-b211-fc6ee32334bd" class="">Gzip (сокращение от GNU Zip) — утилита сжатия и
+				восстановления (декомпрессии) файлов, использующая алгоритм Deflate. Для поиска в таких файлах
+				необходимо использовать команду zgrep, которая принимает те же параметры, что и grep, и используется
+				таким же образом:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81e0-98d2-fda1c4d5177e"
+				class="code"><code class="language-Bash">zgrep -i error /usr/share/info/wget.info.gz</code></pre>
+			<blockquote id="131aa64c-9d0a-81cb-9ce7-dde6e99a9905" class="">Команда
+				<code><strong>zgrep -i error /usr/share/info/wget.info.gz</strong></code> используется для поиска строк,
+				содержащих слово &quot;error&quot; в файле <code><strong>wget.info.gz</strong></code>, который является
+				сжатым файлом информации о программе wget.</blockquote>
+			<ul id="131aa64c-9d0a-819e-86d7-ef95af7421e5" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>zgrep</strong></code>: Это утилита, аналогичная
+					<code><strong>grep</strong></code>, но способная работать с сжатыми файлами. Она ищет текст в
+					файлах, сжатых с использованием gzip.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81da-afb5-d202cf87e616" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>i</strong></code>: Это опция
+					<code><strong>zgrep</strong></code>, которая указывает на выполнение поиска без учета регистра
+					символов. То есть поиск будет нечувствителен к регистру, и строки, содержащие &quot;Error&quot;,
+					&quot;ERROR&quot; и &quot;error&quot;, будут рассматриваться как совпадения.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8156-bea0-ef0ade666901" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>error</strong></code>: Это строка, которую
+					<code><strong>zgrep</strong></code> ищет в файле <code><strong>wget.info.gz</strong></code>.</li>
+			</ul>
+			<h2 id="131aa64c-9d0a-8165-ab95-c2e9cb10eb00" class="">9<strong>.1 Создаем простой zip-архив</strong></h2>
+			<p id="131aa64c-9d0a-818d-b443-cd1455531c24" class=""><strong>Для создания zip-архива просто выполняем
+					команду zip, в первом аргументе указываем имя будущего архива, а во втором сам файл, который мы
+					сжимаем:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-813c-947b-c137fadef1b2"
+				class="code"><code class="language-Bash">zip myfile.zip myfile.txt</code></pre>
+			<blockquote id="131aa64c-9d0a-810d-90c3-fcee899c7f98" class="">Команда
+				<code><strong>zip myfile.zip myfile.txt</strong></code> используется для создания нового архива с именем
+				<code><strong>myfile.zip</strong></code>, в который включается файл
+				<code><strong>myfile.txt</strong></code>.</blockquote>
+			<ul id="131aa64c-9d0a-813e-8b9c-f1b4079bf948" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>zip</strong></code>: Это утилита для архивации файлов и
+					каталогов.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-816a-a4b3-f036ccdef8db" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>myfile.zip</strong></code>: Это имя архива, который вы
+					создаете.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81d8-a7bd-ce294a2cee8a" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>myfile.txt</strong></code>: Это файл, который вы
+					добавляете в архив.</li>
+			</ul>
+			<p id="131aa64c-9d0a-8175-9259-dfc23592f7ed" class=""><strong>Если нужно сжать несколько файлов то
+					перечисляем их через пробел:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-816e-8fc0-f7927b09a329"
+				class="code"><code class="language-Bash">zip myarchive.zip myfile.txt yourfile.txt theirfile.txt</code></pre>
+			<blockquote id="131aa64c-9d0a-814e-8855-ee7e903ba212" class="">Команда
+				<code><strong>zip myarchive.zip myfile.txt yourfile.txt theirfile.txt</strong></code> используется для
+				создания нового архива с именем <code><strong>myarchive.zip</strong></code>, в который включены файлы
+				<code><strong>myfile.txt</strong></code>, <code><strong>yourfile.txt</strong></code> и
+				<code><strong>theirfile.txt</strong></code>.</blockquote>
+			<ul id="131aa64c-9d0a-81c9-88ea-d28923f18478" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>zip</strong></code>: Это утилита для архивации файлов и
+					каталогов.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8124-abdc-c4003ac4f47c" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>myarchive.zip</strong></code>: Это имя архива, который вы
+					создаете.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8149-a008-d01c56d2dd38" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>myfile.txt</strong></code>,
+					<code><strong>yourfile.txt</strong></code>, <code><strong>theirfile.txt</strong></code>: Это файлы,
+					которые вы добавляете в архив.</li>
+			</ul>
+			<p id="131aa64c-9d0a-8118-9790-d71c384b58db" class="">Таким образом, после выполнения этой команды файлы
+				<code><strong>myfile.txt</strong></code>, <code><strong>yourfile.txt</strong></code> и
+				<code><strong>theirfile.txt</strong></code> будут добавлены в архив с именем
+				<code><strong>myarchive.zip</strong></code>. Получившийся архив будет содержать все эти файлы. Создание
+				архива позволяет объединить несколько файлов в один для удобства хранения, передачи или архивации.</p>
+			<p id="131aa64c-9d0a-812d-8795-f4cfc7006bc4" class=""><strong>Создаем zip-архив папки, чтобы заархивировать
+					папку, используется ключ -r:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81b2-9110-f3ab0d02f83d"
+				class="code"><code class="language-Bash">zip -r mydir.zip verygooddir</code></pre>
+			<blockquote id="131aa64c-9d0a-81aa-beff-f6c89dfc4760" class="">Команда
+				<code><strong>zip -r mydir.zip verygooddir</strong></code> используется для создания нового архива с
+				именем <code><strong>mydir.zip</strong></code>, который содержит все файлы и подкаталоги в каталоге
+				<code><strong>verygooddir</strong></code>, а также все файлы и подкаталоги внутри этих подкаталогов.
+			</blockquote>
+			<ul id="131aa64c-9d0a-81dc-8fed-d77eb88c9634" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>zip</strong></code>: Это утилита для архивации файлов и
+					каталогов.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81e1-a865-d5ed857bc058" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>r</strong></code>: Опция <code><strong>r</strong></code>
+					(или <code><strong>-recursive</strong></code>) указывает <code><strong>zip</strong></code>у
+					рекурсивно включить в архив все файлы и подкаталоги в указанном каталоге и его подкаталогах.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8111-b81a-f1b8e996bce2" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>mydir.zip</strong></code>: Это имя архива, который вы
+					создаете.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8158-b94a-d9a145290875" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>verygooddir</strong></code>: Это имя каталога, содержимое
+					которого вы хотите добавить в архив.</li>
+			</ul>
+			<p id="131aa64c-9d0a-812d-9ad4-feae634f560a" class=""><strong>Создаем zip-архив с паролем</strong></p>
+			<p id="131aa64c-9d0a-8166-8021-c5db2cdb9ab9" class=""><em>Очень важной функцией утилиты zip является
+					возможность задания пароля на распаковку архива. Для этого применяется опция -P, после которой
+					следует написать пароль:</em></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81f0-9c1d-ecf6145fb8d3"
+				class="code"><code class="language-Bash">zip -P мойпароль -r mysecretdir.zip mysecretdir</code></pre>
+			<blockquote id="131aa64c-9d0a-81cc-af91-e5623a85dcf4" class="">Команда
+				<code><strong>zip -P мойпароль -r mysecretdir.zip mysecretdir</strong></code> используется для создания
+				зашифрованного архива с именем <code><strong>mysecretdir.zip</strong></code>, который содержит все файлы
+				и подкаталоги в каталоге <code><strong>mysecretdir</strong></code>, а также все файлы и подкаталоги
+				внутри этих подкаталогов. Архив будет зашифрован с помощью пароля
+				<code><strong>мойпароль</strong></code>.</blockquote>
+			<ul id="131aa64c-9d0a-816b-82a6-d1a89ef67f40" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>zip</strong></code>: Это утилита для архивации файлов и
+					каталогов.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8170-a43b-f1521d4e52c4" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>P мойпароль</strong></code>: Это опция
+					<code><strong>P</strong></code>, которая используется для указания пароля для зашифровки архива.
+					<code><strong>мойпароль</strong></code> здесь представляет ваш пароль.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-813e-bb3f-f9231efa31fd" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>r</strong></code>: Опция <code><strong>r</strong></code>
+					(или <code><strong>-recursive</strong></code>) указывает <code><strong>zip</strong></code>у
+					рекурсивно включить в архив все файлы и подкаталоги в указанном каталоге и его подкаталогах.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c5-87da-ed401fdb88b9" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>mysecretdir.zip</strong></code>: Это имя архива, который
+					вы создаете.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-812e-b537-c10c38e71de9" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>mysecretdir</strong></code>: Это имя каталога, содержимое
+					которого вы хотите добавить в архив.</li>
+			</ul>
+			<p id="131aa64c-9d0a-816f-9b38-cecd512dfa01" class=""><strong>Если вы не хотите вводить пароль в командной
+					строке у всех на виду, то можно использовать опцию -e, чтобы вместо ввода пароля в открытую, вводить
+					его в срытом виде:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-811c-8cfd-dfa49b261981"
+				class="code"><code class="language-Bash">zip -er mysecretdir.zip mysecretdir</code></pre>
+			<blockquote id="131aa64c-9d0a-8178-90fa-df54576eb98b" class="">Команда
+				<code><strong>zip -er mysecretdir.zip mysecretdir</strong></code> используется для создания
+				зашифрованного архива с именем <code><strong>mysecretdir.zip</strong></code>, который содержит все файлы
+				и подкаталоги в каталоге <code><strong>mysecretdir</strong></code>.</blockquote>
+			<ul id="131aa64c-9d0a-81f6-9281-f3f07aa00674" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>zip</strong></code>: Это утилита для архивации файлов и
+					каталогов.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8112-8d65-f183b841c10d" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>e</strong></code>: Опция <code><strong>e</strong></code>
+					(или <code><strong>-encrypt</strong></code>) используется для указания на необходимость зашифровки
+					создаваемого архива. При использовании этой опции <code><strong>zip</strong></code> запросит у вас
+					пароль для шифрования архива.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-813b-9f62-c2c03c66100b" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>r</strong></code>: Опция <code><strong>r</strong></code>
+					(или <code><strong>-recursive</strong></code>) указывает <code><strong>zip</strong></code>у
+					рекурсивно включить в архив все файлы и подкаталоги в указанном каталоге и его подкаталогах.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-818c-ba0a-d1b02b562990" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>mysecretdir.zip</strong></code>: Это имя архива, который
+					вы создаете.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8140-89c3-cfed95160c8f" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>mysecretdir</strong></code>: Это имя каталога, содержимое
+					которого вы хотите добавить в архив.</li>
+			</ul>
+			<p id="131aa64c-9d0a-8170-bee2-c82b15eabb7e" class=""><strong>После выполнения данной команды, вам будет
+					предложено дважды ввести пароль. Сам пароль виден при этом не будет:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81e3-a184-cdc5a9391ef7" class="code"><code class="language-Plain Text" style=" word-break:break-all">Enter password:
+Verify password:</code></pre>
+			<p id="131aa64c-9d0a-81fd-9c2d-d36f4f9ce891" class=""><strong>Распаковка zip-архива</strong></p>
+			<p id="131aa64c-9d0a-8116-b6d2-ff6b0730e883" class=""><em>Для того, чтобы разархивировать zip-архив,
+					используется команда unzip. Ее можно запускать без опций, только указывая имя архива:</em></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8196-badc-f2284d2626f3"
+				class="code"><code class="language-Bash">unzip myfile.zip</code></pre>
+			<blockquote id="131aa64c-9d0a-8100-a717-cb283e4b36b5" class="">Команда
+				<code><strong>unzip myfile.zip</strong></code> используется для распаковки архива с именем
+				<code><strong>myfile.zip</strong></code>.</blockquote>
+			<ul id="131aa64c-9d0a-81cf-a3f4-c20a201ae50a" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>unzip</strong></code>: Это утилита для извлечения файлов
+					из архивов.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-811b-a82c-fffea70d1d47" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>myfile.zip</strong></code>: Это имя архива, который вы
+					хотите распаковать.</li>
+			</ul>
+			<p id="131aa64c-9d0a-817b-af07-e57141f2639a" class="">После выполнения этой команды содержимое архива
+				<code><strong>myfile.zip</strong></code> будет извлечено и разархивировано в текущий рабочий каталог.
+				Если в архиве есть подкаталоги, то они будут созданы в текущем каталоге, а файлы будут извлечены в
+				соответствующие подкаталоги.</p>
+			<p id="131aa64c-9d0a-8136-99ea-ef566681aa85" class=""><strong>По умолчанию распаковка происходит в текущей
+					директории. Чтобы распаковать архив в другую директорию, используется опция -d, после которой нужно
+					указать путь до директории:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81a8-87b3-e99b938117ad"
+				class="code"><code class="language-Bash">unzip myfile.zip -d mydir</code></pre>
+			<blockquote id="131aa64c-9d0a-811d-b8db-f0640eb5a195" class="">Команда
+				<code><strong>unzip myfile.zip -d mydir</strong></code> используется для распаковки архива с именем
+				<code><strong>myfile.zip</strong></code> и извлечения его содержимого в указанный каталог
+				<code><strong>mydir</strong></code>.</blockquote>
+			<ul id="131aa64c-9d0a-81b1-b551-c8b39a6d7573" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>unzip</strong></code>: Это утилита для извлечения файлов
+					из архивов.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c0-8131-cb752e1ce6b2" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>myfile.zip</strong></code>: Это имя архива, который вы
+					хотите распаковать.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8114-bd05-ed9af04a6313" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>d mydir</strong></code>: Опция
+					<code><strong>d</strong></code> используется для указания каталога, в который вы хотите извлечь
+					содержимое архива. <code><strong>mydir</strong></code> здесь представляет имя целевого каталога.
+				</li>
+			</ul>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

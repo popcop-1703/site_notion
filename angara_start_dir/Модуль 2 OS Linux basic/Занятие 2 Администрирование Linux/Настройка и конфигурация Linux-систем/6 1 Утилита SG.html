@@ -1,0 +1,1117 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>6.1. Утилита SG</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-8161-9c1f-c270d4ebfad6" class="page sans">
+		<header>
+			<div class="page-header-icon undefined"><img class="icon"
+					src="https://www.notion.so/icons/keyboard_purple.svg" /></div>
+			<h1 class="page-title">6.1. Утилита SG</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<h3 id="131aa64c-9d0a-81e4-9e1d-e7b637dda542" class="">Цель работы:</h3>
+			<ul id="131aa64c-9d0a-8139-99d0-fd913babe563" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Ознакомиться с возможностями утилиты sg</strong></li>
+			</ul>
+			<p id="131aa64c-9d0a-814a-b89e-d73438fdd693" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-813e-8ede-e0891482e405" class="">Задача:</h3>
+			<ul id="131aa64c-9d0a-815d-8465-d64bb05a93d9" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Выполнить практические работы:</strong>
+					<ul id="131aa64c-9d0a-81a8-8a08-d280530597f2" class="bulleted-list">
+						<li style="list-style-type:circle"><em><mark class="highlight-teal"><strong> Практическая
+											работа 1: Запуск интерактивной оболочки с измененной
+											группой</a></strong></mark></em></li>
+					</ul>
+					<ul id="131aa64c-9d0a-81d0-b0bc-cec12be47d1d" class="bulleted-list">
+						<li style="list-style-type:circle"><em><mark class="highlight-teal"><strong> Практическая
+											работа 2: Выполнение команды с правами
+											администратора</a></strong></mark></em></li>
+					</ul>
+					<ul id="131aa64c-9d0a-81c8-b0c6-e134ae77e06f" class="bulleted-list">
+						<li style="list-style-type:circle"><em><mark class="highlight-teal"><strong> Практическая
+											работа 3: Выполнение команды с правами root</a></strong></mark></em></li>
+					</ul>
+					<ul id="131aa64c-9d0a-8154-aeed-ddce4888569c" class="bulleted-list">
+						<li style="list-style-type:circle"><em><mark class="highlight-teal"><strong> Практическая
+											работа 4: Запуск X-приложений с правами другой
+											группы</a></strong></mark></em></li>
+					</ul>
+					<ul id="131aa64c-9d0a-81aa-bbf7-d827fd5db7c3" class="bulleted-list">
+						<li style="list-style-type:circle"><em><mark class="highlight-teal"><strong> Практическая
+											работа 5: Передача аргументов командной строки</a></strong></mark></em></li>
+					</ul>
+					<ul id="131aa64c-9d0a-8183-beb2-c0e55fb3ce05" class="bulleted-list">
+						<li style="list-style-type:circle"><em><mark class="highlight-teal"><strong> Практическая
+											работа 6: Ограничение доступа к ресурсам</a></strong></mark></em></li>
+					</ul>
+					<ul id="131aa64c-9d0a-81d4-a084-f90b7c51d67b" class="bulleted-list">
+						<li style="list-style-type:circle"><em><mark class="highlight-teal"><strong> Практическая
+											работа 7: Выполнение скрипта в другой группе</a></strong></mark></em></li>
+					</ul>
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8131-a345-fabd8624bc35" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Предоставить отчёт в виде инструкции со скриншотами и
+						описанием.</strong></li>
+			</ul>
+			<p id="131aa64c-9d0a-816d-af1d-ec2257c6a4b7" class="">
+			</p>
+			<p id="131aa64c-9d0a-8119-a9f3-c31529cf7a85" class="">Утилита <code><strong>sg</strong></code> (set group
+				ID) в Unix-системах используется для выполнения команды с измененным эффективным идентификатором группы
+				(GID). Она позволяет пользователю временно выполнять команду с правами определенной группы, что может
+				быть полезным для решения различных задач в системах с множеством пользователей. Давайте рассмотрим
+				практическую работу с <code><strong>sg</strong></code> на двух серверах Ubuntu (клиент и сервер).</p>
+			<p id="131aa64c-9d0a-8174-b848-fbc2170300c2" class="">
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-819d-a86e-e66cb187fd1e"
+				class="code"><code class="language-JavaScript">sg [-] [группа] [-c команда] [-s shell] [аргументы команды]</code></pre>
+			<h3 id="131aa64c-9d0a-81b7-8581-f68831861b2b" class=""><strong>Параметры:</strong></h3>
+			<ul id="131aa64c-9d0a-81cf-b927-f3c02be033af" class="bulleted-list">
+				<li style="list-style-type:disc"><code>-</code> : Опциональный параметр. Если указан, то среда
+					пользователя (например, переменные окружения) не будет изменена при переключении группы.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-811b-9551-de2c1b5a25d6" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>группа</strong></code>: Имя группы, в которую нужно
+					переключиться.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8165-bc9b-e50df48b906c" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>c команда</strong></code>: Выполнить указанную команду в
+					новой группе.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81ff-bb48-d6484cb80d29" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>s shell</strong></code>: Использовать указанный
+					интерпретатор команд (shell) в новой группе.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81a5-be6c-cd08b8267000" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>аргументы команды</strong></code>: Аргументы,
+					передаваемые выполненной команде.</li>
+			</ul>
+			<p id="131aa64c-9d0a-816a-8869-c935a79d0d62" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-81bc-a1e2-fe0a0bf835e5" class=""><strong>Примеры использования
+				</strong><code><strong>sg</strong></code></h3>
+			<ol type="1" id="131aa64c-9d0a-818f-8e70-ff50b1b36a34" class="numbered-list" start="1">
+				<li><strong>Выполнение команды в другой группе:</strong></li>
+			</ol>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8133-a8ae-ff59cb4990ed"
+				class="code"><code class="language-JavaScript">sg admin -c &quot;ls /var/admin-files”</code></pre>
+			<p id="131aa64c-9d0a-813c-a958-e938fef372a9" class="">Вывод:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81e1-9b02-c8c3b21ca66a"
+				class="code"><code class="language-JavaScript">файл1.txt файл2.txt</code></pre>
+			<p id="131aa64c-9d0a-816a-808c-c0dd76330125" class="">В этом примере, команда
+				<code><strong>ls /var/admin-files</strong></code> будет выполнена от имени группы &quot;admin&quot;, и
+				пользователь &quot;user&quot; получит доступ к файлам, к которым у него нет доступа обычно.</p>
+			<p id="131aa64c-9d0a-81a1-9dac-c6704761d5fa" class="">Пояснение вывода: Команда
+				<code><strong>ls</strong></code> отобразила список файлов в каталоге
+				<code><strong>/var/admin-files</strong></code>.</p>
+			<p id="131aa64c-9d0a-8174-b565-da194a27be76" class="">
+			</p>
+			<ol type="1" id="131aa64c-9d0a-81fe-97e8-d08d6e7737e9" class="numbered-list" start="2">
+				<li><strong>Выполнение интерактивной оболочки в другой группе:</strong></li>
+			</ol>
+			<p id="131aa64c-9d0a-81d1-99c7-fa43c2753e0c" class="">Мы можем использовать <code><strong>sg</strong></code>
+				для запуска интерактивной оболочки (shell) с измененной группой. Например, чтобы временно получить
+				доступ к ресурсам, доступным только для группы &quot;developers&quot;, используем следующую команду:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8157-8a2a-d03f07fdc3dd"
+				class="code"><code class="language-JavaScript">sg developers -s /bin/bash</code></pre>
+			<p id="131aa64c-9d0a-8105-b4de-e3ee15826687" class="">Вывод: Вас переключит в оболочку, и вы сможете
+				выполнять команды в этой группе. В данном случае, вывода команды <code><strong>sg</strong></code> не
+				будет.</p>
+			<p id="131aa64c-9d0a-81f0-a88a-d8ebb873e907" class="">
+			</p>
+			<ol type="1" id="131aa64c-9d0a-81ab-b2cc-f1d6cda3ce50" class="numbered-list" start="3">
+				<li><strong>Выполнение команды с сохранением переменных окружения:</strong></li>
+			</ol>
+			<p id="131aa64c-9d0a-819b-9836-fdcfd294aa5d" class="">Иногда вам может потребоваться выполнить команду с
+				сохранением текущих переменных окружения. Используйте параметр <code><strong>-</strong></code> для
+				этого:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81dd-bcc1-eff4457e775b"
+				class="code"><code class="language-JavaScript">sg - developers -c &quot;echo \$HOME”</code></pre>
+			<p id="131aa64c-9d0a-8183-9146-e261613b6993" class=""><strong>Вывод:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8110-b890-e094a5dee8b7"
+				class="code"><code class="language-JavaScript">/home/user</code></pre>
+			<p id="131aa64c-9d0a-81b5-9113-f5d8f16deaf5" class="">В этом примере, параметр
+				<code><strong>-</strong></code> означает сохранение текущих переменных окружения пользователя. Команда
+				<code><strong>echo \$HOME</strong></code> будет выполнена в группе &quot;developers&quot;, и переменная
+				окружения <code><strong>$HOME</strong></code> сохранится.</p>
+			<p id="131aa64c-9d0a-8106-879b-d3e7f10714e2" class="">Пояснение вывода: Команда
+				<code><strong>echo</strong></code> выводит значение переменной окружения
+				<code><strong>$HOME</strong></code>, которая осталась неизменной после переключения в группу
+				&quot;developers&quot;.</p>
+			<p id="131aa64c-9d0a-8195-b467-ebaeaa26d73d" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-8176-80b9-c9acb354f058" class=""><strong>Практическая работа 6.1: Запуск интерактивной
+					оболочки с измененной группой</strong></h3>
+			<p id="131aa64c-9d0a-81f4-b1a0-f2f3a45f1d2d" class=""><strong>Цель:</strong> Демонстрация запуска
+				интерактивной оболочки с измененной группой.</p>
+			<p id="131aa64c-9d0a-81f3-9485-c7e0d260bdfd" class=""><strong>Задачи:</strong></p>
+			<ol type="1" id="131aa64c-9d0a-8117-961c-d692723c8059" class="numbered-list" start="1">
+				<li>Используя <code><strong>sg</strong></code>, запустите интерактивную оболочку (например,
+					<code><strong>/bin/bash</strong></code>) с правами группы &quot;developers&quot;.</li>
+			</ol>
+			<p id="131aa64c-9d0a-8113-9106-f47546de00ef" class=""><strong>Вывод:</strong> Пользователь будет находиться
+				в оболочке и сможет выполнять команды с правами группы &quot;developers&quot;. Нет конкретного вывода,
+				так как это интерактивная сессия.</p>
+			<p id="131aa64c-9d0a-819c-8eab-eb8dfb3a5bff" class=""><strong>Область применения:</strong> Полезно, когда
+				необходимо временно выполнять действия в системе от имени другой группы, например, для управления
+				сервисами или ресурсами.</p>
+			<h3 id="131aa64c-9d0a-8128-8f22-e751b8ab05ae" class=""><strong>Практическая работа 6.2: Выполнение команды с
+					правами администратора</strong></h3>
+			<p id="131aa64c-9d0a-8154-beff-dfb3ae0c7bd0" class=""><strong>Цель:</strong> Демонстрация использования
+				<code><strong>sg</strong></code> для выполнения команд с правами администратора.</p>
+			<p id="131aa64c-9d0a-819c-9bb6-d3ac5d7478ea" class=""><strong>Задачи:</strong></p>
+			<ol type="1" id="131aa64c-9d0a-8188-a483-d1380447a192" class="numbered-list" start="1">
+				<li>Используя <code><strong>sg</strong></code>, выполните команду
+					<code><strong>useradd newuser</strong></code> с правами группы &quot;admin&quot; для создания нового
+					пользователя.</li>
+			</ol>
+			<p id="131aa64c-9d0a-81fd-ba73-ea8793e98b2b" class=""><strong>Вывод:</strong> Команда будет выполнена, и
+				новый пользователь будет создан.</p>
+			<p id="131aa64c-9d0a-8180-91f0-d99fa1f052b0" class=""><strong>Область применения:</strong> Позволяет обычным
+				пользователям выполнить административные задачи, такие как создание пользователей или управление
+				системными ресурсами.</p>
+			<h3 id="131aa64c-9d0a-81f0-bda7-dfadc053c370" class=""><strong>Практическая работа 6.3: Выполнение команды с
+					правами root</strong></h3>
+			<p id="131aa64c-9d0a-8173-9bdc-f6294fd45e41" class=""><strong>Цель:</strong> Показать, как
+				<code><strong>sg</strong></code> может использоваться для выполнения команд с правами суперпользователя
+				(root).</p>
+			<p id="131aa64c-9d0a-812d-8210-f3007caf256a" class=""><strong>Задачи:</strong></p>
+			<ol type="1" id="131aa64c-9d0a-81ef-8b79-cd13c22d2b00" class="numbered-list" start="1">
+				<li>Используя <code><strong>sg</strong></code>, выполните команду
+					<code><strong>shutdown -r now</strong></code> с правами root для перезагрузки системы.</li>
+			</ol>
+			<p id="131aa64c-9d0a-819d-a0b8-e57e2fd959d7" class=""><strong>Вывод:</strong> Команда будет выполнена, и
+				система будет перезагружена.</p>
+			<p id="131aa64c-9d0a-81df-aecc-e5b7789bd638" class=""><strong>Область применения:</strong> Полезно для
+				выполнения критических системных задач, которые требуют прав суперпользователя, без необходимости
+				предоставления пользователям постоянных прав root.</p>
+			<h3 id="131aa64c-9d0a-81a8-9b6a-c4b4f214b130" class=""><strong>Практическая работа 6.4: Запуск X-приложений
+					с правами другой группы</strong></h3>
+			<p id="131aa64c-9d0a-8119-a7e7-c0bb6d5788c3" class=""><strong>Цель:</strong> Демонстрация использования
+				<code><strong>sg</strong></code> для запуска X-приложений с правами другой группы.</p>
+			<p id="131aa64c-9d0a-8147-8393-c218b31dbf21" class=""><strong>Задачи:</strong></p>
+			<ol type="1" id="131aa64c-9d0a-818f-950e-dbc7660482af" class="numbered-list" start="1">
+				<li>Используя <code><strong>sg</strong></code>, запустите графическое приложение (например,
+					<code><strong>gedit</strong></code>) с правами группы &quot;developers&quot;.</li>
+			</ol>
+			<p id="131aa64c-9d0a-81c3-bb38-ec612add4cd0" class=""><strong>Вывод:</strong> Графическое приложение будет
+				открыто с правами группы &quot;developers&quot;.</p>
+			<p id="131aa64c-9d0a-81dd-ae1a-f962b395c50b" class=""><strong>Область применения:</strong> Полезно для
+				предоставления временного доступа к графическим приложениям с ограниченными правами.</p>
+			<h3 id="131aa64c-9d0a-8136-beab-d0ff66d40eef" class=""><strong>Практическая работа 6.5: Передача аргументов
+					командной строки</strong></h3>
+			<p id="131aa64c-9d0a-8188-83d8-c9a3c4f66c2e" class=""><strong>Цель:</strong> Показать, как передавать
+				аргументы командной строки при использовании <code><strong>sg</strong></code>.</p>
+			<p id="131aa64c-9d0a-8196-9466-ef29a9294400" class=""><strong>Задачи:</strong></p>
+			<ol type="1" id="131aa64c-9d0a-8127-9e09-f8b8e03b5295" class="numbered-list" start="1">
+				<li>Используя <code><strong>sg</strong></code>, выполните команду
+					<code><strong>ls -l /var/log</strong></code> с правами группы &quot;admin&quot;.</li>
+			</ol>
+			<p id="131aa64c-9d0a-8105-b018-f8eccd4ccf84" class=""><strong>Вывод:</strong> Команда
+				<code><strong>ls -l /var/log</strong></code> будет выполнена с указанными аргументами.</p>
+			<p id="131aa64c-9d0a-81ce-a225-cd5e7910d41d" class=""><strong>Область применения:</strong> Позволяет
+				передавать параметры и аргументы командной строки для выполнения команды с нужными настройками.</p>
+			<h3 id="131aa64c-9d0a-81e7-a28f-fdfb0149ea89" class=""><strong>Практическая работа 6.6: Ограничение доступа
+					к ресурсам</strong></h3>
+			<p id="131aa64c-9d0a-8178-b111-efa1e6a278ee" class=""><strong>Цель:</strong> Демонстрация использования
+				<code><strong>sg</strong></code> для временного ограничения доступа к ресурсам.</p>
+			<p id="131aa64c-9d0a-81b9-9ebc-c4fe10e07f53" class=""><strong>Задачи:</strong></p>
+			<ol type="1" id="131aa64c-9d0a-81d3-853e-c0ee68b67411" class="numbered-list" start="1">
+				<li>Создайте директорию <code><strong>/var/restricted-files</strong></code> и ограничьте доступ к ней
+					только для группы &quot;restricted&quot;.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81bb-923d-cc63bfc0b547" class="numbered-list" start="2">
+				<li>Используя <code><strong>sg</strong></code>, выполните команду
+					<code><strong>ls /var/restricted-files</strong></code> с правами группы &quot;restricted&quot;.</li>
+			</ol>
+			<p id="131aa64c-9d0a-81fd-8bd5-d8cf53b274a3" class=""><strong>Вывод:</strong> Пользователь сможет
+				просматривать содержимое директории только во временной группе &quot;restricted&quot;.</p>
+			<p id="131aa64c-9d0a-81c4-8f0a-d572ca3a8ad6" class=""><strong>Область применения:</strong> Полезно для
+				ограничения доступа к чувствительным данным или ресурсам в многопользовательских системах.</p>
+			<h3 id="131aa64c-9d0a-81cf-8351-d48d65c2226e" class=""><strong>Практическая работа 6.7: Выполнение скрипта в
+					другой группе</strong></h3>
+			<p id="131aa64c-9d0a-81c7-b878-ecd94315b95e" class=""><strong>Цель:</strong> Выполнить скрипт с правами
+				другой группы.</p>
+			<p id="131aa64c-9d0a-81f7-9406-fc74d85bbd3e" class=""><strong>Задачи:</strong></p>
+			<ol type="1" id="131aa64c-9d0a-818e-a02f-cb53b8b186f8" class="numbered-list" start="1">
+				<li>Создайте скрипт <code><strong>my_script.sh</strong></code>, который выводит &quot;Скрипт выполняется
+					с правами группы developers.&quot;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8171-bfea-d2d8c8e1b9a2" class="numbered-list" start="2">
+				<li>Скрипт должен состоять минимум из 6 строк.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8129-bf78-eda1236963c3" class="numbered-list" start="3">
+				<li>Используя <code><strong>sg</strong></code>, выполните скрипт
+					<code><strong>my_script.sh</strong></code> с правами группы &quot;developers&quot;.</li>
+			</ol>
+			<p id="131aa64c-9d0a-810f-857d-e32c2f03035d" class=""><strong>Область применения:</strong> Запуск скриптов с
+				ограниченными правами для пользователя, не входящего в нужную группу.</p>
+			<p id="131aa64c-9d0a-819e-850c-f97f6350b4b4" class="">
+			</p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

@@ -1,0 +1,2966 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Часть 3.3 Практическая работа “SSH-сервис”</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-8188-896b-e1cf05c7fd49" class="page sans">
+		<header><img class="page-cover-image"
+				src="Часть 3 3 Практическая работа “SSH-сервис”/kanv.png"
+				style="object-position:center 90.3%" />
+			<div class="page-header-icon page-header-icon-with-cover"><img class="icon"
+					src="https://www.notion.so/icons/user-circle_green.svg" /></div>
+			<h1 class="page-title">Часть 3.3 Практическая работа “SSH-сервис”</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<h3 id="131aa64c-9d0a-81d7-be60-ce741e05d60d" class="">Содержание:</h3>
+			<p id="131aa64c-9d0a-81f4-99f3-da6b1d50a2c3" class=""><strong> Цель
+						работы:</a></strong></p>
+			<p id="131aa64c-9d0a-8111-a8c1-deb64eddbb39" class=""> 1.
+					Что такое SSH</a>
+			<div class="indented">
+				<p id="131aa64c-9d0a-8146-a17c-d4eb40e8d529" class=""><strong> 1.1
+							Где и как применяется SSH</a></strong></p>
+				<p id="131aa64c-9d0a-81dc-b98b-f8c308ac07de" class=""><strong> 1.2
+							Возможности SSH</a></strong></p>
+				<p id="131aa64c-9d0a-8108-9820-d05881900201" class=""><strong> 1.3
+							Опасности использования SSH</a></strong></p>
+				<p id="131aa64c-9d0a-81f4-b790-f92d00dd7b09" class=""><strong> 1.4
+							Способы защиты протокола SSH</a></strong></p>
+				<p id="131aa64c-9d0a-8188-974c-d8e75e4057e1" class=""><strong> 1.5
+							Пример успешного подключения по SSH</a></strong></p>
+			</div>
+			</p>
+			<p id="131aa64c-9d0a-81b5-a91e-c6305bb268e5" class=""> 2.
+					Механика работы протокола SSH</a></p>
+			<p id="131aa64c-9d0a-8122-8914-c90751303f7d" class=""> 3.
+					Туннелирование (порт-форвардинг) в SSH</a></p>
+			<p id="131aa64c-9d0a-81d3-bedb-e99ab552882e" class=""> 4.
+					Пример файла конфигурации</a></p>
+			<p id="131aa64c-9d0a-8193-ac75-ca9739894a2d" class=""> 5.
+					Ssh-tools</a>
+			<div class="indented">
+				<p id="131aa64c-9d0a-8172-b7de-e42a6f7ceead" class=""> 5.1
+						Ssh-ping</a>
+				<div class="indented">
+					<p id="131aa64c-9d0a-8114-a194-c5626ee50da6" class=""><strong> 5.1.1
+								Рассмотрим каждую часть вывода</a></strong></p>
+				</div>
+				</p>
+				<p id="131aa64c-9d0a-815c-999c-fded11d4eb2e" class=""> 5.2
+						S</a><strong> sh-certinfo</a></strong>
+				</p>
+				<p id="131aa64c-9d0a-8140-9f2a-eb6bee9e1572" class=""> 5.3
+						Ssh-diff</a></p>
+				<p id="131aa64c-9d0a-81f3-adc5-cc6159b09057" class=""> 5.4
+						Ssh-facts</a></p>
+				<p id="131aa64c-9d0a-8158-af16-fa7e45b74346" class=""> 5.5
+						Ssh-hostkeys</a>
+				<div class="indented">
+					<p id="131aa64c-9d0a-819b-b7eb-cd3e26540568" class=""> 5.5.1
+							Ssh-keygen</a>
+					<div class="indented">
+						<p id="131aa64c-9d0a-8147-86c8-d425d4811542" class=""> Создание
+								и подключение по ключам</a></p>
+					</div>
+					</p>
+				</div>
+				</p>
+				<p id="131aa64c-9d0a-8199-8fbf-c0cba66d66e2" class=""> 5.6
+						Ssh-keyinfo</a></p>
+			</div>
+			</p>
+			<p id="131aa64c-9d0a-81ac-a6b8-fdca8dfe5073" class=""> 6.Вывод</a>
+			</p>
+			<details open="">
+				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">Вопросы для защиты, в отчёт
+					не добавляются. (самопроверка)</summary>
+				<div class="indented">
+					<p id="131aa64c-9d0a-81ec-9473-eb23c62a5683" class=""><strong>SSH (Secure Shell):</strong></p>
+					<ol type="1" id="131aa64c-9d0a-811a-b89d-fdc50af2784e" class="numbered-list" start="1">
+						<li>Что означает аббревиатура SSH?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-810c-8f2c-ebf9cdf41d79" class="numbered-list" start="2">
+						<li>Какие основные задачи решает протокол SSH?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8103-86f1-fc669432fe69" class="numbered-list" start="3">
+						<li>Какие преимущества предоставляет SSH в сравнении с другими методами удаленного доступа?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8146-b310-d50d06aefd6c" class="numbered-list" start="4">
+						<li>Какие проблемы решает SSH в контексте безопасности?</li>
+					</ol>
+					<p id="131aa64c-9d0a-81a7-8a74-ecb6c1d72cd2" class=""><strong>Туннелирование (порт-форвардинг) в
+							SSH:</strong></p>
+					<ol type="1" id="131aa64c-9d0a-8133-a034-d8bafc4e89de" class="numbered-list" start="5">
+						<li>Что такое туннелирование портов (порт-форвардинг) в SSH?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8145-b80d-e0501aed0acb" class="numbered-list" start="6">
+						<li>Какие виды туннелирования в SSH существуют и в чем их различия?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-815c-9055-ee64cc1c293e" class="numbered-list" start="7">
+						<li>Какой сценарий использования может потребовать туннелирования портов?</li>
+					</ol>
+					<p id="131aa64c-9d0a-812c-b5aa-e80a6404b777" class=""><strong>ssh-tools:</strong></p>
+					<ol type="1" id="131aa64c-9d0a-810d-b0df-e7cd36f12251" class="numbered-list" start="8">
+						<li>Что такое ssh-tools и для чего они используются?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81f4-a802-fb775e83f491" class="numbered-list" start="9">
+						<li>Какие инструменты входят в набор ssh-tools?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-814f-a651-f806ed48eee5" class="numbered-list" start="10">
+						<li>Какой инструмент предназначен для проверки доступности хостов с помощью SSH?</li>
+					</ol>
+					<p id="131aa64c-9d0a-813d-aa91-e9c13670e82a" class=""><strong>ssh-ping:</strong></p>
+					<ol type="1" id="131aa64c-9d0a-81ec-99b5-c3da164993bb" class="numbered-list" start="11">
+						<li>Какую информацию предоставляет утилита ssh-ping?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81d9-bd9b-fafdee9de8e1" class="numbered-list" start="12">
+						<li>Какие команды и параметры можно использовать с ssh-ping?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8198-9f11-e515d209df9e" class="numbered-list" start="13">
+						<li>Как интерпретировать результаты выполнения команды ssh-ping?</li>
+					</ol>
+					<p id="131aa64c-9d0a-81dc-8bfa-e7d9b7a9a095" class=""><strong>ssh-certinfo:</strong></p>
+					<ol type="1" id="131aa64c-9d0a-8130-b85f-e0c6a132d91f" class="numbered-list" start="14">
+						<li>Для чего используется ssh-certinfo?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81b2-af28-c7c05443a87e" class="numbered-list" start="15">
+						<li>Какие данные о сертификате можно получить с помощью ssh-certinfo?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81ef-be32-e0c8cbe7b55b" class="numbered-list" start="16">
+						<li>Какая команда позволяет использовать ssh-certinfo для анализа сертификата SSH?</li>
+					</ol>
+					<p id="131aa64c-9d0a-8163-8138-e4c4deaf6b7d" class=""><strong>ssh-diff:</strong></p>
+					<ol type="1" id="131aa64c-9d0a-8118-a97a-e33b9be08f88" class="numbered-list" start="17">
+						<li>Что выполняет утилита ssh-diff?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81ca-8800-e08b0363e443" class="numbered-list" start="18">
+						<li>Какие сравнения и изменения можно выявить с помощью ssh-diff?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-815d-b1d9-d644b64a7e59" class="numbered-list" start="19">
+						<li>Каков формат вывода ssh-diff и как его интерпретировать?</li>
+					</ol>
+					<p id="131aa64c-9d0a-81db-972d-e0d3d5037a32" class=""><strong>ssh-facts:</strong></p>
+					<ol type="1" id="131aa64c-9d0a-81ac-9d32-ef23129d827c" class="numbered-list" start="20">
+						<li>Для чего предназначена утилита ssh-facts?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-819c-a657-f87e8bb6cc92" class="numbered-list" start="21">
+						<li>Какую информацию о системе и сети можно получить с помощью ssh-facts?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8152-a54d-d3824ce2b7a4" class="numbered-list" start="22">
+						<li>Какие альтернативы существуют для утилиты ssh-facts?</li>
+					</ol>
+					<p id="131aa64c-9d0a-816e-928f-db0285d3bd25" class=""><strong>ssh-hostkeys:</strong></p>
+					<ol type="1" id="131aa64c-9d0a-816c-9e20-d1ce751a3bf8" class="numbered-list" start="23">
+						<li>Что делает утилита ssh-hostkeys?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81d5-af62-cc2a220fc95b" class="numbered-list" start="24">
+						<li>Как можно использовать ssh-hostkeys для работы с хост-ключами SSH?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81da-a644-d6ba4a6d46a7" class="numbered-list" start="25">
+						<li>Какая роль утилиты ssh-keygen в контексте ssh-hostkeys?</li>
+					</ol>
+					<p id="131aa64c-9d0a-81e2-add6-cc9d3b136dda" class=""><strong>ssh-keygen:</strong></p>
+					<ol type="1" id="131aa64c-9d0a-8139-acc9-dae8ee3e776e" class="numbered-list" start="26">
+						<li>Как создать ключи SSH с помощью ssh-keygen?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-815c-8344-c4039b3e3a72" class="numbered-list" start="27">
+						<li>Как настроить параметры генерации ключей при помощи ssh-keygen?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8111-a6d3-e3b4070e7492" class="numbered-list" start="28">
+						<li>Каким образом можно сгенерировать пару ключей для аутентификации по открытому ключу?</li>
+					</ol>
+					<p id="131aa64c-9d0a-81c1-acbe-d7de4ffeeef8" class=""><strong>ssh-keyinfo:</strong></p>
+					<ol type="1" id="131aa64c-9d0a-81a7-802e-e98d47ae8998" class="numbered-list" start="29">
+						<li>Какую информацию предоставляет утилита ssh-keyinfo?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-818b-9dbd-c6d7edb574ca" class="numbered-list" start="30">
+						<li>Какие команды и параметры можно использовать с ssh-keyinfo?</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81e6-b0ff-f485b347080d" class="numbered-list" start="31">
+						<li>Как интерпретировать вывод ssh-keyinfo?</li>
+					</ol>
+				</div>
+			</details>
+			<h2 id="131aa64c-9d0a-8178-98b0-d1a3f6f2068a" class=""><strong> Цель
+						работы:</a></strong></h2>
+			<ul id="131aa64c-9d0a-8181-9f4c-e1ab4a307c57" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Ssh-certinfo</strong>: изучить как использовать
+					<code><strong>ssh-certinfo</strong></code> для анализа сертификатов SSH. Получить информацию о
+					владельцах и времени действия сертификатов.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81e3-adc3-ce42390263d7" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Ssh-diff</strong>: изучить использование
+					<code><strong>ssh-diff</strong></code> для сравнения конфигурационных файлов SSH.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c6-93fc-e51a20c44be5" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Ssh-facts</strong>: освоить утилиту
+					<code><strong>ssh-facts</strong></code><strong> </strong>(пояснить вывод).</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8190-81b5-ebcc4ddc2f6f" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Сгенерировать ключи SSH с помощью
+					</strong><code><strong>ssh-keygen</strong></code>: изучить, как создавать пару ключей SSH с помощью
+					команды <code><strong>ssh-keygen</strong></code>, генерировали ключи RSA и получили понимание того,
+					какие файлы создаются и как сохранить ключи в файлы.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-812d-bc10-de78c5f9c24a" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Копирование открытого ключа на удаленный сервер с
+					</strong><code><strong>ssh-copy-id</strong></code>: использовали
+					<code><strong>ssh-copy-id</strong></code>, чтобы скопировать открытый ключ на удаленный сервер,
+					чтобы в дальнейшем можно было авторизоваться без ввода пароля.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-815e-9389-ef488b30748b" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Авторизация на удаленном сервере с использованием
+						ключей</strong>: продемонстрировать, как использовать ключи SSH для аутентификации на удаленном
+					сервере, избегая ввода пароля и с вводом пароля.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8169-8d26-ecb0dfbe69ee" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Проверить состояния службы SSH с
+					</strong><code><strong>service ssh status</strong></code>: узнали, как проверить текущее состояние
+					службы SSH на локальной машине с помощью команды <code><strong>service ssh status</strong></code>.
+					(пояснить вывод).</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8140-afa2-c3acbb86b5d3" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Проверить целостность ключей с
+					</strong><code><strong>ssh-hostkeys</strong></code>: использовав утилиту
+					<code><strong>ssh-hostkeys</strong></code> для проверки целостности ключей на удаленном сервере.
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-812c-b736-d513f862fe75" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Получить информацию о ключе с
+					</strong><code><strong>ssh-keyinfo</strong></code></li>
+			</ul>
+			<p id="131aa64c-9d0a-8166-953e-c5314cada4db" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-81b2-89d0-e3717aeac892" class="">Задача</h2>
+			<ul id="131aa64c-9d0a-8108-ad1a-d3f3600475c5" class="bulleted-list">
+				<li style="list-style-type:disc">Изучить работу SSH-tools</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81ca-b95a-d48239297c62" class="bulleted-list">
+				<li style="list-style-type:disc">Изучить все утилиты</li>
+			</ul>
+			<ul id="131aa64c-9d0a-814e-8846-fc20fa8da7a3" class="bulleted-list">
+				<li style="list-style-type:disc">Предоставить отчёт аналогичный как 1 и 2 практической работе.</li>
+			</ul>
+			<h2 id="131aa64c-9d0a-812b-8b49-e0922dc84377" class=""> 1.
+					Что такое SSH</a></h2>
+			<p id="131aa64c-9d0a-812c-a74e-f1156fd8d63e" class=""><strong>SSH (Secure Shell)</strong> - это
+				криптографический сетевой протокол, предназначенный для безопасной удаленной работы с компьютерами и
+				управления удаленными системами. Он обеспечивает защищенное соединение между клиентом и сервером, что
+				делает его одним из основных инструментов для удаленного администрирования и обмена данными в среде
+				Linux и других UNIX-подобных операционных систем.</p>
+			<p id="131aa64c-9d0a-8197-893a-f302049fd091" class=""><strong>1.1</strong> <strong>Где и как применяется
+					SSH:</strong></p>
+			<ul id="131aa64c-9d0a-8114-8570-d76a29b41568" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Удаленное администрирование:</strong> Администраторы серверов
+					могут использовать SSH для удаленного управления и настройки серверов без физического доступа к ним.
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c3-8740-d86352320e55" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Передача файлов:</strong> SSH может использоваться для
+					безопасной передачи файлов между компьютерами с помощью протокола SFTP (SSH File Transfer Protocol)
+					или SCP (Secure Copy).</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81e5-abe7-d7dbc71b39fa" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Туннелирование:</strong> SSH позволяет создавать защищенные
+					сетевые туннели для безопасной передачи данных через ненадежные сети или доступа к ресурсам,
+					ограниченным брандмауэром.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8159-af08-fa3437f51180" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Удаленный доступ к текстовым и графическим
+						приложениям:</strong> SSH может использоваться для доступа к текстовым консолям, а также для
+					удаленного запуска графических приложений.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8140-b5eb-df4db5c7c0aa" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Автоматизация задач:</strong> Администраторы могут использовать
+					SSH для автоматизации рутинных задач и скриптов удаленного управления серверами.</li>
+			</ul>
+			<p id="131aa64c-9d0a-8115-a661-c42c3599991c" class=""><strong>1.2 Возможности SSH:</strong></p>
+			<ul id="131aa64c-9d0a-81bf-bb70-ea7f98999619" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Шифрование данных:</strong> SSH обеспечивает конфиденциальность
+					данных, передаваемых по сети, с использованием криптографии.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-810c-b089-fe15cbf7038b" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Аутентификация:</strong> SSH предоставляет средства
+					аутентификации клиента и сервера, что гарантирует, что обе стороны действительно являются теми, за
+					кого они себя выдают.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8190-a346-e8b44d378c91" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Защита от атак перехвата и подмены данных:</strong> SSH
+					обеспечивает защиту от атак, связанных с перехватом и подменой данных, что делает его более
+					безопасным по сравнению с нешифрованными протоколами.</li>
+			</ul>
+			<p id="131aa64c-9d0a-81eb-b91d-ff2dd300c44d" class=""><strong>1.3 Опасности использования SSH:</strong></p>
+			<ul id="131aa64c-9d0a-8114-8eef-e21789264505" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Слабые учетные данные:</strong> Если учетные данные (логин и
+					пароль) слабы или утечены, злоумышленники могут получить доступ к удаленной системе.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-818d-8d84-c2f92f21c067" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Необновленное ПО:</strong> Устаревшее или необновленное
+					программное обеспечение SSH может содержать уязвимости, которые могут использоваться для взлома.
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8176-992d-c634b3d0456d" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Недостаточные права доступа:</strong> Неправильно настроенные
+					права доступа могут позволить злоумышленникам выполнить опасные команды на сервере.</li>
+			</ul>
+			<p id="131aa64c-9d0a-8150-bc32-e7c4a968b3f0" class=""><strong>1.4 Способы защиты протокола SSH:</strong></p>
+			<ul id="131aa64c-9d0a-8195-b72e-f3b7813821a0" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Использование ключей для аутентификации:</strong> Вместо
+					паролей можно использовать ключи SSH, которые обычно являются более безопасными.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-817d-ae32-d74eaa4c9ed2" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Ограничение доступа:</strong> Настройка файрволла и прав
+					доступа к SSH-серверу для ограничения доступа только для определенных IP-адресов.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81fc-b627-e1c8dff18850" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Использование двухфакторной аутентификации:</strong>
+					Дополнительная защита, которая требует два разных метода аутентификации для доступа.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81e8-8e2b-d3c970260e3c" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Регулярное обновление SSH-сервера:</strong> Важно обновлять
+					SSH-сервер и другое ПО системы, чтобы устранить известные уязвимости.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81d4-b960-fe9a6a06db76" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Мониторинг и журналирование:</strong> Ведение журналов
+					аутентификации и мониторинг активности SSH для выявления подозрительных действий.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81b7-a1d2-d3e6f2ceb1f5" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Использование специализированных инструментов
+						безопасности:</strong> Использование инструментов, таких как fail2ban или DenyHosts, для
+					обнаружения и блокировки атак.</li>
+			</ul>
+			<p id="131aa64c-9d0a-817d-a070-f3b08e1604b8" class="">SSH является мощным инструментом для безопасной
+				удаленной работы и управления системами, но его безопасность зависит от правильной настройки и
+				соблюдения рекомендаций по защите.</p>
+			<p id="131aa64c-9d0a-8191-85b5-c7776749a0ac" class=""><strong>1.5 Пример успешного подключения по
+					SSH:</strong></p>
+			<figure id="131aa64c-9d0a-813e-aef5-d65929fccec9" class="image"><a
+					href="Часть 3 3 Практическая работа “SSH-сервис”/Untitled.png"><img
+						style="width:789px"
+						src="Часть 3 3 Практическая работа “SSH-сервис”/Untitled.png" /></a>
+			</figure>
+			<ol type="1" id="131aa64c-9d0a-812b-80cb-cc0c85079e6e" class="numbered-list" start="1">
+				<li><code><strong>C:\Users\IgorLitvin&gt;ssh litvinigor@192.168.127.185</strong></code>
+					<ul id="131aa64c-9d0a-81c4-af60-feb767b46d8d" class="bulleted-list">
+						<li style="list-style-type:disc">Это команда, которую вы ввели в командной строке Windows, чтобы
+							установить SSH-соединение с удаленной машиной. Она включает имя пользователя
+							(<code><strong>litvinigor</strong></code>) и IP-адрес удаленной машины
+							(<code><strong>192.168.127.185</strong></code>).</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8199-b4f2-cbef1ef410bd" class="numbered-list" start="2">
+				<li><code><strong>litvinigor@192.168.127.185&#x27;s password:</strong></code>
+					<ul id="131aa64c-9d0a-8144-93c6-e5723888ec9c" class="bulleted-list">
+						<li style="list-style-type:disc">После ввода команды SSH, система запрашивает пароль для
+							пользователя <code><strong>litvinigor</strong></code>, чтобы аутентифицировать его на
+							удаленной машине. Это строка, в которой вы вводите пароль.</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8144-82c8-d9dfe5b20b18" class="numbered-list" start="3">
+				<li><code><strong>Welcome to Ubuntu 20.04.6 LTS (GNU/Linux 5.4.0-166-generic x86_64)</strong></code>
+					<ul id="131aa64c-9d0a-8182-b94d-c249e11884e2" class="bulleted-list">
+						<li style="list-style-type:disc">Это приветственное сообщение, которое показывается после
+							успешного входа на удаленную машину. Оно указывает на версию и тип операционной системы
+							(Ubuntu 20.04.6 LTS) и архитектуру (x86_64).</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8106-9b88-c85e11b5ad50" class="numbered-list" start="4">
+				<li><code><strong>Documentation: https://help.ubuntu.com</strong></code>
+					<ul id="131aa64c-9d0a-810c-ab27-f8bb387a4169" class="bulleted-list">
+						<li style="list-style-type:disc">Эта строка содержит ссылку на документацию по Ubuntu.</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81d6-93f1-f43e4ca1f1e2" class="numbered-list" start="5">
+				<li><code><strong>Management: https://landscape.canonical.com</strong></code>
+					<ul id="131aa64c-9d0a-815d-b42a-ed575baf8393" class="bulleted-list">
+						<li style="list-style-type:disc">Эта строка содержит ссылку на инструмент управления Landscape
+							от Canonical.</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8170-a59b-fc45ed67a149" class="numbered-list" start="6">
+				<li><code><strong>Support: https://ubuntu.com/advantage</strong></code>
+					<ul id="131aa64c-9d0a-8192-933e-c7f5354981a1" class="bulleted-list">
+						<li style="list-style-type:disc">Эта строка содержит ссылку на службу поддержки Ubuntu.</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81f6-939a-ff136fe4d4c2" class="numbered-list" start="7">
+				<li><code><strong>System information as of Wed 15 Nov 2023 09:15:11 AM UTC</strong></code>
+					<ul id="131aa64c-9d0a-8149-8b13-cdb138e4bdf2" class="bulleted-list">
+						<li style="list-style-type:disc">Здесь указана информация о системе, включая текущую дату и
+							время.</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81a1-81cb-ca14d677e021" class="numbered-list" start="8">
+				<li><code><strong>System load: 0.26 Processes: 253</strong></code>
+					<ul id="131aa64c-9d0a-818c-a59e-d7ce6319673c" class="bulleted-list">
+						<li style="list-style-type:disc">Эта строка показывает загрузку системы и количество работающих
+							процессов.</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-815a-b25f-e9e3b16dfb19" class="numbered-list" start="9">
+				<li><code><strong>Usage of /: 36.4% of 18.51GB Users logged in: 1</strong></code>
+					<ul id="131aa64c-9d0a-81ff-88b8-f7bc494d5bbb" class="bulleted-list">
+						<li style="list-style-type:disc">Здесь указана информация о использовании дискового пространства
+							и количество залогиненных пользователей.</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81cc-a90e-dc9520b5506c" class="numbered-list" start="10">
+				<li><code><strong>Memory usage: 31% IPv4 address for bond0: 192.168.127.185</strong></code>
+					<ul id="131aa64c-9d0a-816c-b400-ddfd3d5dabc1" class="bulleted-list">
+						<li style="list-style-type:disc">Эта строка показывает использование оперативной памяти и
+							IPv4-адрес сетевого интерфейса <code><strong>bond0</strong></code>.</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8185-a2e4-c83775d111f4" class="numbered-list" start="11">
+				<li><code><strong>Swap usage: 2%</strong></code>
+					<ul id="131aa64c-9d0a-819f-8004-e961b6964ebe" class="bulleted-list">
+						<li style="list-style-type:disc">Эта строка указывает на использование подкачки (swap) системой.
+						</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-816a-824c-cdb4ffdc9352" class="numbered-list" start="12">
+				<li><code><strong>Strictly confined Kubernetes makes edge and IoT secure. Learn how MicroK8s</strong></code>
+					<ul id="131aa64c-9d0a-8122-9e91-f81c7a89c190" class="bulleted-list">
+						<li style="list-style-type:disc">Это сообщение предлагает информацию о Kubernetes и MicroK8s.
+						</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81e2-ab43-efb088e44ffe" class="numbered-list" start="13">
+				<li><code><strong>https://ubuntu.com/engage/secure-kubernetes-at-the-edge</strong></code>
+					<ul id="131aa64c-9d0a-81d8-8219-cf851a2c4e27" class="bulleted-list">
+						<li style="list-style-type:disc">Эта строка содержит ссылку для получения дополнительной
+							информации о Kubernetes.</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8100-95ec-ea43d89261b5" class="numbered-list" start="14">
+				<li><code><strong>Expanded Security Maintenance for Applications is not enabled.</strong></code>
+					<ul id="131aa64c-9d0a-8194-9e12-fd9f9a01da98" class="bulleted-list">
+						<li style="list-style-type:disc">Здесь указывается, что Expanded Security Maintenance для
+							приложений не включен.</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-817d-92ed-ccfa9668929d" class="numbered-list" start="15">
+				<li><code><strong>4 updates can be applied immediately.</strong></code>
+					<ul id="131aa64c-9d0a-81ba-8750-dabc84ff1549" class="bulleted-list">
+						<li style="list-style-type:disc">Эта строка сообщает о наличии 4 обновлений, которые могут быть
+							применены немедленно.</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8118-9dd7-e57aabfb1ace" class="numbered-list" start="16">
+				<li><code><strong>To see these additional updates run: apt list --upgradable</strong></code>
+					<ul id="131aa64c-9d0a-8126-b2a0-db1a0d4558c8" class="bulleted-list">
+						<li style="list-style-type:disc">Здесь предлагается команда, которую можно выполнить для
+							просмотра дополнительных обновлений.</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-813f-9431-cbbb834007dd" class="numbered-list" start="17">
+				<li><code><strong>1 additional security update can be applied with ESM Apps.</strong></code>
+					<ul id="131aa64c-9d0a-8175-a7b2-ec1fb92d1556" class="bulleted-list">
+						<li style="list-style-type:disc">Эта строка указывает на наличие 1 дополнительного обновления
+							безопасности, которое можно применить с помощью службы ESM Apps.</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8115-a5e4-e86c4ce909d6" class="numbered-list" start="18">
+				<li><code><strong>Learn more about enabling ESM Apps service at https://ubuntu.com/esm</strong></code>
+					<ul id="131aa64c-9d0a-8142-aed1-e9b1663b436c" class="bulleted-list">
+						<li style="list-style-type:disc">Здесь предоставлена ссылка для получения дополнительной
+							информации о включении службы ESM Apps.</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8121-a371-f58af23fb2d1" class="numbered-list" start="19">
+				<li><code><strong>Last login: Mon Nov 13 17:34:19 2023 from 192.168.127.1</strong></code>
+					<ul id="131aa64c-9d0a-81a8-8be2-ec63d749e61c" class="bulleted-list">
+						<li style="list-style-type:disc">Эта строка показывает последний вход пользователя в систему и
+							дату этого входа, а также IP-адрес, с которого был выполнен вход.</li>
+					</ul>
+				</li>
+			</ol>
+			<h2 id="131aa64c-9d0a-8105-87a8-d4a31e41e549" class=""> 2.
+					Механика работы протокола SSH</a></h2>
+			<ul id="131aa64c-9d0a-8161-a136-f7c9975b37ee" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Установление соединения:</strong>
+					<ul id="131aa64c-9d0a-8146-b04b-f38d99b243fa" class="bulleted-list">
+						<li style="list-style-type:circle">Процесс начинается с клиента, который отправляет запрос на
+							соединение к серверу SSH.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8110-9512-f3042a6758d9" class="bulleted-list">
+						<li style="list-style-type:circle">Сервер слушает на определенном порту (обычно порт 22), и
+							когда он получает запрос, устанавливается начальное сеансовое соединение.</li>
+					</ul>
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8194-b8a4-cca6db4ade85" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Процедура аутентификации:</strong>
+					<ul id="131aa64c-9d0a-81e1-b8c3-f8b85cccfd03" class="bulleted-list">
+						<li style="list-style-type:circle">После установления соединения сервер отправляет свой открытый
+							ключ клиенту.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8179-888f-c8b32e571761" class="bulleted-list">
+						<li style="list-style-type:circle">Клиент проверяет ключ сервера, чтобы убедиться, что это
+							действительно сервер, к которому он хочет подключиться.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8190-b998-d9c827c369e7" class="bulleted-list">
+						<li style="list-style-type:circle">Клиент генерирует сессионный ключ, который будет
+							использоваться для шифрования данных, и отправляет его серверу, зашифрованным с
+							использованием открытого ключа сервера.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8138-9f03-c1f53f64277c" class="bulleted-list">
+						<li style="list-style-type:circle">Сервер расшифровывает сессионный ключ с помощью своего
+							закрытого ключа.</li>
+					</ul>
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8177-a081-ecc15a6d35f3" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Защищенное соединение:</strong>
+					<ul id="131aa64c-9d0a-81be-98d0-ed8340a9553b" class="bulleted-list">
+						<li style="list-style-type:circle">Теперь, когда у клиента и сервера есть общий сессионный ключ,
+							все данные, передаваемые между ними, шифруются с использованием этого ключа. Это
+							обеспечивает конфиденциальность передаваемых данных.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-815b-8c23-f7d9aee82ed8" class="bulleted-list">
+						<li style="list-style-type:circle">Все команды и ответы от сервера также шифруются и передаются
+							через защищенное соединение.</li>
+					</ul>
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81f2-9294-f73bdef5aae2" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Аутентификация пользователя:</strong>
+					<ul id="131aa64c-9d0a-81b6-a3dd-f09541b0a622" class="bulleted-list">
+						<li style="list-style-type:circle">После установления соединения, клиент и сервер проводят
+							процедуру аутентификации пользователя.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8192-82d0-e41602a28f98" class="bulleted-list">
+						<li style="list-style-type:circle">Аутентификация может происходить с использованием пароля,
+							ключей SSH (публичного и частного) или других методов, таких как двухфакторная
+							аутентификация.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81fb-916a-f0e29e5e5d81" class="bulleted-list">
+						<li style="list-style-type:circle">При успешной аутентификации пользователь получает доступ к
+							удаленной системе и может выполнять команды на сервере.</li>
+					</ul>
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8123-82bf-ef4717b2baf2" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Использование сессии:</strong>
+					<ul id="131aa64c-9d0a-81da-9546-dc47074acd5e" class="bulleted-list">
+						<li style="list-style-type:circle">После успешной аутентификации пользователь может
+							взаимодействовать с удаленной системой, выполнять команды, передавать файлы и манипулировать
+							данными.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81e3-b632-d796c63a7631" class="bulleted-list">
+						<li style="list-style-type:circle">SSH также позволяет создавать защищенные туннели для
+							безопасной передачи данных между клиентом и сервером.</li>
+					</ul>
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81a7-8b43-f32c1015c0df" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Завершение сеанса:</strong>
+					<ul id="131aa64c-9d0a-8165-b5c8-ec6f5015dd88" class="bulleted-list">
+						<li style="list-style-type:circle">По завершении работы, клиент или сервер могут закрыть
+							соединение, завершив сессию.</li>
+					</ul>
+				</li>
+			</ul>
+			<p id="131aa64c-9d0a-81eb-80b2-d7a9f3bf47be" class="">Механика работы протокола SSH включает в себя не
+				только шифрование данных для обеспечения конфиденциальности, но и аутентификацию для обеспечения
+				безопасности соединения. Правильно настроенный SSH-сервер и использование безопасных методов
+				аутентификации и шифрования делают SSH одним из наиболее надежных способов удаленного доступа к системам
+				Linux.</p>
+			<h2 id="131aa64c-9d0a-8117-adba-f91dbb44a103" class=""> 3.
+					Туннелирование (порт-форвардинг) в SSH</a></h2>
+			<p id="131aa64c-9d0a-81f8-9a4a-e4a81d80cc35" class="">Туннелирование (порт-форвардинг) в SSH - это механизм,
+				который позволяет направлять сетевой трафик между клиентом и сервером через защищенное соединение SSH.
+				Этот процесс позволяет пользователям создавать безопасные сетевые туннели для передачи данных через
+				ненадежные или непрозрачные сети, а также для обеспечения доступа к удаленным ресурсам через брандмауэры
+				и фильтры.</p>
+			<p id="131aa64c-9d0a-8150-a2d6-dbdc200385e6" class="">Давайте рассмотрим механику работы туннелирования в
+				SSH более подробно:</p>
+			<ul id="131aa64c-9d0a-8164-862d-e5508e1522f0" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Установление SSH-соединения:</strong>
+					<ul id="131aa64c-9d0a-8131-abab-e8117921735a" class="bulleted-list">
+						<li style="list-style-type:circle">Процесс начинается с установления SSH-соединения между
+							клиентом и сервером. Это соединение обеспечивает шифрование и аутентификацию для безопасной
+							связи.</li>
+					</ul>
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-813d-b454-d5f553624742" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Определение порта для туннеля:</strong>
+					<ul id="131aa64c-9d0a-81f0-a38a-e4c64f001ab0" class="bulleted-list">
+						<li style="list-style-type:circle">Пользователь определяет порт на локальной машине (клиенте),
+							который будет использоваться для создания туннеля.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81c0-8a5a-e29256cc3c22" class="bulleted-list">
+						<li style="list-style-type:circle">Этот порт может быть любым доступным портом на клиентской
+							машине, например, портом 8080.</li>
+					</ul>
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-812a-8a3b-ee5937448999" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Запуск команды SSH с параметрами туннелирования:</strong>
+					<ul id="131aa64c-9d0a-812d-ac02-dd6b1432d348" class="bulleted-list">
+						<li style="list-style-type:circle">Пользователь запускает команду SSH с параметрами,
+							указывающими на создание туннеля. Например:
+							<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+								integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+								crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+							<link rel="stylesheet"
+								href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+								integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+								crossorigin="anonymous" referrerPolicy="no-referrer" />
+							<pre id="131aa64c-9d0a-8198-a3d9-c9730a1070f9"
+								class="code"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">ssh -L 8080:remote-server:80 user@remote-server</code></pre>
+							<p id="131aa64c-9d0a-81bd-80d8-e0931406355c" class="">В этой команде
+								<code><strong>-L</strong></code> указывает на локальный порт (8080), который будет
+								проксировать трафик на удаленный сервер (<code><strong>remote-server</strong></code>) на
+								порт 80.</p>
+							<ul id="131aa64c-9d0a-81b9-ab9f-e7a440db4924" class="bulleted-list">
+								<li style="list-style-type:square"><code><strong>ssh:</strong></code> Это команда,
+									которая запускает клиент SSH для установления соединения с удаленным сервером.</li>
+							</ul>
+							<ul id="131aa64c-9d0a-818b-9ae6-e7aaac7d1fd6" class="bulleted-list">
+								<li style="list-style-type:square"><code><strong>L:</strong></code> Это опция SSH,
+									которая указывает на создание локального туннеля. Опция
+									<code><strong>L</strong></code> используется для указания порта и адреса удаленного
+									сервера, к которому будет направлен туннель.</li>
+							</ul>
+							<ul id="131aa64c-9d0a-8144-9165-e8e508fbb4f1" class="bulleted-list">
+								<li style="list-style-type:square"><code><strong>8080:</strong></code> Это локальный
+									порт на клиентской машине, который будет использоваться для создания туннеля. В
+									данном случае, это локальный порт 8080.</li>
+							</ul>
+							<ul id="131aa64c-9d0a-8163-9d65-c6fcd422bf43" class="bulleted-list">
+								<li style="list-style-type:square"><code><strong>remote-server:</strong></code> Это
+									адрес удаленного сервера, к которому будет направлен туннель. Замените
+									<code><strong>remote-server</strong></code> на реальный IP-адрес или доменное имя
+									удаленного сервера.</li>
+							</ul>
+							<ul id="131aa64c-9d0a-819f-a736-d73a1653ed81" class="bulleted-list">
+								<li style="list-style-type:square"><code><strong>80:</strong></code> Это порт на
+									удаленном сервере, к которому будет направлен туннель. В данном случае, это порт 80,
+									который обычно используется для HTTP-трафика.</li>
+							</ul>
+							<ul id="131aa64c-9d0a-8198-b4b7-f8e0de0674a8" class="bulleted-list">
+								<li style="list-style-type:square"><code><strong>user:</strong></code> Это имя
+									пользователя, с которым вы планируете войти на удаленный сервер.</li>
+							</ul>
+							<ul id="131aa64c-9d0a-8136-a429-ee8065df3e1f" class="bulleted-list">
+								<li style="list-style-type:square"><code><strong>@:</strong></code> Это символ,
+									разделяющий имя пользователя и адрес удаленного сервера.</li>
+							</ul>
+							<ul id="131aa64c-9d0a-814c-b36a-ec5d34bae7b0" class="bulleted-list">
+								<li style="list-style-type:square"><code><strong>remote-server:</strong></code> Снова
+									адрес удаленного сервера, на который вы хотите подключиться.</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8127-ab4a-ead46582cba7" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Установка туннеля:</strong>
+					<ul id="131aa64c-9d0a-815e-a29f-feca30bc6747" class="bulleted-list">
+						<li style="list-style-type:circle">Когда SSH-соединение установлено и пользователь вошел в
+							систему на удаленном сервере, туннель также устанавливается.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8195-9bf9-f26ec2dfaf32" class="bulleted-list">
+						<li style="list-style-type:circle">Локальный порт (8080) на клиентской машине теперь слушает
+							запросы.</li>
+					</ul>
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8158-9dfd-c6b2dd5669b5" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Передача трафика через туннель:</strong>
+					<ul id="131aa64c-9d0a-811b-8824-ede5bd24b136" class="bulleted-list">
+						<li style="list-style-type:circle">Когда локальный клиент отправляет запрос на локальный порт
+							(8080), SSH перенаправляет этот трафик через защищенное соединение на удаленный сервер.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8154-9ff2-ee0b4f697e5d" class="bulleted-list">
+						<li style="list-style-type:circle">Удаленный сервер, в свою очередь, направляет трафик на
+							указанный порт (80) на удаленном сервере.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81db-b8d4-ffafff31a190" class="bulleted-list">
+						<li style="list-style-type:circle">Это позволяет локальному клиенту получать данные с удаленного
+							сервера через безопасное SSH-соединение, обеспечивая конфиденциальность и целостность
+							данных.</li>
+					</ul>
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81a5-9ca4-d695bfe85304" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Использование туннеля:</strong>
+					<ul id="131aa64c-9d0a-81bd-aee9-ded343a4b998" class="bulleted-list">
+						<li style="list-style-type:circle">Теперь пользователь может использовать локальный порт (8080)
+							на клиентской машине для доступа к удаленным ресурсам, как если бы они были локальными.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81cd-9a70-c7af0befedc1" class="bulleted-list">
+						<li style="list-style-type:circle">Таким образом, можно обходить ограничения сети, брандмауэры и
+							фильтры, а также обеспечить безопасную передачу данных.</li>
+					</ul>
+				</li>
+			</ul>
+			<p id="131aa64c-9d0a-81aa-b556-e62185855f6d" class="">Туннелирование в SSH предоставляет мощный инструмент
+				для обеспечения безопасной и гибкой передачи данных через сети, и его использование часто встречается
+				при работе с удаленными серверами и ресурсами в сети.</p>
+			<p id="131aa64c-9d0a-81e2-acef-c1d8e6c2961e" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-8153-b8ac-d096ff25d596" class=""> 4.
+					Пример файла конфигурации</a></h2>
+			<figure id="131aa64c-9d0a-813f-bdef-db0f7dfbda50" class="link-to-page"><a
+					href="Часть 3 3 Практическая работа “SSH-сервис”/Файл конфигурации etc ssh sshd_config.html"><img
+						class="icon" src="https://www.notion.so/icons/arrows-horizontal_red.svg" />Файл конфигурации
+					/etc/ssh/sshd_config</a></figure>
+			<p id="131aa64c-9d0a-8171-91ce-d340d010cb27" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-819b-aab7-ed0acaea8291" class=""> 5.
+					Ssh-tools</a></h2>
+			<p id="131aa64c-9d0a-81de-be24-f6c80d3bb852" class=""><strong>&quot;ssh-tools&quot;</strong> - это
+				обобщенное название для набора утилит и инструментов, связанных с SSH (Secure Shell) и предназначенных
+				для работы с этим протоколом. Эти утилиты предоставляют различные функции и возможности для
+				аутентификации, управления ключами, установления SSH-соединений и других операций в контексте SSH.</p>
+			<p id="131aa64c-9d0a-81f1-9d8f-e537c25920d2" class=""><strong>В состав &quot;ssh-tools&quot; входит
+					следующие утилиты:</strong></p>
+			<ol type="1" id="131aa64c-9d0a-811f-a168-fe98912d0710" class="numbered-list" start="1">
+				<li><code><strong>/usr/bin/ssh-certinfo</strong></code>: Утилита
+					<code><strong>ssh-certinfo</strong></code> предназначена для анализа и вывода информации о
+					сертификатах SSH, используемых для аутентификации на сервере SSH. Она позволяет пользователю
+					получить информацию о сертификатах, включая владельца, срок действия, ключи и другие параметры.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8185-9a2a-dcb7a8920a4d" class="numbered-list" start="2">
+				<li><code><strong>/usr/bin/ssh-diff</strong></code>: Утилита <code><strong>ssh-diff</strong></code>
+					позволяет сравнивать два ключа SSH и выявлять различия между ними. Это может быть полезно при
+					обнаружении изменений в ключах SSH или при управлении ключами для безопасности.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8127-bf37-ee802f8e4bac" class="numbered-list" start="3">
+				<li><code><strong>/usr/bin/ssh-facts</strong></code>: Утилита <code><strong>ssh-facts</strong></code>
+					предназначена для сбора фактов о серверах SSH, включая их версию, поддерживаемые алгоритмы
+					шифрования, аутентификационные методы и другие характеристики. Она может помочь администраторам
+					серверов SSH получить информацию о конфигурации и параметрах сервера.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-815f-8823-ef8121258743" class="numbered-list" start="4">
+				<li><code><strong>/usr/bin/ssh-hostkeys</strong></code>: Эта утилита позволяет администраторам SSH
+					управлять хост-ключами, которые используются для аутентификации серверов SSH. Она может быть
+					использована для создания новых хост-ключей или управления существующими ключами.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8184-b584-c4e978945f54" class="numbered-list" start="5">
+				<li><code><strong>/usr/bin/ssh-keyinfo</strong></code>: Утилита
+					<code><strong>ssh-keyinfo</strong></code> позволяет анализировать и выводить информацию о ключах
+					SSH, включая их тип, длину и другие параметры. Она может быть полезной при проверке ключей SSH на
+					безопасность.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-812f-99f6-e1879f6bac24" class="numbered-list" start="6">
+				<li><code><strong>/usr/bin/ssh-ping</strong></code>: Эта утилита позволяет проверить доступность
+					SSH-сервера и замерить время ответа. Она может быть полезной при диагностике сетевых проблем или
+					мониторинге доступности серверов SSH.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8187-b374-eec3e6d7e3a4" class="numbered-list" start="7">
+				<li><code><strong>/usr/bin/ssh-version</strong></code>: Утилита
+					<code><strong>ssh-version</strong></code> предназначена для вывода версии OpenSSH, установленной на
+					вашей системе. Это может быть полезно для проверки версии SSH-сервера или клиента, используемой на
+					вашей системе.</li>
+			</ol>
+			<figure id="131aa64c-9d0a-81f1-8f48-cfbcc66c023a" class="image"><a
+					href="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%201.png"><img
+						style="width:571px"
+						src="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%201.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81e6-a958-f47fe4a63e17" class="">Эти строки представляют собой список файлов и
+				каталогов, которые находятся в системной директории <code><strong>/usr</strong></code> на системе Linux.
+				Вот краткое описание каждой из них:</p>
+			<ol type="1" id="131aa64c-9d0a-8144-bdd9-fe37bd1614f5" class="numbered-list" start="1">
+				<li><code><strong>/usr</strong></code>: Это корневой каталог, который содержит системные файлы и
+					программы вторичной важности. В нем находятся множество подкаталогов и файлов, включая установленные
+					пакеты.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8136-9f14-e56e9e83f67d" class="numbered-list" start="2">
+				<li><code><strong>/usr/bin</strong></code>: Этот каталог содержит исполняемые файлы (программы),
+					доступные для всех пользователей системы. В данном случае, он содержит различные утилиты, связанные
+					с SSH.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8175-89e0-d46f5943cf7d" class="numbered-list" start="3">
+				<li><code><strong>/usr/share</strong></code>: Этот каталог содержит общие данные, такие как
+					документация, ресурсы и т. д., используемые различными программами.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81e0-9e75-fc824a7615c6" class="numbered-list" start="4">
+				<li><code><strong>/usr/share/doc</strong></code>: Этот каталог содержит документацию для различных
+					пакетов или программ, включая, возможно, документацию для пакета
+					<code><strong>ssh-tools</strong></code>.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81f7-af9b-eda7b863fc70" class="numbered-list" start="5">
+				<li><code><strong>/usr/share/doc/ssh-tools</strong></code>: Этот подкаталог содержит документацию,
+					связанную с пакетом <code><strong>ssh-tools</strong></code>.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81a1-a4be-d10318481eb3" class="numbered-list" start="6">
+				<li><code><strong>/usr/share/doc/ssh-tools/changelog.Debian.gz</strong></code>: Этот файл, вероятно,
+					содержит журнал изменений (changelog) для пакета <code><strong>ssh-tools</strong></code> в формате
+					Debian.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81c5-9173-c0789d089415" class="numbered-list" start="7">
+				<li><code><strong>/usr/share/doc/ssh-tools/copyright</strong></code>: Этот файл, вероятно, содержит
+					информацию о лицензии и правах на программы внутри пакета <code><strong>ssh-tools</strong></code>.
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8114-9d6c-c7ebbabd347a" class="numbered-list" start="8">
+				<li><code><strong>/usr/share/man</strong></code>: Этот каталог содержит документацию в формате
+					&quot;man&quot; (manual pages) для различных программ.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-818c-b903-cee5c5131b43" class="numbered-list" start="9">
+				<li><code><strong>/usr/share/man/man1</strong></code>: Этот подкаталог содержит страницы руководства
+					(man pages) для различных программ из каталога <code><strong>/usr/bin</strong></code>.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8156-918f-f3853c263d11" class="numbered-list" start="10">
+				<li><code><strong>/usr/share/man/man1/ssh-certinfo.1.gz</strong></code>: Этот файл содержит man-страницу
+					для утилиты <code><strong>ssh-certinfo</strong></code>.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8174-82e9-d2c6d27b4a30" class="numbered-list" start="11">
+				<li><code><strong>/usr/share/man/man1/ssh-diff.1.gz</strong></code>: Этот файл содержит man-страницу для
+					утилиты <code><strong>ssh-diff</strong></code>.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8114-8359-f86a56215a1e" class="numbered-list" start="12">
+				<li><code><strong>/usr/share/man/man1/ssh-facts.1.gz</strong></code>: Этот файл содержит man-страницу
+					для утилиты <code><strong>ssh-facts</strong></code>.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8158-83b6-e89bf3221c1f" class="numbered-list" start="13">
+				<li><code><strong>/usr/share/man/man1/ssh-hostkeys.1.gz</strong></code>: Этот файл содержит man-страницу
+					для утилиты <code><strong>ssh-hostkeys</strong></code>.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-817c-93ad-cbf1bc675c3f" class="numbered-list" start="14">
+				<li><code><strong>/usr/share/man/man1/ssh-keyinfo.1.gz</strong></code>: Этот файл содержит man-страницу
+					для утилиты <code><strong>ssh-keyinfo</strong></code>.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8107-8fc5-e582db0c83c3" class="numbered-list" start="15">
+				<li><code><strong>/usr/share/man/man1/ssh-ping.1.gz</strong></code>: Этот файл содержит man-страницу для
+					утилиты <code><strong>ssh-ping</strong></code>.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81a3-bdf5-db7dd2cc1b45" class="numbered-list" start="16">
+				<li><code><strong>/usr/share/man/man1/ssh-version.1.gz</strong></code>: Этот файл содержит man-страницу
+					для утилиты <code><strong>ssh-version</strong></code>.</li>
+			</ol>
+			<p id="131aa64c-9d0a-81f1-872c-d73115f9ee5d" class="">Эти утилиты и инструменты обеспечивают широкий спектр
+				функциональности, связанной с SSH, и позволяют администраторам и пользователям управлять
+				SSH-соединениями, ключами и безопасностью в целом.</p>
+			<figure id="131aa64c-9d0a-8139-8a16-c4a4e097060c" class="image"><a
+					href="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%202.png"><img
+						style="width:903px"
+						src="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%202.png" /></a>
+			</figure>
+			<h2 id="131aa64c-9d0a-811b-a274-e7b8f33dee74" class=""> 5.1
+					Ssh-ping</a></h2>
+			<p id="131aa64c-9d0a-818f-bf64-e7efb37e301a" class="">Утилита <code><strong>ssh-ping</strong></code>
+				предназначена для проверки доступности SSH-сервера на удаленном хосте.</p>
+			<p id="131aa64c-9d0a-813b-a72d-ec7e262b392e" class=""><strong>Функционал утилиты:</strong></p>
+			<ol type="1" id="131aa64c-9d0a-81c7-a163-d6a160db65d4" class="numbered-list" start="1">
+				<li><strong>Проверка доступности SSH-сервера:</strong> <code><strong>ssh-ping</strong></code> может
+					использоваться для проверки того, отвечает ли удаленный хост на SSH-запросы. Это полезно, чтобы
+					убедиться, что SSH-сервер на хосте работает и готов принимать подключения.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8102-96ee-e18230a49066" class="numbered-list" start="2">
+				<li><strong>Оценка времени отклика: </strong>Утилита выводит время отклика (в миллисекундах) для каждого
+					запроса. Это может быть полезно для измерения производительности сетевой связи между клиентом и
+					сервером.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8143-82aa-f9d7d42f5054" class="numbered-list" start="3">
+				<li><strong>Тестирование настройки SSH:</strong> Путем отправки запросов с разными параметрами
+					(например, различными пользователями или портами), вы можете проверить правильность настроек
+					SSH-сервера на удаленном хосте.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-817a-99ee-f398bef61de8" class="numbered-list" start="4">
+				<li><strong>Мониторинг доступности:</strong> Утилита может использоваться в сценариях мониторинга, чтобы
+					регулярно проверять доступность удаленного SSH-сервера и предупреждать о возможных сбоях в работе.
+				</li>
+			</ol>
+			<p id="131aa64c-9d0a-817d-9ca9-f600e8391473" class="">
+			</p>
+			<ul id="131aa64c-9d0a-8168-b2da-f72f81832285" class="toggle">
+				<li>
+					<details open="">
+						<summary><strong>Ssh-ping (HELP)</strong></summary>
+						<p id="131aa64c-9d0a-8163-9c8d-d88933e99dd4" class="">описание каждой опции для команды
+							<code><strong>ssh-ping</strong></code>:</p>
+						<ul id="131aa64c-9d0a-81c1-a006-cb2cf9690697" class="bulleted-list">
+							<li style="list-style-type:disc"><code><strong>4</strong></code>: Эта опция указывает
+								использовать только IPv4 для соединения.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-814e-a042-de28085339b4" class="bulleted-list">
+							<li style="list-style-type:disc"><code><strong>6</strong></code>: Эта опция указывает
+								использовать только IPv6 для соединения.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-8126-a0db-d955bee0b240" class="bulleted-list">
+							<li style="list-style-type:disc"><code><strong>c count</strong></code>: Опция
+								<code><strong>c</strong></code> позволяет задать количество запросов для отправки.
+								Программа завершит выполнение после отправки указанного числа пакетов.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-8149-b0dc-de37bacb9bc6" class="bulleted-list">
+							<li style="list-style-type:disc"><code><strong>F configfile</strong></code>: С помощью этой
+								опции можно указать альтернативный файл конфигурации для пользователей. Если файл
+								конфигурации указан в командной строке, то системный файл конфигурации
+								<code><strong>/etc/ssh/ssh_config</strong></code> будет проигнорирован. По умолчанию
+								используется файл конфигурации <code><strong>~/.ssh/config</strong></code> для каждого
+								пользователя.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-81cf-a2ca-c04a8dca88de" class="bulleted-list">
+							<li style="list-style-type:disc"><code><strong>h</strong></code>: Эта опция позволяет
+								вывести справочное сообщение (help), которое объясняет доступные опции.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-818b-98ab-dfb3f7f69aaa" class="bulleted-list">
+							<li style="list-style-type:disc"><code><strong>i interval</strong></code>: С этой опцией
+								можно установить интервал (в секундах) между отправкой каждого запроса. По умолчанию
+								интервал составляет 1 секунду.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-810a-9f1b-f907a940938e" class="bulleted-list">
+							<li style="list-style-type:disc"><code><strong>l user</strong></code>: Эта опция позволяет
+								указать имя пользователя для попытки входа. По умолчанию используется имя пользователя,
+								под которым выполнена текущая команда (переменная окружения
+								<code><strong>$USER</strong></code>).</li>
+						</ul>
+						<ul id="131aa64c-9d0a-8171-9f59-e96c27562127" class="bulleted-list">
+							<li style="list-style-type:disc"><code><strong>D</strong></code>: Опция
+								<code><strong>D</strong></code> печатает временную метку в формате времени Unix (время в
+								секундах с микросекундами, как в gettimeofday) перед каждой строкой вывода.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-81a1-93d1-fdd11f3dea12" class="bulleted-list">
+							<li style="list-style-type:disc"><code><strong>H</strong></code>: Опция
+								<code><strong>H</strong></code> печатает временную метку в человекочитаемом формате
+								перед каждой строкой вывода.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-8140-a987-c467ff3d0efa" class="bulleted-list">
+							<li style="list-style-type:disc"><code><strong>W timeout</strong></code>: Эта опция
+								позволяет установить время ожидания ответа в секундах. Программа будет ожидать ответа в
+								течение указанного времени.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-8163-94be-f324c3638b39" class="bulleted-list">
+							<li style="list-style-type:disc"><code><strong>p port</strong></code>: С помощью этой опции
+								можно указать порт для подключения к удаленному хосту. Это можно задать на пер-хостовой
+								основе в файле конфигурации. По умолчанию используется стандартный SSH-порт (22).</li>
+						</ul>
+						<ul id="131aa64c-9d0a-8184-a017-eb4b9315c2dd" class="bulleted-list">
+							<li style="list-style-type:disc"><code><strong>q</strong></code>: Опция
+								<code><strong>q</strong></code> включает тихий вывод. Ничего не выводится, за
+								исключением строк сводки при запуске и завершении выполнения.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-8149-a98e-ce4b3d022a1a" class="bulleted-list">
+							<li style="list-style-type:disc"><code><strong>v</strong></code>: Опция
+								<code><strong>v</strong></code> включает подробный вывод (verbose). Она позволяет
+								выводить дополнительную информацию о процессе выполнения команды, включая подробности о
+								соединении и передаче данных.</li>
+						</ul>
+					</details>
+				</li>
+			</ul>
+			<p id="131aa64c-9d0a-8117-b039-ede70b384cb3" class="">
+			</p>
+			<figure id="131aa64c-9d0a-8171-bea9-eac6150b55c0" class="image"><a
+					href="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%203.png"><img
+						style="width:860px"
+						src="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%203.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8199-809b-e802a0798b71" class="">
+			</p>
+			<p id="131aa64c-9d0a-81a1-93b6-fee06418d5e4" class=""><strong>5.1.1 Рассмотрим каждую часть вывода:</strong>
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81e1-b8f3-c0e92d92e481"
+				class="code"><code class="language-JavaScript">litvinigor@server:~$ ssh-ping -c 3 igor@192.168.127.187</code></pre>
+			<ol type="1" id="131aa64c-9d0a-815b-82de-c1d2342ddeb0" class="numbered-list" start="1">
+				<li><code><strong>litvinigor@server:~$</strong></code>: Это строка командной оболочки, указывающая на
+					то, что текущий пользователь (<code><strong>litvinigor</strong></code>) на хосте
+					<code><strong>server</strong></code> в своей домашней директории (<code><strong>~</strong></code>)
+					выполнил команду <code><strong>ssh-ping</strong></code>.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81fb-b4d3-d22ea506651e" class="numbered-list" start="2">
+				<li><code><strong>ssh-ping -c 3 igor@192.168.127.187</strong></code>: Это сама команда
+					<code><strong>ssh-ping</strong></code>, в которой указаны следующие опции:<ul
+						id="131aa64c-9d0a-8133-9062-ec393ef8731e" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>c 3</strong></code>: Ожидается отправка 3
+							запросов.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8126-8cfd-d9bef1052985" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>igor@192.168.127.187</strong></code>: Это адрес
+							удаленного хоста, к которому будет выполнено SSH-подключение. Название пользователя
+							<code><strong>igor</strong></code> указано перед адресом.</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81e7-98c0-f1a07831bdc9" class="numbered-list" start="3">
+				<li><code><strong>SSHPING 192.168.127.187</strong></code>: Это заголовок, который показывает начало
+					выполнения команды <code><strong>ssh-ping</strong></code> и IP-адрес целевого хоста
+					(<code><strong>192.168.127.187</strong></code>).</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81f5-8e8b-c8f9b7002b1c" class="numbered-list" start="4">
+				<li><code><strong>Reply from 192.168.127.187: ssh_seq=1 time=71 ms</strong></code>: Эта строка сообщает
+					о получении ответа от удаленного хоста (<code><strong>192.168.127.187</strong></code>) с номером
+					последовательности <code><strong>ssh_seq=1</strong></code> и временем отклика
+					<code><strong>time=71 ms</strong></code>.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81af-9a91-cc85f2561c22" class="numbered-list" start="5">
+				<li><code><strong>Reply from 192.168.127.187: ssh_seq=2 time=72 ms</strong></code>: Аналогичная строка
+					для второго ответа с номером последовательности <code><strong>ssh_seq=2</strong></code> и временем
+					отклика <code><strong>time=72 ms</strong></code>.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81d8-9feb-c945a738cd4c" class="numbered-list" start="6">
+				<li><code><strong>Reply from 192.168.127.187: ssh_seq=3 time=75 ms</strong></code>: Аналогичная строка
+					для третьего ответа с номером последовательности <code><strong>ssh_seq=3</strong></code> и временем
+					отклика <code><strong>time=75 ms</strong></code>.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-816e-8f6d-d6d1cd648611" class="numbered-list" start="7">
+				<li><code><strong>-- 192.168.127.187 ping statistics ---</strong></code>: Эта строка предоставляет общую
+					статистику выполненного тестирования.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81e1-86a9-d8aa7e55f7c4" class="numbered-list" start="8">
+				<li><code><strong>3 requests transmitted, 3 requests received, 0% request loss</strong></code>: Эта
+					строка предоставляет статистику о выполненном тестировании, включая количество отправленных и
+					полученных запросов и процент потери запросов (0% потери, что означает, что все запросы были успешно
+					получены).</li>
+			</ol>
+			<p id="131aa64c-9d0a-8121-b297-f7f9b9f59335" class="">
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81d7-b97c-d511092bceaf"
+				class="code"><code class="language-JavaScript">litvinigor@server:~$ ssh-ping -c 3 -H -l igor igor@192.168.127.187 -H</code></pre>
+			<ol type="1" id="131aa64c-9d0a-813d-ac03-f31d01056b11" class="numbered-list" start="1">
+				<li><code><strong>litvinigor@server:~$</strong></code>: Это оболочка командной строки, которая указывает
+					на то, что текущий пользователь (<code><strong>litvinigor</strong></code>) на хосте
+					<code><strong>server</strong></code> в своей домашней директории (<code><strong>~</strong></code>)
+					выполнил команду <code><strong>ssh-ping</strong></code>.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81cc-a623-f76c6fd2ff98" class="numbered-list" start="2">
+				<li><code><strong>ssh-ping -c 3 -H -l igor igor@192.168.127.187 -H</strong></code>: Это сама команда
+					<code><strong>ssh-ping</strong></code>, в которой заданы следующие опции:<ul
+						id="131aa64c-9d0a-8199-ad2f-ccdb3339848a" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>c 3</strong></code>: Ожидается отправка 3
+							запросов.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8180-9322-ce0a7c16af04" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>H</strong></code>: Включен вывод времени в
+							человекочитаемом формате перед каждой строкой.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-819a-90ef-de5233d29045" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>l igor</strong></code>: Имя пользователя для
+							попытки входа задано как <code><strong>igor</strong></code>.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8189-adf6-d84ad5103b86" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>igor@192.168.127.187</strong></code>: Это адрес
+							удаленного хоста, к которому будет выполнено SSH-подключение.</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8118-82cd-c3712a700afb" class="numbered-list" start="3">
+				<li><code><strong>SSHPING 192.168.127.187</strong></code>: Это заголовок, который показывает начало
+					выполнения команды <code><strong>ssh-ping</strong></code> и IP-адрес целевого хоста
+					(<code><strong>192.168.127.187</strong></code>).</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-815f-8dc3-c75d715e32eb" class="numbered-list" start="4">
+				<li><code><strong>[Wed 15 Nov 2023 10:32:52 AM UTC] Reply from 192.168.127.187: ssh_seq=1 time=76 ms</strong></code>:
+					Эта строка сообщает, что был получен ответ от удаленного хоста
+					(<code><strong>192.168.127.187</strong></code>) с временной меткой
+					<code><strong>Wed 15 Nov 2023 10:32:52 AM UTC</strong></code>, номером последовательности
+					<code><strong>ssh_seq=1</strong></code> и временем отклика <code><strong>time=76 ms</strong></code>.
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8163-9edd-d317b43a84e6" class="numbered-list" start="5">
+				<li><code><strong>[Wed 15 Nov 2023 10:32:53 AM UTC] Reply from 192.168.127.187: ssh_seq=2 time=77 ms</strong></code>:
+					Аналогичная строка для второго ответа с номером последовательности
+					<code><strong>ssh_seq=2</strong></code> и временем отклика <code><strong>time=77 ms</strong></code>.
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8191-9ee4-db8c4a7b3de9" class="numbered-list" start="6">
+				<li><code><strong>[Wed 15 Nov 2023 10:32:54 AM UTC] Reply from 192.168.127.187: ssh_seq=3 time=74 ms</strong></code>:
+					Аналогичная строка для третьего ответа с номером последовательности
+					<code><strong>ssh_seq=3</strong></code> и временем отклика <code><strong>time=74 ms</strong></code>.
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ed-b3c4-edb633b9e1f5" class="numbered-list" start="7">
+				<li><code><strong>-- 192.168.127.187 ping statistics ---</strong></code>: Это строка, которая сообщает
+					об общей статистике выполненного тестирования.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8131-9a81-f484a3307630" class="numbered-list" start="8">
+				<li><code><strong>3 requests transmitted, 3 requests received, 0% request loss</strong></code>: Эта
+					строка предоставляет статистику о выполненном тестировании, включая количество отправленных и
+					полученных запросов и процент потери запросов (0% потери, что означает, что все запросы были успешно
+					получены).</li>
+			</ol>
+			<p id="131aa64c-9d0a-81d2-838f-cf82a1c56c73" class="">
+			</p>
+			<p id="131aa64c-9d0a-817f-a094-f7228c9da847" class=""><strong>Какую особенность хочется
+					продемонстрировать:</strong></p>
+			<p id="131aa64c-9d0a-81dd-afbc-e6b677b8a176" class=""><em>Если использовать данную утилиту с другими
+					пользователями не относящиемеся непосредственно к Вашей системе, то скорее-всего, при настроенном на
+					удаленном сервере </em><em><code><strong>fail2ban</strong></code></em><em>, то он отработает и
+					заблокирует Вас.</em></p>
+			<figure id="131aa64c-9d0a-81de-8a6c-eac5efba81e8" class="image"><a
+					href="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%204.png"><img
+						style="width:950px"
+						src="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%204.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81e3-b780-cb5826807643" class=""><strong>Видим, что наш IP-адрес попал под
+					блокировку:</strong></p>
+			<figure id="131aa64c-9d0a-8147-9080-d489df10d14b" class="image"><a
+					href="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%205.png"><img
+						style="width:540px"
+						src="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%205.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81b5-a2b2-fa52e56175e6" class=""><strong>Разблокируем его:</strong></p>
+			<figure id="131aa64c-9d0a-8135-94bf-efd03718050e" class="image"><a
+					href="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%206.png"><img
+						style="width:551px"
+						src="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%206.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81c5-b896-fe22e3a2fd43" class=""><strong>Проверим, что будет, если мы будем применять
+					данную утилиту для легитимной учётной записи, можем увидеть, что
+				</strong><code><strong>fail2ban</strong></code><strong> нас не блокирует:</strong></p>
+			<figure id="131aa64c-9d0a-81fd-ba3b-c6f8eba6ae94" class="image"><a
+					href="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%207.png"><img
+						style="width:872px"
+						src="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%207.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81fc-9254-de175f2baaf8" class="">
+			</p>
+			<p id="131aa64c-9d0a-81be-9fd9-e998e1853125" class=""><em>Таким образом,
+				</em><em><code><strong>ssh-ping</strong></code></em><em> предоставляет инструмент для диагностики и
+					мониторинга SSH-серверов и может быть полезной в различных сценариях администрирования и
+					обслуживания системы.</em></p>
+			<p id="131aa64c-9d0a-817c-bd8d-c41386aade54" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-81fa-a1ca-c8d7d60e0e26" class=""> 5.2
+					S</a><strong> sh-certinfo</a></strong>
+			</h2>
+			<p id="131aa64c-9d0a-815b-beb7-d15c18c61456" class="">Утилита <code><strong>ssh-certinfo</strong></code>
+				предназначена для анализа и вывода информации о сертификатах SSH, которые используются для
+				аутентификации на сервере SSH. Эта утилита позволяет администраторам и пользователям получать информацию
+				о сертификатах, включая их содержимое и сроки действия. Утилита может быть полезной при диагностике
+				проблем с аутентификацией SSH, а также для мониторинга сертификатов.</p>
+			<p id="131aa64c-9d0a-81f1-9e3e-cb58ccd32b76" class="">Для использования
+				<code><strong>ssh-certinfo</strong></code>, обычно выполняется команда вида:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-818b-b37a-c8cff74e8f73"
+				class="code"><code class="language-JavaScript">ssh-certinfo -c /path/to/certificate</code></pre>
+			<p id="131aa64c-9d0a-81df-9199-f8b957dc277b" class="">Где <code><strong>/path/to/certificate</strong></code>
+				- это путь к сертификату, который вы хотите проанализировать. Утилита анализирует сертификат и выводит
+				информацию о нем, такую как:</p>
+			<ul id="131aa64c-9d0a-812d-83ce-f64b1092c098" class="bulleted-list">
+				<li style="list-style-type:disc">Владелец сертификата.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8193-b5d0-e798fb1e478d" class="bulleted-list">
+				<li style="list-style-type:disc">Информация о ключе (например, тип ключа и длина).</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8145-a362-d970b994f75d" class="bulleted-list">
+				<li style="list-style-type:disc">Срок действия сертификата (дата начала и окончания).</li>
+			</ul>
+			<ul id="131aa64c-9d0a-818a-a7b9-eddca0a6e3dc" class="bulleted-list">
+				<li style="list-style-type:disc">Подписывающий центр (если сертификат был подписан).</li>
+			</ul>
+			<ul id="131aa64c-9d0a-812d-8111-f2cbea0e646b" class="bulleted-list">
+				<li style="list-style-type:disc">Информация о расширениях сертификата (если они есть).</li>
+			</ul>
+			<p id="131aa64c-9d0a-81d2-9a37-f3ccb79f4536" class="">Утилита <code><strong>ssh-certinfo</strong></code>
+				может быть полезной для обслуживания и мониторинга серверов SSH, особенно при работе с сертификатами.
+			</p>
+			<p id="131aa64c-9d0a-81ce-8905-c62ad134bc9d" class=""><em>Утилита
+				</em><em><code><strong>ssh-certinfo</strong></code></em><em> не предназначена для работы с обычными
+					ключами SSH. Эта утилита предназначена для работы с SSH-сертификатами, которые используются для
+					аутентификации и обеспечения безопасности в SSH-соединениях. SSH-сертификаты представляют собой
+					более сложные структуры данных, чем обычные ключи, и используются для подписи и проверки подлинности
+					других ключей и параметров.</em></p>
+			<p id="131aa64c-9d0a-8163-9c66-c19a86530f1d" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-8175-b7fd-e64540fbd84f" class=""> 5.3
+					Ssh-diff</a></h2>
+			<p id="131aa64c-9d0a-8149-b393-ee4cf59c8f42" class="">Утилита <code><strong>ssh-diff</strong></code>
+				предназначена для сравнения двух SSH-ключей и выявления различий между ними. Это может быть полезно для
+				анализа и управления ключами SSH, а также для обнаружения изменений в ключах, что может быть важно для
+				безопасности системы.</p>
+			<p id="131aa64c-9d0a-8183-a9ec-ffe059bdbc31" class="">Вот основные возможности и механика работы утилиты
+				<code><strong>ssh-diff</strong></code>:</p>
+			<ol type="1" id="131aa64c-9d0a-81b8-bbcb-db857bd1f618" class="numbered-list" start="1">
+				<li><strong>Сравнение ключей</strong>: Утилита <code><strong>ssh-diff</strong></code> позволяет
+					сравнивать два SSH-ключа, например, сравнивать ключ на сервере с известным хорошим ключом или
+					сравнивать текущий ключ с предыдущей версией.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8119-af94-f942e7c67121" class="numbered-list" start="2">
+				<li><strong>Обнаружение различий</strong>: Утилита выявляет различия между ключами и выводит их
+					пользователю. Это может включать в себя разницу в длине ключа, типе ключа, контенте ключа и другие
+					параметры.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8167-9e68-de3de604070f" class="numbered-list" start="3">
+				<li><strong>Информативный вывод</strong>: Результат работы <code><strong>ssh-diff</strong></code>
+					представляется в читаемом формате, который позволяет пользователю быстро определить различия между
+					ключами.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-812a-847c-e970158fa59e" class="numbered-list" start="4">
+				<li><strong>Проверка целостности ключей</strong>: Утилита может использоваться для проверки целостности
+					ключей, и если различия обнаружены, это может сигнализировать об изменениях в ключе, которые могли
+					бы потенциально представлять угрозу безопасности.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8190-b92b-fc1ee56b06fc" class="numbered-list" start="5">
+				<li><strong>Инструмент аудита</strong>: <code><strong>ssh-diff</strong></code> может быть использован
+					для аудита ключей SSH на сервере, чтобы убедиться, что только ожидаемые ключи активны и нет
+					нежелательных изменений.</li>
+			</ol>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8143-832b-d493f789efbf"
+				class="code"><code class="language-JavaScript">ssh-diff /путь/к/первому/ключу /путь/к/второму/ключу</code></pre>
+			<p id="131aa64c-9d0a-8168-b7c4-d02437491894" class="">Утилита <code><strong>ssh-diff</strong></code>
+				выполнит сравнение ключей, и если есть различия, она выведет их, что может помочь пользователям и
+				администраторам системы в обнаружении и реагировании на потенциальные проблемы с ключами SSH.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8106-af18-c3a0ad6f97a8"
+				class="code"><code class="language-JavaScript">ssh-diff -u /etc/hosts igor@192.168.127.187</code></pre>
+			<figure id="131aa64c-9d0a-81e0-bbf0-f2621bbd59e0" class="image"><a
+					href="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%208.png"><img
+						style="width:653px"
+						src="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%208.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8137-9bef-f0a100984aa1" class="">Посмотрим на информацию после работы команды
+				<code><strong>ssh-diff -u /etc/hosts igor@192.168.127.187</strong></code>. Каждая строка имеет свой
+				смысл и информацию о сравнении файлов <code><strong>/etc/hosts</strong></code> на локальной машине с
+				файлом <code><strong>/etc/hosts</strong></code> на удаленной машине
+				(<code><strong>192.168.127.187</strong></code>):</p>
+			<ol type="1" id="131aa64c-9d0a-810b-b702-f88799e27a7e" class="numbered-list" start="1">
+				<li><code><strong>igor@192.168.127.187&#x27;s password:</strong></code>: Запуск
+					<code><strong>ssh-diff</strong></code> требует подтверждения подключения к удаленному серверу,
+					поэтому пользователь <code><strong>igor</strong></code> вводит пароль для аутентификации.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8191-8806-f44786e31a20" class="numbered-list" start="2">
+				<li><code><strong>Comparing 192.168.127.187:/etc/hosts (&lt;) with /etc/hosts (&gt;)</strong></code>:
+					Это заголовок, который указывает, что происходит сравнение файла
+					<code><strong>/etc/hosts</strong></code> на удаленной машине
+					(<code><strong>192.168.127.187</strong></code>) с файлом <code><strong>/etc/hosts</strong></code> на
+					локальной машине.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8145-81f0-d503aa272c3a" class="numbered-list" start="3">
+				<li><code><strong>-- 192.168.127.187:/etc/hosts</strong></code>: Эта строка указывает начало сравнения.
+					<code><strong></strong></code> перед именем файла указывает на файл с удаленной машины
+					(<code><strong>192.168.127.187:/etc/hosts</strong></code>).</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8188-8693-c4f5f239716f" class="numbered-list" start="4">
+				<li><code><strong>+++ /etc/hosts 2023-10-07 10:11:37.343707573 +0000</strong></code>: Эта строка
+					указывает на файл на локальной машине (<code><strong>/etc/hosts</strong></code>) и дату его
+					последнего изменения.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8134-b904-d66421e9f9e9" class="numbered-list" start="5">
+				<li><code><strong>@@ -1,5 +1,5 @@</strong></code>: Эта строка представляет информацию о контексте
+					сравнения. Она указывает на строки, которые были изменены между двумя версиями файла. В данном
+					случае, <code><strong>1,5</strong></code> означает, что строки с 1 по 5 были изменены.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-816e-9aca-da3134e28f88" class="numbered-list" start="6">
+				<li><code><strong>127.0.0.1 localhost</strong></code>: Это строка из удаленного файла
+					<code><strong>/etc/hosts</strong></code>. Она была удалена в сравнении.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81be-862d-f3aaaa8ec28d" class="numbered-list" start="7">
+				<li><code><strong>127.0.1.1 ubuntu</strong></code>: Это еще одна строка из удаленного файла
+					<code><strong>/etc/hosts</strong></code>. Она тоже была удалена в сравнении.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8178-805b-f4b54d415cae" class="numbered-list" start="8">
+				<li><code><strong>+127.0.0.1 localhost</strong></code>: Это строка из локального файла
+					<code><strong>/etc/hosts</strong></code>. Она была добавлена в сравнении.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-815c-bae0-c4c4e1c9c264" class="numbered-list" start="9">
+				<li><code><strong>+127.0.1.1 server</strong></code>: Это еще одна строка из локального файла
+					<code><strong>/etc/hosts</strong></code>. Она тоже была добавлена в сравнении.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81cd-8a3e-e4e8cc0fe868" class="numbered-list" start="10">
+				<li><code><strong># The following lines are desirable for IPv6 capable hosts</strong></code>: Эта строка
+					осталась без изменений и присутствует в обоих файлах.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81bc-b93c-cd400f0bb99a" class="numbered-list" start="11">
+				<li><code><strong>::1 ip6-localhost ip6-loopback</strong></code>: Эта строка осталась без изменений и
+					присутствует в обоих файлах.</li>
+			</ol>
+			<p id="131aa64c-9d0a-817a-801a-f4ac1a8e8c76" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-81c6-b9bc-fb4b39e1c384" class=""> 5.4
+					Ssh-facts</a></h2>
+			<p id="131aa64c-9d0a-817b-93ca-f0e845b4b2f3" class="">Утилита <code><strong>ssh-facts</strong></code>
+				предназначена для сбора информации о сервере SSH, включая его конфигурацию, поддерживаемые алгоритмы
+				шифрования, аутентификационные методы и другие характеристики. Эта утилита может быть полезной для
+				администраторов системы, которые хотят получить информацию о серверах SSH в их сети. Механика работы
+				<code><strong>ssh-facts</strong></code><strong> </strong>следующая:</p>
+			<ol type="1" id="131aa64c-9d0a-81ea-a439-cf1787ad1310" class="numbered-list" start="1">
+				<li><strong>Сбор информации</strong>: <code><strong>ssh-facts</strong></code> собирает информацию о
+					сервере SSH, к которому вы подключаетесь. Это может включать в себя версию сервера, используемые
+					алгоритмы шифрования, список поддерживаемых аутентификационных методов и другие настройки.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81a0-951c-e23fd19fabb0" class="numbered-list" start="2">
+				<li><strong>Интерактивное взаимодействие</strong>: При запуске <code><strong>ssh-facts</strong></code>
+					может потребоваться ввод пароля или ключа для аутентификации на сервере SSH, если это необходимо.
+					Это позволяет получать информацию с удаленного сервера, требуя аутентификации.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-812d-a1c3-d10a86de8857" class="numbered-list" start="3">
+				<li><strong>Вывод информации</strong>: Результат работы <code><strong>ssh-facts</strong></code>
+					выводится на экран, предоставляя администратору информацию о сервере SSH. Эта информация может быть
+					использована для анализа конфигурации сервера и его характеристик.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-817d-8a07-ca62f019aedd" class="numbered-list" start="4">
+				<li><strong>Анализ безопасности</strong>: <code><strong>ssh-facts</strong></code> также может
+					использоваться для анализа безопасности сервера SSH. Путем проверки поддерживаемых алгоритмов
+					шифрования и аутентификационных методов администратор может определить, насколько безопасно настроен
+					сервер SSH.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8159-a596-d1d2f0866aa6" class="numbered-list" start="5">
+				<li><strong>Диагностика проблем</strong>: Утилита может быть полезной для диагностики проблем с
+					SSH-соединением, такими как ошибки аутентификации или конфликты настройки.</li>
+			</ol>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8166-a038-e5b6bb5508f7"
+				class="code"><code class="language-JavaScript">ssh-facts user@hostname</code></pre>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8126-9f12-de4e063a50d0"
+				class="code"><code class="language-JavaScript">ssh-facts igor@192.168.127.187</code></pre>
+			<figure id="131aa64c-9d0a-8129-8a29-ff479479b299" class="image"><a
+					href="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%209.png"><img
+						style="width:1114px"
+						src="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%209.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81eb-b737-d66ae71c9774" class="">После ввода команды пользователь может потребовать
+				ввести пароль или ключ для аутентификации на удаленном сервере SSH. После успешной аутентификации
+				<code><strong>ssh-facts</strong></code> выведет информацию о сервере SSH, которую можно использовать для
+				анализа, аудита и управления серверами SSH.</p>
+			<p id="131aa64c-9d0a-8184-b4a8-cdc788482d38" class="">
+			</p>
+			<p id="131aa64c-9d0a-8192-8314-e779531cf24d" class="">Вывод команды
+				<code><strong>ssh-facts igor@192.168.127.187</strong></code> содержит информацию о удаленном сервере
+				SSH, полученную с помощью утилиты <code><strong>ssh-facts</strong></code><strong>:</strong></p>
+			<ol type="1" id="131aa64c-9d0a-81af-a9c7-d1536210a886" class="numbered-list" start="1">
+				<li><code><strong>igor@192.168.127.187&#x27;s password:</strong></code>: Пользователь
+					<code><strong>igor</strong></code> вводит пароль для аутентификации на удаленном сервере SSH.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8115-a5ed-e347490b7d8c" class="numbered-list" start="2">
+				<li><code><strong>OS=ubuntu</strong></code>: Эта строка указывает, что операционная система сервера -
+					Ubuntu.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81f6-803f-cf60eb4cc88e" class="numbered-list" start="3">
+				<li><code><strong>OS_VERSION=20.04</strong></code>: Здесь указана версия операционной системы Ubuntu,
+					которая равна 20.04.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ea-a579-c734203f1a79" class="numbered-list" start="4">
+				<li><code><strong>UPTIME=0 days, 7 hours, 32 minutes</strong></code>: Информация о времени работы
+					сервера. В данном случае, сервер работает 0 дней, 7 часов и 32 минут.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8144-8e80-c17640d8cd53" class="numbered-list" start="5">
+				<li><code><strong>LAST_REBOOT=Oct 9 09:29:26 2023</strong></code>: Дата и время последней перезагрузки
+					сервера.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-819c-a5be-df5661ccef8d" class="numbered-list" start="6">
+				<li><code><strong>CPU_CORES=1</strong></code>: Количество ядер CPU на сервере.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-811c-a992-d1d6c9bcc2c9" class="numbered-list" start="7">
+				<li><code><strong>CPU_SOCKETS=2</strong></code>: Количество сокетов CPU на сервере.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81df-b024-f3aa1d4d3e23" class="numbered-list" start="8">
+				<li><code><strong>HOSTNAME=ubuntu</strong></code>: Имя хоста сервера.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-814a-92d5-d4f2cf8c561e" class="numbered-list" start="9">
+				<li><code><strong>KERNEL_NAME=Linux</strong></code>: Имя ядра операционной системы - Linux.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-811e-81a2-d66539cdcca2" class="numbered-list" start="10">
+				<li><code><strong>MACHINE=x86_64</strong></code>: Архитектура сервера - x86_64.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8122-8b77-d3f410ffd703" class="numbered-list" start="11">
+				<li><code><strong>MACHINE_TYPE=virtual_by_vmware</strong></code>: Тип машины, в данном случае, сервер
+					виртуализирован с помощью VMware.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-817e-995e-f8b16fca4599" class="numbered-list" start="12">
+				<li><code><strong>MEMORY=3983208</strong></code>: Объем оперативной памяти сервера в байтах (в данном
+					случае, 3,983,208 байт).</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8124-88aa-c8eece65d80d" class="numbered-list" start="13">
+				<li><code><strong>INIT=systemd</strong></code>: Инит-система, используемая на сервере, - systemd.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-816e-b00f-e4b1ed4c4f29" class="numbered-list" start="14">
+				<li><code><strong>LSB_CODENAME=focal</strong></code>: Кодовое имя версии Ubuntu.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-815f-9116-d4463312254f" class="numbered-list" start="15">
+				<li><code><strong>LSB_DESCRIPTION=Ubuntu 20.04.3 LTS</strong></code>: Описание версии Ubuntu.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8129-a8ef-c527f89fa54c" class="numbered-list" start="16">
+				<li><code><strong>LSB_ID=Ubuntu</strong></code>: Идентификатор операционной системы - Ubuntu.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8176-b519-c0ffdfef38b0" class="numbered-list" start="17">
+				<li><code><strong>LSB_RELEASE=20.04</strong></code>: Версия операционной системы Ubuntu.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81fe-97fb-ea06a7cc4676" class="numbered-list" start="18">
+				<li><code><strong>RUNLEVEL=5</strong></code>: Уровень выполнения (runlevel) сервера. В данном случае,
+					это уровень 5.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8117-b201-d2081aab5230" class="numbered-list" start="19">
+				<li><code><strong>DISKS=loop0 loop1 loop2 ... sda sdb</strong></code>: Информация о дисковых устройствах
+					на сервере. Включает в себя устройства виртуальных дисков (например,
+					<code><strong>loop0</strong></code>, <code><strong>loop1</strong></code>) и реальные диски
+					(<code><strong>sda</strong></code>, <code><strong>sdb</strong></code>).</li>
+			</ol>
+			<p id="131aa64c-9d0a-8169-b22f-eece7049b13a" class="">Этот вывод предоставляет обширную информацию о
+				сервере, включая его аппаратное и программное обеспечение, конфигурацию и характеристики. Эта информация
+				может быть полезной для администраторов и специалистам информационной безопасности системы при
+				управлении и аудите серверов SSH.</p>
+			<p id="131aa64c-9d0a-8135-afbf-cf7ff9e841a5" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-81d1-96cd-e7e9a6ebfee3" class=""> 5.5
+					Ssh-hostkeys</a></h2>
+			<p id="131aa64c-9d0a-8104-bac5-c71f5ed7e9f9" class="">Утилита <code><strong>ssh-hostkeys</strong></code>
+				предназначена для отображения и управления хост-ключами (host keys) SSH-сервера. Хост-ключи используются
+				для аутентификации сервера SSH перед клиентами и обеспечения целостности и безопасности соединения.
+				Утилита <code><strong>ssh-hostkeys</strong></code> предоставляет администраторам системы средства для
+				работы с этими ключами. Основные возможности и механика работы
+				<code><strong>ssh-hostkeys</strong></code>:</p>
+			<ol type="1" id="131aa64c-9d0a-8182-b707-d1d064bacc9e" class="numbered-list" start="1">
+				<li><strong>Отображение хост-ключей</strong>: <code><strong>ssh-hostkeys</strong></code> позволяет
+					просматривать текущие хост-ключи SSH-сервера. Это включает в себя ключи
+					<code>RSA, DSA, ECDSA и ED25519</code>.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81a2-956d-e6781dfbc1f0" class="numbered-list" start="2">
+				<li><strong>Генерация новых ключей</strong>: Утилита может использоваться для генерации новых
+					хост-ключей, что может быть полезно, если требуется сменить или обновить существующие ключи.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8186-9358-d8184290ac5b" class="numbered-list" start="3">
+				<li><strong>Добавление и удаление ключей</strong>: <code><strong>ssh-hostkeys</strong></code>
+					предоставляет возможность добавить новый хост-ключ в конфигурацию SSH-сервера или удалить
+					существующий ключ.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-810f-97a1-e46fae4477b5" class="numbered-list" start="4">
+				<li><strong>Изменение типа ключа</strong>: Администраторы могут изменить тип хост-ключа (например, с
+					<code>RSA на ED25519</code>) с помощью этой утилиты.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81bb-bf97-fb7e17881655" class="numbered-list" start="5">
+				<li><strong>Проверка целостности ключей</strong>: Утилита может выполнять проверку целостности
+					хост-ключей, чтобы обнаружить изменения или повреждения ключей. Например
+					<code>ssh-hostkeys </code><code><a href="http://example.com/">example.com</a></code>.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-815a-99b5-d673a06e4e85" class="numbered-list" start="6">
+				<li><strong>Защита от несанкционированного доступа</strong>: Доступ к утилите и операции с ключами могут
+					быть ограничены настройками прав доступа, чтобы предотвратить несанкционированные изменения.</li>
+			</ol>
+			<p id="131aa64c-9d0a-813a-b0a6-eb4d7e7fb0b8" class="">Примеры использования
+				<code><strong>ssh-hostkeys</strong></code>:</p>
+			<ul id="131aa64c-9d0a-8139-9947-d3ae259b8144" class="bulleted-list">
+				<li style="list-style-type:disc"><code>ssh-hostkeys 192.168.127.187</code></li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c0-b9c2-ee480757afd1" class="bulleted-list">
+				<li style="list-style-type:disc"><code>ssh-hostkeys -4 192.168.127.187</code></li>
+			</ul>
+			<ul id="131aa64c-9d0a-8140-bd11-df4efef355ee" class="bulleted-list">
+				<li style="list-style-type:disc"><code>ssh-hostkeys -6 192.168.127.187</code></li>
+			</ul>
+			<figure id="131aa64c-9d0a-81f3-a3d3-f6d23a68563e" class="image"><a
+					href="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%2010.png"><img
+						style="width:724px"
+						src="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%2010.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-810e-a97b-fa999b9b09ee" class="">Команда <code><strong>ssh-hostkeys</strong></code>
+				используется для отображения и проверки ключей хоста SSH-сервера:</p>
+			<ol type="1" id="131aa64c-9d0a-8103-aa87-e4edb36afb3a" class="numbered-list" start="1">
+				<li><code><strong>(ECDSA) 256 MD5 32:c4:ab:6f:76:c7:f6:53:76:b9:c9:a3:11:07:70:7d</strong></code>
+					<ul id="131aa64c-9d0a-8164-96d2-ffb9a297b5b4" class="bulleted-list">
+						<li style="list-style-type:disc">Тип ключа: ECDSA</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8179-9eff-dcda29763497" class="bulleted-list">
+						<li style="list-style-type:disc">Размер ключа: 256 бит</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8142-b15f-c5be84f337f7" class="bulleted-list">
+						<li style="list-style-type:disc">Алгоритм хеширования: MD5</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8125-a905-e98958fc0a74" class="bulleted-list">
+						<li style="list-style-type:disc">Хеш-значение ключа:
+							32:c4:ab:6f:76:c7:f6:53:76:b9:c9:a3:11:07:70:7d</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8163-8bae-fb71f6dbcd4c" class="numbered-list" start="2">
+				<li><code><strong>(ECDSA) 256 SHA256 wKu6JsKOJQwZcR4XyzlK97Tq2tDxLy2FAspIo3MqLOw</strong></code>
+					<ul id="131aa64c-9d0a-81a5-ace0-e283e610f1f4" class="bulleted-list">
+						<li style="list-style-type:disc">Тип ключа: ECDSA</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81fe-8799-e6ccc1779bf3" class="bulleted-list">
+						<li style="list-style-type:disc">Размер ключа: 256 бит</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8139-b38a-e34f9c441706" class="bulleted-list">
+						<li style="list-style-type:disc">Алгоритм хеширования: SHA256</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8126-ad65-ce6b130316c9" class="bulleted-list">
+						<li style="list-style-type:disc">Хеш-значение ключа: wKu6JsKOJQwZcR4XyzlK97Tq2tDxLy2FAspIo3MqLOw
+						</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-816d-b497-e6f3e2e98d80" class="numbered-list" start="3">
+				<li><code><strong>(ED25519) 256 MD5 0a:d8:04:de:2e:d5:7a:8f:41:00:a3:d6:1b:17:a8:94</strong></code>
+					<ul id="131aa64c-9d0a-81e2-bd73-d7e772b5726d" class="bulleted-list">
+						<li style="list-style-type:disc">Тип ключа: ED25519</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8111-ac30-ffc462084d5c" class="bulleted-list">
+						<li style="list-style-type:disc">Размер ключа: 256 бит</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8102-80fc-e506c8b134ed" class="bulleted-list">
+						<li style="list-style-type:disc">Алгоритм хеширования: MD5</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81c0-930c-d4d248d919d4" class="bulleted-list">
+						<li style="list-style-type:disc">Хеш-значение ключа:
+							0a:d8:04:de:2e:d5:7a:8f:41:00:a3:d6:1b:17:a8:94</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8150-bc85-c92a6b652818" class="numbered-list" start="4">
+				<li><code><strong>(ED25519) 256 SHA256 dWzDcpMopzSfNN3Rd9a4fizIkyH6RllUXvzD80kw0Bg</strong></code>
+					<ul id="131aa64c-9d0a-8170-9430-ef86e6b7ac4a" class="bulleted-list">
+						<li style="list-style-type:disc">Тип ключа: ED25519</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8103-9852-e5dc55dbfe66" class="bulleted-list">
+						<li style="list-style-type:disc">Размер ключа: 256 бит</li>
+					</ul>
+					<ul id="131aa64c-9d0a-818d-959a-e9adff89cf4b" class="bulleted-list">
+						<li style="list-style-type:disc">Алгоритм хеширования: SHA256</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81b5-bc1a-c61dd2c5f2dc" class="bulleted-list">
+						<li style="list-style-type:disc">Хеш-значение ключа: dWzDcpMopzSfNN3Rd9a4fizIkyH6RllUXvzD80kw0Bg
+						</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-812e-9da4-dd7d9d03ef63" class="numbered-list" start="5">
+				<li><code><strong>(RSA) 3072 MD5 18:49:f5:e4:2a:da:3e:93:c3:16:ec:b0:96:aa:87:79</strong></code>
+					<ul id="131aa64c-9d0a-813b-b9b6-dc466d3dd3a9" class="bulleted-list">
+						<li style="list-style-type:disc">Тип ключа: RSA</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81c0-975f-cab43d72e0f9" class="bulleted-list">
+						<li style="list-style-type:disc">Размер ключа: 3072 бит</li>
+					</ul>
+					<ul id="131aa64c-9d0a-811d-a0a5-fb574f241a88" class="bulleted-list">
+						<li style="list-style-type:disc">Алгоритм хеширования: MD5</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81ed-846a-ffa6af3d062c" class="bulleted-list">
+						<li style="list-style-type:disc">Хеш-значение ключа:
+							18:49:f5:e4:2a:da:3e:93:c3:16:ec:b0:96:aa:87:79</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8140-b74d-e7c57047ed56" class="numbered-list" start="6">
+				<li><code><strong>(RSA) 3072 SHA256 bUBEqAqcaABsMRgaKI/WocyuC3LP1u74ILwsu42FS5c</strong></code>
+					<ul id="131aa64c-9d0a-819d-a226-c27813501b76" class="bulleted-list">
+						<li style="list-style-type:disc">Тип ключа: RSA</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8166-b80f-dbb693ba5d12" class="bulleted-list">
+						<li style="list-style-type:disc">Размер ключа: 3072 бит</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81fb-b4c9-fceda9935937" class="bulleted-list">
+						<li style="list-style-type:disc">Алгоритм хеширования: SHA256</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81bd-84d6-d1355ec8943a" class="bulleted-list">
+						<li style="list-style-type:disc">Хеш-значение ключа: bUBEqAqcaABsMRgaKI/WocyuC3LP1u74ILwsu42FS5c
+						</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-816b-b868-ccd12897709f" class="numbered-list" start="7">
+				<li><code><strong>/tmp/ssh-hostkeys.eVttJG is not a public key file.</strong></code>
+					<ul id="131aa64c-9d0a-81ff-8009-d086b851a1f3" class="bulleted-list">
+						<li style="list-style-type:disc">Это сообщение указывает, что указанный файл не является файлом
+							открытого ключа и не может быть использован для проверки ключей хоста.</li>
+					</ul>
+				</li>
+			</ol>
+			<p id="131aa64c-9d0a-81b1-8943-f684ef979987" class=""><code><strong>ssh-hostkeys</strong></code> позволяет
+				вам просматривать и сравнивать ключи хостов SSH-серверов, чтобы убедиться в их целостности и
+				подлинности.</p>
+			<p id="131aa64c-9d0a-81b3-95a2-cbb351cb2c02" class="">
+			</p>
+			<p id="131aa64c-9d0a-8162-9648-dad120d57893" class="">Утилита <code><strong>ssh-hostkeys</strong></code>
+				предоставляет средства для управления ключами SSH-сервера и поддержания их безопасности и целостности.
+				Администраторы системы могут использовать эту утилиту для обеспечения безопасной работы с SSH-серверами.
+			</p>
+			<p id="131aa64c-9d0a-811c-8f78-ca490a3f6aa0" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-8117-91e1-d393e1a5eb4b" class=""> 5.5.1
+					Ssh-keygen</a></h2>
+			<p id="131aa64c-9d0a-8169-9eac-ce3b4fbad2c8" class="">Утилита <code><strong>ssh-keygen</strong></code> в
+				Linux предназначена для генерации, управления и работы с ключами SSH (Secure Shell). SSH-ключи
+				используются для аутентификации и безопасной передачи данных между компьютерами по протоколу SSH:</p>
+			<p id="131aa64c-9d0a-81f2-9017-e8a4cbceab79" class=""><strong>Основные возможности
+				</strong><code><strong>ssh-keygen</strong></code>:</p>
+			<ol type="1" id="131aa64c-9d0a-81b1-993c-fda2bea52844" class="numbered-list" start="1">
+				<li><strong>Генерация ключей</strong>: С помощью <code><strong>ssh-keygen</strong></code> можно
+					создавать пары ключей, состоящих из публичного и приватного ключа. Обычно используются ключи
+					<code>RSA, DSA или ECDSA</code>.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81d9-8664-f5f9fab9fb4f" class="numbered-list" start="2">
+				<li><strong>Создание и управление паролем ключа</strong>: При генерации ключей можно задать пароль
+					(фразу-пароль) для приватного ключа, что добавляет дополнительный уровень безопасности.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8136-884d-c3d4246e91d3" class="numbered-list" start="3">
+				<li><strong>Просмотр информации о ключе</strong>: Утилита позволяет просматривать информацию о созданных
+					ключах, такую как отпечаток ключа, дата создания и другие атрибуты.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81f0-b556-d17b5b822131" class="numbered-list" start="4">
+				<li><strong>Копирование публичных ключей</strong>: <code><strong>ssh-keygen</strong></code> может помочь
+					в копировании публичных ключей на удаленные серверы, чтобы установить доступ по ключам.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8145-92aa-e642adf5a9be" class="numbered-list" start="5">
+				<li><strong>Конвертация ключей</strong>: Утилита позволяет конвертировать ключи из одного формата в
+					другой, например, из формата PEM в формат OpenSSH.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81e7-9cea-ff6fc0bc4725" class="numbered-list" start="6">
+				<li><strong>Добавление ключей в агент аутентификации</strong>: <code><strong>ssh-keygen</strong></code>
+					может использоваться для добавления ключей в SSH агент, что позволяет использовать ключи без
+					повторной аутентификации.</li>
+			</ol>
+			<p id="131aa64c-9d0a-81c5-ad5b-e1936e01b678" class=""><strong>Механизм работы
+				</strong><code><strong>ssh-keygen</strong></code>:</p>
+			<ol type="1" id="131aa64c-9d0a-81d0-ac05-cd069ff021fe" class="numbered-list" start="1">
+				<li><strong>Генерация ключей</strong>: При запуске без аргументов
+					<code><strong>ssh-keygen</strong></code> генерирует ключи по умолчанию (обычно RSA ключи) в каталоге
+					пользователя (<code><strong>~/.ssh</strong></code>) или в указанном месте. В процессе генерации
+					создается пара ключей - приватный и публичный. Приватный ключ хранится на вашем компьютере, а
+					публичный ключ можно передавать на сервера для аутентификации.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8127-9c17-fb3bac436236" class="numbered-list" start="2">
+				<li><strong>Управление ключами</strong>: <code><strong>ssh-keygen</strong></code> позволяет добавлять,
+					удалять, просматривать и изменять ключи. Это включает в себя изменение фразы-пароля для приватных
+					ключей, переименование ключей и т.д.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8129-a036-eb86e678ee34" class="numbered-list" start="3">
+				<li><strong>Копирование публичных ключей</strong>: Команда <code><strong>ssh-copy-id</strong></code>
+					использует <code><strong>ssh-keygen</strong></code> для копирования публичных ключей на удаленные
+					серверы, чтобы установить доступ по ключам.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-819c-a98b-f7e82ae12b5b" class="numbered-list" start="4">
+				<li><strong>Просмотр информации о ключе</strong>: Вы можете использовать
+					<code><strong>ssh-keygen</strong></code> для просмотра информации о ключах, например, для проверки
+					отпечатка ключа или для определения типа ключа.</li>
+			</ol>
+			<p id="131aa64c-9d0a-81b7-95bd-c1ee750e7e1b" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-817e-a5e3-f0076858a0c6" class=""> Теперь
+					давайте посмотрим с практической точки зрения:</a></h2>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8197-8fc6-e61a077bb66e"
+				class="code"><code class="language-JavaScript">ssh-keygen -t rsa</code></pre>
+			<figure id="131aa64c-9d0a-81da-aadc-f7909e068e82" class="image"><a
+					href="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%2011.png"><img
+						style="width:660px"
+						src="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%2011.png" /></a>
+			</figure>
+			<ol type="1" id="131aa64c-9d0a-8171-8b51-df94b41179c6" class="numbered-list" start="1">
+				<li><code><strong>Generating public/private rsa key pair.</strong></code>: Эта строка указывает на то,
+					что началась генерация пары ключей RSA, включая как приватный, так и публичный ключ.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8115-8719-f8c950a2d7f4" class="numbered-list" start="2">
+				<li><code><strong>Enter file in which to save the key (/home/litvinigor/.ssh/id_rsa):</strong></code>:
+					Это запрос на указание имени файла, в котором будет сохранен приватный ключ. По умолчанию
+					предлагается <code><strong>/home/litvinigor/.ssh/id_rsa</strong></code>, но вы можете указать другой
+					путь и имя файла, если необходимо.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8148-975f-f811cfac3249" class="numbered-list" start="3">
+				<li><code><strong>Enter passphrase (empty for no passphrase):</strong></code>: Здесь вы можете задать
+					фразу-пароль для вашего приватного ключа. Фраза-пароль добавляет дополнительный уровень безопасности
+					к вашему ключу. Если не хотите устанавливать фразу-пароль, оставьте это поле пустым.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81b9-ab1e-cd7a913ddf59" class="numbered-list" start="4">
+				<li><code><strong>Enter same passphrase again:</strong></code>: Это подтверждение фразы-пароля, чтобы
+					убедиться, что вы ввели ее правильно.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81d3-900e-eee9229820a3" class="numbered-list" start="5">
+				<li><code><strong>Your identification has been saved in /home/litvinigor/.ssh/id_rsa</strong></code>:
+					Эта строка сообщает вам, что ваш приватный ключ был успешно сохранен в указанном файле.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8122-9b70-fb4463db657c" class="numbered-list" start="6">
+				<li><code><strong>Your public key has been saved in /home/litvinigor/.ssh/id_rsa.pub</strong></code>:
+					Здесь указывается, что ваш публичный ключ был сохранен в файле с расширением
+					<code><strong>.pub</strong></code>, который соответствует вашему приватному ключу.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81f0-8d89-fb9a8f62f497" class="numbered-list" start="7">
+				<li><code><strong>The key fingerprint is: SHA256:bn2nxEXuSKMRgW95kfKKrJMERpUTgC5PZ8NEcbsnOIk litvinigor@server</strong></code>:
+					Эта строка предоставляет отпечаток вашего публичного ключа, который может быть использован для
+					проверки аутентичности ключа.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81c2-9d70-c922df315a84" class="numbered-list" start="8">
+				<li><code><strong>The key&#x27;s randomart image is:</strong></code>: В этой строке представлена
+					графическая картинка, созданная на основе вашего ключа. Она может быть использована для визуализации
+					ключа.</li>
+			</ol>
+			<p id="131aa64c-9d0a-8143-a614-c3874757d992" class="">
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ff-a2ed-e15601c482c0"
+				class="code"><code class="language-JavaScript">ssh-copy-id REMOTE_USER@REMOTE_SERVER</code></pre>
+			<figure id="131aa64c-9d0a-81a7-8a06-e83607a6286c" class="image"><a
+					href="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%2012.png"><img
+						style="width:1080px"
+						src="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%2012.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81c0-b40d-deda0dd44f6e" class="">Каждая строка вывода команды
+				<code><strong>ssh-copy-id igor@192.168.127.187</strong></code> представляет собой информацию о процессе
+				копирования публичного ключа на удаленный сервер:</p>
+			<ol type="1" id="131aa64c-9d0a-819e-a852-d40bbb2151f5" class="numbered-list" start="1">
+				<li><code><strong>/usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: &quot;/home/litvinigor/.ssh/id_rsa.pub&quot;</strong></code>:
+					Эта строка информирует о том, откуда будет взят публичный ключ для установки. В данном случае ключ
+					берется из файла <code><strong>/home/litvinigor/.ssh/id_rsa.pub</strong></code>.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-812c-826c-e5ff88be8b81" class="numbered-list" start="2">
+				<li><code><strong>/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed</strong></code>:
+					Здесь указывается, что утилита попытается войти на удаленный сервер с помощью новых ключей, чтобы
+					отфильтровать ключи, которые уже были установлены на сервере.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-815a-a53e-d29e6840390f" class="numbered-list" start="3">
+				<li><code><strong>/usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys</strong></code>:
+					Эта строка сообщает, что на сервере остался 1 ключ, который еще не был установлен. Если вас попросят
+					ввести пароль на этом этапе, это будет сделано для установки новых ключей.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8116-9768-d1fce0f7dc46" class="numbered-list" start="4">
+				<li><code><strong>igor@192.168.127.187&#x27;s password:</strong></code>: Здесь утилита запрашивает
+					пароль для входа на удаленный сервер <code><strong>192.168.127.187</strong></code> под пользователем
+					<code><strong>igor</strong></code>. Это необходимо для копирования и установки публичного ключа на
+					сервер.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8116-abb2-e38c2ff2f545" class="numbered-list" start="5">
+				<li><code><strong>Number of key(s) added: 1</strong></code>: После успешного ввода пароля и установки
+					ключа, утилита сообщает, что был установлен 1 ключ на удаленный сервер.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81a6-ba1e-fef7107d3dbd" class="numbered-list" start="6">
+				<li><code><strong>Now try logging into the machine, with: &quot;ssh &#x27;igor@192.168.127.187&#x27;&quot; and check to make sure that only the key(s) you wanted were added.</strong></code>:
+					Эта строка дает вам инструкцию о том, как проверить, что ключи были успешно установлены. Вы можете
+					попробовать войти на удаленный сервер с помощью команды
+					<code><strong>ssh &#x27;igor@192.168.127.187&#x27;</strong></code> и убедиться, что только
+					необходимые ключи были добавлены.</li>
+			</ol>
+			<p id="131aa64c-9d0a-81b9-9b15-dd1b7836f404" class="">
+			</p>
+			<p id="131aa64c-9d0a-8111-9a8b-e5d439a94aa0" class=""><strong>Теперь проверим работу и внёс несколько
+					изменений:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8119-8d2a-ee81dcbb4c0e"
+				class="code"><code class="language-JavaScript">ssh igor@192.168.127.187</code></pre>
+			<figure id="131aa64c-9d0a-8124-b855-e9995b3c75e0" class="image"><a
+					href="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%2013.png"><img
+						style="width:1125px"
+						src="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%2013.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81e3-83fe-c0a9bb96ffc7" class="">Каждая строка вывода команды
+				<code><strong>ssh igor@192.168.127.187</strong></code> представляет собой информацию о процессе
+				подключения к удаленному серверу с использованием SSH-ключа:</p>
+			<ol type="1" id="131aa64c-9d0a-818b-b3d4-e6236a74561d" class="numbered-list" start="1">
+				<li><code><strong>Enter passphrase for key &#x27;/home/litvinigor/.ssh/id_rsa&#x27;:</strong></code>:
+					Эта строка представляет собой запрос на ввод фразы-пароля для вашего приватного ключа
+					<code><strong>/home/litvinigor/.ssh/id_rsa</strong></code>. Если ваш приватный ключ защищен
+					фразой-паролем, вы должны ввести его здесь. Если ключ не защищен паролем, эта строка не будет
+					отображаться.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-810a-b749-cc9f199fad49" class="numbered-list" start="2">
+				<li><code><strong>Welcome to Ubuntu 20.04.3 LTS (GNU/Linux 5.15.0-52-generic x86_64)</strong></code>:
+					Эта строка представляет собой приветствие, полученное после успешного входа на удаленный сервер. Она
+					содержит информацию о версии и типе операционной системы (Ubuntu 20.04.3 LTS) и версии ядра
+					(GNU/Linux 5.15.0-52-generic), а также архитектуре (x86_64), на которой работает сервер.</li>
+			</ol>
+			<p id="131aa64c-9d0a-8103-ab37-ccac0c637440" class="">
+			</p>
+			<p id="131aa64c-9d0a-81ed-bf89-c4e97b2cb564" class=""><strong>Настройка файлов SSH</strong>: Откройте файл
+				<code><strong>/etc/ssh/sshd_config</strong></code> на удаленном сервере с правами администратора.
+				Выполните команду:
+			<div class="indented">
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+					integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+					crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+					integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+					crossorigin="anonymous" referrerPolicy="no-referrer" />
+				<pre id="131aa64c-9d0a-81af-b620-ff0eca9f90c3"
+					class="code"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">sudo nano /etc/ssh/sshd_config</code></pre>
+				<p id="131aa64c-9d0a-81d0-be66-ce6ff5d0b3c2" class="">Убедитесь, что следующие параметры настроены
+					следующим образом:</p>
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+					integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+					crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+					integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+					crossorigin="anonymous" referrerPolicy="no-referrer" />
+				<pre id="131aa64c-9d0a-81f7-b5b6-fc5c8c64aab6" class="code"><code class="language-YAML" style="white-space:pre-wrap;word-break:break-all">PasswordAuthentication no
+PubkeyAuthentication yes</code></pre>
+				<p id="131aa64c-9d0a-8108-a265-de9be523f0e9" class="">Это отключит аутентификацию по паролю и разрешит
+					аутентификацию по ключу.</p>
+				<figure id="131aa64c-9d0a-8122-82d8-c1dedb18de88" class="image"><a
+						href="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%2014.png"><img
+							style="width:961px"
+							src="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%2014.png" /></a>
+				</figure>
+				<p id="131aa64c-9d0a-81d8-989a-c1ef393e19c2" class=""><strong>Перезапустите SSH-сервер</strong>: После
+					внесения изменений в конфигурацию SSH перезапустите SSH-сервер на удаленном сервере:</p>
+			</div>
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81c8-971e-d0bf94073540"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">sudo service ssh restart</code></pre>
+			<figure id="131aa64c-9d0a-8130-b9f6-ec74988bdb15" class="image"><a
+					href="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%2015.png"><img
+						style="width:802px"
+						src="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%2015.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81bf-8920-c7257a646400" class="">Каждая строка вывода команды
+				<code><strong>sudo service ssh status</strong></code> представляет собой информацию о статусе службы SSH
+				на сервере:</p>
+			<ol type="1" id="131aa64c-9d0a-8180-9984-c94755940324" class="numbered-list" start="1">
+				<li><code><strong>● ssh.service - OpenBSD Secure Shell server</strong></code>: Эта строка показывает
+					название службы (<code><strong>ssh.service</strong></code>) и ее описание
+					(<code><strong>OpenBSD Secure Shell server</strong></code>).</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-819c-b11b-e09320cac032" class="numbered-list" start="2">
+				<li><code><strong>Loaded: loaded (/lib/systemd/system/ssh.service; enabled; vendor preset: enabled)</strong></code>:
+					Эта строка указывает на то, что конфигурация службы SSH загружена из файла
+					<code><strong>/lib/systemd/system/ssh.service</strong></code>. Служба также включена и настроена на
+					автоматический запуск при загрузке системы.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8108-a4b7-f60b326df621" class="numbered-list" start="3">
+				<li><code><strong>Active: active (running) since Wed 2023-11-15 06:19:59 PST; 4s ago</strong></code>:
+					Эта строка сообщает о текущем состоянии службы SSH. Она активна и работает с момента последнего
+					запуска, который был <code><strong>4</strong></code> секунды назад.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-812d-b820-f3c6c4dba754" class="numbered-list" start="4">
+				<li><code><strong>Docs: man:sshd(8) man:sshd_config(5)</strong></code>: Эта строка предоставляет ссылки
+					на документацию касательно SSH и его конфигурации. Вы можете получить дополнительную информацию,
+					выполнив <code><strong>man sshd</strong></code> или <code><strong>man sshd_config</strong></code>.
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81e8-818d-f847361c9323" class="numbered-list" start="5">
+				<li><code><strong>Process: 166378 ExecStartPre=/usr/sbin/sshd -t (code=exited, status=0/SUCCESS)</strong></code>:
+					Эта строка указывает на процесс, выполняемый перед запуском службы SSH. В данном случае, это
+					выполнение <code><strong>/usr/sbin/sshd -t</strong></code>, где <code><strong>t</strong></code>
+					означает проверку конфигурации SSH. Процесс успешно завершился (status=0).</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81d8-8eab-f9807ad31e0c" class="numbered-list" start="6">
+				<li><code><strong>Main PID: 166379 (sshd)</strong></code>: Эта строка указывает на основной (главный)
+					процесс службы SSH, который имеет идентификатор PID <code><strong>166379</strong></code>.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81fe-9d86-c78ff2dd81c4" class="numbered-list" start="7">
+				<li><code><strong>Tasks: 1 (limit: 4536)</strong></code>: Эта строка сообщает о количестве задач,
+					связанных с службой SSH. В данном случае, есть только одна задача, и ограничение на их количество
+					составляет <code><strong>4536</strong></code>.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8131-b6cc-d38faffa11b3" class="numbered-list" start="8">
+				<li><code><strong>Memory: 1.0M</strong></code>: Эта строка указывает на объем оперативной памяти,
+					используемый службой SSH. В данном случае, служба использует 1.0 мегабайта памяти.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81e6-a06c-d6a7b151da94" class="numbered-list" start="9">
+				<li><code><strong>CGroup: /system.slice/ssh.service</strong></code>: Эта строка указывает на контрольную
+					группу (CGroup), к которой относится служба SSH.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81f4-9dcf-d2b859cd9830" class="numbered-list" start="10">
+				<li><code><strong>└─166379 sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups</strong></code>: Эта
+					строка предоставляет информацию о процессе SSH, включая его аргументы командной строки и информацию
+					о прослушиваемых портах.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-811d-b085-c99467285186" class="numbered-list" start="11">
+				<li><code><strong>Nov 15 06:19:59 ubuntu systemd[1]: Starting OpenBSD Secure Shell server...</strong></code>:
+					Эта строка сообщает о начале процесса запуска службы SSH.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8159-9b12-fabbf7682e0f" class="numbered-list" start="12">
+				<li><code><strong>Nov 15 06:19:59 ubuntu sshd[166379]: Server listening on 0.0.0.0 port 22.</strong></code>:
+					Эта строка сообщает, что сервер SSH слушает на порту <code><strong>22</strong></code> для всех
+					доступных интерфейсов (<code><strong>0.0.0.0</strong></code>).</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8141-836f-fc00fbdc863c" class="numbered-list" start="13">
+				<li><code><strong>Nov 15 06:19:59 ubuntu sshd[166379]: Server listening on :: port 22.</strong></code>:
+					Эта строка сообщает, что сервер SSH также слушает на порту <code><strong>22</strong></code> для IPv6
+					интерфейсов (<code><strong>::</strong></code>).</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8114-a1d0-c418df57400b" class="numbered-list" start="14">
+				<li><code><strong>Nov 15 06:19:59 ubuntu systemd[1]: Started OpenBSD Secure Shell server.</strong></code>:
+					Эта строка сообщает о успешном запуске службы SSH.</li>
+			</ol>
+			<p id="131aa64c-9d0a-8107-bf7f-df79f7ddee62" class="">
+			</p>
+			<p id="131aa64c-9d0a-8186-bb67-c4e3f4b6f36e" class=""><strong>На локальном сервере (с которого будет
+					осуществляться подключение):</strong></p>
+			<ol type="1" id="131aa64c-9d0a-819a-92a6-e867b95917a3" class="numbered-list" start="1">
+				<li><strong>Подключение по ключам</strong>: Теперь вы можете подключиться к удаленному серверу,
+					используя ключи и парольную фразу.</li>
+			</ol>
+			<figure id="131aa64c-9d0a-8110-a14d-f125f91cfc3b" class="image"><a
+					href="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%2016.png"><img
+						style="width:734px"
+						src="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%2016.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8171-a497-fcd601fee6ad" class="">
+			</p>
+			<p id="131aa64c-9d0a-81f2-8526-c57497583a0f" class="">Чтобы отключить запрос пароля при использовании ключей
+				SSH, вам необходимо убрать парольную фразу из ключа или создать ключ без парольной фразы. Подход зависит
+				от вашей политики безопасности.</p>
+			<ol type="1" id="131aa64c-9d0a-8176-b0cf-d78aab64b7bf" class="numbered-list" start="1">
+				<li><strong>Убрать парольную фразу из существующего ключа</strong>:<p
+						id="131aa64c-9d0a-81ed-a22e-f312c4d53f7b" class="">Если у вас уже есть ключ с парольной фразой,
+						и вы хотите убрать ее, выполните следующую команду:</p>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-81ca-8858-d7a715ecf67f"
+						class="code"><code class="language-Arduino" style="white-space:pre-wrap;word-break:break-all">ssh-keygen -p -f /home/litvinigor/.ssh/id_rsa</code></pre>
+					<p id="131aa64c-9d0a-81e5-b65e-eb668944cda4" class="">После этого система попросит вас ввести новую
+						парольную фразу. Просто нажмите &quot;Enter&quot; дважды, чтобы убрать парольную фразу.</p>
+					<figure id="131aa64c-9d0a-81a7-af5c-f4f3041845f7" class="image"><a
+							href="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%2017.png"><img
+								style="width:699px"
+								src="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%2017.png" /></a>
+					</figure>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8137-abfa-c58c6476f654" class="numbered-list" start="2">
+				<li><strong>Создать новый ключ без парольной фразы</strong>:<p id="131aa64c-9d0a-8156-90f3-db963f30de38"
+						class="">Если у вас нет ключа или вы хотите создать новый ключ без парольной фразы, выполните
+						следующую команду:</p>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-813d-82bc-c56f2aa16e1c"
+						class="code"><code class="language-Arduino" style="white-space:pre-wrap;word-break:break-all">ssh-keygen -t rsa -f /home/litvinigor/.ssh/id_rsa</code></pre>
+				</li>
+			</ol>
+			<p id="131aa64c-9d0a-818c-bc31-d20d25247fb4" class="">
+			</p>
+			<p id="131aa64c-9d0a-81ea-ab3f-e1a2f2ace09d" class="">В целом, <code><strong>ssh-keygen</strong></code> -
+				это мощная утилита для управления ключами SSH, обеспечивая безопасную аутентификацию и защиту данных при
+				использовании протокола SSH.</p>
+			<p id="131aa64c-9d0a-81a0-a4f8-ecd6e292407f" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-8115-938a-da820f16b588" class=""> 5.6
+					Ssh-keyinfo</a></h2>
+			<p id="131aa64c-9d0a-8110-bfc4-e6d44ff751c8" class="">Утилита <code><strong>ssh-keyinfo</strong></code>
+				предоставляет информацию о ключах SSH, такую как их тип, размер, хеш-значение и дополнительную
+				информацию о ключе. Она позволяет анализировать открытые и закрытые ключи SSH.</p>
+			<p id="131aa64c-9d0a-819e-8bfa-c109852f4670" class="">Основные возможности и функциональность утилиты
+				<code><strong>ssh-keyinfo</strong></code> включают:</p>
+			<ol type="1" id="131aa64c-9d0a-8180-b67c-f78a820f4709" class="numbered-list" start="1">
+				<li><strong>Отображение информации о ключе:</strong> Утилита позволяет просматривать информацию о ключе,
+					включая его тип (<code>RSA, DSA, ECDSA, ED25519 и т. д</code>.), размер ключа и хеш-значение.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8184-87c7-c63ec5cff4cd" class="numbered-list" start="2">
+				<li><strong>Извлечение данных из ключа:</strong> Она может извлекать и отображать конкретные данные из
+					ключей, такие как открытый ключ, закрытый ключ и другие атрибуты.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81b5-adcc-df01ff3e17f6" class="numbered-list" start="3">
+				<li><strong>Проверка целостности ключей:</strong> <code><strong>ssh-keyinfo</strong></code> может
+					использоваться для проверки целостности ключей, например, для определения, был ли ключ поврежден или
+					изменен.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8138-b33e-ed9783026e3c" class="numbered-list" start="4">
+				<li><strong>Поддержка различных типов ключей:</strong> Утилита поддерживает разные типы ключей, что
+					позволяет анализировать ключи разных форматов.</li>
+			</ol>
+			<p id="131aa64c-9d0a-816b-a674-e8aa5974e021" class="">Механизм работы утилиты
+				<code><strong>ssh-keyinfo</strong></code> состоит в анализе содержимого ключей SSH. При запуске команды
+				<code><strong>ssh-keyinfo</strong></code>, пользователь указывает путь к ключу, который он хочет
+				проанализировать. Утилита читает указанный ключ, извлекает необходимую информацию и выводит ее на экран.
+			</p>
+			<p id="131aa64c-9d0a-81cc-96f9-fa58de11f15e" class="">
+			</p>
+			<figure id="131aa64c-9d0a-8155-a1da-fcf57daf91be" class="image"><a
+					href="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%2018.png"><img
+						style="width:1032px"
+						src="Часть 3 3 Практическая работа “SSH-сервис”/Untitled%2018.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-819f-85b0-dc038bfebbf5" class="">
+			</p>
+			<p id="131aa64c-9d0a-8104-add6-f798f16b90e2" class="">Эти строки представляют результат выполнения команды
+				<code><strong>ssh-keyinfo ~/.ssh/id_rsa.pub</strong></code>, которая анализирует открытый ключ RSA из
+				файла <code><strong>~/.ssh/id_rsa.pub</strong></code> и выводит информацию о нем:</p>
+			<ol type="1" id="131aa64c-9d0a-81e6-96dc-cf9a01233fb0" class="numbered-list" start="1">
+				<li><code><strong>(RSA) 3072 MD5 83:27:ec:35:f1:30:82:24:73:b3:22:b1:a2:10:67:ad /home/litvinigor/.ssh/id_rsa.pub</strong></code>:
+					Эта строка показывает, что ключ является ключом типа RSA, его размер составляет 3072 бита,
+					хеш-значение MD5 равно 83:27:ec:35:f1:30:82:24:73:b3:22:b1:a2:10:67:ad, а путь к файлу с ключом -
+					<code><strong>/home/litvinigor/.ssh/id_rsa.pub</strong></code>.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ff-87a8-c68cc3df292b" class="numbered-list" start="2">
+				<li><code><strong>(RSA) 3072 SHA256 bn2nxEXuSKMRgW95kfKKrJMERpUTgC5PZ8NEcbsnOIk /home/litvinigor/.ssh/id_rsa.pub</strong></code>:
+					Эта строка показывает, что ключ также является ключом типа RSA, его размер составляет 3072 бита, а
+					хеш-значение SHA256 равно bn2nxEXuSKMRgW95kfKKrJMERpUTgC5PZ8NEcbsnOIk, что является более безопасным
+					способом представления ключа. Путь к файлу с ключом также указан как
+					<code><strong>/home/litvinigor/.ssh/id_rsa.pub</strong></code>.</li>
+			</ol>
+			<p id="131aa64c-9d0a-81b6-afdb-c41174485a15" class="">Обе строки предоставляют информацию о ключе, его типе,
+				размере и хеш-значении, что может быть полезно при анализе и использовании ключей SSH.</p>
+			<p id="131aa64c-9d0a-8141-8b51-ec61ea730924" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-81b2-b8e7-fc5b629e7776" class=""><strong> 6.
+						Вывод:</a></strong></h2>
+			<p id="131aa64c-9d0a-816e-89c9-cd20af28250e" class=""><strong>Мы познакомились с различными аспектами работы
+					с SSH и изучили ряд утилит, которые могут быть полезны при администрировании и безопасности
+					SSH-серверов и клиентов:</strong></p>
+			<ol type="1" id="131aa64c-9d0a-818f-a828-f1dbc0e7bdd6" class="numbered-list" start="1">
+				<li><strong>ssh-certinfo</strong>:<ul id="131aa64c-9d0a-812f-b2e2-d4358d470ec7" class="bulleted-list">
+						<li style="list-style-type:disc">Узнали, как использовать
+							<code><strong>ssh-certinfo</strong></code> для анализа сертификатов SSH.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8105-a9bf-c0d79ec97558" class="bulleted-list">
+						<li style="list-style-type:disc">Получили информацию о владельцах и времени действия
+							сертификатов.</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ac-9cb5-d3e1979d5d39" class="numbered-list" start="2">
+				<li><strong>ssh-diff</strong>:<ul id="131aa64c-9d0a-81b9-b1a3-dec383285014" class="bulleted-list">
+						<li style="list-style-type:disc">Изучили использование <code><strong>ssh-diff</strong></code>
+							для сравнения конфигурационных файлов SSH.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81e4-8097-ce041d1e3e1d" class="bulleted-list">
+						<li style="list-style-type:disc">Узнали, как выявлять различия между файлами и их структурами.
+						</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81b1-9d21-d87b77bc0b06" class="numbered-list" start="3">
+				<li><strong>ssh-facts</strong>:<ul id="131aa64c-9d0a-81c8-a681-ea19c6eedf95" class="bulleted-list">
+						<li style="list-style-type:disc">Освоили утилиту <code><strong>ssh-facts</strong></code>,
+							которая предоставляет информацию о удаленном сервере SSH.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81c8-91b6-ffd3fa7b312c" class="bulleted-list">
+						<li style="list-style-type:disc">Получили данные о версии ОС, аппаратном оборудовании и других
+							параметрах удаленного сервера.</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-810e-ba76-fa48d2bb0e0d" class="numbered-list" start="4">
+				<li><strong>ssh-hostkeys</strong>:<ul id="131aa64c-9d0a-81d2-ae43-c07480d517fb" class="bulleted-list">
+						<li style="list-style-type:disc">Изучили работу <code><strong>ssh-hostkeys</strong></code>,
+							позволяющей анализировать и проверять хост-ключи удаленных серверов.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-817a-91dc-fd612f1bf041" class="bulleted-list">
+						<li style="list-style-type:disc">Узнали, как использовать эту утилиту для контроля целостности
+							ключей.</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ab-9365-ce985db91541" class="numbered-list" start="5">
+				<li><strong>ssh-keygen</strong>:<ul id="131aa64c-9d0a-81e0-90df-d0af88e50d7c" class="bulleted-list">
+						<li style="list-style-type:disc">Освоили <code><strong>ssh-keygen</strong></code>, чтобы
+							генерировать пары ключей SSH.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8196-8c91-f2cdadda5517" class="bulleted-list">
+						<li style="list-style-type:disc">Создали новую пару ключей для аутентификации.</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8102-bcba-d4c481452fcb" class="numbered-list" start="6">
+				<li><strong>ssh-keyinfo</strong>:<ul id="131aa64c-9d0a-8180-812d-c0193b2d01aa" class="bulleted-list">
+						<li style="list-style-type:disc">Узнали, как использовать
+							<code><strong>ssh-keyinfo</strong></code> для просмотра информации о ключах SSH.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8196-ab51-f76229b0f85a" class="bulleted-list">
+						<li style="list-style-type:disc">Получили данные о типе ключа, его длине и отпечатке.</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-815e-ba82-db415ea1195b" class="numbered-list" start="7">
+				<li><strong>ssh-version</strong>:<ul id="131aa64c-9d0a-819f-8690-fb9193a22177" class="bulleted-list">
+						<li style="list-style-type:disc">Изучили <code><strong>ssh-version</strong></code>, чтобы
+							определить версию протокола SSH на удаленном сервере.</li>
+					</ul>
+				</li>
+			</ol>
+			<p id="131aa64c-9d0a-8164-890b-c665ea6125b3" class="">В результате нашей работы мы приобрели навыки работы с
+				различными утилитами SSH, что позволит нам более эффективно управлять и анализировать SSH-соединения и
+				удаленные серверы. Эти знания могут быть полезными при администрировании и обслуживании серверных систем
+				с использованием SSH.</p>
+			<p id="131aa64c-9d0a-812a-8828-c457b5a6b5e2" class="">
+			</p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

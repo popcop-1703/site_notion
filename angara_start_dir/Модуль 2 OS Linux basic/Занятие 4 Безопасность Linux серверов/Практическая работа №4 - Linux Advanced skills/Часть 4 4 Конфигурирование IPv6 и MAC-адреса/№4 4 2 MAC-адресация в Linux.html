@@ -1,0 +1,1433 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>№4.4.2 MAC-адресация в Linux</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-81e8-8f7f-deb0fa917c3d" class="page sans">
+		<header>
+			<h1 class="page-title">№4.4.2 <strong>MAC-адресация в Linux</strong></h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<p id="131aa64c-9d0a-812a-9007-fdc7b54e09e9" class="">
+			</p>
+			<figure id="131aa64c-9d0a-81ed-a379-f3db84bc0e46" class="image"><a
+					href="№4 4 2 MAC-адресация в Linux/Untitled.png"><img
+						style="width:1522px"
+						src="№4 4 2 MAC-адресация в Linux/Untitled.png" /></a>
+			</figure>
+			<details open="">
+				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">План работы</summary>
+				<div class="indented">
+					<nav id="131aa64c-9d0a-8182-bcb5-c00276ff887a" class="block-color-gray table_of_contents">
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-8111-b382-d749cf00cb3b">План работы</a></div>
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-816c-b23c-d026af4906d6"><strong>Цель работы:</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-8153-b139-d94256368e5f"><strong>Задача:</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-817f-bd37-e8dfc9f00c26">Отчёт:</a></div>
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-8177-9de5-f6e4e45241f6"><strong>1. MAC-адрес</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-81d4-bb47-fca618d5e0f7"><strong>1.1 Как в Windows по MAC-адресу
+									определить производителя</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-817b-aa32-d508a9afd4b8"><strong>2. Как в Linux по MAC-адресу
+									определить производителя устройства</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-819c-9798-cb51d8229977"><strong>3. Как узнать свой MAC-адрес в
+									Windows</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-8163-82c7-c72c1c9cc4e8"><strong>4. Как узнать свой MAC-адрес в
+									Linux</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-81c0-8d7a-c438df36e960"><strong>5. Зачем менять
+									MAC-адрес?</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-8141-b946-d8685b11610f"><strong>6. Как в Linux сделать так, чтобы
+									MAC подменялся при каждом подключении</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-8157-91a6-d7fba1b1a2f8"><strong>6.1 Как установить определённый
+									MAC</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-81e4-a39c-ca8452e06962"><strong>7. Изменение MAC с помощью
+									iproute2</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-8118-9824-f0f11284cc64"><strong>Вывод</strong></a></div>
+					</nav>
+				</div>
+			</details>
+			<h3 id="131aa64c-9d0a-816c-b23c-d026af4906d6" class=""><strong>Цель работы:</strong></h3>
+			<ul id="131aa64c-9d0a-8117-b146-c1d317e7e203" class="bulleted-list">
+				<li style="list-style-type:disc">Понять, что такое mac-адрес;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81b4-8b45-fcc3b5aacb3c" class="bulleted-list">
+				<li style="list-style-type:disc">Научиться работать с mac-адрресами.</li>
+			</ul>
+			<h3 id="131aa64c-9d0a-8153-b139-d94256368e5f" class=""><strong>Задача:</strong></h3>
+			<ol type="1" id="131aa64c-9d0a-8159-95a4-c35e3a24dc2d" class="numbered-list" start="1">
+				<li>Что такое mac-адрес (продемонстрировать и пояснить);</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-811a-95c0-e6f8f41fe9a7" class="numbered-list" start="2">
+				<li>Как в Windows по MAC-адресу определить производителя (продемонстрировать);</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-819e-8b62-e54ad074b706" class="numbered-list" start="3">
+				<li>Как в Linux по MAC-адресу определить производителя устройства (продемонстрировать);</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8154-ae63-d8404eb51a01" class="numbered-list" start="4">
+				<li>Как узнать свой MAC-адрес в Windows (продемонстрировать);</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81e7-b017-e97cfe44a0f4" class="numbered-list" start="5">
+				<li>Как узнать свой MAC-адрес в Linux (продемонстрировать);</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ab-b28e-d731619305ea" class="numbered-list" start="6">
+				<li>Как в Linux сделать так, чтобы MAC подменялся при каждом подключении (продемонстрировать);<ul
+						id="131aa64c-9d0a-812f-83f8-e70baf42ddc1" class="bulleted-list">
+						<li style="list-style-type:disc">при соединении с одной и той же сетью использовался одинаковый
+							MAC;</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81ee-8ad2-eea7d18382c4" class="bulleted-list">
+						<li style="list-style-type:disc">каждый раз разные MAC даже для одних и тех же сетей;</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-817d-bbdd-d5a137a83c42" class="numbered-list" start="7">
+				<li>Как установить определённый MAC (продемонстрировать);</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81c7-b0ba-fb72965d4dd4" class="numbered-list" start="8">
+				<li>Измените MAC-адрес с помощью iproute2 (продемонстрировать).</li>
+			</ol>
+			<h3 id="131aa64c-9d0a-817f-bd37-e8dfc9f00c26" class="">Отчёт:</h3>
+			<ul id="131aa64c-9d0a-8185-854f-c52f431fa75d" class="bulleted-list">
+				<li style="list-style-type:disc">Приложить скриншоты с описание к отчёту.</li>
+			</ul>
+			<h1 id="131aa64c-9d0a-8177-9de5-f6e4e45241f6" class=""><strong>1. MAC-адрес</strong></h1>
+			<p id="131aa64c-9d0a-813f-9449-d9f5fd7bac5d" class="">MAC-адрес (ещё называют физический адрес) – это
+				уникальный идентификатор сетевого интерфейса в локальной сети. Одно устройство (компьютер, роутер) может
+				иметь несколько сетевых интерфейсов (проводных и беспроводных) и, следовательно, иметь несколько
+				MAC-адресов.</p>
+			<p id="131aa64c-9d0a-810c-9885-fcd28f1ff2df" class="">Пример MAC-адреса <code>50:46:5D:6E:8C:20</code>,
+				также распространены такие варианты записи как <code>50-46-5D-6E-8C-20 и 50465D6E8C20</code>. Т.е.
+				MAC-адрес состоит из шести пар символов (их называют октетами). В эти символы входят все цифры и буквы
+				от A до F (набор символов шестнадцатеричной записи).</p>
+			<p id="131aa64c-9d0a-81f6-b93e-f0a5a5162419" class="">Первые три октета (бита) содержат уникальный
+				идентификатор организации (OUI) или код MFG (Manufacturing, производителя), который производитель
+				получает в IEEE. Т.е. они уникальны для каждого производителя сетевых устройств и каждый производитель,
+				присваивая MAC-адрес своему сетевому устройству, начинает его со своих трёх октетов. Именно по ним, зная
+				MAC-адрес, можно определить производителя. Последние три октета производитель присваивает произвольно и,
+				в отличии от первых трёх, они должны быть уникальны для каждого сетевого интерфейса.</p>
+			<h2 id="131aa64c-9d0a-81d4-bb47-fca618d5e0f7" class=""><strong>1.1 Как в Windows по MAC-адресу определить
+					производителя</strong></h2>
+			<p id="131aa64c-9d0a-8151-bdc6-fea4590d7e27" class="">В Windows для определения вендора (производителя)
+				устройства по MAC-адресу есть бесплатная программа MACAddressView.</p>
+			<p id="131aa64c-9d0a-8122-b287-dba806410302" class="">Вы можете искать по MAC-адресу, названию компании,
+				адресу компании, стране компании, всем MAC-адресам. Правила ввода такие:</p>
+			<p id="131aa64c-9d0a-8132-a3b9-d195cea21924" class="">Введите один или несколько MAC-адресов, разделяя их
+				пробелами или нажатиями <code>&lt;Enter&gt;</code>. Можно указывать полный адрес
+				(например, <code>01-02-03-04-05-06</code>) или только его первые 3 байта
+				(например, <code>01-02-03</code>).Введите одно или несколько названий компаний для поиска, разделяя
+				каждую строку поиска нажатием <code>&lt;Enter&gt;</code>.Введите один или несколько адресов для поиска,
+				разделяя каждую строку поиска нажатием <code>&lt;Enter&gt;</code>.Введите одну или несколько стран для
+				поиска, разделяя каждую строку поиска нажатием <code>&lt;Enter&gt;</code>.</p>
+			<p id="131aa64c-9d0a-8195-8d6f-dccd2acf7d9f" class=""><strong>1.</strong></p>
+			<figure id="131aa64c-9d0a-81b7-a7cd-f116a0d8e653" class="image"><a
+					href="https://i.imgur.com/amM5zre.png"><img src="https://i.imgur.com/amM5zre.png" /></a></figure>
+			<p id="131aa64c-9d0a-814d-bc27-c02eaf221cce" class=""><strong>2.</strong></p>
+			<figure id="131aa64c-9d0a-8102-9e51-de41180f3900" class="image"><a
+					href="https://i.imgur.com/Zixa5eB.png"><img src="https://i.imgur.com/Zixa5eB.png" /></a></figure>
+			<p id="131aa64c-9d0a-819b-95b3-ef451ddd17c2" class=""><strong>3.</strong></p>
+			<figure id="131aa64c-9d0a-81f3-b8b2-ce33658aeadc" class="image"><a
+					href="https://i.imgur.com/qKYYMMc.png"><img src="https://i.imgur.com/qKYYMMc.png" /></a></figure>
+			<h1 id="131aa64c-9d0a-817b-aa32-d508a9afd4b8" class=""><strong>2. Как в Linux по MAC-адресу определить
+					производителя устройства</strong></h1>
+			<p id="131aa64c-9d0a-81de-aac6-da4c9ae7440c" class=""><strong>База с уникальными идентификаторами
+					организаций (OUI) обычно уже присутствует в системах Linux, поскольку её используют различные
+					программы. Вы можете поискать этот файл:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8104-8670-e5547226ace5"
+				class="code"><code class="language-Bash">locate oui.txt</code></pre>
+			<p id="131aa64c-9d0a-81fd-a941-f2f8dd8e1af9" class=""><strong>Также вы можете скачать эту базу:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8145-8e83-dcb4930e3f87"
+				class="code"><code class="language-Bash">wget http://standards-oui.ieee.org/oui/oui.txt</code></pre>
+			<p id="131aa64c-9d0a-81c0-8eb4-e73beac1b5d3" class=""><em>База представляет собой обычный текстовый файл, по
+					которому мы можете искать различными удобными вам способами.</em></p>
+			<figure id="131aa64c-9d0a-81f8-a426-e04b7350ebea" class="image"><a
+					href="https://i.imgur.com/Zf0M7IP.png"><img src="https://i.imgur.com/Zf0M7IP.png" /></a></figure>
+			<figure id="131aa64c-9d0a-811f-8db9-db1ac83d1dd5" class="image"><a
+					href="https://i.imgur.com/ZrrqD1x.png"><img src="https://i.imgur.com/ZrrqD1x.png" /></a></figure>
+			<p id="131aa64c-9d0a-81e1-925e-dbe1cc81137a" class=""><strong>Есть небольшой скрипт, который может вам также
+					помочь. Создайте файл </strong><strong><a href="http://oui.sh/">oui.sh</a></strong><strong> и
+					скопируйте в него:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8184-942a-dce3a02a8eb9" class="code"><code class="language-Plain Text" style=" word-break:break-all">#!/bin/bash
+
+MAC=&quot;$(echo $1 | sed &#x27;s/ //g&#x27; | sed &#x27;s/-//g&#x27; | sed &#x27;s/://g&#x27; | cut -c1-6)&quot;;
+
+result=&quot;$(grep -i -A 4 ^$MAC ./oui.txt)&quot;;
+
+if [ &quot;$result&quot; ]; then
+    echo &quot;Для MAC $1 найдена следующая информация:&quot;
+    echo &quot;$result&quot;
+else
+    echo &quot;MAC $1 не найден в базе данных.&quot;
+fi
+</code></pre>
+			<p id="131aa64c-9d0a-8103-835a-f1b492a8abbd" class=""><strong>Использовать так:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81bb-9b1f-fe5d041b4a91"
+				class="code"><code class="language-Bash">bash oui.sh MAC</code></pre>
+			<p id="131aa64c-9d0a-81aa-91d4-dbe00432ae0e" class=""><strong>Где вместо MAC вставьте интересующий вас
+					MAC-адрес (полностью или частично):</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ca-a1e9-d4aba9160ada"
+				class="code"><code class="language-Bash">bash oui.sh 50:46:5D:6E:8C:20</code></pre>
+			<p id="131aa64c-9d0a-8173-a05b-fb7d31de3c9a" class=""><strong>Как это сделать:</strong></p>
+			<ul id="131aa64c-9d0a-81df-838d-e7f396d8a842" class="bulleted-list">
+				<li style="list-style-type:disc">Создать файл # touch <a href="http://oui.sh/">oui.sh</a></li>
+			</ul>
+			<ul id="131aa64c-9d0a-81db-a2c8-e73bd5ae4027" class="bulleted-list">
+				<li style="list-style-type:disc">Открыть его # nano <a href="http://oui.sh/">oui.sh</a></li>
+			</ul>
+			<ul id="131aa64c-9d0a-8129-ae25-e4868bf7dae4" class="bulleted-list">
+				<li style="list-style-type:disc">Скопировать тело скрипта в файл</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8196-a763-edeadd9fb170" class="bulleted-list">
+				<li style="list-style-type:disc">Сохранить Ctrl+0 и выйти Ctrl+X</li>
+			</ul>
+			<ul id="131aa64c-9d0a-816f-a5bf-eec7b01064ec" class="bulleted-list">
+				<li style="list-style-type:disc">Запустить скрипт</li>
+			</ul>
+			<figure id="131aa64c-9d0a-8128-bbab-c3ae7019bc21" class="image"><a
+					href="https://i.imgur.com/zoA9rEE.png"><img src="https://i.imgur.com/zoA9rEE.png" /></a></figure>
+			<h1 id="131aa64c-9d0a-819c-9798-cb51d8229977" class=""><strong>3. Как узнать свой MAC-адрес в
+					Windows</strong></h1>
+			<p id="131aa64c-9d0a-81a9-a843-d3bcbd4ebfb4" class="">Чтобы узнать свой MAC-адрес в Windows из командной
+				строки, откройте командную строку, для этого нажмите Win+x и выберите «Windows PowerShell».</p>
+			<p id="131aa64c-9d0a-8184-ae9d-c75ed3bd2e97" class=""><strong>Вы можете использовать две команды,
+					первая:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-817b-97a8-fba62b8fc6e9" class="code"><code class="language-Bash">getmac</code></pre>
+			<p id="131aa64c-9d0a-8111-b9db-d888c1a1f2e7" class="">Показывает краткую информацию о всех MAC-адресах
+				системы, при этом не всегда просто сориентироваться, какому именно интерфейсу соответствует конкретный
+				MAC-адрес.</p>
+			<p id="131aa64c-9d0a-8126-817e-faeafa21cb5d" class=""><strong>Вторая команда:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81db-a654-f975fe5e2c09"
+				class="code"><code class="language-Bash">ipconfig /all</code></pre>
+			<p id="131aa64c-9d0a-817d-9d17-ec529c9d0135" class="">выводит более расширенную информацию о подключении, по
+				ней можно сориентироваться, какой физический адрес (MAC) какому именно интерфейсу принадлежит.</p>
+			<figure id="131aa64c-9d0a-81c2-a1ab-de3189d27466" class="image"><a
+					href="https://i.imgur.com/g6wLxpt.png"><img src="https://i.imgur.com/g6wLxpt.png" /></a></figure>
+			<h1 id="131aa64c-9d0a-8163-82c7-c72c1c9cc4e8" class=""><strong>4. Как узнать свой MAC-адрес в Linux</strong>
+			</h1>
+			<p id="131aa64c-9d0a-814e-83da-d345e3389282" class="">В Linux есть несколько способов узнать свой MAC-адрес.
+			</p>
+			<p id="131aa64c-9d0a-8129-835f-ee7db9e9fe23" class=""><strong>Если вас интересует только список адресов без
+					дополнительных подробностей, то вы можете выполнить:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-812e-8839-e35597f2baec"
+				class="code"><code class="language-Bash">cat /sys/class/net/*/address</code></pre>
+			<p id="131aa64c-9d0a-8178-b564-fe58a7a55476" class=""><strong>Выводит информацию о текущем значении MAC и
+					постоянный MAC-адрес устройства:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ee-bf6c-e77ff6fe834b" class="code"><code class="language-Bash">ip link</code></pre>
+			<p id="131aa64c-9d0a-8145-990b-d275622a3221" class="">MAC-адрес располагается в строках, перед которыми
+				стоит «link/ether». Если MAC-адрес был изменён, то текущее значение показывается после «link/ether», а
+				постоянное значение после «permaddr».</p>
+			<p id="131aa64c-9d0a-81cb-acd7-f895e736516b" class=""><strong>Показать информацию о статусе соединений, в
+					том числе MAC-адрес:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-812c-8aee-f3dd52547932" class="code"><code class="language-Bash">ip a</code></pre>
+			<p id="131aa64c-9d0a-81e2-8d90-eea9ad7a9c85" class=""><strong>Посмотреть MAC-адрес беспроводных
+					интерфейсов:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8126-9ed9-e252b2687980" class="code"><code class="language-Bash">iw dev</code></pre>
+			<figure id="131aa64c-9d0a-812b-adde-d8b5c3a16134" class="image"><a
+					href="https://i.imgur.com/bnshA5G.png"><img src="https://i.imgur.com/bnshA5G.png" /></a></figure>
+			<p id="131aa64c-9d0a-8119-9575-f926b764d9d2" class=""><strong>Ещё способ узнать ip-адрес в сети является
+					NMAP, который позволяет просканировать одно устройство или сразу сеть и показать параметры, в том
+					числе mac-адресс:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8168-8c4c-f7255f6589d0"
+				class="code"><code class="language-Bash">nmap 192.168.127.0/24</code></pre>
+			<figure id="131aa64c-9d0a-8145-9ec8-fcadef776795" class="image"><a
+					href="https://i.imgur.com/p1izMgw.png"><img src="https://i.imgur.com/p1izMgw.png" /></a></figure>
+			<p id="131aa64c-9d0a-81d1-ba5b-e4fc875d1244" class=""><strong>Следующие способ – это утилита
+					arp-scan:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8170-b27f-c847306c156b"
+				class="code"><code class="language-Bash">arp-scan –l</code></pre>
+			<p id="131aa64c-9d0a-815f-9729-fe863d97fa1a" class="">Или</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-813e-bec9-cb3de0b7beaa"
+				class="code"><code class="language-Bash">arp-scan --interface=ens33 192.168.127.0/24</code></pre>
+			<figure id="131aa64c-9d0a-818f-8a48-e60d35f6c9bd" class="image"><a
+					href="https://i.imgur.com/Xf47bEw.png"><img src="https://i.imgur.com/Xf47bEw.png" /></a></figure>
+			<h1 id="131aa64c-9d0a-81c0-8d7a-c438df36e960" class=""><strong>5. Зачем менять MAC-адрес?</strong></h1>
+			<ul id="131aa64c-9d0a-81ec-8b79-ec908f9bc5b5" class="bulleted-list">
+				<li style="list-style-type:disc">MAC-адрес является (должен быть) уникальным для каждого сетевого
+					интерфейса. Кстати, если у устройства несколько сетевых интерфейсов, то у каждого из них есть свой
+					собственный MAC-адрес.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8106-8578-fdc1261dda06" class="bulleted-list">
+				<li style="list-style-type:disc">Например, у ноутбуков минимум два сетевых интерфейса: проводной и Wi-Fi
+					– у каждого из них по MAC-адресу. С настольными компьютерами обычно аналогичная ситуация. Т.е. когда
+					мы говорим о «смене MAC-адреса», то нужно понимать, что этих адресов несколько.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-817a-ba02-ffb78390a605" class="bulleted-list">
+				<li style="list-style-type:disc">Кстати, у роутера или у свитча у каждого порта свой уникальный
+					MAC-адрес, если устройство поддерживает беспроводные сети, то у каждого беспроводного интерфейса
+					(2.4 ГГц и 5 ГГц) также свой MAC-адрес.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81cf-aecc-e2567e9de4e1" class="bulleted-list">
+				<li style="list-style-type:disc">Итак, поскольку MAC-адрес должен быть уникальным, то он позволяет
+					однозначно идентифицировать сетевое устройство. А поскольку это сетевое устройство является частью
+					вашего компьютера, то это позволяет однозначно идентифицировать ваш компьютер.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81f4-a457-f3960cea3f3b" class="bulleted-list">
+				<li style="list-style-type:disc">Причём MAC-адрес (также называют аппаратным, физическим адресом) не
+					меняется при смене операционной системы – он вшит в сетевой интерфейс.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-819c-8f8f-e63aaef99c40" class="bulleted-list">
+				<li style="list-style-type:disc">Для хакера понятно желание скрыть свой MAC-адрес – чтобы не допустить
+					возможность доказать его идентичность с лицом, выполнившим атаку, но зачем обычным пользователям
+					скрывать (спуфить) свой истинный MAC? Лично для меня ответ на этот вопрос не очевиден. Но проблема,
+					судя по всему, важная, поскольку в новых прошивках Android и iOS MAC-адрес постоянно спуфится, т.е.
+					подменяется на поддельный, причём для одного и того же устройства постоянно генерируются новые
+					MAC-адреса.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81b4-9507-ed51c805575c" class="bulleted-list">
+				<li style="list-style-type:disc">Т.е. если коротко, подмена MAC-адреса нужна чтобы не было возможности
+					отследить и идентифицировать устройство по MAC-адресу. Это вполне реальная проблема, например, с
+					помощью iSniff-GPS можно отследить предыдущие географические расположения устройств.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8128-8ddd-f20922961864" class="bulleted-list">
+				<li style="list-style-type:disc">Но имеется более важная причина (чем паранойя) узнать о MAC-адресах и о
+					способах из подмены, либо запрета изменения в своей системе. На основе MAC-адресов может выполнятся
+					идентификация пользователя при подключении через Перехватывающий Портал.</li>
+			</ul>
+			<p id="131aa64c-9d0a-8196-a6e3-f3704e7926a0" class="">MAC-адрес используется для передачи данных в локальной
+				сети. То есть он не передаётся при подключении к веб-сайтам и при выходе в глобальную сеть. Хотя имеются
+				исключения: некоторые уязвимости позволяют лицу, не находящемуся в вашей локальной сети, узнать ваш
+				MAC-адрес (это умеют некоторые скрипты Nmap).</p>
+			<p id="131aa64c-9d0a-8102-bd84-dba70e657721" class="">Т.е. если вы подключаетесь к роутеру по локальной
+				сети, то роутер знает ваш MAC-адрес (и может вести журнал подключений, в том числе сохраняя MAC-адрес),
+				но если вы открываете сайт в Интернете, то владелец сайта не может узнать ваш MAC-адрес.</p>
+			<p id="131aa64c-9d0a-81f6-a7eb-c372d21cce5d" class="">Все устройства, находящиеся в локальной сети, могут
+				видеть MAC-адреса друг друга (имеется много сканеров, которые могут получить эти данные). Пример
+				сканирования локальной сети, выполненное с помощью arp-scan:</p>
+			<h1 id="131aa64c-9d0a-8141-b946-d8685b11610f" class=""><strong>6. Как в Linux сделать так, чтобы MAC
+					подменялся при каждом подключении</strong></h1>
+			<p id="131aa64c-9d0a-8181-bac7-e254e7b0f123" class=""><strong>Если вы хотите, чтобы при каждом подключении
+					подменялся MAC-адрес, </strong><em><strong>но при этом при соединении с одной и той же сетью
+						использовался одинаковый MAC</strong></em><strong>, то в файл
+					/etc/NetworkManager/conf.d/mac.conf:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ee-9d52-cdb64fedef65"
+				class="code"><code class="language-Bash">sudo nano /etc/NetworkManager/conf.d/mac.conf</code></pre>
+			<p id="131aa64c-9d0a-815d-82af-e9aee748f6d9" class=""><strong>Добавьте строки:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-810c-94ae-ed2c64808ae5" class="code"><code class="language-Plain Text" style=" word-break:break-all">[connection]
+ethernet.cloned-mac-address=stable
+wifi.cloned-mac-address=stable
+</code></pre>
+			<p id="131aa64c-9d0a-81df-8df7-ebe50b4ff979" class="">Строки с ethernet.cloned-mac-address и
+				wifi.cloned-mac-address можно добавлять по отдельности или вместе.</p>
+			<p id="131aa64c-9d0a-813e-9b22-fb8667aaf0d8" class=""><strong>Проверим текущие значения:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8150-8b8a-d857c8b4cbe5" class="code"><code class="language-Bash">ip link</code></pre>
+			<figure id="131aa64c-9d0a-81d4-9ab5-dc020b532dee" class="image"><a
+					href="https://i.imgur.com/4naA8EZ.png"><img src="https://i.imgur.com/4naA8EZ.png" /></a></figure>
+			<figure id="131aa64c-9d0a-816b-bbcc-c81e4fb7aad5" class="image"><a
+					href="https://i.imgur.com/Y3gPCUG.png"><img src="https://i.imgur.com/Y3gPCUG.png" /></a></figure>
+			<figure id="131aa64c-9d0a-818f-9e29-e4daa40fce32" class="image"><a
+					href="https://i.imgur.com/9jlgUkZ.png"><img src="https://i.imgur.com/9jlgUkZ.png" /></a></figure>
+			<p id="131aa64c-9d0a-81a1-b2bf-ee94b052a316" class=""><strong>Как уже было сказано, для одних и тех же сетей
+					будут генерироваться одинаковые адреса, если вы хотите каждый раз разные MAC даже для одних и тех же
+					сетей, то строки должны выглядеть так:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-814b-8160-caea6e9a9d56" class="code"><code class="language-Plain Text" style=" word-break:break-all">[connection]
+ethernet.cloned-mac-address=random
+wifi.cloned-mac-address=random
+</code></pre>
+			<figure id="131aa64c-9d0a-81a6-bcd7-d631cac730e7" class="image"><a
+					href="https://i.imgur.com/Sh5JJvI.png"><img src="https://i.imgur.com/Sh5JJvI.png" /></a></figure>
+			<figure id="131aa64c-9d0a-81e3-bdc0-c343c9b45288" class="image"><a
+					href="https://i.imgur.com/TO7Rz32.png"><img src="https://i.imgur.com/TO7Rz32.png" /></a></figure>
+			<figure id="131aa64c-9d0a-812a-aaf7-d5d6078fa0fa" class="image"><a
+					href="https://i.imgur.com/Riy37Ex.png"><img src="https://i.imgur.com/Riy37Ex.png" /></a></figure>
+			<figure id="131aa64c-9d0a-81f3-90da-d9a51ead55d3" class="image"><a
+					href="https://i.imgur.com/GqcxpnY.png"><img src="https://i.imgur.com/GqcxpnY.png" /></a></figure>
+			<h2 id="131aa64c-9d0a-8157-91a6-d7fba1b1a2f8" class=""><strong>6.1 Как установить определённый MAC</strong>
+			</h2>
+			<p id="131aa64c-9d0a-81aa-94b6-fc2abf791726" class="">Откройте файл
+				<code>/etc/NetworkManager/conf.d/mac.conf</code></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-815f-ba6b-ce41aeb5448a"
+				class="code"><code class="language-Bash">sudo nano /etc/NetworkManager/conf.d/mac.conf</code></pre>
+			<p id="131aa64c-9d0a-8110-823f-e45485d382ff" class=""><strong>Если вы хотите поменять MAC для проводного
+					соединения, то добавьте строки:</strong></p>
+			<p id="131aa64c-9d0a-8197-8951-d627cce24468" class="">
+				<code>[connection]<br/>ethernet.cloned-mac-address=Новый_MAC<br/></code></p>
+			<p id="131aa64c-9d0a-8176-9088-e57c5029784d" class=""><strong>Если вы хотите поменять MAC для беспроводного
+					соединения, то добавьте строки:</strong></p>
+			<p id="131aa64c-9d0a-8108-b646-fda19a43752d" class="">
+				<code>[connection]<br/>wifi.cloned-mac-address=Новый_MAC<br/></code></p>
+			<p id="131aa64c-9d0a-8129-b965-e4c9e16b8dbb" class="">Внимание: замените Новый_MAC на настоящий желаемый
+				MAC.</p>
+			<p id="131aa64c-9d0a-816e-8dc6-e09f65780602" class=""><strong>Если вы хотите поменять MAC и для проводного и
+					для беспроводного соединения, то можно использовать сразу обе записи:</strong></p>
+			<p id="131aa64c-9d0a-81f6-8e26-da7437760714" class="">
+				<code>[connection]<br/>ethernet.cloned-mac-address=Новый_MAC<br/>wifi.cloned-mac-address=Новый_MAC2<br/></code>
+			</p>
+			<p id="131aa64c-9d0a-81ff-a568-e0eed04c1cf8" class="">Обратите внимание, что особенностью данного метода
+				является то, что MAC меняется только после подключения к сети. До подключения к сетям у интерфейсов
+				будут их исходные MAC-адреса. Кроме, возможно, Wi-Fi интерфейса, поскольку, как это уже описано ранее,
+				для него по умолчанию установлен спуфинг MAC. Для отмены спуфинга, как сказано ранее, добавьте в
+				конфигурационный файл строки:</p>
+			<p id="131aa64c-9d0a-81ed-819a-f9b1dbee026e" class="">
+				<code>[device]<br/>wifi.scan-rand-mac-address=no<br/></code></p>
+			<p id="131aa64c-9d0a-812d-af6e-e3ffd901de3c" class=""><strong>Чтобы изменения вступили в силу, перезапустим
+					службу:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8138-b9d5-d62245fc8cf8"
+				class="code"><code class="language-Bash">sudo systemctl restart NetworkManager</code></pre>
+			<h1 id="131aa64c-9d0a-81e4-a39c-ca8452e06962" class=""><strong>7. Изменение MAC с помощью iproute2</strong>
+			</h1>
+			<p id="131aa64c-9d0a-81d0-b733-cea79a03e8d6" class="">Мы будем использовать программу ip, которая включена в
+				пакет iproute2.</p>
+			<p id="131aa64c-9d0a-8136-b1c8-eaac7b7b9cd0" class=""><strong>Начнём с проверки текущего MAC адреса
+					командой:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81b9-aab8-dffd8b344d01"
+				class="code"><code class="language-Bash">ip link show имя_интерфейса</code></pre>
+			<p id="131aa64c-9d0a-8160-bf29-e85c4115e515" class=""><strong>Где имя_интерфейса – это имя определённого
+					сетевого интерфейса, который вы хотите посмотреть. Если вы не знаете имени, либо хотите посмотреть
+					все интерфейсы, то команду можно запустить так:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81f6-ab6b-d0d5b808c813"
+				class="code"><code class="language-Bash">ip link show</code></pre>
+			<p id="131aa64c-9d0a-810b-a51e-c2cbd8636bdb" class=""><strong>В данный момент нас интересует часть, которая
+					следует после «link/ether» и представляет 6-байтовый номер. Он будет выглядеть примерно
+					так:</strong></p>
+			<p id="131aa64c-9d0a-8110-b535-fd45ebcd9e13" class=""><code>link/ether 52:dc:aa:22:eb:21</code></p>
+			<figure id="131aa64c-9d0a-813a-bac2-d6947250b45e" class="image"><a
+					href="https://i.imgur.com/yNUHpxy.png"><img src="https://i.imgur.com/yNUHpxy.png" /></a></figure>
+			<p id="131aa64c-9d0a-819e-8f3d-c80580e1acc3" class=""><strong>Первый шаг для спуфинга MAC адреса – это
+					перевести интерфейс в состояние down. Это выполняется командой:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81d9-a463-f49f2a76cad1"
+				class="code"><code class="language-Bash">sudo ip link set dev ens33 down</code></pre>
+			<p id="131aa64c-9d0a-81b3-bba3-d7d1437fa690" class=""><strong>Где имя_интерфейса замените на настоящее имя.
+					В моём случае это wlan0, тогда реальная команда выглядит так:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8156-b18b-d86eceb2c23c"
+				class="code"><code class="language-Bash">sudo ip link set dev wlan0 down</code></pre>
+			<p id="131aa64c-9d0a-81e3-b246-c43783b74ae4" class="">Далее мы переходим непосредственно к спуфингу MAC.
+				Можно использовать любое шестнадцатеричное значение, но некоторые сети могут быть настроены не назначать
+				IP адреса клиентам, чей MAC адрес не соответствует какому-либо известному вендору (производителю). В
+				этих случаях, чтобы вы могли успешно подключиться к сети, используйте префикс MAC любого реального
+				вендора (первые три байта) и используйте произвольные значения для последующих трёх байт.</p>
+			<p id="131aa64c-9d0a-81a0-ab3f-e30d3d1d45fb" class=""><strong>Для изменения MAC нам нужно запустить
+					команду:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81b5-82f7-d84323098912"
+				class="code"><code class="language-Bash">sudo ip link set dev ens33 address 52:dc:aa:22:eb:77</code></pre>
+			<p id="131aa64c-9d0a-81ca-969e-e5f1b8b625cb" class="">Где <code>52:dc:aa:22:eb:77</code> – это желаемый
+				новый MAC.</p>
+			<p id="131aa64c-9d0a-811b-b03c-cd7ac1638da7" class=""><strong>Например, я хочу установить для своего
+					адаптера аппаратный адрес 52:dc:aa:22:eb:77, тогда команда выглядит так:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81af-9ca1-c4acbfbf25fd"
+				class="code"><code class="language-Bash">sudo ip link set dev wlan0 address XX:XX:XX:XX:XX:XX</code></pre>
+			<p id="131aa64c-9d0a-8129-a307-e9fa8dc446a5" class=""><strong>Последним шагом мы возвращаем интерфейс в
+					состояние up. Это можно выполнить командой вида:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81c6-852d-ce09e74253d5"
+				class="code"><code class="language-Bash">sudo ip link set dev ens22 up</code></pre>
+			<figure id="131aa64c-9d0a-81c9-b0f7-e75267561c44" class="image"><a
+					href="https://i.imgur.com/yo1vHV4.png"><img src="https://i.imgur.com/yo1vHV4.png" /></a></figure>
+			<ul id="131aa64c-9d0a-815e-8e70-f79105fd71f5" class="bulleted-list">
+				<li style="list-style-type:disc">Ещё раз заострю внимание на том, что поскольку NetworkManager по
+					умолчанию присутствует и работает в большинстве дистрибутивов с графическим интерфейсом, то если у
+					вас не получается сменить адрес, либо наоборот выполняется неожиданная смена адреса, то обратитесь в
+					первую очередь к настройкам NetworkManager, поскольку на большинстве дистрибутивов эта служба
+					запущена по умолчанию.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81e9-963c-e4811756aa01" class="bulleted-list">
+				<li style="list-style-type:disc">В настоящее время NetworkManager предоставляет довольно много
+					возможностей спуфинга MAC, в том числе смены на случайный адрес, либо на определённый. Особенностью
+					NetworkManager является разделение на режимы «сканирование» и «подключён», т.е. вы можете не видеть,
+					что сделанные настройки уже вступили в силу, пока не подключитесь к какой-либо сети.</li>
+			</ul>
+			<h1 id="131aa64c-9d0a-8118-9824-f0f11284cc64" class=""><strong>Вывод</strong></h1>
+			<p id="131aa64c-9d0a-8159-8211-dd2bcda110ea" class="">В данной практике научились работать с mac-адресами.
+			</p>
+			<p id="131aa64c-9d0a-81c4-9ce6-d8282e7bd71a" class="">
+			</p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

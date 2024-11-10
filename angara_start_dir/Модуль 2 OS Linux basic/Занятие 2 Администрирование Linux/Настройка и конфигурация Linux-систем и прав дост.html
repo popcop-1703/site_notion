@@ -1,0 +1,1508 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Настройка и конфигурация Linux-систем и прав доступа на базе Debian</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-818a-bda5-e3487c0fbbff" class="page sans">
+		<header><img class="page-cover-image"
+				src="../Занятие 1 Основы Linux/Практическая работа №1 - Настройка сети в Linux/1 3 1 Командный интерфейс/kandinsky-download-1705935057679.png"
+				style="object-position:center 50%" />
+			<div class="page-header-icon page-header-icon-with-cover"><span class="icon">⚙</span></div>
+			<h1 class="page-title"><strong>Настройка и конфигурация Linux-систем и прав доступа на базе Debian</strong>
+			</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<h1 id="131aa64c-9d0a-81e5-aea3-d7ac71b098ac" class="">Содержание</h1>
+			<nav id="131aa64c-9d0a-812d-82ab-f3e79bf95356" class="block-color-gray table_of_contents">
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81e5-aea3-d7ac71b098ac">Содержание</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81fb-b9bb-d481d72f77b6">Схема практического задания</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81fa-b89e-f62929c5a184">Цель работы</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81b0-859c-f0b22c75f2ac">Необходимо для выполнения:</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81a4-bfe3-ca776f5c688f">Требования к отчёту</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8165-a937-e87c58245ef3">Вопросы для защиты, в отчёт не добавляются.
+						(самопроверка)</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81da-b537-ddc23a367df2">Задание к практической работе</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-810c-852e-edab1641e376"><mark class="highlight-red">1. Установить Debian 11
+							или 12.</mark></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81bd-be4a-ec8875c52a9a"><mark class="highlight-red">2. Выполнить
+							практическую работу по конфигурационным файлам</mark></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-813a-a475-c8df6fc76f8c"><mark class="highlight-red">3. Включить
+							пользователя в группу sudo.</mark></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8165-aa99-e9517e3dfbf6"><mark class="highlight-red">4. Выделить место на
+							VMware под новый HDD </mark></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81cc-a1ac-c58b7d4d9e5f"><mark class="highlight-red">5. Создание и
+							монтирование 2 HDD, политики безопасности пользователя</mark></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8194-8835-deb6aa96002f"><mark class="highlight-red">6. Дополнительно
+							выполнить все части 2-ой практической работы</mark></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-815e-90d7-e25838bea804">7. Методические указания</a></div>
+			</nav>
+			<h3 id="131aa64c-9d0a-81fb-b9bb-d481d72f77b6" class="">Схема практического задания</h3>
+			<figure id="131aa64c-9d0a-8196-8d71-e2bf4ed065cc" class="image"><a
+					href="Настройка и конфигурация Linux-систем/Untitled.png"><img
+						style="width:708px"
+						src="Настройка и конфигурация Linux-систем/Untitled.png" /></a>
+			</figure>
+			<h3 id="131aa64c-9d0a-81fa-b89e-f62929c5a184" class="">Цель работы</h3>
+			<ul id="131aa64c-9d0a-81a0-97f5-f2661d6f3b4f" class="bulleted-list">
+				<li style="list-style-type:disc">Научиться работать с Linux-системами</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8181-90b2-fb389af158bc" class="bulleted-list">
+				<li style="list-style-type:disc">Изучить настройки и конфигурационные файлы</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81e2-991f-d38b18be2d59" class="bulleted-list">
+				<li style="list-style-type:disc">Научиться настраивать права доступа</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81ca-aa83-d9ed1d83a45f" class="bulleted-list">
+				<li style="list-style-type:disc">Научиться настраивать VLAN</li>
+			</ul>
+			<ul id="131aa64c-9d0a-811e-a64e-f818c57cda86" class="bulleted-list">
+				<li style="list-style-type:disc">Выполнить все практические работы</li>
+			</ul>
+			<h2 id="131aa64c-9d0a-81b0-859c-f0b22c75f2ac" class="">Необходимо для выполнения:</h2>
+			<ul id="131aa64c-9d0a-8111-bb94-f2bbd19f1859" class="bulleted-list">
+				<li style="list-style-type:disc">Необходимо развернуть стенд из двух виртуальных машин Debian 11 или
+					12<br /><br /><em><mark class="highlight-red"><strong><a
+									href="https://www.debian.org/download">Дистрибутив Debian
+									тут</a></strong></mark></em></li>
+			</ul>
+			<ul id="131aa64c-9d0a-81cf-a051-e1cd2be1c1d5" class="bulleted-list">
+				<li style="list-style-type:disc">Создать snapshot каждой из виртуальной машинки на момент установки.
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8109-83a6-cd881239f34e" class="bulleted-list">
+				<li style="list-style-type:disc">Использовать методические указания:<br /><br /><mark
+						class="highlight-red">1. </mark><em><mark class="highlight-red"><strong><a
+									href="https://www.notion.so/65a2c9f68f394c93a164ebac58dd96d1?pvs=21">Основы
+									Linux_1</a></strong></mark></em><em><mark
+							class="highlight-red"><strong><br /><br /></strong></mark></em><mark
+						class="highlight-red">2. </mark><em><mark class="highlight-red"><strong><a
+									href="https://www.notion.so/469b517c646e47e79e5f26e737322b5f?pvs=21">Основы
+									Linux_2</a></strong></mark></em></li>
+			</ul>
+			<h2 id="131aa64c-9d0a-81a4-bfe3-ca776f5c688f" class="">Требования к отчёту</h2>
+			<ol type="1" id="131aa64c-9d0a-81a8-bf61-c9740cc5be09" class="numbered-list" start="1">
+				<li>Все команды необходимо выполнить через консоль, виртуальные машинки должны быть без графического
+					интерфейса.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8190-9186-df7897fcbe2e" class="numbered-list" start="2">
+				<li>Отчёт должен быть выполнен в виде инструкции, со скриншотами и описание.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-812e-a495-d30fce159a3a" class="numbered-list" start="3">
+				<li>При запуске консоли необходимо выполнить команду
+					<code>while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done &amp;</code> -
+					данная команда запустить время и дату в консоли, необходимо для отчёта. Дата должна быть актуальная.
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-814f-9af4-c3c02c216b53" class="numbered-list" start="4">
+				<li><mark class="highlight-red"><strong>Пользователь в Linux, должен соответствовать вашему
+							ФИО.</strong></mark></li>
+			</ol>
+			<details open="">
+				<summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Вопросы для защиты, в отчёт не
+					добавляются. (самопроверка)</summary>
+				<div class="indented">
+					<ol type="1" id="131aa64c-9d0a-811b-a6a5-faf29e9961b5" class="numbered-list" start="1">
+						<li><em>Развернуть стенд из двух виртуальных машин на базе Debian10, одна из них должна быть
+								серверной без графического интерфейса</em>;</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-817c-bad9-efffdbf0ce2d" class="numbered-list" start="2">
+						<li><em>Настроить сетевые интерфейсы</em>;</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8185-bd96-c9dedee805d6" class="numbered-list" start="3">
+						<li><em>Настроить VLAN на сетевых интерфейсах</em>;</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-814e-8d02-c2b63f204305" class="numbered-list" start="4">
+						<li><em>Проверить все доступы</em>;</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8180-a597-cf28b44944d2" class="numbered-list" start="5">
+						<li><em>Создание ключей SSH</em>;</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-815f-ba15-c924cb147bb1" class="numbered-list" start="6">
+						<li><em>Как скопировать открытый ключ на ваш сервер</em>;</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-812f-82af-ff6b8f159df2" class="numbered-list" start="7">
+						<li><em>Аутентификация на сервере с использованием ключей SSH</em>;</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8131-aaff-eb77cd3becfa" class="numbered-list" start="8">
+						<li><em>Отключение аутентификации с помощью пароля на сервере</em>;</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8168-a377-f346ea6668dd" class="numbered-list" start="9">
+						<li><em>Копирование открытого ключа с помощью SSH</em>;</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81b1-8c4e-f97c31851c48" class="numbered-list" start="10">
+						<li><em>Организовать SSH соединение между двумя linux-системами</em>;</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8109-8dc5-ea2b596b84d4" class="numbered-list" start="11">
+						<li><em>Произвести настройку SSH-сервера и SSH-клиента</em>;</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8155-b889-ca208a355489" class="numbered-list" start="12">
+						<li><em>Сменить порт default на другой</em>;</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8186-802f-ccc637c8fbc8" class="numbered-list" start="13">
+						<li><em>Запретить соединения от root</em>;</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-818b-9731-cd8f2238debf" class="numbered-list" start="14">
+						<li><em>Настройка подключения по одному ip-адресу</em>;</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81f8-bf2a-c43d1dca55a9" class="numbered-list" start="15">
+						<li><em>Настройка подключения по группе ip-адресов</em>;</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81cc-8343-cfc04f42166c" class="numbered-list" start="16">
+						<li><em>Вывести журнал событий SSH службы</em>;</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81a7-8493-c6af73e7ce78" class="numbered-list" start="17">
+						<li><em>Показать неудачные попытки входа по SSH с помощью журнала событий</em>;</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81d3-8e73-f416ced4ce67" class="numbered-list" start="18">
+						<li><em>Выполнить команду на удалённом сервере без создания сессии шелла</em>;</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81ba-8efa-f1813dbd37a6" class="numbered-list" start="19">
+						<li><em>Выполнить подключение к SSH по имени хоста</em>;</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-818f-b5be-d05f533e287d" class="numbered-list" start="20">
+						<li><em>Выполнить Подключение к SSH из Windows</em>;</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8150-a10d-d26981177a0d" class="numbered-list" start="21">
+						<li><em>Выполнить подключение по SSH с мобильного телефона</em>;</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8137-92ec-ddd2ce7bc1c4" class="numbered-list" start="22">
+						<li><em>Подобрать логин:пароль к SSH</em>;</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8180-83c0-cd33f7d9c58b" class="numbered-list" start="23">
+						<li><em>Разобраться, что такое masscan</em>;</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8101-a99c-c98375e92ab2" class="numbered-list" start="24">
+						<li><em>Просканировать свою сеть с помощью masscan по портам 22,80,2222,8080</em>;</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81c3-b370-e4deac34c0fa" class="numbered-list" start="25">
+						<li><em>Разобраться как masscan работает совместно с nmap, произвести сканирование минимум 10
+								аргументами из masscan --nmap</em>;</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8112-b5f2-d8a8c0c2faa7" class="numbered-list" start="26">
+						<li><em>Продемонстрировать stat - все возможности данной команды с помощью man на
+								конфигурационных файлах - passwd, interfaces, auth.log, shadow</em>;</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8110-8217-c8971b045c9a" class="numbered-list" start="27">
+						<li><em>Настроить секцию команд таким образом, чтобы пароль запрашивался для всех команд кроме
+								su</em>;</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81e0-a04b-fecde22cf3ea" class="numbered-list" start="28">
+						<li><em>Разрешить членам группы “MIREA” монтирование и размонтирование устройств</em>;</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81b0-8334-e1e468be8a37" class="numbered-list" start="29">
+						<li><em>Разрешить выполнение через sudo для всех пользователей группы “MIREA”, всех команд,
+								кроме команд смены оболочки</em>;</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81c0-9057-e7aa5a3b81c6" class="numbered-list" start="30">
+						<li><em>Сконфигурировать, чтобы команда sudo запрашивала пароль не позже, чем через 1 минуту
+								после ввода пароля для предыдущей команды</em>;</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81ce-9c73-d2cbfc7875c5" class="numbered-list" start="31">
+						<li><em>Сконфигурировать, чтобы команда sudo запрашивала при каждом запуске пароль и
+								при<br />повторный вводе пароля, чтобы не запрашивался никогда<br /></em>;</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-810a-86d7-f1bd0a6f4297" class="numbered-list" start="32">
+						<li><em>Chattr применить все атрибуты на конфигурационных файлах passwd, resolv.conf,
+								/etc/</em>;</li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81dc-bedd-dc33c6b3f94d" class="numbered-list" start="33">
+						<li><em>VLAN в Linux?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-819f-ba7a-d91aa88290e8" class="numbered-list" start="34">
+						<li><em>Что такое VLAN и зачем он нужен?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8178-8d3c-ef98e078a2df" class="numbered-list" start="35">
+						<li><em>Как создать VLAN в Linux?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8128-8713-f1257807c790" class="numbered-list" start="36">
+						<li><em>Как удалить VLAN в Linux?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81ca-bbec-c3a6fd30148b" class="numbered-list" start="37">
+						<li><em>Как проверить, что VLAN работает?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81e3-ab1d-c8e87b79d68d" class="numbered-list" start="38">
+						<li><em>Какие преимущества и недостатки использования VLAN?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-813e-8fdb-f1abf93ec3b7" class="numbered-list" start="39">
+						<li><em>Что такое SSH и зачем он нужен?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8167-a8de-dec7e5d1c9d1" class="numbered-list" start="40">
+						<li><em>Как установить SSH сервер на Linux?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8127-89aa-e34bed68f89c" class="numbered-list" start="41">
+						<li><em>Как подключиться к удаленному Linux серверу по SSH?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-815c-8775-cd36bc9210c1" class="numbered-list" start="42">
+						<li><em>Как отключить SSH доступ на Linux сервере?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81c8-b5ae-ed9ef87ffc33" class="numbered-list" start="43">
+						<li><em>Как сменить порт SSH на Linux сервере?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81cc-b01d-cf27c5beb856" class="numbered-list" start="44">
+						<li><em>Какие методы аутентификации поддерживает SSH?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-815d-8e66-e7084696be65" class="numbered-list" start="45">
+						<li><em>Какие преимущества и недостатки использования SSH?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-810c-b930-f31cd4e2992a" class="numbered-list" start="46">
+						<li><em>Кто такой пользователь root в Linux и какие у него права?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81ca-ab8b-ce98ac132b32" class="numbered-list" start="47">
+						<li><em>Как создать пользователя с правами root на Linux?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-813d-81ef-df3639a537cd" class="numbered-list" start="48">
+						<li><em>Как изменить пароль пользователя root в Linux?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81c3-8bdd-f2b8cf988a08" class="numbered-list" start="49">
+						<li><em>Как удалить пользователя root в Linux?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81dc-ba45-f1c5b52c37fd" class="numbered-list" start="50">
+						<li><em>Как отключить доступ пользователя root в Linux?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8127-840d-f946947b816a" class="numbered-list" start="51">
+						<li><em>Какие преимущества и недостатки использования пользователя root?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-815b-9487-efaa94c3af1c" class="numbered-list" start="52">
+						<li><em>Какие службы используются для управления SSH на Linux?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-816f-8a30-fed8a8b02cc2" class="numbered-list" start="53">
+						<li><em>Какой файл конфигурации используется для SSH на Linux?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81b4-8ad9-cf4c2d27a53c" class="numbered-list" start="54">
+						<li><em>Как перезапустить службу SSH на Linux?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8143-90f5-ec9345e38661" class="numbered-list" start="55">
+						<li><em>Как проверить статус службы SSH на Linux?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8170-891d-ef9400706b01" class="numbered-list" start="56">
+						<li><em>Как изменить настройки SSH на Linux?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-819e-8297-cee9efcc260f" class="numbered-list" start="57">
+						<li><em>Какие преимущества и недостатки использования службы по управлению SSH?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-818e-adc9-cee06c6ff816" class="numbered-list" start="58">
+						<li><em>Что такое Masscan и как он работает?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8149-bc51-d8d79dff2df0" class="numbered-list" start="59">
+						<li><em>Как установить Masscan на Linux?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8119-904b-e32ba591f74f" class="numbered-list" start="60">
+						<li><em>Как использовать Masscan для сканирования портов?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81b0-9f94-c096045dee1a" class="numbered-list" start="61">
+						<li><em>Как сохранить результаты сканирования Masscan в файле?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81b7-a26d-cad54e7ff369" class="numbered-list" start="62">
+						<li><em>Как изменить настройки Masscan?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8147-9e10-c1ee2765f188" class="numbered-list" start="63">
+						<li><em>Какие преимущества и недостатки использования Masscan?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-816a-a4c8-f3ccc40ec8a0" class="numbered-list" start="64">
+						<li><em>Как добавить новый виртуальный диск в VMware?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8179-ae2e-caaa38532e5e" class="numbered-list" start="65">
+						<li><em>Как установить новую виртуальную машину в VMware?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8131-a2e9-e8710e2e0c3d" class="numbered-list" start="66">
+						<li><em>Как добавить новый сетевой адаптер в VMware?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-816c-9890-d41715e4c5e4" class="numbered-list" start="67">
+						<li><em>Как удалить устройство из VMware?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-817c-ac7d-ef2c3b73a8d1" class="numbered-list" start="68">
+						<li><em>Как изменить настройки устройств в VMware?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81d5-9251-cf1feaa7b841" class="numbered-list" start="69">
+						<li><em>Какие преимущества и недостатки использования VMware?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-814b-85df-f45b0450a19d" class="numbered-list" start="70">
+						<li><em>Что такое утилита fdisk в Linux и как ей пользоваться?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-817d-90ec-c4e2c01fb46c" class="numbered-list" start="71">
+						<li><em>Как установить утилиту fdisk в Linux?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8107-8676-df51ed821e2a" class="numbered-list" start="72">
+						<li><em>Как использовать утилиту fdisk для создания разделов на диске?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8125-9bee-cd6f7d6bb590" class="numbered-list" start="73">
+						<li><em>Как изменить размер раздела с помощью утилиты fdisk?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-813e-9f56-ff1e38958fa5" class="numbered-list" start="74">
+						<li><em>Как удалить раздел на диске с помощью утилиты fdisk?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-810a-b865-cda1acfdaf2c" class="numbered-list" start="75">
+						<li><em>Какие преимущества и недостатки использования утилиты fdisk?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-818a-a59b-cb89cb264a59" class="numbered-list" start="76">
+						<li><em>Что такое файл /etc/fstab в Linux и какой он имеет смысл?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81a5-9f99-df6531cb54c3" class="numbered-list" start="77">
+						<li><em>Как изменить файл /etc/fstab в Linux?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81ee-b208-c013148f1c11" class="numbered-list" start="78">
+						<li><em>Как добавить новое устройство в файл /etc/fstab?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-813b-b442-f992d0eee400" class="numbered-list" start="79">
+						<li><em>Как удалить устройство из файла /etc/fstab?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81ec-8773-fd2e965434a1" class="numbered-list" start="80">
+						<li><em>Как изменить параметры устройства в файле /etc/fstab?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81ad-877d-c891baaf2d33" class="numbered-list" start="81">
+						<li><em>Какие преимущества и недостатки использования файла /etc/fstab?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81dd-9c29-da4a0caeeeaf" class="numbered-list" start="82">
+						<li><em>Какие файловые системы поддерживает Linux?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8170-bf9a-d2eeb999190d" class="numbered-list" start="83">
+						<li><em>Как проверить файловую систему на ошибки в Linux?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81cb-9e25-e969a593c42f" class="numbered-list" start="84">
+						<li><em>Как отформатировать диск в определенной файловой системе в Linux?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-810f-92b3-fdef99e64f95" class="numbered-list" start="85">
+						<li><em>Как изменить файловую систему на диске в Linux?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81ac-806f-ddfe650bec38" class="numbered-list" start="86">
+						<li><em>Какие преимущества и недостатки использования файловых систем в Linux?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-811d-9d68-e3dd58fb2c5a" class="numbered-list" start="87">
+						<li><em>Как определить список жестких дисков в Linux?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-810a-b22b-ec98923f0bf7" class="numbered-list" start="88">
+						<li><em>Как проверить состояние жесткого диска в Linux?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81ae-aca5-e16815f24c48" class="numbered-list" start="89">
+						<li><em>Как создать новый раздел на жестком диске в Linux?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8126-97db-ed378bc8c2fd" class="numbered-list" start="90">
+						<li><em>Как отформатировать жесткий диск в Linux?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-819d-957e-c142d7e32472" class="numbered-list" start="91">
+						<li><em>Как изменить буферный кэш жесткого диска в Linux?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-817c-9536-d29f735803b1" class="numbered-list" start="92">
+						<li><em>Какие преимущества и недостатки использования HDD в Linux?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81fa-b72a-e66a1ee7dafd" class="numbered-list" start="93">
+						<li><em>Как работает технология SSD в Linux?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81ba-8abb-de60e6025bcf" class="numbered-list" start="94">
+						<li><em>Как проверить состояние SSD в Linux?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-81ca-b1b9-cd5631f64adc" class="numbered-list" start="95">
+						<li><em>Как отформатировать SSD в Linux?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8115-9e08-e5cc64e06ead" class="numbered-list" start="96">
+						<li><em>Какие преимущества и недостатки использования SSD в Linux?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-811d-b47e-c0f385732cf8" class="numbered-list" start="97">
+						<li><em>Как работает протокол TCP/IP в Linux?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8120-8ba7-f0b91f087c4d" class="numbered-list" start="98">
+						<li><em>Как настроить IP адрес в Linux?</em></li>
+					</ol>
+					<ol type="1" id="131aa64c-9d0a-8119-8638-e7ace39d530d" class="numbered-list" start="99">
+						<li><em>За что отвечают данные конфигурационные файлы</em>:</li>
+					</ol>
+					<ul id="131aa64c-9d0a-81d9-bf47-e6b44ecc15d8" class="bulleted-list">
+						<li style="list-style-type:disc">/etc/adjtime</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8161-a396-e823ea390972" class="bulleted-list">
+						<li style="list-style-type:disc">/etc/bash.bashrc</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8171-a027-de553b2aa127" class="bulleted-list">
+						<li style="list-style-type:disc">/etc/crontab</li>
+					</ul>
+					<ul id="131aa64c-9d0a-816a-8fe4-f5aa92cb8ee5" class="bulleted-list">
+						<li style="list-style-type:disc">/etc/environment</li>
+					</ul>
+					<ul id="131aa64c-9d0a-816d-babb-f734f1be7b49" class="bulleted-list">
+						<li style="list-style-type:disc">/etc/fstab</li>
+					</ul>
+					<ul id="131aa64c-9d0a-814b-b6ba-c84dd68b8237" class="bulleted-list">
+						<li style="list-style-type:disc">/etc/group</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8126-9f6e-d57b2833fcef" class="bulleted-list">
+						<li style="list-style-type:disc">/etc/hostname</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8178-9367-e563ccc6d9b2" class="bulleted-list">
+						<li style="list-style-type:disc">/etc/hosts</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8112-bc35-e54fea3cb53b" class="bulleted-list">
+						<li style="list-style-type:disc">/etc/hosts.allow и /etc/hosts.deny</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8178-9438-f168e626a854" class="bulleted-list">
+						<li style="list-style-type:disc">/etc/issue и /etc/issue.net</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8155-acf8-e37a9d0d3b5e" class="bulleted-list">
+						<li style="list-style-type:disc">/etc/ld.so.conf</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81e1-bf27-dbc76aec174a" class="bulleted-list">
+						<li style="list-style-type:disc">/etc/localtime</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81eb-94f0-c1af9c79cc29" class="bulleted-list">
+						<li style="list-style-type:disc">/etc/login.defs</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81d0-a63d-ccd1b0925c84" class="bulleted-list">
+						<li style="list-style-type:disc">/etc/mime.types</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8132-8889-f6ae163ebe16" class="bulleted-list">
+						<li style="list-style-type:disc">/etc/modprobe.d/</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81c7-bad8-ef8416e3f9ff" class="bulleted-list">
+						<li style="list-style-type:disc">/etc/modules-load.d/</li>
+					</ul>
+					<ul id="131aa64c-9d0a-817b-a071-f7e1dcbdaf7f" class="bulleted-list">
+						<li style="list-style-type:disc">/etc/nsswitch.conf</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81f9-88c2-ee83a06ea1cd" class="bulleted-list">
+						<li style="list-style-type:disc">/etc/ntp.conf</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8195-bc01-cf667f48025c" class="bulleted-list">
+						<li style="list-style-type:disc">/etc/os-release</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8191-96ac-c174084dcc97" class="bulleted-list">
+						<li style="list-style-type:disc">/etc/passwd</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8125-89b1-f8a0ce288d95" class="bulleted-list">
+						<li style="list-style-type:disc">/etc/profile</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81af-9608-f82f39866200" class="bulleted-list">
+						<li style="list-style-type:disc">/etc/resolv.conf</li>
+					</ul>
+					<ul id="131aa64c-9d0a-813a-baf5-d30dd0b22c81" class="bulleted-list">
+						<li style="list-style-type:disc">/etc/sddm.conf</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81ad-bcbe-e1de04ec23b4" class="bulleted-list">
+						<li style="list-style-type:disc">/etc/shadow</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81d2-aa97-fd00c820b575" class="bulleted-list">
+						<li style="list-style-type:disc">/etc/sudoers</li>
+					</ul>
+					<ul id="131aa64c-9d0a-814e-8948-c0650bfe6793" class="bulleted-list">
+						<li style="list-style-type:disc">/etc/sysctl.conf</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8180-8c1a-fce664cc8790" class="bulleted-list">
+						<li style="list-style-type:disc">/etc/vconsole.conf</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81da-bca5-c0c4edb5efdc" class="bulleted-list">
+						<li style="list-style-type:disc">/boot/grub/grub.cfg*</li>
+					</ul>
+				</div>
+			</details>
+			<h1 id="131aa64c-9d0a-81da-b537-ddc23a367df2" class="">Задание к практической работе</h1>
+			<h3 id="131aa64c-9d0a-810c-852e-edab1641e376" class=""><mark class="highlight-red">1. Установить Debian 11
+					или 12.</mark></h3>
+			<blockquote id="131aa64c-9d0a-8115-8c03-da5023ebc1e7" class="">После установки создать
+				<strong>snapshot</strong>.</blockquote>
+			<h3 id="131aa64c-9d0a-81bd-be4a-ec8875c52a9a" class=""><mark class="highlight-red">2. Выполнить практическую
+					работу по конфигурационным файлам</mark></h3>
+			<p id="131aa64c-9d0a-819a-9de1-e63dae83ca1b" class="">В отчёте, кратко объяснить, какую функцию несут
+				конфигурационные файлы в практической работе.</p>
+			<figure id="131aa64c-9d0a-81bf-9387-dd6ad7d7f55c" class="link-to-page"><a
+					href="Настройка и конфигурация Linux-систем/Конфигурационные файлы в Linux.html"><img
+						class="icon" src="https://www.notion.so/icons/computer_red.svg" />Конфигурационные файлы в
+					Linux</a></figure>
+			<h3 id="131aa64c-9d0a-813a-a475-c8df6fc76f8c" class=""><mark class="highlight-red">3. Включить пользователя
+					в группу sudo.</mark></h3>
+			<h3 id="131aa64c-9d0a-8165-aa99-e9517e3dfbf6" class=""><mark class="highlight-red">4. Выделить место на
+					VMware под новый HDD </mark></h3>
+			<p id="131aa64c-9d0a-81a5-9479-dbbf834dec63" class="">Для создания и монтирования можете воспользоваться
+				предыдущей практической работой: <em><mark class="highlight-red"><a
+							href="https://www.notion.so/0ffbfd02b94f4345aca9b30983788d21?pvs=21">Добавление нового диска
+							и монтирование разделов</a></mark></em></p>
+			<h3 id="131aa64c-9d0a-81cc-a1ac-c58b7d4d9e5f" class=""><mark class="highlight-red">5. Создание и
+					монтирование 2 HDD, политики безопасности пользователя</mark></h3>
+			<p id="131aa64c-9d0a-8104-b45c-ef450b39f826" class="">5.1 Необходимо примонтировать первый раздел диска как
+				файловую систему <code>только для чтения</code></p>
+			<p id="131aa64c-9d0a-81c1-8413-f4501a9fba48" class="">5.2 Примонтировать второй раздел диска стандартно</p>
+			<p id="131aa64c-9d0a-8115-af17-d5dc390db784" class="">5.3 Создать директории <code>Data</code>,
+				<code>bigData</code></p>
+			<p id="131aa64c-9d0a-81f7-9c38-f864e76b4099" class="">5.4 Примонтировать первый раздел HDD к вновь созданной
+				директории <code>bigData</code></p>
+			<p id="131aa64c-9d0a-817d-ad7e-fa3cf4ae3d55" class="">5.5 Примонтировать второй раздел HDD к вновь созданной
+				директории <code>Data</code></p>
+			<p id="131aa64c-9d0a-81db-80b8-ee9da8ab7f77" class="">5.6 Примонтировать одну папку в другую, для этого
+				используйте опцию <code>--bind</code>.</p>
+			<p id="131aa64c-9d0a-814e-b071-c0fc7a1419c3" class="">5.7 Создать новую группу <code>PT</code>.</p>
+			<p id="131aa64c-9d0a-816f-ad43-f2153663d50e" class="">5.8 Создать папку <code>23</code> в директории
+				<code>Data</code>.</p>
+			<p id="131aa64c-9d0a-814c-8f95-f916353de37e" class="">5.9 Назначить на данную папку <code>23</code> группу
+				<code>PT</code>.</p>
+			<p id="131aa64c-9d0a-81ba-8883-eb4f66de745c" class="">5.10 Создать нового пользователя.
+			<div class="indented">
+				<p id="131aa64c-9d0a-817d-beb0-ebe12b738369" class=""><mark class="highlight-red"><strong>5.10.1 Перед
+							созданием пользователя</strong></mark><strong> </strong>назначьте политики безопасности:
+				<div class="indented">
+					<ol type="a" id="131aa64c-9d0a-814a-abc7-d2266004384a" class="numbered-list" start="1">
+						<li>Максимальное количество дней, в течение которых пароль может быть действительным -
+							установить 90</li>
+					</ol>
+					<ol type="a" id="131aa64c-9d0a-8130-a7f2-ee24a7a71b74" class="numbered-list" start="2">
+						<li>Минимальное количество дней, которое должно пройти перед тем, как пользователь сможет
+							изменить свой пароль - установить 7</li>
+					</ol>
+					<ol type="a" id="131aa64c-9d0a-816b-be5a-f673d3c3ba99" class="numbered-list" start="3">
+						<li>Минимальная длина пароля - установить значение 9</li>
+					</ol>
+					<ol type="a" id="131aa64c-9d0a-8153-817a-ccfd85b92e7d" class="numbered-list" start="4">
+						<li>Максимальное количество попыток входа в систему перед блокировкой учетной записи -
+							установить значение 3</li>
+					</ol>
+					<ol type="a" id="131aa64c-9d0a-8183-8938-e1c6a70de519" class="numbered-list" start="5">
+						<li>Время ожидания в секундах для ввода пароля - установить значение 60</li>
+					</ol>
+					<ol type="a" id="131aa64c-9d0a-81e8-8621-f2dc8d15f825" class="numbered-list" start="6">
+						<li>Максимальный UID для системных пользователей (обычно системные пользователи имеют UID менее
+							этого значения) - установить значение 499</li>
+					</ol>
+					<ol type="a" id="131aa64c-9d0a-8187-83a0-d55cb936f555" class="numbered-list" start="7">
+						<li>Перезагрузите службу авторизации</li>
+					</ol>
+				</div>
+				</p>
+				<p id="131aa64c-9d0a-81ae-a872-dc4e62cd5bb4" class="">5.10.2 Установите конфигурацию так, чтобы
+					пользователи не могли иметь доступы до файлов друг друга. Необходимо выстроить корректно права
+					UMASK.
+				<div class="indented">
+					<figure id="131aa64c-9d0a-81b9-9fb8-fa89f01b7d2d" class="link-to-page"><a
+							href="Настройка и конфигурация Linux-систем/UMASK - методическое указание.html"><img
+								class="icon" src="https://www.notion.so/icons/follow_blue.svg" />UMASK - методическое
+							указание</a></figure>
+				</div>
+				</p>
+				<p id="131aa64c-9d0a-81a9-b347-eef7edd1603f" class="">5.10.3 Далее создаём пользователя</p>
+				<p id="131aa64c-9d0a-8159-8521-dbeb394b4598" class="">5.10.4 Проверьте пароль, который хотите
+					установить, не скомпрометирован ли он
+				<div class="indented">
+					<figure id="131aa64c-9d0a-81a3-97c6-eefb24f68903" class="link-to-page"><a
+							href="Настройка и конфигурация Linux-систем/Методическое указание по проверке пароля на компро.html"><img
+								class="icon" src="https://www.notion.so/icons/keyboard-alternate_red.svg" />Методическое
+							указание по проверке пароля на компрометацию</a></figure>
+				</div>
+				</p>
+				<p id="131aa64c-9d0a-81cc-a331-f11b9391638f" class="">5.10.5 Назначаем пароль, сначала вводим короткий и
+					проверяем, что политика работает.</p>
+				<p id="131aa64c-9d0a-81ea-9240-c2d99136435c" class="">5.10.6 Включить нового пользователя в группу
+					<code>PT</code></p>
+				<p id="131aa64c-9d0a-8185-a230-fcb9a4476093" class="">5.10.7 Убедиться, что в домашнем каталоге создана
+					директория с новым пользователем.</p>
+				<p id="131aa64c-9d0a-8183-99c6-c82c71dbf427" class="">5.10.8 Из под нового пользователя создайте
+					директорию <code>RTU</code> в домашнем каталоге пользователя с 2 или 3 файлами .txt</p>
+				<p id="131aa64c-9d0a-8113-8267-cc5d537d1dfa" class="">5.10.9 Удалите из директории <code>RTU</code>
+					данные файлы путем перезаписи их содержимого случайными данными или нулями с помощью утилиты
+					<code>shred</code>.</p>
+			</div>
+			</p>
+			<p id="131aa64c-9d0a-8154-845e-d12812d05ce4" class="">5.11 Для безопасности после создания нового
+				пользователя необходимо сделать файлы <code>passwd</code> и <code>shadow</code> нечитаемыми с помощью
+				команды <code>CHATTR</code>. <br /><br /><mark class="highlight-red"><strong>Выполнить практическую
+						работу:</strong></mark></p>
+			<figure id="131aa64c-9d0a-81db-9aeb-e6c88ff59178" class="link-to-page"><a
+					href="Настройка и конфигурация Linux-систем/Практическая работа “Команда chattr”.html"><img
+						class="icon" src="https://www.notion.so/icons/hexagon-dashed_red.svg" />Практическая работа
+					“Команда chattr”</a></figure>
+			<p id="131aa64c-9d0a-819a-a78c-cc7efbf1ed6a" class="">5.12 Назначить права доступа для нового пользователя,
+				таким образом на директорию<br /><br /><code>Data</code>, чтобы результат работы команды <code>ls</code>
+				был отрицательным.</p>
+			<p id="131aa64c-9d0a-81dd-b08d-c546e3fed0be" class="">5.13 Залогиниться новым пользователем, проверить
+				работу 12 пункта, пояснить вывод команды <code>ls</code>.</p>
+			<p id="131aa64c-9d0a-8105-b31d-e4ba8797f441" class="">5.14 Проверить работу после перезапуска системы, что
+				все настройки сохранились.</p>
+			<h1 id="131aa64c-9d0a-8194-8835-deb6aa96002f" class=""><mark class="highlight-red">6. Дополнительно
+					выполнить все части 2-ой практической работы</mark></h1>
+			<figure id="131aa64c-9d0a-8161-9c1f-c270d4ebfad6" class="link-to-page"><a
+					href="Настройка и конфигурация Linux-систем/6 1 Утилита SG.html"><img
+						class="icon" src="https://www.notion.so/icons/keyboard_purple.svg" />6.1. Утилита SG</a>
+			</figure>
+			<figure id="131aa64c-9d0a-81f8-8423-f964b1cbb2e4" class="link-to-page"><a
+					href="Настройка и конфигурация Linux-систем/6 2 Использование команды sudo в Linux.html"><img
+						class="icon" src="https://www.notion.so/icons/command-line_red.svg" />6.2. Использование команды
+					sudo в Linux</a></figure>
+			<figure id="131aa64c-9d0a-8180-8b53-cfb0493da17a" class="link-to-page"><a
+					href="Настройка и конфигурация Linux-систем/6 3 Stdin, Stdout и Stderr.html"><img
+						class="icon" src="https://www.notion.so/icons/condense_red.svg" />6.3. Stdin, Stdout и
+					Stderr</a></figure>
+			<figure id="131aa64c-9d0a-81a6-ab66-ec976dc26577" class="link-to-page"><a
+					href="Настройка и конфигурация Linux-систем/6 4 Установка и настройка сервера SSH в Linux.html"><img
+						class="icon" src="https://www.notion.so/icons/log-in_green.svg" />6.4. Установка и настройка
+					сервера SSH в Linux</a></figure>
+			<figure id="131aa64c-9d0a-81c9-aa82-f79362bf391b" class="link-to-page"><a
+					href="Настройка и конфигурация Linux-систем/6 5 Установка и настройка Putty.html"><img
+						class="icon" src="https://www.notion.so/icons/computer_gray.svg" />6.5. Установка и настройка
+					Putty</a></figure>
+			<figure id="131aa64c-9d0a-81ab-8200-e0e5223fc4d8" class="link-to-page"><a
+					href="Настройка и конфигурация Linux-систем/6 6 VLAN.html"><img
+						class="icon" src="https://www.notion.so/icons/subtask_blue.svg" />6.6. VLAN</a></figure>
+			<figure id="131aa64c-9d0a-8139-b97c-fcd5314664f6" class="link-to-page"><a
+					href="Настройка и конфигурация Linux-систем/6 7 Полезные и опасные команды (fork-бомба).html"><img
+						class="icon" src="https://www.notion.so/icons/command-line_red.svg" />6.7. Полезные и опасные
+					команды (fork-бомба)</a></figure>
+			<p id="131aa64c-9d0a-8134-8925-fb1ee6819ca1" class="">
+			</p>
+			<h1 id="131aa64c-9d0a-815e-90d7-e25838bea804" class="">7. Методические указания</h1>
+			<figure id="131aa64c-9d0a-819e-9d9b-c68e5705bd16" class="link-to-page"><a
+					href="Настройка и конфигурация Linux-систем/Методическое указание по grep.html"><span
+						class="icon">📟</span>Методическое указание по grep</a></figure>
+			<p id="131aa64c-9d0a-81d4-8fae-d1fe6e2c1e70" class=""><strong>Какие порты используются http, pop3, ssh,
+					telnet, nntp и ftp можно посмотреть с помощью команды:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8160-9d1a-fcf632fec7ea"
+				class="code"><code class="language-JavaScript">grep ^’http’ /etc/services</code></pre>
+			<figure id="131aa64c-9d0a-8188-9882-f9be80e74d84" class="image"><a
+					href="Настройка и конфигурация Linux-систем/Untitled%201.png"><img
+						style="width:1295px"
+						src="Настройка и конфигурация Linux-систем/Untitled%201.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81f5-a920-dfeac8dd8222" class="">
+			</p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

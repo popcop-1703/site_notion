@@ -2,7 +2,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Обучение Angara-Start</title>
+	<title>Занятие 2. Администрирование Linux</title>
 	<style>
 		/* cspell:disable-file */
 		/* webkit printing magic: print all background colors */
@@ -643,7 +643,7 @@
 		}
 
 		.highlight-yellow_background {
-			background: rgba(251, 237, 214, 1);
+			background: rgba(251, 243, 219, 1);
 		}
 
 		.highlight-teal_background {
@@ -734,7 +734,7 @@
 		}
 
 		.block-color-yellow_background {
-			background: rgba(251, 237, 214, 1);
+			background: rgba(251, 243, 219, 1);
 		}
 
 		.block-color-teal_background {
@@ -798,7 +798,7 @@
 		}
 
 		.select-value-color-yellow {
-			background-color: rgba(249, 228, 188, 1);
+			background-color: rgba(253, 236, 200, 1);
 		}
 
 		.select-value-color-blue {
@@ -813,54 +813,267 @@
 			background-color: undefined;
 		}
 
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
 	</style>
 </head>
 
 <body>
-	<article id="e9238063-77fc-4eb1-b379-81e4c909e734" class="page sans">
-		<header><img class="page-cover-image"
-				src="angara_start_dir/angara2.jpg"
-				style="object-position:center 41.779999999999994%" />
-			<div class="page-header-icon page-header-icon-with-cover"><span class="icon">💁</span></div>
-			<h1 class="page-title">Обучение Angara-Start</h1>
+	<article id="131aa64c-9d0a-8167-a49f-ec328d357b08" class="page sans">
+		<header>
+			<div class="page-header-icon undefined"><span class="icon">2️⃣</span></div>
+			<h1 class="page-title">Занятие 2. Администрирование Linux</h1>
 			<p class="page-description"></p>
 		</header>
 		<div class="page-body">
-			<h1 id="5c5d6141-6a62-41de-94fe-22a0f224013a" class="">1й этап: Базовое обучение</h1>
-			<p id="27aeb774-bbec-4bfc-aa1e-8c2b9d409b08" class="">
+			<h2 id="131aa64c-9d0a-815a-a6e0-f00a2f418948" class="">План занятия: Администрирование Linux</h2>
+			<ul id="131aa64c-9d0a-81a6-b74e-c8c90d5f75ec" class="bulleted-list">
+				<li style="list-style-type:disc">Базовые настройки системы</li>
+			</ul>
+			<ul id="131aa64c-9d0a-811d-be04-fff4f5b66f43" class="bulleted-list">
+				<li style="list-style-type:disc">Модель прав доступа<ul id="131aa64c-9d0a-81c0-b70c-d2df1f8a3331"
+						class="bulleted-list">
+						<li style="list-style-type:circle">Создание пользователей</li>
+					</ul>
+					<ul id="131aa64c-9d0a-810c-895b-f0e14929b9f3" class="bulleted-list">
+						<li style="list-style-type:circle">Смена паролей</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8138-a112-c81f4ba8ebc3" class="bulleted-list">
+						<li style="list-style-type:circle">Файлы /etc/passwd, /etc/shadow</li>
+					</ul>
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c0-85f1-dbe6e80ac4d8" class="bulleted-list">
+				<li style="list-style-type:disc">Мониторинг системы<ul id="131aa64c-9d0a-813e-93f7-f21bd05c39eb"
+						class="bulleted-list">
+						<li style="list-style-type:circle">Мониторинг корректной работы сервисов</li>
+					</ul>
+					<ul id="131aa64c-9d0a-817c-b394-ca3bb00df4e1" class="bulleted-list">
+						<li style="list-style-type:circle">Аудит безопасности (auditd)</li>
+					</ul>
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8195-a95b-ead5e1906bf3" class="bulleted-list">
+				<li style="list-style-type:disc">Конфигурация сети</li>
+			</ul>
+			<ul id="131aa64c-9d0a-811a-9b4c-da2ae1dedece" class="bulleted-list">
+				<li style="list-style-type:disc">Работа с пакетами</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8124-96a2-f146da9cff98" class="bulleted-list">
+				<li style="list-style-type:disc">Удаленное администрирование Linux</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8166-aa97-fae6edea04f7" class="bulleted-list">
+				<li style="list-style-type:disc">Важные файлы и команды для администрирования<ul
+						id="131aa64c-9d0a-81a3-a793-f4592d1fec1b" class="bulleted-list">
+						<li style="list-style-type:circle">.bashrc, .bash_profile и .bash_login</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81a1-baf0-d9f779b48a74" class="bulleted-list">
+						<li style="list-style-type:circle">authorized_keys</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8153-8a09-c810f87227af" class="bulleted-list">
+						<li style="list-style-type:circle">wget, whoami, uname</li>
+					</ul>
+				</li>
+			</ul>
+			<p id="131aa64c-9d0a-8199-afe6-d5e666457da3" class="">
 			</p>
-			<figure id="4de7a3f6-7056-4782-9eb2-f200e4627b64" class="link-to-page"><a
-					href="angara_start_dir/sys_req.html"><span
-						class="icon">💻</span>Системные требования</a></figure>
-			<p id="e759a26e-36cd-4188-a10d-7b908c39c898" class="">
+			<h3 id="131aa64c-9d0a-81a2-b753-e23121219f30" class="">Презентация к занятию №2:</h3>
+			<figure id="131aa64c-9d0a-811b-ad34-f599c45dc703">
+				<div class="source"><a
+						href="../../video/OS_Linux_2.1.pptx">OS_Linux_Тема_2_Базовые_настройки,_модель_прав_доступа.pptx</a>
+				</div>
+			</figure>
+			<h3 id="131aa64c-9d0a-81d9-9006-c5a016fac626" class="">Запись занятия:</h3>
+			<p id="131aa64c-9d0a-81d2-a746-e42f0e10d957" class="">
 			</p>
-			<figure id="a0115771-3f32-4dfe-affe-89036ed5189b" class="link-to-page"><a
-					href="angara_start_dir/Вводное занятие.html"><img
-						class="icon" src="https://www.notion.so/icons/feed_gray.svg" />Вводное занятие</a></figure>
-			<p id="2d1f3315-1264-470b-b9a8-f5057efb6fde" class="">
+			<figure id="131aa64c-9d0a-8193-b952-d4590c3cb223">
+				<div class="source"><a
+						href="../../video/Linux_2_1.mp4">Linux_2_1.mp4</a>
+				</div>
+			</figure>
+			<figure id="131aa64c-9d0a-81a0-82b7-ece441555715">
+				<div class="source"><a
+						href="../../video/2022.06.08-linux5.mp4">2022.06.08-linux5.mp4</a>
+				</div>
+			</figure>
+			<figure id="131aa64c-9d0a-818d-8625-e8b2305055cc">
+				<div class="source"><a
+						href="../../video/2022.06.01-linux2.1.mp4">2022.06.01-linux2.1.mp4</a>
+				</div>
+			</figure>
+			<p id="131aa64c-9d0a-81ac-9f85-d8b739278fcc" class="">
 			</p>
-			<figure id="5c0114fe-9146-4515-8e36-ed7c0efd0f85" class="link-to-page"><a
-					href="angara_start_dir/Модуль 1 OS Windows security basic.html"><img
-						class="icon"
-						src="angara_start_dir/Модуль 1 OS Windows security basic/Windows_logo_-_2012.svg.png" />Модуль
-					1. OS Windows security basic</a></figure>
-			<figure id="17800a46-81a0-4d96-8730-76b5079410f6" class="link-to-page"><a
-					href="angara_start_dir/Модуль 2 OS Linux basic.html"><img
-						class="icon"
-						src="angara_start_dir/Модуль 2 OS Linux basic/kali.jpg" />Модуль
-					2. OS Linux security basic</a></figure>
-			<figure id="2c4c3f46-33d9-4402-9c12-a8987c0b5323" class="link-to-page"><a
-					href="angara_start_dir/Модуль 3 Networks security basic.html"><img
-						class="icon"
-						src="angara_start_dir/Модуль 3 Networks security basic/network.png" />Модуль
-					3. Networks security basic</a></figure>
-			<figure id="c870a6ea-b5b9-4db4-8336-a171ff260dd9" class="link-to-page"><a
-					href="angara_start_dir/Модуль 4 WEB basic.html"><img
-						class="icon"
-						src="angara_start_dir/Модуль 4 WEB basic/web.png" />Модуль
-					4. WEB security basic</a></figure>
-			<p id="345d3f7d-545a-4f62-9abd-53c201b814ba" class="">
+			<figure id="131aa64c-9d0a-8164-8a2f-e1f8fbde343c" class="link-to-page"><a
+					href="Занятие 2 Администрирование Linux/Материал лекции.html"><img
+						class="icon" src="https://www.notion.so/icons/graduate_gray.svg" />Материал лекции</a></figure>
+			<h1 id="131aa64c-9d0a-8124-8b2f-e97643009699" class=""><strong>Практическая работа №2</strong></h1>
+			<figure id="131aa64c-9d0a-818a-bda5-e3487c0fbbff" class="link-to-page"><a
+					href="Занятие 2 Администрирование Linux/Настройка и конфигурация Linux-систем и прав дост.html"><span
+						class="icon">⚙</span>Настройка и конфигурация Linux-систем и прав доступа на базе Debian</a>
+			</figure>
+			<p id="131aa64c-9d0a-8171-aafc-e093f80858fb" class="">
 			</p>
+			<details open="">
+				<summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Требования к Практической
+					работе №2</summary>
+				<div class="indented">
+					<ul id="131aa64c-9d0a-8190-9a24-f06897f0135e" class="bulleted-list">
+						<li style="list-style-type:disc">2. <ul id="131aa64c-9d0a-81ea-a9cf-dc066359c277"
+								class="bulleted-list">
+								<li style="list-style-type:circle">Отчёт сформированный с помощью скрипта</li>
+							</ul>
+						</li>
+					</ul>
+					<ul id="131aa64c-9d0a-814b-b1fe-fe3e35ced1fc" class="bulleted-list">
+						<li style="list-style-type:disc">5. <ul id="131aa64c-9d0a-8112-89cf-c34d8e0d078b"
+								class="bulleted-list">
+								<li style="list-style-type:circle">Отчёт сформированный с помощью скрипта</li>
+							</ul>
+							<ul id="131aa64c-9d0a-813b-a1fd-eb14134aea29" class="bulleted-list">
+								<li style="list-style-type:circle">5.10.2 Скрин настройки UMASK</li>
+							</ul>
+							<ul id="131aa64c-9d0a-81d5-83ad-f8f77086d3a8" class="bulleted-list">
+								<li style="list-style-type:circle">5.10.4 Скрин тела скрипта и скрин вывода работы
+									скрипта по проверке пароля на компрометацию</li>
+							</ul>
+							<ul id="131aa64c-9d0a-81bd-8812-de051c8eeac8" class="bulleted-list">
+								<li style="list-style-type:circle">5.11 Отчёт сформированный с помощью скрипта</li>
+							</ul>
+							<ul id="131aa64c-9d0a-819b-aede-c85fa27811f9" class="bulleted-list">
+								<li style="list-style-type:circle">5.14 Скрин конфигурационного файла
+									<code><strong>/etc/fstab</strong></code></li>
+							</ul>
+						</li>
+					</ul>
+					<ul id="131aa64c-9d0a-812a-9d47-c226a205882e" class="bulleted-list">
+						<li style="list-style-type:disc">6.<ul id="131aa64c-9d0a-819e-bbfd-e2580a4823a5"
+								class="bulleted-list">
+								<li style="list-style-type:circle">6.1<ul id="131aa64c-9d0a-819b-b4b2-dec4ffe2e876"
+										class="bulleted-list">
+										<li style="list-style-type:square">Отчёт сформированный с помощью скрипта</li>
+									</ul>
+									<ul id="131aa64c-9d0a-81b9-b02c-dfeafd7be018" class="bulleted-list">
+										<li style="list-style-type:square">Скрин результата работы каждого задания</li>
+									</ul>
+								</li>
+							</ul>
+							<ul id="131aa64c-9d0a-81fd-bebd-de1eb941f714" class="bulleted-list">
+								<li style="list-style-type:circle">6.2<ul id="131aa64c-9d0a-81e1-a452-cf6688d984d1"
+										class="bulleted-list">
+										<li style="list-style-type:square">6.2.1<ul
+												id="131aa64c-9d0a-816a-9677-d4d762cf9bfa" class="bulleted-list">
+												<li style="list-style-type:disc">Отчёт сформированный с помощью скрипта
+												</li>
+											</ul>
+										</li>
+									</ul>
+									<ul id="131aa64c-9d0a-8132-b327-f99f81b7c1db" class="bulleted-list">
+										<li style="list-style-type:square">6.2.2<ul
+												id="131aa64c-9d0a-81fd-89e2-cd5ef82858b8" class="bulleted-list">
+												<li style="list-style-type:disc">Отчёт сформированный с помощью скрипта
+												</li>
+											</ul>
+											<ul id="131aa64c-9d0a-81c2-b66f-fa76d98c12a4" class="bulleted-list">
+												<li style="list-style-type:disc">Сделать скрин конфигурационного файла
+													<code><strong>/etc/sudoers</strong></code></li>
+											</ul>
+										</li>
+									</ul>
+									<ul id="131aa64c-9d0a-8165-9728-ee4c49a773af" class="bulleted-list">
+										<li style="list-style-type:square">6.2.3<ul
+												id="131aa64c-9d0a-8138-b772-d85af9403c21" class="bulleted-list">
+												<li style="list-style-type:disc">Отчёт сформированный с помощью скрипта
+												</li>
+											</ul>
+											<ul id="131aa64c-9d0a-8180-b128-c89b1f004074" class="bulleted-list">
+												<li style="list-style-type:disc">Сделать скрин конфигурационного файла
+													<code><strong>/etc/sudoers</strong></code></li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<ul id="131aa64c-9d0a-81aa-a562-c268b2c2c0b7" class="bulleted-list">
+								<li style="list-style-type:circle">6.3<ul id="131aa64c-9d0a-8123-b8c0-c9c819de4c7d"
+										class="bulleted-list">
+										<li style="list-style-type:square">Отчёт сформированный с помощью скрипта</li>
+									</ul>
+								</li>
+							</ul>
+							<ul id="131aa64c-9d0a-8107-a93a-c6a34da8d589" class="bulleted-list">
+								<li style="list-style-type:circle">6.4<ul id="131aa64c-9d0a-8189-b0e1-ee1deca76a86"
+										class="bulleted-list">
+										<li style="list-style-type:square">Отчёт сформированный с помощью скрипта</li>
+									</ul>
+									<ul id="131aa64c-9d0a-8174-808a-d58195fc7872" class="bulleted-list">
+										<li style="list-style-type:square">Скрин журнала событий</li>
+									</ul>
+									<ul id="131aa64c-9d0a-8155-b307-d81c031f1bf0" class="bulleted-list">
+										<li style="list-style-type:square">Скрин “добавить в приветственное окно
+											подключение своё ФИО”</li>
+									</ul>
+									<ul id="131aa64c-9d0a-81b5-8432-e1d0f788e3ab" class="bulleted-list">
+										<li style="list-style-type:square">Скрин выполнить подключение к
+											<code>SSH</code> по имени хоста;</li>
+									</ul>
+									<ul id="131aa64c-9d0a-81d5-948a-d7e7fd1a85e9" class="bulleted-list">
+										<li style="list-style-type:square">Скрин выполнить Подключение к
+											<code>SSH</code> из Windows;</li>
+									</ul>
+									<ul id="131aa64c-9d0a-81b0-b135-c9501f3f4838" class="bulleted-list">
+										<li style="list-style-type:square">Скрин выполнить подключение по
+											<code>SSH</code> с мобильного телефона.</li>
+									</ul>
+								</li>
+							</ul>
+							<ul id="131aa64c-9d0a-81f5-aa6a-ebcd002ac390" class="bulleted-list">
+								<li style="list-style-type:circle">6.5<ul id="131aa64c-9d0a-8138-a44c-eddd42f8842b"
+										class="bulleted-list">
+										<li style="list-style-type:square">Отчёт сформированный с помощью скрипта</li>
+									</ul>
+									<ul id="131aa64c-9d0a-81fd-a426-caf642afb106" class="bulleted-list">
+										<li style="list-style-type:square">Скрин подключения через Putty</li>
+									</ul>
+								</li>
+							</ul>
+							<ul id="131aa64c-9d0a-81b6-89dd-e8d5d52c7719" class="bulleted-list">
+								<li style="list-style-type:circle">6.6<ul id="131aa64c-9d0a-815a-9d7a-cc087118b56c"
+										class="bulleted-list">
+										<li style="list-style-type:square">Отчёт сформированный с помощью скрипта</li>
+									</ul>
+									<ul id="131aa64c-9d0a-81a7-863b-c9730d771be9" class="bulleted-list">
+										<li style="list-style-type:square">Скрин первой машинки конфигурационного файла
+											<code><strong>/etc/network/interfaces</strong></code><strong> </strong></li>
+									</ul>
+									<ul id="131aa64c-9d0a-8159-b7fa-ecdd8e92566c" class="bulleted-list">
+										<li style="list-style-type:square">Скрин второй машинки конфигурационного файла
+											<code><strong>/etc/network/interfaces</strong></code></li>
+									</ul>
+								</li>
+							</ul>
+							<ul id="131aa64c-9d0a-813e-acea-c9579b021540" class="bulleted-list">
+								<li style="list-style-type:circle">6.7<ul id="131aa64c-9d0a-817a-9c0f-fd1f638a9e5b"
+										class="bulleted-list">
+										<li style="list-style-type:square">Отчёт сформированный с помощью скрипта</li>
+									</ul>
+									<ul id="131aa64c-9d0a-818e-9eae-d956e43a619e" class="bulleted-list">
+										<li style="list-style-type:square">Продемонстрировать все команды в работе,
+											внести в отчёт с скринами и описанием, что произошло при примении конкретной
+											команды </li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</details>
 		</div>
 	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
 </body>

@@ -1,0 +1,1498 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>1.4.7 Bond</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+
+		.checkbox-on {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+
+		.checkbox-off {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-8123-8637-ca8532189b0c" class="page sans">
+		<header>
+			<div class="page-header-icon undefined"><img class="icon"
+					src="https://www.notion.so/icons/merge_gray.svg" /></div>
+			<h1 class="page-title">1.4.7 Bond</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<p id="131aa64c-9d0a-81e6-a772-cc87a620e2e8" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-8156-ae63-e221170ae79b" class=""><strong>Задача:</strong></h2>
+			<ol type="1" id="131aa64c-9d0a-8178-b864-ef06ce46104d" class="numbered-list" start="1">
+				<li>Научиться добавлять интерфейс в VMware</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ab-bfa1-fc887e4f5c48" class="numbered-list" start="2">
+				<li>Научиться работать с двумя сетевыми интерфейсами в Netplan</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8154-a305-cd1af2c38849" class="numbered-list" start="3">
+				<li>Научиться работать, конфигурировать, проверять работоспособность Bond</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8185-a3b5-c70c874f392d" class="numbered-list" start="4">
+				<li>Ознакомиться с теорией</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81f1-9362-ef963c86af43" class="numbered-list" start="5">
+				<li>Выполнить практическую часть</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8111-b011-e59309ad1e72" class="numbered-list" start="6">
+				<li>Настроить Bond двумя способами</li>
+			</ol>
+			<p id="131aa64c-9d0a-81ec-8054-f67dd9f62258" class=""> </p>
+			<h2 id="131aa64c-9d0a-81c4-8a2c-cc3ecb8981e8" class=""><strong>Цель:</strong></h2>
+			<ol type="1" id="131aa64c-9d0a-812a-8df5-fa316393eb6d" class="numbered-list" start="1">
+				<li>Понять процесс работы Bond</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8185-a3da-f28ba59d4878" class="numbered-list" start="2">
+				<li>Изучить работу</li>
+			</ol>
+			<p id="131aa64c-9d0a-8129-8150-d5547f467aa5" class="">
+			</p>
+			<h1 id="131aa64c-9d0a-814a-9b9d-dfe138ba72b3" class=""><strong>Бондинг (Bonding) в Linux</strong></h1>
+			<h2 id="131aa64c-9d0a-81d7-af30-ca6134d4bf34" class=""><strong>1. Введение в бондинг:</strong></h2>
+			<ul id="131aa64c-9d0a-8145-a055-d3419ff60e01" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Определение:</strong> Бондинг, также известный как объединение
+					сетевых интерфейсов или агрегирование каналов, - это технология, позволяющая объединять несколько
+					сетевых интерфейсов в одну виртуальную сетевую карту для увеличения пропускной способности и/или
+					обеспечения отказоустойчивости.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8192-aade-dd6b54fc0743" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Цели:</strong> Основной целью бондинга является увеличение
+					пропускной способности сети и обеспечение отказоустойчивости. Это особенно полезно в серверных
+					средах.</li>
+			</ul>
+			<p id="131aa64c-9d0a-8126-8768-f9e8cccc6f42" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-8195-9b09-e502e81f9b8e" class="">2. Cвязь</h2>
+			<p id="131aa64c-9d0a-815c-b4cd-c3a2cd83823a" class="">Драйвер связывания Linux предоставляет метод
+				объединения нескольких сетевых интерфейсов в один логически связанный интерфейс. Поведение связанных
+				интерфейсов зависит от режима; вообще говоря, режимы предоставляют либо услуги горячего резерва, либо
+				услуги балансировки нагрузки. Кроме того, может выполняться мониторинг целостности канала.</p>
+			<p id="131aa64c-9d0a-8147-a649-e665c213b386" class="">Драйвер связывания изначально был взят из патчей<mark
+					class="highlight-red"><strong> </strong></mark><mark class="highlight-red"><strong><a
+							href="http://en.wikipedia.com/wiki/Beowolf_cluster">Beowulf </a></strong></mark><mark
+					class="highlight-red"><strong><a href="http://en.wikipedia.com/wiki/Donald_Becker">Дональда
+							Беккера</a></strong></mark> для ядра 2.0. С тех пор он немного изменился, и оригинальные
+				инструменты с сайтов Extreme-Linux и Beowulf не будут работать с этой версией драйвера.</p>
+			<p id="131aa64c-9d0a-8163-846c-f925da3a6c4a" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-81ca-82bb-f20ae8bd112e" class="">3. <strong>Параметры драйвера связывания</strong>
+			</h2>
+			<p id="131aa64c-9d0a-814a-b0de-c3a2897baf72" class="">Параметры драйвера связывания передаются в качестве
+				параметров модулю связывания во время загрузки. Они могут быть переданы в качестве аргументов командной
+				строки команде <mark class="highlight-red"><strong>insmod</strong></mark> или <mark
+					class="highlight-red"><strong>modprobe</strong></mark>, но обычно указываются либо в файле
+				конфигурации <mark class="highlight-red"><strong>/etc/modules.conf</strong></mark> или <mark
+					class="highlight-red"><strong>/etc/modprobe.conf</strong></mark>, либо в файле конфигурации,
+				специфичном для дистрибутива (некоторые из которых подробно описаны в следующем разделе).</p>
+			<p id="131aa64c-9d0a-81c5-b17c-ee384a4bcafe" class="">Доступные параметры драйвера связывания перечислены
+				ниже. Если параметр не указан, используется значение по умолчанию. При первоначальной настройке
+				связывания рекомендуется запускать «<mark class="highlight-red"><strong>tail -f
+						/var/log/messages</strong></mark>» в отдельном окне, чтобы отслеживать сообщения об ошибках
+				драйвера связывания.</p>
+			<p id="131aa64c-9d0a-810c-8bee-d170bba208ca" class="">Крайне важно указать параметры <em><mark
+						class="highlight-red"><strong>miimon</strong></mark></em> или <em><mark
+						class="highlight-red"><strong>arp_interval</strong></mark></em> и <em><mark
+						class="highlight-red"><strong>arp_ip_target</strong></mark></em> , в противном случае во время
+				сбоев канала произойдет серьезная деградация сети. Очень немногие устройства не поддерживают хотя бы
+				<mark class="highlight-red"><strong>miimon</strong></mark>, поэтому нет причин не использовать его.</p>
+			<p id="131aa64c-9d0a-81eb-931d-c13cac8110b3" class="">Параметры с текстовыми значениями принимают либо
+				текстовое имя, либо, для обратной совместимости, значение параметра. Например, «<mark
+					class="highlight-red"><strong>mode=802.3ad</strong></mark>» и «<mark
+					class="highlight-red"><strong>mode=4</strong></mark>» устанавливают один и тот же режим.</p>
+			<p id="131aa64c-9d0a-8147-8649-c96847e41e85" class="">
+			</p>
+			<details open="">
+				<summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0"><strong>Параметры
+						следующие:</strong></summary>
+				<div class="indented">
+					<p id="131aa64c-9d0a-8152-a9e8-f593afaa4d6c" class="">
+					</p>
+					<ul id="131aa64c-9d0a-8163-92e1-f2403b42119d" class="bulleted-list">
+						<li style="list-style-type:disc"><strong>arp_interval </strong>Определяет частоту мониторинга
+							канала <mark class="highlight-red"><strong>ARP</strong></mark> в миллисекундах. Если
+							мониторинг ARP используется в режиме, совместимом с Ethernet-каналом (режимы 0 и 2),
+							коммутатор следует настроить в режиме, который равномерно распределяет пакеты по всем
+							каналам. Если коммутатор настроен на распределение пакетов по принципу XOR, все ответы от
+							целей <mark class="highlight-red"><strong>ARP</strong></mark> будут получены по одному и
+							тому же каналу, что может привести к сбою других членов команды. Мониторинг <mark
+								class="highlight-red"><strong>ARP</strong></mark> не следует использовать совместно с
+							miimon. Значение 0 отключает мониторинг <mark
+								class="highlight-red"><strong>ARP</strong></mark>. Значение по умолчанию — 0.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-812c-a9d6-f27e71677a1a" class="bulleted-list">
+						<li style="list-style-type:disc"><strong>arp_ip_target </strong>Указывает<mark
+								class="highlight-red"><strong> IP-адреса</strong></mark>, которые будут использоваться в
+							качестве узлов мониторинга ARP, когда <mark class="highlight-red"><strong>arp_interval &gt;
+									0</strong></mark>. Это цели запроса ARP, отправляемого для определения
+							работоспособности канала к целям. Укажите эти значения в формате <em><mark
+									class="highlight-red"><strong>ддд.ддд.ддд.ддд</strong></mark></em> . Несколько <mark
+								class="highlight-red"><strong>IP-адресов</strong></mark> должны быть разделены
+							запятой. Для работы мониторинга ARP должен быть указан хотя бы один IP-адрес. Максимальное
+							количество целей, которые можно указать, — 16. Значение по умолчанию — отсутствие
+							IP-адресов.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81a6-9a76-cc5ebf3dc0b3" class="bulleted-list">
+						<li style="list-style-type:disc"><strong>downdelay </strong>Определяет время ожидания в
+							миллисекундах перед отключением ведомого устройства после обнаружения сбоя канала. Эта опция
+							действительна только для монитора ссылок <mark
+								class="highlight-red"><strong>miimon</strong></mark>. Значение задержки должно быть
+							кратно значению <mark class="highlight-red"><strong>miimon</strong></mark>; в противном
+							случае оно будет округлено до ближайшего кратного. Значение по умолчанию — 0.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81a2-9b2a-fdf7a76dc599" class="bulleted-list">
+						<li style="list-style-type:disc"><strong>lacp_rate </strong>Опция, определяющая скорость, с
+							которой мы просим нашего партнера по каналу передавать пакеты <mark
+								class="highlight-red"><strong>LACPDU</strong></mark> в режиме <mark
+								class="highlight-red"><strong>802.3ad</strong></mark>. <ul
+								id="131aa64c-9d0a-8158-b6a9-fb5842606a11" class="bulleted-list">
+								<li style="list-style-type:circle"><strong>Возможные значения:</strong>
+									<ul id="131aa64c-9d0a-81d3-8546-d9db0410ccaa" class="bulleted-list">
+										<li style="list-style-type:square"><strong>медленный или 0 </strong>Запросить
+											партнера передавать <mark
+												class="highlight-red"><strong>LACPDU</strong></mark> каждые 30 секунд.
+										</li>
+									</ul>
+									<ul id="131aa64c-9d0a-81a9-b0b3-d0cc4bd2e348" class="bulleted-list">
+										<li style="list-style-type:square"><strong>быстро или 1 </strong>Запрос партнера
+											на передачу <mark class="highlight-red"><strong>LACPDU</strong></mark>
+											каждую секунду. По умолчанию установлено медленное значение.</li>
+									</ul>
+									<ul id="131aa64c-9d0a-81ec-9999-e2c2719ae3c2" class="bulleted-list">
+										<li style="list-style-type:square"><strong>max_bonds </strong>Указывает
+											количество устройств связывания, создаваемых для этого экземпляра драйвера
+											связывания. Например, если <mark
+												class="highlight-red"><strong>max_bonds</strong></mark> равен 3 и
+											драйвер связывания еще не загружен, то будут созданы <mark
+												class="highlight-red"><strong>Bond0, Bond1 и
+													Bond2</strong></mark>. Значение по умолчанию — 1.</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8189-a573-d7f33ceed7b3" class="bulleted-list">
+						<li style="list-style-type:disc"><strong>miimon </strong>Указывает частоту мониторинга канала
+							<mark class="highlight-red"><strong>MII</strong></mark> в миллисекундах. Это определяет, как
+							часто состояние канала каждого подчиненного устройства проверяется на наличие сбоев
+							канала. Значение 0 отключает мониторинг канала <mark
+								class="highlight-red"><strong>MII</strong></mark>. Значение 100 является хорошей
+							отправной точкой. Опция <mark class="highlight-red"><strong>use_carrier</strong></mark>,
+							приведенная ниже, влияет на определение состояния канала. Дополнительную информацию см. в
+							разделе «Высокая доступность». Значение по умолчанию — 0.</li>
+					</ul>
+					<p id="131aa64c-9d0a-8147-8fd1-f66bf47958ef" class="">
+					</p>
+					<ul id="131aa64c-9d0a-813c-81b8-db47abe17643" class="bulleted-list">
+						<li style="list-style-type:disc"><strong>mode </strong>Указывает одну из политик связывания. По
+							умолчанию используется баланс-<mark class="highlight-red"><strong>RR (циклический
+									перебор)</strong></mark>. Возможные значения:<ul
+								id="131aa64c-9d0a-81eb-8fb8-e750c3f8b5a5" class="bulleted-list">
+								<li style="list-style-type:circle"><strong>Balance-RR или 0 </strong>Политика
+									циклического перебора: передача пакетов в последовательном порядке от первого
+									доступного подчиненного устройства до последнего. Этот режим обеспечивает
+									балансировку нагрузки и отказоустойчивость.</li>
+							</ul>
+							<ul id="131aa64c-9d0a-8119-b058-f3bb1433909d" class="bulleted-list">
+								<li style="list-style-type:circle"><strong>Политика активного резервного копирования или
+										1 </strong>активного резервного копирования: активен только один подчиненный
+									узел в соединении. Другой ведомый становится активным тогда и только тогда, когда
+									активный ведомый выходит из строя. <mark
+										class="highlight-red"><strong>MAC-адрес</strong></mark> соединения внешне виден
+									только на одном порту (сетевом адаптере), чтобы не сбить с толку коммутатор.В версии
+									связывания 2.6.2 или более поздней версии, когда в режиме активного резервного
+									копирования происходит аварийное переключение, соединение выдает один или несколько
+									бесплатных <mark class="highlight-red"><strong>ARP</strong></mark> на новом активном
+									подчиненном устройстве. Один бесплатный <mark
+										class="highlight-red"><strong>ARP</strong></mark> выдается для главного
+									интерфейса соединения и каждого интерфейса <mark
+										class="highlight-red"><strong>VLAN</strong></mark>, настроенного над ним, при
+									условии, что для интерфейса настроен хотя бы один <mark
+										class="highlight-red"><strong>IP-адрес</strong></mark>. Бесплатные <mark
+										class="highlight-red"><strong>ARP</strong></mark>, выданные для интерфейсов
+									<mark class="highlight-red"><strong>VLAN</strong></mark>, помечаются соответствующим
+									идентификатором <mark class="highlight-red"><strong>VLAN</strong></mark>. Этот режим
+									обеспечивает отказоустойчивость. Основной параметр, описанный ниже, влияет на
+									поведение этого режима.</li>
+							</ul>
+							<ul id="131aa64c-9d0a-8117-a201-ffd0b7ca27a2" class="bulleted-list">
+								<li style="list-style-type:circle"><strong>Политика баланс-xor или
+										2 xmit_hash_policy</strong>
+									<p id="131aa64c-9d0a-81a7-bd11-d486767dde70" class=""><mark
+											class="highlight-red"><strong>XOR:</strong></mark> передача на основе
+										выбранной политики хэширования передачи. Политика по умолчанию — простая.</p>
+									<p id="131aa64c-9d0a-81c8-a708-d62ae01b287c" class="">Альтернативные политики
+										передачи можно выбрать с помощью опции.</p>
+									<p id="131aa64c-9d0a-8102-bf4a-d16f1f617854" class="">Этот режим обеспечивает
+										балансировку нагрузки и отказоустойчивость.</p>
+								</li>
+							</ul>
+							<ul id="131aa64c-9d0a-81bb-9217-f62ad3315cf4" class="bulleted-list">
+								<li style="list-style-type:circle"><strong>широковещательная передача или 3</strong>
+									<p id="131aa64c-9d0a-818e-a21f-d0d2a7ef377c" class="">Политика широковещательной
+										передачи: передает все на все подчиненные интерфейсы. Этот режим обеспечивает
+										отказоустойчивость.</p>
+								</li>
+							</ul>
+							<ul id="131aa64c-9d0a-81cd-80c4-f651bdbce886" class="bulleted-list">
+								<li style="list-style-type:circle"><strong>802.3ad или 4</strong>
+									<p id="131aa64c-9d0a-8188-a076-deec65c2a5bb" class=""><mark
+											class="highlight-red"><strong>IEEE 802.3ad.</strong></mark> Динамическое
+										агрегирование каналов. Создает группы агрегации с одинаковыми настройками
+										скорости и дуплекса. Использует все подчиненные устройства активного агрегатора
+										в соответствии со спецификацией <mark
+											class="highlight-red"><strong>802.3ad.</strong></mark> Выбор подчиненного
+										устройства для исходящего трафика осуществляется в соответствии с политикой
+										хэширования передачи, которую можно изменить с простой политики XOR по умолчанию
+										с помощью опции <strong>xmit_hash_policy</strong> , описанной ниже. Обратите
+										внимание, что не все политики передачи могут быть совместимыми со стандартом
+										<mark class="highlight-red"><strong>802.3ad</strong></mark>, особенно в
+										отношении требований к неправильному порядку пакетов, указанных в разделе 43.2.4
+										стандарта <mark class="highlight-red"><strong><a
+													href="http://en.wikipedia.com/wiki/802.3">802.3ad</a></strong></mark><mark
+											class="highlight-red"><strong> </strong></mark>. Различные одноранговые
+										реализации будут иметь разные допуски на несоответствие.</p>
+									<ul id="131aa64c-9d0a-8135-adb9-c68375c15401" class="bulleted-list">
+										<li style="list-style-type:square">Предпосылки:<ol type="1"
+												id="131aa64c-9d0a-816e-b3b4-fbbd4c1e6000" class="numbered-list"
+												start="1">
+												<li>Поддержка <mark
+														class="highlight-red"><strong>Ethtool</strong></mark> в базовых
+													драйверах для получения скорости и дуплекса каждого подчиненного
+													устройства.</li>
+											</ol>
+											<ol type="1" id="131aa64c-9d0a-818a-a5a6-ebfa57410f08" class="numbered-list"
+												start="2">
+												<li>Коммутатор, поддерживающий динамическое агрегирование каналов <mark
+														class="highlight-red"><strong>IEEE 802.3ad.</strong></mark></li>
+											</ol>
+										</li>
+									</ul>
+									<ul id="131aa64c-9d0a-8111-88e7-f383eb1005d1" class="bulleted-list">
+										<li style="list-style-type:square">Большинству коммутаторов потребуется
+											определенная конфигурация для включения режима <mark
+												class="highlight-red"><strong>802.3ad.</strong></mark></li>
+									</ul>
+								</li>
+							</ul>
+							<ul id="131aa64c-9d0a-810d-92ea-fbe28c4e70db" class="bulleted-list">
+								<li style="list-style-type:circle"><strong>Balance-tlb или 5</strong>Адаптивная
+									балансировка нагрузки передачи: объединение каналов, не требующее специальной
+									поддержки коммутатора. Исходящий трафик распределяется в соответствии с текущей
+									нагрузкой (рассчитывается относительно скорости) на каждом подчиненном
+									устройстве. Входящий трафик принимается текущим ведомым устройством. Если
+									принимающее подчиненное устройство выходит из строя, другое подчиненное устройство
+									принимает на себя MAC-адрес вышедшего из строя принимающего подчиненного устройства.
+									<ul id="131aa64c-9d0a-8139-a040-e523a7deff7f" class="bulleted-list">
+										<li style="list-style-type:square">Предварительное условие:<ol type="1"
+												id="131aa64c-9d0a-816a-8642-ecfeef0b8e85" class="numbered-list"
+												start="1">
+												<li>Поддержка <mark
+														class="highlight-red"><strong>Ethtool</strong></mark> в базовых
+													драйверах для получения скорости каждого подчиненного устройства.
+												</li>
+											</ol>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<ul id="131aa64c-9d0a-81c3-9843-fde420a5d1ac" class="bulleted-list">
+								<li style="list-style-type:circle"><strong>Balance-alb или 6. </strong>Адаптивная
+									балансировка нагрузки: включает баланс-<mark
+										class="highlight-red"><strong>tlb</strong></mark> плюс балансировку нагрузки
+									приема (<mark class="highlight-red"><strong>rlb</strong></mark>) для трафика <mark
+										class="highlight-red"><strong>IPV4</strong></mark> и не требует какой-либо
+									специальной поддержки коммутатора. Балансировка нагрузки приема достигается путем
+									согласования <mark class="highlight-red"><strong>ARP</strong></mark>.<ul
+										id="131aa64c-9d0a-819d-8e4a-e0d927a92dd6" class="bulleted-list">
+										<li style="list-style-type:square">Драйвер связывания перехватывает ответы <mark
+												class="highlight-red"><strong>ARP</strong></mark>, отправленные
+											локальной системой, на выходе, и перезаписывает исходный аппаратный адрес
+											уникальным аппаратным адресом одного из подчиненных устройств в соединении,
+											так что разные одноранговые узлы используют разные аппаратные адреса для
+											сервера.</li>
+									</ul>
+									<ul id="131aa64c-9d0a-810f-9838-f44783f25dfd" class="bulleted-list">
+										<li style="list-style-type:square">Полученный трафик от соединений, созданных
+											сервером, также сбалансирован. Когда локальная система отправляет запрос
+											<mark class="highlight-red"><strong>ARP</strong></mark>, драйвер связывания
+											копирует и сохраняет информацию об IP-адресе узла из пакета <mark
+												class="highlight-red"><strong>ARP</strong></mark>.</li>
+									</ul>
+									<ul id="131aa64c-9d0a-813c-a00e-d7ac96ef9a28" class="bulleted-list">
+										<li style="list-style-type:square">Когда ответ <mark
+												class="highlight-red"><strong>ARP</strong></mark> поступает от узла, его
+											аппаратный адрес извлекается, и драйвер соединения инициирует ответ <mark
+												class="highlight-red"><strong>ARP</strong></mark> этому узлу, назначая
+											его одному из подчиненных устройств в соединении.</li>
+									</ul>
+									<ul id="131aa64c-9d0a-814b-9549-f86619cd79cd" class="bulleted-list">
+										<li style="list-style-type:square">Проблемным результатом использования
+											согласования <mark class="highlight-red"><strong>ARP</strong></mark> для
+											балансировки является то, что каждый раз, когда передается запрос <mark
+												class="highlight-red"><strong>ARP</strong></mark>, он использует
+											аппаратный адрес соединения. Следовательно, одноранговые узлы узнают
+											аппаратный адрес соединения, и балансировка принимаемого трафика переходит к
+											текущему подчиненному устройству. Это осуществляется путем отправки
+											обновлений (ответов <mark class="highlight-red"><strong>ARP</strong></mark>)
+											всем узлам с их индивидуально назначенным аппаратным адресом, что
+											обеспечивает перераспределение трафика. Полученный трафик также
+											перераспределяется, когда к соединению добавляется новое подчиненное
+											устройство и когда неактивное подчиненное устройство повторно
+											активируется. Приемная нагрузка распределяется последовательно (циклически)
+											между группой наиболее быстродействующих ведомых устройств в соединении.
+										</li>
+									</ul>
+									<ul id="131aa64c-9d0a-81a0-9306-c78ae3915784" class="bulleted-list">
+										<li style="list-style-type:square">Когда канал переподключается или к соединению
+											присоединяется новое подчиненное устройство, получаемый трафик
+											перераспределяется между всеми активными подчиненными устройствами в
+											соединении путем инициирования ответов <mark
+												class="highlight-red"><strong>ARP</strong></mark> с выбранным <mark
+												class="highlight-red"><strong>MAC-адресом</strong></mark> каждому из
+											клиентов. Параметр <mark
+												class="highlight-red"><strong>updelay</strong></mark> (подробно
+											описанный ниже) должен быть установлен на значение, равное или превышающее
+											задержку пересылки коммутатора, чтобы ответы <mark
+												class="highlight-red"><strong>ARP</strong></mark>, отправленные
+											одноранговым узлам, не блокировались коммутатором.</li>
+									</ul>
+									<ul id="131aa64c-9d0a-816a-83e9-d0b0b9ee257b" class="bulleted-list">
+										<li style="list-style-type:square">Предпосылки:<ol type="1"
+												id="131aa64c-9d0a-81b0-a5cb-d7a25f9446a6" class="numbered-list"
+												start="1">
+												<li>Поддержка <mark
+														class="highlight-red"><strong>Ethtool</strong></mark> в базовых
+													драйверах для получения скорости каждого подчиненного устройства.
+												</li>
+											</ol>
+											<ol type="1" id="131aa64c-9d0a-81d9-8726-f272e8940200" class="numbered-list"
+												start="2">
+												<li>Поддержка базового драйвера для установки аппаратного адреса
+													устройства, когда оно открыто. Это необходимо для того, чтобы в
+													команде всегда было одно подчиненное устройство, использующее
+													аппаратный адрес связи (<mark
+														class="highlight-red"><strong>curr_active_slave</strong></mark>),
+													при этом у каждого подчиненного устройства в соединении был
+													уникальный аппаратный адрес. Если <mark
+														class="highlight-red"><strong>curr_active_slave</strong></mark>
+													выходит из строя, его аппаратный адрес заменяется новым выбранным
+													<mark
+														class="highlight-red"><strong>curr_active_slave</strong></mark>.
+												</li>
+											</ol>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<ul id="131aa64c-9d0a-815d-a2d6-c94da100440b" class="bulleted-list">
+						<li style="list-style-type:disc"><strong>первичное </strong>Строка (<mark
+								class="highlight-red"><strong>eth0, eth2 и т. д.</strong></mark>), определяющая, какое
+							подчиненное устройство является основным. Указанное устройство всегда будет активным
+							ведомым, пока оно доступно. Альтернативные устройства будут использоваться только тогда,
+							когда основное устройство находится в автономном режиме. Это полезно, когда одно ведомое
+							устройство предпочтительнее другого, например, когда одно ведомое устройство имеет более
+							высокую пропускную способность, чем другое. Основной вариант действителен только для режима
+							активного резервного копирования.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8108-94f6-edd3729db2b9" class="bulleted-list">
+						<li style="list-style-type:disc"><strong>updelay </strong>Определяет время ожидания в
+							миллисекундах перед включением ведомого устройства после обнаружения восстановления
+							канала. Эта опция действительна только для монитора ссылок <mark
+								class="highlight-red"><strong>miimon</strong></mark>. Значение задержки обновления
+							должно быть кратно значению miimon; в противном случае оно будет округлено до ближайшего
+							кратного. <mark class="highlight-red"><strong>Значение по умолчанию — 0</strong></mark>.
+						</li>
+					</ul>
+					<ul id="131aa64c-9d0a-813a-a8cb-d1df5b32b6cc" class="bulleted-list">
+						<li style="list-style-type:disc"><strong>use_carrier </strong>Указывает, должен ли <mark
+								class="highlight-red"><strong>miimon</strong></mark> использовать <mark
+								class="highlight-red"><strong>MII или ETHTOOL ioctls </strong></mark>вместо <mark
+								class="highlight-red"><strong>netif_carrier_ok()</strong></mark> для определения статуса
+							канала.<mark class="highlight-red"><strong> ioctl MII или ETHTOOL</strong></mark> менее
+							эффективны и используют устаревшую последовательность вызовов внутри ядра. Функция <mark
+								class="highlight-red"><strong>netif_carrier_ok()</strong></mark> полагается на драйвер
+							устройства для поддержания своего состояния с помощью netif_carrier_on/off; на момент
+							написания этой статьи большинство, но не все драйверы устройств поддерживают эту
+							возможность.<ul id="131aa64c-9d0a-8170-aec0-f21fc4f0fb8f" class="bulleted-list">
+								<li style="list-style-type:circle">Если соединение настаивает на том, что соединение
+									установлено, хотя это не должно быть так, возможно, драйвер вашего сетевого
+									устройства не поддерживает <mark
+										class="highlight-red"><strong>netif_carrier_on/off.</strong></mark> Состоянием
+									по умолчанию для <mark class="highlight-red"><strong>netif_carrier</strong></mark>
+									является «несущая включена», поэтому, если драйвер не поддерживает <mark
+										class="highlight-red"><strong>netif_carrier</strong></mark>, будет выглядеть
+									так, как будто связь всегда активна. В этом случае установка use_carrier в значение
+									0 приведет к возврату связывания к методу <mark class="highlight-red"><strong>ioctl
+											MII/ETHTOOL</strong></mark> для определения состояния канала.</li>
+							</ul>
+							<ul id="131aa64c-9d0a-819d-ba85-cc79aafc1505" class="bulleted-list">
+								<li style="list-style-type:circle">Значение 1 разрешает использование <mark
+										class="highlight-red"><strong>netif_carrier_ok(),</strong></mark> значение <mark
+										class="highlight-red"><strong>0</strong></mark> будет использовать устаревшие
+									<mark class="highlight-red"><strong>ioctls MII/ETHTOOL</strong></mark>. <mark
+										class="highlight-red"><strong>Значение по умолчанию — 1.</strong></mark></li>
+							</ul>
+						</li>
+					</ul>
+					<ul id="131aa64c-9d0a-819e-97b3-edb024545f8e" class="bulleted-list">
+						<li style="list-style-type:disc"><strong>xmit_hash_policy </strong>Выбирает политику хеширования
+							передачи, которая будет использоваться для выбора подчиненного устройства в режимах
+							баланс-xor и 802.3ad. Возможные значения:<ul id="131aa64c-9d0a-81f1-9728-f6e7d30580af"
+								class="bulleted-list">
+								<li style="list-style-type:circle"><strong>Layer2</strong>
+									<p id="131aa64c-9d0a-8167-99cf-f724af1eaa28" class="">Использует <mark
+											class="highlight-red"><strong>XOR</strong></mark> аппаратных <mark
+											class="highlight-red"><strong>MAC-адресов</strong></mark> для генерации
+										хеша. Формула такова:</p>
+									<p id="131aa64c-9d0a-8101-b073-d5108085240d" class="">этот алгоритм будет размещать
+										весь трафик к определенному узлу сети на одном и том же подчиненном устройстве.
+									</p>
+									<p id="131aa64c-9d0a-818f-9b8c-c07d290bcc96" class="">Этот алгоритм соответствует
+										стандарту <mark class="highlight-red"><strong>802.3ad</strong></mark>.</p>
+								</li>
+							</ul>
+							<ul id="131aa64c-9d0a-8101-b62d-f121ab494d18" class="bulleted-list">
+								<li style="list-style-type:circle"><strong>Layer3+4</strong>
+									<p id="131aa64c-9d0a-811b-8bf9-e31a5b130a6b" class="">Эта политика использует
+										информацию протокола верхнего уровня, если она доступна, для генерации хеша. Это
+										позволяет трафику к определенному сетевому узлу охватывать несколько подчиненных
+										устройств, хотя одно соединение не может охватывать несколько подчиненных
+										устройств.</p>
+									<p id="131aa64c-9d0a-818d-864c-c3509ba2a045" class="">Формула для
+										нефрагментированных пакетов <mark class="highlight-red"><strong>TCP и
+												UDP</strong></mark>:</p>
+									<p id="131aa64c-9d0a-8198-a151-cc5be9f5359a" class="">Для фрагментированных пакетов
+										<mark class="highlight-red"><strong>TCP или UDP</strong></mark> и всего другого
+										трафика протокола <mark class="highlight-red"><strong>IP</strong></mark>
+										информация о порте источника и назначения опускается. Для трафика, отличного от
+										IP, формула такая же, как и для политики хэширования передачи уровня 2.</p>
+									<p id="131aa64c-9d0a-81ea-893a-dae49a64b348" class="">Эта политика предназначена для
+										имитации поведения некоторых коммутаторов, в частности коммутаторов <mark
+											class="highlight-red"><strong>Cisco с PFC2</strong></mark>, а также
+										некоторых продуктов <mark class="highlight-red"><strong>Foundry и
+												IBM</strong></mark>.</p>
+									<p id="131aa64c-9d0a-8110-b6af-cc9b513b2d5b" class="">Этот алгоритм не полностью
+										совместим со стандартом <mark
+											class="highlight-red"><strong>802.3ad</strong></mark>. Один диалог <mark
+											class="highlight-red"><strong>TCP или UDP</strong></mark>, содержащий как
+										фрагментированные, так и нефрагментированные пакеты, будет видеть пакеты,
+										чередующиеся по двум интерфейсам. Это может привести к нарушению порядка
+										доставки. Большинство типов трафика не соответствуют этому критерию, поскольку
+										<mark class="highlight-red"><strong>TCP</strong></mark> редко фрагментирует
+										трафик, а большая часть трафика <mark
+											class="highlight-red"><strong>UDP</strong></mark> не участвует в расширенных
+										диалогах. Другие реализации <mark
+											class="highlight-red"><strong>802.3ad</strong></mark> могут допускать или не
+										допускать этого несоответствия.</p>
+									<p id="131aa64c-9d0a-8115-95cf-ca2a88d27b94" class="">Значение по умолчанию — <mark
+											class="highlight-red"><strong>Layer2</strong></mark>. Эта опция была
+										добавлена в версии 2.6.3 связывания. В более ранних версиях связывания этот
+										параметр не существует, и единственной политикой является политика <mark
+											class="highlight-red"><strong>Layer2</strong></mark>.</p>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</details>
+			<p id="131aa64c-9d0a-813c-9e20-c9cc43c13373" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-81fa-a220-ea5649129bd1" class="">4. Для начала добавим второй сетевой интерфейс к
+				существующему:</h2>
+			<p id="131aa64c-9d0a-81db-9042-e8c6095f4248" class="">
+			</p>
+			<figure id="131aa64c-9d0a-81de-a865-e0cf4c5e8a18" class="image"><a
+					href="1 4 7 Bond/Untitled.png"><img style="width:747px"
+						src="1 4 7 Bond/Untitled.png" /></a></figure>
+			<p id="131aa64c-9d0a-81de-be0d-f3b7941805ec" class=""><strong>Так должна выглядеть после добавления
+					интерфейса ваша машинка:</strong></p>
+			<figure id="131aa64c-9d0a-819f-8caf-d6b7abd1a932" class="image"><a
+					href="1 4 7 Bond/Untitled%201.png"><img style="width:746px"
+						src="1 4 7 Bond/Untitled%201.png" /></a></figure>
+			<p id="131aa64c-9d0a-8129-a40c-fd6385208bd5" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-812e-af7f-e74c1e6a64c8" class="">5. Конфигурационные файлы, отвечающие за
+				конфигурирование Bond:</h2>
+			<ol type="1" id="131aa64c-9d0a-8156-b062-c0bd58490134" class="numbered-list" start="1">
+				<li><code>/etc/netplan/_____.yaml</code></li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81a3-a4a5-ec336450545a" class="numbered-list" start="2">
+				<li><code>cat /proc/net/bonding/bond0</code></li>
+			</ol>
+			<p id="131aa64c-9d0a-81ec-b3ba-f98132e5b920" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-810f-bca9-e62e11c9a766" class="">6. Утилиты для проверки работоспособности Bond:</h2>
+			<ol type="1" id="131aa64c-9d0a-815f-8f3e-f3831ae7d859" class="numbered-list" start="1">
+				<li><code>Ip a</code></li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81dd-b4b6-d8f633a13e29" class="numbered-list" start="2">
+				<li><code>Ethtool</code></li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8150-bf06-e7fa915224cb" class="numbered-list" start="3">
+				<li><code>Bmon</code></li>
+			</ol>
+			<p id="131aa64c-9d0a-81df-bf14-d531302c66e3" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-81de-92ad-e163f1520723" class="">7. <strong>Конфигурирование файлов для корректной
+					работы Bond:</strong></h2>
+			<p id="131aa64c-9d0a-81fa-870f-f4d2f3923948" class="">
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81f7-aaf6-fc56c8635342" class="code"><code class="language-JavaScript">network:
+	bonds:
+		bond0:
+			dhcp4: true
+			interfaces: [ens38, ens33]
+			parameters:
+				mode: balance-rr
+				transmit-hash-policy: layer3+4
+				mii-monitor-interval: 1
+	ethernets:
+		ens38:
+				dhcp4: false
+				dhvp6: false
+		ens33:
+				dhcp4: false
+				dhcp6: false
+	version: 2</code></pre>
+			<p id="131aa64c-9d0a-81b0-9ea4-ea64535d499e" class="">
+			</p>
+			<ul id="131aa64c-9d0a-8192-924f-fd38c9498586" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>max_bonds</strong></code> — Указывает сколько bonding
+					устройств следует создавать драйверу. Например, если «<strong>max_bonds = 3</strong>«, то в системе
+					будут созданы bond0, bond1, bond2 интерфейсы. Значение по умолчанию <strong>1</strong>. Если
+					значение <strong>0</strong>, то загрузится только драйвер, но устройство создано не будет.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-815b-a5f5-fc7676a968f9" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>dhcp4: true</strong></code> — Указывает, что сейчас
+					работает dhcp и ip-адреса получают автоматически.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81d5-8d3a-f8d990625921" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>interfaces: [ens38, ens33]</strong></code> — Указывает
+					какие интерфейсы будут в составе интерфейса Bond.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-811c-85e4-d5595d94e160" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>parameters:</strong></code> — Какие параметры будут
+					использоваться.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8197-85e0-fe7ffa79da21" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>mode: balance-rr</strong></code> —
+					<code><strong>mode</strong></code><strong> </strong>— определяет политику поведения объединенных
+					интерфейсов.<code> </code><code><strong>balance-rr или 0</strong></code> — Политика
+					<code><strong>round-robin</strong></code>. Пакеты отправляются последовательно, начиная с первого
+					доступного интерфейса и заканчивая последним. Эта политика применяется для балансировки нагрузки и
+					отказоустойчивости.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-817e-96c6-e97e4731b102" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>hash_policy</strong></code> — Определяет хэш политику
+					передачи пакетов через объединенные интерфейсы в
+					режиме <code><strong>balance-xor</strong></code><code> или </code><code><strong>802.3ad</strong></code>.
+					<p id="131aa64c-9d0a-812c-b7df-e7d32d2fa9b8" class=""><code><strong>layer3+4</strong></code><strong>
+						</strong>—<strong> </strong>Используется IP адреса и протоколы транспортного уровня
+						(<code><strong>TCP или UDP</strong></code>) для генерации хэша. Алгоритм не всегда совместим с
+						 <code><strong>802.3ad</strong></code>, так как в пределах одного и того же 
+						<code><strong>TCP или UDP</strong></code> взаимодействия может передаваться как
+						фрагментированные так и не фрагментированнные пакеты. В фрагментированных пакетах порт источника
+						и порт назначения отсутствуют. В результате в рамках одной сессии пакеты могут дойти до
+						получателя не в том порядке (так как отправляются через разные интерфейсы). Некоторое
+						оборудование, совместимое с <code><strong>802.3ad</strong></code><code> </code>может некорректно
+						отработать такую ситуацию.</p>
+					<p id="131aa64c-9d0a-819f-b719-cb7fc71711de" class=""><strong>Формула расчета хэша:</strong></p>
+					<p id="131aa64c-9d0a-81ab-a78f-c40de76b7ae7" class="">
+						<code><strong>((source port XOR dest port) XOR ((source IP XOR dest IP) AND 0xffff) modulo slave count</strong></code>
+					</p>
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-818b-bc6a-e5d2b8412c08" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>Ethernets</strong></code> — какие сетевые интерфейсы
+					присутствуют</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8100-8ef2-efb62922ec78" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>dhcp4: false</strong></code> - автоматическое получение
+					ip-адресов по<code> </code><code><strong>ipv4</strong></code><strong> </strong>выключено </li>
+			</ul>
+			<ul id="131aa64c-9d0a-815f-ad97-c43f376c5c71" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>dhcp6: false</strong></code> - автоматическое получение
+					ip-адресов по <code><strong>ipv6</strong></code> выключено </li>
+			</ul>
+			<ul id="131aa64c-9d0a-81aa-a803-ea877206a0d5" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>version</strong></code><em> — </em>версия YAML</li>
+			</ul>
+			<p id="131aa64c-9d0a-8198-b68d-d1dc15d4d768" class="">
+			</p>
+			<figure id="131aa64c-9d0a-81f9-bb60-c0a81dda0ade" class="image"><a
+					href="1 4 7 Bond/Untitled%202.png"><img style="width:800px"
+						src="1 4 7 Bond/Untitled%202.png" /></a></figure>
+			<p id="131aa64c-9d0a-8116-a90f-fe7662d6f684" class="">
+			</p>
+			<p id="131aa64c-9d0a-81f6-93c6-feed7160c113" class=""><strong>После таких манипуляций должен быть следующий
+					вид при выводе информации:</strong></p>
+			<figure id="131aa64c-9d0a-81c4-9774-da397ffbaead" class="image"><a
+					href="1 4 7 Bond/Untitled%203.png"><img style="width:801px"
+						src="1 4 7 Bond/Untitled%203.png" /></a></figure>
+			<p id="131aa64c-9d0a-8137-9169-c689fe4ba336" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-818d-b593-ec1d734d871b" class="">8. В конфигурационном файле /proc/net/bonding/bond0
+				вывод должен быть следующий:</h2>
+			<figure id="131aa64c-9d0a-8152-b284-ff214afd79f1" class="image"><a
+					href="1 4 7 Bond/Untitled%204.png"><img style="width:799px"
+						src="1 4 7 Bond/Untitled%204.png" /></a></figure>
+			<p id="131aa64c-9d0a-81e9-b092-cabe9043a343" class=""><strong>Что будет означать, что оба интерфейса
+					доступны.</strong></p>
+			<p id="131aa64c-9d0a-8140-a6c2-fa3a39893c23" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-8178-a23b-e2d6d4f71964" class="">9. Утилита ethtool выведет следующее:</h2>
+			<figure id="131aa64c-9d0a-81c9-b224-fe7c271710dc" class="image"><a
+					href="1 4 7 Bond/Untitled%205.png"><img style="width:478px"
+						src="1 4 7 Bond/Untitled%205.png" /></a></figure>
+			<p id="131aa64c-9d0a-813d-be12-e38ba55c454a" class=""><strong>Скорость будет иметь значение 2000Мб/s, это
+					говорит о том, что сетевые интерфейсы объединены.</strong></p>
+			<p id="131aa64c-9d0a-813f-87e4-d9a7ed350067" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-81cc-a48c-d41035dd5dfe" class="">10. Утилита Bmon покажет, что трафик у нас ходит
+				равномерно между физическими сетевыми интерфейсами:</h2>
+			<figure id="131aa64c-9d0a-8117-92f0-eb021a2839fc" class="image"><a
+					href="1 4 7 Bond/Untitled%206.png"><img style="width:800px"
+						src="1 4 7 Bond/Untitled%206.png" /></a></figure>
+			<p id="131aa64c-9d0a-81b0-a1d0-ee250ca542c8" class="">
+			</p>
+			<h1 id="131aa64c-9d0a-814b-a0b2-e4b617fe8fe3" class="">Вывод: мы узнали, что такое bmon и научились его
+				конфигурировать и проверять работоспособность.</h1>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

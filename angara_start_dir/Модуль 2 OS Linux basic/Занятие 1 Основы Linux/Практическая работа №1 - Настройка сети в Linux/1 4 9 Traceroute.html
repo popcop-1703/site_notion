@@ -1,0 +1,1082 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>1.4.9 Traceroute</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-815c-9126-e1f13799a9f1" class="page sans">
+		<header>
+			<div class="page-header-icon undefined"><img class="icon"
+					src="https://www.notion.so/icons/repeat_gray.svg" /></div>
+			<h1 class="page-title">1.4.9 Traceroute</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<figure class="block-color-blue_background callout" style="white-space:pre-wrap;display:flex"
+				id="131aa64c-9d0a-81bf-a06f-f30257d92290">
+				<div style="font-size:1.5em"><span class="icon">ℹ️</span></div>
+				<div style="width:100%">Команда traceroute может применяться для тестирования, администрирования и
+					оценки значений параметров сети.</div>
+			</figure>
+			<p id="131aa64c-9d0a-81c6-aa09-ebde3579471e" class="">Команда <strong>ping</strong> позволяет убедиться, что
+				удаленная сеть IP достижима. Однако с ее помощью нельзя обнаружить и устранить неполадки. Рассмотрим
+				следующий пример:</p>
+			<ul id="131aa64c-9d0a-811a-8ed2-e6d4fd4f6439" class="bulleted-list">
+				<li style="list-style-type:disc">Если маршрут от системы к целевому хосту содержит много транзитных
+					узлов (например, шлюзов и маршрутизаторов), то неполадка может возникнуть на любом из этих узлов. В
+					этом случае нужно выяснить, на каком этапе теряется пакет.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-810c-bd1e-f822e6b1d7c5" class="bulleted-list">
+				<li style="list-style-type:disc">Если пакет не удается доставить, команда <strong>ping</strong> не
+					сообщает причину ошибки.</li>
+			</ul>
+			<p id="131aa64c-9d0a-814a-84e1-ea1a5d27a838" class="">Команда <strong>traceroute</strong> позволяет узнать,
+				где в данный момент находится пакет, и почему его нельзя доставить по заданному маршруту. Если пакет
+				будет передаваться через маршрутизаторы и каналы связи, принадлежащие другим организациям, то вам вряд
+				ли удастся проверить состояние этих маршрутизаторов с помощью команды <strong>telnet</strong>. В этом
+				случае можно воспользоваться командами <strong>traceroute</strong> и <strong>ping</strong>.</p>
+			<h2 id="131aa64c-9d0a-81a7-aa76-eacbf7e790e2" class=""><strong>Синтаксис </strong></h2>
+			<p id="131aa64c-9d0a-8140-a709-ecf3206ed39d" class="">Команда traceroute:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81c9-9bd0-d4de5f340d58"
+				class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all">traceroute опции адрес_узла</code></pre>
+			<p id="131aa64c-9d0a-81c4-9633-f49597a7cea5" class=""><strong>В качестве адреса может использоваться ip
+					адрес или доменное имя. Рассмотрим основные опции:</strong></p>
+			<ul id="131aa64c-9d0a-81c8-a3e5-d0fca84718dc" class="bulleted-list">
+				<li style="list-style-type:disc">4 или -6 - использовать ipv4 или ipv6 протокол;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8170-9303-e4f116902a9e" class="bulleted-list">
+				<li style="list-style-type:disc">I - использовать ICMP пакеты вместо UDP;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c4-9683-e1badedba5bd" class="bulleted-list">
+				<li style="list-style-type:disc">T - использовать TCP пакеты вместо UDP;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81b3-8070-da09a6107714" class="bulleted-list">
+				<li style="list-style-type:disc">F - не фрагментировать пакеты;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8147-b82a-dd9f4b0a09b7" class="bulleted-list">
+				<li style="list-style-type:disc">f - указать TTL с которого нужно начать;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c4-9f41-c972a560c588" class="bulleted-list">
+				<li style="list-style-type:disc">g - передавать пакет через указанный шлюз;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8186-93cd-db8477b64e94" class="bulleted-list">
+				<li style="list-style-type:disc">i - передавать пакет через указанный интерфейс;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81f5-adeb-f73e82107e4f" class="bulleted-list">
+				<li style="list-style-type:disc">m - максимальное количество узлов, через которые пройдет пакет;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-819d-946b-dd8b8d605ca5" class="bulleted-list">
+				<li style="list-style-type:disc">q - количество пакетов, отправляемых за раз, по умолчанию три;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8168-b77f-f620606c20ee" class="bulleted-list">
+				<li style="list-style-type:disc">n - не узнавать доменные имена;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8199-84b7-d106eb058d71" class="bulleted-list">
+				<li style="list-style-type:disc">p - указать порт вместо порта по умолчанию;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81a5-b69f-e6195676ddd1" class="bulleted-list">
+				<li style="list-style-type:disc">w - установить время ожидания ответа от узла, по умолчанию полсекунды;
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81f4-947e-cff202800791" class="bulleted-list">
+				<li style="list-style-type:disc">r - использовать другой роутер вместо того, что указанный в таблице
+					маршрутизации;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8137-9162-ea77fcf7c2fa" class="bulleted-list">
+				<li style="list-style-type:disc">z - минимальный интервал между пакетами;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81e5-baba-fa17a8f513da" class="bulleted-list">
+				<li style="list-style-type:disc">U - использовать UDP с увеличением номера порта;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81fc-b295-f55e1a27d042" class="bulleted-list">
+				<li style="list-style-type:disc">UL - использовать протокол UDPLITE;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81ba-b051-c7298733a24b" class="bulleted-list">
+				<li style="list-style-type:disc">D - использовать протокол DCCP;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-816a-86e3-caf431220a52" class="bulleted-list">
+				<li style="list-style-type:disc">–mtu - указать размер пакета;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8147-834d-ee21ae577b46" class="bulleted-list">
+				<li style="list-style-type:disc">P - протокол, доступны такие значения: raw, dccp, udplite, udp,
+					tcpconn, tcp, icmp.</li>
+			</ul>
+			<h3 id="131aa64c-9d0a-8107-a42c-e33a5375f661" class=""><strong>2. Примеры удачного выполнения команды
+					traceroute</strong></h3>
+			<p id="131aa64c-9d0a-8107-9274-fe5a708f100a" class="">Команда <strong>traceroute </strong>применяет протокол
+				UDP и функцию создания отчета об ошибках, предусмотренную в ICMP. Эта команда трижды отправляет пакет
+				UDP каждому шлюзу или маршрутизатору, входящему в маршрут. Первый пакет отправляется ближайшему шлюзу.
+				Второй пакет отправляется следующему за ним транзитному узлу и т.д. Последний пакет отправляется целевой
+				системе. В выводе команды указывается имя шлюза, IP-адрес шлюза и время оборота трех пакетов,
+				отправленных шлюзу. Ниже приведен пример вывода команды:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8162-848f-db39c46e92b3" class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all"># traceroute aix1
+получение исходного узла для aix1
+исходный узел 10.53.155.187
+traceroute до aix1.austin.ibm.com (10.53.153.120) от 10.53.155.187 (10.53.155.187), не более 30 участков
+MTU исходящих пакетов = 1500
+ 1  10.111.154.1 (10.111.154.1)  5 мс  3 мс  2 мс
+ 2  aix1 (10.53.153.120)  5 мс  5 мс  5 мс
+</code></pre>
+			<p id="131aa64c-9d0a-81b7-b5c4-ee45067e11fd" class=""><em>Ниже приведен другой пример:</em></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81a4-925a-ffea1db6c244" class="code"><code class="language-Bash" style="white-space:pre-wrap;word-break:break-all"># traceroute aix1
+получение исходного узла для aix1
+исходный узел 10.53.155.187
+traceroute до aix1.austin.ibm.com (10.53.153.120) от 10.53.155.187 (10.53.155.187), не более 30 участков
+MTU исходящих пакетов = 1500
+ 1  10.111.154.1 (10.111.154.1)  10 мс  2 мс  3 мс
+ 2  aix1 (10.53.153.120)  8 мс  7 мс  5 мс
+</code></pre>
+			<p id="131aa64c-9d0a-81ef-b7fe-f151b1b9338a" class="">Команда была повторно вызвана после того, как истек
+				срок действия записи ARP. Обратите внимание, что время оборота первого пакета, отправляемого шлюзу или
+				целевому хосту, больше, чем у остальных пакетов. Это связано с тем, что дополнительное время
+				затрачивается на получение информации от протокола ARP. Если маршрут проходит через сеть с коммутацией
+				каналов (WAN), то при передаче первого пакета дополнительное время будет затрачено на установление
+				соединения. В результате может произойти тайм-аут. Тайм-аут по умолчанию составляет 3 секунды. Его можно
+				изменить с помощью опции -w.</p>
+			<p id="131aa64c-9d0a-81b8-92e9-c5a77c56c537" class="">Первые 10 мс затрачены системой (9.53.155.187) на
+				получение адреса шлюза 9.111.154.1 с помощью протокола ARP. Следующие 8 мс затрачены шлюзом на получение
+				адреса целевого хоста (wave). В данном случае применяется DNS, поэтому перед отправкой каждого пакета
+				команда traceroute обращается к серверу DNS.</p>
+			<h3 id="131aa64c-9d0a-81cb-ba9e-f2ab4928e3fd" class=""><strong>3. Примеры неполадок, возникающих при
+					выполнении команды traceroute</strong></h3>
+			<p id="131aa64c-9d0a-811c-aa23-ef3f5ff928cf" class="">Если маршрут к целевому хосту включает большое число
+				транзитных узлов или проходит через сети со сложной конфигурацией, то при вызове команды traceroute
+				часто возникают различного рода ошибки. Поскольку многие аспекты работы команды зависят от ее
+				реализации, во многих случаях невозможно найти причину ошибки. Однако если все маршрутизаторы и системы,
+				через которые передается пакет, относятся к вашей организации, то вы можете проанализировать причину
+				ошибки.</p>
+			<p id="131aa64c-9d0a-818f-a9c1-dae296ea3bea" class="">Неполадки возникающие при передаче пакета через шлюз
+				(маршрутизатор)В приведенном ниже примере пакеты отправляются из системы 9.53.155.187. Маршрут к мосту
+				проходит через две системы, играющие роль маршрутизаторов. Во второй из этих систем функция
+				маршрутизации была временно выключена (опции <code>ipforwarding </code>было присвоено значение 0 с
+				помощью команды no). Рассмотрим приведенный ниже пример:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-811c-89cd-dab41cedd3af" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all"># traceroute lamar
+trying to get source for lamar
+source should be 9.53.155.187
+traceroute to lamar.austin.ibm.com (9.3.200.141) from 9.53.155.187 (9.53.155.187), 30 hops max
+MTU исходящих пакетов = 1500
+ 1  9.111.154.1 (9.111.154.1)  12 ms  3 ms  2 ms
+ 2  9.111.154.1 (9.111.154.1)  3 ms !H *  6 ms !H
+</code></pre>
+			<p id="131aa64c-9d0a-81fb-8ba9-fcf276670926" class=""><strong>Все сообщения об ошибках ICMP, за исключением
+					Истекло время и Порт недостижим, выдаются в следующем формате:</strong></p>
+			<ul id="131aa64c-9d0a-812d-a937-fb00030f355a" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>!H — </strong>Хост недостижим</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8102-afb2-c088be75116d" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>!N — </strong>Сеть недостижима</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c7-93f6-f5b821d1b952" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>!P — </strong>Протокол недоступен</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8135-ba61-fa1d564d2d52" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>!S — </strong>Ошибка в исходном маршруте</li>
+			</ul>
+			<ul id="131aa64c-9d0a-811a-95a1-f98166bc7ea7" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>!F — </strong>Требуется фрагментация</li>
+			</ul>
+			<h2 id="131aa64c-9d0a-81c6-81f5-ed208a6ddfcb" class="">Неполадки, вызванные целевой системой</h2>
+			<p id="131aa64c-9d0a-8142-b200-dd15f487593b" class="">Если в течение 3 секунд от целевой системы не будет
+				получен ответ, то для всех запросов возникает тайм-аут, и в выводе команды указывается
+				звездочка <strong>(*)</strong>.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8162-a238-f72726bd5ac3" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all"># traceroute chuys
+trying to get source for chuys
+source should be 9.53.155.187
+traceroute to chuys.austin.ibm.com (9.53.155.188) from 9.53.155.187 (9.53.155.187), 30 hops max
+MTU исходящих пакетов = 1500
+ 1  * * *
+ 2  * * *
+ 3  * * *
+^C#
+</code></pre>
+			<p id="131aa64c-9d0a-81c8-bb12-d93e687acca3" class="">Если предположительно ошибка связана с каналом связи,
+				то увеличьте значение тайм-аута с помощью флага <code>-w</code>. Кроме того, возможно, хотя и
+				маловероятно, что все порты были заняты. Попробуйте изменить номера портов и повторите запрос.</p>
+			<h2 id="131aa64c-9d0a-812f-84d1-c4692e343dbd" class="">Число целевых узлов</h2>
+			<p id="131aa64c-9d0a-818b-a2fd-d6b2890050bc" class=""><strong>Ниже приведен другой пример вывода
+					команды:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8171-a858-c12dc4c37b3f" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all"># traceroute mysystem.university.edu (129.2.130.22)
+traceroute to mysystem.university.edu (129.2.130.22), 30 hops max
+1 helios.ee.lbl.gov (129.3.112.1) 0 ms 0 ms 0 ms
+2 lilac-dmc.university.edu (129.2.216.1) 39 ms 19 ms 39 ms
+3 lilac-dmc.university.edu (129.2.215.1) 19 ms 39 ms 19 ms
+4 ccngw-ner-cc.university.edu (129.2.135.23) 39 ms 40 ms 19 ms
+5 ccn-nerif35.university.edu (129.2.167.35) 39 ms 39 ms 39 ms
+6 csgw/university.edu (129.2.132.254) 39 ms 59 ms 39 ms
+7 * * *
+8 * * *
+9 * * *
+10 * * *
+11 * * *
+12 * * *
+13 rip.university.EDU (129.2.130.22) 59 ms! 39 ms! 39 ms!
+</code></pre>
+			<h1 id="131aa64c-9d0a-81de-aef0-f2d08e493d4c" class="">Вывод</h1>
+			<p id="131aa64c-9d0a-8169-86b1-cc54271f678d" class=""><strong>Мы рассмотрели
+					как </strong><em><strong>traceroute</strong></em><strong> может применяться для тестирования и
+					администрирования сети в Linux.</strong></p>
+			<p id="131aa64c-9d0a-8103-9625-dce82bc748b1" class="">
+			</p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

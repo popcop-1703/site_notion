@@ -1,0 +1,1112 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Методическое указание по проверке пароля на компрометацию</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-81a3-97c6-eefb24f68903" class="page sans">
+		<header>
+			<div class="page-header-icon undefined"><img class="icon"
+					src="https://www.notion.so/icons/keyboard-alternate_red.svg" /></div>
+			<h1 class="page-title">Методическое указание по проверке пароля на компрометацию</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<p id="131aa64c-9d0a-8112-b332-f18afc4ed6e8" class="">
+			</p>
+			<ol type="1" id="131aa64c-9d0a-8110-a205-d9d47b666a83" class="numbered-list" start="1">
+				<li>Давайте
+						разберёмся как можно сделать это безопаснее</a></li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ae-a8a9-e7397e1e71a9" class="numbered-list" start="2">
+				<li>Теперь
+						разберёмся с хэшами паролей</a></li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-810e-8c7a-dc5fefa2823b" class="numbered-list" start="3">
+				<li>Теперь
+						зная, что такое хеш, мы можешь идти дальше и тут есть несколько нюансов, давайте разбираться</a>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8141-9475-fc47194e6e85" class="numbered-list" start="4">
+				<li>Теперь
+						давайте сделаем скрипт, который нам поможет быстро определять скомпремитирован ли пароль или
+						нет</a></li>
+			</ol>
+			<p id="131aa64c-9d0a-8165-b722-f5d24d063853" class="">
+			</p>
+			<blockquote id="131aa64c-9d0a-8185-a452-e24a56e16775" class="">Начнём с того, что можно проверить пароль
+				введя его на разных сайтах, которые проверяют скомпрометирован ли пароль или нет,
+				<strong>Например</strong>
+				<code><a href="https://haveibeenpwned.com/">https://haveibeenpwned.com/</a></code><code> </code>
+			</blockquote>
+			<p id="131aa64c-9d0a-8109-b038-f7828ceae9ef" class="">НО вводить свой пароль на веб-сайты сторонних
+				сервисов, включая <code><strong>haveibeenpwned.com</strong></code>, является плохой практикой по
+				следующим причинам:</p>
+			<ol type="1" id="131aa64c-9d0a-811f-a1e3-fcd6dc2446dd" class="numbered-list" start="1">
+				<li><strong>Безопасность пароля</strong>: Когда вы вводите свой пароль на веб-сайт, вы предоставляете
+					доступ к нему этому веб-сайту. Даже если веб-сайт утверждает, что использует ваш пароль только для
+					проверки утечек данных, нет гарантии, что ваш пароль не будет сохранен или использован в дальнейшем.
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-816e-ab64-ef96e5adee20" class="numbered-list" start="2">
+				<li><strong>Риски утечки данных</strong>: Вводя свой пароль на сторонний веб-сайт, вы рискуете тем, что
+					этот сайт может быть скомпрометирован или взломан, что приведет к утечке вашего пароля.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8141-acf9-e4facdad22ea" class="numbered-list" start="3">
+				<li><strong>Альтернативные методы проверки</strong>: Существуют альтернативные методы проверки паролей
+					на утечку, которые не требуют ввода самого пароля, например, использование хэшированных версий
+					паролей или API-интерфейсов.</li>
+			</ol>
+			<p id="131aa64c-9d0a-8173-beac-d838d1a21d03" class="">Вместо того чтобы вводить свой пароль на веб-сайты
+				сторонних сервисов, рекомендуется использовать инструменты локальной проверки паролей</p>
+			<p id="131aa64c-9d0a-81b4-891f-eddecd6f92f8" class="">
+			</p>
+			<h1 id="131aa64c-9d0a-8183-aa0a-d6858ffce90e" class="">1. Давайте разберёмся как можно сделать это
+				безопаснее</h1>
+			<p id="131aa64c-9d0a-81d1-9230-c42f23acebd0" class="">
+			</p>
+			<p id="131aa64c-9d0a-8106-952b-ec0915e7cd99" class=""><strong>Существует следующий запрос -</strong>
+				<code>curl </code><code><a href="https://api.pwnedpasswords.com/range/21BD1">https://api.pwnedpasswords.com/range/21BD1</a></code>
+			</p>
+			<p id="131aa64c-9d0a-81e9-b20c-dd1c034db81a" class="">
+			</p>
+			<p id="131aa64c-9d0a-81e3-b080-f9637845758d" class="">Данный запрос осуществляет обращение к сервису
+				<strong>&quot;Have I Been Pwned&quot;</strong> для получения хэшей утечек паролей, начинающихся с
+				заданного префикса. Этот сервис предоставляет информацию о том, сколько раз в утечках были обнаружены
+				пароли, начинающиеся с заданного префикса.</p>
+			<figure class="block-color-red callout" style=" display:flex"
+				id="131aa64c-9d0a-81be-b3aa-e8f54d650991">
+				<div style="font-size:1.5em"><span class="icon">⚠️</span></div>
+				<div style="width:100%">Примечание: Не рекомендуется вводить свои пароли в открытые API-запросы, в том
+					числе и через <code><strong>curl</strong></code>, чтобы избежать передачи чувствительной информации
+					через незащищенные каналы.</div>
+			</figure>
+			<p id="131aa64c-9d0a-8124-a20c-fb0acb05c08c" class="">Ответ на ваш запрос будет в формате,
+				<strong>например:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-816a-bd5d-fe1af2603bdf" class="code"><code class="language-JavaScript">008A8D00FC1A05382C1B99D1D9F1C6526E1D:1
+00EB2B000E8B5C32F6475E5F65C6E2F28F7A:1
+01172BEE22E75029BFB5D85A9C42F73C5E2C:3</code></pre>
+			<p id="131aa64c-9d0a-81f6-a454-d2cac1f7e0be" class="">Каждая строка представляет собой хэш пароля и
+				количество раз, которое этот хэш был обнаружен в утечках. <strong>Например</strong>, в строке
+				<code><strong>008A8D00FC1A05382C1B99D1D9F1C6526E1D:1</strong></code> означает, что пароль с таким хэшем
+				был обнаружен в утечках один раз.</p>
+			<p id="131aa64c-9d0a-81d3-aa54-d78c58c6afd8" class=""><em><strong>Есть несколько тонкостей в использовании,
+						читаем ниже, тема достаточно глубокая.</strong></em></p>
+			<p id="131aa64c-9d0a-813f-9dfa-d27ab7fdcdb5" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-81db-a523-de6ec5576aab" class="">1.1 Теперь разберёмся с хэшами паролей</h2>
+			<p id="131aa64c-9d0a-81e3-b2aa-cc6c74e50df3" class="">Хеш пароля в Linux - это хэшированное представление
+				пароля пользователя, которое используется для хранения паролей в зашифрованном виде в системных файлах,
+				таких как <code><strong>/etc/shadow</strong></code>. Вместо хранения пароля в открытом тексте, Linux
+				сохраняет его хэш, который является результатом применения к паролю криптографической хеш-функции.</p>
+			<p id="131aa64c-9d0a-81ec-99de-d43924ec7034" class="">Когда пользователь вводит свой пароль, Linux вычисляет
+				хеш этого введенного пароля и сравнивает его с хешем, хранящимся в файле
+				<code><strong>/etc/shadow</strong></code>. Если хеши совпадают, то пароль считается правильным и
+				пользователь получает доступ.</p>
+			<p id="131aa64c-9d0a-8121-a2fb-e854453d4a0c" class="">Это повышает безопасность, потому что даже
+				администратор не может прочитать пароли в открытом виде. Кроме того, использование хешей делает
+				невозможным восстановление оригинального пароля из хранимого значения, поскольку хеш-функции являются
+				односторонними.</p>
+			<p id="131aa64c-9d0a-81da-a454-d3fc0cf1becf" class=""><strong>Так выглядит строка пренадлежащая пользователю
+					igor в </strong><code><strong>/etc/shadow</strong></code></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8124-a3b5-c5792076b8a5"
+				class="code"><code class="language-JavaScript">igor:$6$Ep.RO7BYVboqYJK.$6gX.itPm3tv0Zpb1me8ezAdUNKdESz3J0wSJFE5NsQ43W7a0sHMRcGIH4bYFHynp9LPqwXKH.xkqZt16ch1ki1:19637:0:99999:7:::</code></pre>
+			<ol type="1" id="131aa64c-9d0a-8139-b662-c3791805756f" class="numbered-list" start="1">
+				<li><strong>igor:</strong> Это имя пользователя.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81a8-96b9-c9bbc685fdb6" class="numbered-list" start="2">
+				<li><strong>$6$Ep.RO7BYVboqYJK.$6gX.itPm3tv0Zpb1me8ezAdUNKdESz3J0wSJFE5NsQ43W7a0sHMRcGIH4bYFHynp9LPqwXKH.xkqZt16ch1ki1:</strong>
+					Этот длинный хэш пароля представляет собой результат хэширования фактического пароля пользователя
+					&quot;igor&quot;. Этот хэш создан с использованием алгоритма SHA-512 и включает в себя соль, чтобы
+					обеспечить дополнительную защиту от атак по словарю. Поскольку хэш пароля является хэшированным
+					представлением исходного пароля, его невозможно обратно преобразовать в исходный пароль.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81e4-a815-cf2e785df5ed" class="numbered-list" start="3">
+				<li>Здесь используется алгоритм хэширования SHA-512. Он состоит из нескольких частей, разделенных
+					символом <code><strong>$</strong></code>. Первая часть (<code><strong>$6$</strong></code>) указывает
+					на использование алгоритма SHA-512. Далее идет соль, которая обеспечивает дополнительную защиту от
+					атак по словарю, и непосредственно хэш пароля.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-815d-9dae-cf1cf204b310" class="numbered-list" start="4">
+				<li><strong>19637:</strong> Это количество дней, прошедших с 1 января 1970 года до последнего изменения
+					пароля (Unix-время).</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-818e-b1c8-d4b26114ec81" class="numbered-list" start="5">
+				<li><strong>0:</strong> Это минимальное количество дней, которое должно пройти перед изменением пароля.
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81f5-a333-fcfccb2b81ac" class="numbered-list" start="6">
+				<li><strong>99999:</strong> Это максимальное количество дней, в течение которых пароль будет
+					действителен, после чего пользователю потребуется изменить пароль.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-817d-8b6a-e8d71b36e968" class="numbered-list" start="7">
+				<li><strong>7:</strong> Это количество дней, за которое пользователь получит предупреждение о том, что
+					его пароль скоро истечет.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81b3-8085-c0a22a037243" class="numbered-list" start="8">
+				<li><strong>:::</strong> Эти поля представляют собой зарезервированные поля, которые не используются.
+				</li>
+			</ol>
+			<blockquote id="131aa64c-9d0a-81ff-ba32-ecfe5dc1cc4c" class=""><strong>Соль (salt) в контексте хеширования
+					паролей</strong> - это случайная последовательность битов, которая добавляется к паролю перед его
+				хешированием. Соль используется для того, чтобы усложнить процесс взлома пароля при помощи атак по
+				словарю или радужных таблиц.</blockquote>
+			<p id="131aa64c-9d0a-8112-9497-c0fe73e7031e" class="">Каждый раз, когда создается новый пароль или
+				изменяется существующий, генерируется новая соль. После этого соль добавляется к паролю, и затем вместе
+				они хешируются с использованием криптографической хеш-функции. Этот хеш вместе с солью затем сохраняется
+				в хранилище паролей.</p>
+			<p id="131aa64c-9d0a-8153-bcd4-f7b9a879a0a3" class="">Использование соли увеличивает безопасность паролей,
+				потому что даже если два пользователя используют одинаковые пароли, их хеши будут различаться из-за
+				разных солей. Это делает невозможным использование предварительно подготовленных радужных таблиц или
+				атак по словарю, поскольку для каждого пароля необходимо создавать уникальную таблицу хешей с учетом
+				соли.</p>
+			<p id="131aa64c-9d0a-81e3-bdd3-e3819e0d2384" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-8185-a607-dfbf72302504" class="">1.2 Теперь зная, что такое хеш, мы можешь идти дальше
+				и тут есть несколько нюансов, давайте разбираться</h2>
+			<figure class="block-color-red callout" style=" display:flex"
+				id="131aa64c-9d0a-81ee-a045-e17b6383809c">
+				<div style="font-size:1.5em"><span class="icon">⚠️</span></div>
+				<div style="width:100%">К сожалению, пароли, хранящиеся в системе Linux в файле
+					<code><strong>/etc/shadow</strong></code>, обычно хешируются с использованием алгоритмов, таких как
+					SHA-512, а не SHA-1. Процесс преобразования пароля, хешированного с использованием SHA-512, в SHA-1
+					не является обратимым и не может быть выполнен без доступа к исходному паролю.</div>
+			</figure>
+			<p id="131aa64c-9d0a-8153-a5de-eb8e5445ae1e" class="">SHA-1 и SHA-512 - это разные алгоритмы хеширования, и
+				не существует прямого способа преобразовать SHA-512 хеш обратно в SHA-1 без знания исходного пароля.</p>
+			<p id="131aa64c-9d0a-812d-ae05-c6a6a4e28582" class="">Тем не менее, если у вас есть доступ к исходному
+				паролю &quot;igor&quot;, вы можете легко сгенерировать его хеш с использованием алгоритма SHA-1 с
+				помощью множества инструментов и онлайн-ресурсов.</p>
+			<h3 id="131aa64c-9d0a-8190-964d-ee113ada7c8b" class="">Воспользуемся онлайн калькулятором, чтобы
+				преобразовать известный пароль нам пароль в SHA-1</h3>
+			<p id="131aa64c-9d0a-8121-8e22-ce6665cbd80d" class=""><a
+					href="http://www.sha1-online.com/">http://www.sha1-online.com/</a></p>
+			<figure id="131aa64c-9d0a-8163-b6c9-df5280dbca3c" class="image"><a
+					href="Методическое указание по проверке пароля/Untitled.png"><img
+						style="width:864px"
+						src="Методическое указание по проверке пароля/Untitled.png" /></a>
+			</figure>
+			<h3 id="131aa64c-9d0a-81a3-9372-cf500220b385" class="">Из того что мы получили, возьмём первые 5 символов и
+				применим к curl:</h3>
+			<p id="131aa64c-9d0a-81e9-9966-e3d3677242e4" class="">
+				<code><strong>curl </strong></code><code><strong><a href="https://api.pwnedpasswords.com/range/356a1">https://api.pwnedpasswords.com/range/356a1</a></strong></code>
+			</p>
+			<p id="131aa64c-9d0a-811c-94e6-e191145d1cf2" class="">Получим следующий результат</p>
+			<figure id="131aa64c-9d0a-81b1-abf7-d8e7bf63081d" class="image"><a
+					href="Методическое указание по проверке пароля/Untitled%201.png"><img
+						style="width:708px"
+						src="Методическое указание по проверке пароля/Untitled%201.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8105-bb8e-e4bbf9851650" class="">Каждая строка ответа представляет собой хэш пароля и
+				количество утечек, разделенные двоеточием. Например, строка
+				<code><strong>0024F29E4E0F859F9DD587EBB15AB61DE45:2</strong></code> означает, что хэш пароля
+				<code><strong>0024F29E4E0F859F9DD587EBB15AB61DE45</strong></code> встречается в двух разных утечках
+				данных.<br /><br />Но так не очень удобно, давайте упростим себе задачу)<br /></p>
+			<p id="131aa64c-9d0a-813b-ae9f-f229270b9e55" class="">
+				<code><strong>curl </strong></code><code><strong><a href="https://api.pwnedpasswords.com/range/356a1">https://api.pwnedpasswords.com/range/356a1</a></strong></code><code><strong> | wc -l</strong></code>
+			</p>
+			<p id="131aa64c-9d0a-8163-bda6-f73256da7e57" class="">Результат запроса выводится в консольную утилиту
+				<code><strong>wc -l</strong></code>, которая подсчитывает количество строк.</p>
+			<figure id="131aa64c-9d0a-8180-897a-c856dc871cca" class="image"><a
+					href="Методическое указание по проверке пароля/Untitled%202.png"><img
+						style="width:1214px"
+						src="Методическое указание по проверке пароля/Untitled%202.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8107-a4cf-db9de35db591" class="">В данном случае ответ состоит из 859 строк. Это
+				означает, что в базе данных <strong>&quot;Have I Been Pwned&quot;</strong> содержится 859 хэшей паролей,
+				которые начинаются с указанного префикса <strong>&quot;356a1&quot;</strong>.</p>
+			<p id="131aa64c-9d0a-8119-bb02-f0ba0a381acb" class="">
+			</p>
+			<p id="131aa64c-9d0a-817e-b1bd-d20f8101dfcd" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-81cc-b38f-eed1f4d33761" class="">1.3 Теперь давайте сделаем скрипт, который нам
+				поможет быстро определять скомпремитирован ли пароль или нет:</h2>
+			<figure id="131aa64c-9d0a-8149-b01e-e93978a1c3a6" class="image"><a
+					href="Методическое указание по проверке пароля/Untitled%203.png"><img
+						style="width:708px"
+						src="Методическое указание по проверке пароля/Untitled%203.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81e3-b0be-ff17c13084fa" class="">
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81bd-9d46-df44ac2dedec" class="code"><code class="language-JavaScript">#!/bin/bash
+candidate_password=$1
+echo &quot;Candidate password: $candidate_password&quot;
+full_hash=$(echo -n $candidate_password | sha1sum | awk &#x27;{print substr($1, 0, 32)}&#x27;)
+prefix=$(echo -n $full_hash | awk &#x27;{print substr($1, 0, 5)}&#x27;)
+suffix=$(echo -n $full_hash | awk &#x27;{print substr($1, 6, 26)}&#x27;)
+if curl https://api.pwnedpasswords.com/range/$prefix | grep -i $suffix
+then echo &quot;Пароль найден в базе утечек данных.&quot;
+else echo &quot;Пароль не найден в базе утечек данных.&quot;
+fi</code></pre>
+			<p id="131aa64c-9d0a-81f7-a46a-f3c86fb78134" class="">
+			</p>
+			<p id="131aa64c-9d0a-81e5-8dd5-d829cfefd91e" class=""><strong>Не забываем назначить правильные права
+					скрипту:</strong></p>
+			<figure id="131aa64c-9d0a-8194-bae0-d617851873b5" class="image"><a
+					href="Методическое указание по проверке пароля/Untitled%204.png"><img
+						style="width:1020px"
+						src="Методическое указание по проверке пароля/Untitled%204.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8197-bcd2-d76cd27fef68" class="">
+			</p>
+			<p id="131aa64c-9d0a-811b-aec0-dda704041145" class=""><strong>Далее запускаем скрипт с указанием нашего
+					пароля:</strong></p>
+			<figure id="131aa64c-9d0a-81b7-bfb6-dae8e609c163" class="image"><a
+					href="Методическое указание по проверке пароля/Untitled%205.png"><img
+						style="width:1820px"
+						src="Методическое указание по проверке пароля/Untitled%205.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81c0-b85a-c6a0d44ed88f" class=""><em>В ответе от
+				</em><em><code><strong>API &quot;Have I Been Pwned&quot;</strong></code></em><em> в строке, которая
+					начинается с </em><code>&quot;092B7913B04C54574D18C28D46E6395428AB&quot;</code><em>, указано число
+				</em><em><strong>&quot;230036&quot;</strong></em><em>. Это число представляет количество раз, которое
+					пароль с хешем </em><code>&quot;092B7913B04C54574D18C28D46E6395428AB&quot;</code><em> был
+					скомпрометирован в различных утечках данных. Таким образом, этот пароль был скомпрометирован
+				</em><em><strong>230036</strong></em><em> раз.</em></p>
+			<p id="131aa64c-9d0a-810a-b4bc-ec6d12275b61" class="">
+			</p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

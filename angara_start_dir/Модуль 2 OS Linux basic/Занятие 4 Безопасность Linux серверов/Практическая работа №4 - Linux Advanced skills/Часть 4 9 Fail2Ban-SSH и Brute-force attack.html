@@ -1,0 +1,1311 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Часть 4.9 Fail2Ban-SSH и Brute-force attack</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-810f-b22c-e51742001b2f" class="page sans">
+		<header><img class="page-cover-image"
+				src="Часть 4 9 Fail2Ban-SSH и Brute-force attack/kandinsky-download-1705863518479.png"
+				style="object-position:center 39.65%" />
+			<div class="page-header-icon page-header-icon-with-cover"><img class="icon"
+					src="https://www.notion.so/icons/keyboard_gray.svg" /></div>
+			<h1 class="page-title"><strong>Часть 4.9 Fail2Ban-SSH и Brute-force attack</strong></h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<figure id="131aa64c-9d0a-8141-902f-ec414d66b151" class="image"><a
+					href="https://i.imgur.com/BI9AYii.png"><img style="width:1104px"
+						src="https://i.imgur.com/BI9AYii.png" /></a></figure>
+			<h3 id="131aa64c-9d0a-81cb-90ca-e6bf8646f2fb" class=""><strong>Цель работы:</strong></h3>
+			<ul id="131aa64c-9d0a-814d-a688-f5ac450c9b19" class="bulleted-list">
+				<li style="list-style-type:disc">Научиться настраивать Fail2Ban для SSH</li>
+			</ul>
+			<h3 id="131aa64c-9d0a-816f-8c49-de1926104eeb" class=""><strong>Задача:</strong></h3>
+			<ol type="1" id="131aa64c-9d0a-81be-86c3-e16a8566ea7a" class="numbered-list" start="1">
+				<li>Настроить SSH-сервер и SSH-клиент</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81b7-bf4e-d1db346b4485" class="numbered-list" start="2">
+				<li>Запретить доступ от root</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81bc-9cf7-db70c3d98aa6" class="numbered-list" start="3">
+				<li>Вывести журнал подключений пользователей SSH</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-816b-acfd-cdc099f9b431" class="numbered-list" start="4">
+				<li>Установить и настроить Fail2Ban для SSH</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81fc-9574-d360d3b1345e" class="numbered-list" start="5">
+				<li>Провести несколько разных атак брутфорса </li>
+			</ol>
+			<figure id="131aa64c-9d0a-8114-bb7a-f04114fdc0ef" class="link-to-page"><a
+					href="Часть 4 9 Fail2Ban-SSH и Brute-force attack/Часть 4 9 1 Brute-force на SSH.html"><img
+						class="icon" src="https://www.notion.so/icons/alien-pixel_red.svg" />Часть 4.9.1 Brute-force на
+					SSH</a></figure>
+			<ol type="1" id="131aa64c-9d0a-8134-8a87-de293e732977" class="numbered-list" start="6">
+				<li>Сделать скриншоты с ключевыми моментами, предоставить описание к ним и добавить в общий отчёт.</li>
+			</ol>
+			<h1 id="131aa64c-9d0a-81c8-8e93-ece7e674116b" class="">Теория</h1>
+			<figure class="block-color-gray_background callout" style=" display:flex"
+				id="131aa64c-9d0a-817e-82e6-e85c92163e06">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%"><strong>Fail2ban</strong> — простой в использовании локальный сервис, который
+					отслеживает log–файлы запущенных программ, и на основании различных условий блокирует по IP
+					найденных нарушителей.</div>
+			</figure>
+			<p id="131aa64c-9d0a-81a7-8e70-f46790987e53" class="">Программа умеет бороться с различными атаками на все
+				популярные *NIX–сервисы, такие как Apache, Nginx, ProFTPD, vsftpd, Exim, Postfix, named, и т.д.</p>
+			<p id="131aa64c-9d0a-818a-af6c-ee47ad4b7b06" class="">Но в первую очередь Fail2ban известен благодаря
+				готовности «из коробки» к защите SSH–сервера от атак типа «bruteforce», то есть к защите SSH от перебора
+				паролей.</p>
+			<p id="131aa64c-9d0a-815b-85ee-f9ee50cd419d" class="">С помощью Fail2Ban можно блокировать ip-адреса и также
+				делать так, чтобы ip-адреса не блокировались (всегда имелся доступ до ssh, даже если введено большое
+				количество неправильных паролей), самое удобное в Fail2Ban - это то, что он автоматизирует процесс
+				защиты shh.</p>
+			<h1 id="131aa64c-9d0a-81a9-9c74-e2a9bb8b1105" class="">Практика</h1>
+			<h1 id="131aa64c-9d0a-81c1-beb6-c83a050e97af" class="">1. Обновление и загрузка Fail2Ban</h1>
+			<h2 id="131aa64c-9d0a-8146-88ef-fab14a980414" class="">1.1 <strong>Для начала давайте обновим ОС:</strong>
+			</h2>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8156-82c1-ca8fece6c40c"
+				class="code"><code class="language-Bash">sudo apt-get update</code></pre>
+			<figure id="131aa64c-9d0a-814b-9507-e459ebcefdd1" class="image"><a
+					href="https://i.imgur.com/gGZ8Ooh.png"><img style="width:624px"
+						src="https://i.imgur.com/gGZ8Ooh.png" /></a></figure>
+			<h2 id="131aa64c-9d0a-81e1-a5ba-fe8e0b93f813" class="">1.2 <strong>Далее давайте установим
+					Fail2Ban:</strong></h2>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8188-a2ce-c65f5cc6ddfa"
+				class="code"><code class="language-Bash">sudo apt-get install fail2ban</code></pre>
+			<figure id="131aa64c-9d0a-8154-990f-cbf543e6e31f" class="image"><a
+					href="https://i.imgur.com/9JyR1Oh.png"><img style="width:624px"
+						src="https://i.imgur.com/9JyR1Oh.png" /></a></figure>
+			<h2 id="131aa64c-9d0a-8175-b1d4-dec3666fccfc" class="">1.3 Запуск сервиса</h2>
+			<p id="131aa64c-9d0a-81cf-8ba6-ff792f1d9d3e" class="">Так как Fail2Ban запускается после перезагрузке или
+				старте ОС сделаем следующее:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81dc-bb29-c2e381077645"
+				class="code"><code class="language-Bash">service fail2ban start</code></pre>
+			<figure id="131aa64c-9d0a-812c-a128-db1749b44cd9" class="image"><a
+					href="https://i.imgur.com/OapAxVI.png"><img style="width:576px"
+						src="https://i.imgur.com/OapAxVI.png" /></a></figure>
+			<h2 id="131aa64c-9d0a-8154-9450-c79ca6d10316" class="">1.4 Изменение файла конфигурации</h2>
+			<p id="131aa64c-9d0a-8187-b47e-d92ac1524299" class="">Теперь посмотрим файлы конфигурации</p>
+			<h3 id="131aa64c-9d0a-8153-b68c-e337bf080153" class="">1.4.1 <strong>Ознакомимся со всеми файлами в
+					директории Fail2Ban:</strong></h3>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-817a-826a-e45d814d4351"
+				class="code"><code class="language-Bash">ls -al /etc/fail2ban</code></pre>
+			<figure id="131aa64c-9d0a-81e9-95ce-e3019884ecc0" class="image"><a
+					href="https://i.imgur.com/avPloVW.png"><img style="width:624px"
+						src="https://i.imgur.com/avPloVW.png" /></a></figure>
+			<p id="131aa64c-9d0a-81f9-accf-c718af86cb7e" class="">самый важный файл -
+				это <strong>jail.conf</strong> (данный файл содержит фильтры по умолчанию для определенных служб)</p>
+			<h3 id="131aa64c-9d0a-818e-8d09-c052ad093b24" class="">1.4.2 <strong>Теперь давайте перейдём в нужную
+					директорию и откроем файл конфигурации:</strong></h3>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-819f-8c42-d5ffa8534a13" class="code"><code class="language-Bash" style=" word-break:break-all">cd /etc/fail2ban
+nano jail.conf</code></pre>
+			<figure id="131aa64c-9d0a-81f4-8567-f6a286ec53cc" class="image"><a
+					href="https://i.imgur.com/ZOazxx9.png"><img style="width:624px"
+						src="https://i.imgur.com/ZOazxx9.png" /></a></figure>
+			<p id="131aa64c-9d0a-81c4-af87-f6216ba33b93" class="">И первое, что мы видим - это то, что нам рекомендуют
+				создать дополнительный файл с <code>.local</code> расширением так как при обновлении
+				<code>Fail2Ban</code> файл <code>jail.conf</code> может тоже обновиться и настройки будут возвращены по
+				умолчанию. (если нужно настраивать фильтры для многих сервисов, то можно использовать
+				<code>jail.conf</code> (но следить за обновлениями) или скопировать его с разрешением
+				<code>.local</code>)</p>
+			<h3 id="131aa64c-9d0a-819a-ac83-cb5752fff0c4" class="">1.4.3 Давайте приступим к изменению файла</h3>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8190-a8a8-e3a4d464dcbe"
+				class="code"><code class="language-Bash">sudo nano jail.local</code></pre>
+			<p id="131aa64c-9d0a-81dd-8efb-e061e0e1b338" class=""><strong>Нам надо создать фильтр для ssh:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-811b-a8d1-f7b066df94f1" class="code"><code class="language-Bash" style=" word-break:break-all">[sshd]           # указывает, что это сервис ssh
+enable = true    # указывает на то, что данный фильтр включен (истина или ложь) 
+port = ssh       # указывем порт и log файл
+</code></pre>
+			<p id="131aa64c-9d0a-81d3-9d8a-e9e6354d10fb" class=""><strong>Для того чтобы нам для fail2ban дать
+					информацию куда смотреть, делаем следующее:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8159-8bae-fe7d3fb804cd"
+				class="code"><code class="language-JavaScript">cat /var/log/auth.log</code></pre>
+			<figure id="131aa64c-9d0a-8156-a225-e9750ee19183" class="image"><a
+					href="https://i.imgur.com/cHUTDsZ.png"><img src="https://i.imgur.com/cHUTDsZ.png" /></a></figure>
+			<p id="131aa64c-9d0a-81c8-8fc4-e34926805d50" class=""><strong>данный файл показывает все попытки
+					аутентификации по sshd, т.е. нам надо указать в фильтре следующее:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-814c-8871-dd512da02cc0" class="code"><code class="language-Bash" style=" word-break:break-all">filter = sshd
+logpath = /var/log/auth.log    # указываем где брать информацию
+maxretry = 3                   # указываем какое количество попыток ввода пароля сделает пользователь прежде чем его заблокирует fail2ban
+bantime = 3600                 # указывает на какое количество времени заблокируется ip-адрес пользователя после неправильного ввода пароля 3 раза (вводится секундами т.е. 3600 сек. это 60 мин.) Также можно установить и больше, всё завист от того как часто атакуют сервер.
+ignoreip = 127.0.0.1           # белый список ip-адресов, которые не будут попадать под фильтр
+</code></pre>
+			<p id="131aa64c-9d0a-81bf-8c48-e6117b4d5df8" class=""><strong>В итоге мы получаем текст файла
+					следующий:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81b0-ab06-d63ebcd8b96d" class="code"><code class="language-Bash" style=" word-break:break-all">[sshd]
+enable = true
+port = ssh
+filter = sshd
+logpath = /var/log/auth.log
+maxretry = 3
+bantime = 3600
+ignoreip = 127.0.0.1
+</code></pre>
+			<figure id="131aa64c-9d0a-8145-9c09-f6b56c2a2dd9" class="image"><a
+					href="https://i.imgur.com/6AEGz4J.png"><img style="width:528px"
+						src="https://i.imgur.com/6AEGz4J.png" /></a></figure>
+			<p id="131aa64c-9d0a-81df-acb2-cbfb3688249f" class="">После сохраняем и выходим.</p>
+			<h3 id="131aa64c-9d0a-812f-a6d2-c09e8cec7c3a" class="">1.4.4 Перезапуск сервиса</h3>
+			<p id="131aa64c-9d0a-8188-979b-c752f7cd38ff" class="">Для того, чтобы применились новые настройки в
+				конфигурационном файле, перезапустим сервис.</p>
+			<p id="131aa64c-9d0a-81f9-ad85-db6e4b419a08" class=""><strong>Вводим:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ff-af1c-dbdbca9e93db"
+				class="code"><code class="language-Bash">service fail2ban restart</code></pre>
+			<figure id="131aa64c-9d0a-815d-9925-d44736428513" class="image"><a
+					href="https://i.imgur.com/rIk3u2M.png"><img style="width:528px"
+						src="https://i.imgur.com/rIk3u2M.png" /></a></figure>
+			<p id="131aa64c-9d0a-81d4-b2f3-df15ca8af4e4" class=""><strong>Проверим, что fail2ban работает:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8103-9e91-cfbc18d0bdd2"
+				class="code"><code class="language-Bash">service fail2ban status</code></pre>
+			<figure id="131aa64c-9d0a-8144-811b-caaa0da42419" class="image"><a
+					href="https://i.imgur.com/EfIg18z.png"><img style="width:576px"
+						src="https://i.imgur.com/EfIg18z.png" /></a></figure>
+			<h2 id="131aa64c-9d0a-81f4-b88e-deee3694a7bd" class="">1.5 Теперь давайте попробуем подключиться по ssh и
+				ввести три раза неправильно пароль</h2>
+			<p id="131aa64c-9d0a-8124-8a7b-fe4f6ea398e7" class="">После того как попробуем, можно убедиться ещё одним
+				способом, с помощью <code>Hydra</code></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81b9-91c2-c844669f1a71"
+				class="code"><code class="language-Bash">sudo hydra -l root -P /usr/share/hydra/dpl4hydra_local.csv ssh://ip-адрес -I -V</code></pre>
+			<h3 id="131aa64c-9d0a-8175-aa5d-e90cc1d240ce" class=""><strong>Изменение порта</strong></h3>
+			<p id="131aa64c-9d0a-81dd-a890-e7e491da6872" class="">Иногда админы изменяют порт SSH со стандартного 22 на
+				другой порт. Чтобы использовать другой порт, используем аргумент -s:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8140-9abc-e9195f2b7f9a"
+				class="code"><code class="language-Bash">sudo hydra -s номер_порта -l имя_пользователя -P словарь_для_брута ip-адрес ssh</code></pre>
+			<h3 id="131aa64c-9d0a-81fc-b1f6-f2bdc9bafc17" class=""><strong>Брутфорс списка IP-адресов</strong></h3>
+			<p id="131aa64c-9d0a-8138-8af7-db31ba059d57" class=""><strong>Можно также брутить несколько IP-адресов из
+					списка -M:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81f9-8b4d-e55b371aad60"
+				class="code"><code class="language-Bash">sudo hydra -l имя_пользователя -P словарь_для_брута -M список_ip_адресов ssh</code></pre>
+			<p id="131aa64c-9d0a-815f-a7b9-d521e23f1cfd" class=""><strong>Так будет выглядеть простая команда:</strong>
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8139-867d-c611c4e62991"
+				class="code"><code class="language-Bash">sudo hydra -l имя_пользователя -P список_паролей IP ssh</code></pre>
+			<p id="131aa64c-9d0a-81fe-bbd2-e2844ea095cd" class=""><strong>где:</strong></p>
+			<ul id="131aa64c-9d0a-8117-94a4-fec4859a4897" class="bulleted-list">
+				<li style="list-style-type:disc">R – восстановить ранее прерванную сессию Hydra;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81f1-8568-d07e2f1ba411" class="bulleted-list">
+				<li style="list-style-type:disc">S – использовать SSL для подключения;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-816b-bee4-e5d00097749c" class="bulleted-list">
+				<li style="list-style-type:disc">s – указать порт;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-811c-b499-e5ea14f1d5f0" class="bulleted-list">
+				<li style="list-style-type:disc">l – использовать логин;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8147-9766-d1a835abea18" class="bulleted-list">
+				<li style="list-style-type:disc">L – выбирать логины из файла со списком;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81b4-a263-f1947e408917" class="bulleted-list">
+				<li style="list-style-type:disc">p – использовать пароль;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81a1-8151-ee9ec6d0918c" class="bulleted-list">
+				<li style="list-style-type:disc">P – использовать пароль из файла со списком;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81aa-b0fb-c99a6d4469dc" class="bulleted-list">
+				<li style="list-style-type:disc">M – взять список целей из файла;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81e1-9383-c4c8e59763bb" class="bulleted-list">
+				<li style="list-style-type:disc">x – генератор паролей;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81d4-969c-e95a057442c2" class="bulleted-list">
+				<li style="list-style-type:disc">u – по умолчанию hydra проверяет все пароли для первого логина, эта
+					опция позволяет проверить один пароль для всех логинов;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-810d-8df5-ef5dbd4da8f0" class="bulleted-list">
+				<li style="list-style-type:disc">f – выйти, если правильный логин/пароль найден;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8136-88fb-d91999ce9f1c" class="bulleted-list">
+				<li style="list-style-type:disc">o – сохранить результат в файл;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-819f-8645-ff195135c46d" class="bulleted-list">
+				<li style="list-style-type:disc">t – количество потоков для программы;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81fa-bc99-eeedefe62122" class="bulleted-list">
+				<li style="list-style-type:disc">w – время между запросами в секундах;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81a4-9c18-d0946e1329ff" class="bulleted-list">
+				<li style="list-style-type:disc">v – подробный вывод;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8178-81b6-fe6dc36564e0" class="bulleted-list">
+				<li style="list-style-type:disc">V – выводить тестируемые логины и пароли.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8185-b8c5-c303a0efd497" class="bulleted-list">
+				<li style="list-style-type:disc">4:4:1 - пароль размером четыре символа, состоящий только из цифр. А
+					именно все пароли в диапазоне 0000-9999;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8147-a5dc-f6d06aa47604" class="bulleted-list">
+				<li style="list-style-type:disc">4:8:1 - пароль от четырех до восьми символов, только из цифр;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81a7-8533-fd55a5daa1e9" class="bulleted-list">
+				<li style="list-style-type:disc">4:5:aA1. - пароль, размером от 4 до 5 символов, состоит из цифр, букв
+					верхнего и нижнего регистра или точки.</li>
+			</ul>
+			<p id="131aa64c-9d0a-816b-b131-dfb9dba9cecd" class=""><strong>если hydra не установлена, то вводим:</strong>
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ba-b361-fff48abff4bd"
+				class="code"><code class="language-Bash">sudo apt-get install hydra</code></pre>
+			<p id="131aa64c-9d0a-8123-9036-c232847713dc" class=""><strong>и пробуем ещё раз</strong></p>
+			<figure id="131aa64c-9d0a-8191-81a3-ea2cc40f8cd0" class="image"><a
+					href="https://i.imgur.com/W5QB2Zm.png"><img style="width:624px"
+						src="https://i.imgur.com/W5QB2Zm.png" /></a></figure>
+			<p id="131aa64c-9d0a-81c2-8061-d195c0dfdc77" class=""><strong>Чтобы посмотреть журналы банов в fail2ban
+					вводим:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-811c-93d0-d4833103fd88"
+				class="code"><code class="language-Bash">fail2ban-client status</code></pre>
+			<figure id="131aa64c-9d0a-814d-b27c-cdca9d632a44" class="image"><a
+					href="https://i.imgur.com/0hQi7SR.png"><img style="width:576px"
+						src="https://i.imgur.com/0hQi7SR.png" /></a></figure>
+			<p id="131aa64c-9d0a-8119-8236-ff649c6b8584" class=""><strong>и получить более подробно статистику:</strong>
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81f4-b2dd-f54c4390c1a5"
+				class="code"><code class="language-Bash">fail2ban-client status sshd</code></pre>
+			<figure id="131aa64c-9d0a-812a-8e8b-ed38d62465f8" class="image"><a
+					href="https://i.imgur.com/eCv9pLT.png"><img style="width:576px"
+						src="https://i.imgur.com/eCv9pLT.png" /></a></figure>
+			<p id="131aa64c-9d0a-817a-b09d-feaa75f4107e" class="">Если необходимо разблокировать ip-адрес попавшей по
+				ошибке, то делаем следующее:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ef-8c71-f14c165a3054"
+				class="code"><code class="language-Bash">fail2ban-client unban [ip-адрес]</code></pre>
+			<p id="131aa64c-9d0a-81b1-918c-f795f12c4f8c" class="">также можно запустить гидру и убедиться, что
+				количество неудачных попыток ввода пароля увеличится.</p>
+			<p id="131aa64c-9d0a-814d-b601-e353797dfd21" class="">Если в конфигурационном файле поменять на false, то
+				ssh начнёт работать корректно и будет давать возможность подключаться.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8135-ae8b-da22e3625d45" class="code"><code class="language-Bash" style=" word-break:break-all">[sshd]
+enable = false
+port = ssh
+filter = sshd
+logpath = /var/log/auth.log
+maxretry = 3
+bantime = 3600
+ignoreip = 127.0.0.1
+</code></pre>
+			<p id="131aa64c-9d0a-8100-bac7-df8cb440d396" class=""><strong>Соответственно, если сбросить блокировку
+					fail2ban, необходимо сделать следующее:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8151-a00e-e5c65517cc76"
+				class="code"><code class="language-Bash">service fail2ban restart</code></pre>
+			<p id="131aa64c-9d0a-812c-b012-fe123ef31415" class=""><strong>и проверим, что никто в данный момент не
+					блокируется:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81b1-8b35-d3eccc4e39be"
+				class="code"><code class="language-Bash">fail2ban-client status sshd</code></pre>
+			<figure id="131aa64c-9d0a-8129-9a14-fa9f0fefd1ca" class="image"><a
+					href="https://i.imgur.com/AgN8c43.png"><img style="width:576px"
+						src="https://i.imgur.com/AgN8c43.png" /></a></figure>
+			<p id="131aa64c-9d0a-81b6-afa4-e3dbf25101c6" class="">далее запускаем hydra ещё раз:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ce-ad6e-e002ce0148ae"
+				class="code"><code class="language-Bash">sudo hydra -l root -P /usr/share/hydra/dpl4hydra_local.csv ssh://ip-адресс -I -V</code></pre>
+			<p id="131aa64c-9d0a-81de-8222-dd8b95b7bb66" class="">и проверим ещё раз список блокированных ip-адресов</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81c9-9b39-ded1afb0dadb"
+				class="code"><code class="language-Bash">fail2ban-client status sshd</code></pre>
+			<p id="131aa64c-9d0a-817d-b767-e854261292aa" class=""><strong>увидим что fail2ban отработал корректно и
+					заблокировал ip-адрес:</strong></p>
+			<figure id="131aa64c-9d0a-811e-8d6d-f688dcb9da2e" class="image"><a
+					href="https://i.imgur.com/SkMZUvh.png"><img style="width:624px"
+						src="https://i.imgur.com/SkMZUvh.png" /></a></figure>
+			<p id="131aa64c-9d0a-81f3-be6f-fcfe9c1cd040" class=""><strong>Проверим, что будет, если отключить fail2ban и
+					запустить hydra:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81e7-aade-eb64019655aa"
+				class="code"><code class="language-Bash">service fail2ban stop</code></pre>
+			<figure id="131aa64c-9d0a-81b2-a6bd-c4117b3b9373" class="image"><a
+					href="https://i.imgur.com/VYZaXiH.png"><img style="width:576px"
+						src="https://i.imgur.com/VYZaXiH.png" /></a></figure>
+			<figure id="131aa64c-9d0a-81cb-8751-d75f4cbfebcf" class="image"><a
+					href="https://i.imgur.com/96LmQJR.png"><img style="width:624px"
+						src="https://i.imgur.com/96LmQJR.png" /></a></figure>
+			<p id="131aa64c-9d0a-81f1-8f44-dbdbad776f90" class="">видим, что происходит подбор.</p>
+			<p id="131aa64c-9d0a-810a-bcf2-d2848c83e340" class="">
+			</p>
+			<h1 id="131aa64c-9d0a-8162-847d-fa9a5a096ee8" class="">2. Проведем еще несколько атак брутфорса</h1>
+			<figure id="131aa64c-9d0a-8114-bb7a-f04114fdc0ef" class="link-to-page"><a
+					href="Часть 4 9 Fail2Ban-SSH и Brute-force attack/Часть 4 9 1 Brute-force на SSH.html"><img
+						class="icon" src="https://www.notion.so/icons/alien-pixel_red.svg" />Часть 4.9.1 Brute-force на
+					SSH</a></figure>
+			<h1 id="131aa64c-9d0a-8162-a203-faefd62f2c21" class=""><strong>Вывод</strong></h1>
+			<p id="131aa64c-9d0a-81c6-9d1f-d1f5234f685e" class=""><strong>В</strong> <strong>этой практической работе вы
+					научились настраивать фильтр fail2ban для ssh от Brute-force attack.</strong></p>
+			<p id="131aa64c-9d0a-81b2-989c-d3b5abbdfe49" class="">
+			</p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

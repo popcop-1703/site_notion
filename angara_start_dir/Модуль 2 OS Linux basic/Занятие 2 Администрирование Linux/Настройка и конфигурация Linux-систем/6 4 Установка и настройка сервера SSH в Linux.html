@@ -1,0 +1,1290 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>6.4. Установка и настройка сервера SSH в Linux</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+
+		.checkbox-on {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+
+		.checkbox-off {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-81a6-ab66-ec976dc26577" class="page sans">
+		<header><img class="page-cover-image"
+				src="https://images.unsplash.com/photo-1544256718-3bcf237f3974?ixlib=rb-4.0.3&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb"
+				style="object-position:center 50%" />
+			<div class="page-header-icon page-header-icon-with-cover"><img class="icon"
+					src="https://www.notion.so/icons/log-in_green.svg" /></div>
+			<h1 class="page-title">6.4. Установка и настройка сервера SSH в Linux</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<h3 id="131aa64c-9d0a-8171-9d66-d98f2f8536a4" class=""><strong>Цель работы</strong></h3>
+			<ul id="131aa64c-9d0a-81bc-9358-e21ad75fa767" class="bulleted-list">
+				<li style="list-style-type:disc">научиться настраивать SSH-сервер, клиент.</li>
+			</ul>
+			<h3 id="131aa64c-9d0a-8192-94f6-f971039f4ada" class=""><strong>Задача, выполнить все пункты:</strong></h3>
+			<ol type="1" id="131aa64c-9d0a-8172-9d00-c8988ca6a477" class="numbered-list" start="1">
+				<li>Организовать <code>SSH</code> соединение между двумя linux-системами;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-813c-8199-e3e0a007da45" class="numbered-list" start="2">
+				<li>Произвести настройку <code>SSH-сервера</code> и <code>SSH-клиента</code>;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81cd-ad7e-da188db3efb5" class="numbered-list" start="3">
+				<li>Сменить порт <code>default</code> на другой;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81b0-90e4-e46f68ef69b1" class="numbered-list" start="4">
+				<li>Запретить соединения от <code>root</code>;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8172-9a0f-e0f15733169e" class="numbered-list" start="5">
+				<li>Настройка подключения по одному <code>ip-адресу</code>;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81b7-9238-dcb54440d380" class="numbered-list" start="6">
+				<li>Настройка подключения по группе <code>ip-адресов</code>;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-817c-9eec-e7f0fa1434f5" class="numbered-list" start="7">
+				<li>Вывести журнал событий <code>SSH</code> службы;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8102-b67c-e6d67aba51fe" class="numbered-list" start="8">
+				<li>Показать неудачные попытки входа по <code>SSH</code> с помощью журнала событий;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-814e-b264-ea1f3607b4c0" class="numbered-list" start="9">
+				<li>Использую конфигурационный файл <code>motd</code>, добавить в приветственное окно подключение своё
+					ФИО.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8107-bbf2-c1120084706d" class="numbered-list" start="10">
+				<li>Выполнить команду на удалённом сервере без создания сессии шелла;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81c3-bad8-e02c6831662d" class="numbered-list" start="11">
+				<li>Выполнить подключение к <code>SSH</code> по имени хоста;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8168-81bd-dbade455427a" class="numbered-list" start="12">
+				<li>Выполнить Подключение к <code>SSH</code> из Windows;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81a2-88ed-cf7b8f956c89" class="numbered-list" start="13">
+				<li>Выполнить подключение по <code>SSH</code> с мобильного телефона.</li>
+			</ol>
+			<p id="131aa64c-9d0a-81b2-86dd-f19182d7cb2d" class="">
+			</p>
+			<figure class="block-color-blue_background callout" style=" display:flex"
+				id="131aa64c-9d0a-819f-b9b3-f99ff4654da7">
+				<div style="font-size:1.5em"><span class="icon">ℹ️</span></div>
+				<div style="width:100%"><strong>Secure Shell, т. е. SSH</strong> – протокол, обеспечивающий защищённые
+					соединения и передачу данных между двумя удалёнными компьютерами. Изначально создавался на замену
+					таким системам как rlogin и rcp. <br />Как понятно из полного названия протокола, система SSH
+					позволяет соединяться и управлять удалённым узлом (компьютером, маршрутизатором и т. д.), при этом
+					защищая весь передаваемый трафик с помощью высоконадёжного шифрования. <br /></div>
+			</figure>
+			<p id="131aa64c-9d0a-8180-a769-f15d6c3ec62c" class="">SSH широко применяется администраторами серверов для
+				их настройки и управления, да и обычные продвинутые пользователи — владельцы, например, сайтов или
+				виртуальных серверов активно используют SSH для подключения к своей учётной записи на хостинге и
+				использования командной оболочки сервера.</p>
+			<p id="131aa64c-9d0a-812f-9b7f-d99e9c7de3b4" class="">Сразу после окончания разработки система SSH стала
+				активно трансформироваться в закрытый коммерческий продукт в виде версии SSH2. Но благодаря сообществу
+				GNU <br />версии протокола SSH1 и SSH2 были реализованы в виде открытого и свободно распространяемого ПО
+				openSSH. <br /></p>
+			<p id="131aa64c-9d0a-8173-a6ec-e78fcf14fd15" class="">В Linux-системах используется именно этот
+				метапакет.Метапакет SSH базово включает в себя сервер SSH (sshd) в качестве программы-демона, а также
+				несколько утилит:
+			<div class="indented">
+				<ul id="131aa64c-9d0a-812f-b554-d2c22aa5733a" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>ssh</strong> –удаленная регистрация и выполнение команд
+					</li>
+				</ul>
+				<ul id="131aa64c-9d0a-8116-9e24-f9f49e8dea90" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>scp</strong> – передача файлов</li>
+				</ul>
+				<ul id="131aa64c-9d0a-81e5-af0b-cd86f6310f8a" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>ssh-keygen</strong> – для генерации пар SSH-ключей</li>
+				</ul>
+			</div>
+			</p>
+			<h1 id="131aa64c-9d0a-81e7-8215-e434c6924e08" class="">1. Установка пакетов SSH</h1>
+			<p id="131aa64c-9d0a-81cb-8d60-e1b4ba0e79ca" class="">Как уже говорилось система ssh в Linux-системах
+				распространяется в виде составного метапакета, поэтому для установки всех требуемых утилит ssh нужно
+				выполнить всего одну команду:</p>
+			<p id="131aa64c-9d0a-819b-9223-ea5924e84795" class=""><strong>В Ubuntu</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81bb-b8ef-c09f41f54a2c"
+				class="code"><code class="language-Bash">sudo apt-get install ssh</code></pre>
+			<p id="131aa64c-9d0a-8139-838c-c78c2e2b331b" class=""><strong>В CentOS</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8194-9d7b-e8cab9f2bda3"
+				class="code"><code class="language-Bash">yum -y install openssh-server openssh-clients</code></pre>
+			<p id="131aa64c-9d0a-8194-b7ca-ff3b304002f4" class=""><em>После чего начнется процесс установки</em></p>
+			<figure id="131aa64c-9d0a-8163-acc7-ee27aa1ab250" class="image"><a
+					href="https://i.imgur.com/AdBF6Jp.png"><img style="width:672px"
+						src="https://i.imgur.com/AdBF6Jp.png" /></a></figure>
+			<p id="131aa64c-9d0a-81c5-94b6-ef10be214eda" class="">Как видно, менеджер пакетов сам распознает все
+				зависимые и связанные пакеты и установит их. Также, по завершению установки, автоматически будет запущен
+				SSH-сервер в режиме демона. Это можно проверить командой:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-810c-a410-d9e683d7427b"
+				class="code"><code class="language-Bash">systemctl status sshd</code></pre>
+			<ul id="131aa64c-9d0a-815d-b440-c9a32c39c8e0" class="bulleted-list">
+				<li style="list-style-type:disc"><code>start &lt;uмя.service&gt;</code> -&gt; Запускает сервис</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8121-b7bd-c003672f2853" class="bulleted-list">
+				<li style="list-style-type:disc"><code>stop &lt;uмя.service&gt;</code> -&gt; Останавливает сервис</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8120-a82e-d20bc0469748" class="bulleted-list">
+				<li style="list-style-type:disc"><code>restart &lt;uмя.service&gt;</code> -&gt; Перезапускает сервис
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-816b-a0b2-cc645859e02b" class="bulleted-list">
+				<li style="list-style-type:disc"><code>try-restart &lt;uмя.service&gt;</code> -&gt; Перезапуск сервиса
+					только, если он запущен</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8106-8ffd-e482c7a5dfc3" class="bulleted-list">
+				<li style="list-style-type:disc"><code>reload &lt;uмя.service&gt;</code> -&gt; Перезагружает
+					конфигурацию сервиса</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8157-b935-e1a56acf74ef" class="bulleted-list">
+				<li style="list-style-type:disc"><code>status &lt;uмя.service&gt;</code> -&gt; Отображает подробное
+					состояние сервиса</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81b2-8f30-f4d973aebb57" class="bulleted-list">
+				<li style="list-style-type:disc"><code>is-active &lt;uмя.service&gt;</code> -&gt; Отображает только
+					строку active (сервис запущен) или inactive (остановлен)</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8134-8d24-d7ed5416af47" class="bulleted-list">
+				<li style="list-style-type:disc"><code>list-units --type service --all </code>-&gt; Выводит состояние
+					всех сервисов</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81b8-a0f2-ddb7731889b9" class="bulleted-list">
+				<li style="list-style-type:disc"><code>еnаblе &lt;uмя.service&gt;</code> -&gt; Включает сервис
+					(обеспечивает его автоматический запуск)</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8144-82c3-e9d5ebd63e68" class="bulleted-list">
+				<li style="list-style-type:disc"><code>disaЬle &lt;uмя.service&gt;</code> -&gt; Отключает сервис (сервис
+					не будет автоматически запускаться при запуске системы)</li>
+			</ul>
+			<ul id="131aa64c-9d0a-815f-a306-e0cc9b4c9b9a" class="bulleted-list">
+				<li style="list-style-type:disc"><code>rееnablе &lt;uмя.service&gt;</code> -&gt; Деактивирует сервис и
+					сразу его использует</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8166-b3bd-d0091c47f249" class="bulleted-list">
+				<li style="list-style-type:disc"><code>list-unit-files --type service</code> -&gt; Выводит список всех
+					сервисов и сообщает, какие из них активированы, а какие - нет</li>
+			</ul>
+			<p id="131aa64c-9d0a-81e0-92d6-ea9b3407ee69" class="">или:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8152-b57b-fb5edb42db24"
+				class="code"><code class="language-Bash">service sshd status </code></pre>
+			<p id="131aa64c-9d0a-81a4-a6f3-f760a016e352" class=""><strong>Даст тот же вывод. Теперь сервер работает с
+					базовыми настройками по-умолчанию.</strong></p>
+			<figure id="131aa64c-9d0a-8108-8b8f-faa6c07133ee" class="image"><a
+					href="https://i.imgur.com/O93Q6hq.png"><img style="width:576px"
+						src="https://i.imgur.com/O93Q6hq.png" /></a></figure>
+			<h2 id="131aa64c-9d0a-8118-b3d1-f4bfa08f9d4e" class="">2. Настройка SSH</h2>
+			<p id="131aa64c-9d0a-810c-9852-dbb2e0654e0b" class="">Режим работы SSH-сервера с настройками по-умолчанию
+				хоть и является вполне <br />работоспособным для небольших частных сетей, всё же нуждается в задании
+				некоторых важных параметров для использования на высоконадёжных публичных серверах. Настройки демона
+				хранятся в файле <br /><code>/etc/ssh/sshd_config</code>. Посмотреть его можно командой</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81c3-be69-ea2ca0fa6a73"
+				class="code"><code class="language-Bash">cat /etc/ssh/sshd_config</code></pre>
+			<figure id="131aa64c-9d0a-8187-a3cc-ca8702def520" class="image"><a
+					href="https://i.imgur.com/HgUhAtg.png"><img style="width:576px"
+						src="https://i.imgur.com/HgUhAtg.png" /></a></figure>
+			<p id="131aa64c-9d0a-8166-8352-f37421046d67" class="">В первую очередь следует обратить внимание на
+				следующие параметры: <br /> - <br /><strong>Port</strong><br /> -
+				<br /><strong>AddressFamily</strong><br /> - <br /><strong>ListenAddress</strong></p>
+			<p id="131aa64c-9d0a-8176-a059-fbcb783111b7" class="">Первый глобально задаёт номер порта, через который
+				будет работать соединение и если оставить его стандартным, т. е. 22, то велика вероятность, что он будет
+				слишком часто сканироваться роботами.</p>
+			<figure class="block-color-yellow_background callout" style=" display:flex"
+				id="131aa64c-9d0a-81d6-905b-e0ecbcedbcd9">
+				<div style="font-size:1.5em"><span class="icon">ℹ️</span></div>
+				<div style="width:100%"><strong>Примечание<br /><br /></strong>Для задания активации параметра
+					необходимо раскомментировать соответствующую строку — убрать символ «#» в её начале. Второй параметр
+					задаёт семейство используемых IP-адресов — IPv4 и IPv6. Если, к примеру, <br />используются только
+					адреса IPv4, то очень рекомендуется установить для <br />параметра<br /></div>
+			</figure>
+			<ul id="131aa64c-9d0a-8158-9abf-d0107d79a8c6" class="bulleted-list">
+				<li style="list-style-type:disc">AddressFamily значение inet</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8151-9f36-e2a07f7b6d3f" class="bulleted-list">
+				<li style="list-style-type:disc">AddressFamily inet</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8175-9401-ca0d463eceb4" class="bulleted-list">
+				<li style="list-style-type:disc">Для адресов семейства IPv6 используется значение inet6.</li>
+			</ul>
+			<p id="131aa64c-9d0a-8130-b8d9-d6a0d628f53c" class=""><strong>Параметр ListenAddress позволяет задавать
+					порты для отдельных сетевых интерфейсов:</strong></p>
+			<ul id="131aa64c-9d0a-818f-a602-f9bd34a2a603" class="bulleted-list">
+				<li style="list-style-type:disc">ListenAddress 10.24.205.75:2123</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81ac-b7c2-e71e134dc537" class="bulleted-list">
+				<li style="list-style-type:disc">ListenAddress 10.24.205.76:2124</li>
+			</ul>
+			<p id="131aa64c-9d0a-8157-8bcb-f9ab1ad7eafa" class="">Поскольку реализация openSSH позволяет работать с
+				протоколами SSH1 и SSH2, то <br />разумно отключить использование SSH1, т. к. эта версия является
+				устаревшей. Работа по SSH1 крайне не рекомендуется: Protocol 2<br /></p>
+			<ul id="131aa64c-9d0a-81cd-a275-f76ad72d5401" class="bulleted-list">
+				<li style="list-style-type:disc">Очень полезным является параметр, позволяющий проводить авторизацию и
+					шифрование трафика с помощью специальных SSH-ключей:
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-8101-9c57-d45aa5df2825"
+						class="code"><code class="language-Bash">PubkeyAuthentication yes</code></pre>
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-814e-aa44-dfe007463948" class="bulleted-list">
+				<li style="list-style-type:disc">Следует заметить, что в таком случае серверу необходимо явно указывать,
+					где<br />хранятся открытые ключи пользователей. Это может быть как один общий<br />файл для хранения
+					ключей всех пользователей (обычно это файл <br /><code>etc/.ssh/authorized_keys</code>), так и
+					отдельные для каждого пользователя ключи. Второй вариант предпочтительнее в силу удобства
+					администрирования и повышения<br />безопасности:<br />
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-8136-9e6c-c1f1fecbefab" class="code"><code class="language-Bash"># Для общего файлаAuthorizedKeysFile %h/.ssh/authorized_keys 
+# Файл -&gt; пользователь
+AuthorizedKeysFile etc/ssh/authorized_keys </code></pre>
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-818b-88b8-e4ea4e9bc805" class="bulleted-list">
+				<li style="list-style-type:disc">Во втором варианте благодаря шаблону автоподстановки с маской «%h»
+					будет использоваться домашний каталог пользователя.</li>
+			</ul>
+			<p id="131aa64c-9d0a-81d8-8a14-f24a440afe3b" class=""><strong>Важно также отключать парольный
+					доступ:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-812c-b1b5-ebf96812a179"
+				class="code"><code class="language-Bash">PasswordAuthentication no</code></pre>
+			<ul id="131aa64c-9d0a-8188-8ccc-e064f4ed5bd9" class="bulleted-list">
+				<li style="list-style-type:disc">Или же, в случае, если всё-таки необходимо использовать доступ по
+					паролю,<br />то обязательно нужно отключать авторизацию по пустому паролю:<br /></li>
+			</ul>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-812b-b849-c6f8a86f8a95"
+				class="code"><code class="language-Bash">PermitEmptyPasswords no</code></pre>
+			<ul id="131aa64c-9d0a-816f-8a8e-d287c37f9d04" class="bulleted-list">
+				<li style="list-style-type:disc">Для указания разрешённых или запрещённых пользователей и групп
+					служат<br />директивы DenyUsers, AllowUsers, DenyGroups, и AllowGroups. Значениями<br />для них
+					являются списки имён, разделяемых пробелами, например:<br /></li>
+			</ul>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81c3-b481-d09b5c77db5d" class="code"><code class="language-Plain Text" style=" word-break:break-all">DenyUsers fred john
+AllowGroups root clients administrators</code></pre>
+			<ul id="131aa64c-9d0a-8191-8896-f11c17125915" class="bulleted-list">
+				<li style="list-style-type:disc">Следует также отключать root-доступ:</li>
+			</ul>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-814c-a6c7-e80098341f69"
+				class="code"><code class="language-Bash">PermitRootLogin no</code></pre>
+			<ul id="131aa64c-9d0a-819b-84b1-fcfa29e8296e" class="bulleted-list">
+				<li style="list-style-type:disc">Иногда, когда следует задавать мультисерверную конфигурацию, очень
+					удобно<br />использовать алиасы (Aliases), что позволяет настроить сразу несколько<br />режимов
+					доступа (с разными хостами, портами и т. д.) и использовать их,<br />указывая при этом конкретный
+					алиас:<br /></li>
+			</ul>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8103-92ec-c719dc3bcfb8"
+				class="code"><code class="language-Bash">ssh alias_name</code></pre>
+			<p id="131aa64c-9d0a-8110-9727-c1cccf834c2f" class="">Настройки для алиасов хранятся либо глобально в
+				<code>/etc/ssh/ssh_config</code>, либо раздельно для пользователей в <code>~/.ssh/config</code>. Здесь
+				нужно не спутать с <code>ssh_config!</code> Пример:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81a1-82a1-c24915a8e6e2" class="code"><code class="language-Plain Text" style=" word-break:break-all">Host your_alias
+Port your_ssh_port
+HostName 0.0.0.0 # IP или имя хоста
+User your_user_name</code></pre>
+			<p id="131aa64c-9d0a-814b-a9a9-f45ad90a2926" class=""><strong>Для применения сделанных настроек необходим
+					перезапуск SSH-сервера:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-811c-b65d-c05b04570c7b"
+				class="code"><code class="language-Bash">systemctl restart sshd</code></pre>
+			<p id="131aa64c-9d0a-814b-8d69-c4d10f316404" class=""><strong>или:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81f8-8bd4-cccde7fc194f"
+				class="code"><code class="language-Bash">service sshd restart</code></pre>
+			<h2 id="131aa64c-9d0a-81d9-8f04-e7ca3bb766db" class="">3. Настройка и использование клиента SSH</h2>
+			<ul id="131aa64c-9d0a-8118-9693-cc48bffc111b" class="bulleted-list">
+				<li style="list-style-type:disc">Для подключения по к серверу используется команда:</li>
+			</ul>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8152-93d9-d6859b9d63ff"
+				class="code"><code class="language-Bash">ssh user_name@host_name</code></pre>
+			<p id="131aa64c-9d0a-81f7-b018-e895c58e7a79" class="">где <strong>user_name</strong> – имя пользователя в
+				системе, <strong>host_name</strong> – имя узла, к которому производится подключение, например:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-811c-b5cc-d63aa3a53daf"
+				class="code"><code class="language-Bash">ssh fred@fredwebserver</code></pre>
+			<p id="131aa64c-9d0a-8129-b638-e95be9ec9b1f" class="">При этом утилита ssh запросит (в зависимости от
+				настроек сервера) <strong>логин, пароль</strong> или парольную фразу для разблокировки приватного ключа
+				пользователя.</p>
+			<p id="131aa64c-9d0a-8186-82c2-eeaaabda464b" class="">В случае авторизации по ключу, должна быть
+				предварительно сгенерирована <br />пара SSH-ключей — открытый, который хранится на стороне сервера,
+				обычно в файле <br /><code>.ssh/authorized_keys</code> в домашнем каталоге пользователя, и закрытый —
+				используется для авторизации клиента и хранится, как правило, в каталоге <code>.ssh/</code> домашней
+				директории пользователя. Открытый ключ представляет собой «цифровой слепок» закрытого ключа благодаря
+				которому сервер «знает», кто «свой», а кто «чужой».</p>
+			<p id="131aa64c-9d0a-8173-92c4-c40ebfced9c2" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-81f9-870d-c73c7e4993dc" class="">4. Troubleshooting ssh</h2>
+			<p id="131aa64c-9d0a-8126-a669-f7256342780a" class="">Используйте ssh -v для получения отладочной информации
+				о попытке подключения по ssh.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81b1-b8be-e8efbe324e45"
+				class="code"><code class="language-JavaScript">ssh igor@192.168.127.151 -v</code></pre>
+			<figure id="131aa64c-9d0a-8159-a7d4-f0469c7e4534" class="image"><a
+					href="6 4 Установка и настройка сервера SSH в Linux/Untitled.png"><img
+						style="width:1030px"
+						src="6 4 Установка и настройка сервера SSH в Linux/Untitled.png" /></a>
+			</figure>
+			<h2 id="131aa64c-9d0a-8134-8a0d-f8a9e19c5c49" class="">5. Посмотреть какие есть ключи и агент ssh можно с
+				помощью данной команды:</h2>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8175-a90a-e3f371c5cec5"
+				class="code"><code class="language-JavaScript">ls -l /etc/ssh/ssh_host_*</code></pre>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-815f-8cb9-f5d6a40eeaf7"
+				class="code"><code class="language-JavaScript">ps -ef | grep ssh-agent</code></pre>
+			<figure id="131aa64c-9d0a-81f4-969e-c346fe40d62d" class="image"><a
+					href="6 4 Установка и настройка сервера SSH в Linux/Untitled%201.png"><img
+						style="width:1037px"
+						src="6 4 Установка и настройка сервера SSH в Linux/Untitled%201.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8192-ab40-fa3f1e51e3b1" class="">
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8153-a03a-f0c61ea27504"
+				class="code"><code class="language-JavaScript">ssh-add -L - покажет какие ключи в данный момент используются</code></pre>
+			<p id="131aa64c-9d0a-817d-9d21-eee93ae7f9a4" class="">
+			</p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

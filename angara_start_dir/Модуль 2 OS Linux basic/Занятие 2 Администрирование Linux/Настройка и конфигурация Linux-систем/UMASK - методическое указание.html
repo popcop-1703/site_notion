@@ -2,7 +2,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Обучение Angara-Start</title>
+	<title>UMASK - методическое указание</title>
 	<style>
 		/* cspell:disable-file */
 		/* webkit printing magic: print all background colors */
@@ -643,7 +643,7 @@
 		}
 
 		.highlight-yellow_background {
-			background: rgba(251, 237, 214, 1);
+			background: rgba(251, 243, 219, 1);
 		}
 
 		.highlight-teal_background {
@@ -734,7 +734,7 @@
 		}
 
 		.block-color-yellow_background {
-			background: rgba(251, 237, 214, 1);
+			background: rgba(251, 243, 219, 1);
 		}
 
 		.block-color-teal_background {
@@ -798,7 +798,7 @@
 		}
 
 		.select-value-color-yellow {
-			background-color: rgba(249, 228, 188, 1);
+			background-color: rgba(253, 236, 200, 1);
 		}
 
 		.select-value-color-blue {
@@ -813,54 +813,141 @@
 			background-color: undefined;
 		}
 
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
 	</style>
 </head>
 
 <body>
-	<article id="e9238063-77fc-4eb1-b379-81e4c909e734" class="page sans">
-		<header><img class="page-cover-image"
-				src="angara_start_dir/angara2.jpg"
-				style="object-position:center 41.779999999999994%" />
-			<div class="page-header-icon page-header-icon-with-cover"><span class="icon">💁</span></div>
-			<h1 class="page-title">Обучение Angara-Start</h1>
+	<article id="131aa64c-9d0a-81b9-9fb8-fa89f01b7d2d" class="page sans">
+		<header>
+			<div class="page-header-icon undefined"><img class="icon"
+					src="https://www.notion.so/icons/follow_blue.svg" /></div>
+			<h1 class="page-title">UMASK - методическое указание</h1>
 			<p class="page-description"></p>
 		</header>
 		<div class="page-body">
-			<h1 id="5c5d6141-6a62-41de-94fe-22a0f224013a" class="">1й этап: Базовое обучение</h1>
-			<p id="27aeb774-bbec-4bfc-aa1e-8c2b9d409b08" class="">
+			<figure class="block-color-red callout" style="display:flex"
+				id="131aa64c-9d0a-8107-bbf4-e1892fd4618e">
+				<div style="font-size:1.5em"><span class="icon">⚙️</span></div>
+				<div style="width:100%"><strong>UMASK</strong>: Это сокращение от &quot;user file-creation mode
+					mask&quot; (маска режима создания файлов пользователя). Маска доступа (umask) определяет, какие
+					разрешения не будут установлены при создании новых файлов и каталогов.</div>
+			</figure>
+			<p id="131aa64c-9d0a-8138-bbd1-e11ee752d2fc" class="">
 			</p>
-			<figure id="4de7a3f6-7056-4782-9eb2-f200e4627b64" class="link-to-page"><a
-					href="angara_start_dir/sys_req.html"><span
-						class="icon">💻</span>Системные требования</a></figure>
-			<p id="e759a26e-36cd-4188-a10d-7b908c39c898" class="">
+			<blockquote id="131aa64c-9d0a-8174-b50e-d2e086e30675" class=""><strong>022</strong>: Это значение маски
+				доступа, выраженное в восьмеричной системе счисления. В Linux права доступа к файлам и каталогам обычно
+				представлены в восьмеричной нотации. Здесь каждая цифра представляет собой бит прав доступа.
+			</blockquote>
+			<p id="131aa64c-9d0a-8196-ad64-c57afa286c68" class="">Конкретно значение <code><strong>022</strong></code>
+				означает следующее:
+			<div class="indented">
+				<ul id="131aa64c-9d0a-8113-9065-f335af2be37e" class="bulleted-list">
+					<li style="list-style-type:disc">Права доступа для владельца файла: 0666 (восьмеричное) - 022
+						(маска) = 0644 (восьмеричное)</li>
+				</ul>
+				<ul id="131aa64c-9d0a-81e3-868b-caa6c9aa8b5a" class="bulleted-list">
+					<li style="list-style-type:disc">Права доступа для владельца каталога: 0777 (восьмеричное) - 022
+						(маска) = 0755 (восьмеричное)</li>
+				</ul>
+			</div>
 			</p>
-			<figure id="a0115771-3f32-4dfe-affe-89036ed5189b" class="link-to-page"><a
-					href="angara_start_dir/Вводное занятие.html"><img
-						class="icon" src="https://www.notion.so/icons/feed_gray.svg" />Вводное занятие</a></figure>
-			<p id="2d1f3315-1264-470b-b9a8-f5057efb6fde" class="">
+			<p id="131aa64c-9d0a-81df-8a23-cc8c47d8a492" class="">Теперь, когда мы понимаем, что означает
+				<code><strong>UMASK 022</strong></code>, мы можем интерпретировать это как следующее:</p>
+			<ul id="131aa64c-9d0a-810e-9222-ffe0d6edcf11" class="bulleted-list">
+				<li style="list-style-type:disc">При создании нового файла или каталога, права доступа к нему будут
+					установлены так, чтобы владелец имел полные права (<code><strong>rw-</strong></code>), а группа и
+					другие пользователи имели только права на чтение (<code><strong>r--</strong></code>) для файлов и на
+					чтение и выполнение (<code><strong>r-x</strong></code>) для каталогов.</li>
+			</ul>
+			<p id="131aa64c-9d0a-8160-a71f-eebc643de7ec" class="">
 			</p>
-			<figure id="5c0114fe-9146-4515-8e36-ed7c0efd0f85" class="link-to-page"><a
-					href="angara_start_dir/Модуль 1 OS Windows security basic.html"><img
-						class="icon"
-						src="angara_start_dir/Модуль 1 OS Windows security basic/Windows_logo_-_2012.svg.png" />Модуль
-					1. OS Windows security basic</a></figure>
-			<figure id="17800a46-81a0-4d96-8730-76b5079410f6" class="link-to-page"><a
-					href="angara_start_dir/Модуль 2 OS Linux basic.html"><img
-						class="icon"
-						src="angara_start_dir/Модуль 2 OS Linux basic/kali.jpg" />Модуль
-					2. OS Linux security basic</a></figure>
-			<figure id="2c4c3f46-33d9-4402-9c12-a8987c0b5323" class="link-to-page"><a
-					href="angara_start_dir/Модуль 3 Networks security basic.html"><img
-						class="icon"
-						src="angara_start_dir/Модуль 3 Networks security basic/network.png" />Модуль
-					3. Networks security basic</a></figure>
-			<figure id="c870a6ea-b5b9-4db4-8336-a171ff260dd9" class="link-to-page"><a
-					href="angara_start_dir/Модуль 4 WEB basic.html"><img
-						class="icon"
-						src="angara_start_dir/Модуль 4 WEB basic/web.png" />Модуль
-					4. WEB security basic</a></figure>
-			<p id="345d3f7d-545a-4f62-9abd-53c201b814ba" class="">
-			</p>
+			<blockquote id="131aa64c-9d0a-8119-b1cd-c8d605f7f9b2" class="">Когда значение маски доступа (umask)
+				установлено на <code><strong>077</strong></code> и вы создаете нового пользователя в системе, это
+				означает, что при создании новой учетной записи будут применены ограничения прав доступа, определенные
+				этой маской. Давайте подробно рассмотрим, как это будет выглядеть:</blockquote>
+			<ol type="1" id="131aa64c-9d0a-8176-a549-e72b0f2d5daf" class="numbered-list" start="1">
+				<li><strong>Создание новой учетной записи</strong>:<ul id="131aa64c-9d0a-81bc-9fa2-d8daf37eca8f"
+						class="bulleted-list">
+						<li style="list-style-type:disc">При создании нового пользователя в системе учетная запись будет
+							создана с указанным именем пользователя и UID (идентификатором пользователя).</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81ec-9331-c63c400ef32c" class="bulleted-list">
+						<li style="list-style-type:disc">Команда <code><strong>useradd</strong></code> или
+							<code><strong>adduser</strong></code> используется для этой цели. </li>
+					</ul>
+					<ul id="131aa64c-9d0a-8120-8040-ecc989c08fdf" class="bulleted-list">
+						<li style="list-style-type:disc"><strong>Например:
+							</strong><code><strong>sudo adduser igor</strong></code></li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8187-a365-ddbee174f57b" class="numbered-list" start="2">
+				<li><strong>Назначение домашнего каталога</strong>:<ul id="131aa64c-9d0a-811d-a0e4-f4ac21d7fd3e"
+						class="bulleted-list">
+						<li style="list-style-type:disc">По умолчанию новому пользователю будет назначен домашний
+							каталог, обычно расположенный в <code><strong>/home/igor</strong></code>.</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8104-9896-fdcd0ad9d7b8" class="numbered-list" start="3">
+				<li><strong>Установка прав доступа к домашнему каталогу</strong>:<ul
+						id="131aa64c-9d0a-81ce-8727-e4f6ab2591a6" class="bulleted-list">
+						<li style="list-style-type:disc">Поскольку значение маски доступа (umask) установлено на
+							<code><strong>077</strong></code>, права доступа к домашнему каталогу будут установлены
+							таким образом, что только сам пользователь будет иметь доступ к своему домашнему каталогу, а
+							остальные пользователи системы не будут иметь никаких прав доступа к этому каталогу.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8144-a1cb-c6b2653905e9" class="bulleted-list">
+						<li style="list-style-type:disc">Права доступа к домашнему каталогу будут:
+							<code><strong>rwx------</strong></code> (чтение, запись и выполнение только для владельца).
+						</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-813f-8068-ecbf485da5f6" class="numbered-list" start="4">
+				<li><strong>Назначение владельца и группы</strong>:<ul id="131aa64c-9d0a-818f-b95b-ea1fbfa8d9bf"
+						class="bulleted-list">
+						<li style="list-style-type:disc">Владельцем домашнего каталога будет новый пользователь, а
+							группой будет также установлена группа с тем же именем, что и пользователь.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8143-bf06-d8c2e39677c9" class="bulleted-list">
+						<li style="list-style-type:disc">Например, если имя пользователя -
+							<code><strong>igor</strong></code>, то владельцем и группой будет также
+							<code><strong>igor</strong></code>.</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ec-bcbf-c69bd797a49d" class="numbered-list" start="5">
+				<li><strong>Ограничения доступа к файлам и каталогам</strong>:<ul
+						id="131aa64c-9d0a-811d-b2be-d8f62b2a68ac" class="bulleted-list">
+						<li style="list-style-type:disc">При создании файлов или каталогов в домашнем каталоге нового
+							пользователя, права доступа будут ограничены по маске доступа (umask), установленной на
+							<code><strong>077</strong></code>.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81f5-aacf-c2bab02d7986" class="bulleted-list">
+						<li style="list-style-type:disc">Для файлов права доступа будут:
+							<code><strong>rw-------</strong></code> (чтение и запись только для владельца).</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81d4-9868-ec3cfe7df7c7" class="bulleted-list">
+						<li style="list-style-type:disc">Для каталогов права доступа будут:
+							<code><strong>drwx------</strong></code> (чтение, запись и выполнение только для владельца).
+						</li>
+					</ul>
+				</li>
+			</ol>
+			<p id="131aa64c-9d0a-81e4-87de-fb58e70f96ff" class="">Таким образом, установка маски доступа (umask) на
+				<code><strong>077</strong></code> при создании нового пользователя приведет к тому, что только сам
+				пользователь будет иметь полный доступ к своему домашнему каталогу и его содержимому, а все остальные
+				пользователи не будут иметь никаких прав доступа к этим файлам и каталогам.</p>
 		</div>
 	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
 </body>

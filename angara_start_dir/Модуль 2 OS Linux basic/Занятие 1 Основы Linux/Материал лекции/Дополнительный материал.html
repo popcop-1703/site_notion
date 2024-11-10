@@ -1,0 +1,2596 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Дополнительный материал</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-81e1-8f6b-e126339ed21a" class="page sans">
+		<header>
+			<h1 class="page-title">Дополнительный материал</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<h1 id="131aa64c-9d0a-8111-ae0c-fd82a80abf3d" class="">Лекционный материал:</h1>
+			<h2 id="131aa64c-9d0a-818d-b16f-d27b515cc03e" class="">1. Дистрибутивы OS Linux</h2>
+			<p id="131aa64c-9d0a-81f0-b3cf-f7b3d7fc159e" class=""><strong>Дистрибутив Linux</strong> — установочный
+				пакет для развёртывания операционной системы, состоящей из ядра Linux, утилит GNU, дополнительного ПО и
+				диспетчера пакетов. Он также может включать в себя пакет для установки дисплейного сервера и
+				развёртывания среды рабочего стола.</p>
+			<p id="131aa64c-9d0a-81cc-9cb1-e7c950dec47c" class="">Название &quot;дистрибутив&quot; происходит от
+				английского слова &quot;distribute&quot; — &quot;распространять&quot;. К примеру, компании Debian и
+				Ubuntu занимаются именно таким распространением ядра Linux со всем необходимым программным обеспечением
+				(таким, как сетевой менеджер, диспетчер пакетов, среда рабочего стола и т.д.) в качестве
+				полнофункциональной операционной системы.</p>
+			<p id="131aa64c-9d0a-810c-8663-f677f8b75bab" class="">Дистрибутив также осуществляет установку необходимых
+				обновлений в процессе установки, а развёрнутая на базе определённого дистрибутива ОС — в дальнейшем.</p>
+			<p id="131aa64c-9d0a-81ae-a525-e9ff7d0e9e72" class="">Таким образом, Linux — ядро ОС, а дистрибутив Linux —
+				установочный пакет какой-то из разновидностей этой операционной системы плюс дополнительные компоненты.
+				Такие разновидности называют операционными системами на базе Linux.</p>
+			<p id="131aa64c-9d0a-8158-8fc5-cbee911969c4" class=""><strong>Ядро</strong> — основа операционной системы.
+				Оно непосредственно взаимодействует с аппаратурой. С ядром можно взаимодействовать с помощью приложений
+				— с помощью предоставляемого приложениям программного кода. Ядро ОС Linux было создано В 1991 году
+				Линусом Торвальдсом. Однако, для того, чтобы пользоваться этим ядром нужна <strong>оболочка</strong>,
+				осуществляющая взаимодействие с пользователем. Чаще всего используется оболочка <strong>Bash.</strong>
+			</p>
+			<p id="131aa64c-9d0a-8134-afec-cd7f7b6a69d0" class="">Взаимодействие с ядром с помощью терминала
+				осуществляется путём выполнения команд, наследованых, главным образом, из операционной системы UNIX.</p>
+			<p id="131aa64c-9d0a-8131-b8f4-dcca2ef75d44" class="">В 80-х годах UNIX был проприетарным и очень дорогим.
+				Именно поэтому Линус Торвальдс и разработал новое ядро, очень похожее на UNIX. Для взаимодействия с этим
+				ядром Linux Торвальдс использовал утилиты GNU, доступные бесплатно по лицензии GPL.</p>
+			<p id="131aa64c-9d0a-81c8-8311-e4ddf9882976" class="">Благодаря утилитам GNU ядро Linux вело себя так же,
+				как и ядро UNIX. По этой причине Linux иногда называют UNIX-подобной операционной системой.</p>
+			<p id="131aa64c-9d0a-8104-9c77-d307c4c188f2" class="">Оболочка Bash тесно интегрирована с утилитами GNU. В
+				связи с этим в сообществе пользователей Linux многие настаивают на том, чтобы и GNU также получил
+				заслуженное признание. Поэтому они и употребляют название <strong>GNU/Linux.</strong></p>
+			<h3 id="131aa64c-9d0a-81b3-a0d2-e79bffa4aeb3" class=""><strong>Ubuntu</strong></h3>
+			<p id="131aa64c-9d0a-8132-bc86-ec95a57431d2" class="">Неизменным лидером среди Linux дистрибутивов за
+				последние несколько лет остается дистрибутив Ubuntu, разработанный компанией Canonical. Этот дистрибутив
+				основан на Debian и существует с 2004 года. У Ubuntu есть версия для настольных компьютеров, а также для
+				серверов. Компания Canonical и сообщество выпускают редакции дистрибутива почти со всеми популярными
+				окружениями рабочего стола. За время развития дистрибутива в сети накопилось множество обучающих
+				материалов, инструкций и решений для возможных проблем. Это лучший дистрибутив для домашнего
+				использования и рабочих станций.</p>
+			<p id="131aa64c-9d0a-81a8-8918-f959fe443cb5" class="">Дистрибутив достаточно стабилен, потому что имеет
+				фиксированный график релизов. Версия с длительным сроком поддержки выходит раз в два года в апреле, а
+				обычные версии со сроком поддержки в 9 месяцев выходят раз в пол года. Если вы предпочитаете
+				стабильность, то можете использовать только LTS версии. Если же вам нужно более новое программное
+				обеспечение - можно обновляться до каждой обычной версии.</p>
+			<p id="131aa64c-9d0a-812e-9cae-cf16975d16ec" class="">Отличительной чертой дистрибутива Ubuntu является
+				наличие огромного репозитория программ, которые очень просто установить. Рядовые пользователи,
+				использующие Ubuntu, могут вообще не пользоваться командной строкой. Почти все основные действия по
+				настройке Ubuntu выполняются в графическом режиме.</p>
+			<p id="131aa64c-9d0a-81dd-bc7e-f5c5e717f450" class="">Новые версии дистрибутива Ubuntu выходят два раза в
+				год — в апреле и октябре.</p>
+			<p id="131aa64c-9d0a-8151-b602-f7948451b152" class="">Релизы Ubuntu имеют числовое обозначение вида —
+				ГОД.МЕСЯЦ, соответствующие году и месяцу выхода релиза. Например, Ubuntu 18.10 вышла в октябре 2018 г.
+			</p>
+			<p id="131aa64c-9d0a-819e-9253-fa2476d6a715" class="">Каждая новая версия поддерживается обновлениями в
+				течение 9 месяцев (кроме LTS версий).</p>
+			<p id="131aa64c-9d0a-818f-8346-fac0b97c41cd" class="">Раз в два года выпускаются версии <strong>LTS</strong>
+				(Long Term Support).</p>
+			<p id="131aa64c-9d0a-81f1-88f7-fd305cd1c935" class="">LTS версии поддерживаются обновлениями в течение
+				5 лет.</p>
+			<p id="131aa64c-9d0a-8103-b868-c0696476dee0" class="">Периодически выпускаются обновленные релизы
+				LTS-версий. Для таких релизов к номеру <br />версии добавляется еще одна цифра, например,
+				Ubuntu 18.04.1 LTS.<br /></p>
+			<p id="131aa64c-9d0a-819f-a640-c982515dde49" class="">По умолчанию среда рабочего стола в Ubuntu – Unity,
+				очень современная графическая оболочка с мощным инструментом поиска для ваших приложений и документов.
+				Хорошо интегрируется с обычными приложениями, такими как аудиоплееры, видеоплееры и социальные сети.</p>
+			<p id="131aa64c-9d0a-81cb-9893-c8b29d07a930" class="">Системы для управления пакетами: apt и apt-get.</p>
+			<p id="131aa64c-9d0a-81b4-b083-cbe854494294" class="">Формат пакетов: <em>DEB (.deb).</em></p>
+			<h3 id="131aa64c-9d0a-81ee-949f-cbd8451a150a" class=""><strong>Debian</strong></h3>
+			<p id="131aa64c-9d0a-81a1-bb48-f0f63ba73a27" class="">Debian создан из свободного ПО и ПО с открытым
+				исходным кодом, то есть это система предоставляется для использования, изменения и распространения.</p>
+			<p id="131aa64c-9d0a-8166-bd6d-deddee59454c" class="">В отличие от Ubuntu этот дистрибутив развивается
+				только сообществом и существует с 1995 года. Именно на нём основывается Ubuntu. Debian ещё более
+				стабилен чем Ubuntu, потому что новые версии выходят примерно раз в два года, а поддержка старых версий
+				длиться на протяжении примерно пяти лет. Этот дистрибутив больше подходит для серверов. Там, чаще всего,
+				нужна стабильность, а не новизна программного обеспечения, однако на домашних компьютерах его тоже можно
+				использовать. Основатель дистрибутива американский программист Ян Мердок. </p>
+			<p id="131aa64c-9d0a-8197-b385-d3d06a4adc43" class="">Debian каждый день доказывает свою надёжность в
+				тысячах сценариях реального использования во всём мире, начиная от ноутбука для одного пользователя и
+				заканчивая суперколлайдерами, фондовыми биржами и автомобильной промышленностью. Также система популярна
+				в академическом мире, в науке и в государственном секторе. Debian имеет поддержку безопасности для
+				стабильных выпусков. Многие другие дистрибутивы и исследователи безопасности полагаются на систему
+				отслеживания безопасности Debian.</p>
+			<p id="131aa64c-9d0a-8192-8618-ce5bddec7ac3" class="">В качестве графической оболочки на Debian можно
+				использовать практическую любую популярную среду рабочего стола, например, поддерживается: GNOME, KDE
+				Plasma, LXQt, MATE, Cinnamon, Xfce.</p>
+			<p id="131aa64c-9d0a-81c9-bbc7-ec0ac7cc8050" class="">Формат пакетов: <em>DEB (.deb).</em></p>
+			<p id="131aa64c-9d0a-8121-8f52-d71c1c9d0f52" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-811d-8461-d67ad7f61013" class=""><strong>Fedora</strong></h3>
+			<p id="131aa64c-9d0a-810c-8f39-f7ebc8c0e50b" class="">Дистрибутив Fedora называют самым передовым
+				дистрибутивом Linux, потому что он постоянно развивается с последним программным обеспечением,
+				обновлениями драйверов и функциями Linux.</p>
+			<p id="131aa64c-9d0a-814c-82ff-df4f9d2f4aae" class="">Ранее сказанное способствует тому, что вы можете
+				уверенно использовать Fedora, как только установка будет завершена - она поставляется с последним
+				стабильным ядром и всеми его преимуществами. Данный дистрибутив поддерживается сообществом Red Hat,
+				поэтому его пользователи пользуются преимуществами получения поддержки от сообщества Red Hat, которая
+				включает в себя коммерческую поддержку и постоянные обновления безопасности.</p>
+			<p id="131aa64c-9d0a-8177-9996-ebc8b20d4d5a" class="">Выход новых версий каждые 6-8 месяцев. Поддержка
+				каждой версии Fedora длится примерно 13 месяцев. Для каждой версии поддержка заканчивается с выходом
+				версии: номер_версии+2.</p>
+			<p id="131aa64c-9d0a-8132-a474-cef9decbba49" class="">Используется пакетный менеджер DNF (Dandified YUM).
+			</p>
+			<p id="131aa64c-9d0a-81dd-834e-fae7f4b9f08f" class="">Формат пакетов: <strong>RPM</strong> (Red Hat Package
+				Manager).</p>
+			<p id="131aa64c-9d0a-818c-8a59-e28b54bc342f" class="">Также поддерживаются пакеты в формате Flatpak.</p>
+			<p id="131aa64c-9d0a-81de-9b8b-c087f382b2e7" class="">Существует следующие редакции дистрибутива Fedora,
+				предназначенные для различных целей:</p>
+			<ul id="131aa64c-9d0a-8189-b10e-f424d0458031" class="bulleted-list">
+				<li style="list-style-type:disc">Fedora Workstation (Рабочая станция) — версия Fedora Linux для
+					настольных компьютеров.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81b8-b267-df3dd0c0ef4a" class="bulleted-list">
+				<li style="list-style-type:disc">Fedora IoT (Internet of Things). <em>Данная редакция появилась, начиная
+						с версии Fedora 33</em>.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81d7-89a0-ed765d68001e" class="bulleted-list">
+				<li style="list-style-type:disc">Fedora Server. Серверная версия.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c6-a947-e7b9b07296bf" class="bulleted-list">
+				<li style="list-style-type:disc">Fedora Atomic. Версия для развертывания в области обработки облачных
+					вычислений.</li>
+			</ul>
+			<p id="131aa64c-9d0a-8175-901f-f9822ee10fdb" class="">В качестве окружения рабочего стола используется
+				Gnome.</p>
+			<p id="131aa64c-9d0a-812b-aba8-ed7bdac25bcd" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-8189-8f0a-eb7e14a3c9be" class="">CentOS</h3>
+			<p id="131aa64c-9d0a-8129-a04c-c54e9becd7eb" class="">Один из дистрибутивов операционной системы на базе
+				ядра Linux. Является бесплатным аналогом коммерческого Red Hat. Собственно, бесплатность и надежность
+				последнего составляют основные преимущества CentOS. Centos часто отмечается как очень надёжное решение
+				для серверов. В состав дистрибутива входит хорошо проверенное и устойчивое ядро Linux и пакеты программ.
+			</p>
+			<p id="131aa64c-9d0a-8157-8671-e0add49ff732" class="">Срок поддержки каждой версии CentOS составляет 10 лет.
+				И хоть ОС разработана энтузиастами, но каждая версия обновляется каждые полгода.</p>
+			<p id="131aa64c-9d0a-81b8-b742-ee6cd424969e" class="">Также в дистрибутиве имеется <strong>ряд вшитых
+					решений </strong>которые смогут значительно упростить жизнь программисту или же сетевому
+				<br />администратору с работой на выделенном сервере. Поэтому CentOS <br /><strong>хорошо совместима с
+					панелями управления VPS/VDS серверов.</strong></p>
+			<p id="131aa64c-9d0a-81cc-8943-ff576adfff49" class="">Из минусов можно отметить меньшее количество
+				руководств и документации, если сравнить с другим популярным дистрибутивом Ubuntu. Поэтому новичкам
+				разобраться с CentOS будет немного тяжелее, а изучение может занять много времени.</p>
+			<p id="131aa64c-9d0a-8103-8051-ebdf5c4dea35" class="">CentOS используется среду рабочего стола GNOME.</p>
+			<p id="131aa64c-9d0a-8144-9832-fdaccd9eb176" class="">Для установки и обновления пакетов в CentOS
+				используется утилита YUM (Yellow Dog Updater Modified).</p>
+			<p id="131aa64c-9d0a-816b-831d-e719dbc03772" class="">YUM является интерфейсом для DNF.</p>
+			<p id="131aa64c-9d0a-818e-9e90-ee2b657d5ed4" class="">Формат пакетов: RPM.</p>
+			<p id="131aa64c-9d0a-81df-ad6b-da45a2d3c13f" class="">Пакетная база: RedHat Enterprise Linux.</p>
+			<p id="131aa64c-9d0a-8125-bd81-f9f1f5aab413" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-8159-9e82-c1d00a56d64d" class=""><strong>Kali Linux</strong></h3>
+			<p id="131aa64c-9d0a-8162-9880-d3bfdc439de8" class="">Kali Linux - это не Linux для начинающих, а мощное
+				оружие хакера, или того, кто с этими хакерами борется. Kali Linux является дистрибутивом для проведения
+				тестирования на проникновение и аудита безопасности.</p>
+			<p id="131aa64c-9d0a-8144-847d-eb8715235129" class="">Основан на Debian.</p>
+			<p id="131aa64c-9d0a-81e8-8a91-c83558771c8d" class="">В качестве основной среды рабочего стола в Kali
+				используется Gnome 3, но с переделанным интерфейсом, напоминающим классический Gnome.</p>
+			<p id="131aa64c-9d0a-81f1-a029-ff8a5c97544c" class="">Все программы можно вызвать через главное меню,
+				программы и утилиты проверки безопасности распределены по категориям.</p>
+			<p id="131aa64c-9d0a-81e1-b540-f37f6cb50c53" class="">Kali Lunux содержит более 300 различных утилит,
+				которые могут использоваться для проведения тестов, поиска уязвимостей, анализа данных, сниффига
+				(sniffing), спуфинга (spoofing), взлома сетей и систем и выполнения других действий.</p>
+			<p id="131aa64c-9d0a-8125-b1f5-f1769b57700e" class="">К примеру, одной из таких утилит является BruteSpray.
+				Это скрипт, написанный на Python, который отвечает за поиск хостов и открытых портов с помощью
+				программного обеспечения Nmap для Linux, автоматически обеспечивая вывод GNMAP или XML, чтобы
+				впоследствии атаковать сервисы, обнаруженные на разных хостах с помощью программного обеспечения Medusa.
+				Последняя программа отвечает за выполнение брут-форсер входа, то есть за попытку сделать подбор данных
+				такие службы, как SSH или FTP, среди многих других протоколов. Этот скрипт ищет не только хосты, если у
+				нас открыты «стандартные» порты, но и нестандартные порты, используя типичный -sV в Nmap.</p>
+			<p id="131aa64c-9d0a-81f5-aa38-e2d2d5196460" class="">В Kali Поддерживаются платформы 32-bit x86, 64-bit
+				x86, а также ARM-архитектура (ARMEL и ARMHF).</p>
+			<p id="131aa64c-9d0a-81c3-932f-ff4aedd6da43" class="">Может запускаться на Raspberry Pi (включая Raspberry
+				Pi 4), Odroid, Cubox, Beaglebone, Samsung Chromebook.</p>
+			<p id="131aa64c-9d0a-814e-b384-e184ea8b7cbe" class="">Дистрибутив также можно установить на некоторые
+				планшеты ARM-архитектуры.</p>
+			<p id="131aa64c-9d0a-810a-b823-db27e4095ca8" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-819e-a922-f7cf99da01fc" class="">Parrot OS</h3>
+			<p id="131aa64c-9d0a-81b3-9b49-df43de67aad2" class="">Parrot Security OS (или ParrotSec) —дистрибутив Linux,
+				основан на Debian с упором на компьютерную безопасность. Предназначен для тестирования системы на
+				проникновение, оценки уязвимостей и ликвидации их последствий, компьютерной криминалистики и анонимного
+				просмотра веб-страниц. Разработан командой Frozenbox. </p>
+			<p id="131aa64c-9d0a-816c-b4d1-eea77299cc55" class="">В качестве графического окружения используется среда
+				рабочего стола MATE.</p>
+			<p id="131aa64c-9d0a-813a-9020-c9a9b72b7f42" class="">Parrot Linux включает в себя готовый набор
+				инструментов для разработки приложений. В системе предустановлены различные фреймворки, библиотеки,
+				компиляторы, дизассемблеры, IDE и редакторы кода.</p>
+			<p id="131aa64c-9d0a-815c-80b1-d216da20de7c" class="">Криптографическое ПО дистрибутива позволяет полностью
+				защитить ваши данные. Всю систему можно установить в полностью зашифрованный раздел на диске, что
+				обеспечит безопасность данных в случае кражи компьютера.</p>
+			<p id="131aa64c-9d0a-8123-bc33-dfe904516631" class="">Специальная программа AnonSurf позволяет запускать TOR
+				и «пропускать» весь интернет трафик через TOR. Также есть возможность использовать DNS сервера, отличные
+				от тех, которые предоставлены провайдером.</p>
+			<p id="131aa64c-9d0a-8124-9a68-cf328b246fb2" class="">Еще один пример использования Parrot Linux в качестве
+				мониторинга уязвимостей - сканер уязвимостей виртуальной телефонной станции “Rtpflood”. Простой, но в то
+				же время мощный инструмент для перебора корпоративной директории VoIP, который имитирует поведение IP
+				телефона чтобы загрузить имя и расширенные записи, которые данный телефон может отобразить на своём
+				экране. </p>
+			<p id="131aa64c-9d0a-81cf-a60f-dc977f49e60a" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-81f2-a033-ca89fd0bc717" class="">BlackArch</h3>
+			<p id="131aa64c-9d0a-814e-9d39-ff7573fad5c3" class="">BlackArch — действительно очень мощный инструмент для
+				проведения тестирования на проникновение. Официальным спонсором разработки дистрибутива является
+				хакерская группировка NullSecurity, так что с уверенностью можно сказать, что это продукт созданный
+				профессионалами для профессионалов.</p>
+			<p id="131aa64c-9d0a-81cd-88c1-ff218df79dde" class="">Основная характеристика этого дистрибутива заключается
+				в том, что он <strong>не поставляется с предварительно установленным столом</strong> или ненужными
+				программами для повседневного использования.</p>
+			<p id="131aa64c-9d0a-81b2-bb0a-e90618f78a17" class="">BlackArch понимает только оконные менеджеры (OpenBox,
+				i3 и Fluxbox, среди прочих), чтобы иметь возможность запускать и использовать все этические хакерские
+				приложения, которые предлагает эта система. Больше ничего.</p>
+			<p id="131aa64c-9d0a-8160-aab4-fc63e5ce42a7" class="">Это делает BlackArch очень быстрой, стабильной и
+				плавной системой прямо из коробки. Хотя в обмен на эти преимущества он <strong>необходимо иметь
+					знания.</strong></p>
+			<p id="131aa64c-9d0a-81ca-b4bf-c4ac86f31fb3" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-8137-a832-fd44d919a454" class="">2. Структура системы Linux</h2>
+			<p id="131aa64c-9d0a-8157-82d1-da5bf5b602d7" class="">Файловая система в Linux представляет собой
+				древовидную структуру. Все файлы расположены в виде дерева и его ветвей. Самый верхний каталог
+				называется корневым.</p>
+			<figure id="131aa64c-9d0a-81ce-8b6e-eaf9c1bec35b" class="image"><a
+					href="Дополнительный материал/Untitled.png"><img
+						style="width:1115px"
+						src="Дополнительный материал/Untitled.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81c3-a6ca-c58c6d29b761" class="">/ Корневая директория, содержащая всю файловую
+				иерархию.<br />/bin/ Основные системные утилиты, необходимые как в однопользовательском режиме, так и
+				при обычной работе всем пользователям (например: cat, ls, cp).<br />/boot/ Загрузочные файлы (в том
+				числе файлы загрузчика, ядро и т.д.). Часто выносится на отдельный раздел.<br />/dev/ Основные файлы
+				устройств системы (например физические устройства sata винчестеры /dev/sda, видео камеры или TV-тюнеры
+				/dev/video или псевдоустройства, например «чёрные дыры» /dev/null, /dev/zero ).<br />/etc/ Общесистемные
+				конфигурационные файлы, лежат в корне директории, и файлы конфигурации установленных программ (имя
+				происходит от et cetera).<br />/etc/X11/ Файлы конфигурации X Window System версии 11.<br />/etc/apt/
+				Файлы конфигурации пакетного менеджера Apt.<br />/etc/samba/ Файлы конфигурации сервера Samba,
+				расшаривающего файлы по сети с windows машинами.<br />/home/ Содержит домашние директории пользователей,
+				которые в свою очередь содержат персональные настройки и данные пользователя. Часто размещается на
+				отдельном разделе.<br />/lib/ Основные библиотеки, необходимые для работы программ из /bin/ и
+				/sbin/.<br />/media/ Точки монтирования для сменных носителей, таких как CD-ROM, DVD-ROM, flash
+				дисков.<br />/opt/ Дополнительное программное обеспечение.<br />/proc/ Виртуальная файловая система,
+				представляющая состояние ядра операционной системы и запущенных процессов в виде каталогов
+				файлов.<br />/root/ Домашняя директория пользователя root.<br />/sbin/ Основные системные программы для
+				администрирования и настройки системы, например, init, iptables, ifconfig.<br />/srv/ Данные,
+				специфичные для окружения системы.<br />/tmp/ Временные файлы (см. также /var/tmp).<br />/usr/ Вторичная
+				иерархия для данных пользователя; содержит большинство пользовательских приложений и утилит,
+				используемых в многопользовательском режиме. Может быть смонтирована по сети только для чтения и быть
+				общей для нескольких<br />машин.<br />/usr/bin/ Дополнительные программы для всех пользователей, не
+				являющиеся необходимыми в однопользовательском режиме.<br />/usr/include/ Стандартные заголовочные
+				файлы.<br />/usr/lib/ Библиотеки для программ, находящихся в /usr/bin/ и /usr/sbin/.<br />/usr/sbin/
+				Дополнительные системные программы (такие как демоны различных сетевых сервисов).<br />/usr/share/
+				Архитектурно-независимые общие данные.<br />/usr/src/ Исходные коды (например, здесь располагаются
+				исходные коды ядра).<br />/usr/local/ Третичная иерархия для данных, специфичных для данного хоста.
+				Обычно содержит такие поддиректории, как bin/, lib/, share/. Она пригодится, когда
+				/usr/<br />используется по сети.<br />/var/ Изменяемые файлы, такие как файлы регистрации (log-файлы),
+				временные почтовые файлы, файлы спулеров.<br />/var/cache/ Данные кэша приложений. Сюда скачиваются
+				пакеты перед их установкой в систему, здесь же они какое-то время и хранятся.<br />/var/lib/ Информация
+				о состоянии. Постоянные данные, изменяемые программами в процессе работы (например, базы данных,
+				метаданные пакетного менеджера и др.).<br />/var/lock/ Lock-файлы, указывающие на занятость некоторого
+				ресурса.<br />/var/log/ Различные файлы регистрации (log-файлы).<br />/var/mail/ Почтовые ящики
+				пользователей.<br />/var/run/ Информация о запущенных программах (в основном, о
+				демонах).<br />/var/spool/ Задачи, ожидающие обработки (например, очереди печати, непрочитанные или
+				неотправленные письма).<br />/var/tmp/ Временные файлы, которые должны быть сохранены между
+				перезагрузками.<br />/var/www/ Директория веб-сервера Apache, всё что находится внутри транслируется им
+				в интернет (конфигурация по-умолчанию)<br /></p>
+			<h3 id="131aa64c-9d0a-8166-b92a-db902af03687" class="">Типы пользователей</h3>
+			<p id="131aa64c-9d0a-81a3-941e-c5789d12d2a7" class="">Многопользовательская архитектура - одна из первых
+				особенностей Linux, которая существует еще с зарождения системы. В системе могут работать одновременно
+				множество пользователей благодаря удаленному входу, а также пользователи используются для запуска
+				определенных сервисов. Основу управления правами доступа в Linux и уровнем привилегий в Linux составляют
+				именно пользователи. Изначально, еще при проектировании системы существовал пользователь root, которому
+				позволено выполнять любые действия и другие <br />пользователи, права которых настраиваются с помощью
+				вступления их в группы Linux<br /><a href="https://losst.ru/gruppy-polzovatelej-linux"> </a>и установки
+				прав на каталоги.</p>
+			<p id="131aa64c-9d0a-8151-8bdb-cab13e1afa60" class="">Таким образом, в системе существует два типа
+				пользователей:</p>
+			<p id="131aa64c-9d0a-813d-a9bb-c1049adfada5" class="">1) Обычный пользователь (Может выполнять какие-то
+				изменения только там, где есть).</p>
+			<p id="131aa64c-9d0a-818d-b967-d7ad67f27479" class="">2) Суперпользователь (root, может выполнять все
+				операции, к примеру, работа с сетью на низком уровне, запись в критическую область памяти и прочее. Он
+				игнорирует все права, которые поставили другие пользователи, может переключиться за любого другого
+				пользователя).</p>
+			<p id="131aa64c-9d0a-81f0-a8ee-c1733abc074d" class="">Работать с root правами не рекомендуется по двум
+				причинам:</p>
+			<p id="131aa64c-9d0a-8134-bd8e-d1a16c86c3ec" class="">1) Угроза безопасности </p>
+			<p id="131aa64c-9d0a-8109-8c51-ced5fba3fc01" class="">Злоумышленникам будет проще закрепиться в системе и
+				скрыться, если вы ведете работу под этим типом доступа. </p>
+			<p id="131aa64c-9d0a-81c5-aab5-e1bc29a5db00" class="">2) Риск различных ошибок </p>
+			<p id="131aa64c-9d0a-813a-b928-fd6c3fc84f0b" class="">Они могут привести к поломке системы. В Linux почти
+				нет систем, которые мешали бы сломать ее, поэтому использовать права суперпользователя надо крайне
+				осторожно.</p>
+			<h2 id="131aa64c-9d0a-8166-9769-c504ca034cfe" class="">3. Основы работы с командной строкой</h2>
+			<p id="131aa64c-9d0a-814c-85c2-ec7bf2580565" class="">CLI (Command Line Interface) - это текстовый интерфейс
+				для работы c операционной системы. Для работы с Linux-системой вам необходим Linux Shell. Это некий
+				интерпретатор команд, который обеспечивает возможность взаимодействия пользователей с функциями этой ОС.
+				В нем можно выполнять различные команды и получать результаты их работы.</p>
+			<p id="131aa64c-9d0a-8182-8331-cfa926f68c94" class="">В операционных системах семейства Linux подобное
+				взаимодействие обеспечивается специальным программным продуктом - <strong>оболочкой ( shell )</strong>.
+				Наиболее распространенной из них, является оболочка проекта GNU <strong>bash
+				</strong>(<strong>B</strong>ourne <strong>A</strong>gain <strong>SH</strong>ell). <strong>bash
+				</strong>основывается на оболочке <strong>Bourne Shell ( sh ) </strong>созданной Стефеном Борном и
+				включает в себя свойства множества других оболочек.</p>
+			<p id="131aa64c-9d0a-81b8-a571-e0844aca55d8" class="">Свойства оболочки bash делают ее наиболее
+				универсальным и удобным средством взаимодействия с ОС Linux:</p>
+			<ul id="131aa64c-9d0a-811e-956a-d4dae5712f83" class="bulleted-list">
+				<li style="list-style-type:disc">обеспечивает редактирование командной строки. Курсор может быть
+					перемещен в любую позицию команды для изменения ее содержания.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-814a-b576-df7679eadc3c" class="bulleted-list">
+				<li style="list-style-type:disc">поддерживает режим истории команд, позволяя отображать и изменять ранее
+					введенные команды. Оболочка</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c5-9b0a-c47293b64eb5" class="bulleted-list">
+				<li style="list-style-type:disc">также имеет несколько переменных, значения которых влияют на сохранение
+					и повторный вызов ранее введенных команд.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8147-bd97-d63b319d7157" class="bulleted-list">
+				<li style="list-style-type:disc">обеспечивает завершение частично введенных слов для имен переменных,
+					пользователей, хостов, команд и файлов.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8125-9dbd-dd8074bea25a" class="bulleted-list">
+				<li style="list-style-type:disc">обеспечивает гибкое управление процессами, позволяя приостанавливать
+					их, перезапускать, переключаться между задачами переднего плана и фоновыми, и даже продолжать
+					выполнение задачи при завершении родительского процесса.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-816b-850a-d8b56b6044b6" class="bulleted-list">
+				<li style="list-style-type:disc">позволяет использовать функции и псевдонимы, выполнять арифметические
+					операции и вводить арифметические выражения в качестве команд.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8153-9376-ff6ad02c55c6" class="bulleted-list">
+				<li style="list-style-type:disc">позволяет создавать целые наборы последовательно выполняемых команд
+					(сценарии или скрипты) с использованием гибкого и функционального языка программирования данной
+					оболочки.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81ce-8d26-e1ad9d5ad13e" class="bulleted-list">
+				<li style="list-style-type:disc">имеет гибкие настройки, обеспечивающие изменение внешнего вида
+					командной строки.</li>
+			</ul>
+			<p id="131aa64c-9d0a-8116-acbd-dc5e6696a4bd" class="">Оболочка может выполняться как в интерактивном, так и
+				в неинтерактивном режимах. В первом случае программа взаимодействует с пользователем, во втором -
+				используется для <br />выполнения скриптов (специально подготовленных текстовых файлов с
+				последовательностью команд).<br /></p>
+			<p id="131aa64c-9d0a-819d-b780-fe3b26feed1e" class="">Команда оболочки Linux - это строка символов из имени
+				команды и аргументов, <br />разделенных пробелами. Аргументы предоставляют команде дополнительные
+				параметры, определяющие ее поведение.<br /></p>
+			<p id="131aa64c-9d0a-816f-be82-d21bc339dbc1" class="">Команды, являющиеся частью оболочки называются
+				<strong>встроенными</strong>. Естественно, они могут отличаться для различных оболочек. Кроме того, в
+				качестве команд используются имена исполняемых файлов. В качестве аргументов, командам передаются
+				<strong>ключи </strong>или <strong>опции</strong>, состоящие из тире и одного или нескольких символов.
+			</p>
+			<p id="131aa64c-9d0a-819d-b9af-dd0e9aa4d8f8" class="">Давайте рассмотрим основные команды:</p>
+			<h3 id="131aa64c-9d0a-818a-88d7-de3c6bf11779" class="">Команда sudo</h3>
+			<p id="131aa64c-9d0a-819a-8c7e-dce83ae2a1cb" class="">Сокращенно от «<strong>SuperUser Do</strong>», эта
+				команда позволяет выполнять задачи, требующие прав администратора или root. Однако не рекомендуется
+				использовать эту команду для <br />повседневных задач, так как неправильное её использование может легко
+				стать причиной появления ошибок.<br /></p>
+			<h3 id="131aa64c-9d0a-81d4-8361-e3b68a102a09" class="">Команда df</h3>
+			<p id="131aa64c-9d0a-816c-be2f-e9facc72d96f" class="">Используйте команду <strong>df</strong>, чтобы
+				получить отчёт об использовании дискового пространства в системе в процентах и килобайтах. Если вы
+				хотите просмотреть отчёт в мегабайтах, <br />введите <br /><strong>df -m</strong>.</p>
+			<h3 id="131aa64c-9d0a-8180-95fa-eac5479da289" class="">Команда tar</h3>
+			<p id="131aa64c-9d0a-8140-bbb4-c1c2f0b16ffe" class="">Команда <strong>tar </strong>является наиболее часто
+				используемой командой для архивирования нескольких файлов в <strong>tarball</strong> — общий формат
+				файлов Linux, аналогичный формату zip, при этом сжатие является опциональным.</p>
+			<p id="131aa64c-9d0a-810b-9605-d3e1a74a34d2" class="">Это довольно сложная команда с длинным списком
+				функций, таких как добавление новых файлов в существующий архив, перечисление содержимого архива,
+				извлечение содержимого из архива и многое другое. Проверьте некоторые практические примеры (англ), чтобы
+				узнать больше о других функциях.</p>
+			<h3 id="131aa64c-9d0a-8103-8cf8-e516ceab7c8e" class="">Команда chmod</h3>
+			<p id="131aa64c-9d0a-8120-aa5a-c37f6aace4fd" class=""><strong>chmod</strong> — ещё одна команда Linux,
+				используемая для изменения разрешений на чтение, запись и выполнение файлов и каталогов. Поскольку это
+				довольно сложная команда, рекомендуем прочитать <a
+					href="https://www.computerhope.com/unix/uchmod.htm">полное руководство</a> (англ) по её применению.
+			</p>
+			<h3 id="131aa64c-9d0a-8143-9a3b-f351fed240e4" class="">Команда chown</h3>
+			<p id="131aa64c-9d0a-810e-a18e-c11672f5b743" class="">В Linux все файлы принадлежат конкретному
+				пользователю. Команда <strong>chown</strong> позволяет изменить или перенести владельца файла на
+				указанное имя пользователя. Например, <strong>chown linuxuser2 file.ext</strong> сделает<strong>
+					linuxuser2 </strong>владельцем <strong>file.ext</strong>.</p>
+			<h3 id="131aa64c-9d0a-8132-8ae9-ffcf18be5636" class="">Команда jobs</h3>
+			<p id="131aa64c-9d0a-8157-88e1-da706a956123" class="">Команда<strong> jobs</strong> отображает все текущие
+				задачи вместе с их статусами. Задача — это процесс, запущенный в фоновом режиме.</p>
+			<h3 id="131aa64c-9d0a-8138-b97a-c70c5ea1a625" class="">Команда kill</h3>
+			<p id="131aa64c-9d0a-81d6-ac17-ce0f28f136e4" class="">Если у вас есть не отвечающая программа, вы можете
+				завершить её вручную, используя команду <strong>kill</strong>. Команда отправит определённый сигнал
+				неверно работающему приложению и даст ему команду прекратить работу.</p>
+			<p id="131aa64c-9d0a-81eb-8526-d352b81cf21d" class="">В общей сложности вы можете использовать <a
+					href="https://linoxide.com/linux-how-to/linux-signals-part-1/">шестьдесят четыре сигнала</a> (англ),
+				но люди обычно используют только два сигнала:</p>
+			<ul id="131aa64c-9d0a-81c2-852b-c6055504ffe0" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>SIGTERM (15)</strong> — просит программу прекратить работу и
+					даёт ей некоторое время, чтобы<br />сохранить весь прогресс. Если вы не указали сигнал при вводе
+					команды kill, этот сигнал будет использоваться по умолчанию.<br /></li>
+			</ul>
+			<ul id="131aa64c-9d0a-81a1-9e40-dedb3ccd56b0" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>SIGKILL (9) </strong>— принудительно останавливает программы.
+					Несохранённый прогресс будет потерян.</li>
+			</ul>
+			<p id="131aa64c-9d0a-8199-8bfc-e7d8725e4233" class="">Помимо знания сигналов, вам также необходимо знать
+				числовой идентификатор процесса (PID) программы, которую вы хотите <strong>уничтожить</strong>. Если вы
+				не знаете PID, просто запустите команду <strong>ps ux</strong>.</p>
+			<p id="131aa64c-9d0a-813e-9bc4-f009257cce91" class="">Узнав, какой сигнал вы хотите использовать и PID
+				программы, введите следующий синтаксис:</p>
+			<p id="131aa64c-9d0a-81d0-8771-edbac0eae023" class=""><strong>kill [опция сигнала] PID</strong>.</p>
+			<h3 id="131aa64c-9d0a-81b8-b286-dfb9a57e1fa4" class="">Команда ping</h3>
+			<p id="131aa64c-9d0a-8172-8026-ded6d1e8ff2b" class="">Используйте команду <strong>ping</strong> для проверки
+				состояния подключения к серверу. Например, просто введя <strong>ping google.com</strong>, команда
+				проверит, можете ли вы подключиться к Google, а также измерить время ответа.</p>
+			<h3 id="131aa64c-9d0a-81f1-9ece-fe90aeff58a7" class="">Команда uname</h3>
+			<p id="131aa64c-9d0a-81df-8736-cb4d5667d055" class="">Команда <strong>uname</strong>, сокращение от Unix
+				Name, выведет подробную информацию о вашей системе Linux, такую как имя машины, операционная система,
+				ядро и т. д.</p>
+			<h3 id="131aa64c-9d0a-816d-b940-d981207b2fcc" class="">Команда top</h3>
+			<p id="131aa64c-9d0a-812a-8264-fc976280190a" class="">Являясь эквивалентом диспетчера задач в Windows,
+				команда <strong>top </strong>выводит список запущенных процессов, а также информацию о том, сколько ЦП
+				использует каждый процесс. Отслеживать использование системных ресурсов очень полезно. Таким образом, вы
+				сможете определить какой процесс необходимо прекратить, поскольку он потребляет слишком много ресурсов.
+			</p>
+			<h3 id="131aa64c-9d0a-81ee-93a2-d7995c976ef3" class="">Команда history</h3>
+			<p id="131aa64c-9d0a-8105-b044-de8a42daff9a" class="">Регулярно пользуясь Linux, вы заметите, что запускаете
+				сотни команд каждый день. Команда <strong>history</strong> позволяет просмотреть команды, которые вы
+				вводили ранее.</p>
+			<h3 id="131aa64c-9d0a-81b0-b53f-d9ee8ffbbde4" class="">Команда man</h3>
+			<p id="131aa64c-9d0a-81f8-86bf-ea4b7c9cffb4" class="">Неуверены в функциях некоторых команд Linux? Не
+				беспокойтесь, вы можете легко научиться использовать их прямо из оболочки Linux с помощью команды
+				<strong>man</strong>. Например, <strong>man tail</strong> покажет инструкцию к команде tail.</p>
+			<h3 id="131aa64c-9d0a-817e-bbab-cc6c1007ca71" class="">Команда echo</h3>
+			<p id="131aa64c-9d0a-81ea-8bda-e57a9bd4ad99" class="">Эта команда выводит текст в stdout (стандартный
+				вывод). Оператор <strong>&gt;&gt;</strong> дописывает stdout в файл. Также есть оператор
+				<strong>&gt;</strong>, который создаст файл, если он не существует и выведет туда текст или перезапишет
+				существующий файл. Например, если вы хотите добавить текст <br />«Здравствуйте, меня зовут Джон» в файл
+				с именем name.txt, введите <br /><strong>echo Здравствуйте, меня зовут Джон &gt;&gt; name.txt</strong>.
+			</p>
+			<h3 id="131aa64c-9d0a-8154-b8c2-ec5d3e26020c" class="">Команда zip, unzip</h3>
+			<p id="131aa64c-9d0a-817e-ab9b-d7e9dccaa75b" class="">Используйте команду <strong>zip</strong> для сжатия
+				ваших файлов в zip-архив, а команду <strong>unzip </strong>для извлечения zip-файлов из zip-архива.</p>
+			<h3 id="131aa64c-9d0a-81b7-9f2f-daf91da26727" class="">Команда hostname</h3>
+			<p id="131aa64c-9d0a-81df-b3be-c5b7d037bc9f" class="">Если вы хотите узнать имя вашего хоста/сети, просто
+				введите <strong>hostname</strong>. Добавление <strong>-I</strong> в конце выведет IP-адрес вашей сети.
+			</p>
+			<h3 id="131aa64c-9d0a-811f-a0a0-d2228431328e" class="">Команда useradd, userdel</h3>
+			<p id="131aa64c-9d0a-8133-862b-da0f5e3bb9e3" class="">Поскольку Linux является многопользовательской
+				системой, это означает, что более чем один человек может взаимодействовать с одной и той же системой
+				одновременно. <strong>useradd </strong>используется для создания нового пользователя, в то время как
+				<strong>passwd </strong>добавляет пароль к учётной записи этого пользователя. Чтобы добавить нового
+				пользователя с именем Джон, введите <strong>useradd John</strong>. А затем, чтобы добавить пароль,
+				напишите <strong>passwd 123456789</strong>.</p>
+			<p id="131aa64c-9d0a-813b-852a-d8bb45908be7" class="">Процесс удаления пользователя напоминает его
+				добавление. Чтобы удалить учётную запись, введите команду <strong>userdel username</strong>.</p>
+			<h2 id="131aa64c-9d0a-81a8-9b6a-d7b6ad52767f" class="">4. Работа с файлами в Linux</h2>
+			<p id="131aa64c-9d0a-81cf-921d-fbce7732b497" class="">Теперь перейдем к работе с файлами и каталогами Linux.
+				Начнем с обновления системы.</p>
+			<h3 id="131aa64c-9d0a-81e3-a960-c118a2bfb404" class="">Команда sudo apt update </h3>
+			<p id="131aa64c-9d0a-8189-8f57-e70939a983cc" class="">Синхронизирует информацию из репозитория с локальным
+				кэшем, эту команду необходимо выполнять перед установкой любых пакетов.</p>
+			<h3 id="131aa64c-9d0a-8169-9b85-cc1489c43821" class="">Команда sudo apt ugrade </h3>
+			<p id="131aa64c-9d0a-8162-aad5-dc00cb50eab3" class="">Обновляет все устаревшие пакеты, находящиеся в вашей
+				системе, до последних версий.</p>
+			<h3 id="131aa64c-9d0a-8196-a7c8-e7341122aafd" class="">Команда pwd</h3>
+			<p id="131aa64c-9d0a-81e4-a3f4-e29ee9e2576e" class="">Используйте команду <strong>pwd</strong>, чтобы узнать
+				путь к текущему рабочему каталогу (папке), в котором вы находитесь от корневого каталога. Команда вернёт
+				абсолютный (полный) <br />путь, который по сути является путём всех каталогов, начинающийся с косой
+				черты <br /><strong>(/)</strong>. Примером абсолютного пути является <strong>/home/username</strong>.
+			</p>
+			<h3 id="131aa64c-9d0a-81cd-8a13-d293eeaaf308" class="">Команда cd</h3>
+			<p id="131aa64c-9d0a-81de-8b9b-f81858b8dcee" class="">Для навигации по файлам и каталогам Linux используйте
+				команду <strong>cd</strong>. Она требует либо полный путь, либо имя каталога, в зависимости от текущего
+				рабочего каталога, в котором вы находитесь.</p>
+			<p id="131aa64c-9d0a-81f2-b1a6-d5ddd5b536b7" class="">Допустим, вы находитесь в
+				<strong>/home/username/Documents</strong> и хотите перейти в <strong>Photos</strong>, подкаталог
+				<strong>Documents</strong>. Для этого просто введите следующую команду: <strong>cd Photos</strong>.</p>
+			<p id="131aa64c-9d0a-8135-815b-ec8f020279b9" class="">Другой сценарий, если вы хотите перейти в совершенно
+				новый каталог, например, <strong>/home/username/Movies</strong>. В этом случае вам нужно ввести
+				<strong>cd</strong>, а затем абсолютный путь к каталогу: <strong>cd /home/username/Movies</strong>.</p>
+			<p id="131aa64c-9d0a-8130-a95a-c3757a93c9ba" class="">Также есть несколько шорткодов для более быстрой
+				навигации:</p>
+			<ul id="131aa64c-9d0a-81b3-b7ba-df472c1dbb94" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>cd .. </strong>(с двумя точками), чтобы переместиться на один
+					каталог вверх</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81bf-b7c2-cc7de99cfa14" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>cd </strong>чтобы перейти прямо в домашнюю папку</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81da-91ad-da8eaa52f9ac" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>cd -</strong> (с дефисом), чтобы перейти к предыдущему каталогу
+				</li>
+			</ul>
+			<p id="131aa64c-9d0a-81d3-abb2-d205294ea62a" class="">Также стоит отметить, что оболочка Linux чувствительна
+				к регистру. Важно точно вводить имена каталогов.</p>
+			<h3 id="131aa64c-9d0a-814d-b040-f17e5a55f9c8" class="">Команда ls</h3>
+			<p id="131aa64c-9d0a-8132-86ae-c90e3d808ac0" class="">Команда<strong> ls </strong>используется для просмотра
+				содержимого каталога. По умолчанию эта команда отобразит содержимое вашего текущего рабочего каталога.
+				Введя эту команду мы можем узнать: </p>
+			<ul id="131aa64c-9d0a-81f8-966e-c510b5af8898" class="bulleted-list">
+				<li style="list-style-type:disc">Права на конкретный объект (чтение, запись, исполнение); </li>
+			</ul>
+			<ul id="131aa64c-9d0a-81f8-8233-e7b676e93021" class="bulleted-list">
+				<li style="list-style-type:disc">Количество «жестких» ссылок на файл;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81f0-ac4e-ebc6bdace1d0" class="bulleted-list">
+				<li style="list-style-type:disc">Владельца файла/директории; </li>
+			</ul>
+			<ul id="131aa64c-9d0a-81cb-b010-c65054c894f7" class="bulleted-list">
+				<li style="list-style-type:disc">Группа владельца файла/директории; </li>
+			</ul>
+			<ul id="131aa64c-9d0a-81b5-bbaf-ddf0f087a620" class="bulleted-list">
+				<li style="list-style-type:disc">Размер файла/директории в байтах; </li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c4-978c-e5e0705526cd" class="bulleted-list">
+				<li style="list-style-type:disc">Время модификации.</li>
+			</ul>
+			<p id="131aa64c-9d0a-8139-8a4c-fd039a220da9" class="">Если вы хотите просмотреть содержимое других
+				каталогов, введите <strong>ls</strong>, а затем путь к каталогу. Например, введите <strong>ls
+					/home/username/Documents</strong> для просмотра содержимого в <strong>Documents</strong>.</p>
+			<figure id="131aa64c-9d0a-8164-8ade-f72651b5aaa8" class="image"><a
+					href="Дополнительный материал/Untitled%201.png"><img
+						style="width:996px"
+						src="Дополнительный материал/Untitled%201.png" /></a>
+			</figure>
+			<h3 id="131aa64c-9d0a-81c8-8175-c7019efa120e" class="">Команда cat</h3>
+			<p id="131aa64c-9d0a-816a-9911-e4be68bf6964" class=""><strong>cat</strong> (сокращение от concatenate) —
+				одна из наиболее часто используемых команд в Linux. Используется для вывода содержимого файла в
+				командной строке (stdout). Чтобы запустить эту команду, введите <strong>cat</strong>, а затем имя файла
+				и его расширение. Например: <strong>cat file.txt</strong>.</p>
+			<p id="131aa64c-9d0a-81bc-bcb8-e5f0abbaab9f" class="">Вот другие варианты использования команды
+				Linux<strong> cat</strong>:</p>
+			<ul id="131aa64c-9d0a-8184-81c9-ea3f5f260678" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>cat &gt; filename</strong> создаёт новый файл</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81a5-8baf-c6a6196ce42c" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>cat filename1 filename2 &gt;filename3</strong> объединяет два
+					файла (1 и 2) и сохранит их содержимое в новом файле (3)</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8173-a3d1-c71247cdc096" class="bulleted-list">
+				<li style="list-style-type:disc">Чтобы преобразовать файл в верхний или нижний регистр, <strong>cat
+						filename | tr a-z A-Z &gt;output.txt</strong></li>
+			</ul>
+			<h3 id="131aa64c-9d0a-81b5-b016-f1c8f692c930" class="">Команда cp</h3>
+			<p id="131aa64c-9d0a-81f9-8d12-f7c37bee0ab4" class="">Используйте команду <strong>cp</strong> для
+				копирования файлов из текущего каталога в другой каталог. Например, команда <strong>cp scenery.jpg
+					/home/username/Pictures</strong> создаст копию <strong>scenery.jpg</strong> (из вашего текущего
+				каталога) в каталог <strong>Pictures</strong>.</p>
+			<h3 id="131aa64c-9d0a-815f-89cb-cb36e2cf44f4" class="">Команда mv</h3>
+			<p id="131aa64c-9d0a-81c0-99fc-f8e2c95158de" class="">Основное предназначение команды<strong> mv</strong> —
+				перемещение файлов, хотя её также можно использовать для их переименования.</p>
+			<p id="131aa64c-9d0a-81ba-a6f7-d222f949d3f1" class="">Аргументы в <strong>mv</strong> похожи на аргументы
+				команды cp. Вам нужно ввести <strong>mv</strong>, имя файла и каталог назначения. Например: <strong>mv
+					file.txt /home/username/Documents</strong>.</p>
+			<p id="131aa64c-9d0a-8183-9546-e8c93b73dedf" class="">Команда Linux для переименования файлов будет
+				выглядеть так: <strong>mv starojeimia.ext novojeimia.ext</strong>.</p>
+			<h3 id="131aa64c-9d0a-816d-97a6-da7077920e4b" class="">Команда mkdir</h3>
+			<p id="131aa64c-9d0a-815c-90fd-f3ab4f1cf574" class="">Используйте команду <strong>mkdir</strong>, чтобы
+				создать новый каталог. Если вы введёте <strong>mkdir Music</strong>, команда создаст каталог с именем
+				<strong>Music</strong>.</p>
+			<p id="131aa64c-9d0a-81d8-88b9-c5da84a79c44" class="">Дополнительные команды <strong>mkdir</strong>:</p>
+			<ul id="131aa64c-9d0a-819e-b807-d4996ee4f5a6" class="bulleted-list">
+				<li style="list-style-type:disc">Чтобы создать новый каталог внутри другого каталога, используйте эту
+					базовую команду Linux <strong>mkdir Music/Newfile</strong>;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8134-afcd-f7ac645a8f6d" class="bulleted-list">
+				<li style="list-style-type:disc">Используйте опцию <strong>p</strong> (parents), чтобы создать каталог
+					Newfile внутри еще не существующего каталога 2020. Например, <strong>mkdir -p
+						Music/2020/Newfile</strong> создаст новый каталог Newfile, создав перед этим каталог 2020.</li>
+			</ul>
+			<h3 id="131aa64c-9d0a-81e9-a1ef-cb22c2ee0104" class="">Команда rmdir</h3>
+			<p id="131aa64c-9d0a-813e-8e11-cb76c29251cc" class="">Если вам нужно удалить каталог, используйте команду
+				<strong>rmdir</strong>. Однако rmdir позволяет удалять только пустые директории.</p>
+			<h3 id="131aa64c-9d0a-81de-92a2-e01929fae0b4" class="">Команда rm</h3>
+			<p id="131aa64c-9d0a-81ff-96bc-ee2d785c342a" class="">Команда <strong>rm </strong>используется для удаления
+				файлов. Если вы хотите удалить каталог со <br />всем его содержимым, в качестве альтернативы rmdir
+				используйте <br /><strong>rm </strong>с опцией<strong> -r</strong>.</p>
+			<p id="131aa64c-9d0a-8137-a403-e40b004b6640" class=""><strong>Примечание:</strong> будьте очень осторожны с
+				этой командой и всегда проверяйте, в каком каталоге вы находитесь. Она удаляет всё и её невозможно
+				отменить.</p>
+			<h3 id="131aa64c-9d0a-8161-95a8-c21ab4a3940e" class="">Команда touch</h3>
+			<p id="131aa64c-9d0a-8136-9d16-d35140c16af4" class="">Команда <strong>touch</strong> позволяет создать новый
+				пустой файл через командную строку Linux. В качестве примера введите <strong>touch
+					/home/username/Documents/Web.html</strong>, чтобы создать файл HTML с названием <strong>Web
+				</strong>в каталоге <strong>Documents</strong>.</p>
+			<h3 id="131aa64c-9d0a-813e-b9a7-dcb5e4561751" class="">Команда locate</h3>
+			<p id="131aa64c-9d0a-8145-86a4-e759f83897a5" class="">Используйте эту команду, чтобы <strong>найти
+				</strong>нужный вам файл. Она работает, как команда поиска в Windows. Более того, аргумента <strong>-i
+				</strong>сделает команду нечувствительной к регистру, благодаря чему вы сможете искать файлы, даже если
+				вы не помните их точные названия.</p>
+			<p id="131aa64c-9d0a-81e8-afb8-ec12635eaa21" class="">Чтобы найти файл, содержащий два или более слов,
+				используйте звёздочку <strong>(*)</strong>. Например, команда<strong> locate -i school*note</strong>
+				будет искать любой файл, содержащий слова «school» и «note», не зависимо от того написаны они с большой
+				или маленькой буквы.</p>
+			<h3 id="131aa64c-9d0a-81b3-aa50-fde1ca96a39f" class="">Команда find</h3>
+			<p id="131aa64c-9d0a-81dc-bfeb-e387ee5ee0b2" class="">Подобно команде<strong> locate</strong>, <strong>find
+				</strong>также выполняет поиск файлов и каталогов. Разница в том, что команда <strong>find</strong>
+				используется для поиска файлов в текущем каталоге.</p>
+			<p id="131aa64c-9d0a-8127-8f15-f12e05afe4fd" class="">Например, команда <strong>find /home/ -name
+					notes.txt</strong> будет искать файл с именем <strong>notes.txt </strong>в домашнем каталоге и его
+				подкаталогах.</p>
+			<p id="131aa64c-9d0a-81d2-b9a9-c507fca3723a" class="">Другие варианты использования команды Linux
+				<strong>find</strong>:</p>
+			<ul id="131aa64c-9d0a-8160-9c2e-c55687b87141" class="bulleted-list">
+				<li style="list-style-type:disc">Для поиска файлов в текущем каталоге используйте <strong>find . -name
+						notes.txt</strong></li>
+			</ul>
+			<ul id="131aa64c-9d0a-817f-828d-d59cd3d03326" class="bulleted-list">
+				<li style="list-style-type:disc">Для поиска каталогов используйте f<strong>ind / -type d -name
+						notes.txt</strong></li>
+			</ul>
+			<h3 id="131aa64c-9d0a-8124-8a26-eee74e263425" class="">Команда grep</h3>
+			<p id="131aa64c-9d0a-815c-8cc1-fb0791ba70d9" class="">Ещё одна базовая команда Linux, которая, несомненно,
+				пригодится для повседневного использования — <strong>grep</strong>. С её помощью совершается поиск по
+				всему тексту в текущем файле.</p>
+			<p id="131aa64c-9d0a-81b6-80f1-f3a8681216b6" class="">Например, <strong>grep ubuntu notepad.txt</strong>
+				будет искать слово ubuntu в файле notepad. Строки, содержащие искомое слово, будут отображаться
+				полностью.</p>
+			<h3 id="131aa64c-9d0a-818a-a262-f457ed47edb5" class="">Команда wget</h3>
+			<p id="131aa64c-9d0a-8187-b1f4-ef3ec5b79fa5" class="">Командная строка Linux очень полезна — вы даже можете
+				загружать файлы из интернета. Сделать это можно с помощью команды <strong>wget</strong>. Для этого
+				просто введите <strong>wget</strong> и ссылку для скачивания.</p>
+			<h3 id="131aa64c-9d0a-8109-99ee-f34f019f7986" class="">Команда du</h3>
+			<p id="131aa64c-9d0a-81c0-b51f-da37d8a7da49" class="">Если вы хотите проверить, сколько места занимает файл
+				или каталог, воспользуйтесь командой <strong>du </strong>(Disk Usage). Однако вместо размера в обычном
+				формате, в сводке вы <br />увидите количество блоков диск. Если вы хотите посмотреть информацию в
+				байтах, килобайтах и мегабайтах, добавьте аргумент<br /><strong> -h</strong> в командную строку.</p>
+			<h3 id="131aa64c-9d0a-811f-b41c-ee269027b007" class="">Команда diff</h3>
+			<p id="131aa64c-9d0a-814f-80a0-cfd8cd030b4b" class="">Являясь сокращением от английского слова difference
+				(разница), команда <strong>diff </strong>сравнивает содержимое двух файлов построчно. После анализа
+				файлов будут выведены строки, которые не совпадают. Программисты часто используют эту команду, когда им
+				нужно внести изменения в программу, не переписывая весь исходный код.</p>
+			<p id="131aa64c-9d0a-8181-8afe-d9cd89b998f3" class="">Простейшая форма этой команды —<strong> diff file1.ext
+					file2.ext</strong>.</p>
+			<h3 id="131aa64c-9d0a-81d2-be98-f32a4222e4c0" class="">4.1 Разрешения в ФС</h3>
+			<p id="131aa64c-9d0a-81fd-b4fe-c211e65dfd4e" class="">Согласно модели прав доступа, каждый файл в Linux
+				системах принадлежит одному пользователю и одной группе. Вы можете узнать, какому пользователю и группе
+				принадлежит файл в выводе команды ls -l “путь к файлу”. Он выглядит следующим образом: </p>
+			<p id="131aa64c-9d0a-81db-8987-c5fc27d1d854" class="">
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81fb-895b-f0199a595908" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ ls -l /bin/bash
+
+$ -rwxr-xr-x l root wheel 430540 Oct 23 19:24 /bin/bash</code></pre>
+			<p id="131aa64c-9d0a-8194-978f-f1b2dc467734" class="">В данном случае мы получили информацию о том, что
+				исполняемый файл /bin/bash принадлежит пользователю root и группе wheel. Модель прав доступа позволяет
+				задать три независимых уровня прав на каждый объект файловой системы — для владельца, для группы и для
+				всех остальных пользователей. Резберем подробнее. Первый знак (-) содержит информацию о типе файла, в
+				данном случае значение “-” свидетельствует о том что перед нами обычный файл. Другие возможные значения:
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81d6-bec9-e39531850902" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">&#x27;d&#x27; директория
+
+&#x27;l&#x27; символическая ссылка
+
+&#x27;c&#x27; устройство символьного ввода-вывода
+
+&#x27;b&#x27; устройство блочного ввода-вывода
+
+&#x27;p&#x27; FIFO
+
+&#x27;s&#x27; сокет</code></pre>
+			<p id="131aa64c-9d0a-818a-a3ad-f1d117163dd1" class="">Оставшиеся до пробела символы определяют какие
+				действия те или иные пользователи могут совершать с файлом. Для удобства восприятия перепишем 2-10
+				символы, разбив их на тройки:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8144-a973-c28d79112fc6"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">rwx | r-x | r-x</code></pre>
+			<p id="131aa64c-9d0a-81e2-a0f1-ce366c5b9dd6" class="">Три блока соответсвуют трем типам пользователей.
+				Первый блок - права владельца файла, второй - группы файла, третий - все остальные. В нашем случае
+				владелец файла имеет право на чтение (r - read), запись (w - write), исполнение (x - execute).
+				Оставшиеся два блока отличаются лишь тем, что вместо права записи стоит знак “-”, что говорит о том что
+				данного права у пользователя нет. Таким образом, группа файла и все остальные пользователи могут читать
+				и испольнять файл, однако им не доступна редакция файла. Обратите внимание, что права всегда идут в
+				таком порядке - чтение | запись | исполнение.</p>
+			<p id="131aa64c-9d0a-81eb-b6bd-cb56acd32083" class="">
+			</p>
+			<p id="131aa64c-9d0a-8194-85f3-c80ebd140bf8" class="">Чтобы узнать, под каким пользователем вы сейчас
+				работаете, используйте команду whoami. Для вывода информации о группах, которым вы принадлежите -
+				команда groups. Если вы хотите посмотреть, в каких группах состоит другой пользователь, то передайте его
+				имя в качестве аргумента</p>
+			<p id="131aa64c-9d0a-8106-9214-f0eadee69f15" class="">
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81cf-9958-e46c5cead65b" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ groups root daemon
+
+root : root bin daemon sys adm disk wheel floppy dialout tape video
+
+daemon : daemon bin adm</code></pre>
+			<p id="131aa64c-9d0a-8181-b047-cbcb6a199697" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-81a9-bd1a-e0bcd2d70551" class="">4.2 RWX. Способы назначения</h3>
+			<p id="131aa64c-9d0a-818d-941c-ef36a6788ebf" class="">Чтобы изменить владельца или группу файла (или другого
+				объекта) используется команды <em>chown </em>или <em>chgrp </em>соответственно. Сначала нужно передать
+				имя группы или владельца, а потом список файлов.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8184-ac8c-c2fd507c1337" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all"># chown root /etc/passwd
+# chgrp wheel /etc/passwd</code></pre>
+			<p id="131aa64c-9d0a-813c-b050-d529842aef7d" class="">Вы также можете изменить пользователя и группу
+				одновременно используя команду <em>chown </em>в другой форме:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8105-98e0-c18e214e6c7b"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all"># chown root:wheel /etc/passwd</code></pre>
+			<p id="131aa64c-9d0a-81c3-91ef-f4c4233361f0" class="">Вы не можете использовать команду <em>chown </em>без
+				прав суперпользователя, но <em>chgrp </em>может быть использована всеми, чтобы изменить группу-владельца
+				файла на ту группу, к которой они принадлежат.</p>
+			<h3 id="131aa64c-9d0a-813d-bd77-fa087aa3bb12" class="">Рекурсивное изменение прав</h3>
+			<p id="131aa64c-9d0a-81f8-a96d-fda1aba593d9" class="">Команды <em>chown </em>и <em>chgrp </em>могут быть
+				использованы с параметром -R, что позволяет рекурсивно изменить владельца или группу у всех объектов в
+				данной директории и ниже. Пример:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-813c-9d87-ccc7e0c66cbf"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all"># chown -R drobbins /home/drobbins</code></pre>
+			<h3 id="131aa64c-9d0a-810f-b40c-da6836146d60" class="">Знакомство с chmod</h3>
+			<p id="131aa64c-9d0a-81da-92f4-f5f73d2c4a2d" class="">C<em>hown </em>и <em>chgrp </em>используются для
+				изменения владельца и группы объекта файловой системы, но кроме них существует и другая программа,
+				называемая <em>chmod</em>, которая используется для изменения прав доступа на чтение, запись и
+				исполнение, которые мы видим в выводе команды <em>ls -l. </em></p>
+			<p id="131aa64c-9d0a-8168-8916-e240f982e268" class="">C<em>hmod </em>использует два и более аргументов:
+				метод, описывающий как именно необходимо изменить права доступа с последующим именем файла или списком
+				файлов, к которым необходимо применить эти изменения:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8162-b10c-eea47eafb590"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ chmod +x &quot;имя файла&quot;</code></pre>
+			<p id="131aa64c-9d0a-814d-8c7e-c6c49916bca0" class="">В примере выше в качестве метода указано +x. Метод +x
+				указывает <em>chmod</em>, что файл необходимо сделать исполняемым для пользователя, группы и для всех
+				остальных. Если мы решим отнять все права на исполнение файла, то сделаем вот так:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81e1-8247-c06fa04cf29a"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ chmod -x &quot;имя файла&quot;</code></pre>
+			<p id="131aa64c-9d0a-81c2-9580-d4cc2b3af9a3" class="">Чтобы изменить права для конкретного типа
+				пользователя, а не для всех, используйте перед -x специальный символ обозначения категории
+				пользователей, который вам необходимо изменить, со знаком + или - перед ним. Используйте
+				<strong>u</strong> для пользователя, <strong>g</strong> для группы и <strong>o</strong> для
+				<br />остальных пользователей.<br /></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8178-9e68-db29db687111"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ chmod go-w &quot;имя файла&quot;</code></pre>
+			<p id="131aa64c-9d0a-81f2-9e0c-fce0ae4da097" class="">Командой выше мы удалили право на запись для группы и
+				всех остальных пользователей, но оставили права владельца нетронутыми.</p>
+			<p id="131aa64c-9d0a-816a-afcb-daa8557761db" class="">Помимо переключения бит, отвечающих за права доступа,
+				в состояние <br />вкл/выкл, мы можем задать конкретные значения для всех сразу. Используя <br />оператор
+				равенства мы можем указать <br /><em>chmod</em>, что хотим задать только указанные права доступа:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81fb-a3c5-fa65accff210"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ chmod =rx &quot;имя файла&quot;</code></pre>
+			<p id="131aa64c-9d0a-8132-8735-d890511e82af" class="">Этой командой мы установили все биты чтения и
+				исполнения и сбросили все <br />биты записи. Если вы хотите задать значения конкретной тройки бит, то
+				<br />можете сделать это, указав ее символьное наименование перед оператором <br />равенства:<br /></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8110-a278-c57eff597343"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ chmod u=rx &quot;имя файла&quot;</code></pre>
+			<h3 id="131aa64c-9d0a-8143-bcbf-fd72ce479fd0" class="">Числовые режимы</h3>
+			<p id="131aa64c-9d0a-8105-8a48-dce71093e1c2" class="">До сих пор, мы использовали то что называется
+				символическим способом указания прав доступа для команды <em>chmod</em>. Однако есть еще один достаточно
+				распространенный способ указания прав: использование четырехзначных восьмеричных чисел. Этот синтаксис,
+				<br />называется числовым синтаксисом прав доступа, где каждая цифра представляет тройку разрешений. Эта
+				таблица показывает как транслируются права доступа на числовые значения.<br /></p>
+			<p id="131aa64c-9d0a-8136-b6f6-f1fcbecb09f1" class=""><strong></strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8155-bf90-e8f5a61b97cf" class="code"><code class="language-HTML">Режим	Число
+rwx     7
+rw-     6
+r-x     5
+r--     4
+-wx     3
+-w-     2
+--x     1
+---     0</code></pre>
+			<h2 id="131aa64c-9d0a-8158-b427-fb69b3aa4c59" class="">5. Операторы поиска Grep, Awk, Seq</h2>
+			<h3 id="131aa64c-9d0a-81fa-bd67-dd96f903bf7b" class="">Grep</h3>
+			<p id="131aa64c-9d0a-81d0-8156-db5b4170ffed" class="">Grep это утилита командной строки Linux, который даёт
+				пользователям возможность вести поиск строки. С его помощью можно даже искать конкретные слова в файле.
+				Также можно передать вывод любой команды в grep, что сильно упрощает работу во время поиска и
+				траблшутинга.</p>
+			<p id="131aa64c-9d0a-8105-aa2d-ee8f2e21107a" class="">Возьмём команду ls. Сама по себе она выводит список
+				всех файлов и папок.</p>
+			<p id="131aa64c-9d0a-81f5-a8a3-fc0e9772472e" class="">Но если нужно найти конкретную папку или один файл
+				среди сотни <br />других, то мы можем передать вывод команды ls в grep через вертикальную <br />черту
+				(|), а уже grep-у параметром передать нужное слово.<br /></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81c2-9999-dcd478c88693"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ ls | grep Documents</code></pre>
+			<p id="131aa64c-9d0a-818d-890a-f6dc013f1283" class="">Если команда grep ничего не вернула, значит искомого
+				файла/папки не существует в данной директории.</p>
+			<p id="131aa64c-9d0a-81ec-86e6-e6da9a5bbf5c" class="">Если же нужно найти не одно слово, а словосочетание
+				или целое <br />предложение, то параметр команды grep должно быть выделено кавычками. <br />Grep
+				поддерживает как одинарные, так и двойные кавычки.<br /></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81d8-bfa2-d34d46836f9e"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ ls | grep &#x27;My Documents&#x27;</code></pre>
+			<p id="131aa64c-9d0a-81d0-9940-d621204ad565" class="">Несмотря на то, что команда grep чаще используется как
+				своего рода <br />фильтр для других команд, но её также можно использовать отдельно как на<br /> примере
+				ниже.<br /></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-811f-bfc0-c29353b7e964"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ grep &#x27;Class 1&#x27; Students.txt</code></pre>
+			<p id="131aa64c-9d0a-81a0-a7b2-e65d7cb684ba" class="">В этом примере мы вели поиск указанных в кавычках слов
+				в файле Students.txt.</p>
+			<p id="131aa64c-9d0a-81c3-a372-c36be50b3159" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-814a-b2a8-e5f31383c16c" class="">Awk</h3>
+			<p id="131aa64c-9d0a-8158-8d25-f6a7a6f8686e" class="">Команда awk - один из самых мощных инструментов для
+				обработки и фильтрации текста, доступный даже для людей никак не связных с программированием. Это не
+				просто утилита, а целый язык разработанный для обработки и извлечения данных. Она читает документ по
+				одной строке за раз, выполняет указанные вами действия и выводит результат на стандартный вывод. Одна из
+				самых частых задач, для которых используется awk - это выборка одной из колонок. Все параметры awk
+				находятся в кавычках, а действие, которое надо выполнить - в фигурных скобках. Синтаксис команды
+				выглядит так:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-818b-bc7e-ead70c79b56d"
+				class="code"><code class="language-HTML">$ awk опции &#x27;условие {действие}&#x27;</code></pre>
+			<p id="131aa64c-9d0a-81d9-a843-eeb9d1dc7f67" class="">С помощью действия можно выполнять преобразования с
+				обрабатываемой <br />строкой. <br /></p>
+			<p id="131aa64c-9d0a-8154-af9f-f7bf25ad8f37" class="">Давайте рассмотрим <strong>опции</strong> утилиты:</p>
+			<ul id="131aa64c-9d0a-81ee-8a85-deed1b937287" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>-F, --field-separator</strong> - разделитель полей,
+					используется для разбиения текста на колонки;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-815d-8dbb-dba0bb7c38be" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>f, --file</strong> - прочитать данные не из стандартного
+					вывода, а из файла;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-819b-b365-febd3cc0073f" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>v, --assign</strong> - присвоить значение переменной, например
+					foo=bar;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-816e-a367-db5f70d090ae" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>b, --characters-as-bytes</strong> - считать все символы
+					однобайтовыми;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8108-b979-d3bb477644a5" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>-d, --dump-variables</strong> - вывести значения всех
+					переменных awk по умолчанию;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81ad-8714-d8b225a2cde6" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>D, --debug</strong> - режим отладки, позволяет вводить команды
+					интерактивно с клавиатуры;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-818b-8a75-c2caa74c33d2" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>e, --source</strong> - выполнить указанный код на языке awk;
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8173-99a2-dbff16331d59" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>o, --pretty-print</strong> - вывести результат работы программы
+					в файл;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81f5-8d20-d8bd20cd23c9" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>V, --version</strong> - вывести версию утилиты.</li>
+			</ul>
+			<p id="131aa64c-9d0a-816c-896c-f269aa24c6dd" class="">Теперь перечислим несколько
+				<strong>функций-действий</strong>, которые вы можете использовать:</p>
+			<ul id="131aa64c-9d0a-81b5-a61c-c1b4a9cd0845" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>print(строка)</strong> - вывод чего либо в стандартный поток
+					вывода;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-819f-b9e0-ff87ab8f83a0" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>printf(строка)</strong> - форматированный вывод в стандартный
+					поток вывода;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-819e-8df8-d7a2c370093d" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>system(команда)</strong> - выполняет команду в системе;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81d7-a972-c903d5d9ce4b" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>length(строка)</strong> - возвращает длину строки;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c8-848a-e5550cd003fa" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>substr(строка, старт, количество)</strong> - обрезает строку и
+					возвращает результат;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81e0-a018-fd219d4b42a5" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>tolower(строка)</strong> - переводит строку в нижний регистр;
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8133-9cf8-eabff974dd0b" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>toupper(строка)</strong> - переводить строку в верхний регистр.
+				</li>
+			</ul>
+			<p id="131aa64c-9d0a-81cb-a7f2-d9191ee152e5" class=""><strong>Условие </strong>позволяет обрабатывать только
+				те строки, в которых содержатся нужные нам данные, его можно использовать в качестве фильтра, как grep.
+				А ещё условие позволяет выполнять определенные блоки кода awk для начала и конца файла, для этого вместо
+				регулярного выражения используйте директивы<strong> BEGIN</strong> (начало) и <strong>END
+				</strong>(конец). Там ещё есть очень много всего, но на сегодня пожалуй достаточно. Теперь давайте
+				перейдем к примерам.</p>
+			<p id="131aa64c-9d0a-812b-b76f-f6ec431ba983" class="">Простейшая и часто востребованная задача - выборка
+				полей из стандартного вывода. Вы не найдете более подходящего инструмента для решения этой задачи, чем
+				awk. По умолчанию awk разделяет поля пробелами. Если вы хотите напечатать первое поле, вам нужно просто
+				использовать функцию print и передать ей параметр $1, если функция одна, то скобки можно опустить:</p>
+			<p id="131aa64c-9d0a-81ff-b308-c2bfa3b28995" class="">
+				<code>echo &#x27;one two three four&#x27; | awk &#x27;{print $1}&#x27;</code></p>
+			<p id="131aa64c-9d0a-8100-9848-cd2df49c6afd" class="">Выводом такой команды будет ‘one’</p>
+			<p id="131aa64c-9d0a-8111-ad7c-edfa521e70d6" class="">Если поля разделены не пробелами, а другим
+				разделителем, просто укажите в параметре -F нужный разделитель в кавычках, например &quot;:&quot; :</p>
+			<p id="131aa64c-9d0a-81b6-8583-e81b8b62e8f1" class="">
+				<code>echo &#x27;one pac:two pac:three pac:four pac&#x27; | awk -F&quot;:&quot; &#x27;{print $4}&#x27;</code>
+			</p>
+			<p id="131aa64c-9d0a-814b-bb72-e7aabff88f14" class="">Выводом такой команды будет ‘four pac’</p>
+			<p id="131aa64c-9d0a-81b7-81bb-cf453bed9c87" class="">Заключать разделитель в кавычки не обязательно.</p>
+			<p id="131aa64c-9d0a-81f8-9ef7-e56c03bba77a" class="">Иногда нужно обработать данные с неизвестным
+				количеством полей. Если <br />вам нужно выбрать последнее поле можно воспользоваться переменной $NF.
+				<br />Вот так вы можете вывести последнее поле:<br /></p>
+			<p id="131aa64c-9d0a-818f-a2fa-f12318460ec0" class="">
+				<code>echo &#x27;one two three four&#x27; | awk &#x27;{print $NF}&#x27;</code></p>
+			<p id="131aa64c-9d0a-81cc-b431-f971ab3daec7" class="">Так вы можете получить предпоследнее поле:</p>
+			<p id="131aa64c-9d0a-81cd-a773-dd3e338b5466" class="">
+				<code>echo &#x27;one two three four&#x27; | awk &#x27;{print $(NF-1)}&#x27;</code></p>
+			<p id="131aa64c-9d0a-817f-9f87-d07f57384e42" class="">Или поле с середины:</p>
+			<p id="131aa64c-9d0a-81e3-a233-d268d1b126b1" class="">
+				<code>echo &#x27;one two three four&#x27; | awk &#x27;{print $((NF/2)+1)}&#x27;</code></p>
+			<p id="131aa64c-9d0a-81bf-993d-eee33fcd4096" class="">Это только несколько примеров показывающих
+				использование awk в Linux , освоив awk один раз в получите очень мощный и полезный инструмент на всю
+				жизнь.</p>
+			<h3 id="131aa64c-9d0a-81a5-bd3c-fe2b9eb46cec" class="">Seq</h3>
+			<p id="131aa64c-9d0a-8127-8b53-e8b89ce7cd57" class="">Команда seq выводит последовательность целых или
+				действительных чисел, подходящую для передачи в другие программы. Команда seq может пригодиться в
+				различных других командах и циклах для генерации последовательности чисел. Помимо этого, важное
+				достоинство seq - он невероятно быстр. Единственное узкое место — это время, необходимое для ввода
+				команды в окне терминала.</p>
+			<p id="131aa64c-9d0a-81ab-ba12-ed8843b3d7a6" class="">Общий синтаксис команды «seq»:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81c8-bdc4-df0397d9056c"
+				class="code"><code class="language-HTML"># seq [options] specification</code></pre>
+			<p id="131aa64c-9d0a-8151-afcf-d94c5795dbd7" class="">Чтобы просто напечатать последовательность чисел,
+				начиная с 1, используйте следующую команду:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ca-8fd6-cc49549069f2" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all"># seq 4
+1
+2
+3
+4</code></pre>
+			<p id="131aa64c-9d0a-81c2-970b-d25edad32244" class="">По умолчанию команда seq начинает печатать
+				последовательность чисел от 1, если не указано иное.</p>
+			<p id="131aa64c-9d0a-8120-a25d-e6524f3dbe3b" class="">Вы также можете указать верхний и нижний пределы для
+				последовательности чисел, сгенерированных командой «seq»:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8100-9af2-f730bf6a3e5f" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all"># seq 6 9
+6
+7
+8
+9</code></pre>
+			<p id="131aa64c-9d0a-8132-a976-c9f4184d3053" class=""><br />Если нам нужно сгенерировать некоторую другую
+				арифметическую <br />прогрессию, мы можем использовать команду seq, синтаксис которой показан
+				здесь:<br /></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8119-892a-d0c64e27068c"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all"># seq [start] [incr] [stop]</code></pre>
+			<p id="131aa64c-9d0a-81f9-b91d-d86e370f60d7" class="">Эта команда сгенерирует числа start, start + incr,
+				start + incr + incr… вплоть до остановки. Давайте разберемся с этим на примере:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-814f-8567-c966e21a463f" class="code"><code class="language-HTML"># seq 1 3 10
+1
+4
+7
+10</code></pre>
+			<p id="131aa64c-9d0a-810c-8ab8-cb1115776422" class="">Здесь мы начинаем с 1 и увеличиваем его на 3 каждый
+				раз, пока не получим значение, меньшее или равное 10.</p>
+			<p id="131aa64c-9d0a-81b2-bd25-dc7e1a23c4a2" class="">Значения для start, incr и stop могут быть
+				положительными или отрицательными <br />целыми числами или десятичными числами с плавающей
+				запятой.<br /></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-816b-b34f-ea5e5cda2df1" class="code"><code class="language-HTML"># seq 10 -2 4
+10
+8
+6
+4</code></pre>
+			<h3 id="131aa64c-9d0a-81b6-a9c5-e6f6e697f55c" class="">Форматирование вывода команды «seq»</h3>
+			<p id="131aa64c-9d0a-81e8-b159-c3027ef813f3" class="">Вы можете отформатировать вывод команды seq, используя
+				различные аргументы команды.<br />Как вы заметили во всех приведенных выше командах, вывод всегда
+				представляет собой последовательность чисел, разделенных новой строкой.<br /></p>
+			<p id="131aa64c-9d0a-819d-afeb-ef679be831a7" class="">На самом деле, вы можете изменить его так, как вы
+				захотите.</p>
+			<p id="131aa64c-9d0a-8117-adb5-f7e783b3c3ee" class="">Используйте опцию «-s» команды seq, как показано ниже:
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8167-8213-cd3f2ee467a7" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all"># seq -s &quot;|&quot; 5
+1|2|3|4|5</code></pre>
+			<h2 id="131aa64c-9d0a-81ab-a347-c479b480324d" class="">6. Команды и логические операторы</h2>
+			<p id="131aa64c-9d0a-81e0-a88a-ea1cb1279d9e" class="">Любая программа/команда по завершении возвращает так
+				называемый код завершения. Если программа отработала без ошибок, то код завершения будет 0, если с
+				ошибками, то 1. Эти коды 0 и 1 явно не видны, но мы всё равно можем ими пользоваться. В частности, можем
+				использовать логические операторы И и ИЛИ.</p>
+			<p id="131aa64c-9d0a-818d-8347-f931bb5f6490" class="">Логическое И обозначается &amp;&amp; <br />Логическое
+				ИЛИ обозначается ||<br /></p>
+			<p id="131aa64c-9d0a-810d-b57f-c511f1d4fd4d" class="">Предположим, нам нужно запустить программу и если она
+				успешно завершится, выполнить ещё одну. Пример:</p>
+			<p id="131aa64c-9d0a-81b5-a8a7-c5e552f69c1c" class="">
+				<code>ls * &amp;&amp; echo &quot;Здесь есть файлы&quot;</code></p>
+			<p id="131aa64c-9d0a-8104-b233-c5c4238f2456" class="">В этом примере мы выполняем команду ls * . Т.е.
+				выводим список всех файлов в текущей директории, а в случае успеха (если файлы есть) командой echo
+				выведем сообщение «Здесь есть файлы».</p>
+			<p id="131aa64c-9d0a-819f-a782-db89f765a283" class="">Теперь подробнее: Если файлы есть, команда «ls *»
+				отработает успешно и вернёт нам код завершения 0, а если файлов нет, то команда не сможет выполнить то,
+				о чём мы её попросили и вернёт код завершения 1. После этого начнёт выполнятся логический оператор
+				&amp;&amp; , который прочтёт код завершения. Если код завершения был 0, то оператор выполнит
+				<br />следующую команду (echo), а если код завершения был не 0, то следующую команду
+				проигнорирует.<br /></p>
+			<p id="131aa64c-9d0a-81ff-9f38-fb3bce41f783" class="">Подобным образом работает логический оператор «ИЛИ».
+				Чуть поменяем предыдущий пример:</p>
+			<p id="131aa64c-9d0a-81a8-b8cb-e4bb57bc7840" class=""><code>ls * || echo &quot;Здесь нет файлов&quot;</code>
+			</p>
+			<p id="131aa64c-9d0a-8187-939b-cd1e7a64dad8" class="">В этом примере мы выполняем команду ls * и в случае
+				ошибки (если файлов не оказалось) командой echo выведем сообщение «Здесь нет файлов».</p>
+			<p id="131aa64c-9d0a-8146-bcd4-d974dd14ee41" class="">Логическое отрицание, «НЕ», обозначается
+				восклицательным знаком ! и используется для проверок в операторе <a
+					href="https://linux.cttit.ru/test/">test</a> или <a href="https://linux.cttit.ru/if/">if</a>.
+				Например:</p>
+			<p id="131aa64c-9d0a-814d-bf31-df636942adfd" class="">
+				<code>[[ -e file.txt ]] &amp;&amp; echo &quot;файл существует&quot;</code></p>
+			<p id="131aa64c-9d0a-8164-b274-c9fb888be06c" class="">
+				<code>[[ ! -e file.txt ]] &amp;&amp; echo &quot;файл не существует&quot;</code></p>
+			<p id="131aa64c-9d0a-8155-8b50-c03f72a5a881" class="">В первом примере, мы проверили существует ли файл, а
+				во втором мы сделали точно такую же проверку, но поставили логическое «НЕ», т.е. сделали проверку «если
+				файл не существует».</p>
+			<h3 id="131aa64c-9d0a-81f5-9527-d664de418255" class="">6.1 Функции и переменные</h3>
+			<p id="131aa64c-9d0a-8189-9b90-d4f4792c3073" class=""><strong>Окружение</strong> (environment) или среда -
+				это набор пар ПЕРЕМЕННАЯ=ЗНАЧЕНИЕ, доступный каждому пользовательскому процессу. Иными словами,
+				окружение - это набор переменных окружения.</p>
+			<p id="131aa64c-9d0a-81dc-a5c2-fca5bd40d51b" class="">Для того, чтобы посмотреть окружение, просто введите
+				команду env без аргументов:</p>
+			<p id="131aa64c-9d0a-81e5-b477-ef4cacf7f6c9" class=""><code>$ env</code></p>
+			<p id="131aa64c-9d0a-817e-a957-d80744ed63c5" class="">Переменные окружения могут формироваться как из
+				заглавных, так и из строчных символов, однако исторически сложилось именовать их в верхнем регистре. Мы
+				также не будем отступать от этого неписанного правила.</p>
+			<p id="131aa64c-9d0a-8162-a181-eecae817d174" class="">Про полезность окружения можно говорить долго, но
+				основное его назначение - заставить одни и те же программы работать у разных пользователей
+				по-разному.<br />Приятно, например, когда программа &quot;угадывает&quot; имя пользователя или домашний
+				каталог пользователя. Чаще всего такая информация &quot;добывается&quot; из переменных окружения USER и
+				HOME соответственно.<br /></p>
+			<p id="131aa64c-9d0a-81ac-8b7e-c5a9b8bb0179" class="">Переменные в оболочке делятся на переменные уровня
+				среды, переменные уровня пользователя, переменные уровня системы, переменные уровня среды действуют
+				только в текущей оболочке, закрытые переменные оболочки теряются, переменные уровня пользователя
+				записываются в файл пользователя и действуют только <br />для текущего пользователя. Переменные
+				системного уровня записываются в файл конфигурации системы /etc/profile. Переменные хранятся в
+				памяти<br />во время работы программы. <br /></p>
+			<p id="131aa64c-9d0a-81d0-94a0-ff4d533d4fcb" class="">Значение каждой переменной окружения изначально
+				представляет собой строковую константу (строку). Интерпретация значений переменных полностью возлагается
+				на программу. Иными словами, все переменные окружения имеют тип char*, а само окружение имеет тип
+				char**. Чтобы вывести на экран значение какой-нибудь переменной окружения, достаточно набрать echo
+				$ИМЯ_ПЕРЕМЕННОЙ:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8124-b224-dde339d7ebc1"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ echo $USER</code></pre>
+			<p id="131aa64c-9d0a-81a8-9dd4-d9e0e4089499" class="">Ниже приведены те переменные окружения,
+				которые<br />есть почти у всех пользователей Linux:<br /></p>
+			<ul id="131aa64c-9d0a-8184-9e54-c325afa6e0b1" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>USER</strong> - имя текущего пользователя</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81df-96bc-c9d33573b190" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>HOME</strong> - путь к домашнему каталогу текущего пользователя
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8162-bfd7-d31999477ae8" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>PATH</strong> - список каталогов, разделенных двоеточиями, в
+					которых<br />производится &quot;поиск&quot; программ<br /></li>
+			</ul>
+			<ul id="131aa64c-9d0a-81d6-8474-e2e4b2b692c4" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>PWD</strong> - текущий каталог</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81ce-987b-c5baecc0ad18" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>OLDPWD</strong> - предыдущий текущий каталог</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8178-9452-e5d2e15e1cab" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>TERM</strong> - тип терминала</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8150-b8f1-d02244ddc60f" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>SHELL</strong> - текущая командная оболочка</li>
+			</ul>
+			<p id="131aa64c-9d0a-817d-81f4-c30f6ccf8038" class="">BASH, который мы неоднократно упоминали ранее, это не
+				только командная оболочка, это еще и превосходный скриптовый язык программирования.</p>
+			<p id="131aa64c-9d0a-8186-8325-ddd99f62be23" class="">Ниже приведен ряд встроенных команд (функций):</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8198-b11e-f7be7414efb0" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">break - выход из цикла for, while или until
+
+continue - выполнение следующей итерации цикла for, while или until
+
+echo - вывод аргументов, разделенных пробелами, на стандартное устройство вывода
+
+exit - выход из оболочки
+
+export - отмечает аргументы как переменные для передачи в дочерние процессы в среде
+
+hash - запоминает полные имена путей команд, указанных в качестве аргументов, чтобы не искать их при следующем обращении
+
+kill - посылает сигнал завершения процессу
+
+pwd - выводит текущий рабочий каталог
+
+read - читает строку из ввода оболочки и использует ее для присвоения значений указанным переменным.\
+
+return - заставляет функцию оболочки выйти с указанным значением
+
+shift - перемещает позиционные параметры налево
+
+test - вычисляет условное выражение
+
+times - выводит имя пользователя и системное время, использованное оболочкой и ее потомками
+
+trap - указывает команды, которые должны выполняться при получении оболочкой сигнала
+
+unset - вызывает уничтожение переменных оболочки
+
+wait - ждет выхода из дочернего процесса и сообщает выходное состояние.</code></pre>
+			<h2 id="131aa64c-9d0a-8141-9d4b-f3b367b1c3bf" class="">7. Фильтры вывода</h2>
+			<p id="131aa64c-9d0a-8134-8c96-df6d447d4b32" class=""><strong>Фильтры </strong>— это команды, которые
+				преобразуют переданные текстовые данные определенным образом. С помощью фильтров можно брать
+				необработанные данные, которые хранятся в файлы, и управлять ими — приводить в удобный для нас вид.</p>
+			<h3 id="131aa64c-9d0a-81f4-809e-fd490639fd94" class=""><strong>head</strong></h3>
+			<p id="131aa64c-9d0a-81dc-a62e-e3c0634a9ea3" class="">С помощью данного фильтра можно вывести первые 10
+				строк файла. Пример команды для вывода первых 20 строк файла auth.log head -20 auth.log</p>
+			<h3 id="131aa64c-9d0a-81a4-9a6e-f8936d8e1e5f" class="">tail</h3>
+			<p id="131aa64c-9d0a-81f5-8446-c5cac68314b0" class="">Противоположна команде head и выводит последние строки
+				файла. Без указания аргумента, по умолчанию выведется 10 последних строк файла.</p>
+			<p id="131aa64c-9d0a-8197-b338-e4f3cc6711cd" class="">Кроме того, у <strong>tail</strong> есть специальный
+				параметр <strong>-f</strong> для просмотра изменений в файле в режиме реального времени (особенно в
+				журнальных файлах).</p>
+			<p id="131aa64c-9d0a-81c0-a137-f484355e17c4" class="">Следующая команда позволит вам отслеживать изменения в
+				указанном файле (информация будет выводится в терминал):</p>
+			<p id="131aa64c-9d0a-81de-b96d-fe9d8232338d" class=""><code>$ tail -f /var/log/auth.log</code></p>
+			<h3 id="131aa64c-9d0a-8198-b3cd-c93b5740ee35" class="">less</h3>
+			<p id="131aa64c-9d0a-81f9-a2ee-e94c0bc843a4" class="">Данная команда очень полезна если нужно просмотреть
+				огромный файл. Главным ее плюсом является то, что считывается не весь файл, а только тот кусок, который
+				помещается на экран, что сильно экономит использование оперативной памяти.</p>
+			<h3 id="131aa64c-9d0a-818e-8950-c971b54c3160" class="">more </h3>
+			<p id="131aa64c-9d0a-8165-8569-da56c80a635a" class="">Устаревший аналог команды less и в отличии от нее
+				может читать только вперед</p>
+			<h3 id="131aa64c-9d0a-81c7-928c-dfe06fb03b9e" class="">Sort</h3>
+			<p id="131aa64c-9d0a-81a7-b115-daeb96c1344d" class="">Данная команда позволяет вывести строки файла в
+				определенном порядке. При использовании команды без опций, строки файла будут выведены в алфавитном
+				порядке.</p>
+			<p id="131aa64c-9d0a-81e3-8308-c1a731eaafa1" class="">Вы можете запустить команду <strong>sort</strong> для
+				сортировки содержимого файла следующим образом:<code><br/>$ sort file.txt<br/></code></p>
+			<figure id="131aa64c-9d0a-81ff-b53a-f4660a8d5735" class="image"><a
+					href="Дополнительный материал/Untitled%202.png"><img
+						style="width:995px"
+						src="Дополнительный материал/Untitled%202.png" /></a>
+			</figure>
+			<h2 id="131aa64c-9d0a-81ab-a8b8-ddb8ee4c4bef" class="">8. Пакетные менеджеры, установка новых программ,
+				репозитории</h2>
+			<p id="131aa64c-9d0a-81d2-b748-f7aa0b1a9889" class="">Ранее мы неоднократно устанавливали те или иные
+				утилиты (скачивая их пакеты), однако не рассматривали команду, которой для этого пользовались - apt. APT
+				- один из самых распространенных менеджеров пакетов. Менеджер пакетов - программа, выполняющая
+				установку, удаление или обновление любого пакета или группы пакетов, и автоматически выполняющая все
+				необходимые для этого процедуры (доставку пакетов из удалённых репозиториев, вычисление зависимостей и
+				установку требуемых по ним пакетов, удаление <br />замещаемых пакетов и т. п.).<br /></p>
+			<h3 id="131aa64c-9d0a-819c-b0c3-c0ea96ddf2f1" class="">Категории пакетных менеджеров</h3>
+			<ul id="131aa64c-9d0a-8168-b1f5-dca9204c3e26" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Высокоуровневые менеджеры.</strong> Применяются для поиска и
+					скачивания пакетов из репозиториев. В процессе работы могут задействовать низкоуровневые менеджеры
+					для инсталляции загруженных программ.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8139-8240-f2d53c088983" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Низкоуровневые менеджеры. </strong>Используются для установки
+					локальных пакетов, загруженных вручную пользователем, или высокоуровневым пакетным менеджером.</li>
+			</ul>
+			<h3 id="131aa64c-9d0a-813f-9e57-d7f0145c0ee7" class="">Распространенные форматы пакетов</h3>
+			<ul id="131aa64c-9d0a-817f-bb9c-f060ad4b8550" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>DEB (.deb)</strong>. Самый популярный формат пакетов
+					дистрибутива Debian и его ближайших родственников — Ubuntu, MX Linux, Pop!_OS, elementary OS и
+					других.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8114-9c1a-fd1b32911219" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>RPM (.rpm)</strong>. Разработан компанией Red Hat и внедрен в
+					дистрибутив RHEL. Также применяется в таких системах как Fedora и CentOS.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8125-8b10-fd66234b3bcb" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>PKG.TAR.XZ</strong>. Стандартный тип пакетов для дистрибутива
+					ArchLinux и его производных — Manjaro, ARCOLINUX и других.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-818e-978f-d8e39e326674" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Ebuild (.ebuild). </strong>Скрипт bash-сценария для компиляции
+					программ в дистрибутивах Gentoo и Calculate Linux.</li>
+			</ul>
+			<p id="131aa64c-9d0a-81f9-9c23-f05734813acd" class="">Для корректного функционирования пакетных менеджеров
+				необходимо корректное отслеживание пакетных зависимостей. Зависимости – список дополнительных пакетов и
+				библиотек, участвующие в работе программы. Во время установки приложения пакетный менеджер или
+				компилятор считывают специальный файл со списком зависимостей, а после проверяют их наличие в системе.
+			</p>
+			<p id="131aa64c-9d0a-81e8-8b09-ce8b6604973e" class="">Если важная зависимость будет не удовлетворена при
+				установке программы низкоуровневым менеджером, то будет выдана ошибка с названием отсутствующего пакета.
+				В подобной ситуации проблема решается отдельной установкой недостающего пакета.</p>
+			<p id="131aa64c-9d0a-812f-9cb0-ed5f6b0824bc" class="">При использовании высокоуровнего пакетного менеджера
+				для установки программы, зависимые пакеты будут установлены в автоматическом режиме, без вмешательства
+				пользователя.</p>
+			<p id="131aa64c-9d0a-816d-9940-d1be42ddc084" class="">
+			</p>
+			<p id="131aa64c-9d0a-812d-a5fd-e687be6b0b78" class="">Самые распростанённые пакетные менеджеры:</p>
+			<h3 id="131aa64c-9d0a-8112-b265-d9b2ba738968" class="">APT</h3>
+			<p id="131aa64c-9d0a-811b-a7e3-c2ef3c4dc69e" class="">APT (Advanced Packaging Tool) – консольная утилита,
+				выполняющая роль «поисковика» и загрузчика пакетов из репозиториев. Установка скачанных пакетов
+				производится<br />утилитой DPKG. Благодаря эффективному разрешению зависимостей, пакетный<br />менеджер
+				APT используется по умолчанию в дистрибутивах с архитектурой Debian и поддерживает систему в актуальном
+				состоянии.<br /></p>
+			<p id="131aa64c-9d0a-8191-b93c-d6f979620900" class="">Синтаксис команды apt следующий:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81bb-9d79-fe659c484685"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ sudo apt &lt;действие&gt; &lt;пакет(ы)&gt; &lt;доп. параметры&gt;</code></pre>
+			<p id="131aa64c-9d0a-81ba-b325-d7faf88a11fb" class="">С примением apt install вы уже хорошо знакомы, эта
+				команда позволяет скачать и установить тот или иной пакет. Однако у apt есть и другие применения: </p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81e1-b9eb-faa5df4f663c"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ sudo apt update</code></pre>
+			<p id="131aa64c-9d0a-8175-963b-d291f0ddde1d" class="">У APT есть список репозиториев, из которых происходит
+				установка пакетов. Список хранится в текстовом файле <em>/etc/apt/sources.list</em>, а также
+				в директории <em>/etc/apt/sources.list.d/</em>. При выполнении команды <em>apt update</em>, APT проходит
+				по списку репозиториев и из каждого репозитория в списке получает информацию о пакетах, находящихся
+				в репозитории. Вся эта <br />информация сохраняется в системе.<br /></p>
+			<p id="131aa64c-9d0a-81c4-84db-e62412edda63" class="">Если выходит новая версия какого-нибудь пакета, то APT
+				не узнает об этом, пока не будет выполнена команда <em>apt update</em>. Поэтому, если установить данный
+				пакет (не выполнив предварительно apt update), то будет установлена та версия пакета, информация
+				о которой <br />хранится в системе в данный момент.<br /></p>
+			<p id="131aa64c-9d0a-81f9-ac28-c7062956be91" class="">Чтобы выполнить обновление пакетов, установленных
+				в системе, используется команда:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-816d-87df-faebdf49a4df"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ sudo apt upgrade</code></pre>
+			<p id="131aa64c-9d0a-8174-bae9-f7c6b059a21d" class="">Данная команда только обновляет пакеты до новых
+				версий, но никогда не удаляет и не устанавливает другие пакеты.</p>
+			<p id="131aa64c-9d0a-81eb-9b8c-ce04aa2f1cef" class="">Есть еще одна команда для <strong>обновления</strong>
+				пакетов:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8155-8188-e9dd8aa5b12f"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ sudo apt full-upgrade</code></pre>
+			<p id="131aa64c-9d0a-814a-a50b-dcaa5790e498" class="">Данная команда выполняет обновление пакетов, а также
+				удаляет или устанавливает новые пакеты, если это потребуется для разрешения зависимостей.</p>
+			<p id="131aa64c-9d0a-81f1-bd4a-e5f810737da3" class="">
+			</p>
+			<p id="131aa64c-9d0a-81bf-9935-ca9938a1c181" class="">Чтобы <strong>установить</strong> пакет используется
+				команда:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-810d-9daa-fde2a8b6eba6"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ sudo apt install &lt;пакет&gt;</code></pre>
+			<p id="131aa64c-9d0a-8173-a85b-d7cdeb12393c" class="">
+			</p>
+			<p id="131aa64c-9d0a-8154-98e0-ea06823fca44" class="">Для <strong>установки нескольких</strong> пакетов
+				их имена записываются через пробел:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81da-8cbc-ee6bdd4b4f89"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ sudo apt install &lt;пакет1&gt; &lt;пакет2&gt; &lt;пакет3&gt;</code></pre>
+			<p id="131aa64c-9d0a-81f9-84a4-c71ea8f0610d" class="">
+			</p>
+			<p id="131aa64c-9d0a-81dc-a7fe-c1811085c0e4" class="">Чтобы установить <strong>определенную версию</strong>
+				пакета нужно после названия пакета, через знак равенства, указать требуемую версию:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8111-a372-e36767c538ee"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ sudo apt install &lt;пакет&gt;=&lt;версия&gt;</code></pre>
+			<p id="131aa64c-9d0a-8125-bf33-fbafdbe7cf3e" class="">
+			</p>
+			<p id="131aa64c-9d0a-81e1-b334-d180bad4606b" class="">Для <strong>удаления</strong>, установленного пакета,
+				используется команда:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81f9-a69a-fd66f1b41311"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ sudo apt remove &lt;пакет&gt;</code></pre>
+			<p id="131aa64c-9d0a-8195-a645-c6e093e09d01" class="">Удалить пакет и его конфигурационные файлы:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-817d-ab8a-e36042dcb500"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ sudo apt purge &lt;пакет&gt;</code></pre>
+			<p id="131aa64c-9d0a-8176-9657-f73659ffa502" class=""><em>apt purge</em> работает аналогично <em>apt
+					remove</em>, но удаляет еще и конфигурационные файлы, относящиеся к пакету. Это означает, что если
+				вы установили какую-нибудь программу, настроили ее, а потом удалили командой <em>apt remove</em>,
+				то конфигурационный файл этой программы останется в системе. Если вы теперь установите эту программу
+				снова, то можно будет использовать предыдущий конфигурационный файл, так как он не был удален.</p>
+			<p id="131aa64c-9d0a-8174-bfa8-fea1f2cac0db" class=""><em>apt purge</em> не удаляет конфигурационные файлы,
+				хранящиеся в вашей домашней директории.</p>
+			<p id="131aa64c-9d0a-8139-a491-d7d073376252" class="">Если вы удалили пакет командой <em>apt remove</em>,
+				то вы можете выполнить <em>apt purge</em> для данного, уже удаленного пакета, чтобы «доудалить» его
+				конфигурационные файлы.</p>
+			<p id="131aa64c-9d0a-81bc-88f3-c5df6c68bed6" class="">Удалить неиспользуемые пакеты</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ef-83ef-f03f4c039960"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$sudo apt autoremove</code></pre>
+			<p id="131aa64c-9d0a-8168-bcfb-d6652d53a8ec" class="">Когда вы устанавливаете пакет, то часто
+				устанавливаются дополнительные пакеты, являющиеся его зависимостями. Если теперь вы удалите этот пакет,
+				то зависимости останутся в системе. <em>apt autoremove</em> удаляет эти зависимости, но только те,
+				которые не нужны другим установленным пакетам.</p>
+			<h3 id="131aa64c-9d0a-8135-a162-d7d26a7851d3" class="">Список пакетов</h3>
+			<p id="131aa64c-9d0a-8136-979e-c533a1e35e0f" class="">Команда apt list используется для вывода списка
+				пакетов по какому-то критерию.</p>
+			<p id="131aa64c-9d0a-81d4-a8ab-e8bc4eab63ab" class="">Вывести список установленных в системе пакетов:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8117-b761-dd64393b0ebb"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ apt list --installed</code></pre>
+			<p id="131aa64c-9d0a-812e-a27b-f53f323c6cf8" class="">Вывести список пакетов, которые требуют обновления
+				(у которых вышла новая версия):</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8159-b4f8-f21542cbe5ab"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ apt list --upgradable</code></pre>
+			<p id="131aa64c-9d0a-8147-aac0-e007ed2d4506" class="">Вывести список всех пакетов доступных для вашей
+				системы:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-815d-8e6e-ef8cc42313a6"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ apt list --all-versions</code></pre>
+			<p id="131aa64c-9d0a-8130-a880-d146d3dc79bc" class="">Если Вас интересует количество установленных пакетов,
+				то его Вам выведет следующая команда:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-815d-87a0-f82cd4a284c7"
+				class="code"><code class="language-HTML">$ apt list --installed | wc -l</code></pre>
+			<p id="131aa64c-9d0a-8189-a65f-e3823f4299f4" class=""><strong>Поиск</strong> пакетов:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-814f-957a-c22c1ef81df1"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ apt search &lt;слово&gt;</code></pre>
+			<p id="131aa64c-9d0a-815c-af3b-f7d1fa36dfa0" class="">Данная команда выполняет поиск указанного
+				<em>слова</em> в названии пакетов и в описании пакетов. Поддерживаются регулярные выражения.</p>
+			<p id="131aa64c-9d0a-8138-8f8c-f681653e2197" class="">Можно выполнять поиск только по названиям пакетов для
+				этого используется опция --names-only:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81db-8741-eaec1868c571"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ apt search --names-only &lt;слово&gt;</code></pre>
+			<p id="131aa64c-9d0a-81dc-9408-edab82b4e6f3" class="">Поиск пакета с использованием регулярных выражений:
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8135-a7f4-ddf7b8d5bdc7"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ apt search --names-only &#x27;^python&#x27;</code></pre>
+			<p id="131aa64c-9d0a-81c0-ae41-f615ee9fa1b1" class=""><strong>Информация</strong> о пакете:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81db-af69-e98f9ac4808b"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ apt show &lt;пакет&gt;</code></pre>
+			<p id="131aa64c-9d0a-8139-9460-d53cf6405afc" class="">Выводит информацию о пакете. Отображается версия,
+				размер, описание, зависимости и другая информация.</p>
+			<p id="131aa64c-9d0a-81fc-ac01-d7b0d23fb895" class="">Редактирование списка репозиториев:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ed-ad0f-d6e7d2337f09"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ sudo apt edit-sources</code></pre>
+			<p id="131aa64c-9d0a-812d-8a24-f1a8701c60c4" class="">Открывает файл <em>/etc/apt/sources.list
+				</em>в текстовом редакторе для редактирования, после сохранения изменений и закрытия редактора,
+				выполняет проверку файла на предмет ошибок. <br />В случае наличия ошибок, выводит предложение
+				на повторное редактирование файла, чтобы исправить ошибки.<br /></p>
+			<p id="131aa64c-9d0a-812e-b958-c8f4b25c0a85" class="">
+			</p>
+			<p id="131aa64c-9d0a-818e-9647-da7b49fccd7b" class="">Вы могли заметить, что ранее помимо apt мы
+				пользовались также утилитой apt-get, и может возникнуть резонный вопрос - в чем разница? </p>
+			<p id="131aa64c-9d0a-8168-9e67-ff32942ba8e1" class="">Apt это утилита, которая появилась, как альтернатива
+				apt-get. Она выполняет практически все те же функции, что и apt-get, но с ней проще и понятнее работать.
+			</p>
+			<p id="131aa64c-9d0a-811c-b817-e063e0a90e17" class="">Например, все команды apt имеют простой синтаксис:
+				<em>apt название_команды</em>. А у apt-get есть дополнительные команды, например, <em>apt-cache</em>.
+				Таким образом, при использовании apt, пользователю не нужно запоминать дополнительные наборы команд.</p>
+			<p id="131aa64c-9d0a-813b-bc8b-d1084a9628ba" class="">Помимо упрощения работы с командами, apt нагляднее
+				выводит информацию, <br />вроде бы мелочи, но работать удобнее. Например, apt умеет показывать прогресс
+				бар, а при выполнении <br /><em>apt update</em> можно увидеть сколько пакетов можно обновить.</p>
+			<p id="131aa64c-9d0a-81da-9311-c919f8aa623c" class="">Стоит отметить, что утилита apt-get более
+				функциональна, чем apt.</p>
+			<h3 id="131aa64c-9d0a-81f1-a7e2-ea9dbb60b5e3" class=""><strong>dpkg</strong></h3>
+			<p id="131aa64c-9d0a-81e5-8fcc-dd35a0f46c30" class="">DPKG (Debian Package) – система управления пакетами в
+				Debian и дистрибутивах на его основе, например Ubuntu.Утилита DPKG появилась в дистрибутиве Debian в
+				1995 году. Низкоуровневый пакетный менеджер создан только для работы с локальными DEB пакетами и не
+				может самостоятельно разрешать зависимости, а также скачивать пакеты из репозиториев</p>
+			<ul id="131aa64c-9d0a-8127-a99d-e7d939caf6f0" class="bulleted-list">
+				<li style="list-style-type:disc">Для получения списка пакетов, установленных в системе, в терминале
+					наберите:</li>
+			</ul>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81f2-a8bb-fa5680f367a3"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ dpkg -l</code></pre>
+			<ul id="131aa64c-9d0a-8169-a5d8-c27369628304" class="bulleted-list">
+				<li style="list-style-type:disc">В зависимости от количества пакетов в вашей системе, эта команда
+					может<br />породить большой объем вывода. Пропустите выходной поток через <br /><code>grep</code>
+					чтобы увидеть установлен ли определенный пакет:</li>
+			</ul>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8114-adac-ee640d1404e8"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ dpkg -l | grep apache2</code></pre>
+			<p id="131aa64c-9d0a-819b-b29d-eac69f425f26" class="">Замените <code>apache2</code> на любое имя пакета,
+				часть имени или иное регулярное выражение.</p>
+			<ul id="131aa64c-9d0a-8144-a95e-dffa562438bc" class="bulleted-list">
+				<li style="list-style-type:disc">Для получения списка файлов, установленных пакетом (в нашем случае
+					ufw), введите:</li>
+			</ul>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-810a-87e5-e4016a6193e6"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ dpkg -L ufw</code></pre>
+			<ul id="131aa64c-9d0a-81af-a856-cc7dcf087478" class="bulleted-list">
+				<li style="list-style-type:disc">Если вы не уверены каким пакетом установлен файл, dpkg -S может
+					подсказать вам. Например:</li>
+			</ul>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81eb-8071-ce19be0fb420" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ dpkg -S /etc/host.conf
+base-files: /etc/host.conf</code></pre>
+			<p id="131aa64c-9d0a-817e-bd6c-d5fe9a7d3f57" class="">Вывод указывает, что /etc/host.conf принадлежит пакету
+				base-files.</p>
+			<p id="131aa64c-9d0a-818e-8314-fe46729ba3c5" class="">Многие файлы автоматически создаются в процессе
+				установки пакета, но несмотря на то, что они находятся на файловой системе, dpkg -S может не знать
+				какому пакету они принадлежат.</p>
+			<ul id="131aa64c-9d0a-816d-970b-ce955008032f" class="bulleted-list">
+				<li style="list-style-type:disc">Вы можете установить локальный .deb файл, набрав:</li>
+			</ul>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-812d-9042-c02e97ae449f"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ sudo dpkg -i zip_3.0-4_i386.deb</code></pre>
+			<p id="131aa64c-9d0a-81e8-a436-f9554b607ef9" class="">Замените zip_3.0-4_i386.deb на реальное имя локального
+				.deb файла, который вы собираетесь установить.</p>
+			<ul id="131aa64c-9d0a-8103-a3a8-f461f2576241" class="bulleted-list">
+				<li style="list-style-type:disc">Удаление пакета может быть выполнено так:</li>
+			</ul>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8114-84e7-e263095f8139"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ sudo dpkg -r zip</code></pre>
+			<p id="131aa64c-9d0a-8120-80dd-fe32b78e8d61" class="">Удаление пакетов с использованием dpkg в большинстве
+				случаев не рекомендуется. Лучше использовать менеджер пакетов, отслеживающий зависимости, чтобы
+				гарантировать, что система находится в связанном состоянии. Например, использование dpkg -r zip
+				<br />удалит пакет zip, однако любые пакеты, зависящие от него, останутся установленными и более не
+				смогут работать правильно.<br /></p>
+			<p id="131aa64c-9d0a-813b-a800-e36020986b11" class="">Для дополнительной информации смотрите страницу
+				описания:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81fa-a1a4-d23a3c49e9d9"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">$ man dpkg</code></pre>
+			<p id="131aa64c-9d0a-81ee-afa1-cf64a6f92fe1" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-81ee-baa0-d5da9ded585e" class=""><strong>RPM</strong></h3>
+			<p id="131aa64c-9d0a-8113-993c-cb37e6e01b34" class=""><strong>RPM (Red Hat Package Manager) </strong>- это
+				популярная утилита управления пакетами для Linux систем на базе Red Hat, таких как (RHEL, CentOS и
+				Fedora). Она используется для установки, удаления, обновления, запроса и проверки пакетов программного
+				обеспечения. Пакет состоит из архива файлов и информации о пакете, включая имя, версию и описание.
+				<br />Формат файлов также называется RPM.<br /></p>
+			<p id="131aa64c-9d0a-81d6-bdca-f58c0d9bf168" class="">В RPM используется несколько основных режимов команд:
+			</p>
+			<p id="131aa64c-9d0a-813f-a029-fb7c63d03fed" class=""><strong>Install</strong> (используется для установки
+				любого пакета RPM), </p>
+			<p id="131aa64c-9d0a-8144-95ac-e994445be772" class=""><strong>Remove</strong> (используется для удаления,
+				стирания или деинсталляции пакета), </p>
+			<p id="131aa64c-9d0a-81d9-8254-dd8bf1c86fc6" class=""><strong>Upgrade </strong>(используется для обновления
+				существующего пакета), </p>
+			<p id="131aa64c-9d0a-810b-997b-ca8bf788da1d" class=""><strong>Query</strong> (используется для запроса
+				пакета), </p>
+			<p id="131aa64c-9d0a-8145-aabc-e76b9d201b81" class=""><strong>Verify</strong> (используется для проверки
+				пакетов RPM).</p>
+			<p id="131aa64c-9d0a-8112-9fdf-d43d2507528c" class="">Применение:</p>
+			<p id="131aa64c-9d0a-8181-8616-d2aada5dab5d" class="">установить RPM пакет:</p>
+			<p id="131aa64c-9d0a-819f-a84c-e062ca563e8e" class="">
+				<code>$ sudo rpm -ivh GeoIP-1.5.0-11.el7.x86_64.rpm</code></p>
+			<p id="131aa64c-9d0a-81b7-ace1-f6d0ff19f42b" class="">проверить установленный пакет RPM:</p>
+			<p id="131aa64c-9d0a-8186-a7df-dbfb06e697f8" class=""><code>$ sudo rpm -q GeoIP</code></p>
+			<p id="131aa64c-9d0a-813f-81a4-decd178c04ab" class="">вывести список всех файлов для определенного
+				установленного пакета RPM:</p>
+			<p id="131aa64c-9d0a-811e-ba44-d2e9ea22d68f" class=""><code>$ sudo rpm -ql GeoIP</code></p>
+			<p id="131aa64c-9d0a-814c-bf04-eab1eb0881df" class="">вывести список недавно установленных пакетов RPM:</p>
+			<p id="131aa64c-9d0a-81f2-9f9e-d9afa1f919df" class=""><code>$ sudo rpm -qa --last</code></p>
+			<p id="131aa64c-9d0a-819a-868b-fee8d87e86ce" class="">установить RPM пакет без зависимостей:</p>
+			<p id="131aa64c-9d0a-817a-a5a7-f66251b8fac4" class="">
+				<code>$ sudo rpm -ivh --nodeps GeoIP-1.5.0-11.el7.x86_64.rpm</code></p>
+			<p id="131aa64c-9d0a-81cf-9009-d59f19de89b1" class="">заменить установленный пакет RPM:</p>
+			<p id="131aa64c-9d0a-8198-bf77-e6c7d69665a7" class="">
+				<code>$ sudo rpm -ivh --replacepkgs GeoIP-1.5.0-11.el7.x86_64.rpm</code></p>
+			<p id="131aa64c-9d0a-8192-8f50-d0832d3fb9e1" class="">удалить пакет RPM:</p>
+			<p id="131aa64c-9d0a-811a-aef0-e8b1554f32c5" class=""><code>$ sudo  rpm -e --nodeps GeoIP</code></p>
+			<p id="131aa64c-9d0a-8179-8f24-ef8b08adac68" class="">обновить установленный пакет RPM:</p>
+			<p id="131aa64c-9d0a-81b7-8d02-d3bfb220f54f" class="">
+				<code>$ sudo rpm -Uvh GeoIP-1.5.0-11.el7.x86_64.rpm</code></p>
+			<p id="131aa64c-9d0a-81f0-904d-f71c016cb7ae" class="">запросить все установленные пакеты:</p>
+			<p id="131aa64c-9d0a-8135-a31e-eadb28c83ed0" class=""><code>$ sudo rpm -qa</code></p>
+			<p id="131aa64c-9d0a-8134-9344-d8195a376de2" class="">получить информацию для конкретного пакета:</p>
+			<p id="131aa64c-9d0a-8156-a4a4-cb16cc039823" class=""><code>$ sudo rpm -qi GeoIP</code></p>
+			<p id="131aa64c-9d0a-817f-abeb-edd81d008b37" class="">Перечень других популярных менеджеров с кратким
+				описанием:</p>
+			<h3 id="131aa64c-9d0a-812a-b73b-edce642d3ceb" class="">YUM</h3>
+			<p id="131aa64c-9d0a-8170-b425-e904d057e00a" class="">YUM (Yellowdog Updater, Modified) – высокоуровневый
+				пакетный <br />менеджер, написанный на языке Python для систем RED HAT (RHEL, CentOS, <br />Fedora).
+				Программа представляет собой своеобразную оболочку для утилиты <br />RPM. В задачу YUM входит скачивание
+				и обновление пакетов из репозиториев, а<br />также удовлетворение зависимостей во время установки
+				программы.<br /></p>
+			<h3 id="131aa64c-9d0a-8126-835e-f4f5b5ece551" class="">Pacman</h3>
+			<p id="131aa64c-9d0a-81f5-87ad-db8f0fee17db" class="">Pacman – высокоуровневый пакетный менеджер системы
+				Arch Linux и его <br />родственных дистрибутивов (Manjaro, EndeavourOS и др.). Программа <br />написана
+				на языке C# и совмещает высокую функциональность, легкость и <br />производительность. В качестве
+				пакетов используются архивы pkg.tar.xz<br /><em>.</em></p>
+			<h3 id="131aa64c-9d0a-819e-8122-ca1c915d7547" class="">Synaptic</h3>
+			<p id="131aa64c-9d0a-81e9-abd7-da6d0031110f" class="">Synaptic — графический менеджер пакетов, работающий на
+				основе APT. <br />Программа пригодится новичкам, плохо знакомым с командной строкой. <br />Несмотря на
+				простоту интерфейса, утилита предоставляет весь необходимый <br />функционал пакетного менеджера APT
+				(установка, удаление, обновление и <br />поиск пакетов).<br /></p>
+			<hr id="131aa64c-9d0a-811d-a2e4-ee6a87bfee3b" />
+			<h3 id="131aa64c-9d0a-8118-9d23-cbdad8a1fe25" class="">GIT</h3>
+			<p id="131aa64c-9d0a-8155-bbd3-dfd1c2d1a195" class="">Git - это очень популярная система контроля версий и
+				совместной разработки проектов с открытым исходным кодом. С помощью Git вы можете отслеживать изменения
+				в исходном коде своих проектов, возвращать предыдущие версии в случае критических ошибок, а также
+				делиться своим кодом со всеми желающими и принимать от них исправления.Это мощная система, которая
+				позволяет оптимизировать работу над вашими проектами. Здесь нет<br />каких-либо требований к языку или
+				структуре файлов, поэтому у разработчиков полная свобода действий.<br /></p>
+			<p id="131aa64c-9d0a-81ac-8e9b-e7444668b503" class="">Установка:</p>
+			<p id="131aa64c-9d0a-81b6-9eeb-fb293bae05b0" class=""><code>sudo apt install git</code>
+			<div class="indented">
+				<figure id="131aa64c-9d0a-815d-821c-d40b69a99724" class="image"><a
+						href="https://i.imgur.com/kQiFjP6.png"><img src="https://i.imgur.com/kQiFjP6.png" /></a>
+				</figure>
+			</div>
+			</p>
+			<p id="131aa64c-9d0a-81cc-9eff-f540be540bf4" class="">С помощью этой системы контоля версии мы можем
+				получать исходные коды приложений, например мы хотим скачать сканнер BlackWidow (<a
+					href="https://github.com/1N3/BlackWidow">https://github.com/1N3/BlackWidow</a>). Для этого с помощью
+				команды <strong>git clone</strong> склонируем проект из неофициального репозитория в нашу директорию
+				(предварительно создадим её командой mkdir git и перейдем в неё командой cd git):</p>
+			<p id="131aa64c-9d0a-8168-bb28-fb895e46f04b" class="">$ git clone <a
+					href="https://github.com/1N3/BlackWidow">https://github.com/1N3/BlackWidow</a></p>
+			<figure id="131aa64c-9d0a-818e-9abe-f6221036ed6f" class="image"><a
+					href="https://i.imgur.com/jRNYbtY.png"><img src="https://i.imgur.com/jRNYbtY.png" /></a></figure>
+			<p id="131aa64c-9d0a-81a1-9fea-f3e11c3f1130" class="">
+			</p>
+			<p id="131aa64c-9d0a-8172-961a-d96a893d8366" class="">
+			</p>
+			<p id="131aa64c-9d0a-81a8-aeb1-e6643962b501" class="">
+			</p>
+			<p id="131aa64c-9d0a-81b8-b1c9-cc6d9d3e1b33" class="">
+			</p>
+			<p id="131aa64c-9d0a-818c-899b-e0bfd7362e8c" class="">
+			</p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

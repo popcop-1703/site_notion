@@ -1,0 +1,1936 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Часть 3.2 Основы Bash-скриптов</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-81cc-be11-d5d744c50506" class="page sans">
+		<header><img class="page-cover-image"
+				src="Часть 3 2 Основы Bash-скриптов/kanv.png"
+				style="object-position:center 8.379999999999999%" />
+			<div class="page-header-icon page-header-icon-with-cover"><img class="icon"
+					src="https://www.notion.so/icons/keyboard_gray.svg" /></div>
+			<h1 class="page-title"><strong>Часть 3.2 Основы Bash-скриптов</strong></h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<p id="131aa64c-9d0a-81e2-b286-dcb34bcc05c2" class="">
+			</p>
+			<figure id="131aa64c-9d0a-8194-8f87-e383164cc707" class="image"><a
+					href="Часть 3 2 Основы Bash-скриптов/Untitled.png"><img
+						style="width:1589px"
+						src="Часть 3 2 Основы Bash-скриптов/Untitled.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8146-b499-e86681465bae" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-816f-bfaa-ecce5dac85f0" class=""><strong>Цель:</strong></h3>
+			<ul id="131aa64c-9d0a-81b2-8e17-de5204e16b58" class="bulleted-list">
+				<li style="list-style-type:disc">Научиться основам Bash-скриптов.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81eb-8c29-ff75980afc6d" class="bulleted-list">
+				<li style="list-style-type:disc">Создать отдельные файлы под каждый скрипт в Linux.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8147-ba29-ca97bfd5a378" class="bulleted-list">
+				<li style="list-style-type:disc">Написать свой скрипт исходя из своих рабочих или персональных нужд.
+					Тело скрипта должно иметь минимум 10 строк. Тело скрипта добавить в отчёт.</li>
+			</ul>
+			<h3 id="131aa64c-9d0a-8105-8d22-cb4b63398ac0" class=""><strong>Отчёт:</strong></h3>
+			<ul id="131aa64c-9d0a-8165-a8e1-dffc1ad8ade6" class="bulleted-list">
+				<li style="list-style-type:disc">Передоставить отчёт.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-814b-9a90-e4211fd0e3a9" class="bulleted-list">
+				<li style="list-style-type:disc">Предоставить все скрипты, они должны быть рабочие и необходимо
+					продемонстрировать их работу, пояснить код каждого скрипта.</li>
+			</ul>
+			<p id="131aa64c-9d0a-810d-8cb6-ca48661fdd8a" class="">— это командная оболочка (или «интерпретатор командной
+				строки»), используемая по умолчанию в операционных системах на базе Unix и Linux, созданная в 1989 году
+				Брайаном Фоксом с целью усовершенствования командной оболочки sh.</p>
+			<p id="131aa64c-9d0a-8126-aa58-f625479b4637" class="">bash позволяет автоматизировать различные задачи,
+				устанавливать программное обеспечение, настраивать конфигурации для своего рабочего окружения и многое
+				другое. В этой статье мы рассмотрим использование нескольких основных команд в bash, а также рассмотрим
+				гайд по созданию bash-скриптов.</p>
+			<h3 id="131aa64c-9d0a-8190-9337-e73b7dfad06a" class=""><strong>1. Давайте создадим отдельную деиректорию где
+					мы будем создавать скрипты</strong></h3>
+			<p id="131aa64c-9d0a-81e6-9bf1-c8c0d66ac500" class="">Изначально в скрипте необходимо указать shb и ! и имя
+				интерпретатора</p>
+			<p id="131aa64c-9d0a-81b7-9850-e933b8762fb4" class="">далее на наш файлик надо назначить права исполнения и
+				указать, что он должен запускаться с помощью Bash</p>
+			<p id="131aa64c-9d0a-8155-be61-dca5619cda6b" class="">и если мы на прямую дав права на исполнение его
+				запустим, то он будет выполняться от импретатора bash</p>
+			<p id="131aa64c-9d0a-81eb-9fc9-cb9f5a4e160f" class="">если мы переименуем наш скрипт на python</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8139-a42a-ed233911821d"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">mv script1.sh script1.py</code></pre>
+			<p id="131aa64c-9d0a-8128-96d3-d30a9c8a9d21" class="">то это ничего не изменит, так как linux определяет
+				типы файлов именно по его содержимому</p>
+			<figure id="131aa64c-9d0a-81dd-a8fe-dd1ed1980c4f" class="image"><a
+					href="https://i.imgur.com/uy7XVL9.png"><img src="https://i.imgur.com/uy7XVL9.png" /></a></figure>
+			<figure id="131aa64c-9d0a-817d-97d0-ca512b822b6c" class="image"><a
+					href="https://i.imgur.com/iJ0ql05.png"><img src="https://i.imgur.com/iJ0ql05.png" /></a></figure>
+			<figure id="131aa64c-9d0a-81ee-8b56-ca2415bbe769" class="image"><a
+					href="https://i.imgur.com/SUfhE1M.png"><img src="https://i.imgur.com/SUfhE1M.png" /></a></figure>
+			<p id="131aa64c-9d0a-812b-bd61-dd259ee99b0b" class="">и теперь вернём назад</p>
+			<figure id="131aa64c-9d0a-818c-a7fb-d44b0c56365c" class="image"><a
+					href="https://i.imgur.com/PyIVKNG.png"><img src="https://i.imgur.com/PyIVKNG.png" /></a></figure>
+			<p id="131aa64c-9d0a-8191-875a-e09be3200967" class="">и с помощью команы мы видим, что система нам говорит -
+				это shell script</p>
+			<figure id="131aa64c-9d0a-8162-aa4c-da2305776bc3" class="image"><a
+					href="https://i.imgur.com/Z54YTqs.png"><img src="https://i.imgur.com/Z54YTqs.png" /></a></figure>
+			<p id="131aa64c-9d0a-8178-9ba2-d76dc3a54796" class="">т.е. это скипт на языке bash и это видно из первой
+				строки</p>
+			<figure id="131aa64c-9d0a-81e8-9635-e0cc06fc5c5a" class="image"><a
+					href="https://i.imgur.com/o9NvZTO.png"><img src="https://i.imgur.com/o9NvZTO.png" /></a></figure>
+			<p id="131aa64c-9d0a-81ee-9ac3-f4255ce21e0a" class="">таким образом данный файл мы можем использовать как
+				шаблон для всех остальных скриптов</p>
+			<p id="131aa64c-9d0a-81d6-a40f-d3d47ca59c64" class="">в bash есть поддержка комментариев, выглядит это так:
+			</p>
+			<figure id="131aa64c-9d0a-8190-9985-c5b2e616691c" class="image"><a
+					href="https://i.imgur.com/6P9Cla8.png"><img src="https://i.imgur.com/6P9Cla8.png" /></a></figure>
+			<p id="131aa64c-9d0a-8156-ab05-fdb7332ed2db" class="">обратите внимание, что для запуска скрипта нужны права
+				на исполнения chmod +x , если прав нет, то можно запустить скрипт напрямую использую bash</p>
+			<figure id="131aa64c-9d0a-819a-86fa-c694a9936b8a" class="image"><a
+					href="https://i.imgur.com/vf0VptM.png"><img src="https://i.imgur.com/vf0VptM.png" /></a></figure>
+			<figure id="131aa64c-9d0a-81d3-8c36-e8b44e7a4dee" class="image"><a
+					href="https://i.imgur.com/2wus0fe.png"><img src="https://i.imgur.com/2wus0fe.png" /></a></figure>
+			<p id="131aa64c-9d0a-816e-afad-c49946318231" class="">таким образом, мы можем писать простейшие скрипты</p>
+			<p id="131aa64c-9d0a-8182-9f7f-dfc4078176d1" class="">мы можем использовать такую команду как echo для
+				произвольного вывода, который нужен пользователю, что-бы соорентироваться</p>
+			<p id="131aa64c-9d0a-81fb-8978-e1aa3a93c802" class="">Например:</p>
+			<figure id="131aa64c-9d0a-81c9-9ef6-c2e61ce318ad" class="image"><a
+					href="https://i.imgur.com/ApssUcP.png"><img src="https://i.imgur.com/ApssUcP.png" /></a></figure>
+			<p id="131aa64c-9d0a-81d5-8551-ea14664e644c" class="">то тогда будут выведены строки последовательно сверху
+				вниз, что озночает текущая директория и текущий пользователь</p>
+			<figure id="131aa64c-9d0a-812c-ba63-cc6426d7ff6e" class="image"><a
+					href="https://i.imgur.com/1Up5H2U.png"><img src="https://i.imgur.com/1Up5H2U.png" /></a></figure>
+			<p id="131aa64c-9d0a-8195-9832-cfbfd968b6b9" class="">оператор ; может минимизировать наш код</p>
+			<figure id="131aa64c-9d0a-8102-a557-f4e8351cad0f" class="image"><a
+					href="https://i.imgur.com/p5TaIqh.png"><img src="https://i.imgur.com/p5TaIqh.png" /></a></figure>
+			<figure id="131aa64c-9d0a-81fc-b448-e958ed59d713" class="image"><a
+					href="https://i.imgur.com/ZInd0X5.png"><img src="https://i.imgur.com/ZInd0X5.png" /></a></figure>
+			<p id="131aa64c-9d0a-81af-811c-c0aa1f372596" class="">При этом bash позволяет использовать несколько типов
+				переменных, но они все для нас выглядят одинаково</p>
+			<p id="131aa64c-9d0a-81fb-98a4-cebb92b578ce" class="">Переменные</p>
+			<p id="131aa64c-9d0a-8140-aee0-f9c817b5d1c0" class="">EnvironmentUser</p>
+			<figure id="131aa64c-9d0a-81d2-b3e3-ede7e6aeb2a6" class="image"><a
+					href="https://i.imgur.com/M3aG0gE.png"><img src="https://i.imgur.com/M3aG0gE.png" /></a></figure>
+			<p id="131aa64c-9d0a-819f-bcb3-d9a710c3800f" class="">для того, чтобы обратиться к переменной мы используем
+				доллар $ и соответственно саму переменную - это значит что мы можем обратиться к самой переменной, что в
+				свою очередь подставит условия в переменной.</p>
+			<p id="131aa64c-9d0a-8161-8a91-dfe01a780849" class="">пример перменных:env | less</p>
+			<p id="131aa64c-9d0a-81b0-a712-c750455b9e56" class="">это переменное окружение</p>
+			<figure id="131aa64c-9d0a-816a-86ee-e677db392d80" class="image"><a
+					href="https://i.imgur.com/0A8oLVy.png"><img src="https://i.imgur.com/0A8oLVy.png" /></a></figure>
+			<p id="131aa64c-9d0a-81b1-a42a-d2c679eab018" class="">есть переменные, которые указывают какие цвета
+				использовать команде ls</p>
+			<p id="131aa64c-9d0a-8182-8b3d-cee5c613f627" class="">и есть другие переменные, которые в свою очередь могут
+				задаваться самими пользователями</p>
+			<p id="131aa64c-9d0a-81f4-84cf-d43776d8a160" class="">тут есть несколько важных правил, которые нужно
+				запомнить:</p>
+			<p id="131aa64c-9d0a-8161-9640-f7a9efffed01" class="">когда мы просто обращаемся к переменной мы подставляем
+				значение переменной $HOME вместо её обозначения - это значение мы берём из переменного окружения</p>
+			<figure id="131aa64c-9d0a-818b-8a41-e24f534eb1e1" class="image"><a
+					href="https://i.imgur.com/fdRyTx9.png"><img src="https://i.imgur.com/fdRyTx9.png" /></a></figure>
+			<p id="131aa64c-9d0a-81d8-997f-eb690881d334" class="">то когда мы задаём переменную, необходимо соблюдать
+				строго следующий синтаксис.тут пробелы важны (пробелы это делители)</p>
+			<figure id="131aa64c-9d0a-8129-a039-ceda0f70cf87" class="image"><a
+					href="https://i.imgur.com/giWEQBn.png"><img src="https://i.imgur.com/giWEQBn.png" /></a></figure>
+			<p id="131aa64c-9d0a-8157-b3d2-d1db6206bc7f" class="">если сделать так grade = 5, то bash бы воспринимал это
+				как выполни команду grade потом “=” и затем “5”</p>
+			<p id="131aa64c-9d0a-81bb-b67d-cba4fde3cf44" class="">ещё что нужно запомнить это то, что в линксе есть
+				несколько правил про кавыски</p>
+			<p id="131aa64c-9d0a-811d-a611-ddb5008a2621" class="">‘’ - внутри одинархных ковычек ничего не имеет
+				специального значения</p>
+			<p id="131aa64c-9d0a-812c-99b5-e4610bcf8053" class="">“” - в таких ковычках имена переменных имеют особое
+				значение и если сделать следующее, то мы увидим</p>
+			<figure id="131aa64c-9d0a-81dc-8398-c0c7f0e93a8d" class="image"><a
+					href="https://i.imgur.com/KHyFspw.png"><img src="https://i.imgur.com/KHyFspw.png" /></a></figure>
+			<p id="131aa64c-9d0a-81d7-b82e-e9ff9eedd8aa" class="">то вторая строка просто напечатается</p>
+			<figure id="131aa64c-9d0a-81f1-b101-c02207c92be8" class="image"><a
+					href="https://i.imgur.com/h15g5o9.png"><img src="https://i.imgur.com/h15g5o9.png" /></a></figure>
+			<p id="131aa64c-9d0a-81b0-98bc-e7e1ba6ccdaf" class="">и соответственно как только мы использовали ‘’ то
+				имена переменных теряют особое значение</p>
+			<p id="131aa64c-9d0a-8173-b450-d06a253a41dc" class="">Чаще всего переменные могут создаваться ещё и выводом
+				команд т.е. результат вывод какой-то команды, каким-то результата како-то команды вывод, которой
+				попадает в переменную.</p>
+			<p id="131aa64c-9d0a-81fd-b06f-e08d60f15f9d" class="">Подстановка команд</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8190-b165-f7ee7d70f652" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">#!/bin/bash
+mydir=`pwd`
+echo $mydir1
+
+mydir2=$(pwd)
+echo $mydir2
+</code></pre>
+			<p id="131aa64c-9d0a-8148-8d2c-fe2679a10c80" class="">Описание:</p>
+			<figure id="131aa64c-9d0a-8170-9876-f627b1aa33a6" class="image"><a
+					href="https://i.imgur.com/8pWbK2q.png"><img src="https://i.imgur.com/8pWbK2q.png" /></a></figure>
+			<p id="131aa64c-9d0a-81d3-b5ce-e99e80a5faa5" class="">Мы берем команду pwd и её результат подставляем к
+				переменной $mydir1 при этом он будет одинаковы в обоих случаях</p>
+			<figure id="131aa64c-9d0a-812f-a5c6-cb2e8e561135" class="image"><a
+					href="https://i.imgur.com/260ozWm.png"><img src="https://i.imgur.com/260ozWm.png" /></a></figure>
+			<p id="131aa64c-9d0a-8179-89ef-efd9d56b6782" class="">также важно, что мы не только можем подставлять,
+				како-то ввод, но также ещё производить математические операции, например:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ff-8140-e7fb9ba2a6ef" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">#!/bin/bash
+var1=(( 5 + 5 ))
+echo $var1
+
+var2=$(( $var1 * 2 ))
+echo $var2
+</code></pre>
+			<figure id="131aa64c-9d0a-81e6-ae03-c6da1fc388ed" class="image"><a
+					href="https://i.imgur.com/4JEJYRy.png"><img src="https://i.imgur.com/4JEJYRy.png" /></a></figure>
+			<p id="131aa64c-9d0a-81e2-b0e1-fd8183d1bc49" class="">тут происходит специализированный синтаксис, в которм
+				указывается (()) в свою очередь они указывают на то, что в них производится некое математическое
+				выражение с различными числами, тут мы видим что 5+5 пойдёт в переменную var1 и соответственно вывод
+				переменной var1 умножится на 2 и результат пойдёт в переменную var2</p>
+			<figure id="131aa64c-9d0a-818a-be5b-d2c1c8b05190" class="image"><a
+					href="https://i.imgur.com/VXJohAe.png"><img src="https://i.imgur.com/VXJohAe.png" /></a></figure>
+			<p id="131aa64c-9d0a-810b-a662-e9b35495493e" class="">показать сайт:<a
+					href="https://www.gnu.org/software/bash/manual/bash.html">https://www.gnu.org/software/bash/manual/bash.html</a>
+			</p>
+			<p id="131aa64c-9d0a-8125-bb92-c17e5fc2d6b4" class="">этот сайт показать в самом конце<a
+					href="https://habr.com/ru/company/ruvds/blog/325522/">https://habr.com/ru/company/ruvds/blog/325522/</a>
+			</p>
+			<p id="131aa64c-9d0a-812b-9d58-f3f0e8a1c4c0" class="">можно например посчитать банальные цифры:</p>
+			<p id="131aa64c-9d0a-81fd-8e54-c37f563699e1" class="">echo $((2+2*2))</p>
+			<figure id="131aa64c-9d0a-8150-aa36-e0647b968dd4" class="image"><a
+					href="https://i.imgur.com/mFNu8ED.png"><img src="https://i.imgur.com/mFNu8ED.png" /></a></figure>
+			<p id="131aa64c-9d0a-810d-9ac7-e32e17dec408" class="">также можно разделить выполнение</p>
+			<figure id="131aa64c-9d0a-81e3-a1e2-d77b782aedb3" class="image"><a
+					href="https://i.imgur.com/QvbnPgK.png"><img src="https://i.imgur.com/QvbnPgK.png" /></a></figure>
+			<p id="131aa64c-9d0a-8190-88f1-f27679f4a7a0" class="">Что если мы можем назначить переменную и обращаться к
+				переменной и если нам необходимо изменить вывод переменной, то мы сделаем следующие:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-819f-853e-ea45b005c453" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">person=Adam
+echo &quot;$person&quot;
+</code></pre>
+			<figure id="131aa64c-9d0a-814b-95dd-c3910526471c" class="image"><a
+					href="https://i.imgur.com/oM4qKwI.png"><img src="https://i.imgur.com/oM4qKwI.png" /></a></figure>
+			<p id="131aa64c-9d0a-8123-926f-c5884be1fc42" class="">далее:что если нам надо напечатать Adam а затем aaa не
+				использую разделитель, поясню мы можем это сделать с разделителем, но как быть когда надо соеденитть два
+				слова?</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8150-91f9-e57a3905a644" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">echo &quot;$person:&quot;
+echo &quot;$person:aaa&quot;
+</code></pre>
+			<figure id="131aa64c-9d0a-812c-9335-faa378111f47" class="image"><a
+					href="https://i.imgur.com/CxKE03z.png"><img src="https://i.imgur.com/CxKE03z.png" /></a></figure>
+			<p id="131aa64c-9d0a-8189-b010-fe735139d9cd" class="">мы можем решить задачу следующим образом:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ac-8f84-cd833b7fb38c"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">echo &quot;${person}aaa&quot;</code></pre>
+			<figure id="131aa64c-9d0a-8194-bf30-fadd8d3e16aa" class="image"><a
+					href="https://i.imgur.com/3Gd5io0.png"><img src="https://i.imgur.com/3Gd5io0.png" /></a></figure>
+			<p id="131aa64c-9d0a-81e6-ac35-fb35989dbba7" class="">В bash есть аналоги, которые могут использовать как
+				короткие и длинные команды.</p>
+			<h3 id="131aa64c-9d0a-814f-93bf-feef02d2c11c" class=""><strong>2. Управляющая конструкция if-then</strong>
+			</h3>
+			<p id="131aa64c-9d0a-814d-bda6-e24207557eeb" class="">В некоторых сценариях требуется управлять потоком
+				исполнения команд. Например, если некое значение больше пяти, нужно выполнить одно действие (логическое
+				0 когда всё ок и логическое 1 когда ошибка), в противном случае — другое. Подобное применимо в очень
+				многих ситуациях, и здесь нам поможет управляющая конструкция if-then. В наиболее простом виде она
+				выглядит так:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81f6-8a8c-ccb8a54cdb9e" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">if команда
+then
+команды
+fi
+</code></pre>
+			<p id="131aa64c-9d0a-8105-86a4-db74b289bf20" class="">А вот рабочий пример:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8156-bb36-e96a5beed9d3" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">#!/bin/bash
+if pwd
+then
+echo &quot;It works&quot;
+fi
+</code></pre>
+			<figure id="131aa64c-9d0a-81d7-9229-eac0d4eb3bdd" class="image"><a
+					href="https://i.imgur.com/E4t9xeg.png"><img src="https://i.imgur.com/E4t9xeg.png" /></a></figure>
+			<figure id="131aa64c-9d0a-81f8-af8b-d44657a4ca76" class="image"><a
+					href="https://i.imgur.com/MJMLtfV.png"><img src="https://i.imgur.com/MJMLtfV.png" /></a></figure>
+			<p id="131aa64c-9d0a-817e-870b-d3a5bd3cdf30" class="">не забываем назначить права</p>
+			<figure id="131aa64c-9d0a-8190-bdef-cced93bc6145" class="image"><a
+					href="https://i.imgur.com/DHYvDyD.png"><img src="https://i.imgur.com/DHYvDyD.png" /></a></figure>
+			<p id="131aa64c-9d0a-8178-8169-fffe17a1b9a7" class="">при проверки на логическую ложь или истину мы получаем
+				следующий результат</p>
+			<figure id="131aa64c-9d0a-813c-a991-ce6053c46c8d" class="image"><a
+					href="https://i.imgur.com/AyaIQGu.png"><img src="https://i.imgur.com/AyaIQGu.png" /></a></figure>
+			<p id="131aa64c-9d0a-819e-8853-fe82d7810021" class="">В данном случае, если выполнение команды pwd
+				завершится успешно, в консоль будет выведен текст «it works».</p>
+			<p id="131aa64c-9d0a-81cd-9d65-ed9b1b32027b" class="">Воспользуемся имеющимися у нас знаниями и напишем
+				более сложный сценарий. Скажем, надо найти некоего пользователя в /etc/passwd, и если найти его удалось,
+				сообщить о том, что он существует.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-812f-9619-daef2448213c" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">#!/bin/bash
+user=likegeeks
+if grep $user /etc/passwd
+then
+echo &quot;The user $user exists&quot;
+fi
+</code></pre>
+			<p id="131aa64c-9d0a-8146-a76d-ce417210e268" class="">Здесь мы воспользовались командой grepдля поиска
+				пользователя в файле /etc/passwd. Если команда grepвам незнакома, её описание можно найти здесь.</p>
+			<p id="131aa64c-9d0a-81a8-b909-cb82893ac72b" class="">В этом примере, если пользователь найден, скрипт
+				выведет соответствующее сообщение. А если найти пользователя не удалось? В данном случае скрипт просто
+				завершит выполнение, ничего нам не сообщив. Хотелось бы, чтобы он сказал нам и об этом, поэтому
+				усовершенствуем код.</p>
+			<h3 id="131aa64c-9d0a-81f7-9b8d-ff80d5d3d0de" class=""><strong>3. Управляющая конструкция
+					if-then-else</strong></h3>
+			<p id="131aa64c-9d0a-81b4-92e0-e2404753155c" class="">предедущий скрипт можно усложнить с помощью else</p>
+			<p id="131aa64c-9d0a-816a-a5be-d951bf0babb8" class="">Для того, чтобы программа смогла сообщить и о
+				результатах успешного поиска, и о неудаче, воспользуемся конструкцией if-then-else. Вот как она
+				устроена:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8104-8736-c57689871d3f" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">if команда
+then
+команды
+else
+команды
+fi
+</code></pre>
+			<p id="131aa64c-9d0a-8123-86ef-f2c55ae5888b" class="">Если первая команда возвратит ноль, что означает её
+				успешное выполнение, условие окажется истинным и выполнение не пойдёт по ветке else. В противном случае,
+				если будет возвращено что-то, отличающееся от нуля, что будет означать неудачу, или ложный результат,
+				будут выполнены команды, расположенные после else.</p>
+			<p id="131aa64c-9d0a-8106-af65-c0dc5a7ceeea" class="">Давайте модифицируем наш скрипт:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8143-9409-c039050c1d09" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">#!/bin/bash
+user=anotherUser
+if grep $user /etc/passwd
+then
+echo &quot;The user $user exists&quot;
+else
+echo &quot;The user $user doesn’t exist&quot;
+fi
+</code></pre>
+			<figure id="131aa64c-9d0a-81fe-8d67-e93645f6f32b" class="image"><a
+					href="https://i.imgur.com/Yc77HBt.png"><img src="https://i.imgur.com/Yc77HBt.png" /></a></figure>
+			<p id="131aa64c-9d0a-8115-90ef-faba671ce6c6" class="">если user есть, то выполнится это</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8177-90bb-c7eeae0e98d2"
+				class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">echo &quot;The user $user exists&quot;</code></pre>
+			<figure id="131aa64c-9d0a-8163-a56d-e1b7e151d6c1" class="image"><a
+					href="https://i.imgur.com/Vt8et2W.png"><img src="https://i.imgur.com/Vt8et2W.png" /></a></figure>
+			<p id="131aa64c-9d0a-8144-8834-c191d2a9c931" class="">если user нет, то выполнится:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81bf-a66b-e20696fd4fc0" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">else
+echo &quot;The user $user doesn’t exist&quot;
+</code></pre>
+			<figure id="131aa64c-9d0a-8143-a8ee-f6852251e0b9" class="image"><a
+					href="https://i.imgur.com/2WAndDG.png"><img src="https://i.imgur.com/2WAndDG.png" /></a></figure>
+			<p id="131aa64c-9d0a-81f3-8bf1-c5eb7e60bf1a" class="">Ну что же, продолжаем двигаться дальше и зададимся
+				вопросом о более сложных условиях. Что если надо проверить не одно условие, а несколько? Например, если
+				нужный пользователь найден, надо вывести одно сообщение, если выполняется ещё какое-то условие — ещё
+				одно сообщение, и так далее. В подобной ситуации нам помогут вложенные условия. Выглядит это так:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-819c-8dac-e8b37f49a229" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">if команда1
+then
+команды
+elif команда2
+then
+команды
+fi
+</code></pre>
+			<p id="131aa64c-9d0a-8182-9e8a-dd373afca76a" class="">Если первая команда вернёт ноль, что говорит о её
+				успешном выполнении, выполнятся команды в первом блоке then, иначе, если первое условие окажется ложным,
+				и если вторая команда вернёт ноль, выполнится второй блок кода then.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8118-add8-e6d5d67f8e92" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">#!/bin/bash
+user=anotherUser
+if grep $user /etc/passwd
+then
+echo &quot;The user $user Exists&quot;
+elif ls /home
+then
+echo &quot;The user doesn’t exist but anyway there is a directory under /home&quot;
+fi
+</code></pre>
+			<p id="131aa64c-9d0a-8186-8c4d-f08c6c3f901b" class="">и есть вторая модификация скрипта для создания
+				пользователя в операционной системе Linux:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8152-b487-c7e94b4b6fea" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">#!/bin/bash
+user=HackerU
+if sudo useradd -m $user
+then
+echo &quot;User создан&quot;
+elif sudo ls &quot;/home&quot;
+then
+echo &quot;Такой user в системе зарегистрирован&quot;
+fi
+echo &quot;end&quot;
+</code></pre>
+			<figure id="131aa64c-9d0a-8121-abe0-f472ebdaa774" class="image"><a
+					href="https://i.imgur.com/2qnU8uE.png"><img src="https://i.imgur.com/2qnU8uE.png" /></a></figure>
+			<figure id="131aa64c-9d0a-817f-b327-e5d23a38aa3b" class="image"><a
+					href="https://i.imgur.com/c1R4m1T.png"><img src="https://i.imgur.com/c1R4m1T.png" /></a></figure>
+			<figure id="131aa64c-9d0a-8152-8263-eee4f2365073" class="image"><a
+					href="https://i.imgur.com/izj5Ual.png"><img src="https://i.imgur.com/izj5Ual.png" /></a></figure>
+			<p id="131aa64c-9d0a-8124-b918-cdf30e7d6b9d" class="">чтобы удалить пользователя необходимо: sudo userdell
+				--remove usernameчтобы создать пользоваетля с домашеней директории sudo useradd -m pupkin</p>
+			<p id="131aa64c-9d0a-8133-8c7a-f4f354358e62" class="">В подобном скрипте можно, например, создавать нового
+				пользователя с помощью команды useradd, если поиск не дал результатов, или делать ещё что-нибудь
+				полезное.</p>
+			<p id="131aa64c-9d0a-8122-bbaf-e1d426f0605a" class="">elif желательно использовать не более 10</p>
+			<p id="131aa64c-9d0a-810f-ad99-f85b89820b49" class="">так-же можно писать несколько условий выражениями,
+				пример скрипта:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ea-822e-ea9df60d73a2" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">#!/bin/bash
+user=nosuchuser
+if /bin/true &amp;&amp; /bin/false
+then
+echo &quot;True&quot;
+fi
+</code></pre>
+			<h3 id="131aa64c-9d0a-81cf-ac91-f243d3fc145d" class=""><strong>4. Сравнение чисел</strong></h3>
+			<p id="131aa64c-9d0a-8181-84c5-c96a6ca26c76" class="">В скриптах можно сравнивать числовые значения. Ниже
+				приведён список соответствующих команд.</p>
+			<ul id="131aa64c-9d0a-812f-a494-e6f93ef98b05" class="bulleted-list">
+				<li style="list-style-type:disc">n1 -eq n2Возвращает истинное значение, если n1 равно n2.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8101-9dac-c8d2c5f73dd1" class="bulleted-list">
+				<li style="list-style-type:disc">n1 -ge n2 Возвращает истинное значение, если n1больше или равно n2.
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81f2-a74c-eae4ef7c3dd8" class="bulleted-list">
+				<li style="list-style-type:disc">n1 -gt n2Возвращает истинное значение, если n1 больше n2.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81ab-aa4b-f105a38cc801" class="bulleted-list">
+				<li style="list-style-type:disc">n1 -le n2Возвращает истинное значение, если n1меньше или равно n2.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c7-8f64-f951cbe36a2d" class="bulleted-list">
+				<li style="list-style-type:disc">n1 -lt n2Возвращает истинное значение, если n1 меньше n2.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81f6-99ad-d03703958fc5" class="bulleted-list">
+				<li style="list-style-type:disc">n1 -ne n2Возвращает истинное значение, если n1не равно n2.</li>
+			</ul>
+			<p id="131aa64c-9d0a-81c5-967f-fe8edc93d2f0" class="">В качестве примера опробуем один из операторов
+				сравнения. Обратите внимание на то, что выражение заключено в квадратные скобки.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-815d-a7e9-fc8fe3055199" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">#!/bin/bash
+val1=6
+if [ $val1 -gt 5 ]
+then
+echo &quot;The test value $val1 is greater than 5&quot;
+else
+echo &quot;The test value $val1 is not greater than 5&quot;
+fi
+</code></pre>
+			<p id="131aa64c-9d0a-81aa-bb2b-fc56f137a7ae" class="">Тестовое значение $ val1 больше 5</p>
+			<figure id="131aa64c-9d0a-819c-981f-cd44925254a2" class="image"><a
+					href="https://i.imgur.com/I7Paa1G.png"><img src="https://i.imgur.com/I7Paa1G.png" /></a></figure>
+			<p id="131aa64c-9d0a-8120-bc99-d6b26038d1a3" class="">Тестовое значение $ val1 не больше 5.</p>
+			<figure id="131aa64c-9d0a-8163-8328-ffbe2f26e743" class="image"><a
+					href="https://i.imgur.com/E6Xh6p7.png"><img src="https://i.imgur.com/E6Xh6p7.png" /></a></figure>
+			<p id="131aa64c-9d0a-81b9-9a89-f6d0190ce7c9" class="">Вот что выведет эта команда.</p>
+			<p id="131aa64c-9d0a-8188-9abd-d80fe0b5b278" class="">Значение переменной val1 больше чем 5, в итоге
+				выполняется ветвь then оператора сравнения и в консоль выводится соответствующее сообщение.</p>
+			<p id="131aa64c-9d0a-8185-ad06-cf016c33e6cf" class=""><a
+					href="https://www.gnu.org/software/bash/manual/bash.html">https://www.gnu.org/software/bash/manual/bash.html</a>
+			</p>
+			<h3 id="131aa64c-9d0a-8141-8a65-eb5a691632fa" class=""><strong>5. Сравнение строк</strong></h3>
+			<p id="131aa64c-9d0a-81c5-b6a1-fd558335a00a" class="">В сценариях можно сравнивать и строковые значения.
+				Операторы сравнения выглядят довольно просто, однако у операций сравнения строк есть определённые
+				особенности, которых мы коснёмся ниже. Вот список операторов.</p>
+			<ul id="131aa64c-9d0a-810e-9217-f612b065a7de" class="bulleted-list">
+				<li style="list-style-type:disc">str1 = str2 Проверяет строки на равенство, возвращает истину, если
+					строки идентичны.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81f0-a02f-efcd644af461" class="bulleted-list">
+				<li style="list-style-type:disc">str1 != str2Возвращает истину, если строки не идентичны.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-811e-a414-e0d3643efafa" class="bulleted-list">
+				<li style="list-style-type:disc">str1 &lt; str2Возвращает истину, если str1меньше, чем str2.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-818a-a8c3-e2ec249b4735" class="bulleted-list">
+				<li style="list-style-type:disc">str1 &gt; str2 Возвращает истину, если str1больше, чем str2.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8145-9c3f-effb2604a2f0" class="bulleted-list">
+				<li style="list-style-type:disc">n str1 Возвращает истину, если длина str1больше нуля.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8167-b21d-e5e61a8ca4bd" class="bulleted-list">
+				<li style="list-style-type:disc">z str1Возвращает истину, если длина str1равна нулю.</li>
+			</ul>
+			<p id="131aa64c-9d0a-81eb-be1b-cb19f91b8aef" class="">Вот пример сравнения строк в сценарии:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-811e-98b7-f8628c8d31a8" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">#!/bin/bash
+user=&quot;likegeeks&quot;
+if [ $user = $USER ]
+then
+echo &quot;The user $user  is the current logged in user&quot;
+fi
+</code></pre>
+			<figure id="131aa64c-9d0a-81b9-b7ab-efd62d570a83" class="image"><a
+					href="https://i.imgur.com/3D193O0.png"><img src="https://i.imgur.com/3D193O0.png" /></a></figure>
+			<p id="131aa64c-9d0a-8185-9f01-dc49649a058a" class="">В результате выполнения скрипта получим следующее.</p>
+			<figure id="131aa64c-9d0a-812c-99f7-c57877ea43c0" class="image"><a
+					href="https://i.imgur.com/Xovxb2w.png"><img src="https://i.imgur.com/Xovxb2w.png" /></a></figure>
+			<p id="131aa64c-9d0a-814d-b8af-df738720e13b" class="">Вот одна особенность сравнения строк, о которой стоит
+				упомянуть. А именно, операторы «&gt;» и «&lt;» необходимо экранировать с помощью обратной косой черты,
+				иначе скрипт будет работать неправильно, хотя сообщений об ошибках и не появится. Скрипт интерпретирует
+				знак «&gt;» как команду перенаправления вывода.</p>
+			<p id="131aa64c-9d0a-81db-9892-c91ae7f672df" class="">Вот как работа с этими операторами выглядит в коде:
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-812e-a6c1-f7e287e856e7" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">#!/bin/bash
+val1=text
+val2=&quot;another text&quot;
+if [ $val1 \&gt; $val2 ]
+then
+echo &quot;$val1 is greater than $val2&quot;
+else
+echo &quot;$val1 is less than $val2&quot;
+fi
+</code></pre>
+			<p id="131aa64c-9d0a-81d7-bc72-fddb4989a93c" class="">Вот результаты работы скрипта.</p>
+			<figure id="131aa64c-9d0a-81ba-a966-ee4369ac3d70" class="image"><a
+					href="https://i.imgur.com/5vWugA9.png"><img src="https://i.imgur.com/5vWugA9.png" /></a></figure>
+			<figure id="131aa64c-9d0a-81b2-a879-c02a3a9e277a" class="image"><a
+					href="https://i.imgur.com/wxzGQgA.png"><img src="https://i.imgur.com/wxzGQgA.png" /></a></figure>
+			<p id="131aa64c-9d0a-8129-8c02-c82cd0a57128" class="">Обратите внимание на то, что скрипт, хотя и
+				выполняется, выдаёт предупреждение:</p>
+			<p id="131aa64c-9d0a-8162-a6c3-ca40d5968204" class=""><code>./myscript: line 5: [: too many arguments</code>
+			</p>
+			<p id="131aa64c-9d0a-816b-aef7-e12b5458283c" class="">Для того, чтобы избавиться от этого предупреждения,
+				заключим $val2 в двойные кавычки:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81f9-9138-f799c20335a7" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">#!/bin/bash
+val1=text
+val2=&quot;another text&quot;
+if [ $val1 \&gt; &quot;$val2&quot; ]
+then
+echo &quot;$val1 is greater than $val2&quot;
+else
+echo &quot;$val1 is less than $val2&quot;
+fi
+</code></pre>
+			<figure id="131aa64c-9d0a-81f0-bc1f-ec1fb3a09e64" class="image"><a
+					href="https://i.imgur.com/OzgiPLK.png"><img src="https://i.imgur.com/OzgiPLK.png" /></a></figure>
+			<figure id="131aa64c-9d0a-814c-880b-e51947a2a57f" class="image"><a
+					href="https://i.imgur.com/ygIEApV.png"><img src="https://i.imgur.com/ygIEApV.png" /></a></figure>
+			<p id="131aa64c-9d0a-8179-a69b-f8836bc7cec6" class="">Теперь всё работает как надо.</p>
+			<h3 id="131aa64c-9d0a-815b-b0d6-dda8c09d3844" class=""><strong>6. Циклы for</strong></h3>
+			<p id="131aa64c-9d0a-81ed-ba0d-e977ce494580" class="">Оболочка bash поддерживает циклы for, которые
+				позволяют организовывать перебор последовательностей значений. Вот какова базовая структура таких
+				циклов:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8147-a62a-e32dec179918" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">for var in list
+do
+команды
+done
+</code></pre>
+			<p id="131aa64c-9d0a-813e-b042-e6e4d9aba5a7" class="">В каждой итерации цикла в переменную var будет
+				записываться следующее значение из списка list. В первом проходе цикла, таким образом, будет
+				задействовано первое значение из списка. Во втором — второе, и так далее — до тех пор, пока цикл не
+				дойдёт до последнего элемента.</p>
+			<p id="131aa64c-9d0a-8192-91f7-dc0c44a844d2" class="">Перебор простых значений</p>
+			<p id="131aa64c-9d0a-81b5-bffe-f8163643fc98" class="">Пожалуй, самый простой пример цикла for в
+				bash-скриптах — это перебор списка простых значений:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ab-b20d-f5307d6e6c84" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">#!/bin/bash
+for var in first second third fourth fifth
+do
+echo The  $var item
+done
+</code></pre>
+			<figure id="131aa64c-9d0a-817a-a555-d4d4143997b4" class="image"><a
+					href="https://i.imgur.com/h3SVdPu.png"><img src="https://i.imgur.com/h3SVdPu.png" /></a></figure>
+			<figure id="131aa64c-9d0a-81b6-8344-e96860e05a7a" class="image"><a
+					href="https://i.imgur.com/QAWLCD2.png"><img src="https://i.imgur.com/QAWLCD2.png" /></a></figure>
+			<p id="131aa64c-9d0a-81c8-bbc8-ca51e15729fd" class="">Ниже показаны результаты работы этого скрипта. Хорошо
+				видно, что в переменную $var последовательно попадают элементы из списка. Происходит так до тех пор,
+				пока цикл не дойдёт до последнего из них.</p>
+			<p id="131aa64c-9d0a-815c-bcf4-db00c7d227c1" class=""><strong>Простой цикл for</strong></p>
+			<p id="131aa64c-9d0a-81b4-8647-d04cc5b9f24f" class="">Обратите внимание на то, что переменная $var сохраняет
+				значение при выходе из цикла, её содержимое можно менять, в целом, работать с ней можно как с любой
+				другой переменной.</p>
+			<p id="131aa64c-9d0a-817a-89a0-ec03c45a024d" class=""><strong>Перебор сложных значений</strong></p>
+			<p id="131aa64c-9d0a-814e-93f0-d97962a8080c" class="">В списке, использованном при инициализации цикла for,
+				могут содержаться не только простые строки, состоящие из одного слова, но и целые фразы, в которые
+				входят несколько слов и знаков препинания. Например, всё это может выглядеть так:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8161-8409-ca61eb0f01d0" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">#!/bin/bash
+for var in first &quot;the second&quot; &quot;the third&quot; &quot;I’ll do it&quot;
+do
+echo &quot;This is: $var&quot;
+done
+</code></pre>
+			<p id="131aa64c-9d0a-8153-8e3d-cb484669cab1" class="">Вот что получится после того, как этот цикл пройдётся
+				по списку. Как видите, результат вполне ожидаем.</p>
+			<h3 id="131aa64c-9d0a-81d0-8e3e-d7d93f9ddd7a" class=""><strong>7. Обход файлов, содержащихся в
+					директории</strong></h3>
+			<p id="131aa64c-9d0a-81ab-ae59-e4b9fa7c7dcf" class="">Один из самых распространённых вариантов использования
+				циклов for в bash-скриптах заключается в обходе файлов, находящихся в некоей директории, и в обработке
+				этих файлов.</p>
+			<p id="131aa64c-9d0a-81af-8a8a-cc61cf6a633d" class="">Например, вот как можно вывести список файлов и папок:
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81c1-b5c6-f9a4f9b48a64" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">#!/bin/bash
+for file in /home/likegeeks/*
+do
+if [ -d &quot;$file&quot; ]
+then
+echo &quot;$file is a directory&quot;
+elif [ -f &quot;$file&quot; ]
+then
+echo &quot;$file is a file&quot;
+fi
+done
+</code></pre>
+			<p id="131aa64c-9d0a-814f-9e11-d64e7d87224c" class="">Если вы разобрались с предыдущим материалом из этой
+				серии статей, вам должно быть понятно устройство конструкции if-then, а так же то, как отличить файл от
+				папки. Если вам сложно понять вышеприведённый код, перечитайте этот материал.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81aa-a8fe-f39c0c9402e5" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">#!/bin/bash
+for file in ~/*
+do
+if [ -d &quot;$file&quot; ]
+then
+echo &quot;$file is a directory&quot;
+elif [ -f &quot;$file&quot; ]
+then
+echo &quot;$file is a file&quot;
+fi
+done
+</code></pre>
+			<figure id="131aa64c-9d0a-81c6-9943-f1b7b77cb657" class="image"><a
+					href="https://i.imgur.com/K6l1lVn.png"><img src="https://i.imgur.com/K6l1lVn.png" /></a></figure>
+			<figure id="131aa64c-9d0a-81f9-b762-cca0d11c6121" class="image"><a
+					href="https://i.imgur.com/6USacfO.png"><img src="https://i.imgur.com/6USacfO.png" /></a></figure>
+			<p id="131aa64c-9d0a-8170-ac6f-d4368828edf4" class="">и соответственно мы можем работать с вложенными
+				директориями, например</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8124-92bd-d2583d084e63" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">#!/bin/bash
+for file in /etc/*/*
+do
+if [ -d &quot;$file&quot; ]
+then
+echo &quot;$file is a directory&quot;
+elif [ -f &quot;$file&quot; ]
+then
+echo &quot;$file is a file&quot;
+fi
+done
+</code></pre>
+			<figure id="131aa64c-9d0a-8131-9da7-c07733eec918" class="image"><a
+					href="https://i.imgur.com/xL1QIvs.png"><img src="https://i.imgur.com/xL1QIvs.png" /></a></figure>
+			<figure id="131aa64c-9d0a-8198-b1d2-ff3df0d0d8ca" class="image"><a
+					href="https://i.imgur.com/7BfTK60.png"><img src="https://i.imgur.com/7BfTK60.png" /></a></figure>
+			<p id="131aa64c-9d0a-8181-8aca-ddd629f97491" class="">Вывод содержимого папки будет включать ещё две
+				директории</p>
+			<p id="131aa64c-9d0a-81a4-8d4d-fd9d1d4bc1a3" class="">Обратите внимание на то, как мы инициализируем цикл, а
+				именно — на подстановочный знак «*» в конце адреса папки. Этот символ можно воспринимать как шаблон,
+				означающий: «все файлы с любыми именами». он позволяет организовать автоматическую подстановку имён
+				файлов, которые соответствуют шаблону.</p>
+			<p id="131aa64c-9d0a-817f-b691-c5e3bafc5300" class="">При проверке условия в операторе if, мы заключаем имя
+				переменной в кавычки. Сделано это потому что имя файла или папки может содержать пробелы.</p>
+			<p id="131aa64c-9d0a-81fe-85e5-d9f910efb106" class=""><strong>Также мы можем выводить в файл и смотреть
+					содержимое</strong></p>
+			<p id="131aa64c-9d0a-81ad-be66-e829ee0cf62c" class="">Инициализация цикла списком, полученным из результатов
+				работы команды</p>
+			<p id="131aa64c-9d0a-81b1-a05e-c4600418fef0" class="">Ещё один способ инициализации цикла for заключается в
+				передаче ему списка, который является результатом работы некоей команды. Тут используется подстановка
+				команд для их исполнения и получения результатов их работы.</p>
+			<p id="131aa64c-9d0a-811d-a99e-f8c2ee0895dd" class="">Данная работа без разделителя</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8196-8cc0-d594635d5583" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">#!/bin/bash
+file=&quot;/etc/passwd&quot;
+for var in $(cat $file)
+do
+echo &quot;$var&quot;
+done
+</code></pre>
+			<figure id="131aa64c-9d0a-8174-8311-d098b0f10ee6" class="image"><a
+					href="https://i.imgur.com/KLGbkAU.png"><img src="https://i.imgur.com/KLGbkAU.png" /></a></figure>
+			<figure id="131aa64c-9d0a-8156-8d21-cb73d77ebcf3" class="image"><a
+					href="https://i.imgur.com/sfLCM6u.png"><img src="https://i.imgur.com/sfLCM6u.png" /></a></figure>
+			<p id="131aa64c-9d0a-81b9-92d6-ca94643cf50f" class="">и с разделителем</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81b9-96b4-e80e227f7ab3" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">#!/bin/bash
+IFS=$&#x27;\n&#x27;
+file=&quot;/etc/passwd&quot;
+for var in $(cat $file)
+do
+echo &quot;$var&quot;
+done
+</code></pre>
+			<figure id="131aa64c-9d0a-81c7-afef-f41bf5a53151" class="image"><a
+					href="https://i.imgur.com/Adcvac1.png"><img src="https://i.imgur.com/Adcvac1.png" /></a></figure>
+			<figure id="131aa64c-9d0a-8105-910d-c29c32587c5d" class="image"><a
+					href="https://i.imgur.com/LHndf0f.png"><img src="https://i.imgur.com/LHndf0f.png" /></a></figure>
+			<p id="131aa64c-9d0a-8106-af6f-db8cbe926398" class="">разделителем является <code>IFS=$&#x27;\n&#x27;</code>
+			</p>
+			<p id="131aa64c-9d0a-8178-a36d-f446f8a6ffdb" class="">В этом примере задействована команда cat, которая
+				читает содержимое файла. Полученный список значений передаётся в цикл и выводится на экран. Обратите
+				внимание на то, что в файле, к которому мы обращаемся, содержится список слов, разделённых знаками
+				перевода строки, пробелы при этом не используются.</p>
+			<p id="131aa64c-9d0a-817f-8268-d9f9e6d19f67" class="">Цикл, который перебирает содержимое файла</p>
+			<p id="131aa64c-9d0a-81c2-a62d-c5715279ce0a" class="">Тут надо учесть, что подобный подход, если ожидается
+				построчная обработка данных, не сработает для файла более сложной структуры, в строках которого может
+				содержаться по несколько слов, разделённых пробелами. Цикл будет обрабатывать отдельные слова, а не
+				строки.</p>
+			<p id="131aa64c-9d0a-810c-9053-f55455a9d6bd" class="">Что, если это совсем не то, что нужно?</p>
+			<p id="131aa64c-9d0a-8176-b0a0-dab1c08a2602" class=""><strong>Разделители полей</strong></p>
+			<p id="131aa64c-9d0a-81ec-8ace-e8edb3712a31" class="">Причина вышеописанной особенности заключается в
+				специальной переменной окружения, которая называется IFS (Internal Field Separator) и позволяет
+				указывать разделители полей. По умолчанию оболочка bash считает разделителями полей следующие символы:
+			</p>
+			<ul id="131aa64c-9d0a-810e-b8dc-e02aa3c78ff9" class="bulleted-list">
+				<li style="list-style-type:disc">Пробел</li>
+			</ul>
+			<ul id="131aa64c-9d0a-814b-958b-ccac41b323ba" class="bulleted-list">
+				<li style="list-style-type:disc">Знак табуляции</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8188-b303-cb1b26428c7c" class="bulleted-list">
+				<li style="list-style-type:disc">Знак перевода строки</li>
+			</ul>
+			<p id="131aa64c-9d0a-815f-a1d3-eae79a820394" class="">Если bash встречает в данных любой из этих символов,
+				он считает, что перед ним — следующее самостоятельное значение списка.</p>
+			<p id="131aa64c-9d0a-8123-adb5-f6ceb1ad8e6a" class="">Для того, чтобы решить проблему, можно временно
+				изменить переменную среды IFS. Вот как это сделать в bash-скрипте, если исходить из предположения, что в
+				качестве разделителя полей нужен только перевод строки:</p>
+			<p id="131aa64c-9d0a-812f-9c35-caf078002fb5" class=""><code>IFS=$&#x27;\n&#x27;</code></p>
+			<p id="131aa64c-9d0a-8178-9c54-c4ed9893ead3" class="">После добавления этой команды в bash-скрипт, он будет
+				работать как надо, игнорируя пробелы и знаки табуляции, считая разделителями полей лишь символы перевода
+				строки.</p>
+			<h3 id="131aa64c-9d0a-813f-9d74-f2e663ed95ca" class=""><strong>8. Циклы for в стиле C</strong></h3>
+			<p id="131aa64c-9d0a-81a9-b197-f97bc428d745" class="">Если вы знакомы с языком программирования C, синтаксис
+				описания bash-циклов for может показаться вам странным, так как привыкли вы, очевидно, к такому описанию
+				циклов:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-817e-8f25-ca11146a230f" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">for (i = 0; i &lt; 10; i++)
+{
+printf(&quot;number is %d\n&quot;, i);
+}
+</code></pre>
+			<p id="131aa64c-9d0a-8166-96f9-fe040bf6a884" class="">В bash-скриптах можно использовать циклы for, описание
+				которых выглядит очень похожим на циклы в стиле C, правда, без некоторых отличий тут не обошлось. Схема
+				цикла при подобном подходе выглядит так:</p>
+			<p id="131aa64c-9d0a-8134-8421-debc1613c20f" class="">for (( начальное значение переменной ; условие
+				окончания цикла; изменение переменной ))</p>
+			<p id="131aa64c-9d0a-81ef-a541-df9ef4d48cd6" class="">На bash это можно написать так:</p>
+			<p id="131aa64c-9d0a-81c7-9600-cd0301255cfb" class=""><code>for (( a = 1; a &lt; 10; a++ ))</code></p>
+			<p id="131aa64c-9d0a-8127-9745-fdcbabb54d06" class="">А вот рабочий пример:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81c9-9ca8-d6128b4479f7" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">#!/bin/bash
+for (( i=1; i &lt;= 10; i++ ))
+do
+echo &quot;number is $i&quot;
+done
+</code></pre>
+			<p id="131aa64c-9d0a-813f-b002-cc0b15eb618f" class="">Этот код выведет список чисел от 1 до 10.</p>
+			<figure id="131aa64c-9d0a-818d-a390-d3fd751792b9" class="image"><a
+					href="https://i.imgur.com/PyHQ8SB.png"><img src="https://i.imgur.com/PyHQ8SB.png" /></a></figure>
+			<h3 id="131aa64c-9d0a-814b-9f24-cf6db3843429" class=""><strong>9. Цикл while</strong></h3>
+			<p id="131aa64c-9d0a-811f-bdbd-f9d22efd7b39" class="">Конструкция for — не единственный способ организации
+				циклов в bash-скриптах. Здесь можно пользоваться и циклами while. В таком цикле можно задать команду
+				проверки некоего условия и выполнять тело цикла до тех пор, пока проверяемое условие возвращает ноль,
+				или сигнал успешного завершения некоей операции. Когда условие цикла вернёт ненулевое значение, что
+				означает ошибку, цикл остановится.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-810b-b0a1-d828a214cae9" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">Вот схема организации циклов while
+while команда проверки условия
+do
+другие команды
+done
+</code></pre>
+			<p id="131aa64c-9d0a-8197-8919-de77d179c1d2" class="">Взглянем на пример скрипта с таким циклом:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8125-9e06-fce41df1d70a" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">#!/bin/bash
+var1=5
+while [ $var1 -gt 0 ]
+do
+echo $var1
+var1=$[ $var1 - 1 ]
+done
+</code></pre>
+			<p id="131aa64c-9d0a-8148-929f-cb3e79cc88e5" class="">На входе в цикл проверяется, больше ли нуля переменная
+				$var1. Если это так, выполняется тело цикла, в котором из значения переменной вычитается единица. Так
+				происходит в каждой итерации, при этом мы выводим в консоль значение переменной до его модификации. Как
+				только $var1 примет значение 0, цикл прекращается.</p>
+			<p id="131aa64c-9d0a-811f-ba4b-d45dcafb9688" class="">Результат работы цикла while</p>
+			<p id="131aa64c-9d0a-81a6-acd5-c1059768d71d" class="">Если не модифицировать переменную $var1, это приведёт
+				к попаданию скрипта в бесконечный цикл.</p>
+			<h3 id="131aa64c-9d0a-818a-a918-e1b541ca4dbf" class=""><strong>10. Вложенные циклы</strong></h3>
+			<p id="131aa64c-9d0a-81f1-856e-c1049f33e31f" class="">В теле цикла можно использовать любые команды, в том
+				числе — запускать другие циклы. Такие конструкции называют вложенными циклами:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8179-89c6-c46b081fe662" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">#!/bin/bash
+for (( a = 1; a &lt;= 3; a++ ))
+do
+echo &quot;Start $a:&quot;
+for (( b = 1; b &lt;= 3; b++ ))
+do
+echo &quot; Inner loop: $b&quot;
+done
+done
+</code></pre>
+			<p id="131aa64c-9d0a-81fb-b87d-d251fe3b2cad" class="">Ниже показано то, что выведет этот скрипт. Как видно,
+				сначала выполняется первая итерация внешнего цикла, потом — три итерации внутреннего, после его
+				завершения снова в дело вступает внешний цикл, потом опять — внутренний.</p>
+			<h3 id="131aa64c-9d0a-8160-a592-f2f7ce81d1bf" class=""><strong>11. Вложенные циклы</strong></h3>
+			<p id="131aa64c-9d0a-81e8-94d2-c417c1a7e224" class="">Обработка содержимого файла</p>
+			<p id="131aa64c-9d0a-8192-ae7d-f1411c6bd91e" class="">Чаще всего вложенные циклы используют для обработки
+				файлов. Так, внешний цикл занимается перебором строк файла, а внутренний уже работает с каждой строкой.
+				Вот, например, как выглядит обработка файла /etc/passwd:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81cf-bba3-c30088317354" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">#!/bin/bash
+IFS=$&#x27;\n&#x27;
+for entry in $(cat /etc/passwd)
+do
+echo &quot;Values in $entry –&quot;
+IFS=:
+for value in $entry
+do
+echo &quot; $value&quot;
+done
+done
+</code></pre>
+			<p id="131aa64c-9d0a-81f3-bbdd-f4f94d1816d3" class="">В этом скрипте два цикла. Первый проходится по
+				строкам, используя в качестве разделителя знак перевода строки. Внутренний занят разбором строк, поля
+				которых разделены двоеточиями.</p>
+			<p id="131aa64c-9d0a-81c8-bc23-e48828319a09" class="">Обработка данных файла</p>
+			<p id="131aa64c-9d0a-81e8-9812-cc8f421db4bb" class="">Такой подход можно использовать при обработке файлов
+				формата CSV, или любых подобных файлов, записывая, по мере надобности, в переменную окружения IFS
+				символ-разделитель.</p>
+			<h3 id="131aa64c-9d0a-8117-80df-ec14f97df77b" class=""><strong>12. Управление циклами</strong></h3>
+			<p id="131aa64c-9d0a-81c2-97ff-cfa915048f09" class="">Возможно, после входа в цикл, нужно будет остановить
+				его при достижении переменной цикла определённого значения, которое не соответствует изначально
+				заданному условию окончания цикла. Надо ли будет в такой ситуации дожидаться нормального завершения
+				цикла? Нет конечно, и в подобных случаях пригодятся следующие две команды:</p>
+			<ul id="131aa64c-9d0a-8159-bed5-cb8ec1a325c3" class="bulleted-list">
+				<li style="list-style-type:disc">break</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81ad-9ae4-cd810d7c1348" class="bulleted-list">
+				<li style="list-style-type:disc">continue</li>
+			</ul>
+			<p id="131aa64c-9d0a-8156-a6c0-fae9a71da45c" class=""><strong>Команда break</strong></p>
+			<p id="131aa64c-9d0a-811f-9986-c41f2c62edbe" class="">Эта команда позволяет прервать выполнение цикла. Её
+				можно использовать и для циклов for, и для циклов while:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8134-984d-c3400a34f4f8" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">#!/bin/bash
+for var1 in 1 2 3 4 5 6 7 8 9 10
+do
+if [ $var1 -eq 5 ]
+then
+break
+fi
+echo &quot;Number: $var1&quot;
+done
+</code></pre>
+			<p id="131aa64c-9d0a-819a-8ac4-f7b4418999d4" class="">Такой цикл, в обычных условиях, пройдётся по всему
+				списку значений из списка. Однако, в нашем случае, его выполнение будет прервано, когда переменная $var1
+				будет равна 5.</p>
+			<p id="131aa64c-9d0a-812f-9a53-d6a9235458a1" class="">Досрочный выход из цикла for</p>
+			<p id="131aa64c-9d0a-81ff-98c0-ebf11a74d911" class="">Вот — то же самое, но уже для цикла while:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-811a-b215-ceda0d51e1f0" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">#!/bin/bash
+var1=1
+while [ $var1 -lt 10 ]
+do
+if [ $var1 -eq 5 ]
+then
+break
+fi
+echo &quot;Iteration: $var1&quot;
+var1=$(( $var1 + 1 ))
+done
+</code></pre>
+			<p id="131aa64c-9d0a-8141-9ab6-f5873a94c93b" class="">Команда break, исполненная, когда значение $var1
+				станет равно 5, прерывает цикл. В консоль выведется то же самое, что и в предыдущем примере.</p>
+			<p id="131aa64c-9d0a-8148-a358-cab5d3ee4e90" class=""><strong>Команда continue</strong></p>
+			<p id="131aa64c-9d0a-81e8-83d7-de0d0f23d48b" class="">Когда в теле цикла встречается эта команда, текущая
+				итерация завершается досрочно и начинается следующая, при этом выхода из цикла не происходит. Посмотрим
+				на команду continue в цикле for:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8172-b040-da01db620cb5" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">#!/bin/bash
+for (( var1 = 1; var1 &lt; 15; var1++ ))
+do
+if [ $var1 -gt 5 ] &amp;&amp; [ $var1 -lt 10 ]
+then
+continue
+fi
+echo &quot;Iteration number: $var1&quot;
+done
+</code></pre>
+			<p id="131aa64c-9d0a-81d4-b7b5-fa2d90717963" class="">Когда условие внутри цикла выполняется, то есть, когда
+				$var1 больше 5 и меньше 10, оболочка исполняет команду continue. Это приводит к пропуску оставшихся в
+				теле цикла команд и переходу к следующей итерации.</p>
+			<p id="131aa64c-9d0a-819e-9bd4-e08b55b5b796" class=""><strong>Команда continue в цикле for</strong></p>
+			<p id="131aa64c-9d0a-8147-9da6-cab055d15678" class="">Обработка вывода, выполняемого в цикле</p>
+			<p id="131aa64c-9d0a-8133-8734-eed3b500a147" class="">Данные, выводимые в цикле, можно обработать, либо
+				перенаправив вывод, либо передав их в конвейер. Делается это с помощью добавления команд обработки
+				вывода после инструкции done.</p>
+			<p id="131aa64c-9d0a-8190-bf18-d205793d6047" class="">Например, вместо того, чтобы показывать на экране то,
+				что выводится в цикле, можно записать всё это в файл или передать ещё куда-нибудь:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8193-b4ac-cf13fb488614" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">#!/bin/bash
+for (( a = 1; a &lt; 10; a++ ))
+do
+echo &quot;Number is $a&quot;
+done &gt; myfile.txt
+echo &quot;finished.&quot;
+</code></pre>
+			<p id="131aa64c-9d0a-8118-b636-f91b51f1df85" class="">Оболочка создаст файл myfile.txt и перенаправит в этот
+				файл вывод конструкции for. Откроем файл и удостоверимся в том, что он содержит именно то, что
+				ожидается.</p>
+			<p id="131aa64c-9d0a-8114-9c37-fd08721450a0" class=""><strong>Перенаправление вывода цикла в файл</strong>
+			</p>
+			<p id="131aa64c-9d0a-8183-bff4-c6adaa7fbfd0" class="">Пример: поиск исполняемых файлов</p>
+			<p id="131aa64c-9d0a-81f0-94e8-edd5dd9f51da" class="">Давайте воспользуемся тем, что мы уже разобрали, и
+				напишем что-нибудь полезное. Например, если надо выяснить, какие именно исполняемые файлы доступны в
+				системе, можно просканировать все папки, записанные в переменную окружения PATH. Весь арсенал средств,
+				который для этого нужен, у нас уже есть, надо лишь собрать всё это воедино:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81e1-b0f9-c3d42c57300d" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">#!/bin/bash
+IFS=:
+for folder in $PATH
+do
+echo &quot;$folder:&quot;
+for file in $folder/*
+do
+if [ -x $file ]
+then
+echo &quot; $file&quot;
+fi
+done
+done
+</code></pre>
+			<p id="131aa64c-9d0a-8145-a57b-e48659bf6f93" class="">Такой вот скрипт, небольшой и несложный, позволил
+				получить список исполняемых файлов, хранящихся в папках из PATH.</p>
+			<p id="131aa64c-9d0a-8192-aee3-f22db7e0f27e" class="">Поиск исполняемых файлов в папках из переменной PATH
+			</p>
+			<p id="131aa64c-9d0a-81ca-8c80-e48f12d278bb" class=""><strong>Выводы</strong></p>
+			<p id="131aa64c-9d0a-81f3-b4c5-dc0ec7599a83" class="">Сегодня мы поговорили о основах bash-скриптов и циклах
+				for и while , о том, как их запускать, как ими управлять. Теперь вы умеете обрабатывать в циклах строки
+				с разными разделителями, знаете, как перенаправлять данные, выведенные в циклах, в файлы, как
+				просматривать и анализировать содержимое директорий.</p>
+			<p id="131aa64c-9d0a-810e-8dc9-f1c31bae25ec" class="">
+			</p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

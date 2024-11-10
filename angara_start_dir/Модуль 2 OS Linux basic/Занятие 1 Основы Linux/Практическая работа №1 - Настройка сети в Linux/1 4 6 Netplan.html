@@ -1,0 +1,1635 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>1.4.6 Netplan</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-8108-bf9e-c17e55477089" class="page sans">
+		<header><img class="page-cover-image"
+				src="1 4 6 Netplan/kandinsky-download-1705946158790.png"
+				style="object-position:center 6.130000000000003%" />
+			<div class="page-header-icon page-header-icon-with-cover"><img class="icon"
+					src="https://www.notion.so/icons/wifi_gray.svg" /></div>
+			<h1 class="page-title">1.4.6 Netplan</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<details open="">
+				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">План работы</summary>
+				<div class="indented">
+					<nav id="131aa64c-9d0a-812b-ad1e-f3c36847a768" class="block-color-gray table_of_contents">
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-8192-a11d-c7f0006eb18d">План работы</a></div>
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-8148-bef3-c46b93359955"><strong>Настройка Netplan</strong></a>
+						</div>
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-813c-b465-e2a37b7c55de"><strong>1. Основы использования
+									NETPLAN</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-8188-b249-e7c1bb799789"><strong>1.1 Синтаксис конфигурации
+									NETPLAN</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-814d-bf1a-fed6128c0559"><strong>1.2 Параметры NETPLAN</strong></a>
+						</div>
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-81b9-bf54-d40e44471940"><strong>2. Команды NETPLAN</strong></a>
+						</div>
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-815b-b58f-c53488528ad0"><strong>3. Как настроить сеть Netplan в
+									Ubuntu</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-8118-968e-c009537be176"><strong>3.1 Настройка динамического IP в
+									Netplan</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-813d-b19a-fe868923f49b"><strong>3.2 Настройка статического IP в
+									Netplan</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-817e-a8da-dd5631fcc573"><strong>3.3 Настройка Wi-Fi через Netplan
+									на Ubuntu</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-8158-a5f7-ca62dabcf71e"><strong>3.4 Применение конфигурации
+									NETPLAN</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-81cd-bd42-cb3845b264cc"><strong>4. Примеры настроек
+									интерфейсов:</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-81f0-b69e-ca6048e7f7ca"><strong>4.1 Разберем пример настройки 3-х
+									сетевых интерфейсов. Два из них будут с IP-адресами назначенными вручную (static
+									IP), один — по DHCP.</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-8115-8079-efb63c89616d"><strong>4.2 Объединение интерфейсов
+									(bonds)</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-81fa-863b-cfcca3be6c85"><strong>4.3 Сетевой мост
+									(bridge)</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-813e-a6df-c9e41d978140"><strong>4.4 Vlan</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-8153-ab54-c54787e10e29"><strong>5. Отключение netplan и возврат к
+									interfaces</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-8112-8c7d-d3daf0ae8eda"><strong>Возможные ошибки</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-8185-9011-c082e4c87d4f"><strong>Выводы</strong></a></div>
+					</nav>
+				</div>
+			</details>
+			<h3 id="131aa64c-9d0a-8148-bef3-c46b93359955" class=""><strong>Настройка Netplan</strong></h3>
+			<p id="131aa64c-9d0a-812c-abd4-fa4379176330" class="">Начиная с релиза Ubuntu 17.10, для управления
+				конфигурацией сети используется утилита Netplan. Раньше для этих целей применялся скрипт ifupdown,
+				конфигурационные файлы которого находились в папке <em><code>/etc/network/interfaces</code></em>.
+				Недостатком такого подхода было то, что файлы настройки сети были разбросаны по всей системе, частью
+				настроек мог управлять NetworkManager, частью <code>systemd-networkd</code>, а часть вообще делалась с
+				помощью <code>ifupdown</code>.</p>
+			<p id="131aa64c-9d0a-81ae-a62d-cfec256930fe" class="">Новая система конфигурации позволяет таки сложить все
+				яйца в одну корзину. Вы выполняете настройку в формате YAML, а Netplan автоматически преобразовывает её
+				при запуске в конфигурацию той системы, которую вы выбрали. В этой практике мы рассмотрим, как
+				выполняется настройка сети Netplan в Ubuntu 18.04.</p>
+			<h1 id="131aa64c-9d0a-813c-b465-e2a37b7c55de" class=""><strong>1. Основы использования NETPLAN</strong></h1>
+			<p id="131aa64c-9d0a-815c-9648-dcd5fecc9a89" class="">Все конфигурационные файлы Netplan находятся в
+				папке <em><code>/etc/netplan/</code></em>. Во время запуска службы, она преобразовывает свою
+				конфигурацию в конфигурацию той службы, которая будет управлять сетью и помещает её в
+				каталог <em>/run/</em>. По умолчанию в Ubuntu есть только один конфигурационный файл со следующим
+				содержимым:</p>
+			<figure id="131aa64c-9d0a-8140-995f-ccc5427c8c61" class="image"><a
+					href="1 4 6 Netplan/Untitled.png"><img style="width:1137px"
+						src="1 4 6 Netplan/Untitled.png" /></a></figure>
+			<p id="131aa64c-9d0a-81fe-b62b-cdce459eeed4" class="">Это означает, что управление всей сетью передаётся
+				утилите NetworkManager. Чтобы разобраться, что это означает, давайте рассмотрим синтаксис
+				конфигурационного файла.</p>
+			<h2 id="131aa64c-9d0a-8188-b249-e7c1bb799789" class=""><strong>1.1 Синтаксис конфигурации NETPLAN</strong>
+			</h2>
+			<p id="131aa64c-9d0a-8195-ba2a-c473a67ec9fb" class="">Новичкам синтаксис конфигурационного файла Netplan
+				может показаться запутанным, но разобраться в нём вполне можно. Он чем-то напоминает JSON, но не имеет
+				таких жёстких ограничений:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81e3-b88e-c6c043d9e358" class="code"><code class="language-YAML" style="white-space:pre-wrap;word-break:break-all">поле0:
+  поле1: значение
+  поле2:
+    - элемент1
+    - элемент2
+    - элемент3</code></pre>
+			<p id="131aa64c-9d0a-810e-a32f-c17799081a21" class="">Имя поля и его значение разделяется двоеточием. В
+				качестве значения поля можно передавать не только текстовое или числовое значение, но и другое поле,
+				несколько полей или список значений. При передаче списка каждый новый элемент списка должен начинаться с
+				дефиса. Табуляции использовать нельзя. Отступы используются для указания структуры. </p>
+			<p id="131aa64c-9d0a-8140-a6ee-cfe51a6fce21" class="">Например, из примера видно, что <code>поле1</code> и
+				<code>поле2</code> относятся к <code>полю0</code>. Это всё, что касается общего синтаксиса, теперь про
+				Netplan:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81c8-bfcd-f045f2d56e3c" class="code"><code class="language-YAML" style="white-space:pre-wrap;word-break:break-all">network:
+  version: 2
+  renderer: программа_бэкенд
+  вид_интерфейса:
+    имя_интерфейса:
+       параметр: значение</code></pre>
+			<p id="131aa64c-9d0a-816d-bca5-e4e1844d8325" class="">Первые две строчки конфигурации стандартны. Первая
+				указывает, что мы будем иметь дело с сетью, а вторая указывает версию стандарта конфигурации, которая
+				будет использоваться. Их лучше не трогать.</p>
+			<ul id="131aa64c-9d0a-81da-a317-c95529c527fd" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>renderer</strong> - указывает программу, для которой будут
+					преобразоваться ваши настройки. На данный момент поддерживаются только network-manager и
+					systemd-networkd;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8170-bad9-ff4280039456" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>вид_интерфейса</strong> - вид сетевых интерфейсов, которые вы
+					будете настраивать в этой секции. Они делятся на физические: ethernets (проводные), wifis
+					(беспроводные) и виртуальные: vlans , bonds, bridges.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8120-b9d6-de325df1ce84" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>имя_интерфейса</strong> - имя сетевого интерфейса в системе,
+					например enp3s0 или eth0;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81d1-bae5-e46492979853" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>параметры</strong> - настройки, с помощью которых указывается,
+					как нужно подключаться к сети.</li>
+			</ul>
+			<h2 id="131aa64c-9d0a-814d-bf1a-fed6128c0559" class=""><strong>1.2 Параметры NETPLAN</strong></h2>
+			<p id="131aa64c-9d0a-81a3-be5f-fb7f27d4b58a" class="">Мы разобрались с основным синтаксисом, далее разберём
+				команды, с помощью которых мы будем настраивать сеть:</p>
+			<ul id="131aa64c-9d0a-8131-b82d-c3cc5e66cbc9" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>renderer</strong> - программа для обработки конфигурации;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8168-bec5-eaebe5927a0b" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>dhcp4</strong> - получение IPv4 адреса по DHCP;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-813c-bc3a-d338e7cb0b08" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>dhcp6</strong> - получение IPv6 адреса по DHCP;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-815e-87ea-ccb4541ef445" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>dhcp-identifier</strong> - если передать значение
+					&quot;mac&quot;, то будет использоваться MAC-адрес в качестве идентификатора DHCP;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81da-b5fd-e2858cd05f6c" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>addresses</strong> - добавляет статические адреса к интерфейсу,
+					можно несколько;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8102-aebf-e647b42ede83" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>gateway4</strong> - указывает шлюз IPv4;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8159-9ac1-ec91e3155dfa" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>gateway6</strong> - указывает шлюз IPv6;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-816f-a6b7-f24f541be9ea" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>nameservers</strong> - указывает DNS-серверы;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81fb-bc11-ca69d9d4b3cd" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>macaddress</strong> - устанавливает новый MAC-адрес;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8119-a56d-e95f44d6b546" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>routes</strong> - позволяет настроить маршруты таблицы
+					маршрутизации;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81e4-8015-f14ee1439eec" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>routing-policy</strong> - дополнительная настройка маршрутов,
+					для IP или подсети;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81d0-8041-c66494de128a" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>access-points</strong> - список точек доступа для Wi-Fi;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8147-bba7-cb1705b40bc6" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>password</strong> - пароль для точки доступа Wi-Fi;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-814e-9d93-e5aadf9a8094" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>mode</strong> - режим работы сетевой карты Wi-Fi.</li>
+			</ul>
+			<h1 id="131aa64c-9d0a-81b9-bf54-d40e44471940" class=""><strong>2. Команды NETPLAN</strong></h1>
+			<p id="131aa64c-9d0a-81e7-943a-ddf40f213e4c" class="">Синтаксис самой команды <strong>netplan </strong>очень
+				прост: <code>netplan опции команда</code></p>
+			<p id="131aa64c-9d0a-816c-a6c5-ed29d35ff1bd" class="">В качестве команды можно передать одну из команд:</p>
+			<ul id="131aa64c-9d0a-8180-92c0-fc71ceb93f97" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>try</strong> - попробовать применить конфигурацию с
+					возможностью отмены;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8109-917e-ca901efe2576" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>apply</strong> - применить конфигурацию;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8127-984e-f0e6995a7055" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>generate</strong> - проверка текущей конфигурации и запись на
+					диск;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-812d-af1f-c207166f48ef" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>config</strong> - записать текущую конфигурацию сети в YAML.
+				</li>
+			</ul>
+			<h1 id="131aa64c-9d0a-815b-b58f-c53488528ad0" class=""><strong>3. Как настроить сеть Netplan в
+					Ubuntu</strong></h1>
+			<p id="131aa64c-9d0a-8172-b1d6-cb5e00092067" class="">Сначала необходимо посмотреть, как называются сетевые
+				интерфейсы в вашей системе. Для этого можно просто изучить содержимое папки
+				<em><code>/sys/class/net</code></em><em>:</em></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8115-b044-f1094b36f54d"
+				class="code"><code class="language-YAML">ls /sys/class/net</code></pre>
+			<figure id="131aa64c-9d0a-8172-99b8-db7b9a36a648" class="image"><a
+					href="1 4 6 Netplan/Untitled%201.png"><img
+						style="width:894px"
+						src="1 4 6 Netplan/Untitled%201.png" /></a></figure>
+			<p id="131aa64c-9d0a-81de-acb5-e4df372eae68" class="">У меня есть только Wi-Fi-карта - wlp, у вас же может
+				быть ещё и проводной интерфейс enp. Или устройства могут называться по старому - wlan и eth. Всё зависит
+				от системы.</p>
+			<h2 id="131aa64c-9d0a-8118-968e-c009537be176" class=""><strong>3.1 Настройка динамического IP в
+					Netplan</strong></h2>
+			<p id="131aa64c-9d0a-81a4-a07f-daa3b2b25322" class="">Для настройки динамического IP- адреса для интерфейса
+				enp3s0 создадим новый конфигурационный файл 02-networkd.yaml. Самая простая настройка Netplan для
+				получения IP по DHCP будет выглядеть вот так:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8143-af87-d72fb547ecba"
+				class="code"><code class="language-Bash">sudo vi /etc/netplan/02-networkd.yaml</code></pre>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8148-a81b-deaa6b8f2e49" class="code"><code class="language-YAML" style="white-space:pre-wrap;word-break:break-all">network:
+  version: 2
+  renderer: networkd
+   ethernets:
+    ens33:
+     dhcp4: yes</code></pre>
+			<figure id="131aa64c-9d0a-8113-a77f-e4b47d45feeb" class="image"><a
+					href="1 4 6 Netplan/Untitled%202.png"><img
+						style="width:865px"
+						src="1 4 6 Netplan/Untitled%202.png" /></a></figure>
+			<p id="131aa64c-9d0a-8179-aac0-c4bd958b2885" class="">В качестве программы для обработки конфигурации мы
+				используем Networkd, далее мы указываем наш сетевой интерфейс и включаем получение IPv4 адреса по DHCP.
+				Все остальные параметры тоже подтянутся по DHCP. Или мы можем вручную настроить DNS для этого
+				интерфейса:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81f0-87a0-f629082b91d9" class="code"><code class="language-YAML" style="white-space:pre-wrap;word-break:break-all">network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    ens33:
+      dhcp4: yes
+      nameservers:
+        addresses:
+          - 8.8.8.8
+          - 8.8.4.4</code></pre>
+			<figure id="131aa64c-9d0a-814c-a219-df1e8edf07dd" class="image"><a
+					href="1 4 6 Netplan/Untitled%203.png"><img
+						style="width:875px"
+						src="1 4 6 Netplan/Untitled%203.png" /></a></figure>
+			<p id="131aa64c-9d0a-81f3-84de-e4b19fafbddc" class="">Теперь осталось проверить эту конфигурацию. Для этого
+				выполните: <code>sudo netplan generate</code></p>
+			<figure id="131aa64c-9d0a-8166-8c19-dcfd7f511c57" class="image"><a
+					href="1 4 6 Netplan/Untitled%204.png"><img
+						style="width:843px"
+						src="1 4 6 Netplan/Untitled%204.png" /></a></figure>
+			<p id="131aa64c-9d0a-812c-8c82-d21af1eb90b4" class="">Если ошибок нет, программа ничего не выведет. Если
+				есть ошибки, утилита о них сообщит. </p>
+			<p id="131aa64c-9d0a-81b0-a264-c2f15113e6e8" class="">Для применения конфигурации используйте команду
+				<code>sudo netplan apply</code></p>
+			<h2 id="131aa64c-9d0a-813d-b19a-fe868923f49b" class=""><strong>3.2 Настройка статического IP в
+					Netplan</strong></h2>
+			<p id="131aa64c-9d0a-8133-aa7d-e4495e23d13a" class="">Статический IP-адрес в Netplan настроить немного
+				сложнее. Поскольку здесь нам нужно будет задать не только непосредственно сам адрес, но и кучу других
+				параметров, которые система раньше получала по DHCP. Нам надо указать шлюз для доступа в интернет и
+				DNS-серверы. Модифицируем тот же конфигурационный файл:</p>
+			<p id="131aa64c-9d0a-81d7-bbdf-f3643588063d" class=""><code>sudo vi /etc/netplan/02-networkd.yaml</code></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-812b-bd5c-db8028f09b4e" class="code"><code class="language-YAML" style="white-space:pre-wrap;word-break:break-all">network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    ens33:
+      dhcp4: no
+      addresses: [ 192.168.1.10/24 ]
+      gateway4: 192.168.1.1
+      nameservers:
+        addresses: [ 8.8.8.8, 8.8.4.4 ]</code></pre>
+			<figure id="131aa64c-9d0a-812a-a93f-daa6bf35f3d9" class="image"><a
+					href="1 4 6 Netplan/Untitled%205.png"><img
+						style="width:816px"
+						src="1 4 6 Netplan/Untitled%205.png" /></a></figure>
+			<p id="131aa64c-9d0a-8127-aba4-f67d8012d76c" class="">Рассмотрим подробнее, что за что отвечает в этом
+				конфигурационном файле.</p>
+			<ul id="131aa64c-9d0a-81ed-8acd-f9eeefe0afd7" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>dhcp4</strong> - отключаем получение IP адреса по DHCP;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c1-9b2a-d2b42d7c8323" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>addresses</strong> - параметр ожидает список IP-адресов,
+					которые нужно присвоить нашей сетевой карте, у нас только один адрес, однако, передавать его надо
+					тоже в формате списка, иначе будет ошибка. В конце адреса указывается префикс маски - /24, который
+					отвечает маске сети 255.255.255.0. Вы можете указать и другую маску, но только с помощью префикса,
+					отдельного параметра для этого нет.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8103-8fef-ed62d38a797f" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>gateway4</strong> - задаёт адрес роутера, через который наш
+					компьютер сможет получить доступ в интернет;</li>
+			</ul>
+			<p id="131aa64c-9d0a-8146-babc-d6c8d08904f8" class="">Остальное вы знаете. Списки можно оформлять не только
+				с помощью черточек, для каждого пункта с новой строки, но и с помощью квадратных скобок, тогда элементы
+				записываются в одну строку через запятую.</p>
+			<h2 id="131aa64c-9d0a-817e-a8da-dd5631fcc573" class=""><strong>3.3 Настройка Wi-Fi через Netplan на
+					Ubuntu</strong></h2>
+			<p id="131aa64c-9d0a-811e-af1f-e3f0ac14fdee" class="">Кроме проводного подключения, система конфигурации
+				Netplan умеет управлять подключением к Wi-Fi. Это отличная новость, учитывая, насколько сложно всё это
+				раньше настраивалось, если не было NetworkManager. Правда, для работы Wi-Fi через Networkd надо, чтобы в
+				системе был установлен пакет wpasupplicant. Например, у нас есть точка доступа AccessPoint с паролем
+				12345678? и мы хотим к ней подключаться. Тогда настройка Netplan Ubuntu будет выглядеть так:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8114-a7c5-e8fed17cae93" class="code"><code class="language-YAML" style="white-space:pre-wrap;word-break:break-all">network:
+  version: 2
+  renderer: networkd
+  wifis:
+    wlp3s0b1:
+      dhcp4: yes
+      dhcp6: no
+      nameservers:
+        addresses: [ 8.8.8.8, 8.8.4.4 ]
+      access-points:
+        &quot;AccessPoint&quot;:
+          password: &quot;12345678&quot;</code></pre>
+			<figure id="131aa64c-9d0a-8158-a1fc-c2711c04767d" class="image"><a
+					href="1 4 6 Netplan/Untitled%206.png"><img
+						style="width:844px"
+						src="1 4 6 Netplan/Untitled%206.png" /></a></figure>
+			<p id="131aa64c-9d0a-81c2-a617-da01648e4e36" class="">Здесь мы указываем, что надо получить IP и другие
+				параметры по DHCP, устанавливаем DNS-сервер вручную, хотя это не обязательно, а затем добавляем точку
+				доступа и пароль к ней.</p>
+			<h2 id="131aa64c-9d0a-8158-a5f7-ca62dabcf71e" class=""><strong>3.4 Применение конфигурации NETPLAN</strong>
+			</h2>
+			<p id="131aa64c-9d0a-81f3-9368-fa13bd82f747" class="">Естественно, что после смены настроек в
+				конфигурационном файле ничего не меняется. Сначала нужно проверить конфигурационный файл на ошибки и
+				создать файлы конфигурации программы-обработчика. Для этого выполните:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8153-8a66-c45bb6ce5469"
+				class="code"><code class="language-Bash">sudo netplan generate</code></pre>
+			<figure id="131aa64c-9d0a-8105-8898-c3399aebf5fd" class="image"><a
+					href="1 4 6 Netplan/Untitled%207.png"><img
+						style="width:833px"
+						src="1 4 6 Netplan/Untitled%207.png" /></a></figure>
+			<p id="131aa64c-9d0a-8160-93b9-c49ef70abdf9" class="">Если вы хотите видеть более подробную информацию,
+				используйте опцию --debug:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81c1-a4a3-f2db6d2b5518"
+				class="code"><code class="language-Bash">sudo netplan --debug generate</code></pre>
+			<figure id="131aa64c-9d0a-818f-9a95-f1b5b9ad4031" class="image"><a
+					href="1 4 6 Netplan/Untitled%208.png"><img
+						style="width:834px"
+						src="1 4 6 Netplan/Untitled%208.png" /></a></figure>
+			<p id="131aa64c-9d0a-8169-8ccd-d258559c4f86" class="">Если есть ошибки, их надо исправить; если нет,
+				применяем конфигурацию с помощью команды:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8127-8573-efb857374826"
+				class="code"><code class="language-Bash">sudo netplan --debug apply</code></pre>
+			<figure id="131aa64c-9d0a-8147-8153-e61c7d08d8c8" class="image"><a
+					href="1 4 6 Netplan/Untitled%209.png"><img
+						style="width:847px"
+						src="1 4 6 Netplan/Untitled%209.png" /></a></figure>
+			<p id="131aa64c-9d0a-81c1-a0bf-cda973cd6a00" class="">Если вы меняли программу-обработчик, например с
+				NetworkManager на networkd, то надо ещё перезапустить компьютер. После этого сеть будет работать на
+				новой конфигурации.</p>
+			<h1 id="131aa64c-9d0a-81cd-bd42-cb3845b264cc" class=""><strong>4. Примеры настроек интерфейсов:</strong>
+			</h1>
+			<h2 id="131aa64c-9d0a-81f0-b69e-ca6048e7f7ca" class=""><strong>4.1 Разберем пример настройки 3-х сетевых
+					интерфейсов. Два из них будут с IP-адресами назначенными вручную (static IP), один — по
+					DHCP.</strong></h2>
+			<p id="131aa64c-9d0a-81ab-8d77-ecfde5aceab2" class=""><em><strong>Приводим файл к следующему
+						виду:</strong></em></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-816d-81eb-e17a9f077617" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">network:
+    version: 2
+    renderer: networkd
+    ethernets:
+        ens3:
+            dhcp4: true
+        ens7:
+            dhcp4: no
+            addresses: [192.168.122.195/24]
+            routes:
+              - to: default
+                via: 192.168.122.1
+            mtu: 1500
+            nameservers:
+                addresses: [8.8.8.8, 77.88.8.8]
+                search: [ dmosk.local ]
+        ens9:
+            dhcp4: no
+            addresses: [192.168.1.10/24, 192.168.1.20/24]
+            nameservers:
+                addresses:
+                    - 8.8.8.8
+                    - 77.88.8.8
+                search: [ dmosk.local, dmosk.ru ]</code></pre>
+			<p id="131aa64c-9d0a-815a-be09-c22a7217912c" class=""><strong>где:</strong></p>
+			<ul id="131aa64c-9d0a-818f-996d-d1f06d3ae341" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>version </strong>— версия YAML. На момент обновления статьи,
+					была 2.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81e6-bbb9-d72e2e526fde" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>renderer </strong>— менеджер сети (networkd или
+					NetworkManager).</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c5-a47b-e2c2b5b1358e" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>ethernets </strong>— настройка сетевых адаптеров ethernet.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8188-83dd-ef677dbc7c9a" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>ens3, ens7, ens9 </strong>— настройки для соответствующих
+					сетевых адаптеров. В данном примере мы настраиваем 3 сетевых адаптера.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81a2-b610-df9f9d27225b" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>dhcp4 </strong>— будет ли получать сетевой адаптер IP-адрес
+					автоматически. Возможны варианты yes/true — получать адрес автоматически; no/false — адрес должен
+					быть назначен вручную.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81ef-aa8b-d157fee341b9" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>addresses </strong>— задает IP-адреса через запятую.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8158-93e9-d1de209a6d6f" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>routes </strong>— настройка маршрутов. Для шлюза по умолчанию
+					используем опцию и значение to: default. Ранее использовалась директива gateway4, но теперь она
+					считается устаревшей (при применении настройки с ней система вернет предупреждение gateway4 has been
+					deprecated, use default routes instead).</li>
+			</ul>
+			<ul id="131aa64c-9d0a-811f-ad8b-fc6111f758d2" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>mtu </strong>— при желании, можно задать значение MTU.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8178-b5a9-f96ee39f22af" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>nameservers </strong>— настройка серверов имен (DNS).</li>
+			</ul>
+			<ul id="131aa64c-9d0a-812c-a314-fdd30cde7ded" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>nameservers addresses</strong> — указываем серверы DNS.
+					Обратите внимание на разный формат записи для ens7 и ens9. Приемлемы оба варианта.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8184-b3da-dc2568d0f7fe" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>nameservers search</strong> — дописывает окончание домена, если
+					мы обращаемся к узлу сети только по его имени. Стоит обратить внимание, что мы можем указать
+					несколько доменов через запятую.</li>
+			</ul>
+			<p id="131aa64c-9d0a-81ce-a52d-c9c482e2634e" class="">
+			</p>
+			<p id="131aa64c-9d0a-8123-844c-e8ccc695f520" class="">Статический маршрут задается для конкретного
+				интерфейса, также в конфигурационном файле netplan, например:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81c6-858e-c4462eea54c2" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">network:
+    version: 2
+    renderer: networkd
+    ethernets:
+        ens9:
+            dhcp4: no
+            addresses: 192.168.1.10/24
+            nameservers:
+                addresses:
+                    - 8.8.8.8
+                    - 77.88.8.8
+            routes:
+              - to: 192.168.0.0/24
+                via: 192.168.1.1
+                on-link: true</code></pre>
+			<p id="131aa64c-9d0a-81d4-bcb2-d1f307af215f" class=""><em>в данном примере мы настроили маршрут для сетевого
+					интерфейса ens9. Данная настройка задается параметром routes:</em></p>
+			<ul id="131aa64c-9d0a-8194-bc63-ded8d3198b37" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>to </strong>— направление маршрута (в какую сеть мы должны
+					попадать). В данном примере, 192.168.0.0/24.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81d1-be23-f3e357753b3b" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>via </strong>— через какой шлюз мы попадаем в сеть to.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81de-af39-cc68c3e627ca" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>on-link</strong> — активация маршрута при поднятии линка на
+					сетевом интерфейсе.</li>
+			</ul>
+			<h2 id="131aa64c-9d0a-8115-8079-efb63c89616d" class=""><strong>4.2 Объединение интерфейсов (bonds)</strong>
+			</h2>
+			<p id="131aa64c-9d0a-8163-9cc8-deacc79f53e3" class="">С помощью bonds мы можем объединить интерфейсы с целью
+				обеспечения отказоустойчивости и/или повышения пропускной способности.</p>
+			<p id="131aa64c-9d0a-813c-8d77-f68225324317" class=""><strong>Пример настройки:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-814b-a75a-d940cdc620d5" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">network:
+    version: 2
+    renderer: networkd
+    ethernets:
+        ens2f0: {}
+        ens2f1: {}
+    bonds:
+        bond0:
+            dhcp4: no
+            interfaces:
+            - ens2f0
+            - ens2f1
+            parameters:
+                mode: active-backup
+            addresses:
+                - 192.168.122.195/24
+            gateway4: 192.168.122.1
+            mtu: 1500
+            nameservers:
+                addresses:
+                    - 8.8.8.8
+                    - 77.88.8.8</code></pre>
+			<p id="131aa64c-9d0a-8181-9875-e0b7c4f2f877" class=""><em>в данном примере мы объединяем физические
+					интерфейсы ens2f0 и ens2f1; настройка parameters mode указываем на тип объединения — доступны
+					варианты:</em></p>
+			<ul id="131aa64c-9d0a-8187-8a1b-d0cd516887c9" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>balance-rr</strong> (задействуются оба интерфейса по очереди,
+					распределение пакетов по принципу Round Robin).</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c8-b656-ecb9cef59690" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>active-backup</strong> (используется только один интерфейс,
+					второй активируется в случае неработоспособности первого).</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81b4-8aeb-fb16a92d6361" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>balance-xor</strong> (задействуются оба интерфейса по очереди,
+					распределение пакетов на основе политики хеширования xmit_hash_policy).</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81f0-b651-f8b4970695bd" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>broadcast</strong> (задействуются оба интерфейса одновременно,
+					пакеты передаются все интерфейсы).</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81aa-9999-c43edf0527fc" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>802.3ad</strong> (задействуются оба интерфейса по очереди,
+					распределение пакетов на основе политики хеширования xmit_hash_policy)</li>
+			</ul>
+			<ul id="131aa64c-9d0a-815b-b711-ecd27745c2a9" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>balance-tlb</strong> (задействуются оба интерфейса по очереди,
+					пакеты распределяются в соответствии с текущей нагрузкой)</li>
+			</ul>
+			<h2 id="131aa64c-9d0a-81fa-863b-cfcca3be6c85" class=""><strong>4.3 Сетевой мост (bridge)</strong></h2>
+			<p id="131aa64c-9d0a-8162-84ca-ca880f337e7e" class="">Сетевой мост позволяет пропускать сетевой трафик через
+				другой сетевой адаптер. Это можно применить, например, для организации хоста виртуальных машин (для
+				трансфера трафика к виртуальным машинам KVM через единственный сетевой интерфейс сервера).</p>
+			<p id="131aa64c-9d0a-812c-a9d7-c0d3750acb0e" class=""><strong>Пример настройки:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81fc-a38c-d56fcfd79aa5" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">network:
+    version: 2
+    renderer: networkd
+    ethernets:
+        ens2f0: {}
+    bridges:
+        br0:
+            macaddress: ce:ce:ce:45:45:45
+            interfaces:
+                - ens2f0
+            addresses:
+                - 192.168.1.15/24
+            gateway4:
+            nameservers:
+                addresses:
+                    - 77.88.8.8
+                    - 8.8.8.8
+            mtu: 1500
+            parameters:
+                stp: true
+                forward-delay: 4
+            dhcp4: false
+            dhcp6: false
+</code></pre>
+			<p id="131aa64c-9d0a-817c-9fd5-f0bd168ddba1" class=""><strong>где:</strong></p>
+			<ul id="131aa64c-9d0a-81ec-847e-c0c3158ce425" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>bridges </strong>— настройки для интерфейсов bridge.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-816f-a8b6-eeb18e4e42a2" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>bridges br0 </strong>— настройка интерфейса br0.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-817f-a1ab-c68ddb24e8d5" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>macaddress</strong> — физический адрес (MAC) интерфейса.
+					Настройка важна для некоторых провайдеров VPS — без нее бридж может не заработать.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-810e-9701-c70dfd9ed006" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>interfaces </strong>— перечисление интерфейсов, из которых
+					собираем мост. В данном примере ens2f0.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8194-9a0b-dcf795d2776c" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>addresses, gateway4, nameservers</strong> — сетевые настройки
+					(IP-адрес, шлюз, сервер имен).</li>
+			</ul>
+			<ul id="131aa64c-9d0a-819f-925d-c311ad5b8a62" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>mtu </strong>— одноименный параметр. Для сетей ethernet обычно
+					равен 1500.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81e4-88d0-f1bf7bd025b1" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>parameters stp</strong> — включает или отключает устранение
+					петель в сети. В данном примере включено.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8197-bb34-cf865b9bc6df" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>parameters forward-delay </strong>— время в секундах в течение
+					которого мост будет оставаться в состояниях «Listening» и «Learning».</li>
+			</ul>
+			<ul id="131aa64c-9d0a-810a-8be8-c0df9c3efed7" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>dhcp4, dhcp6</strong> — включает или отключает автоматическое
+					получение IP-адреса. В нашем случае, отключает.</li>
+			</ul>
+			<h2 id="131aa64c-9d0a-813e-a6df-c9e41d978140" class=""><strong>4.4 Vlan</strong></h2>
+			<p id="131aa64c-9d0a-81b7-a5b0-d71d265a4ff7" class=""><strong>Также мы можем настроить тегированный
+					интерфейс vlan:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81a2-a845-f0adb85453bb" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">network:
+    version: 2
+    renderer: networkd
+    ethernets:
+        ens3: {}
+    vlans: 
+        vlan5:
+            id: 5
+            link: ens3
+            dhcp4: no
+            addresses: [10.0.0.15/24]
+            gateway: 10.0.0.1</code></pre>
+			<p id="131aa64c-9d0a-8112-abd3-e387a4d0b090" class=""><em>в данном примере мы настроили интерфейс с тегом 5
+					на физическом адаптере ens3.</em></p>
+			<h1 id="131aa64c-9d0a-8153-ab54-c54787e10e29" class=""><strong>5. Отключение netplan и возврат к
+					interfaces</strong></h1>
+			<p id="131aa64c-9d0a-81bb-88ad-d77b6e900373" class="">При желании, мы можем вернуть привычный принцип
+				настройки сети. Для этого выполним несколько шагов.</p>
+			<p id="131aa64c-9d0a-8147-b6e3-db85070a6643" class=""><strong>1. Открываем настройку grub:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8181-8bfb-df3e50e1abd0"
+				class="code"><code class="language-Bash">vi /etc/default/grub</code></pre>
+			<p id="131aa64c-9d0a-8157-ba45-d14242fcd74f" class=""><strong>2. Находим опцию GRUB_CMDLINE_LINUX и
+					дописываем в нее параметр:</strong></p>
+			<p id="131aa64c-9d0a-81ef-9a96-e81ddac56caa" class="">
+				<code>GRUB_CMDLINE_LINUX=&quot;netcfg/do_not_use_netplan=true&quot;</code></p>
+			<p id="131aa64c-9d0a-818d-9e74-fc8fb2b6a2d5" class=""><em>если GRUB_CMDLINE_LINUX содержит другие настройки,
+					то наш параметр добавляем через пробел.</em></p>
+			<p id="131aa64c-9d0a-81fd-9497-cdab4f689ee7" class=""><strong>3. Устанавливаем пакет ifupdown:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-813f-aae7-cbfd87561e76"
+				class="code"><code class="language-Bash">apt install ifupdown</code></pre>
+			<p id="131aa64c-9d0a-810d-8e26-c173299439d1" class=""><strong>4. Настраиваем сеть в файле:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81c1-83c4-c7590a0eb675"
+				class="code"><code class="language-Bash">nano /etc/network/interfaces</code></pre>
+			<p id="131aa64c-9d0a-8106-a283-c2889c168219" class=""><strong>… например:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8108-8c5f-c0af57828707" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">auto lo
+iface lo inet loopback
+
+auto ens5
+iface ens5 inet dhcp
+</code></pre>
+			<p id="131aa64c-9d0a-816d-9a54-fc01e8fe6a2b" class=""><em>в данном примере мы настраиваем сетевой интерфейс
+					ens5 на автоматическое получение IP-адреса.</em></p>
+			<p id="131aa64c-9d0a-81a7-883c-d73620f87021" class=""><strong>5. Применяем настройки загрузчика:</strong>
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8128-bc20-e51c2ecaae86"
+				class="code"><code class="language-Bash">update-grub</code></pre>
+			<p id="131aa64c-9d0a-8159-9da0-d424a18d5db5" class=""><strong>И перезагружаем систему:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8189-87a0-fc0194fc98cc"
+				class="code"><code class="language-Bash">shutdown -r now</code></pre>
+			<h3 id="131aa64c-9d0a-8112-8c7d-d3daf0ae8eda" class=""><strong>Возможные ошибки</strong></h3>
+			<p id="131aa64c-9d0a-81a7-808a-dd3ad6452c35" class=""><strong>1. Error in network
+					definition </strong><code><strong>*.yaml</strong></code><strong> line xxx column yyy: expected
+					mapping</strong></p>
+			<p id="131aa64c-9d0a-8108-b87a-e2e99c98e519" class=""><em>Ошибка появляется при проверке (generate) или
+					применении (apply) настроек сети.</em></p>
+			<p id="131aa64c-9d0a-81ba-a507-dc9ed1c50a09" class=""><em><strong>Причина: ошибка синтаксиса
+						YAML.</strong></em></p>
+			<p id="131aa64c-9d0a-8143-9ab4-d6b7151a8861" class="">Решение: внимательно смотрим на количество отступов,
+				которое сделано для строки xxx. Количество пробелов должно точно соответствовать количеству в других
+				строках. Если параметр вложенный, он также должен отделяться от родителя нужным количеством пробелов.
+				Пример неправильной настройки:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81c8-8271-c073e68c7d02" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">network:
+    version: 2
+  renderer: networkd
+</code></pre>
+			<p id="131aa64c-9d0a-811f-9f64-d3cdd92981f7" class="">обратите внимание, что version имеет 4 пробела для
+				отступа, а renderer — 2. Так как version и renderer равнозначные параметры для родителя network, они
+				должны иметь одинаковое количество пробелов.</p>
+			<h1 id="131aa64c-9d0a-8185-9011-c082e4c87d4f" class=""><strong>Выводы</strong></h1>
+			<p id="131aa64c-9d0a-8181-9f51-f0141f3bdcf6" class="">Здесь мы рассмотрели, как выполняется настройка сети
+				Netplan в Ubuntu 18.04. Как видите, это не очень сложно, и даже удобно, по сравнению со старой
+				конфигурацией. Конечно, есть некоторые недостатки - та же самая невозможность задать маску без префикса,
+				но программа активно развивается, возможно, в будущем это будет исправлено.</p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

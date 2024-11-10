@@ -1,0 +1,1480 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Дополнительный материал</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-812b-94de-d533a621562a" class="page sans">
+		<header>
+			<h1 class="page-title">Дополнительный материал</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<h1 id="131aa64c-9d0a-8184-bc41-cf76cf8d21a1" class="">Лекционный материал:</h1>
+			<h2 id="131aa64c-9d0a-818b-9c80-ff6a7689e0c3" class="">1. Linux Firewall </h2>
+			<p id="131aa64c-9d0a-81db-93c7-ec19f7d92d24" class="">Firewall (межсетевой экран, брандмауэр) осуществляет
+				контроль и фильтрацию проходящего через него сетевого трафика в соответствии с заданными правилами.
+				Когда пакет данных перемещается в защищенное сетевое пространство или из него, то его содержимое
+				(информация о его происхождении, цели и протоколе) проверяется на соответствие с правилами, чтобы
+				определить, следует ли его пропускать или нет.</p>
+			<p id="131aa64c-9d0a-8191-9244-d3e228da041a" class="">
+			</p>
+			<figure id="131aa64c-9d0a-8166-b6a4-fc382a245715" class="image"><a
+					href="Дополнительный материал/Untitled.png"><img
+						style="width:659px"
+						src="Дополнительный материал/Untitled.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81bc-9b7b-dc50a5071c07" class="">
+			</p>
+			<p id="131aa64c-9d0a-815f-9a7f-c9777bc9d02e" class="">Брандмауэр используется для:</p>
+			<ul id="131aa64c-9d0a-8181-bc60-d367e6a5aad7" class="bulleted-list">
+				<li style="list-style-type:disc">Фильтрования трафика, блокировки приложений, которые пытаются получить
+					доступ к незащищенным системным службам.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8182-9135-c54663e18b27" class="bulleted-list">
+				<li style="list-style-type:disc">Предотвращения несанкционированного доступа к данным со
+					стороны<br />злоумышленников и пресечения попыток отправки конфиденциальной<br />информации.<br />
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8112-83da-c0962ebefc26" class="bulleted-list">
+				<li style="list-style-type:disc">Обеспечения контроля доступа к сетевому оборудованию и портам.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81ab-96aa-cf2e31c08cef" class="bulleted-list">
+				<li style="list-style-type:disc">Ведения логов в рамках сети и записи активности приложений/оборудования
+					в статистику.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8153-b035-d0b0baf38a1b" class="bulleted-list">
+				<li style="list-style-type:disc">Отправки уведомлений при обнаружении подозрительной активности или
+					попыток атаковать сеть предприятия.</li>
+			</ul>
+			<p id="131aa64c-9d0a-813e-9db5-d359de2087e8" class="">
+			</p>
+			<p id="131aa64c-9d0a-8128-9c10-dcada0917fc6" class="">К вспомогательным (второстепенным) функциям фаервола
+				экрана могут относиться:</p>
+			<ul id="131aa64c-9d0a-81ce-b1db-c218057b6044" class="bulleted-list">
+				<li style="list-style-type:disc">журналирование всех событий;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-815f-bb50-eb67807da703" class="bulleted-list">
+				<li style="list-style-type:disc">запись подозрительной активности;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8183-9a0a-c9de1bd11b60" class="bulleted-list">
+				<li style="list-style-type:disc">ведение учета сетевого оборудования;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-816f-ae95-cb6ffeaa72a7" class="bulleted-list">
+				<li style="list-style-type:disc">анализ использования портов и сетевых подключений;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81dd-b08c-f8cce4ea5f68" class="bulleted-list">
+				<li style="list-style-type:disc">фильтрация различных типов данных и т. д</li>
+			</ul>
+			<p id="131aa64c-9d0a-8131-9742-f648e80438d3" class="">
+			</p>
+			<p id="131aa64c-9d0a-818b-aac0-ebe2fbe10480" class="">Самостоятельно межсетевой экран не способен
+				гарантировать полную защиту сетевого оборудования от вредоносного программного обеспечения и
+				деятельности злоумышленников. Межсетевой экран не является альтернативой антивирусному ПО. Технологии
+				взлома и перехвата данных в сетях постоянно развиваются, а решения для защиты от них отстают в развитии.
+				Поэтому в любой корпоративной сети необходимо организовывать комплексную защиту конфиденциальных данных,
+				чтобы получить от нее максимальный эффект.</p>
+			<p id="131aa64c-9d0a-81de-824d-cadfdc3b92d6" class="">
+			</p>
+			<p id="131aa64c-9d0a-813e-b591-f6b2d08e2625" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-81f0-8396-f283e45b41e3" class="">2. Iptables</h2>
+			<p id="131aa64c-9d0a-81df-96ad-e93e7925688a" class="">Iptables является утилитой, выполняющей функции
+				межсетевого экрана. Настройка iptables производится в командной строке, с помощью правил iptables можно
+				разрешать или блокировать прохождение трафика. Когда происходит попытка установления соединения с
+				текущей машиной, iptables просматривает список правил в списке, чтобы понять, как нужно поступить в этом
+				случае. Если правила нет, то выполняется действие по умолчанию.<br />Как правило, itpables
+				предустанавливается на всех дистрибутивах Linux.<br /></p>
+			<h3 id="131aa64c-9d0a-8104-8218-c6548527eaf0" class="">Основные понятия</h3>
+			<figure id="131aa64c-9d0a-81b0-9d42-c62be993e789" class="image"><a
+					href="Материал лекции/Untitled%201.png"><img
+						style="width:671px"
+						src="Материал лекции/Untitled%201.png" /></a>
+			</figure>
+			<h3 id="131aa64c-9d0a-81e9-873d-e10ebc5a04a7" class="">Виды пакетов</h3>
+			<p id="131aa64c-9d0a-81da-b025-fb55340b07e5" class="">Все пакеты делятся на три типа: входящие, исходящие и
+				проходящие. <br />Входящие - это те, которые были отправлены на этот компьютер, исходящие
+				-<br />отправленные из этого компьютера в сеть. А проходящие - это пакеты, <br />которые просто должны
+				быть пересланы дальше, например, если ваш <br />компьютер выступает в качестве маршрутизатора.<br /></p>
+			<p id="131aa64c-9d0a-8134-9b7f-d2098724cb86" class="">Соответственно в фильтре iptables все пакеты делятся
+				на три аналогичные цепочки:</p>
+			<ul id="131aa64c-9d0a-816f-bea0-d506438a7a5d" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>Input</strong> - обрабатывает входящие пакеты и подключения.
+					Например, если какой-либо внешний пользователь пытается подключиться к<br />вашему компьютеру по ssh
+					или любой веб-сайт отправит вам свой контент по запросу браузера. Все эти пакеты попадут в эту
+					цепочку;<br /></li>
+			</ul>
+			<ul id="131aa64c-9d0a-8157-8e87-c48506d184ab" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>forward</strong> - эта цепочка применяется для
+					проходящих<br />соединений. Сюда попадают пакеты, которые отправлены на ваш компьютер,<br />но не
+					предназначены ему, они просто пересылаются по сети к своей цели.<br />Как я уже говорил, такое
+					наблюдается на маршрутизаторах или, например,<br />если ваш компьютер раздает wifi;<br /></li>
+			</ul>
+			<ul id="131aa64c-9d0a-81dd-ad1c-c368d9537042" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>output</strong> - эта цепочка используется для
+					исходящих<br />пакетов и соединений. Сюда попадают пакеты, которые были созданы при<br />попытке
+					выполнить ping losst.ru или когда вы запускаете браузер и<br />пытаетесь открыть любой сайт.<br />
+				</li>
+			</ul>
+			<p id="131aa64c-9d0a-81dc-b9c3-c7a7e43b640a" class="">Но если вы думаете что можно просто полностью закрыть
+				цепочку Input <br />для увеличения безопасности, то вы очень сильно ошибаетесь. При работе <br />сети
+				используются обе цепочки input и output. Например, вы пытаетесь <br />выполнить ping, данные
+				отправляются через output, но ответ приходит <br />через input. То же самое происходит при просмотре
+				сайтов и других <br />действиях. А вот цепочка forward может вообще не использоваться если ваш<br />
+				компьютер не является маршрутизатором. Так что настройка iptables <br />должна выполняться очень
+				аккуратно.<br /></p>
+			<h3 id="131aa64c-9d0a-8112-8572-ea1a0f7f01fc" class="">Правила и действия (targets)</h3>
+			<p id="131aa64c-9d0a-81d5-832a-d61be1e9d153" class="">Перед тем как перейти к созданию списка правил
+				iptables нужно <br />рассмотреть как они работают и какие бывают. Для каждого типа пакетов <br />можно
+				установить набор правил, которые по очереди будут проверяться на <br />соответствие с пакетом и если
+				пакет соответствует, то применять к нему <br />указанное в правиле действие. Правила образуют цепочку,
+				поэтому input, <br />output и forward называют цепочками, цепочками правил. Действий может <br />быть
+				несколько:<br /></p>
+			<ul id="131aa64c-9d0a-8157-902d-da74e36dfe5f" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>ACCEPT</strong> - разрешить прохождение пакета дальше по
+					цепочке правил;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8137-a365-fc6bf13396f4" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>DROP</strong> - удалить пакет;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81d1-846b-dbfa73b9e573" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>REJECT</strong> - отклонить пакет, отправителю будет отправлено
+					сообщение, что пакет был отклонен;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8183-979c-cd6495d118a8" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>LOG</strong> - сделать запись о пакете в лог файл;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-813e-8ecd-eb8176afb247" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>QUEUE</strong> - отправить пакет пользовательскому приложению.
+				</li>
+			</ul>
+			<p id="131aa64c-9d0a-81be-a025-c9ade28cefd1" class="">Правила могут проверять любые соответствия, например,
+				по ip, по порту<br /> получателя или отправителя, заголовкам пакета и многому другому. Если <br />пакет
+				не подходит ни одному из правил, то к нему применяется действие по<br /> умолчанию, обычно ACCEPT.<br />
+			</p>
+			<p id="131aa64c-9d0a-812f-b7cb-ea1810a77494" class="">Когда мы разобрались с правилами, можно вернутся
+				обратно к цепочкам. <br />Кроме перечисленных выше, есть еще две дополнительные цепочки правил:<br />
+			</p>
+			<ul id="131aa64c-9d0a-8149-ade2-dea7e2983ba8" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>prerouting</strong> - в эту цепочку пакет попадает
+					перед<br />обработкой iptables, система еще не знает куда он будет отправлен, в<br />input, output
+					или forward;<br /></li>
+			</ul>
+			<ul id="131aa64c-9d0a-81a6-994c-cbeda6418448" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>postrouting</strong> - сюда попадают все проходящие пакеты,
+					которые уже прошли цепочку forward.</li>
+			</ul>
+			<h3 id="131aa64c-9d0a-81d6-886f-cf9541dffe71" class="">Состояния соединений</h3>
+			<p id="131aa64c-9d0a-8121-b0ec-d00c53eaace1" class="">Можно ограничивать подключения к службам на основе
+				состояния их подключения.</p>
+			<ul id="131aa64c-9d0a-811c-a52e-f5f8ae4cecd5" class="bulleted-list">
+				<li style="list-style-type:disc">NEW - Пакет, запрашивающий новое соединение, например, HTTP-запрос.
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8117-bc58-cfbe7770d173" class="bulleted-list">
+				<li style="list-style-type:disc">ESTABLISHED - пакет, являющийся частью уже существующего соединения.
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81f1-9699-e91b096aa556" class="bulleted-list">
+				<li style="list-style-type:disc">RELATED - пакет, запрашивающий новое соединение, но являющийся частью
+					существующего соединения. Например, FTP использует порт 21 для установления соединения, но данные
+					передаются через другой порт (обычно порт 20). </li>
+			</ul>
+			<ul id="131aa64c-9d0a-8159-bc48-e0b20c1389e8" class="bulleted-list">
+				<li style="list-style-type:disc">INVALID - пакет, который не является частью какого-либо соединения в
+					таблице отслеживания соединений</li>
+			</ul>
+			<h3 id="131aa64c-9d0a-810c-968c-de0168f27ab8" class="">Таблицы ipatables</h3>
+			<p id="131aa64c-9d0a-81df-a05e-f3459896084f" class="">Над цепочками правил в iptables есть еще один уровень
+				абстракции, и <br />это таблицы. В системе есть несколько таблиц, и все они имеют <br />стандартный
+				набор цепочек input, forward и output. Таблицы предназначены<br /> для выполнения разных действий над
+				пакетами, например для модификации <br />или фильтрации. Сейчас это для вас не так важно и будет
+				достаточно знать<br />что фильтрация пакетов iptables осуществляется в таблице filter. Но мы
+				<br />рассмотрим их все:<br /></p>
+			<ul id="131aa64c-9d0a-810c-8be4-c64b1507c68e" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>raw</strong> - предназначена для работы с сырыми пакетами, пока
+					они еще не прошли обработку;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8101-953d-d7a65d3ea0f9" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>mangle</strong> - предназначена для модификации пакетов;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81bf-ba1e-f76f17aa9094" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>nat</strong> - обеспечивает работу nat, если вы хотите
+					использовать компьютер в качестве маршрутизатора;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8113-ac47-f89945df6275" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>filter</strong> - основная таблица для фильтрации пакетов,
+					используется по умолчанию.</li>
+			</ul>
+			<figure id="131aa64c-9d0a-8110-91d1-cd6c8ad729a7" class="image"><a
+					href="Дополнительный материал/Untitled%201.png"><img
+						style="width:424px"
+						src="Дополнительный материал/Untitled%201.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81d9-991f-fd27e9101b6c" class="">Подсистема iptables встроенa в ядро, но вот набор
+				утилит <br />для управления не всегда поставляется вместе с системой. Для <br />установки утилиты
+				наберите:<br /></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81d6-aba0-d4af4ae54bc9"
+				class="code"><code class="language-HTML">$sudo apt install iptables</code></pre>
+			<p id="131aa64c-9d0a-8164-929b-f1570b26b1bb" class="">Когда установка iptables будет завершена, можно
+				переходить к <br />настройке, но давайте сначала рассмотрим синтаксис утилиты. Обычно <br />команда
+				имеет такой общий вид:<br /></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81c6-ad16-e9ad5ab09a34"
+				class="code"><code class="language-HTML">$ iptables -t таблица действие цепочка дополнительные_параметры</code></pre>
+			<p id="131aa64c-9d0a-815f-a026-d8c7da74cd3f" class="">Таблица указывает таблицу, с которой нужно работать,
+				этот параметр можно упустить, <br />действие - нужное действие, например, создать или удалить правило, а
+				<br />дополнительные параметры описывают действие и правило, которое нужно <br />выполнить.<br /></p>
+			<p id="131aa64c-9d0a-81ff-a9b2-dcb3cd3f0e7e" class="">Осталось рассмотреть основные действия, которые
+				позволяет выполнить iptables:</p>
+			<ul id="131aa64c-9d0a-8153-8642-c8a30db8651b" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>A</strong> - добавить правило в цепочку;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-815b-9805-fd735bc8d8eb" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>С</strong> - проверить все правила;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-814f-a877-ff3de976d811" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>D</strong> - удалить правило;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81ea-98db-e6486608310b" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>I</strong> - вставить правило с нужным номером;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8187-92fe-d5a9602ec336" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>L</strong> - вывести все правила в текущей цепочке;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8135-94e9-d7748fdef22e" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>S</strong> - вывести все правила;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8189-a92d-e1014dc67d87" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>F</strong> - очистить все правила;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-817e-b16a-c77154464dcb" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>N</strong> - создать цепочку;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81d5-9ce4-c62a988ebc61" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>X</strong> - удалить цепочку;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81ca-ab0e-d99107a15cf1" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>R</strong> - заменить правило в цепочке;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81e2-b413-e6c7dc085803" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>E</strong> - переименовать цепочку;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c6-bf9e-e31a7abee162" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>V</strong> - отобразить версию;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-810a-9718-e8bded90b876" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>P</strong> - установить действие по умолчанию.</li>
+			</ul>
+			<p id="131aa64c-9d0a-8190-9494-fd17d42eaf97" class="">Дополнительные опции для правил:</p>
+			<ul id="131aa64c-9d0a-8106-b4e3-d9ecb95d236e" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>p</strong> - указать протокол, один из tcp, udp, udplite, icmp,
+					icmpv6,esp, ah, sctp,<br />mh;<br /></li>
+			</ul>
+			<ul id="131aa64c-9d0a-810b-9de0-f6b7a939c966" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>s</strong> - указать ip адрес устройства-отправителя пакета;
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8123-878d-fe8991c81259" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>d</strong> - указать ip адрес получателя;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81bf-8c9d-c5f7f33129a1" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>i</strong> - входной сетевой интерфейс;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8108-a155-d4380b13f03a" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>o</strong> - исходящий сетевой интерфейс;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-815c-8ec4-e6a74c4b0ab8" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>j</strong> - выбрать действие, если правило подошло;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81a2-9a6d-dd015d781742" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>v</strong> - вывести более подробную информацию;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81a5-bb43-ff9e657c7796" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>x</strong> - отобразить точные значения;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81b1-a362-f21e3177b3eb" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>g</strong> - переход к другой цепочке правил.</li>
+			</ul>
+			<p id="131aa64c-9d0a-8100-9ef9-d82d9434bc32" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-8173-b900-c4a4eb216b5e" class="">3. Рядовые атаки (flood, bruteforce)</h2>
+			<h3 id="131aa64c-9d0a-81e5-a01c-c1f77f3ceea1" class=""><strong>Dos</strong></h3>
+			<p id="131aa64c-9d0a-81df-8add-f1daa94e95da" class="">DoS-атака (<strong>Denial of Service – «отказ в
+					обслуживании»</strong>) – это попытка причинить вред, сделав недоступной целевую систему, например
+				веб-сайт или приложение, для обычных конечных пользователей. Обычно злоумышленники генерируют большое
+				количество пакетов или запросов, которые в конечном счете перегружают работу целевой системы.</p>
+			<p id="131aa64c-9d0a-812a-8f3a-dc162e216fd7" class="">Сама DoS-атака подразумевает искусственно созданный
+				поток запросов к онлайн-ресурсу или ответов к обеспечивающим его работу сервисам, цель которого —
+				многократное увеличение нагрузки на сайт или сервер и выведение их из состояния нормальной работы.</p>
+			<p id="131aa64c-9d0a-811b-ba05-f3e083d3457c" class="">DoS-атаки осуществляются на серверы, сайты, сервисы в
+				составе систем и даже телефонные номера — спам-звонки делают телефонную линию недоступной для обычных
+				пользователей, что в итоге приводит к оттоку и падению лояльности клиентов.</p>
+			<h3 id="131aa64c-9d0a-813d-8057-df2cc809fa76" class="">DDoS</h3>
+			<p id="131aa64c-9d0a-81ca-913c-f8320bdc521a" class=""><strong>DDoS</strong>-атака является разновидностью
+				обыкновенной DoS-атаки. Отличие DoS от DDoS в количестве задействованных устройств. В случае
+				классической DoS для отправки запросов в сторону цели атаки используется, как правило, одно устройство.
+			</p>
+			<p id="131aa64c-9d0a-81c0-a526-dcf228897896" class="">В случае DDoS-атаки задача распределяется между
+				большим количеством атакующих устройств, как правило, управляемых атакующим центром.</p>
+			<h3 id="131aa64c-9d0a-817a-8abc-c30214907b80" class="">Как работает DDoS-атака</h3>
+			<p id="131aa64c-9d0a-81e6-b6c5-c793a521dada" class="">Сетевые ресурсы, такие как <br />веб-серверы, имеют
+				ограничения по количеству запросов, которые они могут<br /> обслуживать одновременно. Помимо допустимой
+				нагрузки на сервер <br />существуют также ограничения пропускной способности канала, который
+				<br />соединяет сервер с Интернетом. Когда количество запросов превышает <br />производительность любого
+				компонента инфраструктуры, может произойти <br />следующее:<br /></p>
+			<ul id="131aa64c-9d0a-81e3-bdb6-ce815c434223" class="bulleted-list">
+				<li style="list-style-type:disc">Существенное замедление время ответа на запросы.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8191-b624-d8490e8673dc" class="bulleted-list">
+				<li style="list-style-type:disc">Отказ в обслуживании всех запросов пользователей или части из них.</li>
+			</ul>
+			<p id="131aa64c-9d0a-8134-b7f4-db3c687dceb9" class="">Как правило, конечной целью злоумышленника является
+				полное прекращение работы веб-ресурса – «отказ в обслуживании». Злоумышленник может также потребовать
+				деньги за <br />остановку атаки. В некоторых случаях DDoS-атака может являться попыткой
+				<br />дискредитировать или разрушить бизнес конкурента.<br /></p>
+			<p id="131aa64c-9d0a-818b-9193-d3c4c0b7a9f5" class="">Для отправки очень большого количества запросов на
+				ресурс жертвы <br />киберпреступник часто создает сеть из зараженных «зомби-компьютеров» (bot).
+				<br />Поскольку преступник контролирует действия каждого зараженного компьютера в зомби-сети (botnet),
+				атака может быть слишком мощной для веб-ресурса жертвы.<br /></p>
+			<h3 id="131aa64c-9d0a-81c0-b3c7-d16ec4de19d0" class="">Классификация</h3>
+			<p id="131aa64c-9d0a-816a-a380-c25133a99a2e" class=""><strong>Атаки уровня инфраструктуры</strong></p>
+			<p id="131aa64c-9d0a-812a-815c-ccaad777613f" class="">К атакам уровня инфраструктуры обычно относят атаки на
+				<br />уровнях 3 и 4. Это наиболее распространенный тип DDoS-атак, который <br />включает в себя такие
+				векторы, как SYN-флуд, и другие атаки отражения, <br />такие как UDP-флуд. Подобные атаки обычно
+				массовые и направлены на то, <br />чтобы перегрузить пропускную способность сети либо серверы
+				приложений. <br />Тем не менее, такой тип атак имеет определенные признаки, поэтому их <br />легче
+				обнаружить.<br /></p>
+			<p id="131aa64c-9d0a-8148-b357-d19955c55b74" class=""><strong>Атаки уровня приложения</strong></p>
+			<p id="131aa64c-9d0a-8196-86cb-fb4b9276a4b3" class="">К атакам уровня приложений обычно относят атаки на
+				<br />уровнях 6 и 7. Эти атаки менее распространены, но в то же время являются<br /> более сложными. Как
+				правило, они не столь массовые, как атаки уровня <br />инфраструктуры, но нацелены на определенные
+				дорогостоящие части <br />приложения и приводят к тому, что оно становится недоступным для
+				<br />реальных пользователей. В качестве примера можно привести поток <br />HTTP-запросов на страницу
+				входа в систему, дорогой API поиска или даже <br />потоки XML-RPC Wordpress (также известные как атаки
+				Wordpress Pingback).<br /></p>
+			<p id="131aa64c-9d0a-81c7-8438-ed1d91f7dd91" class=""><strong>Атаки транспортного уровня</strong> </p>
+			<p id="131aa64c-9d0a-8140-ab4e-e11f274fe8d4" class="">Это наиболее распространенный тип DDoS-атак, который
+				включает в себя такие атаки, как SYN-флуд, UDP-флуд, ICMP-флуд и др. Подобные атаки обычно массовые и
+				направлены на то, чтобы перегрузить пропускную способность сети либо серверы приложений.</p>
+			<h2 id="131aa64c-9d0a-81e2-a89e-dd3bdbf053a8" class="">Способы защиты</h2>
+			<p id="131aa64c-9d0a-81af-8013-eba3c3033955" class=""><strong>Уменьшение зон, доступных для атаки</strong>
+			</p>
+			<p id="131aa64c-9d0a-8146-8fdd-f630b28fe4e6" class="">Одним из первых методов нейтрализации DDoS-атак
+				является <br />сведение к минимуму размера зоны, которую можно атаковать. Подобный <br />прием
+				ограничивает возможности злоумышленников для атаки и обеспечивает <br />возможность создания
+				централизованной защиты. Необходимо убедиться, что <br />доступ к приложению или ресурсам не был открыт
+				для портов, протоколов <br />или приложений, взаимодействие с которыми не предусмотрено. Таким
+				<br />образом, сведение к минимуму количества возможных точек для атаки <br />позволяет сосредоточить
+				усилия на их нейтрализации. В некоторых случаях <br />этого можно добиться, разместив свои
+				вычислительные ресурсы за сетями распространения контента (CDN) или балансировщиками
+				нагрузки и<br />ограничив прямой интернет-трафик к определенным частям своей <br />инфраструктуры, таким
+				как серверы баз данных. Также можно использовать <br />брандмауэры или списки контроля доступа (ACL),
+				чтобы контролировать, какой трафик поступает в приложения.<br /></p>
+			<p id="131aa64c-9d0a-8119-8275-fb8282ddcf58" class=""><strong>План масштабирования</strong></p>
+			<p id="131aa64c-9d0a-8166-be10-f4d85c888c02" class="">Двумя основными элементами нейтрализации
+				крупномасштабных <br />DDoS-атак являются пропускная способность (или транзитный потенциал) и
+				<br />производительность сервера, достаточная для поглощения и нейтрализации <br />атак.<br /></p>
+			<p id="131aa64c-9d0a-815e-91f0-d752d7f29203" class=""><span style="border-bottom:0.05em solid">Транзитный
+					потенциал.</span> При проектировании приложений<br />необходимо убедиться, что поставщик услуг
+				хостинга предоставляет <br />избыточную пропускную способность подключения к Интернету, которая
+				<br />позволяет обрабатывать большие объемы трафика. Поскольку конечная цель <br />DDoS-атак – повлиять
+				на доступность ресурсов или приложений, необходимо <br />размещать их рядом не только с конечными
+				пользователями, но и с крупными<br />узлами межсетевого обмена трафиком, которые легко обеспечат вашим
+				<br />пользователям доступ к приложению даже при большом объеме трафика. <br />Работа с
+				интернет-приложениями обеспечивает еще более широкие <br />возможности. В этом случае можно
+				воспользоваться сетями распространения <br />контента (CDN) и сервисами интеллектуального преобразования
+				адресов DNS,<br />которые создают дополнительный уровень сетевой инфраструктуры для <br />обслуживания
+				контента и разрешения DNS-запросов из мест, которые <br />зачастую расположены ближе к конечным
+				пользователям.<br /></p>
+			<p id="131aa64c-9d0a-8181-af70-f9489e880bc7" class=""><span
+					style="border-bottom:0.05em solid">Производительность сервера.</span> Большинство DDoS-атак
+				<br />являются объемными и потребляют много ресурсов, поэтому важно иметь <br />возможность быстро
+				увеличивать или уменьшать объем своих вычислительных <br />ресурсов. Это можно обеспечить, используя
+				избыточный объем <br />вычислительных ресурсов или ресурсы со специальными возможностями, <br />такими
+				как более производительные сетевые интерфейсы или улучшенная сетевая конфигурация,<br />что позволяет
+				поддерживать обработку больших объемов трафика. Кроме <br />того, для постоянного контроля и
+				распределения нагрузок между ресурсами и<br />предотвращения перегрузки какого-либо одного ресурса часто
+				используются<br />соответствующие балансировщики.<br /></p>
+			<p id="131aa64c-9d0a-81be-95ec-fc04cc5f7662" class=""><strong>Сведения о типичном и нетипичном
+					трафике</strong></p>
+			<p id="131aa64c-9d0a-8185-aa1f-c9e2d1251d9c" class="">Каждый раз, когда обнаруживается повышение объема
+				трафика,<br />попадающего на хост, в качестве ориентира можно брать максимально <br />возможный объем
+				трафика, который хост может обработать без ухудшения его<br />доступности. Такая концепция называется
+				ограничением скорости. Более <br />продвинутые методы защиты соответственно обладают дополнительными
+				<br />возможностями и могут интеллектуально принимать только трафик, который <br />разрешен, анализируя
+				отдельные пакеты. Для использования подобных <br />средств необходимо определить характеристики хорошего
+				трафика, который <br />обычно получает целевой объект, и иметь возможность сравнивать каждый <br />пакет
+				с этим эталоном.<br /></p>
+			<p id="131aa64c-9d0a-81bc-bc22-d8a9013a08c5" class=""><strong>Развертывание брандмауэров для отражения
+					сложных атак уровня приложений</strong></p>
+			<p id="131aa64c-9d0a-8166-8cb9-d89bf4842c2f" class="">Против атак, которые пытаются использовать уязвимость
+				в <br />приложении, например против попыток внедрения SQL-кода или подделки <br />межсайтовых запросов,
+				рекомендуется использовать Web Application Firewall (WAF).<br />Кроме того, из-за уникальности этих атак
+				вы должны быть способны <br />самостоятельно нейтрализовать запрещенные запросы, которые могут иметь
+				<br />определенные характеристики, например могут определяться как отличные от<br />хорошего трафика или
+				исходить из подозрительных IP-адресов, из неожиданных <br />географических регионов и т. д. <br /></p>
+			<p id="131aa64c-9d0a-8159-827c-e555bce742c0" class=""><strong>Конфигурация сетевого оборудования
+				</strong><br />Можно сконфигурировать файрволл или маршрутизатор так, чтобы <br />они сбрасывали входные
+				пакеты с протоколом ICMP или блокировали ответы <br />от DNS-сервера вне корпоративной сети. Это может
+				помочь предотвратить <br />DDoS-атаки пингования. Кроме того, полезно использовать балансировщики
+				нагрузки. Многие вендорысоборудования включают программную защиту от DDoS-атак, таких как
+				<br />SYN-flood, которая следит за количеством незакрытых соединений и <br />сбрасывает их при
+				превышении порога. <br /></p>
+			<p id="131aa64c-9d0a-81d3-9e53-cbd4a2b47aa2" class=""><strong>Специальные защитные
+					средства.</strong><br />Защитные средства анти-DDoS для фаерволов и контроллеров пограничных сессий
+				поставляются такими вендорами, как NetScout Arbor, Fortinet, Check Point, Cisco, Radware и др. В них
+				могут использоваться в т. ч. и средства искусственного интеллекта по распознаванию сигнатур во входящем
+				трафике. Однако слабым местом такого метода защиты является то, что эти средства часто имеют ограничения
+				по объему пропускаемого ими трафика. Самые <br />мощные из них могут обрабатывать трафик около 80 Гб/с,
+				а современные техники DDoS-атак могут превосходить и этот уровень трафика.<br /></p>
+			<h2 id="131aa64c-9d0a-8174-9b3e-c922b96bb1ce" class="">Bruteforce</h2>
+			<p id="131aa64c-9d0a-81d2-95c9-e8c79d84e169" class="">Брутфорсом называется метод взлома учетных записей
+				путем подбора паролей к ним. Bruteforce переводится как “грубая сила”, что красноречиво описывает суть
+				метода . Она заключается в последовательном автоматизированном переборе всех возможных комбинаций
+				символов с целью рано или поздно найти правильную.<br />Поиск пароля можно рассматривать как
+				математическую задачу, решение которой находится при достаточно большом количестве <br />попыток.
+				Программное обеспечение для брутфорса генерирует варианты <br />паролей и проверяет каждый из них. С
+				точки зрения математики решить <br />задачу таким способом можно всегда, но временные затраты на поиски
+				не во<br />всех случаях оправдывают цель, так как поле поиска решений огромно. Один из способов
+				сократить время поиска решения - использовать для атаки словари. Огромное количество вариантов возможных
+				паролей перебирается по списку. Зачастую эти списки получают из дыр в системах безопасности. Это
+				эффективный метод, поскольку эти списки содержат все часто используемые пароли.<br /></p>
+			<h3 id="131aa64c-9d0a-812a-ba8f-f8a00c170e6d" class=""><br /><br /><strong>Виды брутфорса</strong></h3>
+			<p id="131aa64c-9d0a-819c-b77e-fa61b41f6230" class=""><strong>Персональный взлом. </strong>В этом случае
+				брутфорс направлен на получение <br />доступа к личным данным конкретного пользователя: аккаунтам
+				социальных <br />сетей, почте, сайту. Во время общения через интернет, в том числе <br />используя
+				мошеннические схемы, злоумышленник старается узнать логин, <br />персональные сведения и другую
+				информацию, которая понадобится для <br />подбора пароля. Далее взломщик прописывает в специальную
+				программу адрес<br />ресурса, к которому нужен доступ, логин учетной записи, подключает <br />словарь и
+				подбирает пароль. Если пароль пользователя основан на личной <br />информации и состоит из малого
+				количества символов, то попытка <br />злоумышленника может принести успех даже за короткое время.<br />
+			</p>
+			<p id="131aa64c-9d0a-8183-b8a7-d6d56e05faae" class=""><br /><br /><strong>«Брут-чек»</strong>. Этот вид
+				брутфорса означает охоту на пароли в больших <br />количествах. Соответственно, цель — завладеть данными
+				не одного <br />пользователя, а множества разных аккаунтов на нескольких веб-ресурсах. К<br />хакерской
+				программе подключается база логинов и паролей каких-либо <br />почтовых сервисов, а также прокси-лист,
+				чтобы замаскировать узел, не дав<br />веб-сервисам почты обнаружить атаку. При регистрации на сайте, в
+				<br />социальной сети или в игре пользователь заполняет поле с адресом своей <br />почты, на который
+				приходят данные для входа в соответствующий аккаунт. В<br />опциях брутфорса прописывается список
+				названий сайтов или других <br />ключевых слов, по которым программа будет искать в почтовых ящиках
+				<br />именно эти письма с логинами и паролями, вынимать и копировать <br />информацию в отдельный файл.
+				Так киберпреступник получает сотни паролей и<br />может использовать их в любых целях.<br /></p>
+			<p id="131aa64c-9d0a-810f-ba1d-c32944e572d3" class=""><br /><br /><strong>Удаленный взлом</strong> Брутфорс
+				в комбинации с другими взламывающими утилитами применяется для получения доступа к удаленному ПК. Взлом
+				такого вида начинается с поиска<br />сетей, подходящих для атаки. Адреса пользователей добываются
+				особыми <br />программами или берутся из баз. Словари перебора и списки IP-адресов <br />вводятся в
+				настройках brute force. В случае успешного подбора пароля <br />сохраняются IP-адрес машины жертвы и
+				данные для входа, которые далее <br />используются злоумышленником — например, с целью полного
+				управления ПК <br />через утилиту Radmin или другую подобную программу.<br /></p>
+			<h3 id="131aa64c-9d0a-81d2-af98-eb5dfc789ff6" class=""><br />Цели брутфорса<br /></h3>
+			<p id="131aa64c-9d0a-81b9-9e9c-f7b10c869dee" class="">Брутфорс позволяет завладеть доступом к аккаунтам в
+				социальных сетях или<br />онлайн-играх, что может привести к потере конфиденциальной информации,
+				<br />цифровых валют, достижений, попаданию переписки в чужие руки. С <br />аккаунтов может выполняться
+				рассылка спама, осуществляться <br />вымогательство и другие противоправные действия. Завладев большим
+				<br />количеством аккаунтов, хакер может их обменять или продать.<br />Получение данных для входа в
+				платежные системы грозит пользователям <br />потерей денежных сумм и даже обретением долгов, так как
+				злоумышленник <br />может свободно распоряжаться финансами, выполнить перевод денег, <br />оформить
+				кредит.<br /><br />Подбор паролей к веб-сайтам методом brute force открывает доступ к базам<br />данных
+				клиентов, электронным адресам, к использованию площадки в целях <br />распространения вредоносных
+				программ, рассылки спама и т.п.<br /><br />Получив точку входа в удаленную компьютерную систему с
+				помощью перебора <br />паролей, злоумышленник может выполнять разные преступные действия от <br />имени
+				пользователя, а также воспользоваться его личными данными с целью <br />шантажа, вымогательства,
+				осуществить кражу секретной информации и <br />денежных средств.<br /><br />Объектами воздействия
+				брутфорса становятся не только компьютеры и <br />аккаунты рядовых пользователей интернета, но и сайты,
+				серверы, рабочие <br />станции коммерческих и банковских структур, различных организаций.<br />Источник
+				угрозы<br /><br />Метод перебора паролей используют киберхулиганы с целью взломать игру, <br />почту,
+				аккаунт в соцсетях. Обычно их целью является причинение <br />неприятностей другим людям, проверка своих
+				умений, чтение личной <br />переписки.<br /><br />Киберпреступники сами пишут программы для взлома или
+				пользуются <br />результатами труда «коллег». Для перебора могут использоваться мощные
+				<br />компьютерные системы, в том числе взломанные ранее или арендованные. В <br />руках злоумышленников
+				брутфорс является средством извлечения личной <br />выгоды из получения доступа к учетным
+				данным.<br /><br />Также, как уже отмечалось, брутфорс может использоваться в целях <br />проверки
+				криптографической стойкости паролей.<br /></p>
+			<h3 id="131aa64c-9d0a-81e2-b816-efb4a0da53c2" class=""><br />Анализ риска<br /></h3>
+			<p id="131aa64c-9d0a-81cf-88bd-f4750abecec0" class="">Риски от применения брутфорса зависят от количества
+				объектов, на которые<br />нацелены атаки, и намерений злоумышленника. С каждым годом появляются
+				<br />новые технологии, которые могут применяться как в благих, так и в <br />преступных целях. Так,
+				несколько лет назад на конференции DEF CON <br />общественности был представлен WASP — беспилотник,
+				который может <br />собирать статистику домашних сетей Wi-Fi. Мощный компьютер на борту <br />аппарата
+				среди прочих функций имел возможность автоматического взлома <br />паролей с помощью брутфорса. <br />
+			</p>
+			<p id="131aa64c-9d0a-81fb-99dd-f8ff076b1d17" class="">Не так давно была замечена новая ботнет-сеть,
+				проникающая в компьютерные системы с помощью подбора паролей SSH. Методы защиты, обычно
+				<br />применяемые против атак методом «грубой силы», не дают желаемого <br />результата. <br /></p>
+			<p id="131aa64c-9d0a-81fd-9aa2-c1fff92bf56c" class="">Такие случаи лишний раз подтверждают, что как бы
+				банально не выглядел метод грубой силы, не стоит его недооценивать и пренебрегать защитой от подобных
+				атак.</p>
+			<h3 id="131aa64c-9d0a-8151-8262-f2d28053bf14" class=""><br />Методы защиты<br /></h3>
+			<ul id="131aa64c-9d0a-8194-ab35-f78bf274e0c6" class="bulleted-list">
+				<li style="list-style-type:disc">Использовать надежные пароли. </li>
+			</ul>
+			<ul id="131aa64c-9d0a-8110-9374-f17b1c72ccc1" class="bulleted-list">
+				<li style="list-style-type:disc">Пароли должны быть не только длинными, но и содержать специальные
+					символы. Не использовать такие пароли как «qwerty123», «p@ssw0rd» и т.п. </li>
+			</ul>
+			<ul id="131aa64c-9d0a-8102-b1bb-ddc458e4760b" class="bulleted-list">
+				<li style="list-style-type:disc">Вместо пароля использовать авторизацию по ключу. </li>
+			</ul>
+			<ul id="131aa64c-9d0a-8104-a958-c62339ea16c2" class="bulleted-list">
+				<li style="list-style-type:disc">Отключить возможности входа в учетную запись root. </li>
+			</ul>
+			<ul id="131aa64c-9d0a-8152-aa59-dcedef368bac" class="bulleted-list">
+				<li style="list-style-type:disc">Использовать двухфакторную систему аутентификации. Блокировка
+					IP-адресов после определенного количества попыток входа.</li>
+			</ul>
+			<h2 id="131aa64c-9d0a-8191-8e4e-e70718f8b4d5" class="">4. File2ban</h2>
+			<p id="131aa64c-9d0a-817c-9b24-f4e222fa4981" class="">File2ban - это еще один способ <strong>предотвратить
+					взлом методом брутфорса</strong>.</p>
+			<p id="131aa64c-9d0a-81ca-8551-ec4c87209518" class="">Написан на языке программирования Python, может
+				работать на POSIX-системах имеющих встроенный менеджер пакетов и брандмауэр, например, iptables
+				.Fail2ban отслеживает файлы журналов, такие как /var/log/auth.log для обнаружения подозрительной
+				активности. Обычно Fail2ban используется для обновления правил с целью блокировки IP-адресов на
+				определённое время, но можно настроить и другие действия — например, отправку письма по электронной
+				почте. </p>
+			<p id="131aa64c-9d0a-81b2-b068-f82dff58c460" class="">Принцип работы fail2ban прост. Специальный сервис ищет
+				в системных журналах (логах) записи о неудачных попытках аутентификации и при определенных условиях с
+				помощью iptables блокирует IP-адреса, с которых ведется атака.</p>
+			<p id="131aa64c-9d0a-8154-b07d-c8194e5d4abe" class="">Основная идея Fail2ban - при превышении заданного
+				числа неудачных вводов пароля подряд (по умолчанию - 6) бан IP, с которого были попытки подбора на
+				заданное время (по умолчанию - 600 секунд).</p>
+			<h3 id="131aa64c-9d0a-814f-9cf9-efd8e3980eab" class=""><strong>Установка</strong></h3>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-816c-bcba-f75af5f18f91"
+				class="code"><code class="language-HTML">$ apt-get install fail2ban</code></pre>
+			<h3 id="131aa64c-9d0a-817e-ae8e-cb7193d3231b" class="">Конфигурация</h3>
+			<p id="131aa64c-9d0a-8161-be05-c30c7ba7f9de" class="">На данном этапе Fail2ban уже готов к работе, базовая
+				защита SSH сервера от перебора паролей будет включена по умолчанию. Но лучше всё-же внести некоторые
+				изменения следуя рекомендациям ниже.</p>
+			<p id="131aa64c-9d0a-816d-9ddb-ef047d42b436" class="">У программы два основных файла конфигурации:</p>
+			<p id="131aa64c-9d0a-8129-b1d0-e636bd207cbb" class=""><strong>/etc/fail2ban/fail2ban.conf</strong> -
+				отвечает за настройки запуска процесса Fail2ban</p>
+			<p id="131aa64c-9d0a-81e8-a752-f8aadbd2e9a5" class=""><strong>/etc/fail2ban/jail.conf </strong>- содержит
+				настройки защиты конкретных сервисов</p>
+			<p id="131aa64c-9d0a-8164-a0c9-cb965a5e1df7" class="">Файл jail.conf поделён на секции, так называемые
+				«изоляторы» (jails), каждая секция отвечает за определённый сервис и тип атаки. Например секция [ssh]
+				отвечает за защиту SSH от brute–force атак.Параметры из секции [DEFAULT] применяются ко всем секциям.
+			</p>
+			<p id="131aa64c-9d0a-81c4-a534-f6eb2857390a" class="">
+			</p>
+			<p id="131aa64c-9d0a-818b-96d9-d45fe0ecd8ba" class=""><strong>Основные параметры файла jail.conf</strong>
+			</p>
+			<ul id="131aa64c-9d0a-8102-895b-f44c0210e2ff" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>ignoreip</strong> — IP–адреса, которые не должны быть
+					заблокированы. Можно задать список IP-адресов разделённых пробелами, маску подсети, или имя
+					DNS–сервера</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c1-ac63-fc20fde69625" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>bantime</strong> — время бана в секундах, по истечении которого
+					IP–адрес удаляется из списка заблокированных</li>
+			</ul>
+			<ul id="131aa64c-9d0a-811a-8378-ee93a2c77e8f" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>maxretry</strong> — количество подозрительных событий, после
+					которых применяется правило. В контексте брутфорса — это число неудавшихся попыток логина, после
+					которых происходит блокировка.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81ba-92c9-ceee97692c30" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>enabled</strong> — значение указывает что данный jail активен,
+					выключает действие изолятора</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81a6-8085-ffffbaec2f97" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>port</strong> — указывает на каком порту или портах запущен
+					целевой сервис</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c7-902b-f261ecd76345" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>filter</strong> — имя фильтра с регулярными выражениями, по
+					которым идёт поиск «подозрительных совпадений» в журналах сервиса</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c4-80ea-f6f7da5e4321" class="bulleted-list">
+				<li style="list-style-type:disc"><strong>logpath</strong> — путь к файлу журнала, который программа
+					Fail2ban будет обрабатывать с помощью заданного ранее фильтра. Вся история удачных и неудачных
+					входов в систему, в том числе и по SSH, по умолчанию записывается в log–файл<br /><br /></li>
+			</ul>
+			<h2 id="131aa64c-9d0a-81c8-b822-db722882a569" class="">Пример настройки fail2ban</h2>
+			<p id="131aa64c-9d0a-8107-94e3-dfbfec702c80" class="">Прежде чем вносить изменения следуя рекомендациям,
+				отметим, что не стоит редактировать основной файл настроек <code>jail.conf</code>, для этого
+				предусмотрены файлы с расширением <code>*.local</code>, которые автоматически подключаются и имеют
+				высший приоритет.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81a6-bf86-e2531f78b32a"
+				class="code"><code class="language-Plain Text" style=" word-break:break-all">$ nano /etc/fail2ban/jail.local</code></pre>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81c4-b0c5-d689ccac6d80" class="code"><code class="language-Plain Text" style=" word-break:break-all">[DEFAULT]
+## Постоянный IP-адрес.
+## Если не переопределить ignoreip здесь,
+## то стоит закомментировать этот параметр в jail.conf.
+ignoreip = 57.66.158.131
+
+[ssh]
+## если в течении 1 часа:
+findtime    = 3600
+## произведено 6 неудачных попыток логина:
+maxretry    = 6
+## то банить IP на 24 часа:
+bantime     = 86400</code></pre>
+			<p id="131aa64c-9d0a-8137-8ba9-c82e067fad9d" class="">Осталось перезапустить Fail2ban:</p>
+			<p id="131aa64c-9d0a-818c-8331-f03d38c61726" class="">
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ab-b830-d971f68e0898"
+				class="code"><code class="language-Plain Text" style=" word-break:break-all">$ service fail2ban restart</code></pre>
+			<p id="131aa64c-9d0a-81b5-b557-ea6e8693150e" class="">
+			</p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

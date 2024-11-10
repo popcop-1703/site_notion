@@ -1,0 +1,1509 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Часть 4.8 VLAN и DHCP </title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-8132-a430-c5aff88885bb" class="page sans">
+		<header>
+			<div class="page-header-icon undefined"><img class="icon"
+					src="https://www.notion.so/icons/window_blue.svg" /></div>
+			<h1 class="page-title">Часть 4.8 VLAN<strong> и DHCP </strong></h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<p id="131aa64c-9d0a-8193-9c5d-fda26e1a2441" class="">
+			</p>
+			<figure id="131aa64c-9d0a-81dc-a98d-eafa43744978" class="image"><a
+					href="Часть 4 8 VLAN и DHCP/Untitled.png"><img
+						style="width:1453px"
+						src="Часть 4 8 VLAN и DHCP/Untitled.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81a6-99b8-e8956a7e7baf" class="">
+			</p>
+			<blockquote id="131aa64c-9d0a-81e7-b477-f1caa32bedc7" class=""><mark class="highlight-gray">Строим сеть
+					между виртуальными машинами на базе Debian в одном vlan. Пингуем, перехватываем пакеты, анализируем
+					заголовки, настраиваем intervlan routing”. Настраиваем Dnsmasq в качестве DHCP сервера.</mark>
+			</blockquote>
+			<details open="">
+				<summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0">План работы</summary>
+				<div class="indented">
+					<nav id="131aa64c-9d0a-81f8-86bb-cd3b7163fa0d" class="block-color-gray table_of_contents">
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-817d-93fd-c08aa9631451">План работы</a></div>
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-81b6-a951-c3f9cfe6ff97"><strong>Цель работы:</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-812e-83d8-f308374d8d39"><strong>Задача:</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-814f-a48d-c32343199eff"><strong>Отчёт:</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-814f-8820-e6706e64045e">Вам потребуется:</a></div>
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-8134-afe0-e430623e2a5e">1<strong>. Разбиваем виртуальные машины 1 и
+									2 на разные vlan. Настраиваем intervlan routing с помощью роутера.</strong></a>
+						</div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-811c-886a-d79c62d22317">1<strong>.1 Пошаговая настройка роутера на
+									Debian</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-816e-8e11-db3078e360ab">1<strong>.2 Подготовка шлюза</strong></a>
+						</div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-8118-9b09-d291aeec2727">1<strong>.3 Настройка шлюза</strong></a>
+						</div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-810b-ac27-dbc2ad770a73">1<strong>.4 Попробуем связать виртуальные
+									машины через роутер</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-81a0-9693-df86708856fc">2<strong>. Установка и настройка
+									Dnsmasq</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-8110-93bf-ee22998ae95a">2<strong>.1 Теперь необходимо установить и
+									настроить Dnsmasq</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-810a-a7f9-f8bec3c33824">2<strong>.2 Подготовки сетевой
+									конфигурации</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-8186-9012-f566f3ad4107">2<strong>.3 Настройка сетевых интерфейсов
+									роутера и виртуальных машин</strong></a></div>
+						<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+								href="#131aa64c-9d0a-81b5-8d59-e5ccfb25aa40">Вывод</a></div>
+					</nav>
+				</div>
+			</details>
+			<h2 id="131aa64c-9d0a-81b6-a951-c3f9cfe6ff97" class=""><strong>Цель работы:</strong></h2>
+			<ul id="131aa64c-9d0a-8196-b6e9-c06431aaa1e2" class="bulleted-list">
+				<li style="list-style-type:disc">Научиться настраивать VLAN;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8118-a6db-fcde5b5522a8" class="bulleted-list">
+				<li style="list-style-type:disc">Научиться настраивать Роутер;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8188-b4ea-fd7a1c200350" class="bulleted-list">
+				<li style="list-style-type:disc">Научиться связывать два VLAN;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-814c-8810-ef2c7842e650" class="bulleted-list">
+				<li style="list-style-type:disc">Научиться делать маршрутизацию между серверами;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c0-aab2-cff3f61b1221" class="bulleted-list">
+				<li style="list-style-type:disc">Научиться настраивать LAN-сегменты в VMware;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81fd-9cd5-cf2e59868410" class="bulleted-list">
+				<li style="list-style-type:disc">Научиться работать с Dnsmasq в качестве DHCP;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-817e-bdc1-fd5e238b85a9" class="bulleted-list">
+				<li style="list-style-type:disc">Научиться настраивать DHCP-сервер.</li>
+			</ul>
+			<h2 id="131aa64c-9d0a-812e-83d8-f308374d8d39" class=""><strong>Задача:</strong></h2>
+			<ul id="131aa64c-9d0a-815b-8e5a-fed310782858" class="bulleted-list">
+				<li style="list-style-type:disc">Развернуть стенд из трёх виртуальных машин на базе Debian10, одна из
+					них должна быть серверной без графического интерфейса;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8168-b2b5-d65819a05890" class="bulleted-list">
+				<li style="list-style-type:disc">Настроить сетевые интерфейсы;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-818b-a52c-cdb213b6f6bf" class="bulleted-list">
+				<li style="list-style-type:disc">Настроить VLAN на сетевых интерфейсах;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-816c-898d-cf0eccfd4b8a" class="bulleted-list">
+				<li style="list-style-type:disc">Развернуть Роутер, настроить VLAN;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8128-a862-db670cb7296a" class="bulleted-list">
+				<li style="list-style-type:disc">Настроить маршрутизации между двумя VLAN;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-813f-ab75-f10abd1fc775" class="bulleted-list">
+				<li style="list-style-type:disc">Проверить все доступы;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8126-8cc3-c9b1d0271004" class="bulleted-list">
+				<li style="list-style-type:disc">Развернуть и настроить DHCP-сервер;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81e9-a616-e10d3e9b7548" class="bulleted-list">
+				<li style="list-style-type:disc">Проверить работу DHCP-сервера;</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81b0-a115-fec1329feb5a" class="bulleted-list">
+				<li style="list-style-type:disc">Проверить получение ip-адреса клиентами в dhcp режиме и проверить
+					доступ между двумя клиентами.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81ca-a9cd-ea0950ae5496" class="bulleted-list">
+				<li style="list-style-type:disc">Проверить, что VLANs ходят по своим интерфейсам через нужный интерфейс
+					роутера.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8103-a1d9-cb9f6ae87d96" class="bulleted-list">
+				<li style="list-style-type:disc">Проверить, что выход в интернет происходит через сервер.</li>
+			</ul>
+			<h2 id="131aa64c-9d0a-814f-a48d-c32343199eff" class=""><strong>Отчёт:</strong></h2>
+			<ul id="131aa64c-9d0a-8147-9b4e-d6cdbee0a8de" class="bulleted-list">
+				<li style="list-style-type:disc">Составить отчёт в виде инструкции с скриншотами и описанием к ним.</li>
+			</ul>
+			<h3 id="131aa64c-9d0a-814f-8820-e6706e64045e" class="">Вам потребуется:</h3>
+			<ul id="131aa64c-9d0a-81b0-8554-dcc56e50ab42" class="bulleted-list">
+				<li style="list-style-type:disc">Выполненная практика, а именно ее пункт<p
+						id="131aa64c-9d0a-817b-bc30-cf68346d292e" class=""> </p>
+				</li>
+			</ul>
+			<h2 id="131aa64c-9d0a-8134-afe0-e430623e2a5e" class="">1<strong>. Разбиваем виртуальные машины 1 и 2 на
+					разные vlan. Настраиваем intervlan routing с помощью роутера.</strong></h2>
+			<figure class="block-color-blue_background callout" style=" display:flex"
+				id="131aa64c-9d0a-811a-a161-febe01fdaccf">
+				<div style="font-size:1.5em"><span class="icon">ℹ️</span></div>
+				<div style="width:100%"><strong>Intervlan</strong> - технология маршрутизации между различными vlan
+					сетями под управлением одного маршрутизатора и коммутатора.</div>
+			</figure>
+			<h3 id="131aa64c-9d0a-811c-886a-d79c62d22317" class="">1<strong>.1 Пошаговая настройка роутера на
+					Debian</strong></h3>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81e8-962c-f9be310157ba"
+				class="code"><code class="language-Bash">uname -a</code></pre>
+			<figure id="131aa64c-9d0a-8167-9221-dead274a26b4" class="image"><a
+					href="https://i.imgur.com/Tdy37cl.png"><img style="width:528px"
+						src="https://i.imgur.com/Tdy37cl.png" /></a></figure>
+			<p id="131aa64c-9d0a-816a-8ff0-e20ae2d271b2" class="">На сервере имеются 2 сетевых интерфейса:</p>
+			<figure id="131aa64c-9d0a-81ff-82ab-ce9fc3a5d8f9" class="image"><a
+					href="https://i.imgur.com/uj7titQ.png"><img style="width:528px"
+						src="https://i.imgur.com/uj7titQ.png" /></a></figure>
+			<h3 id="131aa64c-9d0a-816e-8e11-db3078e360ab" class="">1<strong>.2 Подготовка шлюза</strong></h3>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8186-b5b8-f9f63003d1bd" class="code"><code class="language-Bash" style=" word-break:break-all">apt-get update
+apt-get upgrade
+cat /etc/debian_version</code></pre>
+			<figure id="131aa64c-9d0a-8134-965c-eda853cf5d47" class="image"><a
+					href="https://i.imgur.com/FzFkjzZ.png"><img style="width:432px"
+						src="https://i.imgur.com/FzFkjzZ.png" /></a></figure>
+			<p id="131aa64c-9d0a-81b2-bec5-de8112033ef8" class=""><strong>1.2.1 Настроим часовой пояс, если раньше не
+					сделали это:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81cd-8855-d85c3250d81c"
+				class="code"><code class="language-Bash">dpkg-reconfigure tzdata</code></pre>
+			<figure id="131aa64c-9d0a-81f0-a5c2-e8c232dab91b" class="image"><a
+					href="https://i.imgur.com/PosicBq.png"><img style="width:624px"
+						src="https://i.imgur.com/PosicBq.png" /></a></figure>
+			<figure id="131aa64c-9d0a-81b2-b37c-db0588dd6dbf" class="image"><a
+					href="https://i.imgur.com/YtV6zU5.png"><img style="width:624px"
+						src="https://i.imgur.com/YtV6zU5.png" /></a></figure>
+			<p id="131aa64c-9d0a-8154-b15b-f56e472540ad" class=""><strong>1.2.2</strong> <strong>Устанавливаем сервис
+					ntp для автоматического обновления времени:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8102-8e21-d6cebee348e0"
+				class="code"><code class="language-Bash">apt-get -y install ntp</code></pre>
+			<figure id="131aa64c-9d0a-8158-939e-ea8cbe7f1603" class="image"><a
+					href="https://i.imgur.com/JG7WFW3.png"><img style="width:624px"
+						src="https://i.imgur.com/JG7WFW3.png" /></a></figure>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81f0-bd4a-f2f7e7cd8a77"
+				class="code"><code class="language-Bash">nano /etc/sysctl.conf</code></pre>
+			<p id="131aa64c-9d0a-8115-9faf-fe1a1afbccc1" class=""><code>net.ipv4.ip_forward=1</code></p>
+			<figure id="131aa64c-9d0a-810f-9611-d5262c4c6eea" class="image"><a
+					href="https://i.imgur.com/bChylOE.png"><img style="width:576px"
+						src="https://i.imgur.com/bChylOE.png" /></a></figure>
+			<p id="131aa64c-9d0a-815a-af38-e922c389a0fa" class=""><strong>1.2.3 Применяем эту настройку:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8192-82c3-c32f76c68b08"
+				class="code"><code class="language-Bash">sysctl -p</code></pre>
+			<figure id="131aa64c-9d0a-8118-abfe-f939145e46bc" class="image"><a
+					href="https://i.imgur.com/iytrYKr.png"><img style="width:576px"
+						src="https://i.imgur.com/iytrYKr.png" /></a>
+				<figcaption><em>На выходе работы команды в консоли будет выведен измененный параметр со значением
+						1.</em></figcaption>
+			</figure>
+			<h3 id="131aa64c-9d0a-8118-9b09-d291aeec2727" class="">1<strong>.3 Настройка шлюза</strong></h3>
+			<p id="131aa64c-9d0a-81da-870e-eac676250602" class="">Меняем в конфигурационных
+				файлах <code>/etc/network/interfaces</code> виртуальных машин vlan на 200 и 300 соответственно и
+				ip-адреса.</p>
+			<figure id="131aa64c-9d0a-81df-bd6c-d1d7631149fc" class="image"><a
+					href="https://i.imgur.com/T1Jc4nq.png"><img style="width:576px"
+						src="https://i.imgur.com/T1Jc4nq.png" /></a>
+				<figcaption>Первая ВМ</figcaption>
+			</figure>
+			<figure id="131aa64c-9d0a-81a4-8415-e25e9eaf9fa5" class="image"><a
+					href="https://i.imgur.com/R02b6If.png"><img style="width:576px"
+						src="https://i.imgur.com/R02b6If.png" /></a>
+				<figcaption>Вторая ВМ</figcaption>
+			</figure>
+			<p id="131aa64c-9d0a-8162-8528-e129e151badb" class=""><strong>Перезапускаем виртуальные машинки и проверяем,
+					что всё применилось.</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-810e-8927-cb346c91d0bf"
+				class="code"><code class="language-Bash">sudo reboot now</code></pre>
+			<p id="131aa64c-9d0a-8158-80be-ef718c0a1084" class=""><strong>Перезапуск сетевых интерфейсов ничего не
+					даст:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81b6-b7c8-de4e09039e0f" class="code"><code class="language-Bash">service networking restart 
+systemctl restart networking.service</code></pre>
+			<figure id="131aa64c-9d0a-81e8-8e6a-e3c931c6d424" class="image"><a
+					href="https://i.imgur.com/K0ZP3Sn.png"><img style="width:624px"
+						src="https://i.imgur.com/K0ZP3Sn.png" /></a></figure>
+			<p id="131aa64c-9d0a-81ed-b014-da9ccc7b5329" class=""><strong>После перезагрузки видим следующее:</strong>
+			</p>
+			<figure id="131aa64c-9d0a-817a-8705-faff20809888" class="image"><a
+					href="https://i.imgur.com/d9oc1qt.png"><img style="width:624px"
+						src="https://i.imgur.com/d9oc1qt.png" /></a>
+				<figcaption>Первая ВМ</figcaption>
+			</figure>
+			<figure id="131aa64c-9d0a-8120-86af-dc5af114de35" class="image"><a
+					href="https://i.imgur.com/rCz5Oaz.png"><img style="width:624px"
+						src="https://i.imgur.com/rCz5Oaz.png" /></a>
+				<figcaption>Вторая ВМ</figcaption>
+			</figure>
+			<p id="131aa64c-9d0a-8182-aa7c-df8d3379607a" class="">На роутере в отличие от виртуальных машин нужно
+				создать интерфейс и во vlan 200 и во vlan 300 — этот интерфейс будет шлюзом в данных сетях. Присвоим им
+				адреса 192.168.1.254, 172.16.1.254.</p>
+			<figure id="131aa64c-9d0a-81a4-af04-d8f39c1c4bcd" class="image"><a
+					href="https://i.imgur.com/1fOkJI9.png"><img style="width:624px"
+						src="https://i.imgur.com/1fOkJI9.png" /></a></figure>
+			<p id="131aa64c-9d0a-8147-9a2f-c4f0585a237b" class=""><strong>После перезагрузки роутера результат команды
+					ip a должен быть следующим:</strong></p>
+			<figure id="131aa64c-9d0a-8116-a106-c45b56019189" class="image"><a
+					href="https://i.imgur.com/6SuwRzw.png"><img style="width:624px"
+						src="https://i.imgur.com/6SuwRzw.png" /></a></figure>
+			<p id="131aa64c-9d0a-81d5-a8c9-f4c83cf7185a" class=""><strong>Далее проверяем доступность виртуальных
+					машинок 1 и 2:</strong></p>
+			<figure id="131aa64c-9d0a-814e-a5a8-e47059aa0b4e" class="image"><a
+					href="https://i.imgur.com/MSiY1Wq.png"><img style="width:624px"
+						src="https://i.imgur.com/MSiY1Wq.png" /></a></figure>
+			<p id="131aa64c-9d0a-81e9-bb87-df6a52ebbe4c" class="">Как видим доступ до виртуальных машин 1 и 2
+				присутствует.</p>
+			<p id="131aa64c-9d0a-816f-bee8-e615d1c0a992" class="">Мы получили связность между виртуальной машиной,
+				роутером и виртуальной машиной, роутером.</p>
+			<h3 id="131aa64c-9d0a-810b-ac27-dbc2ad770a73" class="">1<strong>.4 Попробуем связать виртуальные машины
+					через роутер</strong></h3>
+			<p id="131aa64c-9d0a-810a-8c83-dc1d8ece0b8c" class="">Для того чтобы наш Router получил возможность
+				форвардить пакеты между интерфейсам нужно разрешить ему это. Необходимо раскомментировать
+				директиву <code>net.ipv4.ip_forward = 1</code> в файле <code>/etc/sysctl.conf</code> и применить
+				изменения командой <code>sysctl -p</code>.</p>
+			<p id="131aa64c-9d0a-812e-bbe9-d2d7c73b1c3b" class=""><strong>Нужно настроить маршрутизацию.</strong></p>
+			<p id="131aa64c-9d0a-813f-b94e-d3903c36a38b" class=""><strong>Есть 3 распространенных способа это
+					сделать:</strong></p>
+			<ol type="1" id="131aa64c-9d0a-8188-a02c-c9d368224e60" class="numbered-list" start="1">
+				<li>указать маршрут по умолчанию. т.е. мы не знаем где у нас находится destination ip, поэтому все
+					пакеты не принадлежащие локальной сети шлем на роутер.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8119-b293-d82e368d306b" class="numbered-list" start="2">
+				<li>указать шлюз для конкретной подсети. Это нужно делать если сети доступны за разными
+					маршрутизаторами.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81f1-8070-c88843025741" class="numbered-list" start="3">
+				<li>указать интерфейс, за которым находится тот кто примет пакет.</li>
+			</ol>
+			<p id="131aa64c-9d0a-8176-8e1e-f8a2368e55d9" class=""><strong>Начнём с просмотра списка маршрутов на
+					виртуальной машине 1:</strong></p>
+			<figure id="131aa64c-9d0a-8157-a36f-cec61698baa5" class="image"><a
+					href="https://i.imgur.com/PEcIprt.png"><img style="width:576px"
+						src="https://i.imgur.com/PEcIprt.png" /></a></figure>
+			<p id="131aa64c-9d0a-8117-8d82-f0a2ff8068f0" class="">Наша виртуалка знает всего о 2 подсетях:
+				192.168.1.0/24 и 192.168.71.0/24</p>
+			<p id="131aa64c-9d0a-81f8-8a7f-fb68013eeee4" class=""><strong>Про хост виртуальной машины 2 ничего не
+					сказано и поэтому, если захотим сделать ping, то получим следующий ответ:</strong></p>
+			<figure id="131aa64c-9d0a-8192-8665-e39e634c615a" class="image"><a
+					href="https://i.imgur.com/9dAMefh.png"><img style="width:576px"
+						src="https://i.imgur.com/9dAMefh.png" /></a></figure>
+			<p id="131aa64c-9d0a-818e-b449-cd0eb52a1170" class=""><strong>Добавить маршрут к подсети второй виртуальной
+					машине 172.16.1.0/24:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-812d-97fa-fa831914fd17"
+				class="code"><code class="language-Bash">ip ro add 172.16.1.0/24 via 192.168.1.254</code></pre>
+			<ul id="131aa64c-9d0a-81af-88fb-cf6cd106620c" class="bulleted-list">
+				<li style="list-style-type:disc">где via - это через какой сетевой интерфейс</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81f5-aa13-e57082c4b355" class="bulleted-list">
+				<li style="list-style-type:disc">172.16.1.0/24 - к какой сети мы хотим иметь доступ</li>
+			</ul>
+			<figure id="131aa64c-9d0a-8184-995a-f2e3dfef816c" class="image"><a
+					href="https://i.imgur.com/HB5h7EA.png"><img style="width:576px"
+						src="https://i.imgur.com/HB5h7EA.png" /></a></figure>
+			<p id="131aa64c-9d0a-815c-b8aa-d007124d1b0b" class=""><strong>Посмотрим результат работы:</strong></p>
+			<figure id="131aa64c-9d0a-81a1-a433-c20cb9927f20" class="image"><a
+					href="https://i.imgur.com/9IInSng.png"><img style="width:576px"
+						src="https://i.imgur.com/9IInSng.png" /></a></figure>
+			<p id="131aa64c-9d0a-8174-b378-f359bd812a30" class=""><em>и увидим новый маршрут, который добавили.</em></p>
+			<p id="131aa64c-9d0a-8137-843c-c4e0b3a35d77" class=""><strong>Теперь давайте попробуем сделать ping
+					до:</strong></p>
+			<ol type="1" id="131aa64c-9d0a-817b-847e-ede6df51a06d" class="numbered-list" start="1">
+				<li>Шлюза нашей сети</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81c8-b89f-d1b6d2434cf6" class="numbered-list" start="2">
+				<li>Шлюза второй сети</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8156-8425-f4241148c9dd" class="numbered-list" start="3">
+				<li>Виртуальной машинки 2</li>
+			</ol>
+			<figure id="131aa64c-9d0a-8117-bc95-d8a5b344aa13" class="image"><a
+					href="https://i.imgur.com/ZQg2Whm.png"><img style="width:576px"
+						src="https://i.imgur.com/ZQg2Whm.png" /></a></figure>
+			<p id="131aa64c-9d0a-81b1-9ee1-c2d9cab87429" class=""><strong>Как видим у нас следующие результаты:</strong>
+			</p>
+			<ol type="1" id="131aa64c-9d0a-8167-a193-d1b1c9307d14" class="numbered-list" start="1">
+				<li>Шлюз нашей сети доступен</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8149-9ee4-d8e87b45c409" class="numbered-list" start="2">
+				<li>Шлюз второй сети доступен</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8187-9fe4-c593129f0226" class="numbered-list" start="3">
+				<li>Виртуальная машинка 2 не доступна</li>
+			</ol>
+			<p id="131aa64c-9d0a-812f-bc1c-f44df3d86301" class=""><em>Убедиться можно с помощью
+					утилиты</em> <strong>Wireshark</strong></p>
+			<figure id="131aa64c-9d0a-810e-83b6-dcd664514421" class="image"><a
+					href="https://i.imgur.com/FheC15X.png"><img style="width:624px"
+						src="https://i.imgur.com/FheC15X.png" /></a></figure>
+			<p id="131aa64c-9d0a-811e-b352-d296e8e2a069" class=""><em>Как видно, ismp запросы поступают
+					с</em> <code>ip-адреса 172.16.1.20</code></p>
+			<p id="131aa64c-9d0a-81d3-ac21-f8cf64070e0a" class=""><strong>Не доступна она по одной простой причине, всё
+					просто, если знаешь;)</strong></p>
+			<p id="131aa64c-9d0a-81cc-88f9-d995ea4d42bb" class="">Ping не проходит, так как на второй виртуальной
+				машинке нет обратного маршрута, пакет приходит на неё, а назад он не знает по какому маршруту пойти,
+				поэтому нужно прописать обратный маршрут на второй виртуальной машине:</p>
+			<p id="131aa64c-9d0a-8153-8e27-c96ac2d1e3c0" class="">ip ro add 192.168.1.0/24 via 172.16.1.254</p>
+			<p id="131aa64c-9d0a-818b-9065-ee65f0cdc361" class=""><strong>и можем обратить внимание как ping стал сразу
+					проходить:</strong></p>
+			<figure id="131aa64c-9d0a-8107-9877-ee0a5bd41b32" class="image"><a
+					href="https://i.imgur.com/r8mxLtt.png"><img style="width:576px"
+						src="https://i.imgur.com/r8mxLtt.png" /></a></figure>
+			<h2 id="131aa64c-9d0a-81a0-9693-df86708856fc" class="">2<strong>. Установка и настройка Dnsmasq</strong>
+			</h2>
+			<figure class="block-color-blue_background callout" style=" display:flex"
+				id="131aa64c-9d0a-81d1-b816-f981227a12a0">
+				<div style="font-size:1.5em"><span class="icon">ℹ️</span></div>
+				<div style="width:100%"><strong>Dnsmasq</strong> — легковесный и быстроконфигурируемый DNS-, DHCP- и
+					TFTP-сервер, предназначенный для обеспечения доменными именами и связанными с ними сервисами
+					небольших сетей. <br /><br />Может обеспечивать именами локальные машины, которые не имеют
+					глобальных DNS-записей. DHCP-сервер интегрирован с DNS-сервером и даёт машинам с IP-адресом доменное
+					имя, сконфигурированное ранее в конфигурационном файле. <br /><br />Поддерживает привязку IP-адреса
+					к компьютеру или автоматическую настройку IP-адресов из заданного диапазона и BOOTP для сетевой
+					загрузки бездисковых машин.<br /></div>
+			</figure>
+			<p id="131aa64c-9d0a-81fb-b6b6-e27fe18c04b3" class="">Разработчики позиционируют программу для использования
+				в домашних сетях, использующих NAT, однако Dnsmasq также применим в малых сетях организаций.</p>
+			<p id="131aa64c-9d0a-8149-abe0-c9e4c06808dc" class=""><strong>Обнаруженные уязвимости</strong></p>
+			<figure class="block-color-red_background callout" style=" display:flex"
+				id="131aa64c-9d0a-8184-8416-d6905701c697">
+				<div style="font-size:1.5em"><span class="icon">🚨</span></div>
+				<div style="width:100%"><strong>DNSpooq</strong> — позволяет осуществить атаки по подстановке фиктивных
+					данных в кэш DNS или вызвать переполнение буфера, потенциально способное привести к удалённому
+					выполнению кода атакующего. Исправлено в обновлении Dnsmasq 2.83.</div>
+			</figure>
+			<p id="131aa64c-9d0a-812f-8eeb-eff1eb0d30b6" class=""><strong>Dnsmasq предоставляет следующие
+					возможности:</strong></p>
+			<ul id="131aa64c-9d0a-81ce-b62a-e8e221cb8f15" class="toggle">
+				<li>
+					<details open="">
+						<summary>Подробнее</summary>
+						<ul id="131aa64c-9d0a-81af-ac87-faf07201a618" class="bulleted-list">
+							<li style="list-style-type:disc">Простая конфигурация DNS-машин за межceтевым экраном,
+								независимо от особенностей и доступности DNS-серверов провайдера.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-8185-8e94-c32adadc5fa1" class="bulleted-list">
+							<li style="list-style-type:disc">Мгновенная передача клиентам информации о недоступности
+								сайта, если внешнее соединение прервано.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-8174-91f3-d9891bb8a146" class="bulleted-list">
+							<li style="list-style-type:disc">Может переопределить другие имена для глобальных IP-адресов
+								без необходимости исправлять файл /etc/hosts на каждой машине.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-813b-88c3-f453ad2a3195" class="bulleted-list">
+							<li style="list-style-type:disc">Встроенный DHCP-сервер поддерживает статический и
+								динамический DHCP и несколько сетей и IP-диапазонов. Работает через BOOTP-реле и
+								поддерживает DHCP-опции, включая DNS-поиск (RFC 3397).</li>
+						</ul>
+						<ul id="131aa64c-9d0a-8114-a5ca-eaa86c5f50a8" class="bulleted-list">
+							<li style="list-style-type:disc">Машины, сконфигурированные через DHCP, получают имена,
+								включённые в сервис DNS и имена могут быть привязаны к MAC-адресу в конфигурационном
+								файле.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-818d-8243-c4f9dc6e891c" class="bulleted-list">
+							<li style="list-style-type:disc">Кэширует интернет-адреса (A-записи и записи AAAA) и
+								PTR-записи, снижая нагрузки на внешние серверы и повышая производительность (особенно на
+								модемных соединениях).</li>
+						</ul>
+						<ul id="131aa64c-9d0a-8100-b4c3-dd2136a11692" class="bulleted-list">
+							<li style="list-style-type:disc">Пользователи могут настроить dnsmasq, чтобы автоматически
+								получать адреса внешних DNS, от PPP- или DHCP-конфигурации. Автоматически перезагружает
+								эту информацию, если она меняется. Это средство помогает брандмауэру Linux-дистрибутива
+								автоматизировать настройку DNS.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-8130-b2f0-fb59b24ad614" class="bulleted-list">
+							<li style="list-style-type:disc">Поддержка IPv6 для передачи и получения DNS-имён. Может
+								даже выступать в качестве транслятора из IPv4 в IPv6 или наоборот для связи локальной
+								сети с интернет через NAT.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-81b2-a6ba-d4e995844cec" class="bulleted-list">
+							<li style="list-style-type:disc">Пользователи могут настроить Dnsmasq для отправки запросов
+								для определённых доменов на обработку внешним серверам.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-815a-b75b-dc245a30f480" class="bulleted-list">
+							<li style="list-style-type:disc">Поддерживает MX-записи и может вернуть MX-записи для любой
+								или всех локальных машин.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-81cd-9658-e7b99094cde4" class="bulleted-list">
+							<li style="list-style-type:disc">Поддерживает NAPTR-запись, что позволяет использовать
+								регулярные выражения, основанные на переписывании доменных имён, которые затем могут
+								быть использованы в качестве URI, дополнительных доменных имён для поиска.</li>
+						</ul>
+						<ul id="131aa64c-9d0a-8115-b98e-d6a4ee754a1a" class="bulleted-list">
+							<li style="list-style-type:disc">Некоторые провайдеры переписывают NXDOMAIN-ответы (домен не
+								существует) от DNS-серверов. Это заставляет веб-браузеры искать страницы в домене,
+								который не существует. Dnsmasq может отфильтровать такие записи.</li>
+						</ul>
+					</details>
+				</li>
+			</ul>
+			<h3 id="131aa64c-9d0a-8110-93bf-ee22998ae95a" class="">2<strong>.1 Теперь необходимо установить и настроить
+					Dnsmasq</strong></h3>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8112-b7db-da81a8160ae6"
+				class="code"><code class="language-Bash">apt-get install -y dnsmasq</code></pre>
+			<figure id="131aa64c-9d0a-8177-a2f6-ed7404c70664" class="image"><a
+					href="https://i.imgur.com/iybR6NS.png"><img style="width:576px"
+						src="https://i.imgur.com/iybR6NS.png" /></a></figure>
+			<p id="131aa64c-9d0a-81fe-89f5-ee418482e251" class="">Сделаем минимальную настройку программы. Нам нужно
+				просто выдавать сетевые настройки пользователям.</p>
+			<p id="131aa64c-9d0a-8162-88a6-fe1cd6342854" class=""><strong>Для этого приводим конфигурационный файл
+					dnsmasq к следующему виду:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81a4-a381-ea67364e7988"
+				class="code"><code class="language-Bash">mcedit /etc/dnsmasq.conf</code></pre>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81a0-a28d-cf5c8af795bb" class="code"><code class="language-Plain Text" style=" word-break:break-all">user=igor
+group=igor
+domain-needed
+bogus-priv
+interface=ens37
+except-interface=ens33
+dhcp-range=ens37,192.168.100.10,192.168.100.120,8h
+dhcp-host=00:0c:29:71:35:f5,192.168.100.77
+</code></pre>
+			<p id="131aa64c-9d0a-8176-a848-d6ebc970b1a0" class=""><strong>где:</strong></p>
+			<p id="131aa64c-9d0a-81ef-8a5c-ded37477f1ec" class="">Указываем пользователя и группу с правами которых
+				будет запущен демон</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-818a-9158-cd51713449ea" class="code"><code class="language-Plain Text" style=" word-break:break-all">user=igor
+group=igor</code></pre>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8199-8520-c2b8f1b79ee1" class="code"><code class="language-Bash"># Отключить пересылку имен без точки или доменной части
+$ domain-needed
+
+# Отключить пересылку адресов в немаршрутизируемых адресных пространствах
+$ bogus-priv
+
+# Указываем интерфейсы на которых будут приниматься запросы
+$ interface=ens37
+
+# Указываем интерфейсы на которых не будут приниматься запросы
+$ except-interface=ens33
+
+# Указываем диапозон адресов и время аренды
+$ dhcp-range=ens37,192.168.100.10,192.168.100.120,8h
+
+# Для статической привязки адресов указываем MAC-адрес хоста и адрес, 
+# который будем ему выдавать
+$ dhcp-host=00:0c:29:71:35:f5,192.168.100.77</code></pre>
+			<p id="131aa64c-9d0a-81f6-b97b-fec4158df0bd" class=""><strong>После внесение изменений, необходимо
+					перезапустить сервис:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-819e-86d5-ee83dea88974"
+				class="code"><code class="language-Bash">service dnsmasq restart</code></pre>
+			<p id="131aa64c-9d0a-8156-ab7e-f79baa433043" class=""><strong>Проверяем работу сервиса:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81e6-a204-ce0fe96b19a9"
+				class="code"><code class="language-Bash">service dnsmasq status</code></pre>
+			<figure id="131aa64c-9d0a-810e-ae6a-d3e9fb4a6e32" class="image"><a
+					href="https://i.imgur.com/S0AegpG.png"><img style="width:528px"
+						src="https://i.imgur.com/S0AegpG.png" /></a></figure>
+			<p id="131aa64c-9d0a-811e-9ad1-d3b103492f6e" class=""><strong>Если необходим выход в интернет, то необходимо
+					добавить DNS в </strong><code><strong>resolf.conf</strong></code><strong>:</strong></p>
+			<figure id="131aa64c-9d0a-815b-a35c-fbfc14087740" class="image"><a
+					href="https://i.imgur.com/YiQ72uR.png"><img style="width:528px"
+						src="https://i.imgur.com/YiQ72uR.png" /></a></figure>
+			<p id="131aa64c-9d0a-8150-ab0b-c34334f061d4" class="">Далее нам нужно сделать так, чтобы сетевые интерфейсы
+				ens37 на роутере и 2 виртуальных машинках были в одной сети, но так как мы настраиваем dhcp-сервер,
+				статические настройки нам не подойдут, в виртуализации на основе VMware есть особенность настройки
+				сетевых интерфейсов.</p>
+			<h3 id="131aa64c-9d0a-810a-a7f9-f8bec3c33824" class="">2<strong>.2 Подготовки сетевой конфигурации</strong>
+			</h3>
+			<p id="131aa64c-9d0a-81f1-958c-c2d432f28dcc" class=""><strong>Переходим в настройки нужного нам сетевого
+					интерфейса в виртуальной машине:</strong></p>
+			<figure id="131aa64c-9d0a-8129-a556-f6d14264ec8d" class="image"><a
+					href="https://i.imgur.com/dWBcP9O.png"><img style="width:528px"
+						src="https://i.imgur.com/dWBcP9O.png" /></a></figure>
+			<p id="131aa64c-9d0a-81d1-aade-f2cd07122c9e" class=""><strong>Меняем на следующие параметры, одновременно
+					создаём LAN сегмент, в котором и будут весь наш стенд из роутера и 2 виртуальных машинок:</strong>
+			</p>
+			<figure id="131aa64c-9d0a-811e-803d-d61440b5cabc" class="image"><a
+					href="https://i.imgur.com/0CLUWNg.png"><img style="width:528px"
+						src="https://i.imgur.com/0CLUWNg.png" /></a></figure>
+			<figure id="131aa64c-9d0a-817c-bced-e285ead4edd4" class="image"><a
+					href="https://i.imgur.com/mpr2PkQ.png"><img style="width:528px"
+						src="https://i.imgur.com/mpr2PkQ.png" /></a></figure>
+			<p id="131aa64c-9d0a-81cc-b6b3-e2a9fbb4aad9" class=""><strong>Делаем данную конфигурацию на остальных
+					виртуальных машинок.</strong></p>
+			<h3 id="131aa64c-9d0a-8186-9012-f566f3ad4107" class="">2<strong>.3 Настройка сетевых интерфейсов роутера и
+					виртуальных машин</strong></h3>
+			<p id="131aa64c-9d0a-8113-90b1-d5013e6fa692" class="">Чтобы у нашего dhcp-сервера был статический адрес,
+				необходимо перейти в файл конфигурации и внести следующие изменения. Так как мы выделили диапазон и
+				таким образом нам нужно взять ip-адрес вне этого диапазона.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8140-ae65-febc2ed14044"
+				class="code"><code class="language-Bash">nano /etc/network/interfaces</code></pre>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-810f-a13f-f858b355b991" class="code"><code class="language-Plain Text" style=" word-break:break-all">auto ens37
+iface ens37 inet static
+address 192.168.100.2
+netmask 255.255.255.0
+network 192.168.100.0
+broadcast 192.168.100.255
+gateway 192.168.100.1
+</code></pre>
+			<figure id="131aa64c-9d0a-8105-9d78-e1d5267b33f2" class="image"><a
+					href="https://i.imgur.com/Pr3IKDI.png"><img style="width:480px"
+						src="https://i.imgur.com/Pr3IKDI.png" /></a></figure>
+			<p id="131aa64c-9d0a-8133-a224-c6bcb8389769" class=""><strong>После изменений сохраняем и перезапускаем
+					сетевой сервис.</strong></p>
+			<p id="131aa64c-9d0a-819f-adb2-dd4322791bd7" class=""><strong>После этого переходим к виртуальным машинкам,
+					которые у нас будут являться клиентами:</strong></p>
+			<figure id="131aa64c-9d0a-819d-9224-ee72ce4e9c24" class="image"><a
+					href="https://i.imgur.com/m9KPL1V.png"><img style="width:576px"
+						src="https://i.imgur.com/m9KPL1V.png" /></a>
+				<figcaption>ВМ 1</figcaption>
+			</figure>
+			<figure id="131aa64c-9d0a-81df-9210-fec717d2cd3a" class="image"><a
+					href="https://i.imgur.com/wRILODw.png"><img style="width:576px"
+						src="https://i.imgur.com/wRILODw.png" /></a>
+				<figcaption>ВМ 2</figcaption>
+			</figure>
+			<p id="131aa64c-9d0a-816c-96a0-f2ef0a85a87e" class=""><strong>После изменений сохраняем и перезапускаем
+					сетевой сервис.</strong></p>
+			<p id="131aa64c-9d0a-8161-89ee-e630f62b2094" class=""><strong>После этого проверяем параметры сетевых
+					интерфейсов на виртуальных машинках, которые являются клиентами:</strong></p>
+			<figure id="131aa64c-9d0a-814c-8549-c7ef2aa42ca3" class="image"><a
+					href="https://i.imgur.com/dRYglpF.png"><img style="width:576px"
+						src="https://i.imgur.com/dRYglpF.png" /></a>
+				<figcaption>ВМ 1</figcaption>
+			</figure>
+			<figure id="131aa64c-9d0a-8188-806d-c395ebd84f23" class="image"><a
+					href="https://i.imgur.com/bhXfWVi.png"><img style="width:576px"
+						src="https://i.imgur.com/bhXfWVi.png" /></a>
+				<figcaption>ВМ 2</figcaption>
+			</figure>
+			<h1 id="131aa64c-9d0a-81b5-8d59-e5ccfb25aa40" class="">Вывод</h1>
+			<p id="131aa64c-9d0a-8173-9266-e739bce772e2" class="">В данной практической работе научились настраивать
+				vlan на базе debian10, выполнять маршрутизацию между 2 vlan с помощью linux-роутера, настраивать
+				dhcp-сервер и таким образом в виртуальной сфере с помощью сервера и двух клиентов мы настроили несколько
+				независимых сетей: VLAN и DHCP, которые не пересекаются</p>
+			<p id="131aa64c-9d0a-81bf-97ed-e17db3184ab7" class="">
+			</p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

@@ -1,0 +1,1283 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Часть 4.10 Fail2Ban и Dos/DDoS attack на примере nginx</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-81f4-9a52-fe3978ce9efc" class="page sans">
+		<header><img class="page-cover-image"
+				src="Часть 4 10 Fail2Ban и Dos DDoS attack на примере n/kandinsky-download-1705863636107.png"
+				style="object-position:center 42.730000000000004%" />
+			<div class="page-header-icon page-header-icon-with-cover"><img class="icon"
+					src="https://www.notion.so/icons/wall_gray.svg" /></div>
+			<h1 class="page-title"><strong>Часть 4.10 Fail2Ban и Dos/DDoS attack на примере nginx</strong></h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<p id="131aa64c-9d0a-81cd-9f3e-e38bf50b403e" class="">
+			</p>
+			<figure id="131aa64c-9d0a-81f0-8cbb-ca47e35a3bfc" class="image"><a
+					href="Часть 4 10 Fail2Ban и Dos DDoS attack на примере n/Untitled.png"><img
+						style="width:1528px"
+						src="Часть 4 10 Fail2Ban и Dos DDoS attack на примере n/Untitled.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8125-a3d2-e592e2bd06eb" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-81bf-a656-c93ede278a56" class=""><strong>Цель работы:</strong></h2>
+			<ol type="1" id="131aa64c-9d0a-8141-83da-c24c8d82c5e8" class="numbered-list" start="1">
+				<li>Научиться разворачивать сервер nginx;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81c8-8f9e-d9218c2b6211" class="numbered-list" start="2">
+				<li>Научиться защищать сервер nginx;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8188-b478-d7b9aedae393" class="numbered-list" start="3">
+				<li>Провести тестовую атаку DOS на сервер nginx.</li>
+			</ol>
+			<h2 id="131aa64c-9d0a-81bb-a39e-e9adafa886ef" class=""><strong>Задача:</strong></h2>
+			<ol type="1" id="131aa64c-9d0a-8124-918b-dd48a3ddd5dc" class="numbered-list" start="1">
+				<li>Организовать простую-тестовую атаку DoS;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81d0-b01b-c9db257ee66d" class="numbered-list" start="2">
+				<li>Защитить сервер от DoS/DDoS атак через встроенные возможности nginx;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-813d-a04e-d224cb0b4ef0" class="numbered-list" start="3">
+				<li>Защитить сервер от DoS/DDoS атак с помощью fail2ban при помощи iptables в автоматическом режиме;
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8170-8229-e752fee7f77c" class="numbered-list" start="4">
+				<li>Защитить сервер от DoS/DDoS атак с помощью fail2ban при помощи ipset в автоматическом режиме;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ef-ad42-f130603d00b9" class="numbered-list" start="5">
+				<li>Составить собственную инфструкцию о проделанной работе по данной практике.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-813d-b17c-fc8732f1e877" class="numbered-list" start="6">
+				<li>Сделать скриншоты с ключевыми моментами, предоставить описание к ним и добавить в общий отчёт.</li>
+			</ol>
+			<h1 id="131aa64c-9d0a-81e8-b907-d3c44a8ddcd1" class=""><strong>1. Разворачивание сервера nginx на базе
+					дистрибутивов Debian.</strong></h1>
+			<h2 id="131aa64c-9d0a-8193-a94f-c436971f46c8" class="">1.1 <strong>Установите пакеты, необходимые для
+					подключения apt-репозитория:</strong></h2>
+			<p id="131aa64c-9d0a-8106-bdb8-e3607c3fafcf" class="">
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-811b-839a-f84a560a8620"
+				class="code"><code class="language-Bash">sudo apt install curl gnupg2 ca-certificates lsb-release debian-archive-keyring</code></pre>
+			<figure id="131aa64c-9d0a-814f-aff6-e89d45678c50" class="image"><a
+					href="https://i.imgur.com/6UIi5ys.png"><img src="https://i.imgur.com/6UIi5ys.png" /></a></figure>
+			<p id="131aa64c-9d0a-810b-bf8e-df6989259646" class=""><strong>Теперь нужно импортировать официальный ключ,
+					используемый apt для проверки подлинности пакетов. Скачайте ключ:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8168-b9fc-d9cc1d7b5901"
+				class="code"><code class="language-Bash" style=" word-break:break-all">curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg &gt;/dev/null</code></pre>
+			<figure id="131aa64c-9d0a-811f-9956-edb32622ca71" class="image"><a
+					href="https://i.imgur.com/ZRE9vvR.png"><img src="https://i.imgur.com/ZRE9vvR.png" /></a></figure>
+			<p id="131aa64c-9d0a-818b-b352-ff7be3875d48" class=""><strong>Проверьте, верный ли ключ был
+					загружен:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8132-96c3-f37d5d61d18c"
+				class="code"><code class="language-Bash">gpg --dry-run --quiet --import --import-options import-show /usr/share/keyrings/nginx-archive-keyring.gpg</code></pre>
+			<figure id="131aa64c-9d0a-8161-88d4-ecc7a4d72510" class="image"><a
+					href="https://i.imgur.com/DyM9L3i.png"><img src="https://i.imgur.com/DyM9L3i.png" /></a></figure>
+			<p id="131aa64c-9d0a-818b-8884-c51ddcd1491f" class="">Вывод команды должен содержать полный отпечаток ключа
+			</p>
+			<p id="131aa64c-9d0a-8190-bab3-f659bfb9c891" class="">
+				<strong>573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81db-84a6-c1fe3e396621" class="code"><code class="language-Plain Text" style=" word-break:break-all">pub   rsa2048 2011-08-19 [SC] [expires: 2024-06-14]
+      573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
+uid                      nginx signing key &lt;signing-key@nginx.com&gt;
+</code></pre>
+			<p id="131aa64c-9d0a-8182-bad3-c694487e427f" class=""><em><strong>Если отпечаток отличается от
+						вышеуказанного, удалите файл ключа.</strong></em></p>
+			<p id="131aa64c-9d0a-8189-9e75-c056b328acc5" class=""><strong>Для подключения apt-репозитория для стабильной
+					версии nginx, выполните следующую команду:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81f7-b18c-da8d370b9585" class="code"><code class="language-Bash" style=" word-break:break-all">echo &quot;deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
+http://nginx.org/packages/debian `lsb_release -cs` nginx&quot; \
+    | sudo tee /etc/apt/sources.list.d/nginx.list
+</code></pre>
+			<figure id="131aa64c-9d0a-81e0-818c-f2fe29e47cec" class="image"><a
+					href="https://i.imgur.com/QapchaM.png"><img src="https://i.imgur.com/QapchaM.png" /></a></figure>
+			<p id="131aa64c-9d0a-81c4-a036-cce1862d49e9" class=""><strong>Если предпочтительно использовать пакеты для
+					основной версии nginx, выполните следующую команду вместо предыдущей:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-811c-872b-e23437b1eb5a" class="code"><code class="language-Plain Text" style=" word-break:break-all">echo &quot;deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
+http://nginx.org/packages/mainline/debian `lsb_release -cs` nginx&quot; \
+    | sudo tee /etc/apt/sources.list.d/nginx.list
+</code></pre>
+			<figure id="131aa64c-9d0a-8127-9838-df0de5546900" class="image"><a
+					href="https://i.imgur.com/k2wnbww.png"><img src="https://i.imgur.com/k2wnbww.png" /></a></figure>
+			<p id="131aa64c-9d0a-8123-9780-c9cd0bdbf1f8" class=""><strong>Для использования пакетов из нашего
+					репозитория вместо распространяемых в дистрибутиве, настройте закрепление:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81a8-9980-d677e12834b7" class="code"><code class="language-Plain Text" style=" word-break:break-all">echo -e &quot;Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n&quot; \
+    | sudo tee /etc/apt/preferences.d/99nginx
+</code></pre>
+			<figure id="131aa64c-9d0a-8170-9b5e-e89b7a2804dd" class="image"><a
+					href="https://i.imgur.com/2XulTDx.png"><img src="https://i.imgur.com/2XulTDx.png" /></a></figure>
+			<p id="131aa64c-9d0a-81d1-bf05-fdc56eacc23e" class=""><strong>Чтобы установить nginx, выполните следующие
+					команды:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-813c-8f32-e8ea51e16bb4"
+				class="code"><code class="language-Bash">sudo apt update</code></pre>
+			<figure id="131aa64c-9d0a-81fc-a6f2-e3da01c3e4c1" class="image"><a
+					href="https://i.imgur.com/GJbw2SN.png"><img src="https://i.imgur.com/GJbw2SN.png" /></a></figure>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81db-b4c3-ee35fdabe72d"
+				class="code"><code class="language-Bash">sudo apt install nginx</code></pre>
+			<figure id="131aa64c-9d0a-81ce-a1f1-c4178fc68bfe" class="image"><a
+					href="https://i.imgur.com/xIRqKE8.png"><img src="https://i.imgur.com/xIRqKE8.png" /></a></figure>
+			<p id="131aa64c-9d0a-8166-8faa-eb8a8107c27c" class=""><em>Если всё сделали правильно, то появится стартовая
+					страница.</em></p>
+			<p id="131aa64c-9d0a-8119-b74a-e2570e35b0fe" class=""><strong>Стартовая страница nginx выглядит
+					так:</strong></p>
+			<figure id="131aa64c-9d0a-8176-8b66-dcefa82ea8c0" class="image"><a
+					href="https://i.imgur.com/k27o5MA.png"><img src="https://i.imgur.com/k27o5MA.png" /></a></figure>
+			<p id="131aa64c-9d0a-8106-b0fa-fa97dbee8441" class=""><strong>если установлен nginx и apache2, то есть
+					вероятность, что при запуске nginx будет появляться стартовая страничка apache2, в этом случае можно
+					сделать следующее:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81dd-b5b9-d04e9cb64d91"
+				class="code"><code class="language-Bash">cd /var/www/html</code></pre>
+			<p id="131aa64c-9d0a-81b9-89f4-f6f09250d24d" class="">создать директорию, куда затем переместить или
+				скопировать файл index.html</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8163-a87b-eda072e8c160"
+				class="code"><code class="language-Bash">cp index.html folder1/</code></pre>
+			<p id="131aa64c-9d0a-816a-82c4-ebe41a1ab7e8" class="">После этих манипуляций при запуске nginx будет
+				появляться стартовая страничка nginx.</p>
+			<h1 id="131aa64c-9d0a-8186-a03d-d9ea6bf44f7b" class=""><strong>2. Далее переходим к настройке nginx от DDoS
+					атак на наш сервер.</strong></h1>
+			<p id="131aa64c-9d0a-8117-a0b1-f03b73d9afe1" class=""><strong>Устанавливаем fail2ban и ipset:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8123-a664-ce476414f60c" class="code"><code class="language-Plain Text" style=" word-break:break-all">apt install fail2ban
+
+apt install ipset - дополнение, чтобы fail2ban мог эффективнее блокировать большое количество запросов
+</code></pre>
+			<p id="131aa64c-9d0a-8174-8d4f-f9a73e8c00c2" class="">далее переходим:</p>
+			<p id="131aa64c-9d0a-8188-b842-f064dffe0116" class="">nano /etc/nginx/sites-enable/default - тут находится
+				стартовая страничка nginx</p>
+			<p id="131aa64c-9d0a-8117-8d11-e0bd17838c6e" class=""><strong>выставляем следующие параметры:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81c4-828f-d4b85bdc5683"
+				class="code"><code class="language-Bash">limit_req zone=ltwo burst=5 nodelay;</code></pre>
+			<ul id="131aa64c-9d0a-8185-8b47-c2eafb89377f" class="bulleted-list">
+				<li style="list-style-type:disc">limit_req - директива для zone=ltwo</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81af-b299-f0013b191af9" class="bulleted-list">
+				<li style="list-style-type:disc">burst=5 - всплеск разрешён максимально 5</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8198-9b01-f110fc3cf8cd" class="bulleted-list">
+				<li style="list-style-type:disc">и стоит опция nodelay, чтобы nginx не задерживал запросы</li>
+			</ul>
+			<figure id="131aa64c-9d0a-819a-9c5b-c80b4db28f7d" class="image"><a
+					href="https://i.imgur.com/nTwhb9T.png"><img src="https://i.imgur.com/nTwhb9T.png" /></a></figure>
+			<p id="131aa64c-9d0a-81de-a8f0-f3986112f31f" class=""><strong>далее переходим в конфигурационный файл
+					nginx.conf:</strong></p>
+			<p id="131aa64c-9d0a-814c-b09b-d75865781f6f" class=""><code>nano /etc/nginx/nginx.conf</code> - <strong>в
+					данном файле нам надо внести следующие изменения:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-817d-8209-c287a098fb1e" class="code"><code class="language-Plain Text" style=" word-break:break-all">limit_conn_zone $binary_remote_addr zone=lone:10m;
+limit_req_zone $binary_remote_addr zone=ltwo:10m rate=3r/s;
+limit_req_zone $binary_remote_addr zone=highspeed:10m rate=10r/s
+</code></pre>
+			<ul id="131aa64c-9d0a-818a-9dab-e759a8e19ddd" class="bulleted-list">
+				<li style="list-style-type:disc">ltwo - зона ограничения частоты запросов</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8190-954e-ed0f8a425684" class="bulleted-list">
+				<li style="list-style-type:disc">10m - размер зоны в мегабайтах</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81d2-9cc3-cadf4d3669a5" class="bulleted-list">
+				<li style="list-style-type:disc">3r/s - количество запросов в секунду</li>
+			</ul>
+			<figure id="131aa64c-9d0a-811b-98df-fd974a8f4889" class="image"><a
+					href="https://i.imgur.com/EE9KqTc.png"><img src="https://i.imgur.com/EE9KqTc.png" /></a></figure>
+			<p id="131aa64c-9d0a-8176-b56b-f0556ecca53e" class="">после чего вбиваем ip-адрес сервера в браузере,
+				переходим в режим разработчика и далее делаем многочисленные запросы: в Chrome это - ctrl+r</p>
+			<figure id="131aa64c-9d0a-8111-90f8-c738ffe5725a" class="image"><a
+					href="https://i.imgur.com/C9NijKb.png"><img src="https://i.imgur.com/C9NijKb.png" /></a></figure>
+			<p id="131aa64c-9d0a-81a1-8931-cf01ad771627" class="">после зажатия ctrl+r - выйдет ошибка 503</p>
+			<figure id="131aa64c-9d0a-81a7-b9ec-df2d806a65f6" class="image"><a
+					href="https://i.imgur.com/Qb6eKkg.png"><img src="https://i.imgur.com/Qb6eKkg.png" /></a></figure>
+			<p id="131aa64c-9d0a-813a-b206-c44746cfd185" class=""><strong>данные ошибки будут отображаться в log
+					файле:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8178-b9d5-e18bb36e7f56"
+				class="code"><code class="language-Bash">cat /var/log/nginx/error.log</code></pre>
+			<figure id="131aa64c-9d0a-81a8-bdd6-dae4e19a70dd" class="image"><a
+					href="https://i.imgur.com/Unbc5nm.png"><img src="https://i.imgur.com/Unbc5nm.png" /></a></figure>
+			<figure id="131aa64c-9d0a-81f5-ae89-cdbe567ce8d6" class="image"><a
+					href="https://i.imgur.com/Q8w31i8.png"><img src="https://i.imgur.com/Q8w31i8.png" /></a></figure>
+			<p id="131aa64c-9d0a-81c2-b12b-cfd25fd7f49d" class="">данные log файл даст нам нужную информация для
+				настройки фильтрации fail2ban.</p>
+			<h1 id="131aa64c-9d0a-81ed-896e-c014d33d1c0f" class="">3<strong>. Настройке fail2ban от DDoS атак на наш
+					сервер.</strong></h1>
+			<p id="131aa64c-9d0a-81e7-a2af-dca01f51a374" class=""><strong>Давайте найдём параметр бан в jail.conf или во
+					вновь созданном файле jail.local внесём следующие параметры:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8133-aed8-d703f0f897d6" class="code"><code class="language-Plain Text" style=" word-break:break-all">[nginx-limit-req]
+port = http, https
+enabled = true
+filter = nginx-limit-req
+action = iptables-multiport[name=ReqLimit, port=&quot;http,https&quot;, protocol=tcp]
+logpath = /var/log/nginx/*error.log
+findtime = 600
+bantime = 3600
+maxretry = 4
+</code></pre>
+			<figure id="131aa64c-9d0a-81b2-9922-d6a6f1b3e019" class="image"><a
+					href="https://i.imgur.com/Up7fK85.png"><img src="https://i.imgur.com/Up7fK85.png" /></a></figure>
+			<p id="131aa64c-9d0a-81a4-bdf7-d55374070658" class="">после чего нам необходимо изменить настройку, что
+				iptables не отсылал reject а отсылал drop, так как для борьбы с ботами - это более эффективно.</p>
+			<p id="131aa64c-9d0a-8148-b11a-cfdf16527909" class=""><strong>Далее переходим в файл:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81b2-bf82-d5eb7abdb412"
+				class="code"><code class="language-Bash">nano /etc/fail2ban/action.d/iptables-common.conf</code></pre>
+			<figure id="131aa64c-9d0a-810b-9ca5-d33ecc5914b2" class="image"><a
+					href="https://i.imgur.com/JvxU9uW.png"><img src="https://i.imgur.com/JvxU9uW.png" /></a></figure>
+			<p id="131aa64c-9d0a-813a-8013-d13792255f33" class=""><strong>но как мы уже знаем, настройки
+					конфигурационных файлов по умолчанию могут быть перезаписаны при обновлении, поэтому создаём новый
+					файл:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81cf-ae12-c7fcd8c0759c"
+				class="code"><code class="language-Bash">touch iptables-blocktype.local</code></pre>
+			<p id="131aa64c-9d0a-8167-918c-c73702f9e8af" class=""><strong>где нам нужно внести следующую
+					настройку:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8102-adf6-cc0010410652" class="code"><code class="language-Plain Text" style=" word-break:break-all">[Init]
+blocktype = DROP
+</code></pre>
+			<figure id="131aa64c-9d0a-81b2-8777-fccb025b9bde" class="image"><a
+					href="https://i.imgur.com/tFb8JUY.png"><img src="https://i.imgur.com/tFb8JUY.png" /></a></figure>
+			<p id="131aa64c-9d0a-818f-bf7f-ee88a1d67f8a" class=""><strong>Затем делаем рестарт fail2ban:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81c1-b96f-e3f0b4688438"
+				class="code"><code class="language-Bash">service fail2ban restart</code></pre>
+			<figure id="131aa64c-9d0a-8199-aeb9-c7cfeaec8a0c" class="image"><a
+					href="https://i.imgur.com/PdScDYA.png"><img src="https://i.imgur.com/PdScDYA.png" /></a></figure>
+			<p id="131aa64c-9d0a-8183-b7df-e10592c47b13" class=""><strong>Теперь нам нужно посмотреть, что iptables
+					отрабатывает и наберём:</strong><code>iptables -L -v</code></p>
+			<figure id="131aa64c-9d0a-811e-a90d-f855f48a4fe4" class="image"><a
+					href="https://i.imgur.com/azTTzgn.png"><img src="https://i.imgur.com/azTTzgn.png" /></a></figure>
+			<p id="131aa64c-9d0a-8198-91e3-c6235b7fde57" class=""><strong>Убедимся. что настройки в fail2ban применились
+					и введём:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-812d-a684-fbc655783193"
+				class="code"><code class="language-Bash">fail2ban-client status</code></pre>
+			<figure id="131aa64c-9d0a-81e4-b47f-ff74b1bd5c43" class="image"><a
+					href="https://i.imgur.com/HUEvtAz.png"><img src="https://i.imgur.com/HUEvtAz.png" /></a></figure>
+			<p id="131aa64c-9d0a-81c3-8fb0-f3733b261705" class=""><em>видим, что фильтры работают по nginx-limit-req,
+					sshd</em></p>
+			<p id="131aa64c-9d0a-81d0-bb30-cb703dd226be" class=""><strong>также проверим, что сейчас нет заблокированных
+					ip-адресов:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-819f-b89c-efe52988e552"
+				class="code"><code class="language-Bash">fail2ban-client status nginx-limit-req</code></pre>
+			<figure id="131aa64c-9d0a-811c-b61e-f75b5f9009f4" class="image"><a
+					href="https://i.imgur.com/ElbHjEm.png"><img src="https://i.imgur.com/ElbHjEm.png" /></a></figure>
+			<p id="131aa64c-9d0a-81fc-baf0-c4b5fbdfcfc7" class=""><em>теперь переходим на нашу страничку и вводим
+					ip-адрес сервера в браузере, переходим в режим разработчика и далее делаем многочисленные запросы: в
+					Chrome это - ctrl+r</em></p>
+			<p id="131aa64c-9d0a-8120-8e9f-ca6594a71616" class=""><strong>и видим вот такое сообщение после
+					многочисленных запросов:</strong></p>
+			<figure id="131aa64c-9d0a-81fa-8307-e3a5e984eaac" class="image"><a
+					href="https://i.imgur.com/JFDVv15.png"><img src="https://i.imgur.com/JFDVv15.png" /></a></figure>
+			<p id="131aa64c-9d0a-812f-9ecc-f781bf224884" class=""><strong>переходим на сервер и смотрим что у нас
+					показывает iptables и fail2ban:</strong></p>
+			<p id="131aa64c-9d0a-815e-b823-da46f33069e2" class=""><code>iptables -L -v</code></p>
+			<figure id="131aa64c-9d0a-8164-b7c1-f7d9d31c95df" class="image"><a
+					href="https://i.imgur.com/qlI0hDL.png"><img src="https://i.imgur.com/qlI0hDL.png" /></a></figure>
+			<p id="131aa64c-9d0a-8154-9359-e1a424fce99c" class=""><em>Видим, что добавилось правило</em></p>
+			<p id="131aa64c-9d0a-810c-8fd7-f4853df9aad3" class=""><strong>Далее переходим и смотрим, что показывает
+					fail2ban:</strong></p>
+			<figure id="131aa64c-9d0a-8180-8340-c0bb6f58c063" class="image"><a
+					href="https://i.imgur.com/1ztsNvR.png"><img src="https://i.imgur.com/1ztsNvR.png" /></a></figure>
+			<p id="131aa64c-9d0a-8172-8bb3-f4710a0783fd" class=""><em>Тут как раз показывает ip-адрес компьютера,
+					который делал многочисленные запросы.</em></p>
+			<p id="131aa64c-9d0a-81ca-8d74-f3410c42779c" class=""><strong>Разблокировать нужный ip-адрес возможно с
+					помощью слудующей команды:</strong></p>
+			<p id="131aa64c-9d0a-816b-aeb7-decf4bafeb7b" class=""><code>fail2ban-client unban [ip-адрес]</code></p>
+			<figure id="131aa64c-9d0a-8132-a7a8-ea58becf9acb" class="image"><a
+					href="https://i.imgur.com/8A8Umev.png"><img src="https://i.imgur.com/8A8Umev.png" /></a></figure>
+			<p id="131aa64c-9d0a-813b-a8df-e609fda165eb" class=""><strong>Теперь, если нам необходимо, что-бы наш фильтр
+					работал не через iptables а ipsec, то нам нужно сделать следующее:</strong></p>
+			<p id="131aa64c-9d0a-811e-847d-d3db3b41a8af" class=""><em>зайти в конфигурационный файл jail.local и в нём
+					закомментировать параметр action.</em></p>
+			<figure id="131aa64c-9d0a-8159-9b39-f3eac148cbe9" class="image"><a
+					href="https://i.imgur.com/pW4GEmG.png"><img src="https://i.imgur.com/pW4GEmG.png" /></a></figure>
+			<p id="131aa64c-9d0a-81e8-8ce3-d1c969f9f1ce" class=""><strong>далее перейдём на нашу страничку и попробуем
+					повторить dos-атаку:</strong></p>
+			<figure id="131aa64c-9d0a-818e-a115-d01273fdf747" class="image"><a
+					href="https://i.imgur.com/RHl6dXH.png"><img src="https://i.imgur.com/RHl6dXH.png" /></a></figure>
+			<p id="131aa64c-9d0a-8161-9e0f-e9716b8b12fa" class=""><strong>после того как мы добились блокировки нашего
+					ip-адреса посмотрим, что же нам скажет ipset:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81bc-a6e7-d184493d0c16"
+				class="code"><code class="language-Bash">ipset -L</code></pre>
+			<figure id="131aa64c-9d0a-8152-afbb-fa80caa69232" class="image"><a
+					href="https://i.imgur.com/UcHjMwU.png"><img src="https://i.imgur.com/UcHjMwU.png" /></a></figure>
+			<p id="131aa64c-9d0a-8196-a393-ed911869adcf" class=""><em>и видим, что нас заблокировал сейчас не iptables а
+					ipset</em></p>
+			<figure id="131aa64c-9d0a-8133-ad01-fc90b61a1dc5" class="image"><a
+					href="https://i.imgur.com/r6RObHv.png"><img src="https://i.imgur.com/r6RObHv.png" /></a></figure>
+			<p id="131aa64c-9d0a-81bf-8cde-ec6d0f7b5652" class=""><strong>fail2ban нам тоже скажет, что ip-адресс
+					заблокирован:</strong></p>
+			<figure id="131aa64c-9d0a-81d5-8376-cb7308393cf4" class="image"><a
+					href="https://i.imgur.com/idgIC5C.png"><img src="https://i.imgur.com/idgIC5C.png" /></a></figure>
+			<h3 id="131aa64c-9d0a-8143-af2d-eb8abb23a874" class=""><strong>3. Т.е. мы в этой практической работе
+					выполнили несколько условий:</strong></h3>
+			<ol type="1" id="131aa64c-9d0a-8148-b64f-f8b4fc3bdc04" class="numbered-list" start="1">
+				<li>Организовали простую-тестовую атаку DOS.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-810b-9676-dd18fb36ec2d" class="numbered-list" start="2">
+				<li>Защитили сервер от DoS/DDoS атак через встроенные возможности nginx.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8171-bc3c-e5b46f2530ca" class="numbered-list" start="3">
+				<li>Защитили сервер от DoS/DDoS атак с помощью fail2ban при помощи iptables в автоматическом режиме.
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-817a-b261-e4d67da07055" class="numbered-list" start="4">
+				<li>Защитили сервер от DoS/DDoS атак с помощью fail2ban при помощи ipset в автоматическом режиме.</li>
+			</ol>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

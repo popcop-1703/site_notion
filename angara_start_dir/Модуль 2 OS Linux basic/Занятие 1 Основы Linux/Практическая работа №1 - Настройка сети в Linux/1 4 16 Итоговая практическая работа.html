@@ -1,0 +1,1087 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>1.4.16 Итоговая практическая работа</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-8111-92a3-fd168fdc0d4d" class="page sans">
+		<header>
+			<div class="page-header-icon undefined"><span class="icon">✅</span></div>
+			<h1 class="page-title">1.4.16 Итоговая практическая работа</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<h2 id="131aa64c-9d0a-81c9-829c-f483e90c3b29" class="">Цель работы:</h2>
+			<p id="131aa64c-9d0a-8127-a994-e8c1d9d3803d" class=""><strong>Итоговая практическая работа, несколько
+					основных целей:</strong></p>
+			<ol type="1" id="131aa64c-9d0a-810a-80cd-da1124e2c5e0" class="numbered-list" start="1">
+				<li><strong>Анализ сервера и сетевого состояния:</strong> основная цель работы - провести анализ сервера
+					и его сетевого состояния для выявления возможных проблем или улучшений. Это включает в себя оценку
+					использования дискового пространства, состояния сетевых интерфейсов, IP-адресов, маршрутов сети,
+					сетевых подключений и т. д.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-812c-95ac-fb82db68d5c8" class="numbered-list" start="2">
+				<li><strong>Управление файлами с использованием шифрования:</strong> шифрование файлов с помощью
+					ecryptfs-utils обеспечивает дополнительный уровень безопасности для конфиденциальной информации. Это
+					особенно важно для хранения отчетов о состоянии сервера и сетевого анализа, которые могут содержать
+					чувствительные данные.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81fe-acf7-c76e28e6cb9d" class="numbered-list" start="3">
+				<li><strong>Документирование и архивирование данных:</strong> создание отчетов, резюме действий и
+					истории команд позволяет вам документировать все выполненные действия, что полезно для отслеживания
+					изменений, поиска проблем и обеспечения безопасности. Архивирование файлов также важно для
+					сохранения их целостности и доступности в случае необходимости.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81fe-9e00-da8d1d2a0d6a" class="numbered-list" start="4">
+				<li><strong>Обучение и практика:</strong> практическая работа позволяет применить знания и навыки,
+					полученные в ходе обучения, на реальных задачах. Это помогает улучшить понимание работы серверов,
+					сетей и управления файлами, а также развить навыки анализа, документирования и решения проблем.</li>
+			</ol>
+			<p id="131aa64c-9d0a-81de-b1e5-f39e322dab3d" class="">Таким образом, выполнение итоговой практической работы
+				позволяет приобрести опыт работы с серверами, сетями, шифрованием и управлением файлами, что важно для
+				дальнейшей карьеры в области информационных технологий.</p>
+			<p id="131aa64c-9d0a-8112-b579-e4e1cfa85423" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-8120-954d-c9e6a5fe4439" class="">Задача:</h2>
+			<ol type="1" id="131aa64c-9d0a-818e-a35d-cacc1c74852c" class="numbered-list" start="1">
+				<li>Перейти в директорию, где будет создан отчет.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-813f-bd71-ff87919b1e26" class="numbered-list" start="2">
+				<li>Просмотреть список всех файлов и директорий в текущей директории.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ba-99e1-e82867afdfd1" class="numbered-list" start="3">
+				<li>Создать новый текстовый файл для отчета.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81db-910c-d9288fd75f86" class="numbered-list" start="4">
+				<li>В текстовом файле записать заголовок отчета.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8121-b16d-ea38bd6fed5b" class="numbered-list" start="5">
+				<li>Получить информацию об использовании дискового пространства с записью в текстовый файл</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8164-bf63-f87cb6217210" class="numbered-list" start="6">
+				<li>Получить информацию о сетевых интерфейсах сервера с записью в текстовый файл</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-815c-ad6d-dc041b2e5d91" class="numbered-list" start="7">
+				<li>Получить информацию о IP-адресах сервера с записью в текстовый файл</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-815b-ad83-dc460def7296" class="numbered-list" start="8">
+				<li>Получить информацию о маршрутах сети на сервере с записью в текстовый файл</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-818b-b979-f3b621ce156f" class="numbered-list" start="9">
+				<li>Получить информацию о сетевых подключениях на сервере с записью в текстовый файл</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8169-9883-f5991418c08f" class="numbered-list" start="10">
+				<li>Получить информацию о сетевых соединениях с использованием hping с записью в текстовый файл</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81f7-a391-f081a10dd8e9" class="numbered-list" start="11">
+				<li>Просмотреть последние строки лога анализа сетевых подключений с записью в текстовый файл</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8144-bb86-e1e26c02f292" class="numbered-list" start="12">
+				<li>Зашифровать отчет с использованием ecryptfs-utils</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ac-85b5-f5d92a718108" class="numbered-list" start="13">
+				<li>Просмотреть содержимое зашифрованной директории</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8188-9fb3-cd457f9856f6" class="numbered-list" start="14">
+				<li>Расшифровать отчет для просмотра</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81c8-b3dd-d81e81dd0617" class="numbered-list" start="15">
+				<li>Просмотреть содержимое расшифрованного отчета</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8139-ba09-c04dd32613e1" class="numbered-list" start="16">
+				<li>Закрыть и сохранить файл с отчетом</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8198-968d-c80a8f69d6eb" class="numbered-list" start="17">
+				<li>Удалить исходный файл с отчетом</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8100-aab1-d4a332464d39" class="numbered-list" start="18">
+				<li>Перейти в директорию с файлами для архивирования</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-819b-b0c3-fad684f25eaf" class="numbered-list" start="19">
+				<li>Создать архив с файлами для зашифровки</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8166-aa2c-ea5e995920c5" class="numbered-list" start="20">
+				<li>Создать зашифрованную директорию для архивированных файлов</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81a4-8df3-e64478ab3946" class="numbered-list" start="21">
+				<li>Переместить архив в зашифрованную директорию</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8178-b867-c569e392fadf" class="numbered-list" start="22">
+				<li>Просмотреть содержимое зашифрованной директории</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-810c-a579-dfcbced66828" class="numbered-list" start="23">
+				<li>Расшифровать архив для доступа к файлам</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8170-b241-d2f04c84dd8f" class="numbered-list" start="24">
+				<li>Разархивировать файлы из зашифрованного архива</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8101-a5e3-e1799bc412f9" class="numbered-list" start="25">
+				<li>Просмотреть содержимое расшифрованных файлов</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-815f-b2d5-fb82f5151f1f" class="numbered-list" start="26">
+				<li>Удалить исходный архив</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8170-bfcc-d3c967250e80" class="numbered-list" start="27">
+				<li>Выйти из директории с архивированными файлами</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ea-af4a-c3ec17e5fda9" class="numbered-list" start="28">
+				<li>Перейти в директорию для создания отчета о сетевом анализе</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81b8-8b0a-cf44dc90ff08" class="numbered-list" start="29">
+				<li>Просмотреть список всех файлов и директорий в текущей директории</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81b8-858a-ea9b2e3ce7d2" class="numbered-list" start="30">
+				<li>Создать новый текстовый файл для отчета о сетевом анализе</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81a1-8566-d145ec8665a3" class="numbered-list" start="31">
+				<li>В текстовом файле записать заголовок отчета с записью в текстовый файл</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8192-a518-f23388e198d4" class="numbered-list" start="32">
+				<li>Получить информацию о сетевых интерфейсах сервера с записью в текстовый файл</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81f4-9c2c-e13a3c0ba0ff" class="numbered-list" start="33">
+				<li>Получить информацию о IP-адресах сервера с записью в текстовый файл</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81c8-a16a-fc90fa8a5189" class="numbered-list" start="34">
+				<li>Получить информацию о маршрутах сети на сервере с записью в текстовый файл</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ba-aec9-f9b7ba072660" class="numbered-list" start="35">
+				<li>Получить информацию о сетевых подключениях на сервере с записью в текстовый файл</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8125-9855-dde72353afb0" class="numbered-list" start="36">
+				<li>Получить информацию о сетевых соединениях с использованием hping с записью в текстовый файл</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8146-8998-cdfede4c205a" class="numbered-list" start="37">
+				<li>Просмотреть последние строки лога анализа сетевых подключений с записью в текстовый файл</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81e3-98ea-d8240d0db462" class="numbered-list" start="38">
+				<li>Сохранить и закрыть файл с отчетом о сетевом анализе</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81dd-ba00-c4f0fd57d3ab" class="numbered-list" start="39">
+				<li>Зашифровать отчет о сетевом анализе с использованием ecryptfs-utils.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81f2-aef6-cf5f13b92861" class="numbered-list" start="40">
+				<li>Просмотреть содержимое зашифрованной директории с отчетом о сетевом анализе</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-819e-b7b4-fe405f436e25" class="numbered-list" start="41">
+				<li>Расшифровать отчет о сетевом анализе для просмотра</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-813b-9ca3-da5fca8a4f6d" class="numbered-list" start="42">
+				<li>Просмотреть содержимое расшифрованного отчета о сетевом анализе</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8154-8348-ebe157017221" class="numbered-list" start="43">
+				<li>Закрыть и сохранить файл с отчетом о сетевом анализе</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ee-81a8-cfbb6e4120a9" class="numbered-list" start="44">
+				<li>Удалить исходный файл с отчетом о сетевом анализе</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8107-bc53-e68a8da93b3c" class="numbered-list" start="45">
+				<li>Перейти в директорию с файлами для резервного копирования</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-815c-9b9a-dd60065f1590" class="numbered-list" start="46">
+				<li>Создать архив с файлами для резервного копирования</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-813c-84bf-fd03da25c62d" class="numbered-list" start="47">
+				<li>Переместить архив с резервными файлами в директорию для архивированных данных</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8129-a9be-d1611d0de98c" class="numbered-list" start="48">
+				<li>Просмотреть содержимое директории с архивированными файлами</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81a1-b8a1-d32b1e8ff1d9" class="numbered-list" start="49">
+				<li>Создать новую директорию для распаковки резервных файлов</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8164-8c7d-ec0c81b4190a" class="numbered-list" start="50">
+				<li>Переместить архив с резервными файлами в созданную директорию для распаковки</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ee-9b01-d90836c43951" class="numbered-list" start="51">
+				<li>Распаковать архив с резервными файлами</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-816b-b31e-c40354a4b3fe" class="numbered-list" start="52">
+				<li>Просмотреть содержимое директории с распакованными резервными файлами</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8117-ba0b-ef1e00f3bc30" class="numbered-list" start="53">
+				<li>Удалить архив с распакованными резервными файлами</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8165-90b2-dec89d775878" class="numbered-list" start="54">
+				<li>Удалить директорию с архивированными резервными файлами</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8116-a935-e49646cf4a57" class="numbered-list" start="55">
+				<li>Просмотреть содержимое директории с распакованными резервными файлами</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81bf-99cd-d2a5c3950eb7" class="numbered-list" start="56">
+				<li>Переместить распакованные резервные файлы в основную директорию</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-817f-9d95-e90ff7b1982f" class="numbered-list" start="57">
+				<li>Удалить пустую директорию с распакованными резервными файлами</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8112-aa9e-df4957c24798" class="numbered-list" start="58">
+				<li>Создать новый текстовый файл для резюме действий</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8141-8804-ef8bcd6d82bf" class="numbered-list" start="59">
+				<li>Записать в файл резюме всех выполненных действий</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81a5-9de7-e0b7a34c015b" class="numbered-list" start="60">
+				<li>Сохранить файл с резюме действий и закрыть его</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8115-919b-f5dbdab78518" class="numbered-list" start="61">
+				<li>Создать копию системного лог-файла в директории пользователя для дальнейшего анализа</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81e8-98df-e399cae49805" class="numbered-list" start="62">
+				<li>Просмотреть список файлов в домашней директории</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-818d-9197-c2524a00862b" class="numbered-list" start="63">
+				<li>Просмотреть последние строки скопированного лог-файла для анализа</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8119-aa09-f318826e386d" class="numbered-list" start="64">
+				<li>Удалить копию системного лог-файла из домашней директории пользователя</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ce-9573-c9086cb19c02" class="numbered-list" start="65">
+				<li>Создать новый текстовый файл для хранения истории выполненных команд</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81b5-8115-e671799cccef" class="numbered-list" start="66">
+				<li>Записать в файл историю выполненных команд</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ca-bd6d-f0a125632fd6" class="numbered-list" start="67">
+				<li>Просмотреть последние выполненные команды</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8113-a31e-de21d360565d" class="numbered-list" start="68">
+				<li>Сохранить файл с историей команд и закрыть его</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-816c-9ec4-cff190c5b3a8" class="numbered-list" start="69">
+				<li>Получить информацию о доступных командах с помощью встроенной справки</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-817e-992d-cbbcbb8b867e" class="numbered-list" start="70">
+				<li>Получить информацию о доступных командах с помощью руководства пользователя</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8185-a78e-ddee8ddc7dd7" class="numbered-list" start="71">
+				<li>Добавить файл с историей команд в отчёт.</li>
+			</ol>
+			<p id="131aa64c-9d0a-81d7-86f8-de8c28d75466" class="">
+			</p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

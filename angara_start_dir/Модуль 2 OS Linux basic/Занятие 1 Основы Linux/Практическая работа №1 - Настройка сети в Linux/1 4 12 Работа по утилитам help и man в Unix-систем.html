@@ -2,7 +2,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Обучение Angara-Start</title>
+	<title>1.4.12 Работа по утилитам help и man в Unix-системах: изучение документации и помощи в решении задач</title>
 	<style>
 		/* cspell:disable-file */
 		/* webkit printing magic: print all background colors */
@@ -643,7 +643,7 @@
 		}
 
 		.highlight-yellow_background {
-			background: rgba(251, 237, 214, 1);
+			background: rgba(251, 243, 219, 1);
 		}
 
 		.highlight-teal_background {
@@ -734,7 +734,7 @@
 		}
 
 		.block-color-yellow_background {
-			background: rgba(251, 237, 214, 1);
+			background: rgba(251, 243, 219, 1);
 		}
 
 		.block-color-teal_background {
@@ -798,7 +798,7 @@
 		}
 
 		.select-value-color-yellow {
-			background-color: rgba(249, 228, 188, 1);
+			background-color: rgba(253, 236, 200, 1);
 		}
 
 		.select-value-color-blue {
@@ -813,54 +813,166 @@
 			background-color: undefined;
 		}
 
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
 	</style>
 </head>
 
 <body>
-	<article id="e9238063-77fc-4eb1-b379-81e4c909e734" class="page sans">
-		<header><img class="page-cover-image"
-				src="angara_start_dir/angara2.jpg"
-				style="object-position:center 41.779999999999994%" />
-			<div class="page-header-icon page-header-icon-with-cover"><span class="icon">💁</span></div>
-			<h1 class="page-title">Обучение Angara-Start</h1>
+	<article id="131aa64c-9d0a-8188-b584-ebd9dcc3d440" class="page sans">
+		<header>
+			<div class="page-header-icon undefined"><img class="icon"
+					src="https://www.notion.so/icons/directional-sign_orange.svg" /></div>
+			<h1 class="page-title">1.4.12 <strong>Работа по утилитам </strong><code><strong>help</strong></code><strong>
+					и </strong><code><strong>man</strong></code><strong> в Unix-системах: изучение документации и помощи
+					в решении задач</strong></h1>
 			<p class="page-description"></p>
 		</header>
 		<div class="page-body">
-			<h1 id="5c5d6141-6a62-41de-94fe-22a0f224013a" class="">1й этап: Базовое обучение</h1>
-			<p id="27aeb774-bbec-4bfc-aa1e-8c2b9d409b08" class="">
+			<p id="131aa64c-9d0a-818b-955e-d1da71a73de1" class="">
 			</p>
-			<figure id="4de7a3f6-7056-4782-9eb2-f200e4627b64" class="link-to-page"><a
-					href="angara_start_dir/sys_req.html"><span
-						class="icon">💻</span>Системные требования</a></figure>
-			<p id="e759a26e-36cd-4188-a10d-7b908c39c898" class="">
+			<h3 id="131aa64c-9d0a-81bc-b72e-ec5f9cd949f3" class=""><strong>Цель работы:</strong> </h3>
+			<p id="131aa64c-9d0a-8101-997b-cb076fb7c2da" class="">Изучение и практика использования утилит
+				<code><strong>help</strong></code> и <code><strong>man</strong></code> для получения справочной
+				информации о командах и утилитах Unix-систем в сценариях с двумя Ubuntu-машинами (один клиент и один
+				сервер) и различными задачами.</p>
+			<p id="131aa64c-9d0a-8176-81d9-f5daac60c955" class="">
 			</p>
-			<figure id="a0115771-3f32-4dfe-affe-89036ed5189b" class="link-to-page"><a
-					href="angara_start_dir/Вводное занятие.html"><img
-						class="icon" src="https://www.notion.so/icons/feed_gray.svg" />Вводное занятие</a></figure>
-			<p id="2d1f3315-1264-470b-b9a8-f5057efb6fde" class="">
+			<h3 id="131aa64c-9d0a-8193-a8ba-f7b0952cd104" class=""><strong>Необходимое оборудование и программное
+					обеспечение:</strong></h3>
+			<ol type="1" id="131aa64c-9d0a-815b-85e5-c4016e207873" class="numbered-list" start="1">
+				<li>Две физические или виртуальные машины с установленной Ubuntu (клиент и сервер).</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-812c-a098-ec8b22e48b47" class="numbered-list" start="2">
+				<li>Доступ к сети для обеих машин.</li>
+			</ol>
+			<p id="131aa64c-9d0a-8159-aeb9-fa4ae6c30e6a" class="">
 			</p>
-			<figure id="5c0114fe-9146-4515-8e36-ed7c0efd0f85" class="link-to-page"><a
-					href="angara_start_dir/Модуль 1 OS Windows security basic.html"><img
-						class="icon"
-						src="angara_start_dir/Модуль 1 OS Windows security basic/Windows_logo_-_2012.svg.png" />Модуль
-					1. OS Windows security basic</a></figure>
-			<figure id="17800a46-81a0-4d96-8730-76b5079410f6" class="link-to-page"><a
-					href="angara_start_dir/Модуль 2 OS Linux basic.html"><img
-						class="icon"
-						src="angara_start_dir/Модуль 2 OS Linux basic/kali.jpg" />Модуль
-					2. OS Linux security basic</a></figure>
-			<figure id="2c4c3f46-33d9-4402-9c12-a8987c0b5323" class="link-to-page"><a
-					href="angara_start_dir/Модуль 3 Networks security basic.html"><img
-						class="icon"
-						src="angara_start_dir/Модуль 3 Networks security basic/network.png" />Модуль
-					3. Networks security basic</a></figure>
-			<figure id="c870a6ea-b5b9-4db4-8336-a171ff260dd9" class="link-to-page"><a
-					href="angara_start_dir/Модуль 4 WEB basic.html"><img
-						class="icon"
-						src="angara_start_dir/Модуль 4 WEB basic/web.png" />Модуль
-					4. WEB security basic</a></figure>
-			<p id="345d3f7d-545a-4f62-9abd-53c201b814ba" class="">
+			<h3 id="131aa64c-9d0a-81da-b41d-f1500fc3aa01" class=""><strong>Сценарии задач для практической
+					работы:</strong></h3>
+			<ol type="1" id="131aa64c-9d0a-81f7-831e-efdc1622312a" class="numbered-list" start="1">
+				<li><strong>Настройка сети:</strong> Клиент и сервер имеют сетевые проблемы, и им нужно устранить
+					проблемы с сетью.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81cd-968c-eae5c10a9b81" class="numbered-list" start="2">
+				<li><strong>Управление пользователями и правами доступа:</strong> Необходимо создать нового пользователя
+					и настроить права доступа к определенным файлам и директориям.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81f8-b377-cb94df6e446e" class="numbered-list" start="3">
+				<li><strong>Работа с архивами:</strong> Требуется архивировать и извлечь файлы и директории.</li>
+			</ol>
+			<p id="131aa64c-9d0a-8141-8116-d177fed53d42" class="">
 			</p>
+			<h3 id="131aa64c-9d0a-8112-b331-eb4da5a07ee6" class=""><strong>Шаги практической работы:</strong></h3>
+			<p id="131aa64c-9d0a-814d-84e9-dd8a91790a4d" class=""><strong>1. Установка Ubuntu</strong></p>
+			<ul id="131aa64c-9d0a-815d-ba53-e78b1caf43c5" class="bulleted-list">
+				<li style="list-style-type:disc">Убедитесь, что у вас есть две машины с установленной Ubuntu.</li>
+			</ul>
+			<p id="131aa64c-9d0a-811a-aed1-c4e0b285db4d" class=""><strong>2. Подготовка сетевой конфигурации</strong>
+			</p>
+			<ul id="131aa64c-9d0a-819f-b0cc-fc35f4a4df45" class="bulleted-list">
+				<li style="list-style-type:disc">Настройте статические IP-адреса на обеих машинах в одной подсети.
+					Убедитесь, что обе машины могут свободно обмениваться пакетами.</li>
+			</ul>
+			<p id="131aa64c-9d0a-8105-948e-cd6bb95e3972" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-816a-978c-caa8966b2cf4" class=""><strong>1 сценарий: </strong><mark
+					class="highlight-red"><strong>Настройка сети</strong></mark></h2>
+			<figure class="block-color-gray_background callout" style=" display:flex"
+				id="131aa64c-9d0a-81e1-958e-df23efb55991">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%"><mark class="highlight-red"><strong>Предположим, что клиент не может установить
+							связь с сервером. В этом случае выполните следующие действия:</strong></mark></div>
+			</figure>
+			<p id="131aa64c-9d0a-8191-8f47-e4c178d5a81f" class=""><strong>1.1</strong> Запустите
+				<code><strong>help</strong></code> или <code><strong>man</strong></code> для команды
+				<code><strong>ping</strong></code>, чтобы узнать, как проверить доступность сервера:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81e0-af9a-ec3441413352"
+				class="code"><code class="language-JavaScript">help ping</code></pre>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-818e-8992-e9a64ef6048c"
+				class="code"><code class="language-JavaScript">man ping</code></pre>
+			<p id="131aa64c-9d0a-817e-b9d8-e5f7ae74bc7a" class=""><strong>1.2</strong> Анализируйте вывод
+				<code><strong>ping</strong></code>, чтобы определить, существуют ли проблемы с сетью, такие как потеря
+				пакетов или недоступность сервера.</p>
+			<p id="131aa64c-9d0a-815a-9db8-dffda9b97637" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-81ca-99ce-f9212c38d063" class=""><strong>2 сценарий: </strong><mark
+					class="highlight-red"><strong>Управление пользователями и правами доступа</strong></mark></h2>
+			<figure class="block-color-gray_background callout" style=" display:flex"
+				id="131aa64c-9d0a-8190-86aa-e7c9621c3efb">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%"><mark class="highlight-red"><strong>Предположим, что вам нужно создать нового
+							пользователя на сервере и настроить права доступа к определенной директории. В этом случае
+							выполните следующие действия:</strong></mark></div>
+			</figure>
+			<p id="131aa64c-9d0a-8134-85b0-d83a703e36f5" class=""><strong>2.1</strong> Запустите
+				<code><strong>help</strong></code> или <code><strong>man</strong></code> для команды
+				<code><strong>useradd</strong></code>, чтобы узнать, как создать нового пользователя.</p>
+			<p id="131aa64c-9d0a-812f-8c8d-ced9a701131c" class=""><strong>2.2</strong> Создайте нового пользователя.</p>
+			<p id="131aa64c-9d0a-8174-acf9-d72e2b76461b" class=""><strong>2.3</strong> Затем, используйте
+				<code><strong>help</strong></code> или <code><strong>man</strong></code> для команды
+				<code><strong>chmod</strong></code>, чтобы узнать, как изменить права доступа к директории.</p>
+			<p id="131aa64c-9d0a-812c-9465-ec834998fc5d" class=""><strong>2.4</strong> Измените права доступа к
+				директории (замените <code><strong>[путь к директории]</strong></code>).</p>
+			<p id="131aa64c-9d0a-8179-98da-d2cfeb95dcd8" class="">
+			</p>
+			<h2 id="131aa64c-9d0a-8163-9276-e43585f468b2" class=""><strong>3 сценарий: </strong><mark
+					class="highlight-red"><strong>Работа с архивами</strong></mark></h2>
+			<figure class="block-color-gray_background callout" style=" display:flex"
+				id="131aa64c-9d0a-819b-96d8-d57f2552d936">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%">Предположим, что вам необходимо архивировать некоторые файлы и директории на
+					сервере. В этом случае выполните следующие действия:<ul id="131aa64c-9d0a-818d-b1ce-c83031a145da"
+						class="bulleted-list">
+						<li style="list-style-type:disc">Запустите <code><strong>help</strong></code> или
+							<code><strong>man</strong></code> для команды <code><strong>tar</strong></code>, чтобы
+							узнать, как создать архив.</li>
+					</ul>
+				</div>
+			</figure>
+			<p id="131aa64c-9d0a-81c7-9d62-c08285dfd16a" class=""><strong>3.1</strong> Создайте архив с помощью команды
+				<code><strong>tar</strong></code></p>
+			<p id="131aa64c-9d0a-8138-bd5d-fd7ea345a103" class=""><strong>3.2</strong> Затем, используйте
+				<code><strong>help</strong></code> или <code><strong>man</strong></code> для команды
+				<code><strong>tar</strong></code>, чтобы узнать, как извлечь файлы из архива</p>
+			<p id="131aa64c-9d0a-81af-951b-c627dda1bd9d" class=""><strong>3.3</strong> Извлеките файлы из архива</p>
+			<p id="131aa64c-9d0a-815c-8f6e-e351c113610f" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-812a-8d80-d0a290f5fd0f" class="">4. <strong>Создание отчета и рекомендаций</strong>
+			</h3>
+			<p id="131aa64c-9d0a-81c7-8a2a-c4a09a9dc8c5" class=""><strong>4.1</strong> Создайте отчет, описывающий
+				задачи, выполненные шаги и полученные результаты с использованием утилит
+				<code><strong>help</strong></code> и <code><strong>man</strong></code>. Нужные данные в отчете должны
+				быть выделены красным цветом. Дайте рекомендации по решению задач и улучшению навыков использования
+				справочной информации.</p>
+			<h3 id="131aa64c-9d0a-811f-9933-fa07ac5a585a" class=""><strong>5. Выводы и дальнейшие шаги</strong></h3>
+			<p id="131aa64c-9d0a-8187-beb3-d3e001811c9d" class=""><strong>5.1</strong> Сделайте выводы о том, как
+				утилиты <code><strong>help</strong></code> и <code><strong>man</strong></code> могут быть полезными при
+				решении задач на Unix-системах. Рассмотрите дополнительные сценарии, где эти утилиты могут быть
+				полезными для администрирования и настройки серверов. Включите сценарии в отчёт.</p>
+			<h3 id="131aa64c-9d0a-81da-8158-ee8525cbb83c" class=""><strong>6. Практическое Применение</strong></h3>
+			<p id="131aa64c-9d0a-8139-a85d-c6731f49041a" class=""><strong>6.1</strong> Приведите примеры, какие другие
+				задачи могут возникнуть в реальной инфраструктуре, где утилиты <code><strong>help</strong></code> и
+				<code><strong>man</strong></code> могут быть применены для решения проблем и настройки серверов.</p>
 		</div>
 	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
 </body>

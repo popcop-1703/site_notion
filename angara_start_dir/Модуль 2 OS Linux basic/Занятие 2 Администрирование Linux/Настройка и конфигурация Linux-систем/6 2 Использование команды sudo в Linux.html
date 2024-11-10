@@ -1,0 +1,1670 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>6.2. Использование команды sudo в Linux</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-81f8-8423-f964b1cbb2e4" class="page sans">
+		<header><img class="page-cover-image"
+				src="https://images.unsplash.com/photo-1629654297299-c8506221ca97?ixlib=rb-4.0.3&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb"
+				style="object-position:center 50%" />
+			<div class="page-header-icon page-header-icon-with-cover"><img class="icon"
+					src="https://www.notion.so/icons/command-line_red.svg" /></div>
+			<h1 class="page-title">6.2. Использование команды sudo в Linux</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<h1 id="131aa64c-9d0a-81f9-830e-f4afbc0905c1" class="">Содержание:</h1>
+			<nav id="131aa64c-9d0a-8195-8928-c4fce5d2a8b7" class="block-color-gray table_of_contents">
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81f9-830e-f4afbc0905c1">Содержание:</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-810d-8819-c3ec65e69b4d">Цель работы:</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81de-8eee-c50028cbd065">Задача, выполните все пункты:</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8162-9d24-cfe0b02ff99c">Методические указания</a></div>
+			</nav>
+			<p id="131aa64c-9d0a-811f-85a3-e638477c36a4" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-810d-8819-c3ec65e69b4d" class="">Цель работы:</h3>
+			<ol type="1" id="131aa64c-9d0a-810f-8b42-c7ddf915551a" class="numbered-list" start="1">
+				<li><strong>Изучение документации:</strong>
+					<ul id="131aa64c-9d0a-81ca-a5a3-fe3b32461323" class="bulleted-list">
+						<li style="list-style-type:disc">Изучите официальную документацию по команде
+							<code><strong>sudo</strong></code>, обратив внимание на синтаксис команды и доступные опции.
+						</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8198-9228-f48118dfa635" class="bulleted-list">
+						<li style="list-style-type:disc">Ознакомьтесь с различными примерами использования
+							<code><strong>sudo</strong></code>.</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8176-9f6c-f6e9d35603ef" class="numbered-list" start="2">
+				<li><strong>Понимание принципов работы:</strong>
+					<ul id="131aa64c-9d0a-811d-9604-c884bcb66e92" class="bulleted-list">
+						<li style="list-style-type:disc">Проведите исследование о том, как работает механизм привилегий
+							в Linux и как <code><strong>sudo</strong></code> взаимодействует с ним.</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8170-bdc5-f823453ab5fb" class="numbered-list" start="3">
+				<li><strong>Изучение команды </strong><code><strong>sudo</strong></code><strong> и файла
+					</strong><code><strong>sudoers</strong></code>
+					<ul id="131aa64c-9d0a-81e7-ac5d-df8a13c980f9" class="bulleted-list">
+						<li style="list-style-type:disc">Ознакомьтесь с основными возможностями команды
+							<code><strong>sudo</strong></code> и её синтаксисом.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8171-bea0-d24b1f3ec1a3" class="bulleted-list">
+						<li style="list-style-type:disc">Изучите файл конфигурации <code><strong>sudoers</strong></code>
+							(<code><strong>/etc/sudoers</strong></code>) и его структуру.</li>
+					</ul>
+				</li>
+			</ol>
+			<p id="131aa64c-9d0a-8149-858e-f0c5931309d1" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-81de-8eee-c50028cbd065" class="">Задача, выполните все пункты:</h3>
+			<p id="131aa64c-9d0a-810f-bb78-cb59a3ee71f1" class=""><strong>6.2.1 Взаимодействие с sudo:</strong>
+			<div class="indented">
+				<ul id="131aa64c-9d0a-8126-b3d7-efba2e4e5f24" class="bulleted-list">
+					<li style="list-style-type:disc">Создать нового пользователя.</li>
+				</ul>
+				<ul id="131aa64c-9d0a-81d2-8c74-c76d88f0fc86" class="bulleted-list">
+					<li style="list-style-type:disc">Удалить пользователя.</li>
+				</ul>
+				<ul id="131aa64c-9d0a-81a5-aa39-d518d9d0a86a" class="bulleted-list">
+					<li style="list-style-type:disc">Изменить пароль пользователя.</li>
+				</ul>
+				<ul id="131aa64c-9d0a-8176-8425-e6b894d09c9c" class="bulleted-list">
+					<li style="list-style-type:disc">Создать новую группу.</li>
+				</ul>
+				<ul id="131aa64c-9d0a-816a-bf78-dadaf7935b50" class="bulleted-list">
+					<li style="list-style-type:disc">Удалить группу.</li>
+				</ul>
+				<ul id="131aa64c-9d0a-8196-b037-d7bb0d70e267" class="bulleted-list">
+					<li style="list-style-type:disc">Изменить параметры конфигурационного файла.</li>
+				</ul>
+				<ul id="131aa64c-9d0a-81d0-b1dc-c1444a9f9bc4" class="bulleted-list">
+					<li style="list-style-type:disc">Управлять службами: запустить, остановить, перезапустить.</li>
+				</ul>
+				<ul id="131aa64c-9d0a-81fc-bf5b-e5076379c723" class="bulleted-list">
+					<li style="list-style-type:disc">Установить новое программное обеспечение.</li>
+				</ul>
+				<ul id="131aa64c-9d0a-81be-88c5-e5013c134d8f" class="bulleted-list">
+					<li style="list-style-type:disc">Удалить программное обеспечение.</li>
+				</ul>
+				<ul id="131aa64c-9d0a-8139-b281-ec6e6e84efde" class="bulleted-list">
+					<li style="list-style-type:disc">Обновить список пакетов.</li>
+				</ul>
+				<ul id="131aa64c-9d0a-8157-92f3-fdcbd95b7439" class="bulleted-list">
+					<li style="list-style-type:disc">Изменить сетевые настройки.</li>
+				</ul>
+				<ul id="131aa64c-9d0a-8112-b6fb-c700c2996e48" class="bulleted-list">
+					<li style="list-style-type:disc">Просмотреть информацию о сетевых интерфейсах.</li>
+				</ul>
+				<ul id="131aa64c-9d0a-816b-9e67-e29256227d84" class="bulleted-list">
+					<li style="list-style-type:disc">Монтировать файловую систему.</li>
+				</ul>
+				<ul id="131aa64c-9d0a-8157-8314-d3110f250a83" class="bulleted-list">
+					<li style="list-style-type:disc">Размонтировать файловую систему.</li>
+				</ul>
+				<ul id="131aa64c-9d0a-811f-94ad-cc0efb913e27" class="bulleted-list">
+					<li style="list-style-type:disc">Просмотреть содержимое системных журналов.</li>
+				</ul>
+				<ul id="131aa64c-9d0a-817d-83b9-f25d3eeeef04" class="bulleted-list">
+					<li style="list-style-type:disc">Создать резервную копию конфигурационных файлов.</li>
+				</ul>
+				<ul id="131aa64c-9d0a-813e-9033-ee30eb7bbe48" class="bulleted-list">
+					<li style="list-style-type:disc">Очистить временные файлы и кэш.</li>
+				</ul>
+				<ul id="131aa64c-9d0a-81e8-bd2a-fd5c34d11b05" class="bulleted-list">
+					<li style="list-style-type:disc">Управлять правами доступа к файлам и каталогам.</li>
+				</ul>
+				<ul id="131aa64c-9d0a-810a-8564-c7506ccb43c3" class="bulleted-list">
+					<li style="list-style-type:disc">Запустить скрипт для автоматизации задач (любой скрипт, главное,
+						чтобы он взаимодействовал с <code>etc/sudoers</code>).</li>
+				</ul>
+				<ul id="131aa64c-9d0a-817f-a625-de4b95b34c4e" class="bulleted-list">
+					<li style="list-style-type:disc">Просмотреть информацию о системе и ресурсах.</li>
+				</ul>
+			</div>
+			</p>
+			<p id="131aa64c-9d0a-8129-b887-c53ef2823e92" class=""><strong>6.2.2 Взаимодействие c конфигурационным файлом
+					sudoers, </strong>опции <code><strong>Defaults</strong></code><strong>.</strong>
+			<div class="indented">
+				<ul id="131aa64c-9d0a-81a8-9c30-c8fbe820a74d" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Настройка времени ожидания ввода пароля </strong>-
+						Установите время ожидания ввода пароля для команд <code>sudo</code> на 5 минут.</li>
+				</ul>
+				<ul id="131aa64c-9d0a-81cb-ac92-e7648819ed9f" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Использование файла сообщений</strong> - укажите путь к
+						файлу, содержащему сообщение, которое будет показано пользователю перед выполнением команды
+						<code>sudo</code>.</li>
+				</ul>
+				<ul id="131aa64c-9d0a-8183-b40c-dc5376c25826" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Отключение запроса пароля</strong> - отключите запрос
+						пароля при выполнении команды <code>sudo</code>.</li>
+				</ul>
+				<ul id="131aa64c-9d0a-81a2-bb3f-d52e56bc8867" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Использование окружения по умолчанию</strong> - верните
+						окружение к значению по умолчанию перед выполнением команды <code>sudo</code>.</li>
+				</ul>
+				<ul id="131aa64c-9d0a-81af-bfd6-e8c560d82125" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Использование переменных окружения</strong> - сохраните
+						переменную окружения <code>EDITOR</code> при выполнении команды <code>sudo</code>.</li>
+				</ul>
+				<ul id="131aa64c-9d0a-81b7-a2e7-e01e3cd00f47" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Запись логов</strong> - укажите путь к файлу журнала для
+						записи действий, выполненных с помощью <code>sudo</code>.</li>
+				</ul>
+				<ul id="131aa64c-9d0a-813b-8139-e8d34f6c1a37" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Запрос комментария</strong> - всегда запрашивайте
+						комментарий при выполнении команды <code>sudo</code>.</li>
+				</ul>
+				<ul id="131aa64c-9d0a-81ac-96c2-e3f5923a7dcc" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Использование команды</strong>
+						<code><strong>passwd</strong></code> - установите количество попыток для изменения пароля с
+						помощью команды <code>passwd</code> через <code>sudo</code>.</li>
+				</ul>
+			</div>
+			</p>
+			<p id="131aa64c-9d0a-81e4-a9de-cc8c2d6028d8" class=""><strong>6.2.3 Взаимодействие c конфигурационным файлом
+					sudoers, комбинированные правила.</strong>
+			<div class="indented">
+				<ul id="131aa64c-9d0a-8119-9367-df1bfd411df0" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Установка времени ожидания ввода пароля для конкретного
+							пользователя - </strong>Установите время ожидания ввода пароля для пользователя
+						<code><strong>user1</strong></code> на 10 минут.</li>
+				</ul>
+				<ul id="131aa64c-9d0a-8115-8a0c-e3d33d0ec498" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Отключение запроса пароля для конкретной команды для
+							определенной группы пользователей - </strong>разрешите пользователям из группы _______
+						выполнять команду Docker без запроса пароля.</li>
+				</ul>
+				<ul id="131aa64c-9d0a-813e-adc2-ed6d18f027af" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Использование файла сообщений и запрос комментария перед
+							выполнением команды для конкретного пользователя - </strong>покажите пользователю
+						<code><strong>user2</strong></code> сообщение перед выполнением команды
+						<code><strong>sudo</strong></code> и запросите комментарий.</li>
+				</ul>
+				<ul id="131aa64c-9d0a-81ff-93ad-f8230c3ef5fc" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Ограничение доступа к командам в определенном каталоге для
+							всех пользователей - </strong>установите список каталогов, в которых пользователи могут
+						выполнять команды <code><strong>sudo</strong></code>.</li>
+				</ul>
+				<ul id="131aa64c-9d0a-81df-a40b-d35e28e8e7ec" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Использование переменных окружения и сохранение переменных
+							окружения для определенного пользователя - </strong>сохраните переменную окружения
+						<code><strong>PATH</strong></code> для пользователя <code><strong>user3</strong></code> при
+						выполнении команды <code><strong>sudo</strong></code>.</li>
+				</ul>
+				<ul id="131aa64c-9d0a-8104-940a-ecfc67af4105" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Отключение запроса пароля и использование окружения по
+							умолчанию для определенной группы пользователей - </strong>отключите запрос пароля и
+						сбросьте окружение для пользователей в группе <code><strong>admins</strong></code>.</li>
+				</ul>
+				<ul id="131aa64c-9d0a-8111-a498-d99ad1248791" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Запись логов и ограничение доступа к командам по времени
+							для всех пользователей - </strong>включите запись логов и установите время ожидания ввода
+						пароля на 5 минут для всех пользователей.</li>
+				</ul>
+				<ul id="131aa64c-9d0a-8132-9742-e40f164fed94" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Комбинирование правил для разных пользователей и групп
+							пользователей - у</strong>становите время ожидания ввода пароля для пользователя
+						<code><strong>user4</strong></code> на 10 минут и разрешите пользователям из группы
+						<code><strong>admin</strong></code> выполнять команду <code><strong>reboot</strong></code> без
+						запроса пароля.</li>
+				</ul>
+				<ul id="131aa64c-9d0a-818e-bc32-ce80f82d1d31" class="bulleted-list">
+					<li style="list-style-type:disc"><strong>Комбинирование ограничений доступа - </strong>разрешите
+						пользователю <code><strong>user4</strong></code> выполнение команды
+						<code><strong>reboot</strong></code> только с определенного хоста и без запроса
+						пароля.<br /><br /><br /><br /></li>
+				</ul>
+			</div>
+			</p>
+			<details open="">
+				<summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Методические указания
+				</summary>
+				<div class="indented">
+					<h1 id="131aa64c-9d0a-8172-918f-ed209a0d24b3" class="">1. Команда sudo</h1>
+					<figure class="block-color-blue_background callout" style=" display:flex"
+						id="131aa64c-9d0a-8140-8b11-f061ad7e4078">
+						<div style="font-size:1.5em"><span class="icon">ℹ️</span></div>
+						<div style="width:100%"><strong>Команда sudo </strong>(substitute user and do, подменить
+							пользователя и выполнить) позволяет строго определенным пользователям выполнять указанные
+							программы с административными привилегиями без ввода пароля суперпользователя
+							root.<br /><br />Если быть точнее, то команда sudo позволяет выполнять программы от имени
+							любого пользователя, но, если идентификатор или имя этого пользователя не указаны, то
+							предполагается выполнение от имени суперпользователя root. <br /></div>
+					</figure>
+					<p id="131aa64c-9d0a-81fc-a996-e291022fac49" class="">Таким образом, использование sudo позволяет
+						выполнять привилегированные команды обычным пользователям без необходимости ввода пароля
+						суперпользователя root. Список пользователей и перечень их прав по отношению к ресурсам системы
+						может быть настроен оптимальным образом для обеспечения комфортной и безопасной работы.
+						<br />Например, команда sudo в Ubuntu Linux, используется в режиме, позволяющем выполнять любые
+						задачи администрирования системы без интерактивного входа под учетной записью root.<br /></p>
+					<p id="131aa64c-9d0a-8117-ab83-cf4b5c6d29fe" class="">Настройки sudo довольно несложные, и тем не
+						менее, позволяют реализовать гибкую систему распределения полномочий отдельных пользователей в
+						многопользовательской среде.</p>
+					<p id="131aa64c-9d0a-81f5-87a9-e1eea6300584" class=""><strong>Командная строка sudo может быть
+							использована в следующих форматах:</strong></p>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-814a-8bba-ea3c2eb24735" class="code"><code class="language-Bash">sudo -h | -K | -k | -V
+
+sudo -v [-AknS] [-g group] [-h host] [-p prompt] [-u user]
+
+sudo -l [-AknS] [-g group] [-h host] [-p prompt] [-U user] [-u user] [command]
+
+sudo [-AbEHknPS] [-C num] [-g group] [-h host] [-p prompt] [-u user] [VAR=value] [-i|-s] []
+
+sudo -e [-AknS] [-C num] [-g group] [-h host] [-p prompt] [-u user] file</code></pre>
+					<h1 id="131aa64c-9d0a-8195-9a9f-f1af9e4044a1" class="">2. Параметры командной строки</h1>
+					<ul id="131aa64c-9d0a-8192-afd0-c72b0b540eb4" class="bulleted-list">
+						<li style="list-style-type:disc"><code>A, --askpass</code> - использовать вспомогательную
+							программу для ввода пароля</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81ff-8d0c-df46c70b7343" class="bulleted-list">
+						<li style="list-style-type:disc"><code>b, --background</code> - выполнить команду в фоновом
+							режиме</li>
+					</ul>
+					<ul id="131aa64c-9d0a-810c-945e-c5850c653005" class="bulleted-list">
+						<li style="list-style-type:disc"><code>C, --close-from=num</code> - закрыть все дескрипторы
+							файлов &gt;= num</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8197-a3e2-d675a149cd80" class="bulleted-list">
+						<li style="list-style-type:disc"><code>E, --preserve-env</code> - сохранить пользовательское
+							окружение при выполнении команды</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8167-8dc6-fc3832486bbc" class="bulleted-list">
+						<li style="list-style-type:disc"><code>e, --edit</code> - редактировать файлы вместо выполнения
+							команды</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8190-93d4-e5ffe7eded39" class="bulleted-list">
+						<li style="list-style-type:disc"><code>g, --group=group</code> - выполнить команду от имени или
+							ID указанной группы</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81d5-bc91-f8461dcdd543" class="bulleted-list">
+						<li style="list-style-type:disc"><code>H, --set-home</code> - установить для переменной HOME
+							домашний каталог указанного пользователя</li>
+					</ul>
+					<ul id="131aa64c-9d0a-814e-8c28-fe9dc7df1d93" class="bulleted-list">
+						<li style="list-style-type:disc"><code>h, --help</code> - показать справку и выйти</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81cd-8a28-e53d3408428f" class="bulleted-list">
+						<li style="list-style-type:disc"><code>h, --host=host</code> - выполнить команду на узле (если
+							поддерживается модулем)</li>
+					</ul>
+					<ul id="131aa64c-9d0a-814e-b864-d0fa3ab7f030" class="bulleted-list">
+						<li style="list-style-type:disc"><code>i, --login</code> - запустить оболочку входа в систему от
+							имени указанного пользователя; также можно задать команду</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8119-90a3-d93ae479e78b" class="bulleted-list">
+						<li style="list-style-type:disc"><code>K, --remove-timestamp</code> - полностью удалить файл с
+							timestamp</li>
+					</ul>
+					<ul id="131aa64c-9d0a-815c-b65e-fc0dced0b0d7" class="bulleted-list">
+						<li style="list-style-type:disc"><code>k, --reset-timestamp</code> - объявить недействительным
+							файл timestamp</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8151-a796-eafb2001467d" class="bulleted-list">
+						<li style="list-style-type:disc"><code>l, --list</code> - показать список прав пользователя или
+							проверить заданную команду; в длинном формате используется дважды</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8178-82bb-cfd3887ccd52" class="bulleted-list">
+						<li style="list-style-type:disc"><code>n, --non-interactive</code> - автономный режим без вывода
+							запросов пользователю</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81f2-81c1-e3bd461d383d" class="bulleted-list">
+						<li style="list-style-type:disc"><code>P, --preserve-groups</code> - сохранить вектор группы
+							вместо установки целевой группы</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8142-8072-fcd66d157d95" class="bulleted-list">
+						<li style="list-style-type:disc"><code>p, --prompt=prompt</code> - использовать указанный запрос
+							пароля</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8123-b972-d6932d9b935a" class="bulleted-list">
+						<li style="list-style-type:disc"><code>S, --stdin</code> - читать пароль из стандартного ввода
+						</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8121-98ae-d722403fd353" class="bulleted-list">
+						<li style="list-style-type:disc"><code>s, --shell</code> - запустить оболочку от имени
+							указанного пользователя; также можно задать команду</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8190-a7bc-dc9ea0f88742" class="bulleted-list">
+						<li style="list-style-type:disc"><code>U, --other-user=user</code> - в режиме списка показывать
+							права пользователя</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8145-9720-f4c3b5ed1413" class="bulleted-list">
+						<li style="list-style-type:disc"><code>u, --user=user</code> - выполнить команду (или
+							редактировать файл) от имени или ID указанного пользователя</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81a2-be43-f140b8eb8191" class="bulleted-list">
+						<li style="list-style-type:disc"><code>V, --version</code> - показать сведения о версии и выйти
+						</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81ff-b1fc-c2f0afc3744f" class="bulleted-list">
+						<li style="list-style-type:disc"><code>v, --validate</code> - обновить временную метку
+							пользователя без выполнения команды</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8190-bbbb-cde705de6da9" class="bulleted-list">
+						<li style="list-style-type:disc"><code>–</code> - прекратить обработку аргументов командной
+							строки</li>
+					</ul>
+					<h1 id="131aa64c-9d0a-8122-8aa5-c66668edbb2f" class="">3. Примеры использования команды sudo</h1>
+					<p id="131aa64c-9d0a-8126-be27-cffd3705408a" class="">Отобразить список команд, доступных для
+						выполнения текущему <br />пользователю. Кроме списка команд отображаются параметры среды,
+						которые <br />будут применяться при их выполнении.<br /><br /></p>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-819e-b320-de7a05bc59e0"
+						class="code"><code class="language-Bash">sudo –l</code></pre>
+					<p id="131aa64c-9d0a-81c7-a117-df7fff739137" class="">Отобразить список команд, доступных для
+						выполнения текущему пользователю в длинном (расширенном) формате.</p>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-8103-9889-e02399364a14"
+						class="code"><code class="language-Bash">sudo –ll </code></pre>
+					<p id="131aa64c-9d0a-815e-b073-c2ac7cc21858" class="">В данном формате вместо краткого синтаксиса
+						для списка разрешенных команд в виде (ALL : ALL) ALL отображается подробное описание прав
+						пользователя:</p>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-810b-8ae9-dce57eb8f4af" class="code"><code class="language-Plain Text" style=" word-break:break-all">Sudoers entry:
+
+RunAsUsers: ALL
+
+RunAsGroups: ALL
+
+Команды: ALL
+</code></pre>
+					<ul id="131aa64c-9d0a-8153-b9cf-de38324a172d" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>sudo lshw -C network</strong></code> - отобразить
+							информацию о сетевом оборудовании с правами суперпользователя root</li>
+					</ul>
+					<ul id="131aa64c-9d0a-815c-b65b-ea259cf63999" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>sudo –l –U user1</strong></code> - посмотреть
+							список команд, доступных для выполнения пользователю user1. Для выполнения данной команды
+							пользователь должен быть root или иметь право на выполнение команды sudo -l, что
+							обеспечивается настройками утилиты sudo в файле /etc/sudoers</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8194-8de1-ce3bef3f59af" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>sudo ipmitool sensor</strong></code> - выполнить
+							команду ipmitool sensor с правами root.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8144-a3bd-c18cf830f6da" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>sudo su</strong></code> - выполнить команду su,
+							т.е. создать сеанс суперпользователя root</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81ee-ab61-ca8321452bbe" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>sudo -i</strong></code> - запустить командную
+							оболочку с правами суперпользователя root. Для<br />выполнения данной команды пользователь
+							должен иметь право на выполнение<br />программы оболочки в среде sudo, например -
+							/bin/bash<br /></li>
+					</ul>
+					<ul id="131aa64c-9d0a-81fd-a337-e894fb50132c" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>sudo ls /usr/local/protected</strong></code> -
+							получить список файлов каталога, доступного только root</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81b4-8390-f7fb47c90201" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>sudo -u user2 ls ~</strong></code> - получить
+							список файлов домашнего каталога пользователя user2</li>
+					</ul>
+					<ul id="131aa64c-9d0a-811f-9a72-f53430ddabb8" class="bulleted-list">
+						<li style="list-style-type:disc">
+							<code><strong>sudo -u www vi ~www/htdocs/index.html</strong></code> - редактировать файл
+							~www/htdocs/index.html от имени пользователя www</li>
+					</ul>
+					<ul id="131aa64c-9d0a-811b-bee4-e3cde37dc8d5" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>sudo -g adm view /var/log/syslog</strong></code>
+							- просмотреть файл системного журнала, доступного только суперпользователю root и членам
+							группы adm</li>
+					</ul>
+					<ul id="131aa64c-9d0a-810c-b271-c1bc0f826904" class="bulleted-list">
+						<li style="list-style-type:disc">
+							<code><strong>sudo -u user1 -g users2 vi /home/users2/textfile.txt</strong></code> -
+							редактировать текстовый файл как пользователь user1, с принадлежностью к первичной группе
+							users2</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81f9-9d69-d3458b6d9d67" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>sudo -E /usr/bin/firefox</strong></code> -
+							запустить браузер firefox от имени суперпользователя root, сохранив параметры среды текущего
+							пользователя. Возможность выполнения команд с сохранением среды пользователя должна быть
+							разрешена параметром SETENV в настройках файла конфигурации sudo</li>
+					</ul>
+					<h2 id="131aa64c-9d0a-8102-b128-cc5dfb9a5ff8" class="">4. Файл конфигурации /etc/sudoers</h2>
+					<p id="131aa64c-9d0a-81c3-b32b-ca8db33b5c69" class="">Настройки sudo определяется содержимым файла
+						<code>/etc/sudoers</code>. Поскольку ошибочные данные в данном файле могут привести к серьезным
+						проблемам доступа к ресурсам системы, рекомендуется выполнять его изменение с помощью
+						специального редактора sudoedit (в некоторых дистрибутивах - visudo), который поддерживает
+						функции проверки <br />синтаксиса и значительно снижает риск создания неработоспособной
+						конфигурации sudo.<br /></p>
+					<p id="131aa64c-9d0a-81b3-bc5d-e6420feccf49" class="">Содержимое файла <code>/etc/sudoers</code>
+						определяет имена пользователей и групп, перечень выполняемых программ, необходимость введения
+						паролей, и некоторые другие настройки, связанные с формированием переменных окружения при смене
+						пользователя.</p>
+					<p id="131aa64c-9d0a-814b-b573-c34fa0f110a4" class="">Кроме данного файла, настройки sudo могут
+						определяться содержимым файлов из <br />каталога <br /><code>/etc/sudoers.d</code>, что
+						позволяет структурировать систему предоставления прав на <br />использование sudo в виде набора
+						файлов с осмысленными именами, что полезно при большом количестве пользователей и сложной
+						системе разграничения прав. Имена файлов конфигураций в каталоге
+						<br /><code>/etc/sudoers.d</code> могут быть любыми, но их содержимое должно полностью
+						соответствовать формату файла <code>/etc/sudoers</code>.</p>
+					<p id="131aa64c-9d0a-81c3-bb47-f5a97a24ccdc" class=""><strong>Специальные псевдонимы
+							(Alias-ы)</strong></p>
+					<p id="131aa64c-9d0a-8114-9c9f-c240e96d302c" class="">Синтаксис настроек в файле /etc/sudoers
+						позволяет использовать специальные псевдонимы (Alias-ы), с помощью которых значительно
+						упрощается как настройка, так и восприятие конфигурационной информации sudo:
+					<div class="indented">
+						<ul id="131aa64c-9d0a-81ed-a386-fca276e9e4c5" class="toggle">
+							<li>
+								<details open="">
+									<summary><strong>В файле конфигурации /etc/sudoers возможно использование четырех
+											разновидностей псевдонимов</strong></summary>
+									<ul id="131aa64c-9d0a-81c5-8c90-e3c05383978e" class="bulleted-list">
+										<li style="list-style-type:disc"><strong>User_Alias</strong> - списки
+											пользователей, для которых настраивается политика использования sudo.</li>
+									</ul>
+									<ul id="131aa64c-9d0a-8126-b8c4-ddbd48672540" class="bulleted-list">
+										<li style="list-style-type:disc"><strong>Runas_Alias</strong> - списки
+											пользователей, от имени которых может быть задано выполнение команд через
+											sudo.</li>
+									</ul>
+									<ul id="131aa64c-9d0a-81b3-9b46-de09e06d6729" class="bulleted-list">
+										<li style="list-style-type:disc"><strong>Host_Alias</strong> - списки узлов, с
+											которых выполняется подключение к системе.</li>
+									</ul>
+									<ul id="131aa64c-9d0a-817a-bdf0-cb226df4e9ff" class="bulleted-list">
+										<li style="list-style-type:disc"><strong>Cmnd_Alias</strong> - списки команд,
+											использующиеся в настройках, выполняемых директивами файла /etc/sudoers</li>
+									</ul>
+									<p id="131aa64c-9d0a-81d4-85f4-e20e34291bb6" class="">
+									</p>
+									<p id="131aa64c-9d0a-8155-9447-f951be9543b2" class=""><strong>Примеры:</strong></p>
+									<ul id="131aa64c-9d0a-813a-9001-d7e73ea5f8da" class="bulleted-list">
+										<li style="list-style-type:disc"><strong>Host_Alias ADMCOMPS = localhost,
+												server, admin</strong> - определяет псевдоним ADMCOMPS, который
+											определяет группу компьютеров с именами localhost, server, admin.</li>
+									</ul>
+									<ul id="131aa64c-9d0a-8195-abfc-cd599f7f2723" class="bulleted-list">
+										<li style="list-style-type:disc"><strong>Host_Alias MAILSERVERS = 192.168.0.100,
+												smtp2</strong> - определяет группу из двух компьютеров с указанными IP и
+											именем. Возможно использование адресов подсетей.</li>
+									</ul>
+									<ul id="131aa64c-9d0a-81d5-8985-f3e42d90a21a" class="bulleted-list">
+										<li style="list-style-type:disc"><strong>User_Alias ADMINS = jsmith,
+												admusr</strong> - определяет группу ADMINS, в которую входят
+											пользователи с именами jsmith и admusr.</li>
+									</ul>
+									<p id="131aa64c-9d0a-8164-a471-c29f115a934a" class="">
+									</p>
+									<figure class="block-color-yellow_background callout"
+										style=" display:flex"
+										id="131aa64c-9d0a-8155-ac8d-f77c469c6a27">
+										<div style="font-size:1.5em"><span class="icon">💡</span></div>
+										<div style="width:100%">Аналогичным образом можно создать псевдонимы для
+											различных наборов команд, доступных для выполнения в sudo</div>
+									</figure>
+								</details>
+							</li>
+						</ul>
+						<ul id="131aa64c-9d0a-81ae-aa8a-d84c99c3b25c" class="toggle">
+							<li>
+								<details open="">
+									<summary><strong>Группы команд</strong></summary>
+									<ul id="131aa64c-9d0a-81a1-88c6-efe049dc255f" class="bulleted-list">
+										<li style="list-style-type:disc"><strong>Для работы в сети, псевдоним
+												Networking</strong>
+											<ul id="131aa64c-9d0a-81e1-a682-d187a35cbb65" class="bulleted-list">
+												<li style="list-style-type:circle">Cmnd_Alias NETWORKING = /sbin/route,
+													/sbin/ifconfig, /bin/ping, /sbin/dhclient,<br />/usr/bin/net,
+													/sbin/iptables, /usr/bin/rfcomm,
+													/usr/bin/wvdial,<br />/sbin/iwconfig, /sbin/mii-tool<br /></li>
+											</ul>
+										</li>
+									</ul>
+									<ul id="131aa64c-9d0a-81ad-82b0-f9e764afe54e" class="bulleted-list">
+										<li style="list-style-type:disc"><strong>Для управления установкой и удалением
+												программ, псевдоним SOFTWARE</strong>
+											<ul id="131aa64c-9d0a-81de-a95d-c9d1f8ce7412" class="bulleted-list">
+												<li style="list-style-type:circle">Cmnd_Alias SOFTWARE = /bin/rpm,
+													/usr/bin/up2date, /usr/bin/yum</li>
+											</ul>
+										</li>
+									</ul>
+									<ul id="131aa64c-9d0a-8178-8463-cd8a1ac378cc" class="bulleted-list">
+										<li style="list-style-type:disc"><strong>Для управления системными службами,
+												псевдоним SERVICES</strong>
+											<ul id="131aa64c-9d0a-81e9-b4d3-c18cc1ba7d13" class="bulleted-list">
+												<li style="list-style-type:circle">Cmnd_Alias SERVICES = /sbin/service,
+													/sbin/chkconfig</li>
+											</ul>
+											<p id="131aa64c-9d0a-8145-9be9-e47224b4277c" class="">
+											</p>
+										</li>
+									</ul>
+									<figure class="block-color-yellow_background callout"
+										style=" display:flex"
+										id="131aa64c-9d0a-81f8-b219-d0509a07421c">
+										<div style="font-size:1.5em"><span class="icon">💡</span></div>
+										<div style="width:100%"><em>Аналогичным образом можно создать псевдонимы для
+												групп команд, выполнение которых делегируется одиночным или объединенных
+												псевдонимами пользователей.</em></div>
+									</figure>
+									<p id="131aa64c-9d0a-81fc-a5e9-d51267d5db9d" class="">
+									</p>
+								</details>
+							</li>
+						</ul>
+						<ul id="131aa64c-9d0a-8176-9760-ccb0c05f7c4a" class="toggle">
+							<li>
+								<details open="">
+									<summary><strong>Формат записей</strong></summary>
+									<p id="131aa64c-9d0a-8165-9bac-f57c99b93746" class="">Основная часть настроек в
+										файле /etc/sudoers задает правила, определяющие, какие пользователи, каких
+										компьютеров, какие команды могут выполнять. Формат записей:</p>
+									<ul id="131aa64c-9d0a-81d3-8ee3-c2775b2fd02d" class="bulleted-list">
+										<li style="list-style-type:disc"><code>user MACHINE=COMMANDS</code>
+											<ul id="131aa64c-9d0a-8154-a853-fb27db2e7ff9" class="bulleted-list">
+												<li style="list-style-type:circle">user - имена или псевдонимы
+													пользователей.</li>
+											</ul>
+											<ul id="131aa64c-9d0a-810e-b9bc-ef4f4f59d327" class="bulleted-list">
+												<li style="list-style-type:circle">MACHINE - имена или псевдонимы
+													компьютеров</li>
+											</ul>
+											<ul id="131aa64c-9d0a-818d-bb1f-dddc981cdd1f" class="bulleted-list">
+												<li style="list-style-type:circle">COMMANDS - секция команд, включающая
+													имена или псевдонимы команд и дополнительные параметры.</li>
+											</ul>
+										</li>
+									</ul>
+								</details>
+							</li>
+						</ul>
+					</div>
+					</p>
+					<h1 id="131aa64c-9d0a-8119-8200-f0aff121b63e" class="">5. Примеры конфигурации</h1>
+					<h2 id="131aa64c-9d0a-81e6-aee7-e2f8d3443991" class="">5.1 Разрешить выполнение пользователю root
+						любых команд</h2>
+					<p id="131aa64c-9d0a-81be-a391-fbc69d4a5e2f" class="">Обычно, в файле /etc/sudoers присутствует
+						директива, разрешающая выполнение пользователю root любых команд при любом подключении к системе
+					</p>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-813c-9687-eee14eed728f" class="code"><code class="language-Bash"># Allow root to run any commands anywhere
+root ALL=(ALL) ALL</code></pre>
+					<h2 id="131aa64c-9d0a-8124-b9b4-dd6dfb48b18d" class="">5.2 Разрешить выполнение всех команд через
+						sudo</h2>
+					<p id="131aa64c-9d0a-81c0-9f5d-c2bea4e04340" class="">Аналогичным образом можно разрешить выполнение
+						через sudo всех команд для пользователя, например, с именем <em>user</em></p>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-81cd-90bd-f2b42fd09501"
+						class="code"><code class="language-Bash">user ALL=(ALL) ALL</code></pre>
+					<p id="131aa64c-9d0a-8192-8d68-fe1bbef9f2c6" class="">При данной настройке, у пользователя будет
+						запрашиваться пароль (его личный, а не пароль суперпользователя root)<em>.</em></p>
+					<h2 id="131aa64c-9d0a-819a-996d-f674c77e207e" class="">5.3 Не запрашивать пароль для команд</h2>
+					<p id="131aa64c-9d0a-8126-a174-eccfa9bc3481" class="">При необходимости, можно настроить секцию
+						команд таким образом, чтобы пароль не запрашивался, с использованием параметра
+						<strong>NOPASSWD:</strong></p>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-81f1-bd84-e4b19bb36ee5" class="code"><code class="language-Bash"># Пароль будет запрашиваться при выполнении пользователем user 
+# через sudo всех команд, кроме su и drakxconf
+user ALL=(ALL) NOPASSWD: /usr/bin/su, /usr/bin/drakxconf</code></pre>
+					<h2 id="131aa64c-9d0a-8162-abfd-f6524c4e899f" class="">5.4 Как уменьшить число записей для
+						определения прав пользователей?</h2>
+					<p id="131aa64c-9d0a-814b-a54d-cb87de9ac3d4" class="">Использование псевдонимов позволяет уменьшить
+						необходимое число записей для определения прав пользователей, которые могут подключаться к
+						системе с разных компьютеров и входить в разные группы</p>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-81a7-896f-fb18761838e3" class="code"><code class="language-Bash"># Разрешить группе пользователей, определенной псевдонимом “ADMINS” 
+# выполнять любые команды при подключении через петлевой интерфейс 
+# “localhost” без ввода пароля.
+ADMINS localhost=(ALL) NOPASSWD:ALL</code></pre>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-81a9-b4c4-c1d231838372" class="code"><code class="language-Bash"># Разрешить группе пользователей, объединенных псевдонимом “ADMINS” 
+# выполнять группы команд, объединенные псевдонимами 
+# “NETWORKING” и “SOFTWARE”
+ADMINS ALL=NETWORKING, SOFTWARE</code></pre>
+					<h2 id="131aa64c-9d0a-8171-a794-e661c577c884" class="">5.5 Разрешить выполнение отдельных команд или
+						групп команд для существующих в системе групп пользователей</h2>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-81ef-8600-c65d004d506a" class="code"><code class="language-Bash"># Разрешить локальным пользователям выключение компьютера
+users localhost=/sbin/shutdown -h now</code></pre>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-81c0-87a9-f348a57c3072" class="code"><code class="language-Bash"># Разрешить членам группы “operators” монтирование и размонтирование 
+# указанных устройств.
+operators ALL=/sbin/mount /mnt/cdrom, /sbin/umount /mnt/cdrom</code></pre>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-8167-89c2-c1743c826bcb" class="code"><code class="language-Bash"># Разрешить членам группы “powerusers” выполнять команды группы 
+# “NETWORKING” с вводом пароля и команду “su” без пароля.
+powerusers ALL=NETWORKING, NOPASSWD: /usr/bin/su</code></pre>
+					<h2 id="131aa64c-9d0a-8156-a468-f51752296591" class="">5.6 Исключить разрешение на выполнение
+						отдельных команд</h2>
+					<p id="131aa64c-9d0a-814b-94e0-e585edfbaa08" class="">Довольно часто возникает необходимость
+						исключения разрешения на выполнение отдельных команд из списка, объединенных псевдонимом. В этом
+						случае, перед именем команды или псевдонима ставится восклицательный знак – !</p>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-81eb-871a-d86b67236a50" class="code"><code class="language-Bash"># Разрешить группе пользователей, объединенных псевдонимом “ADMINS” 
+# выполнение всех команд, кроме команд, объединенных псевдонимом “NETWORKING”
+ADMINS ALL= ALL, !NETWORKING </code></pre>
+					<h2 id="131aa64c-9d0a-81d0-bb32-e0251d180ca0" class="">5.7 Разрешить группе выполнение всех команд
+						кроме …</h2>
+					<p id="131aa64c-9d0a-81b4-a03c-e0c7160c9e37" class="">В следующем примере, используется конфигурация
+						команд, разрешающая выполнение через sudo для всех пользователей группы “ADMINS”, всех команд,
+						кроме команд смены оболочки</p>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-818c-a92a-f515a463e139"
+						class="code"><code class="language-Bash">ADMINS ALL= ALL, !/bin/bash, !/usr/bin/su</code></pre>
+					<h2 id="131aa64c-9d0a-8143-8324-d47a9a53b755" class="">5.8 Директивы Defaults</h2>
+					<p id="131aa64c-9d0a-817e-aded-d0ce42953409" class="">Кроме настроек доступа, в файле /etc/sudoers
+						присутствуют директивы Defaults, определяющие некоторые настройки путей исполняемых файлов и
+						создание переменных окружения при выполнении команд:</p>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-81a6-a754-d4a11758fcd1" class="code"><code class="language-Bash">Defaults secure_path = /sbin:/bin:/usr/sbin:/usr/bin
+Defaults env_reset
+Defaults env_keep = “COLOS DISPLAY HOSTNAME HISTSIZE INPUTRC KDEDIR LS_COLORS”
+Defaults env_keep += “MAIL PS1 PS2 QTDIR USERNAME LANG LC_ADDRESS LC_CTYPE”
+Defaults env_keep += “LC_COLLATE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES”
+Defaults env_keep += “LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE”
+Defaults env_keep += “LC_TIME LC_ALL LANGUAGE LINGUAS _XKB_CHARSET XAUTHORITY”</code></pre>
+					<h2 id="131aa64c-9d0a-812e-b173-e4859259136a" class="">5.9 Повторный ввод пароля в терминале</h2>
+					<p id="131aa64c-9d0a-81c4-ba73-d34fe963984f" class="">По умолчанию, если интервал выполнения команд
+						с использованием sudo, не превышает 5 минут, то повторный ввод пароля не требуется. Однако, это
+						значение можно изменить, добавив значение timestamp_timeout в минутах</p>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-8196-8795-d0bad25583c5"
+						class="code"><code class="language-Bash">Defaults timestamp_timeout=1</code></pre>
+					<p id="131aa64c-9d0a-81f4-9d00-e931151ad9ba" class=""><em>В данном случае, если команда sudo будет
+							выполняться не позже, чем через 1 минуту после ввода пароля для предыдущей команды, то
+							повторно пароль запрашиваться не будет. Если значение
+						</em><em><code>“timestamptimeout”</code></em><em> сделать равным нулю, то пароль будет
+							запрашиваться при каждом запуске sudo, </em><em><strong>если сделать отрицательным ( -1 ), -
+								то повторный ввод пароля не будет запрашиваться никогда.</strong></em></p>
+					<h2 id="131aa64c-9d0a-815d-bb0e-e203f2cc8ea8" class="">5.10 Исключение возможности выполнения
+						sudo-команд при подключении через ssh</h2>
+					<p id="131aa64c-9d0a-81b6-b519-d1c3725f677e" class="">Для исключения возможности выполнения
+						sudo-команд при подключении через ssh без авторизации, по умолчанию, должна использоваться
+						команда “ssh –t “:</p>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-8117-864c-f77b0e590796" class="code"><code class="language-Bash" style=" word-break:break-all"># Disable &quot;ssh hostname sudo &quot;, because it will show the password in clear.
+
+# You have to run &quot;ssh -t hostname sudo &quot;.</code></pre>
+					<h1 id="131aa64c-9d0a-81ff-89e0-f5f0453df67c" class="">6. Defaults requiretty</h1>
+					<p id="131aa64c-9d0a-819d-bfec-f68d575d14e4" class="">Когда этот флаг установлен, sudo можно
+						запускать только из сеанса входа в систему, а не с помощью других средств, таких как скрипты
+						<code>cron, shell/perl/python</code> или <code>cgi-bin scripts</code>. Этот флаг установлен по
+						умолчанию на многих дистрибутивах. </p>
+					<p id="131aa64c-9d0a-819a-a82a-fff66663a692" class="">Отредактируйте <code>/etc/sudoers</code>,
+						введите:</p>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-8159-85bf-ef29a801f40b"
+						class="code"><code class="language-Bash">nano sudoers</code></pre>
+					<p id="131aa64c-9d0a-8117-9a0a-dcb28261707d" class=""><em>Найдите строку, которая гласит</em></p>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-812b-9f60-dd68b36663e8"
+						class="code"><code class="language-Bash">Defaults    requiretty</code></pre>
+					<p id="131aa64c-9d0a-8193-9fda-e1cb6a6cd1ba" class=""><em>Либо закомментируйте строку, либо удалите
+							строку:</em></p>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-81ea-8345-dc20c71232fa"
+						class="code"><code class="language-Bash">#Defaults    requiretty</code></pre>
+					<h1 id="131aa64c-9d0a-8187-af02-f68b22735bd9" class="">7. Подробную справку по использовании sudo
+						можно получить с помощью команд:</h1>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-810d-ac3a-e26f5015d884" class="code"><code class="language-Bash">man sudo
+man sudoers</code></pre>
+					<p id="131aa64c-9d0a-8188-8239-f0b680a4a16d" class="">
+					</p>
+				</div>
+			</details>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

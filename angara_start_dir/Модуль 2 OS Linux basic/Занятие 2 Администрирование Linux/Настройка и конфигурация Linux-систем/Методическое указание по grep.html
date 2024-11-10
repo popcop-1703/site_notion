@@ -1,0 +1,2181 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Методическое указание по grep</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-819e-9d9b-c68e5705bd16" class="page sans">
+		<header>
+			<div class="page-header-icon undefined"><span class="icon">📟</span></div>
+			<h1 class="page-title"><strong>Методическое указание по grep</strong></h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<p id="131aa64c-9d0a-81d3-8907-e090d6897543" class=""> 1.
+					Grep — мощное поисковое приложение, поставляется на каждом дистрибутиве Linux.</a></p>
+			<p id="131aa64c-9d0a-8182-882c-e64e2342b18e" class=""> 2.
+					Для начала о том как мы обычно grep’аем файлы.</a></p>
+			<p id="131aa64c-9d0a-8132-a505-edecdb6eafaa" class="">3.
+						И приступим к поискам</a></p>
+			<p id="131aa64c-9d0a-811d-a8ec-c1dc62d34834" class="">4.
+						Разумеется grep поддерживает и прочие базовые квантификаторы, метасимволы и другие прелести
+						регулярок</a></p>
+			<p id="131aa64c-9d0a-81d2-a0e3-ec39c32b736b" class=""> 5.
+					Здесь остановимся на инвертировании поиска ключом -v</a></p>
+			<p id="131aa64c-9d0a-81c0-9eff-cfe5117358ac" class=""> 6.
+					Также не забываем про | (ИЛИ)</a></p>
+			<p id="131aa64c-9d0a-816c-9bb9-d424cfedbff2" class=""> 7.
+					POSIX</a></p>
+			<p id="131aa64c-9d0a-813c-8715-f764f543566a" class=""> 8.
+					Ну и ещё пару трюков для затравки.</a></p>
+			<p id="131aa64c-9d0a-8199-9abc-ff9c265f6939" class=""> 9.
+					Разумеется, grep умеет искать в файлах/каталогах и, разумеется, рекурсивно.</a></p>
+			<p id="131aa64c-9d0a-811b-864f-d148fdb1575d" class="">
+			</p>
+			<figure class="block-color-red callout" style="  display:flex"
+				id="131aa64c-9d0a-8142-8647-f4197077b327">
+				<div style="font-size:1.5em"><span class="icon">📌</span></div>
+				<div style="width:100%"><mark class="highlight-teal"><code><strong>grep</strong></code></mark><mark
+						class="highlight-teal"> (от англ. Global Regular Expression Print) - это утилита командной
+						строки в UNIX-подобных операционных системах, которая используется для поиска строк текста,
+						соответствующих определенному шаблону или регулярному выражению. Она является частью набора
+						инструментов для работы с текстом в UNIX-подобных системах и является мощным инструментом для
+						обработки текстовых данных.</mark></div>
+			</figure>
+			<p id="131aa64c-9d0a-814d-ac9c-e541b9d20d49" class=""><strong>Основные возможности
+				</strong><code><strong>grep</strong></code><strong> включают:</strong></p>
+			<ol type="1" id="131aa64c-9d0a-81ca-8df8-d5fa9845bb70" class="numbered-list" start="1">
+				<li><strong>Поиск по строкам текста:</strong> <code><strong>grep</strong></code> позволяет искать строки
+					текста в файлах или стандартном вводе, которые соответствуют определенному шаблону.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81f0-998c-dd3f7476c8be" class="numbered-list" start="2">
+				<li><strong>Использование регулярных выражений:</strong> <code><strong>grep</strong></code> поддерживает
+					использование регулярных выражений для более гибкого поиска текста. Регулярные выражения позволяют
+					создавать шаблоны, которые описывают последовательности символов, которые вы хотите найти.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81c6-a860-c0d99b0f26d7" class="numbered-list" start="3">
+				<li><strong>Поиск в рекурсивных каталогах:</strong> С помощью опции <code><strong>r</strong></code> (или
+					<code><strong>-recursive</strong></code>) <code><strong>grep</strong></code> может рекурсивно искать
+					во всех подкаталогах указанного каталога.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81e5-bb9a-da0317897927" class="numbered-list" start="4">
+				<li><strong>Вывод номеров строк:</strong> Опция <code><strong>n</strong></code> (или
+					<code><strong>-line-number</strong></code>) позволяет <code><strong>grep</strong></code> выводить
+					номера строк, содержащих совпадения.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81df-8f21-d2adbd969011" class="numbered-list" start="5">
+				<li><strong>Игнорирование регистра:</strong> Опция <code><strong>i</strong></code> (или
+					<code><strong>-ignore-case</strong></code>) делает поиск регистронезависимым, что означает, что
+					<code><strong>grep</strong></code> будет игнорировать регистр символов при поиске совпадений.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8146-91bf-edbf94582f1b" class="numbered-list" start="6">
+				<li><strong>Вывод только совпадающих строк:</strong> Опция <code><strong>o</strong></code> (или
+					<code><strong>-only-matching</strong></code>) позволяет <code><strong>grep</strong></code> выводить
+					только сами совпадающие строки, а не весь текст строки.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81dd-8892-d70e146d0b0c" class="numbered-list" start="7">
+				<li><strong>Вывод контекста:</strong> Опции <code><strong>A</strong></code> (или
+					<code><strong>-after-context</strong></code>) и <code><strong>B</strong></code> (или
+					<code><strong>-before-context</strong></code>) позволяют <code><strong>grep</strong></code> выводить
+					строки контекста после и до совпадения соответственно.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81f4-baa0-dba5c006025d" class="numbered-list" start="8">
+				<li><strong>Вывод не совпадающих строк:</strong> Опция <code><strong>v</strong></code> (или
+					<code><strong>-invert-match</strong></code>) позволяет <code><strong>grep</strong></code> выводить
+					строки, которые не содержат совпадений.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81fc-80cc-dfe4a9414efa" class="numbered-list" start="9">
+				<li><strong>Поиск в определенных типах файлов:</strong> С помощью опции <code><strong>r</strong></code>
+					<code><strong>grep</strong></code> может ограничивать поиск только определенными типами файлов,
+					например, только текстовыми файлами.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8146-996d-d7b31838b887" class="numbered-list" start="10">
+				<li><strong>Поддержка Unicode:</strong> <code><strong>grep</strong></code> может работать с символами
+					Unicode, что позволяет осуществлять поиск в текстах на различных языках и с использованием различных
+					символов.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8104-8d61-c4df0c0430c0" class="numbered-list" start="11">
+				<li><strong>Поиск в нескольких файлах:</strong> <code><strong>grep</strong></code> позволяет
+					одновременно искать в нескольких файлах, передавая их имена в качестве аргументов.</li>
+			</ol>
+			<p id="131aa64c-9d0a-814b-a643-d7ad69c988ec" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-81ea-8c9b-fe3557331071" class=""><strong>1. Grep — мощное поисковое приложение,
+					поставляется на каждом дистрибутиве Linux.</strong></h3>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81a6-84eb-e90d1896f1c8"
+				class="code"><code class="language-Bash">grep --version | grep grep</code></pre>
+			<p id="131aa64c-9d0a-81d8-9ca5-e0282b3b673e" class=""><code>grep (GNU grep) 2.5.1-FreeBSD</code></p>
+			<p id="131aa64c-9d0a-8170-b3b9-f013e8ee4ea7" class="">Команда <code><strong>grep --version</strong></code>
+				используется для вывода информации о версии программы <code><strong>grep</strong></code>, которая
+				является утилитой для поиска текста в файлах. Результат этой команды включает в себя информацию о версии
+				<code><strong>grep</strong></code>.</p>
+			<p id="131aa64c-9d0a-8153-91ae-d9bb73d807f2" class="">Команда <code><strong>grep grep</strong></code>
+				применяется к выводу <code><strong>grep --version</strong></code> и используется для фильтрации
+				результатов, оставляя только строки, содержащие слово &quot;grep&quot;.</p>
+			<p id="131aa64c-9d0a-819a-ab61-eb6a69e5a98e" class="">Таким образом, после выполнения этой команды вы
+				получите информацию о версии программы <code><strong>grep</strong></code>, и только те строки, в которых
+				упоминается само слово &quot;grep&quot;. Это может быть полезно, если вам нужно быстро проверить версию
+				<code><strong>grep</strong></code> в выводе команды, при этом оставив другую информацию.</p>
+			<p id="131aa64c-9d0a-8131-9f47-f9978243e567" class=""><strong>Это важно в связи с</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81e3-8c52-ce09fb2b6179"
+				class="code"><code class="language-Bash">man grep | grep -iB 2 freebsd</code></pre>
+			<blockquote id="131aa64c-9d0a-8174-b088-ddd498a381df" class="">Команда
+				<code><strong>grep -iB 2 freebsd</strong></code> применяется к выводу руководства
+				<code><strong>man grep</strong></code> и используется для фильтрации результатов:</blockquote>
+			<ul id="131aa64c-9d0a-810a-a5d4-e3bc939ed090" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep</strong></code>: Утилита для поиска текста в выводе
+					команд.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81d5-8199-d928ffa0ae8f" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>i</strong></code>: Опция <code><strong>i</strong></code>
+					делает поиск регистронезависимым, то есть игнорирует регистр символов.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-810f-bf44-ffde8f84d83e" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>B 2</strong></code>: Опция
+					<code><strong>B</strong></code> указывает, что перед каждым совпадением выводится указанное
+					количество строк перед строкой совпадения. В данном случае <code><strong>2</strong></code> означает,
+					что перед каждым совпадением будет выведено 2 строки.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8106-b93f-c756931ee73e" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>freebsd</strong></code>: Это строка, которую
+					<code><strong>grep</strong></code> ищет в выводе руководства <code><strong>man grep</strong></code>.
+				</li>
+			</ul>
+			<p id="131aa64c-9d0a-8151-9ecb-cb80d0ae16f6" class="">Таким образом, после выполнения этой команды вы
+				увидите в руководстве по <code><strong>grep</strong></code> только те строки, которые содержат слово
+				&quot;freebsd&quot;, а также две строки перед каждым совпадением, чтобы дополнительно
+				контекстуализировать информацию. Это может быть полезно, если вам нужна информация о том, как
+				<code><strong>grep</strong></code> работает в контексте операционной системы FreeBSD.</p>
+			<h3 id="131aa64c-9d0a-8142-b23c-f953bd316ca6" class=""><strong>2. Для начала о том как мы обычно grep’аем
+					файлы.</strong></h3>
+			<p id="131aa64c-9d0a-81f6-bf8a-f663d12557d3" class=""><strong>Используя cat:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81a2-825a-ca8c93f06726"
+				class="code"><code class="language-Bash">cat /var/run/dmesg.boot | grep CPU:</code></pre>
+			<p id="131aa64c-9d0a-817f-8f68-e0dd8ca3e483" class="">
+				<em><code>CPU: Intel® Core™2 Quad CPU Q9550 @ 2.83GHz (2833.07-MHz K8-class CPU)</code></em></p>
+			<blockquote id="131aa64c-9d0a-816f-9fa0-d6b834eead60" class="">Команда
+				<code><strong>cat /var/run/dmesg.boot</strong></code> используется для вывода содержимого файла
+				<code><strong>/var/run/dmesg.boot</strong></code>, который обычно содержит сообщения, отправляемые ядром
+				операционной системы при загрузке.</blockquote>
+			<p id="131aa64c-9d0a-81cb-a5f8-ef80b91bde59" class="">Команда <code><strong>grep CPU:</strong></code>
+				применяется к выводу содержимого файла <code><strong>dmesg.boot</strong></code> и используется для
+				фильтрации результатов:</p>
+			<ul id="131aa64c-9d0a-81d2-ad4b-d4959d7e5816" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep</strong></code>: Это утилита для поиска текста в
+					выводе команд.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81db-b4a6-f4755c234912" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>CPU:</strong></code>: Это строка, которую
+					<code><strong>grep</strong></code> ищет в содержимом файла <code><strong>dmesg.boot</strong></code>.
+				</li>
+			</ul>
+			<p id="131aa64c-9d0a-8188-a761-c16d6832f33d" class="">Таким образом, после выполнения этой команды вы
+				увидите только те строки из содержимого файла <code><strong>dmesg.boot</strong></code>, которые содержат
+				фразу &quot;CPU:&quot;. В контексте файла <code><strong>dmesg.boot</strong></code> это могут быть
+				сообщения, касающиеся оборудования процессора, его характеристик или конфигурации. Это может быть
+				полезно, если вы хотите получить информацию о процессоре или его работе после загрузки операционной
+				системы.</p>
+			<p id="131aa64c-9d0a-8146-b2df-c41d6141da31" class=""><strong>Но зачем? Ведь можно и так:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-813e-aa99-e6be88eb26d9"
+				class="code"><code class="language-Bash">grep CPU: /var/run/dmesg.boot </code></pre>
+			<p id="131aa64c-9d0a-81c4-8648-e4393e95802a" class="">
+				<em><code>CPU: Intel® Core™2 Quad CPU Q9550 @ 2.83GHz (2833.07-MHz K8-class CPU)</code></em></p>
+			<blockquote id="131aa64c-9d0a-8174-a45a-ca86767cd54e" class="">Команда
+				<code><strong>grep CPU: /var/run/dmesg.boot</strong></code> используется для поиска всех строк в файле
+				<code><strong>/var/run/dmesg.boot</strong></code>, содержащих фразу &quot;CPU:&quot;.</blockquote>
+			<ul id="131aa64c-9d0a-817a-aef1-cd20d27c7391" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep</strong></code>: Это утилита для поиска текста в
+					файле.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81f8-875f-efdf351865ec" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>CPU:</strong></code>: Это строка, которую
+					<code><strong>grep</strong></code> ищет в файле <code><strong>/var/run/dmesg.boot</strong></code>.
+				</li>
+			</ul>
+			<p id="131aa64c-9d0a-8182-ab57-de2c40ba8bde" class="">После выполнения этой команды выводом будут все строки
+				из файла <code><strong>dmesg.boot</strong></code>, в которых содержится фраза &quot;CPU:&quot;. В
+				контексте файла <code><strong>dmesg.boot</strong></code> это могут быть сообщения, связанные с
+				оборудованием процессора, его характеристиками или конфигурацией.</p>
+			<p id="131aa64c-9d0a-8101-bba7-d182f7a1fd74" class=""><strong>Или вот так (ненавижу такую
+					конструкцию):</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-811e-9e9c-fef3c830b148"
+				class="code"><code class="language-Bash">&lt;/var/run/dmesg.boot grep CPU:</code></pre>
+			<p id="131aa64c-9d0a-81d1-9dfa-da7575a68680" class="">
+				<em><code>CPU: Intel® Core™2 Quad CPU Q9550 @ 2.83GHz (2833.07-MHz K8-class CPU)</code></em></p>
+			<blockquote id="131aa64c-9d0a-81c2-9971-d0a24b15b832" class="">Команда
+				<code><strong>grep &#x27;CPU:&#x27; &lt;/var/run/dmesg.boot</strong></code> используется для поиска всех
+				строк в файле <code><strong>/var/run/dmesg.boot</strong></code>, содержащих фразу &quot;CPU:&quot;.
+			</blockquote>
+			<ul id="131aa64c-9d0a-8159-826b-e1b6a7f3b701" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep</strong></code>: Это утилита для поиска текста в
+					файле или стандартном вводе.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81f8-be8c-fc705634621b" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>&#x27;CPU:&#x27;</strong></code>: Это строка, которую
+					<code><strong>grep</strong></code> ищет в файле <code><strong>/var/run/dmesg.boot</strong></code>.
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8199-b46c-cf9f1fd700cb" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>&lt;/var/run/dmesg.boot</strong></code>: Это оператор
+					перенаправления, который отправляет содержимое файла
+					<code><strong>/var/run/dmesg.boot</strong></code> в стандартный ввод команды
+					<code><strong>grep</strong></code>.</li>
+			</ul>
+			<p id="131aa64c-9d0a-815d-8d6f-dbc1cc978e0e" class="">После выполнения этой команды все строки из файла
+				<code><strong>dmesg.boot</strong></code>, содержащие фразу &quot;CPU:&quot;, будут выведены в
+				стандартный вывод терминала. В контексте файла <code><strong>dmesg.boot</strong></code> это могут быть
+				сообщения, связанные с оборудованием процессора, его характеристиками или конфигурацией, записанные в
+				этот файл при загрузке операционной системы.</p>
+			<p id="131aa64c-9d0a-8122-b04c-f8ed3be6d374" class=""><strong>Зачем-то считаем отобранные строки с помощью
+					wc:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8129-b9d5-f8a2468c94f1"
+				class="code"><code class="language-Bash">grep WARNING /var/run/dmesg.boot | wc -l</code></pre>
+			<blockquote id="131aa64c-9d0a-81b1-84c9-d6413390fc9c" class="">Команда
+				<code><strong>grep WARNING /var/run/dmesg.boot</strong></code> используется для поиска всех строк в
+				файле <code><strong>/var/run/dmesg.boot</strong></code>, содержащих фразу &quot;WARNING&quot;.
+			</blockquote>
+			<ul id="131aa64c-9d0a-8146-9332-e1c3601ada99" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep</strong></code>: Это утилита для поиска текста в
+					файле или стандартном вводе.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81a7-8558-d0ba4bd57dfe" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>WARNING</strong></code>: Это строка, которую
+					<code><strong>grep</strong></code> ищет в файле <code><strong>/var/run/dmesg.boot</strong></code>.
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-811b-adce-dbf05e4dd794" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>/var/run/dmesg.boot</strong></code>: Это путь к файлу, в
+					котором вы хотите произвести поиск.</li>
+			</ul>
+			<p id="131aa64c-9d0a-81a5-b851-e20b35c8398d" class="">После выполнения этой команды все строки из файла
+				<code><strong>dmesg.boot</strong></code>, содержащие фразу &quot;WARNING&quot;, будут выведены в
+				стандартный вывод терминала.</p>
+			<p id="131aa64c-9d0a-8190-83c8-c2f4500cae37" class="">Команда <code><strong>wc -l</strong></code>
+				используется для подсчета количества строк, переданных в стандартный ввод.</p>
+			<ul id="131aa64c-9d0a-8142-b755-c18bc3e63931" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>wc</strong></code>: Это утилита для подсчета количества
+					слов, строк и символов в текстовом файле или стандартном вводе.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-819f-9491-ff3b589f477c" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>l</strong></code>: Опция <code><strong>l</strong></code>
+					указывает <code><strong>wc</strong></code> подсчитать только количество строк во вводе.</li>
+			</ul>
+			<p id="131aa64c-9d0a-8137-a856-f917a708c9ac" class="">Таким образом, после выполнения этой команды будет
+				подсчитано количество строк, содержащих фразу &quot;WARNING&quot; в файле
+				<code><strong>dmesg.boot</strong></code>, и результат будет выведен в стандартный вывод.</p>
+			<p id="131aa64c-9d0a-8103-b6f6-d8b577fc800f" class=""><strong>Хотя можно:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81b4-bb96-efbfc54521eb"
+				class="code"><code class="language-Bash">grep WARNING /var/run/dmesg.boot -c</code></pre>
+			<blockquote id="131aa64c-9d0a-819e-9101-f3688d062b08" class="">Команда
+				<code><strong>grep WARNING /var/run/dmesg.boot -c</strong></code> используется для подсчета количества
+				строк в файле <code><strong>/var/run/dmesg.boot</strong></code>, содержащих фразу &quot;WARNING&quot;.
+			</blockquote>
+			<ul id="131aa64c-9d0a-81d0-ae23-d58860ac9f28" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep</strong></code>: Утилита для поиска текста в файле
+					или стандартном вводе.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-818d-959a-f3c45ed65809" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>WARNING</strong></code>: Это строка, которую
+					<code><strong>grep</strong></code> ищет в файле <code><strong>/var/run/dmesg.boot</strong></code>.
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-813f-8914-e5fa71beb8fd" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>/var/run/dmesg.boot</strong></code>: Путь к файлу, в
+					котором осуществляется поиск.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81b3-810f-f60fd0965da8" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>c</strong></code>: Опция <code><strong>c</strong></code>
+					указывает <code><strong>grep</strong></code> на вывод только количества строк, содержащих
+					совпадение.</li>
+			</ul>
+			<p id="131aa64c-9d0a-810c-8dbb-ca1e4d412599" class="">После выполнения этой команды
+				<code><strong>grep</strong></code> найдет все строки в файле <code><strong>dmesg.boot</strong></code>,
+				содержащие фразу &quot;WARNING&quot;, и выведет только количество этих строк, а не сами строки.</p>
+			<p id="131aa64c-9d0a-8106-8b12-f152d08d73ca" class=""><strong>Сделаем тестовый файлик:</strong></p>
+			<p id="131aa64c-9d0a-8159-85e7-fafe1af1a8e1" class=""><code>test.txt</code></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81c2-bc57-e45ee421ad85" class="code"><code class="language-Plain Text" style="  word-break:break-all">root@nm3:/ # grep &quot;.*&quot; test.txt
+one two three
+seven eight one eight three
+thirteen fourteen fifteen
+
+ sixteen seventeen eighteen seven
+sixteen seventeen eighteen
+        twenty seven
+one 504 one
+one 503 one
+one     504     one
+one     504 one
+#comment UP
+twentyseven
+        #comment down
+twenty1
+twenty3
+twenty5
+twenty7
+</code></pre>
+			<h3 id="131aa64c-9d0a-8164-afe5-d8b9bd925b01" class=""><strong>3. И приступим к поискам:</strong></h3>
+			<p id="131aa64c-9d0a-81b1-9206-e0bd298bca8d" class=""><strong>Опция -w позволяет искать по слову
+					целиком:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8187-9307-d51bee52b49f"
+				class="code"><code class="language-Bash">grep -w &#x27;seven&#x27; test.txt</code></pre>
+			<blockquote id="131aa64c-9d0a-8102-b0c9-ddd2f546fc5b" class="">Команда
+				<code><strong>grep -w &#x27;seven&#x27; test.txt</strong></code> используется для поиска вхождений
+				строки &quot;seven&quot; в файле <code><strong>test.txt</strong></code>, при этом учитывая только целые
+				слова.</blockquote>
+			<ul id="131aa64c-9d0a-8122-bf4c-df1485464ca8" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep</strong></code>: Утилита для поиска текста в файле
+					или стандартном вводе.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8166-aa1c-c5ebe4efdefe" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>w</strong></code>: Опция <code><strong>w</strong></code>
+					указывает <code><strong>grep</strong></code>у искать только целые слова. Это означает, что он будет
+					считать совпадением только те строки, в которых слово &quot;seven&quot; отделено от других символов
+					пробелами, табуляциями или началом или концом строки.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8186-8971-e9d434898291" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>&#x27;seven&#x27;</strong></code>: Это строка, которую
+					<code><strong>grep</strong></code> ищет в файле <code><strong>test.txt</strong></code>.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-815d-89b3-e50125e9af47" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>test.txt</strong></code>: Имя файла, в котором
+					производится поиск.</li>
+			</ul>
+			<p id="131aa64c-9d0a-819e-a587-f1f64bcea220" class="">Таким образом, после выполнения этой команды
+				<code><strong>grep</strong></code> просматривает содержимое файла <code><strong>test.txt</strong></code>
+				и выводит все строки, в которых встречается слово &quot;seven&quot; как отдельное слово. Это означает,
+				что строки, содержащие слова вроде &quot;seventeen&quot; или &quot;seventy&quot;, не будут учтены в
+				результатах, так как они содержат &quot;seven&quot; как часть слова, а не отдельное слово.</p>
+			<p id="131aa64c-9d0a-81e9-b995-f11d0d825cd9" class=""><strong>А если нужно по началу или концу
+					слова?</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81a9-bc25-c0415effda4a"
+				class="code"><code class="language-Bash">grep &#x27;\&lt;seven&#x27; test.txt</code></pre>
+			<blockquote id="131aa64c-9d0a-81c8-921f-cb1f2de922be" class="">Команда
+				<code><strong>grep &#x27;\</strong></code> используется для поиска всех строк в файле
+				<code><strong>test.txt</strong></code>, которые начинаются с подстроки &quot;seven&quot; как целого
+				слова.</blockquote>
+			<ul id="131aa64c-9d0a-818a-859d-d6ebf15b9e25" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep</strong></code>: Утилита для поиска текста в файле
+					или стандартном вводе.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8187-a5c2-e613d566c836" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>\&lt;seven</strong></code>: Это регулярное выражение,
+					которое указывает <code><strong>grep</strong></code>у искать слова, начинающиеся с подстроки
+					&quot;seven&quot;.</li>
+			</ul>
+			<p id="131aa64c-9d0a-812e-8731-c76efb8bc7dd" class="">Таким образом, после выполнения этой команды
+				<code><strong>grep</strong></code> будет выводить строки из файла
+				<code><strong>test.txt</strong></code>, в которых слово &quot;seven&quot; является отдельным словом и
+				находится в начале строки или сразу после пробела. Например, строки, содержащие &quot;sevenfold&quot;
+				или &quot;seventeen&quot;, не будут считаться совпадениями, так как они не начинаются с
+				&quot;seven&quot;.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81bf-b8ed-ed3d0204c850"
+				class="code"><code class="language-Bash">grep &#x27;seven\&gt;&#x27; test.txt</code></pre>
+			<blockquote id="131aa64c-9d0a-812a-85bd-d00316d0dacc" class="">Команда
+				<code><strong>grep &#x27;seven\&gt;&#x27; test.txt</strong></code> используется для поиска всех строк в
+				файле <code><strong>test.txt</strong></code>, которые заканчиваются подстрокой &quot;seven&quot; как
+				целого слова.</blockquote>
+			<ul id="131aa64c-9d0a-8169-b738-defaec10ab90" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep</strong></code>: Утилита для поиска текста в файле
+					или стандартном вводе.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-812c-9531-ca97c576b3df" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>&#x27;seven\&gt;&#x27;</strong></code>: Это регулярное
+					выражение, которое указывает <code><strong>grep</strong></code>у искать слова, заканчивающиеся
+					подстрокой &quot;seven&quot;.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81df-978b-c32b61ceac5e" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>test.txt</strong></code>: Имя файла, в котором
+					производится поиск.</li>
+			</ul>
+			<p id="131aa64c-9d0a-8174-85b3-d6287773eef7" class="">Таким образом, после выполнения этой команды
+				<code><strong>grep</strong></code> будет выводить строки из файла
+				<code><strong>test.txt</strong></code>, в которых слово &quot;seven&quot; является отдельным словом и
+				находится в конце строки или перед пробелом. Например, строки, содержащие &quot;seventeen&quot; или
+				&quot;seventh&quot;, не будут считаться совпадениями, так как они не заканчиваются на &quot;seven&quot;.
+			</p>
+			<p id="131aa64c-9d0a-81db-aeee-f10159ae6c81" class=""><strong>Стоящие в начале или конце строки?</strong>
+			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81dc-becb-e445a96c6381"
+				class="code"><code class="language-Bash">grep &#x27;^seven&#x27; test.txt</code></pre>
+			<blockquote id="131aa64c-9d0a-8116-b2c1-ed470017d6ff" class="">Команда
+				<code><strong>grep &#x27;^seven&#x27; test.txt</strong></code> используется для поиска всех строк в
+				файле <code><strong>test.txt</strong></code>, которые начинаются с подстроки &quot;seven&quot;.
+			</blockquote>
+			<ul id="131aa64c-9d0a-81cf-825a-cda7900e59ac" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep</strong></code>: Утилита для поиска текста в файле
+					или стандартном вводе.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8190-b9b6-c500b0078511" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>&#x27;^seven&#x27;</strong></code>: Это регулярное
+					выражение, которое указывает <code><strong>grep</strong></code>у искать строки, начинающиеся с
+					подстроки &quot;seven&quot;.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-811f-8b56-f9cc932234c2" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>test.txt</strong></code>: Имя файла, в котором
+					производится поиск.</li>
+			</ul>
+			<p id="131aa64c-9d0a-811d-8f41-f7d1b182b14e" class="">Таким образом, после выполнения этой команды
+				<code><strong>grep</strong></code> будет выводить строки из файла
+				<code><strong>test.txt</strong></code>, которые начинаются с слова &quot;seven&quot;. строки, которые
+				содержат &quot;seven&quot; в другом месте, но не в начале, не будут считаться совпадениями.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81b8-9e95-c901be13e94e"
+				class="code"><code class="language-Bash">grep &#x27;seven$&#x27; test.txt</code></pre>
+			<blockquote id="131aa64c-9d0a-8130-8c1f-d2b713fbce7a" class="">Команда
+				<code><strong>grep &#x27;seven$&#x27; test.txt</strong></code> используется для поиска всех строк в
+				файле <code><strong>test.txt</strong></code>, которые заканчиваются подстрокой &quot;seven&quot;.
+			</blockquote>
+			<ul id="131aa64c-9d0a-810e-9165-db4e9a9736f9" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep</strong></code>: Утилита для поиска текста в файле
+					или стандартном вводе.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-819e-b36c-c1d19343c4f7" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>&#x27;seven$&#x27;</strong></code>: Это регулярное
+					выражение, которое указывает <code><strong>grep</strong></code>у искать строки, заканчивающиеся
+					подстрокой &quot;seven&quot;.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81a7-b679-efc4c33d63f1" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>test.txt</strong></code>: Имя файла, в котором
+					производится поиск.</li>
+			</ul>
+			<p id="131aa64c-9d0a-81a3-bdf3-d79ec97705c3" class="">Таким образом, после выполнения этой команды
+				<code><strong>grep</strong></code> будет выводить строки из файла
+				<code><strong>test.txt</strong></code>, в которых слово &quot;seven&quot; находится в конце строки.
+				строки, которые содержат &quot;seven&quot; в другом месте, но не в конце, не будут считаться
+				совпадениями.</p>
+			<p id="131aa64c-9d0a-8182-8cb8-fb82c872adf9" class=""><strong>Хотите увидеть строки в окрестности
+					искомой?</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8114-9f75-d5fbf90e2a12"
+				class="code"><code class="language-Bash">grep -C 1 twentyseven test.txt</code></pre>
+			<blockquote id="131aa64c-9d0a-811c-95d8-d46e5b5468b4" class="">Команда
+				<code><strong>grep -C 1 twentyseven test.txt</strong></code> используется для поиска всех строк в файле
+				<code><strong>test.txt</strong></code>, содержащих фразу &quot;twentyseven&quot;, а также вывода одной
+				строки контекста до и после каждого совпадения.</blockquote>
+			<ul id="131aa64c-9d0a-81b0-b5bd-c8dd27eb2a94" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep</strong></code>: Утилита для поиска текста в файле
+					или стандартном вводе.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8120-8009-f482df2dbf2b" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>C 1</strong></code>: Опция
+					<code><strong>C</strong></code> указывает <code><strong>grep</strong></code>у вывести указанное
+					количество строк контекста перед и после каждого совпадения. В данном случае
+					<code><strong>1</strong></code> указывает, что нужно вывести одну строку контекста.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81a6-b3af-c9b2122ef2ca" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>twentyseven</strong></code>: Это строка, которую
+					<code><strong>grep</strong></code> ищет в файле <code><strong>test.txt</strong></code>.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8116-aa6d-d89483358463" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>test.txt</strong></code>: Имя файла, в котором
+					производится поиск.</li>
+			</ul>
+			<p id="131aa64c-9d0a-81c3-a4c2-d3e565a1944f" class="">Таким образом, после выполнения этой команды
+				<code><strong>grep</strong></code> будет выводить строки из файла
+				<code><strong>test.txt</strong></code>, содержащие фразу &quot;twentyseven&quot;, а также одну строку
+				контекста до и после каждого совпадения. Это позволяет увидеть окружающий контекст в каждом месте, где
+				встречается искомая фраза.</p>
+			<p id="131aa64c-9d0a-81ff-8857-fa6280d08ee1" class=""><strong>Только снизу или сверху?</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-810d-b82c-cb7659b09755"
+				class="code"><code class="language-Bash">grep -A 1 twentyseven test.txt</code></pre>
+			<blockquote id="131aa64c-9d0a-8199-975b-ddfa03290375" class="">Команда
+				<code><strong>grep -A 1 twentyseven test.txt</strong></code> используется для поиска всех строк в файле
+				<code><strong>test.txt</strong></code>, содержащих фразу &quot;twentyseven&quot;, и вывода одной строки
+				контекста после каждого совпадения.</blockquote>
+			<ul id="131aa64c-9d0a-81c0-8329-f9d2b83a6a3f" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep</strong></code>: Утилита для поиска текста в файле
+					или стандартном вводе.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81ca-b9c1-df17caed7dbd" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>A 1</strong></code>: Опция
+					<code><strong>A</strong></code> указывает <code><strong>grep</strong></code>у вывести указанное
+					количество строк контекста после каждого совпадения. В данном случае <code><strong>1</strong></code>
+					указывает, что нужно вывести одну строку контекста после каждого совпадения.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81d3-afb9-e4aab6ff1aeb" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>twentyseven</strong></code>: Это строка, которую
+					<code><strong>grep</strong></code> ищет в файле <code><strong>test.txt</strong></code>.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-810b-af65-ea2509573438" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>test.txt</strong></code>: Имя файла, в котором
+					производится поиск.</li>
+			</ul>
+			<p id="131aa64c-9d0a-814f-a165-ed0e308a849f" class="">Таким образом, после выполнения этой команды
+				<code><strong>grep</strong></code> будет выводить строки из файла
+				<code><strong>test.txt</strong></code>, содержащие фразу &quot;twentyseven&quot;, а также одну строку
+				контекста после каждого совпадения. Это позволяет увидеть следующую строку после каждого места, где
+				встречается искомая фраза.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-817e-b661-ef2f75f6ac5b"
+				class="code"><code class="language-Bash">grep -B 1 twentyseven test.txt</code></pre>
+			<blockquote id="131aa64c-9d0a-8152-9d8b-da052aa066d5" class="">Команда
+				<code><strong>grep -B 1 twentyseven test.txt</strong></code> используется для поиска всех строк в файле
+				<code><strong>test.txt</strong></code>, содержащих фразу &quot;twentyseven&quot;, и вывода одной строки
+				контекста перед каждым совпадением.</blockquote>
+			<ul id="131aa64c-9d0a-8179-9660-f3d9f108a13b" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep</strong></code>: Утилита для поиска текста в файле
+					или стандартном вводе.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-814c-9211-c8fc1e172181" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>B 1</strong></code>: Опция
+					<code><strong>B</strong></code> указывает <code><strong>grep</strong></code>у вывести указанное
+					количество строк контекста перед каждым совпадением. В данном случае <code><strong>1</strong></code>
+					указывает, что нужно вывести одну строку контекста перед каждым совпадением.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-815e-960e-e2736882fac0" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>twentyseven</strong></code>: Это строка, которую
+					<code><strong>grep</strong></code> ищет в файле <code><strong>test.txt</strong></code>.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8137-947c-cbb11cdca593" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>test.txt</strong></code>: Имя файла, в котором
+					производится поиск.</li>
+			</ul>
+			<p id="131aa64c-9d0a-81b7-aa4b-cba07a6c643a" class="">Таким образом, после выполнения этой команды
+				<code><strong>grep</strong></code> будет выводить строки из файла
+				<code><strong>test.txt</strong></code>, содержащие фразу &quot;twentyseven&quot;, а также одну строку
+				контекста перед каждым совпадением. Это позволяет увидеть предыдущую строку перед каждым местом, где
+				встречается искомая фраза.</p>
+			<p id="131aa64c-9d0a-8148-9fb3-e0e05762c6fb" class=""><strong>А ещё мы умеем так</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81cc-ab36-c01a06927b1e"
+				class="code"><code class="language-Bash">grep &quot;twenty[1-4]&quot; test.txt</code></pre>
+			<blockquote id="131aa64c-9d0a-8119-802a-e6fab678a537" class="">Команда
+				<code><strong>grep &quot;twenty[1-4]&quot; test.txt</strong></code> используется для поиска всех строк в
+				файле <code><strong>test.txt</strong></code>, содержащих подстроки &quot;twenty1&quot;,
+				&quot;twenty2&quot;, &quot;twenty3&quot; или &quot;twenty4&quot;.</blockquote>
+			<ul id="131aa64c-9d0a-8198-9aff-db37cc92a441" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep</strong></code>: Утилита для поиска текста в файле
+					или стандартном вводе.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81a8-acc6-d7c0eb3da1ae" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>&quot;twenty[1-4]&quot;</strong></code>: Это регулярное
+					выражение, называемое регулярным выражением с символьными классами. Оно указывает
+					<code><strong>grep</strong></code>у на поиск строки, содержащей &quot;twenty&quot; с последующей
+					цифрой, которая может быть 1, 2, 3 или 4.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81d2-8449-eb134aceacaa" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>test.txt</strong></code>: Имя файла, в котором
+					производится поиск.</li>
+			</ul>
+			<p id="131aa64c-9d0a-8131-9985-d8fdef972591" class="">Таким образом, после выполнения этой команды
+				<code><strong>grep</strong></code> будет выводить строки из файла
+				<code><strong>test.txt</strong></code>, в которых содержатся подстроки &quot;twenty1&quot;,
+				&quot;twenty2&quot;, &quot;twenty3&quot; или &quot;twenty4&quot;. Это может быть полезно, если вам нужно
+				найти строки, содержащие конкретные числа после слова &quot;twenty&quot; в вашем файле.</p>
+			<p id="131aa64c-9d0a-815f-a00f-c06852bb9a78" class=""><strong>И наоборот исключая эти</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81a0-a7ff-f58c9998e90d"
+				class="code"><code class="language-Bash">grep &quot;twenty[^1-4]&quot; test.txt</code></pre>
+			<blockquote id="131aa64c-9d0a-81ce-a9c5-d8c45cbbfacc" class="">Команда
+				<code><strong>grep &quot;twenty[^1-4]&quot; test.txt</strong></code> используется для поиска всех строк
+				в файле <code><strong>test.txt</strong></code>, содержащих подстроки &quot;twenty&quot; с последующим
+				символом, отличным от цифр 1, 2, 3 или 4.</blockquote>
+			<ul id="131aa64c-9d0a-81ec-ba6f-c93480a6e890" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep</strong></code>: Утилита для поиска текста в файле
+					или стандартном вводе.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-817f-bbd9-eb839bf0d9f2" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>&quot;twenty[^1-4]&quot;</strong></code>: Это регулярное
+					выражение, которое указывает <code><strong>grep</strong></code> на поиск строки, содержащей
+					&quot;twenty&quot;, за которой следует символ, отличный от цифр 1, 2, 3 или 4. Символ
+					<code><strong>^</strong></code> внутри квадратных скобок указывает на отрицание, то есть исключает
+					из поиска указанные символы.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81f9-a329-e386b423aa07" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>test.txt</strong></code>: Имя файла, в котором
+					производится поиск.</li>
+			</ul>
+			<p id="131aa64c-9d0a-810f-82ad-fd0e0164bad5" class="">Таким образом, после выполнения этой команды
+				<code><strong>grep</strong></code> будет выводить строки из файла
+				<code><strong>test.txt</strong></code>, в которых содержатся подстроки &quot;twenty&quot; с последующими
+				символами, отличными от цифр 1, 2, 3 или 4. Это может быть полезно, если вам нужно найти строки,
+				содержащие &quot;twenty&quot; с последующими символами, отличными от указанных.</p>
+			<h3 id="131aa64c-9d0a-8120-9a02-f97044e6abe6" class=""><strong>4. Разумеется grep поддерживает и прочие
+					базовые квантификаторы, метасимволы и другие прелести регулярок</strong></h3>
+			<p id="131aa64c-9d0a-819e-b8d8-e2d6feb9b015" class=""><strong>Пару практических примеров:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-813e-9065-ea74ec0e42f8"
+				class="code"><code class="language-Bash">cat /etc/resolv.conf</code></pre>
+			<p id="131aa64c-9d0a-8137-998b-cfd8d156ea53" class="">Файл <code><strong>/etc/resolv.conf</strong></code>
+				содержит настройки DNS (Domain Name System) для системы. DNS отвечает за преобразование доменных имен
+				(например, <a href="http://www.example.com/">www.example.com</a>) в IP-адреса, используемые для связи с
+				удаленными хостами в сети Интернет.</p>
+			<p id="131aa64c-9d0a-81b2-b47b-c00d1e98d4b0" class="">Обычно этот файл содержит информацию о DNS-серверах,
+				которые ваша система использует для разрешения доменных имен. Вот как выглядит типичное содержимое файла
+				<code><strong>/etc/resolv.conf</strong></code>:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81a7-b2cd-f0f4583ca9b5" class="code"><code class="language-JavaScript">Generated by NetworkManager
+search example.com
+nameserver 192.168.1.1
+nameserver 8.8.8.8</code></pre>
+			<p id="131aa64c-9d0a-81cc-8bd7-e3b641ff37cf" class=""><strong>Отбираем только строки с ip:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8153-aa07-c53f45cb4ab8"
+				class="code"><code class="language-Bash">grep -E &quot;[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}&quot; /etc/resolv.conf</code></pre>
+			<blockquote id="131aa64c-9d0a-81a3-b641-f2d7f431614b" class="">Команда
+				<code><strong>grep -E &quot;[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}&quot; /etc/resolv.conf</strong></code>
+				используется для поиска в файле <code><strong>/etc/resolv.conf</strong></code> строк, содержащих
+				IPv4-адреса.</blockquote>
+			<ul id="131aa64c-9d0a-8114-8900-e79a32268d19" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep</strong></code>: Утилита для поиска текста в файле
+					или стандартном вводе.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81b8-b68b-cd9ff692747d" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>E</strong></code>: Опция <code><strong>E</strong></code>
+					(или <code><strong>-extended-regexp</strong></code>) указывает <code><strong>grep</strong></code>
+					использовать расширенные регулярные выражения.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81af-b3bb-da33ce856446" class="bulleted-list">
+				<li style="list-style-type:disc">
+					<code><strong>&quot;[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}&quot;</strong></code>: Это
+					регулярное выражение, которое указывает <code><strong>grep</strong></code> на поиск строк,
+					содержащих IPv4-адреса. Регулярное выражение состоит из четырех блоков
+					<code><strong>[0-9]{1,3}</strong></code>, каждый из которых соответствует одному числу от 0 до 255
+					(это определяется <code><strong>{1,3}</strong></code>, что означает от 1 до 3 цифр). Каждый блок
+					разделен точкой <code><strong>\.</strong></code>.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-814b-96d2-c2bad17fc644" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>/etc/resolv.conf</strong></code>: Это путь к файлу, в
+					котором производится поиск.</li>
+			</ul>
+			<p id="131aa64c-9d0a-8167-9e1e-ee4a39f3ef1a" class="">После выполнения этой команды
+				<code><strong>grep</strong></code> выведет строки из файла
+				<code><strong>/etc/resolv.conf</strong></code>, содержащие IPv4-адреса. Это может быть полезно, если вы
+				хотите найти IP-адреса DNS-серверов, указанных в файле <code><strong>resolv.conf</strong></code>.</p>
+			<p id="131aa64c-9d0a-810a-ad4c-c287909b3463" class=""><strong>Работает, но так симпатичнее:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81c8-9172-cbabc865170a"
+				class="code"><code class="language-Bash">grep -E &#x27;\b[0-9]{1,3}(\.[0-9]{1,3}){3}\b&#x27; /etc/resolv.conf</code></pre>
+			<blockquote id="131aa64c-9d0a-81b2-aafd-c627ec2de953" class="">Команда
+				<code><strong>grep -E &#x27;\b[0-9]{1,3}(\.[0-9]{1,3}){3}\b&#x27; /etc/resolv.conf</strong></code>
+				используется для поиска в файле <code><strong>/etc/resolv.conf</strong></code> строк, содержащих
+				IPv4-адреса.</blockquote>
+			<ul id="131aa64c-9d0a-8168-95c3-d09aa9bb900b" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep</strong></code>: Утилита для поиска текста в файле
+					или стандартном вводе.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8101-81eb-d6af5ed39447" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>E</strong></code>: Опция <code><strong>E</strong></code>
+					(или <code><strong>-extended-regexp</strong></code>) указывает <code><strong>grep</strong></code>
+					использовать расширенные регулярные выражения.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8190-a36d-c6f3596c918d" class="bulleted-list">
+				<li style="list-style-type:disc">
+					<code><strong>&#x27;\b[0-9]{1,3}(\.[0-9]{1,3}){3}\b&#x27;</strong></code>: Это регулярное выражение,
+					которое указывает <code><strong>grep</strong></code> на поиск строк, содержащих IPv4-адреса.<ul
+						id="131aa64c-9d0a-813a-8d6f-e27ba2f7aae5" class="bulleted-list">
+						<li style="list-style-type:circle"><code><strong>\b</strong></code>: Это символ словового
+							разделителя, который обозначает границу слова. Он гарантирует, что найденные строки содержат
+							целые IP-адреса, а не части адресов.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81c0-b0b6-c97953254b62" class="bulleted-list">
+						<li style="list-style-type:circle"><code><strong>[0-9]{1,3}</strong></code>: Этот блок
+							соответствует от одной до трех цифр от 0 до 9.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81fb-a651-d585895432e8" class="bulleted-list">
+						<li style="list-style-type:circle"><code><strong>(\.[0-9]{1,3}){3}</strong></code>: Этот блок
+							соответствует точке, за которой следует от одной до трех цифр, повторяющейся три раза (таким
+							образом, обеспечивая формат IPv4-адреса).</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8154-b1ec-eb88fa9eccbf" class="bulleted-list">
+						<li style="list-style-type:circle"><code><strong>\b</strong></code>: Это второй символ словового
+							разделителя, обозначающий конец слова.</li>
+					</ul>
+				</li>
+			</ul>
+			<ul id="131aa64c-9d0a-815b-8536-ea7bae04f56a" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>/etc/resolv.conf</strong></code>: Это путь к файлу, в
+					котором производится поиск.</li>
+			</ul>
+			<p id="131aa64c-9d0a-81b3-90da-faa071b1d10c" class="">После выполнения этой команды
+				<code><strong>grep</strong></code> выведет строки из файла
+				<code><strong>/etc/resolv.conf</strong></code>, содержащие корректные IPv4-адреса. Это может быть
+				полезно, если вы хотите найти IP-адреса DNS-серверов, указанных в файле
+				<code><strong>resolv.conf</strong></code>, с учетом правильного формата IPv4-адреса.</p>
+			<p id="131aa64c-9d0a-814f-83c8-cc29f17472b2" class=""><strong>Уберём строку с комментарием?</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ef-95bf-c3913c1fda22"
+				class="code"><code class="language-Bash">grep -E &#x27;\b[0-9]{1,3}(\.[0-9]{1,3}){3}\b&#x27; /etc/resolv.conf | grep -v &#x27;#&#x27;</code></pre>
+			<blockquote id="131aa64c-9d0a-81a6-8b8e-c0b83d829d26" class="">Эта команда выполняет два последовательных
+				этапа фильтрации вывода.</blockquote>
+			<ol type="1" id="131aa64c-9d0a-8145-b513-c4cba760a58e" class="numbered-list" start="1">
+				<li><code><strong>grep -E &#x27;\b[0-9]{1,3}(\.[0-9]{1,3}){3}\b&#x27; /etc/resolv.conf</strong></code>:
+					Этот фрагмент использует <code><strong>grep</strong></code> с расширенными регулярными выражениями
+					(<code><strong>E</strong></code>), чтобы найти строки в файле
+					<code><strong>/etc/resolv.conf</strong></code>, содержащие корректные IPv4-адреса. Регулярное
+					выражение <code><strong>\b[0-9]{1,3}(\.[0-9]{1,3}){3}\b</strong></code> соответствует корректному
+					IPv4-адресу с учетом границ слов. После выполнения этой команды выводом будут все строки файла
+					<code><strong>/etc/resolv.conf</strong></code>, содержащие корректные IPv4-адреса.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8143-bfeb-d35a4e94b19d" class="numbered-list" start="2">
+				<li><code><strong>grep -v &#x27;#&#x27;</strong></code>: Этот фрагмент использует
+					<code><strong>grep</strong></code> с опцией <code><strong>v</strong></code>, которая инвертирует
+					сопоставление и выводит строки, которые не содержат символ <code><strong>#</strong></code>. Символ
+					<code><strong>#</strong></code> в файле <code><strong>/etc/resolv.conf</strong></code> обычно
+					используется для обозначения комментариев. Поэтому этот фрагмент исключает строки, которые
+					начинаются с символа <code><strong>#</strong></code>, так как они считаются комментариями.
+					Результатом этой команды будет вывод строк файла <code><strong>/etc/resolv.conf</strong></code>,
+					содержащих корректные IPv4-адреса, и исключая строки-комментарии.</li>
+			</ol>
+			<p id="131aa64c-9d0a-8163-84d0-e0449c3abde6" class="">Таким образом, после выполнения этой команды выводом
+				будут только строки файла <code><strong>/etc/resolv.conf</strong></code>, содержащие корректные
+				IPv4-адреса, и исключая строки-комментарии.</p>
+			<p id="131aa64c-9d0a-8137-b932-f252df42d843" class=""><strong>А теперь выберем только сами ip</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-816d-b935-c34c234addd7" class="code"><code class="language-Plain Text" style="  word-break:break-all">grep -oE &#x27;\b[0-9]{1,3}(\.[0-9]{1,3}){3}\b&#x27; /etc/resolv.conf | grep -v &#x27;#&#x27;
+</code></pre>
+			<blockquote id="131aa64c-9d0a-8161-8703-dc8e1bf9839a" class="">Эта команда выполняет два последовательных
+				этапа фильтрации вывода.</blockquote>
+			<ol type="1" id="131aa64c-9d0a-81a2-aa55-ca31d54b7021" class="numbered-list" start="1">
+				<li><code><strong>grep -oE &#x27;\b[0-9]{1,3}(\.[0-9]{1,3}){3}\b&#x27; /etc/resolv.conf</strong></code>:
+					Этот фрагмент использует <code><strong>grep</strong></code> с расширенными регулярными выражениями
+					(<code><strong>E</strong></code>) и опцией <code><strong>o</strong></code>, чтобы найти все
+					вхождения корректных IPv4-адресов в файле <code><strong>/etc/resolv.conf</strong></code>. Регулярное
+					выражение <code><strong>\b[0-9]{1,3}(\.[0-9]{1,3}){3}\b</strong></code> соответствует корректному
+					IPv4-адресу с учетом границ слов и использует опцию <code><strong>o</strong></code> для вывода
+					только совпадающих подстрок. После выполнения этой команды выводом будут все найденные IPv4-адреса,
+					каждый в отдельной строке.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ff-8922-e3b4bce114b1" class="numbered-list" start="2">
+				<li><code><strong>grep -v &#x27;#&#x27;</strong></code>: Этот фрагмент использует
+					<code><strong>grep</strong></code> с опцией <code><strong>v</strong></code>, которая инвертирует
+					сопоставление и выводит строки, которые не содержат символ <code><strong>#</strong></code>. Символ
+					<code><strong>#</strong></code> в файле <code><strong>/etc/resolv.conf</strong></code> обычно
+					используется для обозначения комментариев. Поэтому этот фрагмент исключает строки, которые
+					начинаются с символа <code><strong>#</strong></code>, так как они считаются комментариями.
+					Результатом этой команды будет вывод только IPv4-адресов, найденных в файле
+					<code><strong>/etc/resolv.conf</strong></code>, и исключение строк-комментариев.</li>
+			</ol>
+			<p id="131aa64c-9d0a-8187-94aa-d662753e9069" class="">Таким образом, после выполнения этой команды выводом
+				будут только корректные IPv4-адреса из файла <code><strong>/etc/resolv.conf</strong></code>, и
+				исключаются строки-комментарии. Каждый адрес будет представлен отдельной строкой вывода.</p>
+			<p id="131aa64c-9d0a-81b1-9728-edcd45c79efa" class=""><strong>Вот незадача… Закомментированная строка
+					вернулась. Это связано с особенностью обработки шаблонов. Как быть? Вот так:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-814b-a762-d22957213c1e"
+				class="code"><code class="language-Bash">grep -v &#x27;#&#x27; /etc/resolv.conf | grep -oE &#x27;\b[0-9]{1,3}(\.[0-9]{1,3}){3}\b&#x27;</code></pre>
+			<blockquote id="131aa64c-9d0a-8133-9bda-c7545696e8e3" class="">Эта команда использует два последовательных
+				этапа фильтрации вывода.</blockquote>
+			<ol type="1" id="131aa64c-9d0a-8119-a303-c12f00765293" class="numbered-list" start="1">
+				<li><code><strong>grep -v &#x27;#&#x27; /etc/resolv.conf</strong></code>: Этот фрагмент использует
+					<code><strong>grep</strong></code> с опцией <code><strong>v</strong></code>, которая инвертирует
+					сопоставление и выводит строки, которые не содержат символ <code><strong>#</strong></code>. Символ
+					<code><strong>#</strong></code> в файле <code><strong>/etc/resolv.conf</strong></code> обычно
+					используется для обозначения комментариев. Поэтому этот фрагмент исключает строки, которые
+					начинаются с символа <code><strong>#</strong></code>, так как они считаются комментариями.
+					Результатом этой команды будет вывод всех строк файла
+					<code><strong>/etc/resolv.conf</strong></code>, исключая строки-комментарии.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ef-a6da-c8100eade0eb" class="numbered-list" start="2">
+				<li><code><strong>grep -oE &#x27;\b[0-9]{1,3}(\.[0-9]{1,3}){3}\b&#x27;</strong></code>: Этот фрагмент
+					использует <code><strong>grep</strong></code> с расширенными регулярными выражениями
+					(<code><strong>E</strong></code>) и опцией <code><strong>o</strong></code>, чтобы найти все
+					вхождения корректных IPv4-адресов в выводе предыдущей команды. Регулярное выражение
+					<code><strong>\b[0-9]{1,3}(\.[0-9]{1,3}){3}\b</strong></code> соответствует корректному IPv4-адресу
+					с учетом границ слов и использует опцию <code><strong>o</strong></code> для вывода только
+					совпадающих подстрок. После выполнения этой команды выводом будут все найденные IPv4-адреса, каждый
+					в отдельной строке.</li>
+			</ol>
+			<p id="131aa64c-9d0a-81b3-b7f9-daca72769bf6" class="">Таким образом, после выполнения этой команды выводом
+				будут только корректные IPv4-адреса из файла <code><strong>/etc/resolv.conf</strong></code>, исключая
+				строки-комментарии. Каждый адрес будет представлен отдельной строкой вывода.</p>
+			<h3 id="131aa64c-9d0a-81c6-a12f-fc1d8dd4a0cd" class=""><strong>5. Здесь остановимся на инвертировании поиска
+					ключом -v</strong></h3>
+			<p id="131aa64c-9d0a-814f-911c-f27319c2f43b" class=""><strong>Допустим нам нужно выполнить «ps -afx | grep
+					ttyv»</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8130-a89a-ce59bc64969d"
+				class="code"><code class="language-Bash">ps -afx | grep ttyv</code></pre>
+			<blockquote id="131aa64c-9d0a-8196-9ddc-e3f0510713a3" class="">Команда
+				<code><strong>ps -afx | grep ttyv</strong></code> используется для вывода информации о процессах,
+				запущенных в системе, и фильтрации вывода с помощью <code><strong>grep</strong></code>, чтобы найти
+				процессы, связанные с управлением виртуальными терминалами (ttyv).</blockquote>
+			<ul id="131aa64c-9d0a-810b-b141-ff1c43c4a77c" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>ps</strong></code>: Утилита для вывода информации о
+					процессах.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8154-b154-f2dea89035bd" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>afx</strong></code>: Опции
+					<code><strong>a</strong></code>, <code><strong>f</strong></code> и <code><strong>x</strong></code>
+					используются для вывода всех процессов (даже тех, которые не принадлежат текущему терминалу), а
+					также для вывода информации о дереве процессов и неинтерактивных процессов.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-819d-94f3-d27eecb9cd1e" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>|</strong></code>: Оператор конвейера (pipe), который
+					передает вывод команды слева от него как ввод для команды справа от него.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-817d-a199-cdff7c394dab" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep ttyv</strong></code>: Это команда
+					<code><strong>grep</strong></code>, которая фильтрует вывод <code><strong>ps</strong></code>,
+					оставляя только строки, содержащие подстроку &quot;ttyv&quot;.</li>
+			</ul>
+			<p id="131aa64c-9d0a-816a-94be-df4ce42651bf" class="">Когда вы выполняете эту команду, она выводит список
+				процессов, у которых в имени или аргументах командной строки содержится подстрока &quot;ttyv&quot;. В
+				результате вы увидите только те процессы, которые связаны с виртуальными терминалами (ttyv). Это могут
+				быть процессы управления входом/выходом для виртуальных консолей на вашей системе.</p>
+			<p id="131aa64c-9d0a-815b-8690-f984dc464dfe" class=""><strong>Всё бы ничего, но строка «48798 2 S+ 0:00.00
+					grep ttyv» нам не нужна. Используем -v</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8123-a5a9-e98eba60ba3f"
+				class="code"><code class="language-Bash">ps -afx | grep ttyv | grep -v grep</code></pre>
+			<blockquote id="131aa64c-9d0a-81c8-80ff-eb79d43bf5cb" class="">Команда
+				<code><strong>ps -afx | grep ttyv | grep -v grep</strong></code> используется для вывода информации о
+				процессах, связанных с управлением виртуальными терминалами (ttyv), и исключения из вывода строки,
+				содержащие саму команду <code><strong>grep</strong></code>, чтобы избежать ложных совпадений.
+			</blockquote>
+			<ul id="131aa64c-9d0a-8130-85bc-f395bc74bd25" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>ps</strong></code>: Утилита для вывода информации о
+					процессах.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-818a-9f7f-e320c3afbec1" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>afx</strong></code>: Опции
+					<code><strong>a</strong></code>, <code><strong>f</strong></code> и <code><strong>x</strong></code>
+					используются для вывода всех процессов (даже тех, которые не принадлежат текущему терминалу), а
+					также для вывода информации о дереве процессов и неинтерактивных процессов.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81e1-bba8-e6f799e6a790" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>|</strong></code>: Оператор конвейера (pipe), который
+					передает вывод команды слева от него как ввод для команды справа от него.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81af-bf7d-dd65645402be" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep ttyv</strong></code>: Это первая команда
+					<code><strong>grep</strong></code>, которая фильтрует вывод <code><strong>ps</strong></code>,
+					оставляя только строки, содержащие подстроку &quot;ttyv&quot;.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81ad-9044-c9338d1c47fd" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep -v grep</strong></code>: Это вторая команда
+					<code><strong>grep</strong></code>, которая фильтрует вывод предыдущей команды, исключая строки,
+					содержащие подстроку &quot;grep&quot;. Это нужно для того, чтобы избежать ложных совпадений,
+					поскольку команда <code><strong>grep ttyv</strong></code> сама по себе будет отображена в выводе как
+					процесс, содержащий подстроку &quot;ttyv&quot;.</li>
+			</ul>
+			<p id="131aa64c-9d0a-8103-968b-ff141e221637" class="">Таким образом, после выполнения этой команды вы
+				получите только строки, соответствующие процессам, связанным с виртуальными терминалами (ttyv), и
+				исключите строки, содержащие команду <code><strong>grep</strong></code>, чтобы избежать ложных
+				совпадений.</p>
+			<p id="131aa64c-9d0a-8171-bff0-efdc8977e695" class=""><strong>Некрасивая конструкция? Потрюкачим
+					немного:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-818e-93cb-c705935af308"
+				class="code"><code class="language-Bash">ps -afx | grep &quot;[t]tyv&quot;</code></pre>
+			<blockquote id="131aa64c-9d0a-816a-9582-c7359f36a7fd" class="">Команда
+				<code><strong>ps -afx | grep &quot;[t]tyv&quot;</strong></code> используется для вывода информации о
+				процессах, связанных с управлением виртуальными терминалами (ttyv), при этом исключая сам процесс поиска
+				<code><strong>grep</strong></code> из вывода.</blockquote>
+			<ul id="131aa64c-9d0a-814c-896a-d40dab1c840b" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>ps</strong></code>: Утилита для вывода информации о
+					процессах.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8187-9938-c3b387fc67c8" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>afx</strong></code>: Опции
+					<code><strong>a</strong></code>, <code><strong>f</strong></code> и <code><strong>x</strong></code>
+					используются для вывода всех процессов (даже тех, которые не принадлежат текущему терминалу), а
+					также для вывода информации о дереве процессов и неинтерактивных процессов.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8114-b01c-c13ae78fe9a6" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>|</strong></code>: Оператор конвейера (pipe), который
+					передает вывод команды слева от него как ввод для команды справа от него.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8174-ad8e-cbb019e021f6" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep &quot;[t]tyv&quot;</strong></code>: Это команда
+					<code><strong>grep</strong></code>, которая фильтрует вывод <code><strong>ps</strong></code>,
+					оставляя только строки, содержащие подстроку &quot;ttyv&quot;. Однако, в отличие от обычного поиска
+					<code><strong>grep ttyv</strong></code>, здесь используется трюк с регулярным выражением:
+					<code><strong>[t]tyv</strong></code>. Это позволяет избежать вывода самой команды
+					<code><strong>grep</strong></code> в результате поиска, так как регулярное выражение
+					<code><strong>[t]tyv</strong></code> соответствует строке, содержащей символ
+					<code><strong>t</strong></code>, за которым следует <code><strong>tyv</strong></code>. Таким
+					образом, строка, содержащая <code><strong>[t]tyv</strong></code>, фактически не будет содержать
+					точно такую же последовательность символов, как сама команда <code><strong>grep</strong></code>, что
+					позволяет избежать ложных совпадений.</li>
+			</ul>
+			<p id="131aa64c-9d0a-818a-bc73-e12fd9dc4d20" class="">Таким образом, после выполнения этой команды вы
+				получите только строки, соответствующие процессам, связанным с виртуальными терминалами (ttyv), и
+				исключите строки, содержащие саму команду <code><strong>grep</strong></code>, чтобы избежать ложных
+				совпадений.</p>
+			<h3 id="131aa64c-9d0a-81ee-88e5-f2bf576bc898" class=""><strong>6. Также не забываем про | (ИЛИ)</strong>
+			</h3>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8156-85f8-eb3a93367fda"
+				class="code"><code class="language-Bash">vmstat -z | grep -E &quot;(sock|ITEM)&quot;</code></pre>
+			<blockquote id="131aa64c-9d0a-8176-bd03-da30e2871067" class="">Команда
+				<code><strong>vmstat -z | grep -E &quot;(sock|ITEM)&quot;</strong></code> используется для вывода
+				статистики использования памяти ядра с помощью <code><strong>vmstat</strong></code>, а затем фильтрации
+				этой статистики с помощью <code><strong>grep</strong></code>, чтобы найти строки, содержащие слова
+				&quot;sock&quot; или &quot;ITEM&quot;.</blockquote>
+			<ul id="131aa64c-9d0a-815e-a825-c41d34d351ce" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>vmstat -z</strong></code>: Эта часть команды
+					<code><strong>vmstat</strong></code> используется для вывода статистики использования памяти ядра.
+					Опция <code><strong>z</strong></code> указывает <code><strong>vmstat</strong></code> вывести
+					информацию о кэшах ядра и их использовании.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8167-b348-ecd50ccbdc43" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>|</strong></code>: Это оператор конвейера, который
+					передает вывод команды слева от него в качестве ввода для команды справа от него.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81ae-a9c6-d5bd5fd8d60f" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep -E &quot;(sock|ITEM)&quot;</strong></code>: Эта
+					часть команды <code><strong>grep</strong></code> фильтрует вывод
+					<code><strong>vmstat</strong></code>, оставляя только строки, содержащие подстроки &quot;sock&quot;
+					или &quot;ITEM&quot;. Опция <code><strong>E</strong></code> позволяет использовать расширенные
+					регулярные выражения, а скобки <code><strong>()</strong></code> используются для объединения
+					нескольких выражений в одно с помощью оператора <code><strong>|</strong></code>, который
+					соответствует либо &quot;sock&quot;, либо &quot;ITEM&quot;.</li>
+			</ul>
+			<p id="131aa64c-9d0a-8182-8b75-c61a6f5fe92b" class="">После выполнения этой команды будет выведена
+				статистика использования памяти ядра с помощью <code><strong>vmstat</strong></code>, и строки,
+				содержащие слова &quot;sock&quot; или &quot;ITEM&quot;, будут выделены. Это может быть полезно для
+				анализа использования памяти ядра и выявления потенциальных проблем или узких мест в системе.</p>
+			<p id="131aa64c-9d0a-81fe-8d9c-c473fb1970c5" class=""><strong>ну и тоже самое, иначе:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-811d-81da-c542ef1fd21b"
+				class="code"><code class="language-Bash">vmstat -z | grep &#x27;sock\|ITEM&#x27;</code></pre>
+			<blockquote id="131aa64c-9d0a-81c9-bfbb-cfb989b18805" class="">Команда
+				<code><strong>vmstat -z | grep &#x27;sock\|ITEM&#x27;</strong></code> используется для вывода статистики
+				использования памяти ядра с помощью утилиты <code><strong>vmstat</strong></code>, а затем фильтрации
+				этой статистики с использованием <code><strong>grep</strong></code>, чтобы найти строки, содержащие либо
+				подстроку &quot;sock&quot;, либо подстроку &quot;ITEM&quot;.</blockquote>
+			<ul id="131aa64c-9d0a-81ce-bd22-ebd9dc85081a" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>vmstat -z</strong></code>: Эта часть команды
+					<code><strong>vmstat</strong></code> используется для вывода статистики использования памяти ядра.
+					Опция <code><strong>z</strong></code> указывает <code><strong>vmstat</strong></code> вывести
+					информацию о кэшах ядра и их использовании.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8115-b485-f57364e6d964" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>|</strong></code>: Это оператор конвейера, который
+					передает вывод команды слева от него в качестве ввода для команды справа от него.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8186-8d9e-feffdfd1a465" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep &#x27;sock\|ITEM&#x27;</strong></code>: Эта часть
+					команды <code><strong>grep</strong></code> фильтрует вывод <code><strong>vmstat</strong></code>,
+					оставляя только строки, содержащие подстроки &quot;sock&quot; или &quot;ITEM&quot;.
+					<code><strong>\|</strong></code> используется для указания оператора &quot;или&quot; в регулярном
+					выражении для <code><strong>grep</strong></code>.</li>
+			</ul>
+			<p id="131aa64c-9d0a-81f6-b3ca-c27f3f518fc2" class="">После выполнения этой команды будет выведена
+				статистика использования памяти ядра с помощью <code><strong>vmstat</strong></code>, и строки,
+				содержащие либо подстроку &quot;sock&quot;, либо подстроку &quot;ITEM&quot;, будут выделены. Это может
+				быть полезно для анализа использования памяти ядра и выявления потенциальных проблем или узких мест в
+				системе.</p>
+			<h3 id="131aa64c-9d0a-81bd-92ea-ea75831e328a" class=""><strong>7. POSIX</strong></h3>
+			<p id="131aa64c-9d0a-81a2-a375-ef3912c7c17d" class=""><strong>Отберём строки с заглавными
+					символами:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8118-8ddd-d7cee5207fd4"
+				class="code"><code class="language-Plain Text" style="  word-break:break-all">grep &quot;[[:upper:]]&quot; test.txt</code></pre>
+			<blockquote id="131aa64c-9d0a-81e6-b5a0-d48603aa73a2" class="">Команда
+				<code><strong>grep &quot;[[:upper:]]&quot; test.txt</strong></code> используется для поиска строк в
+				файле <code><strong>test.txt</strong></code>, содержащих хотя бы одну заглавную букву.</blockquote>
+			<ul id="131aa64c-9d0a-8193-a8ad-e3e23f133d1f" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep</strong></code>: Утилита для поиска текста в файле
+					или стандартном вводе.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8193-88fb-f0c54c2a0788" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>&quot;[[:upper:]]&quot;</strong></code>: Это регулярное
+					выражение, которое соответствует одной заглавной букве. <code><strong>[[:upper:]]</strong></code>
+					представляет собой класс символов в регулярных выражениях, который соответствует любой заглавной
+					букве в ASCII.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8169-80db-cd5be80ac601" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>test.txt</strong></code>: Это имя файла, в котором
+					выполняется поиск.</li>
+			</ul>
+			<p id="131aa64c-9d0a-817b-934d-fd3c0ba10ec1" class="">После выполнения этой команды
+				<code><strong>grep</strong></code> выведет все строки из файла <code><strong>test.txt</strong></code>,
+				содержащие хотя бы одну заглавную букву. Таким образом, это позволяет быстро найти и выделить строки,
+				содержащие заглавные буквы в файле.</p>
+			<p id="131aa64c-9d0a-8133-aa98-f85bfe671185" class=""><strong>Плохо видно что нашли? Подсветим:</strong></p>
+			<figure id="131aa64c-9d0a-811e-9dc1-e2845c1bc6fd" class="image"><a
+					href="https://i.imgur.com/VWYVlsX.png"><img src="https://i.imgur.com/VWYVlsX.png" /></a></figure>
+			<h3 id="131aa64c-9d0a-81f1-8cfc-e86e1629f49d" class=""><strong>8. Ну и ещё пару трюков для
+					затравки.</strong></h3>
+			<p id="131aa64c-9d0a-81df-af24-d2284579ccd5" class=""><strong>Нужно из нашего тестового файла выбрать строки
+					содержащие six или seven или eight:</strong></p>
+			<p id="131aa64c-9d0a-81a4-bf60-e67ed1eda115" class=""><strong>Пока всё просто:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-811b-8a71-d94b5d1ffc26"
+				class="code"><code class="language-Bash">grep -E &quot;(six|seven|eight)&quot; test.txt</code></pre>
+			<blockquote id="131aa64c-9d0a-8105-a607-de9fb6274267" class="">Команда
+				<code><strong>grep -E &quot;(six|seven|eight)&quot; test.txt</strong></code> используется для поиска
+				строк в файле <code><strong>test.txt</strong></code>, содержащих подстроки &quot;six&quot;,
+				&quot;seven&quot; или &quot;eight&quot;.</blockquote>
+			<ul id="131aa64c-9d0a-81a5-b53b-ef19157abef8" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep</strong></code>: Утилита для поиска текста в файле
+					или стандартном вводе.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81b7-9f4f-d22b29dfcede" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>E</strong></code>: Опция <code><strong>E</strong></code>
+					(или <code><strong>-extended-regexp</strong></code>) указывает <code><strong>grep</strong></code>
+					использовать расширенные регулярные выражения.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81f1-8030-d5a5842dfd17" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>&quot;(six|seven|eight)&quot;</strong></code>: Это
+					регулярное выражение, которое соответствует одной из трех строк: &quot;six&quot;, &quot;seven&quot;
+					или &quot;eight&quot;. Круглые скобки <code><strong>()</strong></code> используются для группировки
+					альтернативных выражений, а символ <code><strong>|</strong></code> означает &quot;или&quot; в
+					регулярных выражениях.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8181-97ac-c771fa6b759a" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>test.txt</strong></code>: Это имя файла, в котором
+					выполняется поиск.</li>
+			</ul>
+			<p id="131aa64c-9d0a-81b8-a41a-fb681c7e4ab0" class="">После выполнения этой команды
+				<code><strong>grep</strong></code> выведет все строки из файла <code><strong>test.txt</strong></code>,
+				содержащие хотя бы одну из трех подстрок: &quot;six&quot;, &quot;seven&quot; или &quot;eight&quot;.
+				Таким образом, это позволяет быстро найти и выделить строки, содержащие одну из указанных подстрок в
+				файле.</p>
+			<p id="131aa64c-9d0a-81bb-8c40-e357cfdd3789" class=""><strong>А теперь только те строки в которых six или
+					seven или eight встречаются несколько раз. Эта фишка именуется Backreferences</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-819d-9025-fa214274f02f"
+				class="code"><code class="language-Bash">grep -E &quot;(six|seven|eight).*\1&quot; test.txt</code></pre>
+			<blockquote id="131aa64c-9d0a-815f-8364-e0de9c207671" class="">Команда
+				<code><strong>grep -E &quot;(six|seven|eight).*\1&quot; test.txt</strong></code> используется для поиска
+				строк в файле <code><strong>test.txt</strong></code>, которые содержат одну из строк &quot;six&quot;,
+				&quot;seven&quot; или &quot;eight&quot;, за которой следует любая последовательность символов, а затем
+				повторяется та же строка (то есть, повтор).</blockquote>
+			<ul id="131aa64c-9d0a-81af-8e4c-dfa722b45c4b" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep</strong></code>: Утилита для поиска текста в файле
+					или стандартном вводе.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-814c-99bb-e1d01446746c" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>E</strong></code>: Опция <code><strong>E</strong></code>
+					(или <code><strong>-extended-regexp</strong></code>) указывает <code><strong>grep</strong></code>
+					использовать расширенные регулярные выражения.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81aa-bf24-d334b456000f" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>&quot;(six|seven|eight).*\1&quot;</strong></code>: Это
+					регулярное выражение ищет строки, которые содержат одну из строк &quot;six&quot;, &quot;seven&quot;
+					или &quot;eight&quot;, за которой следует любая последовательность символов
+					(<code><strong>.*</strong></code>), а затем повторяется та же строка
+					(<code><strong>\1</strong></code>). Символ <code><strong>\1</strong></code> соответствует тексту,
+					совпадающему с содержимым первой группы скобок <code><strong>(six|seven|eight)</strong></code> в
+					выражении.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-810e-a6fc-f81c7694e703" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>test.txt</strong></code>: Это имя файла, в котором
+					выполняется поиск.</li>
+			</ul>
+			<p id="131aa64c-9d0a-81a5-b165-ee982a1531bf" class="">После выполнения этой команды
+				<code><strong>grep</strong></code> выведет все строки из файла <code><strong>test.txt</strong></code>,
+				которые содержат подстроку &quot;six&quot;, &quot;seven&quot; или &quot;eight&quot;, за которой следует
+				любая последовательность символов, а затем повторяется та же строка. Таким образом, это позволяет быстро
+				найти и выделить строки, содержащие повторяющиеся последовательности &quot;six&quot;, &quot;seven&quot;
+				или &quot;eight&quot;.</p>
+			<h3 id="131aa64c-9d0a-81fd-b3f6-ea0650fd0927" class=""><strong>Ну и второй трюк, куда более полезный.
+					Необходимо вывести строки в которых 504 с обеих сторон ограничено табуляцией.</strong></h3>
+			<p id="131aa64c-9d0a-8103-bbd9-c0cbb86c51b1" class="">Ох как тут не хватает поддержки PCRE…</p>
+			<p id="131aa64c-9d0a-811a-b7f6-e54384695c50" class=""><strong>Использование POSIX-классов не
+					спасает:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8121-896e-ef5cc9f1b3b7"
+				class="code"><code class="language-Bash">grep &quot;[[:blank:]]504[[:blank:]]&quot; test.txt</code></pre>
+			<blockquote id="131aa64c-9d0a-81b0-ac04-da4d911a51fb" class="">Команда
+				<code><strong>grep &quot;[[:blank:]]504[[:blank:]]&quot; test.txt</strong></code> используется для
+				поиска строк в файле <code><strong>test.txt</strong></code>, которые содержат подстроку &quot;504&quot;,
+				окруженную пробельными символами (пробелами или табуляциями).</blockquote>
+			<ul id="131aa64c-9d0a-81a4-9244-d991d0bfdc49" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep</strong></code>: Утилита для поиска текста в файле
+					или стандартном вводе.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81ee-b0c9-f963c7e6203d" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>&quot;[[:blank:]]504[[:blank:]]&quot;</strong></code>:
+					Это регулярное выражение ищет строки, в которых подстрока &quot;504&quot; находится между
+					пробельными символами <code><strong>[[:blank:]]</strong></code>.
+					<code><strong>[[:blank:]]</strong></code> представляет собой класс символов в регулярных выражениях,
+					который соответствует любому пробельному символу, включая пробелы и табуляции.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81c5-a243-f7e887be066e" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>test.txt</strong></code>: Имя файла, в котором
+					выполняется поиск.</li>
+			</ul>
+			<p id="131aa64c-9d0a-814c-8ab0-c111b0037455" class="">После выполнения этой команды
+				<code><strong>grep</strong></code> выведет все строки из файла <code><strong>test.txt</strong></code>, в
+				которых подстрока &quot;504&quot; находится между пробельными символами. Таким образом, это позволяет
+				быстро найти и выделить строки, содержащие конкретное значение &quot;504&quot;, которое окружено
+				пробельными символами.</p>
+			<p id="131aa64c-9d0a-8182-8f5d-c6a89c45cc2a" class=""><strong>На помощь приходит конструкция
+					[CTRL+V][TAB]:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81dd-bc71-d5e69edd9459"
+				class="code"><code class="language-Plain Text" style="  word-break:break-all">root@nm3:/ # grep &quot;     504     &quot; test.txt</code></pre>
+			<blockquote id="131aa64c-9d0a-8103-90a6-f38534f62757" class="">Команда
+				<code><strong>grep &quot; 504 &quot; test.txt</strong></code> используется для поиска строк в файле
+				<code><strong>test.txt</strong></code>, которые содержат точно строку &quot;504&quot;, окруженную шестью
+				пробелами.</blockquote>
+			<ul id="131aa64c-9d0a-818c-85e6-ef9729daf0de" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep</strong></code>: Утилита для поиска текста в файле
+					или стандартном вводе.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8191-8c01-e2fdcfdb5df5" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>&quot; 504 &quot;</strong></code>: Это строка, которую
+					<code><strong>grep</strong></code> ищет в файле <code><strong>test.txt</strong></code>. Заметьте,
+					что между цифрой &quot;504&quot; и пробелами в выражении имеется по шесть пробелов для точного
+					соответствия.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8110-ab37-ef70981ded23" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>test.txt</strong></code>: Имя файла, в котором
+					выполняется поиск.</li>
+			</ul>
+			<p id="131aa64c-9d0a-816b-9e47-dd2364fe67ca" class="">После выполнения этой команды
+				<code><strong>grep</strong></code> выведет все строки из файла <code><strong>test.txt</strong></code>, в
+				которых точно присутствует строка &quot;504&quot;, окруженная шестью пробелами. Это позволяет быстро
+				найти строки с определенным значением &quot;504&quot;, когда они представлены в формате, где количество
+				пробелов между значениями фиксировано.</p>
+			<h3 id="131aa64c-9d0a-812b-a87d-cc1345891dae" class=""><strong>9. Разумеется, grep умеет искать в
+					файлах/каталогах и, разумеется, рекурсивно.</strong></h3>
+			<p id="131aa64c-9d0a-81c5-82c8-e1b9b5bd1caf" class=""><strong>Найдём в исходниках код, где разрешается
+					использование Intel’ом сторонних SFP-шек. Как пишется allow_unsupported_sfp или
+					unsupported_allow_sfp не помню. Ну да и ладно — это проблемы grep’а:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-813a-a664-dbf8eae6ce4a"
+				class="code"><code class="language-Bash">grep -rni allow /usr/src/sys/dev/ | grep unsupp</code></pre>
+			<blockquote id="131aa64c-9d0a-8172-8c12-ed5a7278ebe3" class="">Эта команда используется для поиска строк,
+				содержащих слово &quot;allow&quot; в файлах, находящихся в директории
+				<code><strong>/usr/src/sys/dev/</strong></code>, а затем фильтрации результатов с помощью
+				<code><strong>grep</strong></code>, чтобы найти только те строки, содержащие подстроку
+				&quot;unsupp&quot;.</blockquote>
+			<ul id="131aa64c-9d0a-81b2-865e-de33184d3197" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep -rni allow /usr/src/sys/dev/</strong></code>: Эта
+					часть команды <code><strong>grep</strong></code> ищет рекурсивно (<code><strong>r</strong></code>) в
+					директории <code><strong>/usr/src/sys/dev/</strong></code> все строки, содержащие слово
+					&quot;allow&quot;. Опция <code><strong>n</strong></code> позволяет выводить номера строк, а
+					<code><strong>i</strong></code> делает поиск регистронезависимым.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81e4-a3ec-ee3bd2ec95dc" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>|</strong></code>: Оператор конвейера (pipe), который
+					передает вывод первой команды в качестве ввода для второй команды.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81a3-9954-e4fdf7474469" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>grep unsupp</strong></code>: Эта часть команды
+					<code><strong>grep</strong></code> фильтрует вывод предыдущей команды, оставляя только строки,
+					содержащие подстроку &quot;unsupp&quot;.</li>
+			</ul>
+			<p id="131aa64c-9d0a-8181-9acd-fa8ad6651ec8" class="">Таким образом, после выполнения этой команды будут
+				выведены все строки, содержащие слово &quot;allow&quot; из файлов в директории
+				<code><strong>/usr/src/sys/dev/</strong></code>, где каждая строка будет снабжена номером строки, а
+				затем из этого результата будут выбраны только те строки, которые также содержат подстроку
+				&quot;unsupp&quot;. Это может помочь в быстром нахождении и анализе соответствующих строк в коде
+				исходного проекта.</p>
+			<p id="131aa64c-9d0a-81a8-84ed-f0299d3a2bba" class=""><strong>И это была только вершина айсберга
+					grep.</strong></p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

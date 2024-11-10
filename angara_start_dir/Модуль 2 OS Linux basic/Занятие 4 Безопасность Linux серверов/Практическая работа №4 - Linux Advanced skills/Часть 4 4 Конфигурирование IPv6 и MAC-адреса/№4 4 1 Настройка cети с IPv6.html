@@ -1,0 +1,1565 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>№4.4.1 Настройка cети с IPv6</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-818b-8bab-ddc20af6c11d" class="page sans">
+		<header>
+			<h1 class="page-title">№4.4.1 <strong>Настройка cети с IPv6</strong></h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<figure id="131aa64c-9d0a-818c-a585-f44f9eedcbbd" class="image"><a
+					href="№4 4 1 Настройка cети с IPv6/Untitled.png"><img
+						style="width:1505px"
+						src="№4 4 1 Настройка cети с IPv6/Untitled.png" /></a>
+			</figure>
+			<ul id="131aa64c-9d0a-810f-a89b-db4e914f7224" class="toggle">
+				<li>
+					<details open="">
+						<summary>План работы</summary>
+						<p id="131aa64c-9d0a-819d-9b36-ffd16fc66355" class="">
+						</p>
+						<nav id="131aa64c-9d0a-8179-b50a-fdf7375e8a0a" class="block-color-gray table_of_contents">
+							<div class="table_of_contents-item table_of_contents-indent-0"><a
+									class="table_of_contents-link"
+									href="#131aa64c-9d0a-814e-b53b-df5444575c45"><strong>Цель работы:</strong></a></div>
+							<div class="table_of_contents-item table_of_contents-indent-0"><a
+									class="table_of_contents-link"
+									href="#131aa64c-9d0a-81a1-afa4-f18ca3127096"><strong>Задача:</strong></a></div>
+							<div class="table_of_contents-item table_of_contents-indent-0"><a
+									class="table_of_contents-link"
+									href="#131aa64c-9d0a-8131-a7e4-e4151e671abb">Отчёт:</a></div>
+							<div class="table_of_contents-item table_of_contents-indent-0"><a
+									class="table_of_contents-link"
+									href="#131aa64c-9d0a-8175-96d1-fb4cf57b739a"><strong>1. IPv6</strong></a></div>
+							<div class="table_of_contents-item table_of_contents-indent-0"><a
+									class="table_of_contents-link"
+									href="#131aa64c-9d0a-8135-b9bf-deebbb1a2ff6"><strong>2. Структура IPv6
+										адреса</strong></a></div>
+							<div class="table_of_contents-item table_of_contents-indent-0"><a
+									class="table_of_contents-link"
+									href="#131aa64c-9d0a-811c-8e0d-e8e6c8f2de5e"><strong>3. Как узнать, у меня IPv6
+										адрес или нет? Как узнать свой IPv6 адрес</strong></a></div>
+							<div class="table_of_contents-item table_of_contents-indent-0"><a
+									class="table_of_contents-link"
+									href="#131aa64c-9d0a-81b1-9faf-db877018410e"><strong>4. Зарезервированные IPv6
+										адреса</strong></a></div>
+							<div class="table_of_contents-item table_of_contents-indent-1"><a
+									class="table_of_contents-link"
+									href="#131aa64c-9d0a-81fd-af9f-e3c8a9a9011f"><strong>4.1 Глобальные
+										IPv6</strong></a></div>
+							<div class="table_of_contents-item table_of_contents-indent-0"><a
+									class="table_of_contents-link"
+									href="#131aa64c-9d0a-8188-bb85-e9441ff73a63"><strong>5. Как узнать IPv6 адрес
+										сайта</strong></a></div>
+							<div class="table_of_contents-item table_of_contents-indent-0"><a
+									class="table_of_contents-link"
+									href="#131aa64c-9d0a-81a2-ab9f-f44c38080db7"><strong>6. Как открыть IPv6 в
+										веб-браузере</strong></a></div>
+							<div class="table_of_contents-item table_of_contents-indent-0"><a
+									class="table_of_contents-link"
+									href="#131aa64c-9d0a-81d0-bce9-d0c69c89e261"><strong>7. Как в IPv6 посмотреть ARP
+										таблицу. Показ соседей в IPv6</strong></a></div>
+							<div class="table_of_contents-item table_of_contents-indent-0"><a
+									class="table_of_contents-link"
+									href="#131aa64c-9d0a-81c0-bd01-d6ce574fe080"><strong>8. Как настроить свою систему
+										на работу с DNS по IPv6</strong></a></div>
+							<div class="table_of_contents-item table_of_contents-indent-0"><a
+									class="table_of_contents-link"
+									href="#131aa64c-9d0a-81ab-8beb-e615fc0ac3da"><strong>9. Как посчитать сколько IPv6
+										адресов в подсети</strong></a></div>
+							<div class="table_of_contents-item table_of_contents-indent-0"><a
+									class="table_of_contents-link"
+									href="#131aa64c-9d0a-8178-b5cf-e4504cd13736"><strong>10. Показ IPv6 маршрутов в
+										локальной системе</strong></a></div>
+							<div class="table_of_contents-item table_of_contents-indent-0"><a
+									class="table_of_contents-link"
+									href="#131aa64c-9d0a-814f-82ca-d1bfb3cdfae7"><strong>11. Как посмотреть настройки
+										IPv6</strong></a></div>
+							<div class="table_of_contents-item table_of_contents-indent-0"><a
+									class="table_of_contents-link"
+									href="#131aa64c-9d0a-8161-a2b9-f2d6ecf49cea"><strong>12. Как отключить и включить
+										IPv6</strong></a></div>
+							<div class="table_of_contents-item table_of_contents-indent-0"><a
+									class="table_of_contents-link"
+									href="#131aa64c-9d0a-8149-aed6-e7ac6894968f"><strong>13. Ping между двумя linux
+										машинками по ipv6 выполняется следующим образом:</strong></a></div>
+							<div class="table_of_contents-item table_of_contents-indent-0"><a
+									class="table_of_contents-link"
+									href="#131aa64c-9d0a-811a-a3fa-fcfb85e39f45"><strong>14. Как настроить SSH для
+										работы только с IPv6</strong></a></div>
+							<div class="table_of_contents-item table_of_contents-indent-0"><a
+									class="table_of_contents-link"
+									href="#131aa64c-9d0a-81da-90a6-e533e94af777"><strong>Вывод:</strong></a></div>
+						</nav>
+					</details>
+				</li>
+			</ul>
+			<h3 id="131aa64c-9d0a-814e-b53b-df5444575c45" class=""><strong>Цель работы:</strong></h3>
+			<ul id="131aa64c-9d0a-81ad-9aa6-f3ec7831102a" class="bulleted-list">
+				<li style="list-style-type:disc">Научиться основам работы с IPv6.</li>
+			</ul>
+			<h3 id="131aa64c-9d0a-81a1-afa4-f18ca3127096" class=""><strong>Задача:</strong></h3>
+			<ol type="1" id="131aa64c-9d0a-81ce-b6b8-fe36fc663a6a" class="numbered-list" start="1">
+				<li>Объяснить структуру IPv6;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ee-97e4-e083c26ad467" class="numbered-list" start="2">
+				<li>Что такое зарезервированные IPv6 адреса;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8118-804b-ff7d8fef9cdc" class="numbered-list" start="3">
+				<li>Что такое глобальные IPv6 адреса;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-811c-8695-e366582a711c" class="numbered-list" start="4">
+				<li>Как узнать IPv6 адрес сайта;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-811a-afe9-d54c3d8c9801" class="numbered-list" start="5">
+				<li>Как открыть IPv6 в веб-браузере;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81b3-9e1d-e4d7d70a86ae" class="numbered-list" start="6">
+				<li>Как в IPv6 посмотреть ARP таблицу;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8119-a8ef-e2f79d13bac6" class="numbered-list" start="7">
+				<li>Как настроить свою систему на работу с DNS по IPv6;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81c6-913b-d01e505ad425" class="numbered-list" start="8">
+				<li>Как посчитать сколько IPv6 адресов в подсети;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-817c-ac5a-fb91ee48b0d5" class="numbered-list" start="9">
+				<li>Показать IPv6 маршруты в локальной системе;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ed-816a-e1c633b7e8ea" class="numbered-list" start="10">
+				<li>Как отключить и включить IPv6;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81b3-bbd7-e5a3c1966999" class="numbered-list" start="11">
+				<li>Как посмотреть настройки IPv6;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-815c-99fc-e0990dd16633" class="numbered-list" start="12">
+				<li>Ping между двумя linux машинками по ipv6;</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8170-bad4-d74962e270f8" class="numbered-list" start="13">
+				<li>Как настроить SSH для работы только с IPv6.</li>
+			</ol>
+			<h3 id="131aa64c-9d0a-8131-a7e4-e4151e671abb" class="">Отчёт:</h3>
+			<ul id="131aa64c-9d0a-819b-8c31-f8e295cad6fb" class="bulleted-list">
+				<li style="list-style-type:disc">Приложить скриншоты с описание к отчёту.</li>
+			</ul>
+			<h1 id="131aa64c-9d0a-8175-96d1-fb4cf57b739a" class=""><strong>1. IPv6</strong></h1>
+			<figure class="block-color-blue_background callout" style=" display:flex"
+				id="131aa64c-9d0a-81a3-9081-c6ee49d7cfe0">
+				<div style="font-size:1.5em"><span class="icon">ℹ️</span></div>
+				<div style="width:100%">IPv6 (Internet Protocol version 6) - это последняя версия Интернет-протокола,
+					используемая для передачи данных в Интернете между устройствами. IPv6 является протоколом следующего
+					поколения после IPv4, который вышел в конце 1970-х годов. IPv6 использует 128-битные адреса вместо
+					32-битных адресов, используемых в IPv4. Это позволяет создать огромное количество уникальных
+					IP-адресов, что является необходимым для увеличения числа устройств, подключенных к Интернету, и для
+					создания новых сервисов в Интернете. IPv6 также обеспечивает более безопасные, надежные и
+					эффективные соединения в Интернете.</div>
+			</figure>
+			<p id="131aa64c-9d0a-8180-beb9-d1567783f1e8" class="">Сейчас, когда IP и IPv6 протоколы работают вместе, это
+				приводит к существованию фактически двух параллельных сетей. Например, роутер моего Интернет-провайдера
+				поддерживает IPv6 и IP. Если я обращаюсь к сайту, у которого есть IPv6 адрес (большинство сайтов), то
+				мой запрос и ответ идёт по сетям (узлам) с поддержкой IPv6. Если я обращусь к сайту, у которого только
+				IP адрес, то мой запрос и ответ на него может пойти по другому маршруту.</p>
+			<p id="131aa64c-9d0a-8108-b56c-db84819a6dad" class=""><strong>При анализе сети, допустим, с помощью
+					Wireshark или tcpdump можно пропустить половину или даже больше трафика, если забыть про IPv6! То
+					есть в качестве фильтра отображения пакетов в Wireshark вы введёте обычный фильтр для показа трафика
+					IP протокола:</strong></p>
+			<figure id="131aa64c-9d0a-817f-a183-e65d823f44be" class="image"><a
+					href="https://i.imgur.com/ydJcIfr.png"><img src="https://i.imgur.com/ydJcIfr.png" /></a></figure>
+			<p id="131aa64c-9d0a-81ed-b3e4-f72379567259" class=""><strong>Но если ввести такой фильтр ipv6, то картина
+					изменится кардинально (обращаю внимание, что это тот же самый трафик), окажется, что компьютер
+					подключается ещё и к совершенно другим хостам:</strong></p>
+			<figure id="131aa64c-9d0a-81bc-8e16-daae7b5aaac7" class="image"><a
+					href="https://i.imgur.com/fNewlIl.png"><img src="https://i.imgur.com/fNewlIl.png" /></a></figure>
+			<ul id="131aa64c-9d0a-81b6-b316-dd193602ce15" class="bulleted-list">
+				<li style="list-style-type:disc">При анализе сети, при настройке фильтров отображения по IP, при
+					выполнении атак (например, ARP и DNS спуфинг в локальной сети), нужно помнить про IPv6!</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8184-91c2-d44a9949afb2" class="bulleted-list">
+				<li style="list-style-type:disc">Ещё раз: IP и IPv6 это две параллельные сети, которые не особо связаны
+					друг с другом (хотя одно и то же оборудование может поддерживать работу с обоими протоколами). В
+					результате при настройке сети, например, файервола, нужно отдельно сделать настройки для протокола
+					IP, а затем делать такую же настройку IPv6. Поскольку это разные сети, есть шанс, что системный
+					администратор настроил их по-разному, что даёт лазейки для выполнения атак или обхода ограничений с
+					использованием IPv6.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8121-b6d2-f91d1e337ca9" class="bulleted-list">
+				<li style="list-style-type:disc">IPv6 адреса могут пригодиться при исследовании локальных сетей
+					Интернет-провайдеров, стоит попробовать использовать IPv6 для обхода Captive Portal (перехватывающих
+					порталов) и других ограничений сети, про IPv6 нужно помнить при анализе трафика на своём компьютере
+					и в локальных сетях, либо наоборот для увеличения скрытности своего пребывания (в надежде, что в
+					настройках логирования трафика не упомянут IPv6 или что геолокация по IPv6 сейчас в зачаточном
+					состоянии (по крайней мере, в публичных базах данных)).</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81b3-8d11-e7dff23e6700" class="bulleted-list">
+				<li style="list-style-type:disc">В ядра Debian включена обработка IPv6 внутри самого ядра (за
+					исключением нескольких архитектур устройств, в которых скомпилирован модуль, называемый ipv6).
+					Основные инструменты, такие как ping и traceroute, имеют их IPv6 эквивалентов, называемых ping6 и
+					traceroute6, которые доступны в пакетах с соответствующими именами iputils-ping и iputils-tracepath.
+				</li>
+			</ul>
+			<p id="131aa64c-9d0a-8102-9ae3-c7946d9d666f" class=""><em>Сеть IPv6 настраивается аналогично тому, как это
+					делается в IPv4, в файле </em><em><code>/etc/network/interfaces</code></em><em>. Но если вы хотите,
+					чтобы сеть была доступна глобально, вы должны убедиться, что имеете IPv6-совместимый маршрутизатор,
+					перенаправляющий трафик в глобальную IPv6 сеть.</em></p>
+			<figure id="131aa64c-9d0a-81de-bac4-cba6432651a2" class="image"><a
+					href="https://i.imgur.com/yQj8XD8.png"><img src="https://i.imgur.com/yQj8XD8.png" /></a></figure>
+			<h1 id="131aa64c-9d0a-8135-b9bf-deebbb1a2ff6" class=""><strong>2. Структура IPv6 адреса</strong></h1>
+			<p id="131aa64c-9d0a-81d6-9ed3-d9f05546e7f8" class=""><strong>Ниже приведены примеры правильных IPv6
+					адресов:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81f6-97e8-d20b79bf78ed" class="code"><code class="language-Plain Text" style=" word-break:break-all">::1
+2a02:6b8:a::a
+2a02:f680:1:1100::3d60
+2604:a880:800:c1::2ae:d001
+2001:db8:11a3:9d7:1f34:8a2e:7a0:765d
+</code></pre>
+			<p id="131aa64c-9d0a-8168-8a1f-ff33fff851ac" class=""><em>Они, мягко говоря, разные. Давайте разберёмся, как
+					такое возможно.</em></p>
+			<p id="131aa64c-9d0a-81a2-9456-db6606b1ef5a" class="">Адреса IPv6 в полной форме отображаются как восемь
+				четырёхзначных шестнадцатеричных чисел (то есть восемь групп по четыре символа), разделённых двоеточием.
+			</p>
+			<p id="131aa64c-9d0a-8191-9c49-e4300b556f13" class=""><strong>Пример адреса:</strong></p>
+			<p id="131aa64c-9d0a-819a-94f4-e7473f11892f" class=""><code>2001:0db8:11a3:09d7:1f34:8a2e:07a0:765d</code>
+			</p>
+			<p id="131aa64c-9d0a-81f1-a199-f3aa40f5b64a" class=""><em>Шестнадцатеричные числа записываются с помощью
+					цифр от 0 до 9 и с помощью букв от a до f.</em></p>
+			<p id="131aa64c-9d0a-811b-a652-fedace8f4377" class="">Полная запись может быть сокращена используя несколько
+				методов нотации, к примеру, адрес <code>2001:0db8:0000:0000:0000:8a2e:0370:7334</code> равнозначен
+				адресу <code>2001:db8::8a2e:370:7334</code>.</p>
+			<p id="131aa64c-9d0a-8151-a68b-d449ceac867b" class=""><strong>Кстати, ведь IP адреса тоже поддерживают
+					сокращённую запись, к примеру, следующая команда прекрасно будет работать:</strong></p>
+			<figure id="131aa64c-9d0a-8181-a827-f30a38bd4d16" class="image"><a
+					href="https://i.imgur.com/jRlianG.png"><img src="https://i.imgur.com/jRlianG.png" /></a></figure>
+			<p id="131aa64c-9d0a-81ca-b03f-e910d7a190a0" class=""><em>В результате будет выполнен пинг адреса 127.0.0.1,
+					который в сокращённом виде представляет собой 127.1</em></p>
+			<ul id="131aa64c-9d0a-81d9-9c86-d371923b68be" class="bulleted-list">
+				<li style="list-style-type:disc">Для IP адресов группы цифр называют октетами (что на каком-то языке
+					означает «восемь») поскольку каждая цифра в адресе содержит восемь бит информации, всего в IP четыре
+					октета, то есть для адреса используется 32 бита. Кстати, именно поэтому число в каждом октете
+					ограничено 255 — это соответствует количеству информации, которое могут хранить 8 бит, это 28, то
+					есть числа от 0 до 255.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-817d-a20b-cb7de0b459a0" class="bulleted-list">
+				<li style="list-style-type:disc">У IPv6 адресов в каждом сегменте 16 бит информации, на английском языке
+					эти сегменты называют hextet или hexadectet. Всего 8 сегментов по 16 бит информации, получается, что
+					для записи IPv6 адресов используется 8*16=128 бит.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81d8-9160-d3afcc245b24" class="bulleted-list">
+				<li style="list-style-type:disc">Как уже было сказано выше, в IPv6 адресах числа в группах записываются
+					в виде шестнадцатеричных чисел, а не в виде десятеричных, как в IP. Кстати, если запись была бы в
+					виде десятичных чисел, то в каждом сегменте были бы числа от 0 до 65535 (это 216). Что касается
+					шестнадцатеричных чисел, то для записи 16 бит информации нужно число длиной до четырёх символов,
+					поэтому получается, то размер раздела составляет 4 символа, но может быть меньше, поскольку нули в
+					начале числа писать необязательно. То есть если там должно быть число 00a1, то можно записать просто
+					a1 — это первый способ сокращения записи IPv6 адресов.</li>
+			</ul>
+			<p id="131aa64c-9d0a-81e2-85a7-d91acfa56a4c" class=""><em>Если в группе число равно 0 (то есть четыре нуля),
+					то записывается один ноль.</em></p>
+			<p id="131aa64c-9d0a-8195-a4f0-f29d1379d0ba" class=""><strong>Если групп с нулями несколько подряд, то
+					независимо от количества нулей вся эта группа записывается как идущие два подряд двоеточия (::).
+					Последнее сокращение можно использовать в одном IPv6 адресе только один раз, даже если имеется
+					несколько групп с нулями. Если групп с нулями несколько, то заменяется только самая продолжительная
+					из них. Если имеется две группы с нулями одинаковой длины, то заменяется та, которая идёт первой, то
+					есть более левая.</strong></p>
+			<p id="131aa64c-9d0a-81b9-9469-ff868a02f42e" class=""><strong>Пример использования этих правил:</strong></p>
+			<p id="131aa64c-9d0a-8100-be36-e96be34fbec6" class=""><strong>Начальный
+					адрес:</strong> <code>2001:0db8:0000:0000:0000:ff00:0042:8329</code></p>
+			<p id="131aa64c-9d0a-81cd-a7a7-fae9421ca093" class=""><strong>После удаления всех начальных нулей в каждой
+					группе:</strong></p>
+			<p id="131aa64c-9d0a-810d-8876-d041a7fa6d8d" class=""><code>2001:db8:0:0:0:ff00:42:8329</code></p>
+			<p id="131aa64c-9d0a-8140-ac24-e3050204c082" class=""><strong>После пропуска последовательных сегментов с
+					нулями:</strong> <code>2001:db8::ff00:42:8329</code></p>
+			<p id="131aa64c-9d0a-81ee-95db-c254d13e4a39" class="">Петлевой
+				адрес <code>0000:0000:0000:0000:0000:0000:0000:0001</code> используя правила сокращения можно сократить
+				до <code>::1</code></p>
+			<p id="131aa64c-9d0a-8164-8dd7-d34f528d67cf" class=""><strong>Вернёмся к адресам из примеров выше:</strong>
+			</p>
+			<p id="131aa64c-9d0a-819f-bfa9-ee7a4720368c" class=""><code>::1</code></p>
+			<p id="131aa64c-9d0a-8134-9b8e-fadced151240" class=""><strong>Как мы уже выяснили, это петлевой
+					адрес:</strong></p>
+			<p id="131aa64c-9d0a-813d-9f8f-c580e1f5ebbc" class=""><code>0000:0000:0000:0000:0000:0000:0000:0001</code>.
+			</p>
+			<p id="131aa64c-9d0a-81fc-8e88-c71d4a0e29a7" class=""><code>2a02:6b8:a::a</code></p>
+			<p id="131aa64c-9d0a-81ef-98c8-d9e8262e7f02" class=""><strong>Здесь пропущено несколько секций с
+					последовательными нулями. Сколько именно? Это можно узнать исходя из следующего правила: всего
+					должно быть 8 секций, а имеется только 4, значит, пропущено 4 секции, то есть в полном виде число
+					должно выглядеть так:</strong></p>
+			<p id="131aa64c-9d0a-819f-b937-f7b381733067" class=""><code>2a02:6b8:a:0:0:0:0:a</code></p>
+			<p id="131aa64c-9d0a-812f-918c-e5ae657f9cfb" class=""><strong>Или даже так:</strong></p>
+			<p id="131aa64c-9d0a-8196-92bc-cfd8d7b4bb5b" class=""><code>2a02:06b8:000a:0000:0000:0000:0000:000a</code>
+			</p>
+			<p id="131aa64c-9d0a-8162-aaf7-fdf747b6310d" class=""><strong>Следующий пример:</strong></p>
+			<p id="131aa64c-9d0a-817b-9667-faedc163b57e" class=""><code>2a02:f680:1:1100::3d60</code></p>
+			<p id="131aa64c-9d0a-8144-9d84-e9cfbfab62d9" class=""><strong>В этом адресе 5 сегментов, а должно быть 8,
+					значит пропущено 3, запись адреса в полном виде:</strong></p>
+			<p id="131aa64c-9d0a-8192-b4bd-ed1a6455d4cd" class=""><code>2a02:f680:1:1100:0:0:0:3d60</code></p>
+			<p id="131aa64c-9d0a-81a2-877c-dcccfec65509" class=""><strong>Или вместе со всеми нулями:</strong></p>
+			<p id="131aa64c-9d0a-81a8-87a5-dc6268028036" class=""><code>2a02:f680:0001:1100:0000:0000:0000:3d60</code>
+			</p>
+			<p id="131aa64c-9d0a-81b9-8efb-f41d77f8985f" class=""><code>2604:a880:800:c1::2ae:d001</code></p>
+			<p id="131aa64c-9d0a-811f-8182-d5b1af3de36f" class=""><strong>В этом адресе 6 сегментов, а должно быть 8,
+					следовательно, полная запись этого адреса:</strong></p>
+			<p id="131aa64c-9d0a-8157-b616-fc48f236d38c" class=""><code>2604:a880:800:c1:0:0:2ae:d001</code></p>
+			<p id="131aa64c-9d0a-817f-af77-fd347c7dcbbd" class=""><code>2001:db8:11a3:9d7:1f34:8a2e:7a0:765d</code></p>
+			<p id="131aa64c-9d0a-81bf-899a-e0344b2f80f2" class=""><strong>В этом адресе 8 сегментов и нет двух двоеточий
+					подряд — следовательно, это и есть полная запись адреса, разве что, опущены начальные нули:</strong>
+			</p>
+			<p id="131aa64c-9d0a-81e1-ad9a-e9f9fab23974" class=""><code>2001:0db8:11a3:09d7:1f34:8a2e:07a0:765d</code>
+			</p>
+			<h1 id="131aa64c-9d0a-811c-8e0d-e8e6c8f2de5e" class=""><strong>3. Как узнать, у меня IPv6 адрес или нет? Как
+					узнать свой IPv6 адрес</strong></h1>
+			<p id="131aa64c-9d0a-81e3-9b48-eedb00a84dc7" class="">Узнать свой внешний IP адрес без сторонних сервисов
+				иногда просто невозможно, поскольку довольно часто клиенты Интернет-провайдеров выходят в Глобальную
+				сеть через несколько NAT. Поэтому приходится заходить на сайты и сервисы «Узнать свой IP» - эти сервисы
+				смотрят, с какого IP адреса пришёл запрос и показывают его вам. Но скорее всего, это не совсем «ваш» IP
+				адрес, поскольку у компьютеров и телефонов в вашей локальной сети есть только локальные IP адреса, у
+				вашего роутера тоже какой-то локальный IP принадлежащий сети Интернет-провайдера, а тот IP, который
+				показывают вам сайты, на самом деле, присвоен какому-то сетевому устройству у провайдера, через который
+				вы выходите во внешнюю сеть одновременно со многими другими пользователями.</p>
+			<p id="131aa64c-9d0a-81f8-b01e-dc3e3e1ae36a" class="">С IPv6 адресами в этом смысле проще — их настолько
+				много, что потребность в NAT отпадает — можно каждому клиенту раздать по персональному IPv6 адресу.</p>
+			<p id="131aa64c-9d0a-8151-9a0e-e4550844bdb3" class=""><strong>В Linux для просмотра своих IP и IPv6 адресов
+					поможет команда:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8188-ab63-c03de17323c4" class="code"><code class="language-Bash">ip a</code></pre>
+			<figure id="131aa64c-9d0a-812f-9d07-c6f0f3eea0cd" class="image"><a
+					href="https://i.imgur.com/tSdvkaN.png"><img src="https://i.imgur.com/tSdvkaN.png" /></a></figure>
+			<p id="131aa64c-9d0a-8155-a958-fb01fbb5638d" class=""><strong>Чтобы узнать, есть ли у вас поддержка и свой
+					IPv6 адрес, перейдите на страницу:</strong> <em><a href="http://suip.biz/">suip.biz</a></em></p>
+			<p id="131aa64c-9d0a-81c4-b008-c64115d361e8" class=""><em>Если у вас есть IPv6, то он будет показан. Если
+					поддержка IPv6 отсутствует, то будет показан только ваш IP.</em></p>
+			<h1 id="131aa64c-9d0a-81b1-9faf-db877018410e" class=""><strong>4. Зарезервированные IPv6 адреса</strong>
+			</h1>
+			<p id="131aa64c-9d0a-8165-bb00-e1a35ab622a8" class="">Рассмотрим диапазоны IPv6 адресов для целевого
+				назначения, чтобы мы могли сразу отфильтровывать их из многочисленных IPv6 адресов сетевых интерфейсов.
+			</p>
+			<p id="131aa64c-9d0a-815a-b44e-c8e0634ec702" class="">У IP также есть зарезервированные диапазоны адресов:
+				10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 127.0.0.0/8, 100.64.0.0/10 и ещё несколько.</p>
+			<p id="131aa64c-9d0a-8187-817a-ef4eeab1783f" class=""><strong>Специальные диапазоны IPv6 адресов также
+					имеются. Рассмотрим таблицу «Специальные блоки адресов IPv6»:</strong></p>
+			<figure id="131aa64c-9d0a-810b-97c3-fe4f39f2ef08" class="image"><a
+					href="https://i.imgur.com/pGyzS6F.png"><img src="https://i.imgur.com/pGyzS6F.png" /></a></figure>
+			<h2 id="131aa64c-9d0a-81fd-af9f-e3c8a9a9011f" class=""><strong>4.1 Глобальные IPv6</strong></h2>
+			<p id="131aa64c-9d0a-8144-9c9e-cf2a4c2647de" class="">Соответствуют публичным IPv4-адресам. Могут находиться
+				в любом не занятом диапазоне. В настоящее время региональные интернет-регистраторы распределяют блок
+				адресов 2000::/3 (с 2000:: по 3FFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF).</p>
+			<p id="131aa64c-9d0a-8182-8a05-c649f765ff95" class="">Это означает, что глобальными сейчас являются только
+				IPv6 адреса, которые начинаются на «2» или на «3».</p>
+			<p id="131aa64c-9d0a-8188-a449-e89d309154c4" class="">Как видно на скриншотах выше, сетевым интерфейсам
+				присвоено более чем один IPv6 адрес. Для IPv6 это является нормой, хотя, к примеру, у меня на VPS
+				сервере у сетевого интерфейса только один IPv6 адрес и этого хватает для подключения и функционирования
+				сайта.</p>
+			<p id="131aa64c-9d0a-81fe-8613-e796dd007f24" class=""><strong>У одного сетевого интерфейса может быть много
+					IPv6 адресов, по умолчанию, у меня в Linux это максимум 16:</strong></p>
+			<figure id="131aa64c-9d0a-811e-953f-c50a9aaf8dd8" class="image"><a
+					href="https://i.imgur.com/06RJ5PW.png"><img src="https://i.imgur.com/06RJ5PW.png" /></a></figure>
+			<p id="131aa64c-9d0a-8158-b3cf-c6111a181abd" class="">Зачем так много IPv6 одному интерфейсу? Каждый
+				интерфейс IPv6 имеет локальный IP-адрес. Если интерфейс также может обмениваться данными с более крупной
+				сетью (например, через Интернет), он также имеет глобальный адрес. Это как минимум два адреса. И если
+				хост находится за многосетевым подключением к Интернету, он, вероятно, имеет ещё больше адресов.</p>
+			<p id="131aa64c-9d0a-81fc-87da-e2275cec493a" class="">В общем, IPv6 у одного компьютера может быть много — и
+				это норма. Глобальными являются адреса, которые начинаются на двойку или на тройку.</p>
+			<h1 id="131aa64c-9d0a-8188-bb85-e9441ff73a63" class=""><strong>5. Как узнать IPv6 адрес сайта</strong></h1>
+			<p id="131aa64c-9d0a-8177-8823-e149bc69c7f7" class="">IP адрес сайта храниться в A записях, а IPv6 адрес
+				сайта хранятся в записях AAAA</p>
+			<p id="131aa64c-9d0a-812b-99b6-fb5f5c7cf81e" class="">В Windows IPv6 адрес сайта можно узнать командой
+				nslookup: nslookup <a href="http://yandex.ru/">yandex.ru</a></p>
+			<figure id="131aa64c-9d0a-815b-990c-fa21a04dc883" class="image"><a
+					href="https://i.imgur.com/FBH2X0I.png"><img src="https://i.imgur.com/FBH2X0I.png" /></a></figure>
+			<p id="131aa64c-9d0a-81ca-808f-ff4670500a00" class="">Если у сайта есть IPv6 адрес, то он будет выведен
+				вместе с IP адресами.</p>
+			<p id="131aa64c-9d0a-8148-8cd9-c31139767954" class="">В Linux также можно использовать команду
+				nslookup: <code>nslookup yandex.ru</code></p>
+			<p id="131aa64c-9d0a-8152-bd4a-c4963802adfe" class="">Теперь, когда мы научились смотреть и узнавать IPv6
+				адреса, давайте научимся использовать их в различных приложениях и утилитах.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8105-bc47-fd6aabafb72d"
+				class="code"><code class="language-Bash">host yandex.ru</code></pre>
+			<p id="131aa64c-9d0a-8185-a26e-fdb3f7a589b3" class="">Команда dig также умеет показывать IPv6 адреса, но по
+				умолчанию выводит данные только для A записи, поэтому нужно указать вид записи явно:</p>
+			<figure id="131aa64c-9d0a-81b1-bf79-dd1244559004" class="image"><a
+					href="https://i.imgur.com/7KZdy8u.png"><img src="https://i.imgur.com/7KZdy8u.png" /></a></figure>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81dc-a44c-e13ad2fd96ea"
+				class="code"><code class="language-Bash">dig +short yandex.ru AAAA</code></pre>
+			<p id="131aa64c-9d0a-816f-a2b0-fa25b1d0cf5c" class=""><strong>Либо настроить вывод всех DNS записей данного
+					домена:</strong></p>
+			<figure id="131aa64c-9d0a-8128-8e99-fd6e5bf10bec" class="image"><a
+					href="https://i.imgur.com/TbNmqBo.png"><img src="https://i.imgur.com/TbNmqBo.png" /></a></figure>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8130-9d2e-fd6015996725"
+				class="code"><code class="language-Bash">dig yandex.ru ANY</code></pre>
+			<p id="131aa64c-9d0a-8113-aa88-e8c0fb66728b" class="">Если вам не хочется возиться с утилитами командной
+				строки, то можете воспользоваться онлайн сервисов, который покажет вам все IP и IPv6 адреса любого
+				сайта: <code>https://suip.biz/ru/?act=dig</code></p>
+			<figure id="131aa64c-9d0a-8116-bc3e-da946c9bf6fe" class="image"><a
+					href="https://i.imgur.com/9v39eHK.png"><img src="https://i.imgur.com/9v39eHK.png" /></a></figure>
+			<h1 id="131aa64c-9d0a-81a2-ab9f-f44c38080db7" class=""><strong>6. Как открыть IPv6 в веб-браузере</strong>
+			</h1>
+			<p id="131aa64c-9d0a-818d-9336-f01f63957316" class=""><strong>Для использования IPv6 адреса в URL его
+					достаточно поместить в квадратные
+					скобки:</strong> <code>https://[2604:a880:800:c1::2ae:d001]/</code></p>
+			<figure id="131aa64c-9d0a-813a-92db-cde057988e2a" class="image"><a
+					href="https://i.imgur.com/zv6ddDr.png"><img src="https://i.imgur.com/zv6ddDr.png" /></a></figure>
+			<figure id="131aa64c-9d0a-81d2-84bc-c583dad20a64" class="image"><a
+					href="https://i.imgur.com/xJwzVVZ.png"><img src="https://i.imgur.com/xJwzVVZ.png" /></a></figure>
+			<h1 id="131aa64c-9d0a-81d0-bce9-d0c69c89e261" class=""><strong>7. Как в IPv6 посмотреть ARP таблицу. Показ
+					соседей в IPv6</strong></h1>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8187-b4b0-f5dd7f29700e"
+				class="code"><code class="language-Bash">ip -6 neigh show</code></pre>
+			<figure id="131aa64c-9d0a-81fd-8246-dcf674f60cef" class="image"><a
+					href="https://i.imgur.com/jo5O9pV.png"><img src="https://i.imgur.com/jo5O9pV.png" /></a></figure>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8148-ab54-d1e2c93a4909"
+				class="code"><code class="language-Bash">traceroute -6 ya.ru</code></pre>
+			<figure id="131aa64c-9d0a-8170-8c99-f6b770c18cd2" class="image"><a
+					href="https://i.imgur.com/INS0xnf.png"><img src="https://i.imgur.com/INS0xnf.png" /></a></figure>
+			<figure id="131aa64c-9d0a-8168-bfda-c94b65657da2" class="image"><a
+					href="https://i.imgur.com/tqyGUIJ.png"><img src="https://i.imgur.com/tqyGUIJ.png" /></a></figure>
+			<h1 id="131aa64c-9d0a-81c0-bd01-d6ce574fe080" class=""><strong>8. Как настроить свою систему на работу с DNS
+					по IPv6</strong></h1>
+			<p id="131aa64c-9d0a-819d-8a2f-c89138822b7d" class="">Даже если ваш компьютер подключён к IPv6 сети, то,
+				скорее всего, в качестве DNS серверов указаны IP четвёртой версии. Если вы хотите, чтобы DNS запросы
+				также делались по протоколу IPv6, то в дополнение к имеющимся записям добавьте также IPv6 адреса DNS
+				серверов.</p>
+			<p id="131aa64c-9d0a-81b5-8edf-cb010892fadb" class=""><strong>Для DNS Google это адреса:</strong></p>
+			<p id="131aa64c-9d0a-8126-8944-dbf7619fbeaa" class="">
+				2001:4860:4860::8888<br />2001:4860:4860::8844<br /><br /></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8133-a093-f1675d061979"
+				class="code"><code class="language-Bash">sudo nano /etc/resolv.conf</code></pre>
+			<p id="131aa64c-9d0a-81ef-aeec-f57462e9af74" class=""><strong>Добавьте строки:</strong></p>
+			<p id="131aa64c-9d0a-81a2-a474-e707199bc7cc" class="">nameserver 2001:4860:4860::8888<br />nameserver
+				2001:4860:4860::8844<br /><br /></p>
+			<p id="131aa64c-9d0a-81cd-95ce-f680a8aa3c0c" class="">После этого DNS запросы будут отправляться через IPv6
+				протокол.</p>
+			<h1 id="131aa64c-9d0a-81ab-8beb-e615fc0ac3da" class=""><strong>9. Как посчитать сколько IPv6 адресов в
+					подсети</strong></h1>
+			<p id="131aa64c-9d0a-81bf-8de9-d1dd4f3f27b9" class="">Прежде чем перейти к примерам сканирования IPv6
+				подсетей, давайте научимся считать, сколько именно в заданной подсети IPv6 адресов.</p>
+			<p id="131aa64c-9d0a-8185-ad99-f0613f02c637" class=""><strong>Это не лишено смысла, обратимся к цитате из
+					Википедии:</strong></p>
+			<p id="131aa64c-9d0a-814f-964b-fe9d00e6c36d" class=""><em>«Иногда утверждается, что новый протокол может
+					обеспечить до 5·1028 адресов на каждого жителя Земли. Такое большое адресное пространство было
+					введено ради иерархичности адресов (это упрощает маршрутизацию). Тем не менее, увеличенное
+					пространство адресов сделает NAT необязательным. Классическое применение IPv6 (по сети /64 на
+					абонента; используется только unicast-адресация) обеспечит возможность использования более 300 млн
+					IP-адресов на каждого жителя Земли».</em></p>
+			<p id="131aa64c-9d0a-810d-aadc-fd9ca23dd989" class=""><strong>Кстати, довольно просто посчитать сколько
+					всего адресов IPv6:</strong></p>
+			<p id="131aa64c-9d0a-81e5-9611-ca90d451d892" class="">2128 = <code>3,402823669×1038</code><strong>Это
+					нереально большая цифра!</strong></p>
+			<p id="131aa64c-9d0a-8121-8bde-e1942e5ce7d2" class="">И в интересующей вас подсети может оказаться сильно
+				больше адресов, чем вы ожидаете…</p>
+			<p id="131aa64c-9d0a-811b-ba14-c19c05ff7ba6" class=""><strong>Посчитать количество IPv6 в подсети можно по
+					формуле:</strong></p>
+			<p id="131aa64c-9d0a-81ad-b7dc-dfda8de1264e" class="">2(128-ДЛИНА_МАСКИ)</p>
+			<p id="131aa64c-9d0a-8161-9575-c95f95b7515c" class="">Предположим, дана IPv6 сеть: 2604:A880::/32, сколько в
+				этой сети IPv6 адресов?</p>
+			<p id="131aa64c-9d0a-81fd-a359-f9691e89beec" class=""><strong>Считаем:</strong></p>
+			<p id="131aa64c-9d0a-818c-a45c-dd64b28bc942" class="">2(128-32) = 7,922816251×1028</p>
+			<p id="131aa64c-9d0a-81cf-909e-fb8c6b0850dc" class="">Я не знаю, что это за число, но, определённо, это
+				сильно много адресов. Начинать сканирование таких сетей бессмысленно — сканирование не завершится
+				никогда.</p>
+			<p id="131aa64c-9d0a-81d6-83a7-f665d2abee4a" class="">Программа nmap поддерживает работу с IPv6 адресами и
+				может сканировать диапазоны IPv6, хотя есть некоторые ограничения: поддерживаются не все виды нотаций,
+				которые доступны для обычных IP.</p>
+			<p id="131aa64c-9d0a-81da-b86a-ec6747ca0cf3" class="">Предположим, я хочу просканировать свою локальную IPv6
+				сеть к которой принадлежит мой адрес <code>inet6 fe80::20c:29ff:fee9:3242/64</code>. В этот же момент
+				моему сетевому интерфейсу присвоен IPv6 адрес <code>inet6 fe80::20c:29ff:fee9:3242/64</code>.</p>
+			<p id="131aa64c-9d0a-81cc-a9e0-ed33e679ea1c" class="">Подсеть /64 слишком большая. Поэтому я просканирую
+				подсеть /120, в которой всего:</p>
+			<p id="131aa64c-9d0a-8187-8f22-d20dc9f501be" class="">2(128-120) = 256 адресов.</p>
+			<p id="131aa64c-9d0a-8161-8cf6-fb5beb78fa46" class="">То есть в качестве цели я
+				выбираю <code>fe80::20c:29ff:fee9:3242/64</code>. <strong>Nmap не будет жаловаться, что установлен не
+					сетевой бит (в отличии, кстати, от tcpdump, которая не принимает фильтр с таким
+					допущением):</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8158-b938-f8ab404e00c0"
+				class="code"><code class="language-Bash">sudo nmap -6 fe80::20c:29ff:fee9:3242/120</code></pre>
+			<p id="131aa64c-9d0a-81c2-9e43-eaa91889a7ea" class="">Из просканированных 256 хостов, 1 хост оказался
+				онлайн. Это тот-же самый хост, который входит в подсеть <code>192.168.127.0/24.</code></p>
+			<p id="131aa64c-9d0a-81ae-920e-fdaf01036ec3" class="">На самом деле, если копнуть глубже и внимательнее
+				присмотреться к протоколу IPv6, то мы узнаем, что клиентам выделяются очень крупные подсети, а так много
+				адресов нужно из-за особенностей маршрутизации IPv6. Может оказаться, что клиенты собраны в начале
+				крупных диапазонов и нет смысла сканировать весь большой диапазон IPv6 адресов целиком — достаточно
+				разбить цели сканирования на такие же подсети, которые выделяет Интернет-провайдер клиентам и
+				сканировать только самое начало каждого такого диапазона. В результате время сканирования должно
+				уменьшиться драматически. В сканировании IPv6 сетей есть простор для оптимизации, но это требует
+				понимание топологии конкретной сети и глубокое понимание протокола IPv6 и его маршрутизации.</p>
+			<figure id="131aa64c-9d0a-8170-a939-dd7597e0ae9f" class="image"><a
+					href="https://i.imgur.com/5HNm1kY.png"><img src="https://i.imgur.com/5HNm1kY.png" /></a></figure>
+			<figure id="131aa64c-9d0a-814b-8dbb-e0ae4f7fd31f" class="image"><a
+					href="https://i.imgur.com/8DK4jda.png"><img src="https://i.imgur.com/8DK4jda.png" /></a></figure>
+			<p id="131aa64c-9d0a-8103-bade-dfa165dbeb3f" class=""><strong>Итак, для сканирования IPv6 адресов или
+					диапазонов к команде сканирования nmap нужно добавить опцию -6 и в качестве цели указать:</strong>
+			</p>
+			<ul id="131aa64c-9d0a-81d2-b4cd-efb55db5ffb8" class="bulleted-list">
+				<li style="list-style-type:disc">полный IPv6 адрес</li>
+			</ul>
+			<ul id="131aa64c-9d0a-814e-813a-df4b9d9a93d4" class="bulleted-list">
+				<li style="list-style-type:disc">имя хоста (если к нему привязан IPv6)</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8165-9311-e13a21a371fe" class="bulleted-list">
+				<li style="list-style-type:disc">для подсетей можно использовать нотацию CIDR</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81b5-bd18-fd36d1dc008b" class="bulleted-list">
+				<li style="list-style-type:disc">В настоящее время диапазоны октетов для IPv6 ещё не поддерживаются.
+				</li>
+			</ul>
+			<p id="131aa64c-9d0a-8147-8cef-df631146e31f" class="">Даже если в качестве цели явно указан IPv6 адрес,
+				опцию -6 нужно обязательно указывать, иначе возникнет ошибка вида.</p>
+			<p id="131aa64c-9d0a-8197-9ce8-d2b610c6a493" class="">Все опции и возможности nmap поддерживаются также и
+				для IPv6 адресов.</p>
+			<p id="131aa64c-9d0a-8169-9667-c61bf3d9304f" class=""><strong>Онлайн сервис «Сканирование открытых портов
+					IPv6 адреса»:</strong><code>https://suip.biz/ru/?act=nmap-ipv6</code></p>
+			<h1 id="131aa64c-9d0a-8178-b5cf-e4504cd13736" class=""><strong>10. Показ IPv6 маршрутов в локальной
+					системе</strong></h1>
+			<p id="131aa64c-9d0a-81e2-ac7b-f6c884d74d0a" class=""><strong>Чтобы вывести список IPv6 маршрутов в Linux
+					выполните команду:</strong><code>ip -6 route show</code></p>
+			<p id="131aa64c-9d0a-81c0-a7d9-f4fe5d7a8db5" class=""><strong>Или сокращённый вариант этой
+					команды:</strong><code>ip -6 ro</code></p>
+			<p id="131aa64c-9d0a-8179-9bd0-c5f988996ba2" class=""><strong>Чтобы показать маршрут по умолчанию IPv6
+					выполните команду</strong>:<code>ip -6 route show default</code></p>
+			<figure id="131aa64c-9d0a-8196-a83e-f3792e9ae534" class="image"><a
+					href="https://i.imgur.com/VqyGC4g.png"><img src="https://i.imgur.com/VqyGC4g.png" /></a></figure>
+			<h1 id="131aa64c-9d0a-814f-82ca-d1bfb3cdfae7" class=""><strong>11. Как посмотреть настройки IPv6</strong>
+			</h1>
+			<p id="131aa64c-9d0a-81ab-8250-f4dad392c9d0" class="">Выше показано, как узнать свой IPv6 адрес и IPv6
+				маршруты, но кроме этих настроек в системе имеется множество других опций IPv6 для тонкой конфигурации и
+				включения или отключения определённых функций IPv6.</p>
+			<p id="131aa64c-9d0a-8180-95cb-dc1f802ed04a" class=""><strong>Для просмотра текущих настроек IPv6 в Linux
+					выполните команду:</strong></p>
+			<p id="131aa64c-9d0a-8181-8ac6-d6679fdf54bd" class=""><code>sudo sysctl -a | grep ipv6</code></p>
+			<figure id="131aa64c-9d0a-8188-8bbb-e78f89b519aa" class="image"><a
+					href="https://i.imgur.com/K1sSmuS.png"><img src="https://i.imgur.com/K1sSmuS.png" /></a></figure>
+			<h1 id="131aa64c-9d0a-8161-a2b9-f2d6ecf49cea" class=""><strong>12. Как отключить и включить IPv6</strong>
+			</h1>
+			<p id="131aa64c-9d0a-81fb-894a-eb0758974e06" class=""><strong>Для отключения IPv6 в Linux выполните
+					команды:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81fd-b333-ddf01b5af1d3"
+				class="code"><code class="language-Bash" style=" word-break:break-all">sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1</code></pre>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ec-aa0a-db21c44fabff"
+				class="code"><code class="language-Bash">sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1</code></pre>
+			<p id="131aa64c-9d0a-8130-871c-fb9451c0bdbb" class="">Данные настройки действуют до следующей перезагрузки
+				компьютера.</p>
+			<p id="131aa64c-9d0a-81bb-8609-f5898e36b2d7" class=""><strong>Чтобы сделать настройки постоянными, выполните
+					следующие команды:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8161-a715-ea264676a63a" class="code"><code class="language-Bash">sudo -i</code></pre>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-813d-9c8b-ffdf501ef0e7"
+				class="code"><code class="language-Bash">echo &#x27;net.ipv6.conf.all.disable_ipv6=1&#x27; &gt;&gt; /etc/sysctl.d/sysctl.conf</code></pre>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81df-b82c-fa4edabdb4d3"
+				class="code"><code class="language-Bash">echo &#x27;net.ipv6.conf.default.disable_ipv6=1&#x27; &gt;&gt; /etc/sysctl.d/sysctl.conf</code></pre>
+			<figure id="131aa64c-9d0a-8155-847e-e742525ae3cf" class="image"><a
+					href="https://i.imgur.com/sausXN3.png"><img src="https://i.imgur.com/sausXN3.png" /></a></figure>
+			<p id="131aa64c-9d0a-819b-9d79-fb2631e9fcd6" class=""><strong>Чтобы сделанные изменения вступили в силу
+					выполните команду:</strong></p>
+			<p id="131aa64c-9d0a-81d5-9e06-f00906b2c17b" class=""><code>sysctl –p</code></p>
+			<p id="131aa64c-9d0a-8174-a5db-ece3941914df" class="">Как проверить, отключён ли IPv6</p>
+			<p id="131aa64c-9d0a-81a8-81b2-cd6d4e92c788" class=""><strong>Чтобы проверить, отключён ли IPv6 на уровне
+					операционной системы, выполните следующие команды:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81a1-a092-e6123c62d93c"
+				class="code"><code class="language-Bash">sysctl -n net.ipv6.conf.all.disable_ipv6</code></pre>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8103-a18b-f5b8901041e2"
+				class="code"><code class="language-Bash">sysctl -n net.ipv6.conf.default.disable_ipv6</code></pre>
+			<figure id="131aa64c-9d0a-81e9-9488-dac19aa71704" class="image"><a
+					href="https://i.imgur.com/rqyIfro.png"><img src="https://i.imgur.com/rqyIfro.png" /></a></figure>
+			<figure id="131aa64c-9d0a-81e0-8a1b-fc949bf43e96" class="image"><a
+					href="https://i.imgur.com/RzkmY2W.png"><img src="https://i.imgur.com/RzkmY2W.png" /></a></figure>
+			<h1 id="131aa64c-9d0a-8149-aed6-e7ac6894968f" class=""><strong>13. Ping между двумя linux машинками по ipv6
+					выполняется следующим образом:</strong></h1>
+			<figure id="131aa64c-9d0a-81da-b35a-fc433045bb30" class="image"><a
+					href="https://i.imgur.com/6BBbUUd.png"><img style="width:528px"
+						src="https://i.imgur.com/6BBbUUd.png" /></a></figure>
+			<figure id="131aa64c-9d0a-81e4-ab83-e0328e7d00f2" class="image"><a
+					href="https://i.imgur.com/kyalxRJ.png"><img style="width:528px"
+						src="https://i.imgur.com/kyalxRJ.png" /></a></figure>
+			<figure id="131aa64c-9d0a-8139-8802-d0fffc18c002" class="image"><a
+					href="https://i.imgur.com/lIS4I7Y.png"><img style="width:528px"
+						src="https://i.imgur.com/lIS4I7Y.png" /></a></figure>
+			<h1 id="131aa64c-9d0a-811a-a3fa-fcfb85e39f45" class=""><strong>14. Как настроить SSH для работы только с
+					IPv6</strong></h1>
+			<p id="131aa64c-9d0a-81b2-bc54-d0d7ffe2168e" class="">Настройка SSH сервера выполняется в
+				файле <code>/etc/ssh/sshd_config</code>.</p>
+			<p id="131aa64c-9d0a-8109-a77f-c072572e514c" class=""><strong>В системе может быть несколько сетевых
+					интерфейсов с несколькими IP адресами, по умолчанию sshd прослушивает их все, в том числе IPv6
+					адреса:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-813e-b2c8-d9e03ab446f4" class="code"><code class="language-Plain Text" style=" word-break:break-all">ListenAddress 0.0.0.0
+ListenAddress ::
+</code></pre>
+			<p id="131aa64c-9d0a-814d-b85e-de172f2c1899" class="">Если убрать запись ListenAddress 0.0.0.0, то будут
+				прослушиваться только IPv6.</p>
+			<p id="131aa64c-9d0a-819d-8781-da2f331cdda0" class=""><strong>Директивой ListenAddress вы также можете
+					указать конкретный IP, который будет прослушиваться в ожидании подключений. А опцией AddressFamily
+					вы можете выбрать для прослушивания все адреса, только IPv4 или только IPv6:</strong></p>
+			<p id="131aa64c-9d0a-81a0-b720-d26c9d1101ca" class=""><code>AddressFamily any</code></p>
+			<p id="131aa64c-9d0a-816e-a72d-daaa9c453ab4" class=""><strong>Варианты:</strong></p>
+			<ul id="131aa64c-9d0a-814f-8a15-f994402770bd" class="bulleted-list">
+				<li style="list-style-type:disc">any (по умолчанию — любые адреса),</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81a8-a3d5-e9bf6d1c9db7" class="bulleted-list">
+				<li style="list-style-type:disc">inet (использовать только IPv4),</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8180-9fed-f84a7f6117b6" class="bulleted-list">
+				<li style="list-style-type:disc">inet6 (использовать только IPv6),</li>
+			</ul>
+			<figure id="131aa64c-9d0a-8117-b4fd-e0d4e52edde5" class="image"><a
+					href="https://i.imgur.com/yE1divP.jpg"><img src="https://i.imgur.com/yE1divP.jpg" /></a></figure>
+			<p id="131aa64c-9d0a-81d2-83c0-cf08980b5d30" class=""><strong>Для чего нужно ограничивать прослушиваемые
+					адреса только протоколом IPv6?</strong></p>
+			<p id="131aa64c-9d0a-81f9-8471-dac154da7843" class="">Многие автоматические сканеры по умолчанию сканируют
+				порты только для IPv4 адресов, полностью игнорируя IPv6. До сих пор довольно много пользователей, в том
+				числе и хакеров, у которых нет доступа к IPv6. Если же у вашего Интернет-провайдера имеется поддержка
+				IPv6, то перейдя на SSH с протоколом IPv6 вы значительно ограничите доступ к вашему SSH серверу для
+				автоматических сканеров и резко сократите количество попыток взлома брут-форсом (подбором пароля).</p>
+			<p id="131aa64c-9d0a-8143-9b13-f9df8ce9b208" class=""><strong>Как подключиться к FTP на IPv6 в
+					FileZilla?</strong></p>
+			<p id="131aa64c-9d0a-81b1-b426-e68671643a3d" class="">FileZilla поддерживает IPv6 адреса, которые нужно
+				помещать в квадратные скобки.</p>
+			<p id="131aa64c-9d0a-81f0-8013-f9f1e33ebcda" class=""><strong>Атака человек-посередине на IPv6?</strong></p>
+			<p id="131aa64c-9d0a-8193-aee7-f4d55d58b8a3" class="">Классический ARP спуфинг не работает для IPv6
+				протокола, поскольку в нём используется другой протокол. Тем не менее имеются схожие атаки Neighbor
+				Advertisement Spoofing, Last Hop Router.</p>
+			<p id="131aa64c-9d0a-8134-afba-deb3ab98c9aa" class="">IPv4 и IPv6 — это отдельные протоколы, поэтому атака
+				одного напрямую не влияет на другой. Тем не менее методы для спуфинга NA и ARP очень похожи. Если у вас
+				есть возможность сделать одно, вы наверняка могли бы сделать другое.</p>
+			<p id="131aa64c-9d0a-815a-8773-cd315b12c5bf" class=""><strong>Мой Интернет-провайдер не поддерживает этот
+					протокол</strong></p>
+			<p id="131aa64c-9d0a-81a4-8e92-c3d7a34e23c7" class="">Хотя Интернет-провайдеры в РФ поддерживают IPv6 «не
+				очень», можно без проблем арендовать VPS с IPv6, в том числе и в РФ. Эти VPS можно использовать по SSH
+				или как прокси для работы с IPv6.</p>
+			<p id="131aa64c-9d0a-819b-86aa-c21b4c8569cc" class=""><strong>Примеры VPS с IPv6, где систему можно поднять
+					несколькими кликами:</strong></p>
+			<ul id="131aa64c-9d0a-81a0-9d84-d4dc742b4b53" class="bulleted-list">
+				<li style="list-style-type:disc">ihor</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8125-b160-c314ab28ffbf" class="bulleted-list">
+				<li style="list-style-type:disc">digitalocean</li>
+			</ul>
+			<h1 id="131aa64c-9d0a-81da-90a6-e533e94af777" class=""><strong>Вывод:</strong></h1>
+			<p id="131aa64c-9d0a-8141-8e0c-f85688d3e9ed" class=""><em>В данной практике научились базовым настройках
+					сети с помощью IPv6.</em></p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

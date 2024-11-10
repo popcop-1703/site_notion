@@ -1,0 +1,1345 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>1.4.8 Утилита hping3</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-81aa-87bd-e997f9d0010f" class="page sans">
+		<header>
+			<div class="page-header-icon undefined"><img class="icon"
+					src="https://www.notion.so/icons/hexagon-five-sixths_purple.svg" /></div>
+			<h1 class="page-title">1.4.8 Утилита <strong>hping3</strong></h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<p id="131aa64c-9d0a-817d-9b70-e9d3f7775304" class="">
+			</p>
+			<figure class="block-color-gray_background callout" style="display:flex"
+				id="131aa64c-9d0a-81e3-a3ad-ddeaef89e75a">
+				<div style="font-size:1.5em"><span class="icon">💡</span></div>
+				<div style="width:100%"><strong>Описание утилиты hping3</strong>: <code><strong>hping3</strong></code> -
+					это инструмент для работы с сетевым трафиком и тестирования сетевых соединений в среде Unix-подобных
+					систем. Он позволяет отправлять и принимать сетевые пакеты различных типов, включая ICMP, TCP и UDP,
+					и анализировать ответы от удаленных хостов.</div>
+			</figure>
+			<p id="131aa64c-9d0a-81c8-8fc9-f9f13ae822a9" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-8190-bfbf-c04a10261639" class=""><strong>Цель работы</strong>: </h3>
+			<ul id="131aa64c-9d0a-81fe-bd6a-eded12e402cf" class="bulleted-list">
+				<li style="list-style-type:disc">Целью данной работы является оценка доступности удаленного сервера и
+					анализ характеристик сетевого соединения с использованием утилиты
+					<code><strong>hping3</strong></code>.</li>
+			</ul>
+			<p id="131aa64c-9d0a-813e-bcbc-e1dcbec6d4d2" class="">
+			</p>
+			<h3 id="131aa64c-9d0a-81a4-9d09-cb2bdbbe39f8" class=""><strong>Задача</strong>: </h3>
+			<ul id="131aa64c-9d0a-815e-a41e-d69c2be66ddd" class="bulleted-list">
+				<li style="list-style-type:disc">Основной задачей является проверка доступности удаленного сервера с
+					использованием ICMP-пакетов и анализ характеристик сетевого соединения, таких как задержка (RTT) и
+					потеря пакетов.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8155-87b9-ef5046c950c5" class="bulleted-list">
+				<li style="list-style-type:disc">Выполнить 3 сценария применения данной утилиты.</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81a1-91ba-d35dd53a7a7c" class="bulleted-list">
+				<li style="list-style-type:disc">Составить отчёт о проделанной работе.</li>
+			</ul>
+			<figure id="131aa64c-9d0a-81bf-8f39-d47b3a6ad82a" class="image"><a
+					href="1 4 8 Утилита hping3/Untitled.png"><img
+						style="width:1105px"
+						src="1 4 8 Утилита hping3/Untitled.png" /></a>
+			</figure>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8125-85ff-ce233e8c4a6d"
+				class="code"><code class="language-JavaScript">apt install hping3</code></pre>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81e0-9baa-c6469daa82f9"
+				class="code"><code class="language-JavaScript">hping3 -c 4 -q -1 &lt;IP-адрес сервера&gt;</code></pre>
+			<ul id="131aa64c-9d0a-8196-a0b9-d1ad41181606" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>c 4</strong></code>: Опция
+					<code><strong>c</strong></code> указывает количество отправляемых пакетов (в данном случае, 4).</li>
+			</ul>
+			<ul id="131aa64c-9d0a-8149-9bea-e622ecdb7ebf" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>q</strong></code>: Опция <code><strong>q</strong></code>
+					отключает вывод заголовков и информации о состоянии в stdout (делает вывод более компактным).</li>
+			</ul>
+			<ul id="131aa64c-9d0a-81f2-88ea-f9920f56dd07" class="bulleted-list">
+				<li style="list-style-type:disc"><code><strong>1</strong></code>: Опция <code><strong>1</strong></code>
+					указывает, что нужно использовать ICMP-пакеты для проверки доступности.</li>
+			</ul>
+			<p id="131aa64c-9d0a-8102-be46-ef257e32583d" class="">
+			</p>
+			<p id="131aa64c-9d0a-8107-8a97-d2733a891b2b" class=""><strong>Вывод:</strong></p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-814b-bae0-d0b58706cdc5" class="code"><code class="language-JavaScript">len=40 ip=&lt;IP-адрес сервера&gt; ttl=64 id=3967 icmp_seq=0 rtt=0.460 ms
+len=40 ip=&lt;IP-адрес сервера&gt; ttl=64 id=3968 icmp_seq=1 rtt=0.412 ms
+len=40 ip=&lt;IP-адрес сервера&gt; ttl=64 id=3969 icmp_seq=2 rtt=0.415 ms
+len=40 ip=&lt;IP-адрес сервера&gt; ttl=64 id=3970 icmp_seq=3 rtt=0.423 ms</code></pre>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81f7-9f1c-c6f4779ebb8e" class="code"><code class="language-JavaScript">-- &lt;IP-адрес сервера&gt; hping statistic ---
+4 packets transmitted, 4 packets received, 0% packet loss
+round-trip min/avg/max = 0.412/0.425/0.460 ms</code></pre>
+			<p id="131aa64c-9d0a-811d-b94f-c6d4edc62e03" class=""><strong>Описание вывода:</strong></p>
+			<ol type="1" id="131aa64c-9d0a-81bb-bdb6-e5f28065ae88" class="numbered-list" start="1">
+				<li><code><strong>len=40 ip=&lt;IP-адрес сервера&gt; ttl=64 id=3967 icmp_seq=0 rtt=0.460 ms</strong></code>:
+					<ul id="131aa64c-9d0a-8185-804b-cfe7673db308" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>len=40</strong></code>: Длина ICMP-пакета в
+							байтах (в данном случае, 40 байт).</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8157-aaca-cb530103a209" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>ip=&lt;IP-адрес сервера&gt;</strong></code>:
+							IP-адрес сервера, на который отправляется пакет.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8188-b20b-ca578767fffe" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>ttl=64</strong></code>: TTL (Time to Live) -
+							количество &quot;прыжков&quot; пакета по сети, прежде чем он будет отброшен (в данном
+							случае, 64).</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8184-901c-c1d0a7fa36c1" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>id=3967</strong></code>: Идентификатор пакета.
+						</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81ea-a740-f66c6221a7b7" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>icmp_seq=0</strong></code>: Последовательный
+							номер ICMP-пакета (в данном случае, 0).</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8161-9e14-ef2287ab6de6" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>rtt=0.460 ms</strong></code>: Время в
+							миллисекундах, затраченное на отправку пакета и получение ответа (round-trip time).</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8187-9542-c458f641202a" class="numbered-list" start="2">
+				<li>Аналогичные строки следуют для остальных отправленных ICMP-пакетов, где меняется только
+					<code><strong>icmp_seq</strong></code> и <code><strong>rtt</strong></code> для каждого пакета.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81f8-ab46-e50931df324d" class="numbered-list" start="3">
+				<li><code><strong>-- &lt;IP-адрес сервера&gt; hping statistic ---</strong></code>:<ul
+						id="131aa64c-9d0a-8146-8d1b-e92d1bd89bf4" class="bulleted-list">
+						<li style="list-style-type:disc">Это разделитель, указывающий на начало статистической
+							информации.</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81db-9422-f8003cd35a84" class="numbered-list" start="4">
+				<li><code><strong>4 packets transmitted, 4 packets received, 0% packet loss</strong></code>:<ul
+						id="131aa64c-9d0a-8107-98f6-d04a6af1b8f5" class="bulleted-list">
+						<li style="list-style-type:disc">Эта строка сообщает о количестве отправленных и полученных
+							пакетах, а также о проценте потери пакетов. В данном случае, все 4 отправленных пакета были
+							успешно получены, и процент потери равен 0%.</li>
+					</ul>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81e3-9aaf-dedcfb58e44f" class="numbered-list" start="5">
+				<li><code><strong>round-trip min/avg/max = 0.412/0.425/0.460 ms</strong></code>:<ul
+						id="131aa64c-9d0a-81f4-98d1-e01a59fc0771" class="bulleted-list">
+						<li style="list-style-type:disc">Эта строка предоставляет статистику по времени задержки (RTT)
+							для всех полученных пакетов. В данном случае, минимальное RTT составляет 0.412 мс, среднее -
+							0.425 мс, максимальное - 0.460 мс.</li>
+					</ul>
+					<figure id="131aa64c-9d0a-8115-a165-c0fd8b984c67" class="image"><a
+							href="1 4 8 Утилита hping3/Untitled%201.png"><img
+								style="width:1853px"
+								src="1 4 8 Утилита hping3/Untitled%201.png" /></a>
+					</figure>
+					<p id="131aa64c-9d0a-8136-bd8a-da6ee2c4ae2f" class="">
+					</p>
+					<h2 id="131aa64c-9d0a-81d3-a090-de98b8869f5a" class=""><mark class="highlight-red">1 с</mark><mark
+							class="highlight-red"><strong>ценарий: Создание нагрузки на сеть с помощью ICMP
+								флуда.</strong></mark></h2>
+					<figure class="block-color-gray_background callout" style="display:flex"
+						id="131aa64c-9d0a-812d-811b-cfa0e4603371">
+						<div style="font-size:1.5em"><span class="icon">✅</span></div>
+						<div style="width:100%"><strong>Задача</strong>: Основной задачей является оценка сетевой
+							доступности сервера и измерение задержки (RTT) с использованием утилиты
+							<code><strong>hping3</strong></code>, отправляя ICMP-пакеты с большой интервальной
+							задержкой.</div>
+					</figure>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-8155-b13b-fd1967496890"
+						class="code"><code class="language-JavaScript">sudo hping3 -c 100 -i u10000 --icmp &lt;IP-адрес сервера&gt;</code></pre>
+					<p id="131aa64c-9d0a-81d2-b55d-e5a0b133e119" class=""><strong>Пример использования утилиты hping3 с
+							подробным описанием вывода команды </strong></p>
+					<p id="131aa64c-9d0a-81e2-a008-cc6dc2035670" class="">
+						<code><strong>sudo hping3 -c 1000 -i u10000 --icmp &lt;IP-адрес сервера&gt;</strong></code>:</p>
+					<ul id="131aa64c-9d0a-81e9-8135-e78bcc98c66a" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>sudo hping3</strong></code>: Запускает утилиту
+							<code><strong>hping3</strong></code> с правами суперпользователя, так как для отправки
+							ICMP-пакетов может потребоваться повышенные привилегии.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81fa-ba45-c13bade04262" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>c 100</strong></code>: Опция
+							<code><strong>c</strong></code> указывает количество отправляемых пакетов (в данном случае,
+							1000).</li>
+					</ul>
+					<ul id="131aa64c-9d0a-812a-9b56-eddc120fc429" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>i u10000</strong></code>: Опция
+							<code><strong>i</strong></code> задает интервальную задержку между отправкой пакетов. В
+							данном случае, <code><strong>u1000</strong></code> означает интервал в 1000 миллисекунд (10
+							секунд).</li>
+					</ul>
+					<ul id="131aa64c-9d0a-819b-8647-f510157cc67b" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>-icmp</strong></code>: Опция
+							<code><strong>-icmp</strong></code> указывает, что будут использоваться ICMP-пакеты для
+							проверки доступности.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81e0-8209-f742546fdbe3" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>&lt;IP-адрес сервера&gt;</strong></code>: Это
+							IP-адрес удаленного сервера, который мы хотим протестировать.</li>
+					</ul>
+					<figure id="131aa64c-9d0a-815f-99b8-ff10acc292a7" class="image"><a
+							href="1 4 8 Утилита hping3/Untitled%202.png"><img
+								style="width:1890px"
+								src="1 4 8 Утилита hping3/Untitled%202.png" /></a>
+					</figure>
+					<h3 id="131aa64c-9d0a-8193-8d6f-e0b2053a1fde" class="">На Ubuntu выглядит следующим образом, тот ip
+						адрес, который мы тестируем:</h3>
+					<figure id="131aa64c-9d0a-8167-9180-fb03cf48211f" class="image"><a
+							href="1 4 8 Утилита hping3/Untitled%203.png"><img
+								style="width:798px"
+								src="1 4 8 Утилита hping3/Untitled%203.png" /></a>
+					</figure>
+					<p id="131aa64c-9d0a-81ad-afec-dac50f8385ed" class="">
+					</p>
+					<p id="131aa64c-9d0a-81a0-932c-fd7ea2b484cb" class=""><strong>Вывод:</strong></p>
+					<figure class="block-color-gray_background callout" style="display:flex"
+						id="131aa64c-9d0a-81db-95af-e6bef6843dcf">
+						<div style="font-size:1.5em"><span class="icon">☔</span></div>
+						<div style="width:100%">
+							<code><strong>len=40 ip=&lt;IP-адрес сервера&gt; ttl=64 id=3967 icmp_seq=0 rtt=0.460 ms</strong></code>:
+							Эта строка указывает, что был отправлен ICMP-пакет длиной 40 байт с указанными
+							характеристиками. <code><strong>ip</strong></code> - IP-адрес сервера,
+							<code><strong>ttl</strong></code> - время жизни пакета, <code><strong>id</strong></code> -
+							идентификатор пакета, <code><strong>icmp_seq</strong></code> - последовательный номер
+							пакета, <code><strong>rtt</strong></code> - время в миллисекундах, которое потребовалось для
+							получения ответа от сервера.</div>
+					</figure>
+					<p id="131aa64c-9d0a-81c6-a2e3-dacfa0d096b6" class=""><strong>Рекомендации:</strong></p>
+					<ul id="131aa64c-9d0a-81c8-b9a6-ea1a4e5bd344" class="bulleted-list">
+						<li style="list-style-type:disc">Этот сценарий создает высокую нагрузку на сеть с использованием
+							ICMP-пакетов. Рекомендуется использовать такие тесты в ограниченных средах и быть готовым к
+							возможному влиянию на производительность сети.</li>
+					</ul>
+					<p id="131aa64c-9d0a-8194-a755-fdff99280b04" class="">
+					</p>
+					<h2 id="131aa64c-9d0a-8105-b1a1-d1bd9ce3cc47" class=""><mark class="highlight-red"><strong>2
+								сценарий: Перегрузка сетевого адаптера с фрагментированными
+								ICMP-пакетами.</strong></mark></h2>
+					<figure class="block-color-gray_background callout" style="display:flex"
+						id="131aa64c-9d0a-81f3-a15c-ccfa5ae3ad27">
+						<div style="font-size:1.5em"><span class="icon">✅</span></div>
+						<div style="width:100%"><strong>Задача</strong>: Главной задачей является оценка того, как
+							целевой сервер справляется с обработкой большого количества ICMP-пакетов, поступающих от
+							разных источников. Это позволяет определить устойчивость сервера к потенциальным атакам
+							сетевого флуда и идентифицировать возможные уязвимости.</div>
+					</figure>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-81bc-a901-f5a8a702c256"
+						class="code"><code class="language-JavaScript">sudo hping3 -c 10000 --icmp --flood --rand-source 192.168.127.185</code></pre>
+					<p id="131aa64c-9d0a-8146-bfc8-fc405bb2393b" class="">
+						<code><strong>sudo hping3 -c 10000 --icmp --flood --rand-source 192.168.127.185</strong></code>:
+					</p>
+					<ul id="131aa64c-9d0a-81b7-8593-d64025a9016e" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>sudo hping3</strong></code>: Запускает утилиту
+							<code><strong>hping3</strong></code> с правами суперпользователя, так как для генерации
+							флуда может потребоваться повышенные привилегии.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81b1-a824-d2b75add6fab" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>c 10000</strong></code>: Опция
+							<code><strong>c</strong></code> указывает количество отправляемых пакетов (в данном случае,
+							10000).</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8151-a70a-f065c3cab26e" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>-icmp</strong></code>: Опция
+							<code><strong>-icmp</strong></code> указывает, что будут использоваться ICMP-пакеты для
+							атаки.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81f6-8de6-c5a4be0ef4b7" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>-flood</strong></code>: Опция
+							<code><strong>-flood</strong></code> указывает на режим флуда, в котором пакеты будут
+							отправляться как можно быстрее.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8162-9ae2-d85aaf9ab7ea" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>-rand-source</strong></code>: Опция
+							<code><strong>-rand-source</strong></code> указывает на использование случайных исходных
+							IP-адресов отправителей.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8197-a127-cf0ee979c5d3" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>192.168.127.185</strong></code>: Это целевой
+							IP-адрес сервера, который будет атакован.</li>
+					</ul>
+					<p id="131aa64c-9d0a-81e8-9634-c31065a1d90e" class=""><strong>Вывод:</strong></p>
+					<figure id="131aa64c-9d0a-8168-8718-f20006bdbb29" class="image"><a
+							href="1 4 8 Утилита hping3/Untitled%204.png"><img
+								style="width:956px"
+								src="1 4 8 Утилита hping3/Untitled%204.png" /></a>
+					</figure>
+					<ul id="131aa64c-9d0a-810c-953d-ec6b801ed62b" class="bulleted-list">
+						<li style="list-style-type:disc">
+							<code><strong>HPING 192.168.127.185 (ens33 192.168.127.2): icmp mode set, 28 headers + 0 data bytes</strong></code>:
+							Это заголовок, который указывает на использование ICMP-пакетов и сетевого интерфейса, через
+							который отправляются пакеты.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81a4-9dc0-e1fca143f701" class="bulleted-list">
+						<li style="list-style-type:disc">
+							<code><strong>len=92 ip=192.168.127.185 ttl=64 icmp_seq=0 rtt=0.2 ms</strong></code>: Эта
+							строка указывает, что был отправлен ICMP-пакет длиной 92 байта с указанными
+							характеристиками. <code><strong>ip</strong></code> - IP-адрес целевого сервера,
+							<code><strong>ttl</strong></code> - время жизни пакета,
+							<code><strong>icmp_seq</strong></code> - последовательный номер пакета,
+							<code><strong>rtt</strong></code> - время в миллисекундах, которое потребовалось для
+							получения ответа от сервера.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8117-9188-ec83cf347668" class="bulleted-list">
+						<li style="list-style-type:disc">
+							<code><strong>len=92 ip=192.168.127.185 ttl=64 icmp_seq=1 rtt=0.2 ms</strong></code>:
+							Аналогичная строка для второго ICMP-пакета.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81b8-b981-eeeebe0edf31" class="bulleted-list">
+						<li style="list-style-type:disc">
+							<code><strong>len=92 ip=192.168.127.185 ttl=64 icmp_seq=2 rtt=0.2 ms</strong></code>:
+							Аналогичная строка для третьего ICMP-пакета.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81a2-9051-f5a9fb4f4572" class="bulleted-list">
+						<li style="list-style-type:disc">... (аналогичные строки для остальных пакетов)</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81ae-8265-c51954d98aa8" class="bulleted-list">
+						<li style="list-style-type:disc">
+							<code><strong>-- 192.168.127.185 hping statistic ---</strong></code>: Это заголовок для
+							статистики.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81dc-9c50-e4fb1f4814f6" class="bulleted-list">
+						<li style="list-style-type:disc">
+							<code><strong>10000 packets transmitted, 10000 packets received, 0% packet loss</strong></code>:
+							Это статистика по переданным и полученным пакетам. В данном случае, было отправлено 10000
+							пакетов и все 10000 успешно получены, что указывает на отсутствие потери пакетов.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8174-9a52-e75946e0bb40" class="bulleted-list">
+						<li style="list-style-type:disc">
+							<code><strong>round-trip min/avg/max = 0.2/0.2/0.3 ms</strong></code>: Эта строка содержит
+							информацию о задержке (RTT) в миллисекундах для отправленных пакетов. Минимальное (min),
+							среднее (avg) и максимальное (max) значения RTT предоставляют информацию о
+							производительности сетевого соединения.</li>
+					</ul>
+					<p id="131aa64c-9d0a-8129-9c23-c5fa4e826a32" class=""><strong>Рекомендации:</strong></p>
+					<figure class="block-color-gray_background callout" style="display:flex"
+						id="131aa64c-9d0a-819d-b41c-e00a2791b158">
+						<div style="font-size:1.5em"><span class="icon">⚠️</span></div>
+						<div style="width:100%">Этот сценарий создает большую нагрузку на сетевой адаптер и может быть
+							использован для тестирования его устойчивости. Рекомендуется использовать его осторожно,
+							чтобы не вызвать перегрузку сетевого оборудования.</div>
+					</figure>
+					<p id="131aa64c-9d0a-8121-bb69-f1d84747fc3e" class=""><strong>Составление отчета</strong>:</p>
+					<ul id="131aa64c-9d0a-810d-a25b-cedfeb137549" class="bulleted-list">
+						<li style="list-style-type:disc">В отчете следует указать:<ul
+								id="131aa64c-9d0a-815c-ab3b-fb778f810a55" class="bulleted-list">
+								<li style="list-style-type:circle">Цель работы (тестирование устойчивости и
+									производительности сервера при атаке с флудом).</li>
+							</ul>
+							<ul id="131aa64c-9d0a-8191-9a1a-e9f951e0d8bc" class="bulleted-list">
+								<li style="list-style-type:circle">Методология (использованные опции
+									<code><strong>hping3</strong></code>).</li>
+							</ul>
+							<ul id="131aa64c-9d0a-816b-b72a-fd9b713c1da8" class="bulleted-list">
+								<li style="list-style-type:circle">Результаты (статистика по отправленным и полученным
+									пакетам, RTT).</li>
+							</ul>
+							<ul id="131aa64c-9d0a-81e1-abf4-c32002f9bead" class="bulleted-list">
+								<li style="list-style-type:circle">Выводы (оценка устойчивости сервера и
+									производительности в условиях атаки сетевым флудом).</li>
+							</ul>
+							<ul id="131aa64c-9d0a-812c-a9d4-d3c545f48177" class="bulleted-list">
+								<li style="list-style-type:circle">Рекомендации (если есть, например, рекомендации по
+									улучшению защиты сервера от подобных атак).</li>
+							</ul>
+						</li>
+					</ul>
+					<h2 id="131aa64c-9d0a-81e1-befc-f6b8ecaa3ad9" class=""><mark class="highlight-red">3</mark><mark
+							class="highlight-red"><strong> сценарий: Проверка доступности порта на
+								сервере</strong></mark></h2>
+					<figure class="block-color-gray_background callout" style="display:flex"
+						id="131aa64c-9d0a-8183-b2dc-db9243698a4b">
+						<div style="font-size:1.5em"><span class="icon">💡</span></div>
+						<div style="width:100%"><strong>Задача</strong>: Основной задачей является проверка возможности
+							установки соединения с SSH-сервисом на указанном порту и анализ ответа, который сервер
+							отправит на отправленные TCP-пакеты.</div>
+					</figure>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-8158-86fd-d4aaf6c60bad"
+						class="code"><code class="language-JavaScript">$ hping3 -c 4 -S -p 22 192.168.127.185</code></pre>
+					<ul id="131aa64c-9d0a-81b5-8cd7-c7a7815d9fff" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>sudo hping3</strong></code>: Запускает утилиту
+							<code><strong>hping3</strong></code> с правами суперпользователя, так как для отправки
+							TCP-пакетов на низкие порты может потребоваться повышенные привилегии.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8159-8d93-fb7e41a86e3a" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>c 4</strong></code>: Опция
+							<code><strong>c</strong></code> указывает количество отправляемых пакетов (в данном случае,
+							4).</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8170-aad6-e50ee0d6866a" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>S</strong></code>: Опция
+							<code><strong>S</strong></code> указывает на использование флага SYN в TCP-пакетах, что
+							означает начало установки TCP-соединения.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-819f-a856-e2f21fbd3206" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>p 22</strong></code>: Опция
+							<code><strong>p</strong></code> указывает на порт, на который будут отправлены TCP-пакеты (в
+							данном случае, порт 22, который обычно используется для SSH-сервиса).</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81c6-ae05-f06eab860a6e" class="bulleted-list">
+						<li style="list-style-type:disc"><code><strong>192.168.127.185</strong></code>: Это IP-адрес
+							целевого сервера, который будет протестирован.</li>
+					</ul>
+					<figure id="131aa64c-9d0a-816f-9372-e10d79b3b05e" class="image"><a
+							href="1 4 8 Утилита hping3/Untitled%205.png"><img
+								style="width:955px"
+								src="1 4 8 Утилита hping3/Untitled%205.png" /></a>
+					</figure>
+					<p id="131aa64c-9d0a-8109-90aa-db5d6149ce7c" class="">
+					</p>
+					<p id="131aa64c-9d0a-81c9-91b8-ee34ae4f4dca" class=""><strong>Вывод:</strong></p>
+					<ul id="131aa64c-9d0a-8112-ac79-fb5a1d196ba5" class="bulleted-list">
+						<li style="list-style-type:disc">
+							<code><strong>HPING 192.168.127.185 (ens33 192.168.127.2): S set, 40 headers + 0 data bytes</strong></code>:
+							Это заголовок, который указывает на использование TCP-пакетов с установкой флага SYN и
+							сетевого интерфейса, через который отправляются пакеты.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8101-8b4b-d8ff81c4d73c" class="bulleted-list">
+						<li style="list-style-type:disc">
+							<code><strong>len=46 ip=192.168.127.185 ttl=64 DF id=0 sport=22 flags=SA seq=0 win=5840 rtt=0.3 ms</strong></code>:
+							Эта строка указывает, что был отправлен TCP-пакет длиной 46 байт с указанными
+							характеристиками. <code><strong>ip</strong></code> - IP-адрес целевого сервера,
+							<code><strong>ttl</strong></code> - время жизни пакета, <code><strong>sport</strong></code>
+							- исходный порт отправителя, <code><strong>flags</strong></code> - флаги TCP-пакета (в
+							данном случае, SA означает, что это ответ на SYN-пакет), <code><strong>seq</strong></code> -
+							последовательный номер пакета, <code><strong>win</strong></code> - размер окна,
+							<code><strong>rtt</strong></code> - время в миллисекундах, которое потребовалось для
+							получения ответа от сервера.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-818a-bcb2-cdf8791cd152" class="bulleted-list">
+						<li style="list-style-type:disc">
+							<code><strong>len=46 ip=192.168.127.185 ttl=64 DF id=0 sport=22 flags=SA seq=1 win=5840 rtt=0.3 ms</strong></code>:
+							Аналогичная строка для второго TCP-пакета.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-810c-bdae-e762f310c196" class="bulleted-list">
+						<li style="list-style-type:disc">
+							<code><strong>len=46 ip=192.168.127.185 ttl=64 DF id=0 sport=22 flags=SA seq=2 win=5840 rtt=0.3 ms</strong></code>:
+							Аналогичная строка для третьего TCP-пакета.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8170-bc7c-c44f6ded98b0" class="bulleted-list">
+						<li style="list-style-type:disc">... (аналогичные строки для остальных пакетов)</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8179-aab7-cafed31b18a0" class="bulleted-list">
+						<li style="list-style-type:disc">
+							<code><strong>-- 192.168.127.185 hping statistic ---</strong></code>: Это заголовок для
+							статистики.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81e3-bcfe-cbf07572b7f5" class="bulleted-list">
+						<li style="list-style-type:disc">
+							<code><strong>4 packets transmitted, 4 packets received, 0% packet loss</strong></code>: Это
+							статистика по переданным и полученным пакетам. В данном случае, было отправлено 4 TCP-пакета
+							и все 4 успешно получены, что указывает на отсутствие потери пакетов.</li>
+					</ul>
+					<ul id="131aa64c-9d0a-81b1-a658-d070bad25dc2" class="bulleted-list">
+						<li style="list-style-type:disc">
+							<code><strong>round-trip min/avg/max = 0.3/0.3/0.3 ms</strong></code>: Эта строка содержит
+							информацию о задержке (RTT) в миллисекундах для отправленных пакетов. Минимальное (min),
+							среднее (avg) и максимальное (max) значения RTT предоставляют информацию о
+							производительности сетевого соединения.</li>
+					</ul>
+					<p id="131aa64c-9d0a-816d-8d7c-c3acfefc69fb" class=""><strong>Рекомендации:</strong></p>
+					<ul id="131aa64c-9d0a-81e8-8234-eca3d62487a1" class="bulleted-list">
+						<li style="list-style-type:disc">Если все пакеты успешно установили соединение с сервером на
+							указанном порту и не были потеряны, это указывает на доступность порта. Это положительное
+							значение для проверки доступности конкретного порта на сервере.</li>
+					</ul>
+					<h2 id="131aa64c-9d0a-8163-ace3-ff26cb189e62" class=""><strong>Составление отчета и
+							рекомендаций:</strong></h2>
+					<p id="131aa64c-9d0a-8113-8c47-f4c465bcf7cb" class="">В отчете следует указать:</p>
+					<ul id="131aa64c-9d0a-81bb-947c-e6073767371b" class="bulleted-list">
+						<li style="list-style-type:disc">Цель работы (тестирование доступности SSH-сервиса на порту 22).
+						</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8116-9d68-c3ab96d08cd4" class="bulleted-list">
+						<li style="list-style-type:disc">Методология (использованные опции
+							<code><strong>hping3</strong></code>).</li>
+					</ul>
+					<ul id="131aa64c-9d0a-816d-9285-c7cde6c92891" class="bulleted-list">
+						<li style="list-style-type:disc">Результаты (статистика по отправленным и полученным пакетам,
+							RTT).</li>
+					</ul>
+					<ul id="131aa64c-9d0a-8170-ab93-dbfae901f2ca" class="bulleted-list">
+						<li style="list-style-type:disc">Выводы (оценка доступности SSH-сервиса на порту 22).</li>
+					</ul>
+					<ul id="131aa64c-9d0a-811b-af85-e157cce77110" class="bulleted-list">
+						<li style="list-style-type:disc">Рекомендации (если есть, например, рекомендации по улучшению
+							доступности SSH-сервиса).</li>
+					</ul>
+				</li>
+			</ol>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>
