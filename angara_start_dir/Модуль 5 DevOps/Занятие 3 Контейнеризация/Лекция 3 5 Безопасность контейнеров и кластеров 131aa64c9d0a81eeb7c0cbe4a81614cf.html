@@ -1,0 +1,724 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Лекция 3.5. Безопасность контейнеров и кластеров</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="131aa64c-9d0a-81ee-b7c0-cbe4a81614cf" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/slideshow_gray.svg"/></div><h1 class="page-title">Лекция 3.5. Безопасность контейнеров и кластеров</h1><p class="page-description"></p></header><div class="page-body"><h1 id="131aa64c-9d0a-8165-9c29-efa0fbe4b7fc" class="">Оглавление</h1><nav id="131aa64c-9d0a-8192-80cd-f4f3ae8a1238" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#131aa64c-9d0a-8165-9c29-efa0fbe4b7fc">Оглавление</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#131aa64c-9d0a-8118-8bf2-debc9ad27ac1">1. Теоретическая часть</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-819a-b58b-fadca4d60cbc">1.1 Безопасность Docker инфраструктуры</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81c2-9fcd-cebb4ec39e2c">1.1.1 <strong>Типовые проблемы безопасности, связанные с Docker</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-812d-93fb-f98954f11a66">1.1.2 <strong>Усиливаем безопасность Docker</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81ea-997a-e3c6b537fa84"><strong>1.1.3 Настройка опций усиления безопасности для Docker</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81af-912c-c7d435a8e26c">1.1.4 <strong>Легитимность используемых образов</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-812a-bc3b-c110ebe2cf47">1.2 Безопасность кластера Kubernetes</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-818c-96cc-e1191a61651f">1.2.1 Типовые векторы атак на K8s</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81a5-9438-e4cd81a9ca19">1.2.2 <strong>Проблемы безопасности K8s</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-812b-ac07-d8b2e13ccc1c">1.2.3 <strong>Примеры критических ошибок</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-8162-bf22-c6964ee28d1c">1.2.4 Общие советы и рекомендации по безопасности</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-812f-8b4c-c5f245d73290">1.2.5 <strong>Рекомендуемые шаги для усиления безопасности перед развертыванием кластера</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81c8-ba45-d1e46211a07d">1.2.6 <strong>Утилиты для аудита безопасности</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81da-b876-f084cd5fbe75">1.2.7 <strong>Безопасность сетевого взаимодействия</strong></a></div></nav><h1 id="131aa64c-9d0a-8118-8bf2-debc9ad27ac1" class="">1. Теоретическая часть</h1><h2 id="131aa64c-9d0a-819a-b58b-fadca4d60cbc" class="">1.1 Безопасность Docker инфраструктуры</h2><h3 id="131aa64c-9d0a-81c2-9fcd-cebb4ec39e2c" class="">1.1.1 <strong>Типовые проблемы безопасности, связанные с Docker</strong></h3><ul id="131aa64c-9d0a-81b0-ab06-e9c6c9344484" class="bulleted-list"><li style="list-style-type:disc"><strong>Безопасность хостовой системы</strong><p id="131aa64c-9d0a-8178-940b-e6f034c90bdc" class="">Одно из самых важных вопросов безопасности Docker - это обеспечение безопасности хост-машин, особенно ядра операционной системы. Поскольку в уже скомпрометированной системе изоляция и другие механизмы безопасности контейнеров, которые мы могли бы использовать, не смогут помочь. Это связано с тем, что Docker спроектирован таким образом, что все запущенные контейнеры используют ядро хост-системы. Поэтому в качестве хоста должен быть использован обновленный дистрибутив Linux без известных уязвимостей и признаков заражения вредоносным ПО.</p><p id="131aa64c-9d0a-8130-ab6d-e3628d6d017f" class="">Классическим примером такой уязвимости является «выход за пределы контейнера» (container breakout) в Docker. Эта уязвимость описывает ситуацию, когда программе, запущенной внутри контейнера, удается преодолеть механизмы изоляции и обрести привилегии суперпользователя (root) или получить доступ к важной информации, хранящейся на хост-машине. Один из типичных примеров такой уязвимости - уязвимость Dirty COW (CVE-2016-5195).</p><p id="131aa64c-9d0a-81ac-9da7-f909b7d63139" class="">Для обеспечения защиты от подобных ситуаций применяется стратегия ограничения привилегий, выдаваемых контейнеру по умолчанию. Например, если демон Docker запущен с привилегиями суперпользователя (root), для него создается пользовательское пространство имен (user-level namespace) с минимальными привилегиями.</p><p id="131aa64c-9d0a-81ab-8f14-cee22f08264e" class="">Как видно, безопасность хост-машины является фундаментальным вопросом для обеспечения безопасности Docker. Применение соответствующих мер, таких как использование обновленного дистрибутива Linux без известных уязвимостей, а также стратегий ограничения привилегий, позволяет снизить риски и обеспечить безопасность контейнеров.</p></li></ul><ul id="131aa64c-9d0a-81e0-8d72-dac325e23d74" class="bulleted-list"><li style="list-style-type:disc"><strong>Исчерпание ресурсов, или DDoS на контейнер</strong><p id="131aa64c-9d0a-81b2-90b3-fa1bd60cb1ee" class="">Если сравнивать контейнеры с виртуальными машинами, то первые более легковесны. Даже на старом и слабом железе можно запустить много контейнеров. Однако ошибки в конфигурации демонов, сетевого стека, недостатки проектирования архитектуры и атаки хакеров могут приводить к состояниям типа «отказ в обслуживании» (Denial of Service).</p><p id="131aa64c-9d0a-8119-89c2-e55f52e97721" class="">К примеру, некий контейнер или целый пул контейнеров может пожрать все процессорное время хоста и просадить его производительность. Аналогичная ситуация может сложиться и с сетевыми интерфейсами, когда количество генерируемых пакетов превысит нормальную пропускную способность сети. Но выход тут, в принципе, довольно прост: должным образом настроить лимиты ресурсов для контейнера.</p></li></ul><ul id="131aa64c-9d0a-81da-8ea7-d362520b82c5" class="bulleted-list"><li style="list-style-type:disc"><strong>Скомпрометированные образы для Docker</strong><p id="131aa64c-9d0a-816c-a095-c4be0fdc6a9d" class="">Docker является open source-программным обеспечением, распространяемым бесплатно. Оно предоставляет публичный доступ к образам, с помощью которых можно создавать контейнеры. Но данная свобода также открывает возможности для злоумышленников, которые могут использовать фишинг и другие методы социальной инженерии, чтобы манипулировать действиями пользователей, загружая предварительно скомпрометированные образы с вредоносными программами или задними дверями.</p><p id="131aa64c-9d0a-81f6-a5d7-c498c8b94205" class="">Например, в апреле этого года возникла новость о том, как неизвестные злоумышленники получили доступ к базе данных крупнейшей библиотеки образов для контейнеров Docker Hub. В результате этого инцидента были скомпрометированы личные данные пользователей, хеши паролей, а также токены для репозиториев на GitHub и Bitbucket, которые используются для автоматизированных сборок Docker. Также стоит вспомнить новость из лета 2018 года, когда семнадцать образов контейнеров, содержащих опасные backdoor программы, были удалены из официального реестра Docker Hub. Позднее эксперты обнаружили, что через эти образы на серверы пользователей проникал скрытый майнинг-софт и были установлены обратные шеллы.</p><p id="131aa64c-9d0a-814a-b1ba-d9cc0b1c11db" class="">Таким образом, необходимо аккуратно подойти к выбору и загрузке образов Docker, а также регулярно обновлять их для минимизации рисков и обеспечения безопасности своих систем.</p></li></ul><h3 id="131aa64c-9d0a-812d-93fb-f98954f11a66" class="">1.1.2 <strong>Усиливаем безопасность Docker</strong></h3><ul id="131aa64c-9d0a-8140-a3f2-d37df03f6ed1" class="bulleted-list"><li style="list-style-type:disc"><strong>Использование достоверных образов</strong><p id="131aa64c-9d0a-816c-b872-f94172070b57" class="">Начнем, пожалуй, с банальной для репозиториев Docker проблемы — достоверности образа. Чтобы избежать проблем с фейковыми образами, используй приватные (private) или строго доверенные репозитории (trusted repositories) вроде Docker Hub. В отличие от других репозиториев, образы, которые там хранятся, всегда сканирует и просматривает специальный робот безопасности Docker’s Security Scanning Service.</p></li></ul><ul id="131aa64c-9d0a-8104-84fd-c1086fd7bec0" class="bulleted-list"><li style="list-style-type:disc"><strong>Верифицируем образы через сервис Docker Content Trust</strong><p id="131aa64c-9d0a-81c9-af95-d958ed144e98" class="">Еще один полезный и доступный всем инструмент, которым стоит воспользоваться, — Docker Content Trust. Это новая функция, доступная с версии Docker Engine 1.8. Она позволяет верифицировать владельца образа. Таким образом этот сервис защищает тебя от фейков и подделок, атак повторного воспроизведения и компрометации ключей.</p></li></ul><ul id="131aa64c-9d0a-81c3-98e4-c331b0483f18" class="bulleted-list"><li style="list-style-type:disc"><strong>Проверка хоста и контейнера с помощью Docker Bench Security</strong><p id="131aa64c-9d0a-819f-b32a-cc14e5ce09cd" class="">Docker Bench for Security — это скрипт, который проверяет десятки распространенных рекомендаций по развертыванию контейнеров Docker в рабочей среде. Все тесты автоматизированы и основаны на тесте CIS Docker Community Edition Benchmark v1.1.0. </p><blockquote id="131aa64c-9d0a-81a6-8811-fa0c9f382d92" class=""><a href="https://github.com/docker/docker-bench-security">https://github.com/docker/docker-bench-security</a> — Гитхаб проекта</blockquote><blockquote id="131aa64c-9d0a-81f5-9dd3-d3c848aa9df3" class=""><a href="https://hub.docker.com/r/docker/docker-bench-security">https://hub.docker.com/r/docker/docker-bench-security</a> — Документация</blockquote><p id="131aa64c-9d0a-81c2-9605-e1f87d14856a" class="">Инструмент основывается на рекомендациях из документа The CIS Docker 1.13 Benchmark (<a href="https://blogs.tunelko.com/wp-content/uploads/2017/08/CIS_Docker_1.13.0_Benchmark_v1.0.0.pdf">PDF</a>) и применяется в следующих областях:</p><ul id="131aa64c-9d0a-8102-95e4-d11a8e97dd68" class="bulleted-list"><li style="list-style-type:circle">конфигурация хоста (ядро, процессы, разрешения);</li></ul><ul id="131aa64c-9d0a-81fd-b24d-c9cede640707" class="bulleted-list"><li style="list-style-type:circle">конфигурация демона Docker (сеть, выделение RAM, CPU);</li></ul><ul id="131aa64c-9d0a-814f-901b-f15166b4a843" class="bulleted-list"><li style="list-style-type:circle">файлы конфигурации демона Docker;</li></ul><ul id="131aa64c-9d0a-8101-868d-c886d54993f9" class="bulleted-list"><li style="list-style-type:circle">образы контейнеров и build-файлы;</li></ul><ul id="131aa64c-9d0a-8116-9b31-e3bc3e9e3c65" class="bulleted-list"><li style="list-style-type:circle">Runtime контейнера;</li></ul><ul id="131aa64c-9d0a-8101-bd84-d5f382f66549" class="bulleted-list"><li style="list-style-type:circle">опции «по умолчанию» Docker security.</li></ul></li></ul><ul id="131aa64c-9d0a-817e-9026-e23201253b17" class="bulleted-list"><li style="list-style-type:disc"><strong>Использование нативных опций безопасности на хостовых ОС</strong><p id="131aa64c-9d0a-8118-adfa-c46ea5c3bbb7" class="">Для усиления безопасности можно использовать штатные инструменты Linux: AppArmor, SELinux, grsecurity и Seccomp.</p><ul id="131aa64c-9d0a-8196-abd3-cea1f2c0ce74" class="bulleted-list"><li style="list-style-type:circle">AppArmor<p id="131aa64c-9d0a-81ac-ac90-e6b306cc66a1" class="">AppArmor — эффективная и простая в использовании система безопасности приложений Linux. AppArmor активно защищает операционную систему и приложения от внешних или внутренних угроз, даже атак нулевого дня, обеспечивая хорошее поведение и предотвращая использование как известных, так и неизвестных недостатков приложений.</p><p id="131aa64c-9d0a-8180-af80-dcbd895705ed" class="">AppArmor дополняет модель Discretionary Access Control (DAC) — традиционной системы безопасности Unix, обеспечивая обязательный контроль доступа (MAC). Он включен в основное ядро Linux начиная с версии 2.6.36, а его разработка поддерживается Canonical с 2009 года.</p></li></ul><ul id="131aa64c-9d0a-8132-9bd4-f6a7c9655c8b" class="bulleted-list"><li style="list-style-type:circle">SELinux<p id="131aa64c-9d0a-814b-963d-f177e8a232fc" class="">Security Enhanced Linux представляет собой набор правил и механизмов доступа, основанный на моделях мандатного и ролевого доступа, для защиты систем Linux от потенциальных угроз и исправления недостатков Discretionary Access Control (DAC) — традиционной системы безопасности Unix. Проект зародился в недрах Агентства Национальной Безопасности США, непосредственно разработкой занимались, в основном, подрядчики Secure Computing Corporation и MITRE, а также ряд исследовательских лабораторий.</p></li></ul><ul id="131aa64c-9d0a-817d-829f-dc32c4d173a9" class="bulleted-list"><li style="list-style-type:circle">grsecurity<p id="131aa64c-9d0a-81ec-bf89-edee1c76de6c" class="">Grsecurity — это обширное усовершенствование безопасности ядра Linux, которое защищает от широкого спектра угроз безопасности посредством интеллектуального контроля доступа, предотвращения эксплойтов на основе повреждения памяти и множества других мер по усилению защиты системы, которые обычно не требуют настройки.</p></li></ul><ul id="131aa64c-9d0a-817c-9678-d4c9dd7b8e0d" class="bulleted-list"><li style="list-style-type:circle">Seccomp<p id="131aa64c-9d0a-81e5-8ce4-da9ad99059af" class="">Seccomp (сокращение от secure computing) — механизм ядра Linuх, позволяющий процессам определять системные вызовы, которые они будут использовать. Если злоумышленник получит возможность выполнить произвольный код, seccomp не даст ему использовать системные вызовы, которые не были заранее объявлены.</p><p id="131aa64c-9d0a-81df-ae4a-cbdc83a42509" class="">Seccomp — разработка Google. Он используется, в частности, в браузере Google Chrome для запуска плагинов.</p></li></ul></li></ul><h3 id="131aa64c-9d0a-81ea-997a-e3c6b537fa84" class=""><strong>1.1.3 Настройка опций усиления безопасности для Docker</strong></h3><ul id="131aa64c-9d0a-81ed-b881-fc0f78292704" class="bulleted-list"><li style="list-style-type:disc"><strong>Ограничения Docker Engine</strong><p id="131aa64c-9d0a-81da-87e7-c3d2f331814d" class="">Вспомним, что Docker Engine — это своего рода API, который прослушивает все входящие запросы и взаимодействует с базовым ядром хоста. Docker Engine поддерживает связь на трех сокетах: <code>unix</code>, <code>tcp</code> и <code>fd</code>.</p><p id="131aa64c-9d0a-81ef-8e6d-f68737046397" class="">Безопасное состояние по умолчанию — это прослушивание сокета <code>unix</code>.</p></li></ul><ul id="131aa64c-9d0a-8134-b2cd-d719948c2fd9" class="bulleted-list"><li style="list-style-type:disc"><strong>Выставляем ограничение на привилегии выполнения</strong><ul id="131aa64c-9d0a-81b6-98e1-e457eb4aa157" class="bulleted-list"><li style="list-style-type:circle">Чтобы привилегии контейнера были эквиваленты правам обычного пользователя, создайте для ваших контейнеров изолированное пользовательское пространство имен. <a href="https://docs.docker.com/engine/security/userns-remap/#disable-namespace-remapping-for-a-container">По возможности</a> избегайте выполнения контейнеров с uid 0.</li></ul><ul id="131aa64c-9d0a-81a0-85d4-c26773f6464a" class="bulleted-list"><li style="list-style-type:circle"><a href="https://docs.docker.com/engine/security/security/#linux-kernel-capabilities">Привилегии (capabilities)</a>, которые не нужны приложению, должны быть сняты.<ul id="131aa64c-9d0a-814b-b28b-dd554a13cb66" class="bulleted-list"><li style="list-style-type:square">CAP_SYS_ADMIN в плане безопасности особенно коварна, поскольку дает право на выполнение значительного количества операций уровня суперпользователя: монтирование файловых систем, вход в пространства имен ядра, операции ioctl.</li></ul></li></ul><ul id="131aa64c-9d0a-8129-a0e8-fb8adc1c057f" class="bulleted-list"><li style="list-style-type:circle">Если без привилегированного контейнера все же не обойтись, убедитесь, что он устанавливается из доверенного репозитория (см. ниже раздел «Подлинность образов контейнеров»).</li></ul><ul id="131aa64c-9d0a-81ec-aa70-f4d4cad167db" class="bulleted-list"><li style="list-style-type:circle">Внимательно следите за случаями монтирования потенциально опасных ресурсов хоста: <strong>/var/run/docker.sock</strong>), <strong>/proc</strong>, <strong>/dev</strong> и т. д. Обычно эти ресурсы нужны для выполнения операций, связанных с базовой функциональностью контейнеров. Убедитесь, что вы понимаете, почему и как необходимо ограничивать доступ процессов к этой информации. Иногда достаточно лишь установки режима «только чтение». Никогда не давайте права на запись, не задавшись вопросом, зачем нужно это право. В любом случае Docker использует copy-on-write, чтобы предотвратить попадание изменений, произошедших в выполняющемся контейнере, в его базовый образ и потенциально в другие контейнеры, которые будут созданы на базе этого образа.</li></ul><p id="131aa64c-9d0a-8129-bf91-fe1562fd9f9a" class="">Чтобы максимально уменьшить площадь потенциальной атаки, подумай над следующими вопросами:</p><ul id="131aa64c-9d0a-8131-b95e-e7f8ab215f23" class="bulleted-list"><li style="list-style-type:circle">Какое сетевое подключение требуется для работы приложения и вообще требуется ли оно?</li></ul><ul id="131aa64c-9d0a-8133-9265-f184d4d07639" class="bulleted-list"><li style="list-style-type:circle">Нужен ли приложению прямой доступ к сокету?</li></ul><ul id="131aa64c-9d0a-8171-b1cb-c1283e4832ea" class="bulleted-list"><li style="list-style-type:circle">Требуется ли приложению отправлять и получать UDP-запросы?</li></ul><p id="131aa64c-9d0a-81e7-8135-f089c3ce4dc0" class="">Для настройки ограничений будем использовать команды <code>--cap-drop and</code> и <code>--cap-add</code>.</p><p id="131aa64c-9d0a-81e6-9781-c312bde2cba7" class="">Предположим, приложению абсолютно не требуется изменять системные процессы или биндить привилегированные порты, но при этом нужно загружать и выгружать модули ядра.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-817e-af5d-fd915c8eaf21" class="code"><code class="language-Bash">docker run \
+  --cap-drop SETPCAP \
+  --cap-drop NET_BIND_SERVICE \
+  --cap-add SYS_MODULE \
+  -ti busybox /bin/sh</code></pre><p id="131aa64c-9d0a-8181-9d27-e37f0c82f062" class="">Для обеспечения безопасности сетевого взаимодействия можно настроить правила iptables, реализованные в Docker. Например, указать диапазон IP-адресов для источника пакетов, чтобы ограничить трафик на контейнер. Это поможет предотвратить обращение глубоко изолированного контейнера во внешнюю сеть.</p></li></ul><ul id="131aa64c-9d0a-8140-991b-e11e003280dc" class="bulleted-list"><li style="list-style-type:disc"><strong>Ограничиваем потребление системных ресурсов</strong><p id="131aa64c-9d0a-814f-99c2-ee9c29491eff" class="">Чтобы откалибровать пул ресурсов, выделяемых для контейнера (CPU, RAM, SWAP, I/O), нужно задать пороговые значения следующими флагами:</p><ul id="131aa64c-9d0a-81d5-8b1b-dadebd3d424d" class="bulleted-list"><li style="list-style-type:circle"><code>-m</code>, <code>--memory</code> — установить лимит выделения оперативной памяти (hard);</li></ul><ul id="131aa64c-9d0a-8171-8f70-cfe7e1772275" class="bulleted-list"><li style="list-style-type:circle"><code>--memory-reservation</code> — установить мягкий лимит памяти (soft);</li></ul><ul id="131aa64c-9d0a-81f7-b504-ef0d982d9f56" class="bulleted-list"><li style="list-style-type:circle"><code>--kernel-memory</code> — установить лимит памяти ядра (kernel OS);</li></ul><ul id="131aa64c-9d0a-819c-aa83-ff46877e344d" class="bulleted-list"><li style="list-style-type:circle"><code>--cpus</code> — ограничить количество используемых CPU;</li></ul><ul id="131aa64c-9d0a-81cd-b042-fec0f918e80e" class="bulleted-list"><li style="list-style-type:circle"><code>--device-read-bps</code> — ограничить пропускную способность чтения для конкретного устройства.</li></ul></li></ul><h3 id="131aa64c-9d0a-81af-912c-c7d435a8e26c" class="">1.1.4 <strong>Легитимность используемых образов</strong></h3><p id="131aa64c-9d0a-81c1-a5d9-faacd213a06a" class="">Легитимность использования образов для развертывания контейнеров — один из ключевых критериев безопасности.</p><ol type="1" id="131aa64c-9d0a-811d-9bce-c5b05283df2a" class="numbered-list" start="1"><li><a href="https://coreos.com/clair">Clair</a> — это проект с открытым исходным кодом для статического анализа уязвимостей в контейнерах <a href="http://github.com/appc/spec">appc</a> и <a href="https://github.com/moby/moby/blob/master/image/spec/v1.md">docker</a>. Данные об уязвимостях постоянно импортируются из известных источников и соотносятся с индексированным содержимым образов контейнера, чтобы сформировать списки уязвимостей, угрожающих каждому контейнеру в отдельности.</li></ol><ol type="1" id="131aa64c-9d0a-8108-8c8a-def0689d3854" class="numbered-list" start="2"><li>Еще одна похожая утилита носит название <a href="https://github.com/eliasgranderubio/dagda">Dagda</a>. Это инструмент для статического анализа известных уязвимостей, поиска троянов, вирусов, вредоносных программ, а также других угроз в образах и контейнерах Docker. Кроме того, Dagda используется для мониторинга сетевых служб Docker и запуска контейнеров в целях обнаружения аномальных действий. Проверка зависимостей основана на проектах <a href="https://www.owasp.org/index.php/Main_Page">OWASP</a> и <a href="https://retirejs.github.io/retire.js/">Retire.js</a> для анализа безопасности таких слоев, как Java, Python, Node.js, JS, Ruby, PHP.<figure id="131aa64c-9d0a-818c-ab62-e72b09fd4f4b" class="image"><a href="%D0%9B%D0%B5%D0%BA%D1%86%D0%B8%D1%8F%203%205%20%D0%91%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C%20%D0%BA%D0%BE%D0%BD%D1%82%D0%B5%D0%B8%CC%86%D0%BD%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B8%20%D0%BA%D0%BB%D0%B0%D1%81%D1%82%D0%B5%D1%80%D0%BE%D0%B2%20131aa64c9d0a81eeb7c0cbe4a81614cf/Untitled.png"><img style="width:708px" src="%D0%9B%D0%B5%D0%BA%D1%86%D0%B8%D1%8F%203%205%20%D0%91%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C%20%D0%BA%D0%BE%D0%BD%D1%82%D0%B5%D0%B8%CC%86%D0%BD%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B8%20%D0%BA%D0%BB%D0%B0%D1%81%D1%82%D0%B5%D1%80%D0%BE%D0%B2%20131aa64c9d0a81eeb7c0cbe4a81614cf/Untitled.png"/></a></figure></li></ol><h2 id="131aa64c-9d0a-812a-bc3b-c110ebe2cf47" class="">1.2 Безопасность кластера Kubernetes</h2><h3 id="131aa64c-9d0a-818c-96cc-e1191a61651f" class="">1.2.1 Типовые векторы атак на K8s</h3><figure id="131aa64c-9d0a-8145-b69b-f95aec0dab76" class="image"><a href="%D0%9B%D0%B5%D0%BA%D1%86%D0%B8%D1%8F%203%205%20%D0%91%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C%20%D0%BA%D0%BE%D0%BD%D1%82%D0%B5%D0%B8%CC%86%D0%BD%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B8%20%D0%BA%D0%BB%D0%B0%D1%81%D1%82%D0%B5%D1%80%D0%BE%D0%B2%20131aa64c9d0a81eeb7c0cbe4a81614cf/Untitled%201.png"><img style="width:671px" src="%D0%9B%D0%B5%D0%BA%D1%86%D0%B8%D1%8F%203%205%20%D0%91%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C%20%D0%BA%D0%BE%D0%BD%D1%82%D0%B5%D0%B8%CC%86%D0%BD%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B8%20%D0%BA%D0%BB%D0%B0%D1%81%D1%82%D0%B5%D1%80%D0%BE%D0%B2%20131aa64c9d0a81eeb7c0cbe4a81614cf/Untitled%201.png"/></a></figure><h3 id="131aa64c-9d0a-81a5-9438-e4cd81a9ca19" class="">1.2.2 <strong>Проблемы безопасности K8s</strong></h3><p id="131aa64c-9d0a-81b1-92ab-ed3061062ea7" class="">Типичные проблемы безопасности в инфраструктуре кластера <strong>K8s:</strong></p><ul id="131aa64c-9d0a-813a-9c60-dc564f611494" class="bulleted-list"><li style="list-style-type:disc"><strong>Explosion of East-West Traffic</strong>, или атака «Взрыв трафика Восток — Запад». <p id="131aa64c-9d0a-81fd-b34a-c832766d958c" class="">Суть этой атаки заключается в том, что контейнеры могут быть динамически развернуты в нескольких независимых друг от друга облаках, что значительно увеличивает трафик обмена данными внутри логического кластера. Это похоже на перегон поездов по железной дороге, и именно поэтому данный вид атак получил название «С востока на запад». Удаленное расположение контейнеров может использоваться злоумышленниками, например, для реализации DDoS-атак.</p><figure id="131aa64c-9d0a-8176-b282-e5e270692047" class="image"><a href="%D0%9B%D0%B5%D0%BA%D1%86%D0%B8%D1%8F%203%205%20%D0%91%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C%20%D0%BA%D0%BE%D0%BD%D1%82%D0%B5%D0%B8%CC%86%D0%BD%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B8%20%D0%BA%D0%BB%D0%B0%D1%81%D1%82%D0%B5%D1%80%D0%BE%D0%B2%20131aa64c9d0a81eeb7c0cbe4a81614cf/Untitled%202.png"><img style="width:708px" src="%D0%9B%D0%B5%D0%BA%D1%86%D0%B8%D1%8F%203%205%20%D0%91%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C%20%D0%BA%D0%BE%D0%BD%D1%82%D0%B5%D0%B8%CC%86%D0%BD%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B8%20%D0%BA%D0%BB%D0%B0%D1%81%D1%82%D0%B5%D1%80%D0%BE%D0%B2%20131aa64c9d0a81eeb7c0cbe4a81614cf/Untitled%202.png"/></a></figure></li></ul><ul id="131aa64c-9d0a-8100-9dcd-e48fea74eaeb" class="bulleted-list"><li style="list-style-type:disc"><strong>Increased Attack Surface </strong>(увеличенная площадь атаки). <p id="131aa64c-9d0a-8101-be39-d5e85b805b07" class="">Проблема основывается на том, что каждый контейнер может иметь различную поверхность атаки и собственные уникальные уязвимости, которые используются хакерами для дальнейшего взлома. К примеру, могут использоваться уязвимости для Docker или системы авторизации AWS.</p></li></ul><ul id="131aa64c-9d0a-811a-8990-e24882a404b1" class="bulleted-list"><li style="list-style-type:disc"><strong>Container compromise</strong> (компрометация контейнера).<p id="131aa64c-9d0a-819c-97bb-cead5807c167" class="">Суть атаки кроется в использовании неверной конфигурации (security misconfiguration) для всех контейнеров кластера, которые косвенным образом способствуют компрометации или же включают в себя уязвимости приложений. К компрометациям контейнера относятся манипуляции внутренней коммутацией, управлением процессами или доступом к файловой системе.</p></li></ul><ul id="131aa64c-9d0a-81b2-9869-de08d084d84f" class="bulleted-list"><li style="list-style-type:disc"><strong>Unauthorized connections between pods</strong> (несанкционированные соединения между подами внутри единого кластера).<br/>Скомпрометированные контейнеры могут соединяться с другими контейнерами на том же или на других хостах, чтобы запустить какую-либо атаку. Несмотря на то что фильтрация на уровне L3 (ACL-листы) обеспечивается сетевым оборудованием согласно настроенным правилам, некоторые неавторизованные обращения могут быть обнаружены только с помощью фильтрации на седьмом уровне модели OSI.<br/></li></ul><h3 id="131aa64c-9d0a-812b-ac07-d8b2e13ccc1c" class="">1.2.3 <strong>Примеры критических ошибок</strong></h3><ul id="131aa64c-9d0a-8117-86e5-f7fa469d14e8" class="bulleted-list"><li style="list-style-type:disc"><a href="https://nvd.nist.gov/vuln/detail/CVE-2019-5736">CVE-2019-5736</a><p id="131aa64c-9d0a-8166-aaef-c7cfd01901f0" class="">Он позволяет вредоносному контейнеру перезаписать исполняемый файл runC на хост-системе, при этом никакого взаимодействия с пользователем не требуется. В результате подобной атаки злоумышленник может получить root-доступ к хосту и возможность исполнять на нем произвольный код. В феврале 2019 года эксплоит для CVE-2019-5736 был опубликован на <a href="https://github.com/Frichetten/CVE-2019-5736-PoC">GitHub</a>.</p></li></ul><ul id="131aa64c-9d0a-8115-af1b-f14d843a5b01" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.sdxcentral.com/articles/news/kubernetes-kubectl-cli-tool-stung-by-high-severity-security-flaw/2019/03/">CVE-2019-11246</a><p id="131aa64c-9d0a-81ea-b582-e4b5718aec8d" class="">Он позволяет атакующему доставлять файлы из пода на компьютер оператора или модифицировать их с помощью подмены tar binary, используя обычную внутреннюю команду kubectl cp.</p><figure id="131aa64c-9d0a-8130-84b4-c0728a01cfe2" class="image"><a href="%D0%9B%D0%B5%D0%BA%D1%86%D0%B8%D1%8F%203%205%20%D0%91%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C%20%D0%BA%D0%BE%D0%BD%D1%82%D0%B5%D0%B8%CC%86%D0%BD%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B8%20%D0%BA%D0%BB%D0%B0%D1%81%D1%82%D0%B5%D1%80%D0%BE%D0%B2%20131aa64c9d0a81eeb7c0cbe4a81614cf/Untitled%203.png"><img style="width:511px" src="%D0%9B%D0%B5%D0%BA%D1%86%D0%B8%D1%8F%203%205%20%D0%91%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C%20%D0%BA%D0%BE%D0%BD%D1%82%D0%B5%D0%B8%CC%86%D0%BD%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B8%20%D0%BA%D0%BB%D0%B0%D1%81%D1%82%D0%B5%D1%80%D0%BE%D0%B2%20131aa64c9d0a81eeb7c0cbe4a81614cf/Untitled%203.png"/></a></figure></li></ul><ul id="131aa64c-9d0a-8106-81a7-eaefb878d57c" class="bulleted-list"><li style="list-style-type:disc"><a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1002105">CVE-2018-1002105</a><p id="131aa64c-9d0a-8175-abf5-c25b26ceb12d" class="">Он позволяет атакующему повысить привилегии в кластере и получить к нему доступ из-за логической ошибки обработки API-вызовов. Эксперты по безопасности оценили уязвимость в 9,8 балла по шкале CVSS, поскольку брешь не требует предварительной аутентификации и проста в эксплуатации. Несанкционированный доступ открывается после отправки специфического запроса к API-серверу Kubernetes. Все уязвимые сборки Kubernetes некорректно обрабатывают вредоносный запрос, позволяя обратиться к бэкенду с использованием учетных данных TLS, прописанных в настройках API-сервера. Через несколько дней после обнаружения проблемы PoC-эксплоит был <a href="https://github.com/gravitational/cve-2018-1002105">опубликован на GitHub</a>. Позже выпустили <a href="https://access.redhat.com/security/vulnerabilities/3716411">патч</a>, закрывающий эту уязвимость.</p></li></ul><ul id="131aa64c-9d0a-8164-ac08-e0a6ac7be9cd" class="bulleted-list"><li style="list-style-type:disc"><strong>Еще один громкий кейс</strong>, связанный с K8s, имел место в 2018 году. Речь идет о взломе аккаунта всем известной компании Tesla в облаке Amazon Web Services. Как позже выяснили эксперты, учетные данные в одном из подов Kubernetes открыли доступ к среде AWS Tesla, которая содержала корзину Amazon S3. В ней, в свою очередь, хранились конфиденциальные данные, в том числе телеметрия. Однако вместо кражи этих данных хакеры начали майнить криптовалюту на одном из подов Tesla.</li></ul><h3 id="131aa64c-9d0a-8162-bf22-c6964ee28d1c" class="">1.2.4 Общие советы и рекомендации по безопасности</h3><ol type="1" id="131aa64c-9d0a-81fe-842c-c716c9df769f" class="numbered-list" start="1"><li><strong>Использование шифрования TLS повсеместно.</strong> Для каждого компонента инфраструктуры K8s, поддерживающего протокол TLS, необходимо включить его использование. Это обеспечит защиту от осуществления прослушивания трафика, подделки удостоверения сервера и, в случае взаимного TLS, проверки удостоверения клиента.</li></ol><ol type="1" id="131aa64c-9d0a-8186-919a-f7dcb5cf03e1" class="numbered-list" start="2"><li><strong>Применение RBAC-ориентированной модели доступа и предоставление минимально возможных привилегий.</strong> Управление доступом на основе ролей (Role-Based Access Control, RBAC) обеспечивает точное управление политиками, с помощью которых пользователи получают доступ к ресурсам, таким как пространства имен.</li></ol><ol type="1" id="131aa64c-9d0a-8170-8d2e-c08300676f0f" class="numbered-list" start="3"><li><strong>Использование внешней аутентификации для API сервера.</strong> Централизованная аутентификация и авторизация для всей компании, например, на основе LDAP и Single Sign-On, помогает выдавать и отзывать права для сотрудников предприятия.</li></ol><ol type="1" id="131aa64c-9d0a-8145-93ff-c15109daa43b" class="numbered-list" start="4"><li><strong>Изоляция кластера ETCD за сетевым экраном. </strong>Поскольку кластер ETCD содержит информацию о состоянии Kubernetes и секретные данные доступа (токены, сертификаты), он является критическим компонентом K8s. Поэтому ETCD должен быть защищен отдельно от остального кластера, предпочтительно с использованием файрвола и изолированной виртуальной частной сети (VPC).</li></ol><ol type="1" id="131aa64c-9d0a-81dc-8755-c7f02ce3bf4a" class="numbered-list" start="5"><li><strong>Систематическая ротация ключей шифрования. </strong>Регулярное обновление (в соответствии с сроком и по событию) безопасных ключей и сертификатов - одна из лучших практик для обеспечения безопасности любой IT-системы. Это позволяет сократить возможные последствия компрометации доступа к ключу.</li></ol><ol type="1" id="131aa64c-9d0a-81c2-85b2-fbc517e52ba2" class="numbered-list" start="6"><li><strong>Регулярный статический анализ YAML-файлов конфигурации.</strong> Конфиденциальная информация, представленная в формате YAML, не должна храниться в открытом виде внутри подов. Конфиденциальные настройки и секреты доступа (пароли) должны быть зашифрованы с использованием инструментов, таких как <code>git-crypt</code>. Статический анализ YAML-конфигурации может использоваться для определения базовых параметров безопасности, и такой анализ следует проводить регулярно.</li></ol><ol type="1" id="131aa64c-9d0a-8166-ba68-fa7f2019469a" class="numbered-list" start="7"><li><strong>Ограничение запуска контейнеров с учетной записью root.</strong> Часто контейнеры, запускающиеся с правами суперпользователя root, обладают большими привилегиями, чем требуется для выполнения своих рабочих задач, что в случае компрометации позволяет злоумышленникам получить еще больше возможностей.</li></ol><ol type="1" id="131aa64c-9d0a-8177-8a57-e39245f77b2b" class="numbered-list" start="8"><li><strong>Обязательное применение сетевых политик.</strong> По умолчанию, в Kubernetes весь трафик между подами разрешен без каких-либо ограничений. Однако с помощью сетевых политик (NetworkPolicy) эту настройку можно ограничить или изменить.</li></ol><p id="131aa64c-9d0a-81a7-b6b5-e8cc83094c50" class="">Чтобы повысить безопасность сетевой инфраструктуры в Kubernetes, можно использовать специальный набор флагов:</p><p id="131aa64c-9d0a-8108-b816-c3e7aa8ad497" class=""><strong>Для API-сервера:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8122-802d-e015c5a79082" class="code"><code class="language-Bash">// Отключение анонимного доступа 
+ --anonymous-auth=false 
+
+// Разрешение только авторизованных запросов 
+  --authorizationmode AlwaysAllow
+
+// Форсирование ограничений прав на kubelets, включая NodeRestriction на API server
+  --admission-control
+
+// Форсирование использования RBAC-модели доступа к объектам K8s
+ --authorization-mode=RBAC
+
+// Отключение небезопасных портов
+ --insecure-port=0</code></pre><p id="131aa64c-9d0a-81d3-adac-fe09bf65cdb3" class=""><strong>Для etcd-сервера:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81e9-94cd-d2862b8337e9" class="code"><code class="language-Bash"> // Форсирование использования защищенного HTTPS connections к серверу etcd
+ --cert-file and --key-file 
+
+ // Включение принудительной авторизации при обращении к etcd
+ --client-cert-auth=true 
+
+ // Использование только подписанных сертификатов
+ --trusted-ca-file 
+
+ // Отключение использования автоподписанных сертификатов
+  --auto-tls=false 
+
+ // Использование только безопасных методов подключения
+ --peer-client-cert-auth=true
+ --peer-autotls=false and specify --peer-cert-file, --peer-key-file
+
+ // Запуск etcd в защищенном исполнении
+ --peer-trusted-ca-file
+
+ // Форсирование авторизации с использованием сертификатов для API-сервера
+ --etcd-cafile </code></pre><h3 id="131aa64c-9d0a-812f-8b4c-c5f245d73290" class="">1.2.5 <strong>Рекомендуемые шаги для усиления безопасности перед развертыванием кластера</strong></h3><ul id="131aa64c-9d0a-81b7-b321-caa0f9a1470d" class="bulleted-list"><li style="list-style-type:disc">Используй на всю катушку пространства имен (namespaces).</li></ul><ul id="131aa64c-9d0a-81fb-a00c-e11e770024b3" class="bulleted-list"><li style="list-style-type:disc">Форсируй SELinux (хотя бы в продакшен-среде!).</li></ul><ul id="131aa64c-9d0a-810c-8828-ef9ccb2e94ec" class="bulleted-list"><li style="list-style-type:disc">Используй Seccomp.</li></ul><ul id="131aa64c-9d0a-8196-aa65-d2fe898bf044" class="bulleted-list"><li style="list-style-type:disc">Используй Cgroups.</li></ul><ul id="131aa64c-9d0a-81b6-b339-ef650fc9cf1a" class="bulleted-list"><li style="list-style-type:disc">Используй минимальное количество запущенных хостов.</li></ul><ul id="131aa64c-9d0a-81cd-8eba-f316c1005faa" class="bulleted-list"><li style="list-style-type:disc">Не забывай про установку обновлений и патчей (обновления ядра, библиотек и так далее).</li></ul><ul id="131aa64c-9d0a-81d8-86af-dddc98f6dab7" class="bulleted-list"><li style="list-style-type:disc">Периодически запускай тесты безопасности CIS Benchmark для контроля состояния защищенности.</li></ul><h3 id="131aa64c-9d0a-81c8-ba45-d1e46211a07d" class="">1.2.6 <strong>Утилиты для аудита безопасности</strong></h3><p id="131aa64c-9d0a-8140-8484-ea69df8ed85c" class="">Аудит безопасности Kubernetes для эффективной комплексной оценки должен включать в себя несколько следующих областей:</p><ul id="131aa64c-9d0a-814e-9767-e1b15868de64" class="bulleted-list"><li style="list-style-type:disc">безопасность конечных хостов (Host security);</li></ul><ul id="131aa64c-9d0a-81af-9f27-cbd20d51c4ff" class="bulleted-list"><li style="list-style-type:disc">безопасность мастер-ноды и API-сервера Kubernetes (Master node Kubernetes security);</li></ul><ul id="131aa64c-9d0a-8182-b955-e7b5eccb34af" class="bulleted-list"><li style="list-style-type:disc">безопасность демонов Docker (Docker daemon security);</li></ul><ul id="131aa64c-9d0a-813c-b6f6-fab04d5c8d1d" class="bulleted-list"><li style="list-style-type:disc">контейнерную безопасность (Container security);</li></ul><ul id="131aa64c-9d0a-8129-a68a-ce993eaac02e" class="bulleted-list"><li style="list-style-type:disc">правила использования модели RBAC-доступа (Properly configured RBACs);</li></ul><ul id="131aa64c-9d0a-810d-9df2-cfc51bb483a8" class="bulleted-list"><li style="list-style-type:disc">безопасность хранимых и передаваемых данных (Securing data at rest and in transit).</li></ul><ol type="1" id="131aa64c-9d0a-81c1-9bda-e8031efba695" class="numbered-list" start="1"><li>Утилитка-сканер <a href="https://github.com/aquasecurity/kube-bench">kube-bench</a> — это шустрое приложение, написанное на Go, которое проверяет, насколько безопасно развернут Kubernetes. Для этого kube-bench прогоняет все проверки, описанные в тесте <a href="https://releases.rancher.com/documents/security/latest/Rancher_Benchmark_Assessment.pdf">CIS Kubernetes</a>. Тесты настраиваются с помощью файлов YAML, что позволяет легко обновлять их по мере развития спецификаций.</li></ol><ol type="1" id="131aa64c-9d0a-81ab-bfaa-edf546fc4408" class="numbered-list" start="2"><li>Еще одна утилита — <a href="https://github.com/Shopify/kubeaudit">Kubeaudit</a> — это инструмент командной строки для аудита кластеров Kubernetes на предмет различных проблем безопасности. Поддерживает проверку множества опций, к примеру таких, как запуск контейнеров под учетной записью root, хранение секретов доступа (токены, сертификаты), возможность записи в корневую директорию.</li></ol><ol type="1" id="131aa64c-9d0a-8153-9f4f-cf6a3427175c" class="numbered-list" start="3"><li><a href="https://kubesec.io/">Kubesec</a> — инструмент управления секретами доступа для Kubernetes с поддержкой таких сервисов, как GPG, Google Cloud KMS и AWS KMS backends. Служба оценивает, насколько ресурсы Kubernetes используют возможности для повышения безопасности. Пользователь получает рекомендации, как повысить общую безопасность системы.</li></ol><h3 id="131aa64c-9d0a-81da-b876-f084cd5fbe75" class="">1.2.7 <strong>Безопасность сетевого взаимодействия</strong></h3><ol type="1" id="131aa64c-9d0a-81a0-9986-fcf962c630e5" class="numbered-list" start="1"><li>Решение <a href="https://docs.projectcalico.org/v3.1/introduction/">Calico</a> обеспечивает безопасное сетевое взаимодействие между контейнерами и виртуальными машинами в одном кластере. По сути, Сalico представляет собой софтовый свитч (Softswitch), который создает сеть третьего уровня и управляет ею, назначая каждому инстансу полностью маршрутизируемый IP-адрес. В средах, где требуется наложение, Calico использует туннелирование IP-in-IP, что позволяет работать с другими наложенными сетями.<figure id="131aa64c-9d0a-8126-a9d3-f7541bda31bc" class="image"><a href="%D0%9B%D0%B5%D0%BA%D1%86%D0%B8%D1%8F%203%205%20%D0%91%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C%20%D0%BA%D0%BE%D0%BD%D1%82%D0%B5%D0%B8%CC%86%D0%BD%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B8%20%D0%BA%D0%BB%D0%B0%D1%81%D1%82%D0%B5%D1%80%D0%BE%D0%B2%20131aa64c9d0a81eeb7c0cbe4a81614cf/Untitled%204.png"><img style="width:680px" src="%D0%9B%D0%B5%D0%BA%D1%86%D0%B8%D1%8F%203%205%20%D0%91%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C%20%D0%BA%D0%BE%D0%BD%D1%82%D0%B5%D0%B8%CC%86%D0%BD%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B8%20%D0%BA%D0%BB%D0%B0%D1%81%D1%82%D0%B5%D1%80%D0%BE%D0%B2%20131aa64c9d0a81eeb7c0cbe4a81614cf/Untitled%204.png"/></a></figure></li></ol><ol type="1" id="131aa64c-9d0a-8105-88f5-cf7d1ac5cc2b" class="numbered-list" start="2"><li>Еще одно полезное приложение — <a href="https://cilium.io/">Cilium</a> представляет собой контейнерный межсетевой экран. Программа использует технологию ядра Linux BPF для фильтрации, детекта, мониторинга и перенаправления данных с использованием вызовов ядра. Cilium помогает развертывать политики доступа к сети на основе идентификатора контейнера с использованием меток тегов. Помимо этого, софтина интерпретирует несколько протоколов уровня 7, таких как HTTP или <a href="https://grpc.io/">gRPC</a>, что позволяет использовать набор вызовов REST.<figure id="131aa64c-9d0a-81e1-8609-df40746f6a88" class="image"><a href="%D0%9B%D0%B5%D0%BA%D1%86%D0%B8%D1%8F%203%205%20%D0%91%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C%20%D0%BA%D0%BE%D0%BD%D1%82%D0%B5%D0%B8%CC%86%D0%BD%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B8%20%D0%BA%D0%BB%D0%B0%D1%81%D1%82%D0%B5%D1%80%D0%BE%D0%B2%20131aa64c9d0a81eeb7c0cbe4a81614cf/Untitled%205.png"><img style="width:680px" src="%D0%9B%D0%B5%D0%BA%D1%86%D0%B8%D1%8F%203%205%20%D0%91%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C%20%D0%BA%D0%BE%D0%BD%D1%82%D0%B5%D0%B8%CC%86%D0%BD%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B8%20%D0%BA%D0%BB%D0%B0%D1%81%D1%82%D0%B5%D1%80%D0%BE%D0%B2%20131aa64c9d0a81eeb7c0cbe4a81614cf/Untitled%205.png"/></a></figure></li></ol><p id="131aa64c-9d0a-81f7-8277-ee88cca3f7c3" class="">
+</p><p id="131aa64c-9d0a-81cb-ab7b-c23d10ccc81d" class="">
+</p><p id="131aa64c-9d0a-811a-a401-ce35d225adfb" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

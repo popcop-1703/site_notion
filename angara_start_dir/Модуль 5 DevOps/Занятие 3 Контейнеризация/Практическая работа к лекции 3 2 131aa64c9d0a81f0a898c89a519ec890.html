@@ -1,0 +1,765 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Практическая работа к лекции 3.2</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="131aa64c-9d0a-81f0-a898-c89a519ec890" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/compose_gray.svg"/></div><h1 class="page-title">Практическая работа к лекции 3.2</h1><p class="page-description"></p></header><div class="page-body"><h1 id="131aa64c-9d0a-813d-bc03-c4e6a3f9385d" class="">2. Практическая часть</h1><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="131aa64c-9d0a-817b-8072-d9120b509038"><div style="font-size:1.5em"><span class="icon">❔</span></div><div style="width:100%">Установка и настройка будет производиться на Ubuntu 22.04-server.</div></figure><h2 id="131aa64c-9d0a-81f6-95bf-e93ec2c7832d" class="">2.0 Установка Docker</h2><ol type="1" id="131aa64c-9d0a-8124-b55d-f7958e4cc216" class="numbered-list" start="1"><li>Для начала синхронизируем пакетную базу apt и установим нужные зависимости:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-813b-b4d8-e7cc5a21aaca" class="code"><code class="language-Bash">sudo apt-get update</code></pre></li></ol><ol type="1" id="131aa64c-9d0a-810d-9dc5-edeea9fb3b85" class="numbered-list" start="2"><li>Установите необходимыые зависимости:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81ae-b4b8-ff3d7ece713b" class="code"><code class="language-Bash">sudo apt-get install ca-certificates curl </code></pre></li></ol><ol type="1" id="131aa64c-9d0a-8131-869c-cd069bcdca0b" class="numbered-list" start="3"><li>Добавьте официальный ключ GPG Docker:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8181-bdaa-c707165c03e5" class="code"><code class="language-Bash">sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+</code></pre></li></ol><ol type="1" id="131aa64c-9d0a-8134-8a1f-c1bf30578e9e" class="numbered-list" start="4"><li>Добавьте репозиторий в источники Apt:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81a8-9295-f94dc83dd5fb" class="code"><code class="language-Bash">echo \
+  &quot;deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release &amp;&amp; echo &quot;$VERSION_CODENAME&quot;) stable&quot; | \
+  sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+sudo apt-get update</code></pre></li></ol><ol type="1" id="131aa64c-9d0a-818d-925b-ca825f6f6dfa" class="numbered-list" start="5"><li>Установите пакеты Docker<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8152-b924-e58c02d58433" class="code"><code class="language-Bash">sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin</code></pre></li></ol><ol type="1" id="131aa64c-9d0a-81c2-b76a-d749525b9172" class="numbered-list" start="6"><li>Убедитесь, что установка Docker Engine прошла успешно, запустив образ hello-world.<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-810d-9987-fe3be9fae8a7" class="code"><code class="language-Bash">sudo docker run hello-world</code></pre><figure id="131aa64c-9d0a-817f-89c8-fbaaa7717114" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled.png"><img style="width:972px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled.png"/></a></figure></li></ol><ol type="1" id="131aa64c-9d0a-815b-8a07-c68566a8a673" class="numbered-list" start="7"><li>Проверьте, что Docker-compose установился корректно<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8199-a0ef-f6aa020404f4" class="code"><code class="language-Bash">docker compose version</code></pre><figure id="131aa64c-9d0a-81c7-99c1-cad55fa74374" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%201.png"><img style="width:672px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%201.png"/></a></figure></li></ol><h2 id="131aa64c-9d0a-8177-846e-e7640cbee403" class=""><mark class="highlight-default">2.1 Компоненты</mark></h2><h3 id="131aa64c-9d0a-8195-9fb4-dca865d9c7ad" class=""><mark class="highlight-default">2.1.1 Docker Daemon</mark></h3><p id="131aa64c-9d0a-81eb-b404-dd15937a4209" class="">Хотя по умолчанию ваш демон Docker доступен только на вашем хосте, могут быть веские причины, чтобы разрешить другим доступ к нему. У вас может быть проблема, и вы хотите, чтобы кто-то отлаживал ее удаленно, или у вас может возникнуть желание позволить другой части вашего рабочего процесса DevOps запускать процесс на хост-компьютере.</p><figure id="131aa64c-9d0a-811e-b983-d628554bc867" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%202.png"><img style="width:720px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%202.png"/></a></figure><ol type="1" id="131aa64c-9d0a-81e4-ac7b-cd3edc2a9bfd" class="numbered-list" start="1"><li>Используйте команду ниже, чтобы открыть файл переопределения для <code>docker.service</code> в текстовом редакторе:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8109-b922-cef87bb25138" class="code"><code class="language-Bash">sudo systemctl edit docker.service</code></pre><p id="131aa64c-9d0a-8155-8035-c006d6431071" class="">Добавьте следующие строки:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8194-b654-e8c3eb5feb74" class="code"><code class="language-Bash">[Service]
+ExecStart=
+ExecStart=/usr/bin/dockerd -H fd:// -H tcp://0.0.0.0:2375</code></pre><figure id="131aa64c-9d0a-81a9-b122-c38cbe5cef35" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%203.png"><img style="width:1267px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%203.png"/></a></figure></li></ol><ol type="1" id="131aa64c-9d0a-8178-8535-fc9399bc2317" class="numbered-list" start="2"><li>Сохраните внесенные изменения</li></ol><ol type="1" id="131aa64c-9d0a-8115-b77d-ef2dabb3f41f" class="numbered-list" start="3"><li>Перезагрузите конфигурацию systemctl<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-813a-a6fb-cac56ae72e98" class="code"><code class="language-Bash">sudo systemctl daemon-reload</code></pre></li></ol><ol type="1" id="131aa64c-9d0a-817b-83b4-e579c9b637f9" class="numbered-list" start="4"><li>Перезапустить Docker<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8161-8550-df0b7e5527e9" class="code"><code class="language-Bash">sudo systemctl restart docker.service</code></pre></li></ol><ol type="1" id="131aa64c-9d0a-817a-b352-c98634d126ac" class="numbered-list" start="5"><li>Проверим, что порт открыт:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8131-93e5-f3765cecc363" class="code"><code class="language-Bash">ss -lntp | grep dockerd</code></pre><figure id="131aa64c-9d0a-811b-817e-e98c0ca135f0" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%204.png"><img style="width:1109px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%204.png"/></a></figure></li></ol><ol type="1" id="131aa64c-9d0a-81fa-a46f-f2305142869a" class="numbered-list" start="6"><li>Вы можете подключиться снаружи с помощью следующей команды:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81d3-9d16-fb3f81605ac5" class="code"><code class="language-Bash"> docker -H tcp://&lt;your host&#x27;s ip&gt;:2375 &lt;subcommand&gt;</code></pre><p id="131aa64c-9d0a-81d8-be69-cc7f4ee989d7" class="">В моем случае эта команда выглядит так:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81b4-9533-ddef9a27bea8" class="code"><code class="language-Bash">docker -H tcp://192.168.133.168:2375 &lt;subcommand&gt;</code></pre><figure id="131aa64c-9d0a-8107-8ed3-df3ca269597a" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%205.png"><img style="width:1362px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%205.png"/></a></figure></li></ol><h3 id="131aa64c-9d0a-8157-9bfe-d47cff40c4b3" class=""><mark class="highlight-default">2.1.2 Docker Client</mark></h3><p id="131aa64c-9d0a-81e2-ab91-f35b96013496" class="">Иногда команда docker может работать не так, как вы ожидаете. Чаще всего непонятны некоторые аспекты аргументов командной строки, но иногда возникают более серьезные проблемы с  настройкой, такие как устаревший двоичный файл Docker. </p><p id="131aa64c-9d0a-8191-aaee-d77e6f15711d" class="">Для диагностики проблемы может быть полезно просмотреть поток данных, поступающих к демону Docker и от него. </p><p id="131aa64c-9d0a-81b4-a394-c9f149afd428" class="">Для этого необходимо вставить доменный сокет Unix между вашим запросом и сокетом сервера, чтобы посмотреть, что проходит через него.</p><figure id="131aa64c-9d0a-8104-b7d1-e29ed5c1098d" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%206.png"><img style="width:720px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%206.png"/></a></figure><ol type="1" id="131aa64c-9d0a-818f-a757-df084197f8c4" class="numbered-list" start="1"><li>Необходимо установить socat<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81d7-95fd-f6264919e823" class="code"><code class="language-Bash">apt-get install socat -y</code></pre><p id="131aa64c-9d0a-8145-b05c-f7d06b0c6539" class="">socat – это мощная команда, которая позволяет передавать данные практически любого типа между двумя каналами данных. Если вы знакомы с netcat, то можете рассматривать ее как netcat на стероидах.</p></li></ol><ol type="1" id="131aa64c-9d0a-8132-b599-fa06324ff31b" class="numbered-list" start="2"><li>Создание прокси.<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8113-9cd1-c360677c655d" class="code"><code class="language-Bash">socat -v UNIX-LISTEN:/tmp/dockerapi.sock,fork UNIX-CONNECT:/var/run/docker.sock &amp;</code></pre><p id="131aa64c-9d0a-81e5-a009-c601113b48cb" class="">В этой команде <code>-v</code> делает вывод читаемым с указанием потока данных.<br/>Часть <br/><code>UNIX-LISTEN</code> говорит socat прослушивать сокет Unix, fork гарантирует, что socat не завершит работу после первого запроса, а <code>UNIX-CONNECT</code> сообщает socat подключиться к Unix-сокету Docker. A <code>&amp;</code> указывает, что команда выполняется в фоновом режиме.<br/>Новый маршрут, по которому будут проходить ваши запросы к демону.<br/></p><figure id="131aa64c-9d0a-81f5-bb8e-ea1bfccc9590" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%207.png"><img style="width:684px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%207.png"/></a></figure></li></ol><p id="131aa64c-9d0a-8180-ac94-d025dd432160" class="">Весь трафик, проходящий в каждом направлении, socat будет видеть, и он<br/>будет зарегистрирован на вашем терминале в дополнение к любому выводу,<br/>который предоставляет клиент Docker.<br/></p><ol type="1" id="131aa64c-9d0a-8111-9632-f823a0bb6f0c" class="numbered-list" start="3"><li>Выполним команду и посмотрим на вывод: <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81d6-970b-f3f4520b0943" class="code"><code class="language-Bash">docker -H unix:///tmp/dockerapi.sock ps -a</code></pre><figure id="131aa64c-9d0a-8137-ad70-db69597b29be" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%208.png"><img style="width:751px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%208.png"/></a></figure></li></ol><h3 id="131aa64c-9d0a-8147-9b4f-ec1c5f1be768" class=""><mark class="highlight-default">2.1.3 Образы Docker</mark></h3><ol type="1" id="131aa64c-9d0a-8186-b942-d418f7a30cb4" class="numbered-list" start="1"><li>Чтобы увидеть список доступных локально образов, используйте команду:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8120-9b6d-e24d4af954c4" class="code"><code class="language-Bash">docker images</code></pre><figure id="131aa64c-9d0a-81cf-9b5a-e0b090b8c09c" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%209.png"><img style="width:763px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%209.png"/></a></figure><p id="131aa64c-9d0a-811c-8400-f82f75f3164c" class=""><code>TAG</code> — это конкретный снимок или снэпшот (snapshot) образа, а <code>IMAGE ID</code> — это соответствующий уникальный идентификатор образа.<br/>Для простоты, можно относиться к образу как к git-репозиторию. Образы можно <br/><a href="https://docs.docker.com/engine/reference/commandline/commit/">коммитить</a> с изменениями, и можно иметь несколько версий. Если не указывать конкретную версию, то клиент по умолчанию использует <code>latest</code>. </p></li></ol><ol type="1" id="131aa64c-9d0a-8153-a7d5-fdbd0bb3b778" class="numbered-list" start="2"><li>Например, можно скачать определенную версию образа <code>ubuntu</code>:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8178-8e9d-f6d4440cc5ba" class="code"><code class="language-Bash">docker pull ubuntu:12.04</code></pre><figure id="131aa64c-9d0a-817c-a2fb-fffbf3934e04" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2010.png"><img style="width:972px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2010.png"/></a></figure><p id="131aa64c-9d0a-812b-aebd-e89f0a4bf7bf" class="">Команда <code>pull</code> скачивает образ из<strong> </strong>регистра Докера и сохраняет его локально.</p><p id="131aa64c-9d0a-8136-b421-e290d3dde276" class="">Чтобы получить новый Докер-образ, можно скачать его из регистра (такого, как Docker Hub) или создать собственный. </p></li></ol><ol type="1" id="131aa64c-9d0a-8175-9714-dd0aefd6c769" class="numbered-list" start="3"><li>Скачаем образ busybox:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8136-b34d-f66830026912" class="code"><code class="language-Bash">docker pull busybox</code></pre><figure id="131aa64c-9d0a-819d-9674-f68571142355" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2011.png"><img style="width:962px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2011.png"/></a></figure></li></ol><ol type="1" id="131aa64c-9d0a-819f-8581-e5cc40811744" class="numbered-list" start="4"><li>Проверим список образов еще раз:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8136-849a-dc9bd38c0e47" class="code"><code class="language-Bash">docker images</code></pre><figure id="131aa64c-9d0a-81fb-82b4-f4100bbd2228" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2012.png"><img style="width:766px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2012.png"/></a></figure></li></ol><h3 id="131aa64c-9d0a-81c8-8cab-d905d690cae2" class=""><mark class="highlight-default">2.1.4 Контейнеры Docker</mark></h3><p id="131aa64c-9d0a-8194-bc2c-e9587fcf3775" class="">Отлично! Теперь давайте запустим Докер-контейнер с этим образом. </p><ol type="1" id="131aa64c-9d0a-81bc-9e33-c0fdbe9f3ab8" class="numbered-list" start="1"><li>Для этого используем команду <code>docker run</code>:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8161-b707-f8a03b40c2fa" class="code"><code class="language-Bash">docker run busybox</code></pre><figure id="131aa64c-9d0a-81c1-817c-fd8322b7da69" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2013.png"><img style="width:987px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2013.png"/></a></figure><p id="131aa64c-9d0a-812b-9885-e6e88a08e529" class="">Докер-клиент нашел образ (в нашем случае, busybox), загрузил контейнер и запустил команду внутри этого контейнера. Мы сделали <code>docker run busybox</code>, но не указали никаких команд, так что контейнер загрузился, запустилась пустая команда и программа завершилась.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8125-aba5-da66fa570cdf" class="code"><code class="language-Bash">docker run busybox echo &quot;hello from busybox&quot;</code></pre><figure id="131aa64c-9d0a-81ee-88d6-d28ec262b731" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2014.png"><img style="width:791px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2014.png"/></a></figure><p id="131aa64c-9d0a-8101-b0e2-d997fe1f1b04" class="">В нашем случае клиент Докера послушно запустил команду <code>echo</code> внутри контейнера, а потом вышел из него.</p></li></ol><ol type="1" id="131aa64c-9d0a-810d-bd94-ce4115dfb71e" class="numbered-list" start="2"><li>Теперь давайте взглянем на команду:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81c9-ba47-f40c27570d85" class="code"><code class="language-Bash">docker ps</code></pre><figure id="131aa64c-9d0a-81e2-b91a-c7391605058e" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2015.png"><img style="width:876px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2015.png"/></a></figure><p id="131aa64c-9d0a-8172-983e-c1310a3519d8" class="">Она выводит на экран список всех запущенных контейнеров.<br/>Контейнеров сейчас нет, поэтому выводится пустая строка. <br/></p></li></ol><ol type="1" id="131aa64c-9d0a-8198-bf4a-df0ec77ea421" class="numbered-list" start="3"><li>Не очень полезно, поэтому давайте запустим более полезный вариант:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8115-a660-f6515270bb78" class="code"><code class="language-Bash">docker ps -a</code></pre><figure id="131aa64c-9d0a-81f1-bf64-f0947e13e6c9" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2016.png"><img style="width:1620px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2016.png"/></a></figure><p id="131aa64c-9d0a-811e-a130-f753e6386b09" class="">Теперь виден список всех контейнеров, которые мы запускали. В колонке <code>STATUS</code> можно заметить, что контейнеры завершили свою работу несколько минут назад.</p></li></ol><ol type="1" id="131aa64c-9d0a-8118-87c0-c84f7b22ca96" class="numbered-list" start="4"><li>Для запуска более одной команды в контейнере выполним:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81df-bd71-f2cdc9b4e08f" class="code"><code class="language-Bash">docker run -it busybox sh</code></pre><p id="131aa64c-9d0a-8134-8e24-cf7fec79ed39" class="">Команда <code>run</code> с флагом <code>-it</code> подключает интерактивный tty в контейнер.</p><figure id="131aa64c-9d0a-815a-8bc1-c334e61bce51" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2017.png"><img style="width:1185px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2017.png"/></a></figure></li></ol><h3 id="131aa64c-9d0a-810e-bb30-d2a508419f74" class=""><mark class="highlight-default">2.1.5 Docker Registers</mark></h3><p id="131aa64c-9d0a-8132-88ef-d82bb96187a0" class="">Вы видели, что у  Docker Inc. есть сервис, где люди могут в  открытую совместно использовать образы (и вы можете заплатить, если желаете делать это в частном порядке). Но есть ряд причин, по которым вам, возможно, нужно совместно использовать образы, не обращаясь к хабу, – некоторые компании предпочитают хранить как можно больше внутренних данных, может быть, ваши образы большие и будут передаваться по интернету слишком медленно,<br/>или вы хотите сохранить конфиденциальность образов, пока экспериментируете, и не желаете платить. Независимо от причины, есть простое решение<br/></p><p id="131aa64c-9d0a-810c-a487-e7dde3e8b2c7" class="">Настройте сервер реестра в  своей локальной сети. </p><ol type="1" id="131aa64c-9d0a-81fd-be71-ff2234baac49" class="numbered-list" start="1"><li>Просто введите следующую команду на компьютере с большим количеством дискового пространства:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-813a-9dc4-c457a02fade3" class="code"><code class="language-Bash">docker run -d -p 5000:5000 -v $HOME/registry:/var/lib/registry registry:latest</code></pre><figure id="131aa64c-9d0a-817f-ad33-f6e617bb4942" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2018.png"><img style="width:1101px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2018.png"/></a></figure><p id="131aa64c-9d0a-816f-9544-e99a64d0de6c" class="">Эта команда делает реестр доступным на  порту 5000 хоста Docker (-p 5000:5000). С помощью флага -v он делает папку реестра на вашем хосте (/var/lib/registry) доступной в контейнере как $HOME/registry. Поэтому файлы реестра будут храниться на хосте в папке /var/lib/registry</p><p id="131aa64c-9d0a-8139-8310-c9e450726109" class="">На всех компьютерах, на которых вы хотите получить доступ к этому реестру, добавьте следующее в параметры демона (где HOSTNAME – это имя хоста или IPадрес сервера вашего нового реестра): --insecure-registry HOSTNAME. </p></li></ol><ol type="1" id="131aa64c-9d0a-81bd-a752-fd2a1104dbae" class="numbered-list" start="2"><li>Отредактируйте файл <code>/etc/docker/daemon.json</code>:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8154-a8be-d7ccb3087f66" class="code"><code class="language-Bash">nano /etc/docker/daemon.json</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-812c-a94e-c6900ff98b64" class="code"><code class="language-Bash">{
+    &quot;insecure-registries&quot; : [ &quot;192.168.133.168:5000&quot; ]
+}</code></pre><figure class="block-color-orange_background callout" style="white-space:pre-wrap;display:flex" id="131aa64c-9d0a-8187-83ef-e9c20b50d84e"><div style="font-size:1.5em"><span class="icon">❗</span></div><div style="width:100%">IP-адрес может отличаться. При копировании необходимо проверить соответсвие IP-адреса вашей конфигурации.</div></figure><figure id="131aa64c-9d0a-81a1-83b6-fd35fa8d72cf" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2019.png"><img style="width:677px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2019.png"/></a></figure></li></ol><ol type="1" id="131aa64c-9d0a-8191-a2f2-d4be60c616e4" class="numbered-list" start="3"><li>  Данной командой мы добавили тег для локального образа<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8146-8a9e-d3c0a698d8e5" class="code"><code class="language-Bash">docker tag redis 192.168.133.168:5000/redis</code></pre></li></ol><ol type="1" id="131aa64c-9d0a-81d4-841b-c4685cd3ea53" class="numbered-list" start="3"><li>Теперь вы можете выполнить следующую команду: <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8155-9dd4-f772d2749430" class="code"><code class="language-Bash">docker push 192.168.133.168:5000/redis</code></pre><figure id="131aa64c-9d0a-8127-933b-c779a13ba5e4" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2020.png"><img style="width:1206px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2020.png"/></a></figure></li></ol><h2 id="131aa64c-9d0a-81d3-944a-fcdce007d6f4" class=""><mark class="highlight-default">2.2 Хранение данных в Docker</mark></h2><h3 id="131aa64c-9d0a-8101-a74a-e34cd60fc64c" class=""><mark class="highlight-default">2.2.1 </mark><mark class="highlight-default"><strong>Тома (Docker volumes)</strong></mark></h3><ol type="1" id="131aa64c-9d0a-8146-95d2-fea9728a1f33" class="numbered-list" start="1"><li>Создадим новый контейнер и том (Container4 и DataVolume4)<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81e5-8041-fbd7acb2fef5" class="code"><code class="language-Bash">docker run -it --name=Container1 -v DataVolume1:/datavolume1 ubuntu</code></pre><figure id="131aa64c-9d0a-811e-ad03-dba8d191f324" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2021.png"><img style="width:1006px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2021.png"/></a></figure></li></ol><ol type="1" id="131aa64c-9d0a-8161-9a7d-d9103ad81201" class="numbered-list" start="2"><li>Создадим файл и добавьте в него какой-нибудь текст<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81e4-83c5-f84ffbb899fa" class="code"><code class="language-Bash">echo &quot;This file is shared between containers&quot; &gt; /datavolume1/Example.txt</code></pre></li></ol><ol type="1" id="131aa64c-9d0a-81b0-a991-ec5d33712a41" class="numbered-list" start="3"><li>Закроем контейнер:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-815f-9497-ec9703ba1021" class="code"><code class="language-Bash">exit</code></pre></li></ol><ol type="1" id="131aa64c-9d0a-81f7-bd77-d4cc42495287" class="numbered-list" start="4"><li>Создадим Container2 и смонтируйте том Container1:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8116-b33f-c001d352073e" class="code"><code class="language-Bash">docker run -it --name=Container2 --volumes-from Container1 ubuntu</code></pre><figure id="131aa64c-9d0a-81fe-8106-c9354b92bd38" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2022.png"><img style="width:986px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2022.png"/></a></figure></li></ol><ol type="1" id="131aa64c-9d0a-81f0-a020-fc78b7b16cc8" class="numbered-list" start="5"><li>Проверим содержимое файла Example.txt:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81a6-9842-cbcf934ed1e2" class="code"><code class="language-Bash">cat /datavolume1/Example.txt</code></pre><figure id="131aa64c-9d0a-8187-94ef-ea7fca7ee82c" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2023.png"><img style="width:672px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2023.png"/></a></figure></li></ol><ol type="1" id="131aa64c-9d0a-811b-a1e8-de142f38ec2f" class="numbered-list" start="6"><li>Добавим в файл текст, находясь в Container2:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8110-9a71-faefa5fe2404" class="code"><code class="language-Bash">echo &quot;Both containers can write to DataVolume1&quot; &gt;&gt; /datavolume1/Example.txt</code></pre></li></ol><ol type="1" id="131aa64c-9d0a-818f-a87d-ee2e251d4b71" class="numbered-list" start="7"><li>Закроем контейнер:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81bf-a432-fdd9ecb0c0ca" class="code"><code class="language-Bash">exit</code></pre></li></ol><ol type="1" id="131aa64c-9d0a-8127-9620-c5f5e7ea8572" class="numbered-list" start="8"><li>Перезапустим Container1:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8137-8d31-c77cae74442c" class="code"><code class="language-Bash">docker start -ia Container1</code></pre></li></ol><ol type="1" id="131aa64c-9d0a-819b-83fa-cc0b0da52933" class="numbered-list" start="9"><li>Убедимся, что данные остались в контейнере Container1:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8150-b5cd-db35b9267852" class="code"><code class="language-Bash">cat /datavolume1/Example.txt</code></pre><figure id="131aa64c-9d0a-8135-abc1-d2bbea0cd719" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2024.png"><img style="width:725px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2024.png"/></a></figure></li></ol><ol type="1" id="131aa64c-9d0a-813f-b84b-d1020c496670" class="numbered-list" start="10"><li>Закроем контейнер Container1:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81a9-9dc6-cc0617b728d2" class="code"><code class="language-Bash">exit</code></pre></li></ol><h3 id="131aa64c-9d0a-81b5-8847-fd405ffc9222" class=""><mark class="highlight-default">2.2.2 </mark><mark class="highlight-default"><strong>Монтирование с привязкой (bind mount)</strong></mark></h3><ol type="1" id="131aa64c-9d0a-810e-b454-e94c5decc2ec" class="numbered-list" start="1"><li>Создадим каталог с HTML-файлом:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8184-9580-f86fcdcd3a43" class="code"><code class="language-Bash">mkdir -p /tmp/nginx/html</code></pre></li></ol><ol type="1" id="131aa64c-9d0a-8183-b160-c7c41a848d7c" class="numbered-list" start="2"><li>Соберем и запустим контейнер с образом Nginx командой <code>docker run</code>:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81fa-b557-f09ec22a3664" class="code"><code class="language-Bash">docker run -t -d -P -v /tmp/nginx/html:/usr/share/nginx/html --name nginxcont nginx:latest</code></pre><p id="131aa64c-9d0a-8170-af64-fe32c175a2d3" class="">Параметры этой команды запустят контейнер с именем <code>nginxcont</code> с образом Nginx в фоновом режиме и передадут в контейнер каталог с HTML:</p><ul id="131aa64c-9d0a-8128-a2b0-f746cb792672" class="bulleted-list"><li style="list-style-type:disc"><code>t</code> выделит псевдо-TTY для интерактивного взаимодействия с контейнером;</li></ul><ul id="131aa64c-9d0a-8186-832d-e8846205c529" class="bulleted-list"><li style="list-style-type:disc"><code>d</code> запустит контейнер в фоновом режиме;</li></ul><ul id="131aa64c-9d0a-8170-9af4-dbf0af50df98" class="bulleted-list"><li style="list-style-type:disc"><code>P</code> привяжет контейнер к случайному порту;</li></ul><ul id="131aa64c-9d0a-81a2-80c3-c5658119e622" class="bulleted-list"><li style="list-style-type:disc"><code>v</code> используем, чтобы в Docker примонтировать папку хоста в контейнер.</li></ul></li></ol><ol type="1" id="131aa64c-9d0a-8155-82db-f68f7cd3e0a4" class="numbered-list" start="3"><li>Узнаем IP-адрес.<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81f9-8167-fae39daf982c" class="code"><code class="language-Bash">docker container ls</code></pre><figure id="131aa64c-9d0a-81a3-abf7-c276a9b0013d" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2025.png"><img style="width:1458px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2025.png"/></a></figure><p id="131aa64c-9d0a-8168-ba44-d5fcbb7e676d" class="">Номер порта можно узнать из контейнера, который мы создали в предыдущем процессе, проверив его в колонке <code>PORTS</code></p></li></ol><ol type="1" id="131aa64c-9d0a-81fc-b4b9-fa5b1f61e5e6" class="numbered-list" start="4"><li>Перейдем в браузер и введите следующий URL: <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81f0-b2c2-cc51a753965e" class="code"><code class="language-Bash">http://&lt;ip_адрес&gt;:&lt;порт&gt;</code></pre><figure id="131aa64c-9d0a-81a2-9509-e9801637fc99" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2026.png"><img style="width:1004px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2026.png"/></a></figure></li></ol><ol type="1" id="131aa64c-9d0a-8125-8147-c204fe9a9408" class="numbered-list" start="5"><li>В директории <code>/tmp/nginx/html</code> создайте файл <code>index.html</code>:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-810d-91b5-c7f9584233c9" class="code"><code class="language-Bash">nano /tmp/nginx/html/index.html</code></pre><p id="131aa64c-9d0a-81f2-8312-ed1aa751f1c2" class="">И добавьте в него следующие строки кода:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81d9-961f-ec41782618ea" class="code"><code class="language-Bash">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+
+&lt;head&gt;
+  &lt;title&gt;Проверяем работоспособность bind mount&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;h1&gt;Этот HTML файл взят с хост машины&lt;/h1&gt;
+  &lt;p&gt;
+    Если вы видите эту страницу, то всё работает. Файл взят из директории /tmp/nginx/html и передан в контейнер через консоль.
+  &lt;/p&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</code></pre></li></ol><ol type="1" id="131aa64c-9d0a-81d0-b7a4-df93e631263c" class="numbered-list" start="6"><li>Снова перейдем в браузер и введите следующий URL: <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-813f-93bd-ca8bf1a7f2fc" class="code"><code class="language-Bash">http://&lt;ip_адрес&gt;:&lt;порт&gt;</code></pre><figure id="131aa64c-9d0a-8179-8677-cfd4e71f015e" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2027.png"><img style="width:1116px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2027.png"/></a></figure></li></ol><h2 id="131aa64c-9d0a-8114-b5da-d31b41f17fce" class=""><mark class="highlight-default">2.3 Сети в Docker контейнерах</mark></h2><h3 id="131aa64c-9d0a-8156-ad86-ed4352294234" class=""><mark class="highlight-default">2.3.1 Публикация(Проброс) портов </mark></h3><p id="131aa64c-9d0a-8146-9cd3-c1f971259ead" class="">Контейнеры Docker изначально разрабатывались для запуска служб. В большинстве случаев это те или иные HTTP-службы. Значительную часть из них составляют веб-сервисы, доступные через браузер.<br/>Это приводит к проблеме. Если у вас есть несколько Docker-контейнеров, работающих на порту 80 во внутренней среде, они не могут быть доступны через порт 80 на вашем хост-компьютере. <br/></p><p id="131aa64c-9d0a-8110-87e0-ec832726a8e6" class="">Используйте флаг -p для отображения порта контейнера в свой хост-компьютер.<br/>В этом примере мы будем использовать образ wordpress. Допустим, вы хотите запустить два из них на своем хост-компьютере для обслуживания разных блогов.<br/>Поскольку есть люди, пожелавшие сделать это раньше, кто-то подготовил образ, который каждый может получить и запустить. Чтобы получить образы из  внешних источников, вы можете использовать команду docker pull.<br/></p><ol type="1" id="131aa64c-9d0a-81d4-b2ed-ce9de234bce1" class="numbered-list" start="1"><li>По умолчанию образы будут загружаться из Docker Hub:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81b1-b5e0-cdddcd7e6dc4" class="code"><code class="language-Bash">docker pull wordpress</code></pre><p id="131aa64c-9d0a-8163-b52a-e8834d1189ba" class="">Образы также будут получены автоматически, когда вы попытаетесь запустить их, если их еще нет на вашем компьютере. </p></li></ol><ol type="1" id="131aa64c-9d0a-8179-b8a0-c9b820f5eb1b" class="numbered-list" start="2"><li>Чтобы запустить первый блог, используйте следующую команду:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-815e-a6ba-ff99f6d1cc88" class="code"><code class="language-Bash"> docker run -d -p 10001:80 --name blog1 wordpress</code></pre><figure id="131aa64c-9d0a-81bd-866e-d1fa28a17f4f" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2028.png"><img style="width:1615px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2028.png"/></a></figure><p id="131aa64c-9d0a-811b-8ad6-e49643e3c91a" class="">Команда docker run запускает контейнер как демон (-d) с флагом (-p). Она идентифицирует порт хоста (10001) для отображения в порт контейнера (80) и присваивает контейнеру имя, чтобы его идентифицировать (--name blog1 wordpress)</p></li></ol><ol type="1" id="131aa64c-9d0a-8181-9a49-f5e3a55e4771" class="numbered-list" start="3"><li>Сделаем то же самое для второго блога:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81e8-85bb-c899f35e19af" class="code"><code class="language-Bash">docker run -d -p 10002:80 --name blog2 wordpress</code></pre></li></ol><ol type="1" id="131aa64c-9d0a-814c-b625-d8c12db7093e" class="numbered-list" start="4"><li>Если вы сейчас выполните эту команду:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81c7-8f3c-e0112f7c78bd" class="code"><code class="language-Bash">docker ps | grep blog</code></pre><figure id="131aa64c-9d0a-8157-a223-d3a9e89a3a91" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2029.png"><img style="width:1638px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2029.png"/></a></figure></li></ol><ol type="1" id="131aa64c-9d0a-816f-a203-e8d8dd5d056d" class="numbered-list" start="5"><li>Теперь можно получить доступ к своим контейнерам, перейдя по адресам:<ol type="a" id="131aa64c-9d0a-819c-aa47-ca04ab8414a1" class="numbered-list" start="1"><li>В случае доступа с хоста, на котором установлен docker<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81e3-aacb-ffe6c9fe2dc0" class="code"><code class="language-Bash">http://localhost:10001</code></pre><p id="131aa64c-9d0a-8115-a755-f38f44af5842" class=""> и </p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81c0-b5f7-f103d0ca2034" class="code"><code class="language-Bash">http://localhost:10002</code></pre></li></ol><ol type="a" id="131aa64c-9d0a-81d7-b4f3-f9841ffef204" class="numbered-list" start="2"><li>В случае доступа с хоста, на котором установлена виртулака с docker:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81af-a4de-da14e39a849a" class="code"><code class="language-Bash">http://&lt;ip_адрес_виртуалки&gt;:10001</code></pre><figure id="131aa64c-9d0a-812b-8245-f7ad544af66e" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2030.png"><img style="width:1315px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2030.png"/></a></figure><p id="131aa64c-9d0a-81d5-90e7-d7d2711bbeea" class="">и</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-817a-bc3b-c668e9e4aefc" class="code"><code class="language-Bash">http://&lt;ip_адрес_виртуалки&gt;:10002</code></pre><figure id="131aa64c-9d0a-8108-acb6-ffe9929f91c8" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2031.png"><img style="width:1105px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2031.png"/></a></figure></li></ol></li></ol><h3 id="131aa64c-9d0a-81f5-8dc3-d808835bfa51" class=""><mark class="highlight-default">2.3.2 Сетевые драйверы</mark></h3><p id="131aa64c-9d0a-817e-9e91-f149204cd1a3" class="">Вам не  всегда захочется предоставлять свои службы хост-компьютеру или внешнему миру, но вы захотите соединить контейнеры друг с другом.<br/>Разберем, как можно достичь этого с помощью функции пользовательских сетей Docker, гарантирующих, что посторонние не смогут получить доступ к вашим внутренним службам.<br/></p><p id="131aa64c-9d0a-815d-b3b8-fd2fa259393d" class="">Пользовательские сети простые и гибкие. У нас есть пара блогов на WordPress, работающих в контейнерах, поэтому давайте посмотрим, как можно получить к ним доступ из другого контейнера (а не из внешнего мира, который вы уже видели).</p><ol type="1" id="131aa64c-9d0a-81c5-9a2c-c6e1e841d606" class="numbered-list" start="1"><li>Для начала нужно создать пользовательскую сеть:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81e8-a16a-f12c6bced4ec" class="code"><code class="language-Bash">docker network create my_network</code></pre><p id="131aa64c-9d0a-8101-a22c-d9dfa8f864be" class="">С помощью этой команды мы создаем новую виртуальную сеть на вашем компьютере, которую можно использовать для управления взаимодействием между контейнерами. По умолчанию все контейнеры, которые вы подключаете к этой сети, смогут видеть друг друга по их именам.</p></li></ol><ol type="1" id="131aa64c-9d0a-8159-aa6d-ca7ccd46f554" class="numbered-list" start="2"><li>Подключим один из блогов к новой сети<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81de-b8a5-e2831135f829" class="code"><code class="language-Bash"> docker network connect my_network blog1</code></pre></li></ol><ol type="1" id="131aa64c-9d0a-8146-bc71-da420cb52916" class="numbered-list" start="3"><li>Наконец, можно запустить новый контейнер, явно указав сеть, и посмотреть, сможете ли вы извлечь первые пять строк HTML-кода из целевой страницы блога. <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-810e-a6f1-c3b96fa281a9" class="code"><code class="language-Bash"> docker run -it --network my_network ubuntu:16.04 bash</code></pre><p id="131aa64c-9d0a-8174-9238-f381b0230918" class="">Команда <code>run</code> с флагом <code>-it</code> подключает интерактивный tty в контейнер. Теперь можно запускать сколько угодно много команд внутри.</p></li></ol><ol type="1" id="131aa64c-9d0a-81e3-b13e-f324fa2efbad" class="numbered-list" start="4"><li>Установим <code>curl</code><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81b3-adb1-e5011cd0df3d" class="code"><code class="language-Bash">apt update &amp;&amp; apt install -y curl</code></pre></li></ol><ol type="1" id="131aa64c-9d0a-812d-88c6-d5d3a149cc7f" class="numbered-list" start="5"><li>Обратимся к контейнеру blog1<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81d1-be69-eae569c2f5ab" class="code"><code class="language-Bash">curl -sSL blog1 | head -n5</code></pre><figure id="131aa64c-9d0a-8146-a4c8-d68109b7117e" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2032.png"><img style="width:1014px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2032.png"/></a></figure></li></ol><ol type="1" id="131aa64c-9d0a-81fc-9dac-cb801ffadf26" class="numbered-list" start="6"><li>Обратимся к контейнеру blog2<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8129-8540-fd87b83bd2c8" class="code"><code class="language-Bash"> curl -sSL blog2</code></pre><figure id="131aa64c-9d0a-8147-a323-e7e86874ad4c" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2033.png"><img style="width:672px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2033.png"/></a></figure><p id="131aa64c-9d0a-8173-afb5-c7de5bcb31f8" class="">Новый контейнер успешно смог получить доступ к блогу, что мы подключили к my_network, отображая часть HTML-кода страницы, которую мы увидели бы, если бы зашли на нее в браузере. С другой стороны, новый контейнер не смог увидеть blog2. Поскольку мы так и не подключили его к my_network</p></li></ol><h2 id="131aa64c-9d0a-8164-aa78-ccf3e879204a" class=""><mark class="highlight-default">2.4 Dockerfile</mark></h2><ol type="1" id="131aa64c-9d0a-81ac-a0ca-e42be04cc0c1" class="numbered-list" start="1"><li>Заведем новую папку и перейдем в нее.<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8113-b098-e9961890280d" class="code"><code class="language-Bash">mkdir test
+cd test</code></pre></li></ol><ol type="1" id="131aa64c-9d0a-81b9-a2ac-c27169cbcdca" class="numbered-list" start="2"><li>Создадим простое приложение “app.py”, используя Python и Flask.<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8141-8580-e4932dcce6e9" class="code"><code class="language-Bash">nano app.py</code></pre><p id="131aa64c-9d0a-8101-8a6e-ca2389c30eae" class="">Со следующим содержимым:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8161-8b6d-fcb58e6a53ae" class="code"><code class="language-Python">from flask import Flask
+import os
+
+app = Flask(__name__)
+
+@app.route(&#x27;/&#x27;)
+def hello():
+    return &quot;Hello from Dockerfile!\n&quot;
+
+if __name__ == &#x27;__main__&#x27;:
+    app.run(host=&quot;0.0.0.0&quot;, port=int(os.environ.get(&quot;PORT&quot;, 5000)))</code></pre></li></ol><ol type="1" id="131aa64c-9d0a-818d-9e1c-c35c5687d659" class="numbered-list" start="3"><li>Создадим файл с именем “Dockerfile” с таким содержимым:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8138-a149-d6c8fc6459b5" class="code"><code class="language-Bash">FROM python:3.9-slim
+WORKDIR /app
+COPY . .
+EXPOSE 5000
+RUN pip install flask
+CMD [&quot;python&quot;, &quot;app.py&quot;]</code></pre><ul id="131aa64c-9d0a-81bf-8b52-eac55123d1ab" class="bulleted-list"><li style="list-style-type:disc">В этом примере используется базовый образ Python версии 3.9 slim.</li></ul><ul id="131aa64c-9d0a-8183-a4a4-dfdc33629552" class="bulleted-list"><li style="list-style-type:disc">Через инструкцию <code>RUN pip install flask</code> мы устанавливаем Flask.</li></ul><ul id="131aa64c-9d0a-81ab-a966-fcc90490f0ee" class="bulleted-list"><li style="list-style-type:disc">Файл <code>app.py</code> с вашим кодом приложения должен находиться в той же директории, где находится Dockerfile.</li></ul><ul id="131aa64c-9d0a-81c2-ab91-cb454b3200c0" class="bulleted-list"><li style="list-style-type:disc">Инструкцией <code>CMD [&quot;python&quot;, &quot;app.py&quot;]</code> указывается команда для запуска приложения при старте контейнера</li></ul></li></ol><ol type="1" id="131aa64c-9d0a-8185-8e5c-fd5c990d9632" class="numbered-list" start="4"><li>Соберем проект, используя Dockerfile<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-811f-9749-d88c2c5f092f" class="code"><code class="language-Bash">docker build -t test .</code></pre><figure id="131aa64c-9d0a-8174-ab63-c88d1e22c63a" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2034.png"><img style="width:1633px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2034.png"/></a></figure></li></ol><ol type="1" id="131aa64c-9d0a-81e7-84ce-f508a8098694" class="numbered-list" start="5"><li>Проверим наличие готового образа<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81e9-91f5-f68df8f8c5f0" class="code"><code class="language-Bash">docker images</code></pre><figure id="131aa64c-9d0a-8136-aba7-c2883725658e" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2035.png"><img style="width:909px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2035.png"/></a></figure></li></ol><ol type="1" id="131aa64c-9d0a-81e3-aa14-ed20040dc78b" class="numbered-list" start="6"><li>Запустим контейнер<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-817a-bc4a-e7b197516848" class="code"><code class="language-Bash">docker run -d -t -P test</code></pre></li></ol><ol type="1" id="131aa64c-9d0a-81f7-9510-f0229e0d306f" class="numbered-list" start="7"><li>Узнаем порт, к которому будем подключаться<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81b8-97a6-ccd459300483" class="code"><code class="language-Bash">docker ps</code></pre><figure id="131aa64c-9d0a-8191-b165-edb1ea313846" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2036.png"><img style="width:1756px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2036.png"/></a></figure></li></ol><ol type="1" id="131aa64c-9d0a-8183-9add-ebac0149080c" class="numbered-list" start="8"><li>Проверим, что все работает<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8143-9e61-dfa19ccc5b1e" class="code"><code class="language-Bash">curl http://localhost:32771</code></pre><figure id="131aa64c-9d0a-8116-adf4-eb58737dbf59" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2037.png"><img style="width:672px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2037.png"/></a></figure></li></ol><h2 id="131aa64c-9d0a-8108-b38f-f8cd57e09d9d" class=""><mark class="highlight-default">2.5 Docker-compose</mark></h2><ol type="1" id="131aa64c-9d0a-81d5-b655-de562b52dc78" class="numbered-list" start="1"><li>Создайте каталог для проекта:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81cb-8291-d8aa2eafba43" class="code"><code class="language-Bash">mkdir composetest
+cd composetest</code></pre></li></ol><ol type="1" id="131aa64c-9d0a-813f-8dbd-e56ccfbb31c2" class="numbered-list" start="2"><li>Создайте файл с именем app.py в каталоге вашего проекта и вставьте туда следующий код:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81e5-b8e1-ca1b4d213d6e" class="code"><code class="language-Bash">import time
+
+import redis
+from flask import Flask
+
+app = Flask(__name__)
+cache = redis.Redis(host=&#x27;redis&#x27;, port=6379)
+
+def get_hit_count():
+    retries = 5
+    while True:
+        try:
+            return cache.incr(&#x27;hits&#x27;)
+        except redis.exceptions.ConnectionError as exc:
+            if retries == 0:
+                raise exc
+            retries -= 1
+            time.sleep(0.5)
+
+@app.route(&#x27;/&#x27;)
+def hello():
+    count = get_hit_count()
+    return &#x27;Hello World! I have been seen {} times.\n&#x27;.format(count)</code></pre><figure id="131aa64c-9d0a-816f-8d0e-c18c3cbf97e4" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2038.png"><img style="width:954px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2038.png"/></a></figure><p id="131aa64c-9d0a-815b-8bca-c6287e69899c" class="">В этом примере redis — это имя хоста контейнера Redis в сети приложения. Мы используем порт по умолчанию для Redis — 6379.</p></li></ol><ol type="1" id="131aa64c-9d0a-816f-b37b-e022d40f3b01" class="numbered-list" start="3"><li>Создайте еще один файл с именем «requirements.txt» в каталоге вашего проекта и вставьте туда следующий код:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8154-b98d-e80fb1b9bc04" class="code"><code class="language-Bash">flask
+redis</code></pre></li></ol><ol type="1" id="131aa64c-9d0a-81f6-a5f3-ea531f1c5cba" class="numbered-list" start="4"><li>Cоздайте файл Dockerfile<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81b0-9aa3-dcfdb00cf6b4" class="code"><code class="language-Bash">FROM python:3.10-alpine
+WORKDIR /code
+ENV FLASK_APP=app.py
+ENV FLASK_RUN_HOST=0.0.0.0
+RUN apk add --no-cache gcc musl-dev linux-headers
+COPY . .
+RUN pip install -r requirements.txt
+EXPOSE 5000
+CMD [&quot;flask&quot;, &quot;run&quot;]</code></pre><p id="131aa64c-9d0a-8113-b352-fbd1f7bb54f3" class="">Давайте разберем каждую строку в этом Dockerfile:</p><ol type="1" id="131aa64c-9d0a-81c2-81ca-c7fe9f731367" class="numbered-list" start="1"><li><code>FROM python:3.10-alpine</code>: Эта строка указывает базовый образ, на основе которого будет создан контейнер. В данном случае, используется образ Python версии 3.10 с Alpine Linux. Alpine Linux является легковесным дистрибутивом Linux, что позволяет снизить размер образа и ускорить его загрузку.</li></ol><ol type="1" id="131aa64c-9d0a-8199-a387-fa2ff9089a64" class="numbered-list" start="2"><li><code>WORKDIR /code</code>: Эта строка устанавливает рабочий каталог внутри контейнера на <code>/code</code>. Это означает, что все последующие команды будут выполняться внутри этого каталога, если не указано иное.</li></ol><ol type="1" id="131aa64c-9d0a-816a-a138-d63a5bec3080" class="numbered-list" start="3"><li><code>ENV FLASK_APP=app.py</code>: Эта строка устанавливает переменную окружения <code>FLASK_APP</code> со значением <code>app.py</code>. Это сообщает Flask, какой файл следует использовать как основной файл приложения.</li></ol><ol type="1" id="131aa64c-9d0a-81db-8d01-caad82cf4023" class="numbered-list" start="4"><li><code>ENV FLASK_RUN_HOST=0.0.0.0</code>: Эта строка устанавливает переменную окружения <code>FLASK_RUN_HOST</code> со значением <code>0.0.0.0</code>, что означает, что Flask будет прослушивать все сетевые интерфейсы внутри контейнера.</li></ol><ol type="1" id="131aa64c-9d0a-817a-b0b6-ce1f37e8e92e" class="numbered-list" start="5"><li><code>RUN apk add --no-cache gcc musl-dev linux-headers</code>: Эта строка использует менеджер пакетов Alpine Linux (<code>apk</code>) для установки необходимых зависимостей для компиляции Python-расширений, таких как <code>gcc</code>, <code>musl-dev</code> и <code>linux-headers</code>. Это необходимо для установки некоторых пакетов из <code>requirements.txt</code>.</li></ol><ol type="1" id="131aa64c-9d0a-8118-885a-ea80b8b70ab6" class="numbered-list" start="6"><li><code>COPY . .</code>: Эта строка копирует все файлы из текущей директории хоста внутрь контейнера в рабочий каталог <code>/code</code>. Включение точки вторым аргументом (<code>.</code>) означает, что копируются все файлы и папки из текущей директории хоста.</li></ol><ol type="1" id="131aa64c-9d0a-81b5-acb7-df8928d2aeb9" class="numbered-list" start="7"><li><code>RUN pip install -r requirements.txt</code>: Эта строка использует <code>pip</code> для установки Python-пакетов, перечисленных в файле <code>requirements.txt</code>. Это позволяет установить все зависимости, необходимые для работы Flask-приложения.</li></ol><ol type="1" id="131aa64c-9d0a-816c-b4b9-f3ae5f2bb403" class="numbered-list" start="8"><li><code>EXPOSE 5000</code>: Эта строка объявляет порт <code>5000</code>, который контейнер будет прослушивать. Однако, это не открывает порт на хосте, это просто документирует, какой порт приложение в контейнере ожидает.</li></ol><ol type="1" id="131aa64c-9d0a-81d5-bdf6-caaf419b17de" class="numbered-list" start="9"><li><code>CMD [&quot;flask&quot;, &quot;run&quot;]</code>: Эта строка устанавливает команду, которая будет выполнена по умолчанию при запуске контейнера. В данном случае, она запускает команду <code>flask run</code>, чтобы запустить Flask-приложение.</li></ol></li></ol><ol type="1" id="131aa64c-9d0a-81eb-bbd9-d98918e9104a" class="numbered-list" start="5"><li>Создайте файл с именем «compose.yaml» в каталоге вашего проекта и вставьте следующее:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81a0-8174-d782b4e992c6" class="code"><code class="language-Bash">services:
+  web:
+    build: .
+    ports:
+      - &quot;8000:5000&quot;
+  redis:
+    image: &quot;redis:alpine&quot;</code></pre><figure id="131aa64c-9d0a-8191-97ae-f0e1ac8e1450" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2039.png"><img style="width:1009px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2039.png"/></a></figure><p id="131aa64c-9d0a-81e3-a123-c6a00d072696" class="">Этот файл Compose определяет две службы: web и redis.</p><p id="131aa64c-9d0a-8119-88f7-c886f8a39eba" class="">Веб-сервис использует образ, созданное из файла Dockerfile в текущем каталоге. Затем он привязывает контейнер и хост-компьютер к открытому порту 8000. В этом примере службы используется порт по умолчанию для веб-сервера Flask — 5000.</p></li></ol><ol type="1" id="131aa64c-9d0a-8117-87c6-e028f35cafa0" class="numbered-list" start="6"><li>Файлы, которые должны быть в рабочем каталоге<figure id="131aa64c-9d0a-81c0-9bfd-f9be8d169555" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2040.png"><img style="width:672px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2040.png"/></a></figure></li></ol><ol type="1" id="131aa64c-9d0a-81bb-a3d4-cecf0288eb9e" class="numbered-list" start="6"><li>Из каталога вашего проекта запустите приложение, выполнив:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8157-b86c-ffbe251630a3" class="code"><code class="language-Bash">docker compose up</code></pre></li></ol><ol type="1" id="131aa64c-9d0a-8164-a95d-ffe50cad966d" class="numbered-list" start="7"><li>Проверка:<ol type="a" id="131aa64c-9d0a-8190-9c63-d1d5a0931278" class="numbered-list" start="1"><li>Введите <a href="http://localhost:8000/">http://localhost:8000/</a> в браузере, чтобы увидеть работающее приложение.</li></ol><ol type="a" id="131aa64c-9d0a-812b-be34-c602f942bb41" class="numbered-list" start="7"><li>Или<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8112-8423-d73a90e5897b" class="code"><code class="language-Python">http://&lt;ip_адрес_виртулки&gt;:8000/</code></pre><figure id="131aa64c-9d0a-8192-b51c-caee43129e9d" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2041.png"><img style="width:651px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2041.png"/></a></figure></li></ol></li></ol><ol type="1" id="131aa64c-9d0a-8116-8c33-caff71029cc4" class="numbered-list" start="8"><li>Переключитесь в другое окно терминала и введите, чтобы получить список локальных образов:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8199-b928-e18c5677e304" class="code"><code class="language-Bash"> docker image ls</code></pre><figure id="131aa64c-9d0a-81f1-b408-ca45a8de9a57" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2042.png"><img style="width:837px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%203%202%20131aa64c9d0a81f0a898c89a519ec890/Untitled%2042.png"/></a></figure><p id="131aa64c-9d0a-811a-bad4-d4da3b4ecc0e" class="">
+</p></li></ol></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

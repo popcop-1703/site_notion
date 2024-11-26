@@ -1,0 +1,685 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Лекция 3.3. Kubernetes(K8s)</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="131aa64c-9d0a-815c-be0b-d0938538bffc" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/slideshow_gray.svg"/></div><h1 class="page-title">Лекция 3.3. Kubernetes(K8s)</h1><p class="page-description"></p></header><div class="page-body"><h1 id="131aa64c-9d0a-8140-9b65-ded15e5cd3af" class="">Оглавление</h1><nav id="131aa64c-9d0a-8125-9e4b-fd533b2e7211" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#131aa64c-9d0a-8140-9b65-ded15e5cd3af">Оглавление</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#131aa64c-9d0a-81cf-bb06-d36e6f63e728">1. Теоретическая часть</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-81b5-8e64-e04a221f525b"><strong>1.1 Введение</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81f2-aa0c-ef469fec5313">1.1.1 Что такое Kubernetes?</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81e4-9f4f-dd8b72a99586">1.1.2 Зачем использовать Kubernetes?</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-8132-9d9b-eba9575c4b76">1.1.3 <strong>Возможности, которые предоставляет k8s</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81b2-a27b-ec12503031a5">1.1.4 <strong>Чем Kubernetes не является?</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-8175-b62b-fd430e046a22">1.1.5 Краткая история Kubernetes</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-813d-a17f-db6ab2a87872"><strong>1.2 Архитектура Kubernetes</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81f9-909e-e84adb8fed74"><strong>1.2.1 Типы нод</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-8166-9bc1-d907f50e4542"><strong>1.2.2 </strong><em><strong>Pods (</strong></em><em>отсеки</em><em><strong>)</strong></em></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81a5-85b2-c7ee66f3c646"><strong>1.2.3 </strong><em><strong>Control Plane (</strong></em><em>плоскость управления</em><em><strong>)</strong></em></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81ea-87de-c238d562efed"><strong>1.2.4 </strong><em><strong>Объекты</strong></em></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-81bc-8c1a-d4e484e209b0">1.3 Рабочие нагрузки</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-812a-a94b-d1443d6af985">1.3.1 Pods</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81d5-bdb5-f2c692156684">1.3.2 Управление рабочей нагрузкой</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-8128-9bbc-f847fefa2bba">1.4 Хранение данных</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-8111-a58c-dc6a63012c9a">1.4.1 <strong>Volumes (тома)</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81f7-be3c-deb4c919dc6a">1.4.2 <strong>Configuration (конфигурация)</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-8158-ac64-ddb00cec8aa7">1.4.3 <strong>Kubernetes Secrets (Секреты)</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-8199-8ad1-e2d22a614dbc">1.4.4 <strong>Role-Based Access Control </strong>(Ролевой контроль доступа)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-8104-b918-c78861b51ecb"><mark class="highlight-default">1.5 Службы, балансировка нагрузки и сеть</mark></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81bf-b30e-dae71801a952"><mark class="highlight-default">1.5.1 Сетевая модель Kubernetes</mark></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-8169-974a-d8d3b03242e7"><mark class="highlight-default">1.5.2 Service</mark></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81d9-a770-f1e6d581949d"><mark class="highlight-default">1.5.3 </mark><mark class="highlight-default"><strong>Ingress</strong></mark></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-8141-8a9f-c50d98983167"><mark class="highlight-default">1.5.4 Контроллер Ingrees</mark></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-811c-b540-cba33794c30c"><mark class="highlight-default">1.5.5 Сетевые политики</mark></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81c7-b029-d989d603a32b"><mark class="highlight-default">1.5.6 DNS для служб и модулей</mark></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-818c-a67e-d9bb1bd0a988">1.6 Сетевые плагины</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-812c-91aa-d0db18fba544">1.6.1 Flannel</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-814d-b3e2-ffc1dad97c45">1.6.2 Calico</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-813a-9382-cbcdb0f1a6f3">1.7 <strong>Что такое Helm и Helm Charts?</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-8109-991d-eb6f00f33ef7">1.7.1 <strong>Что такое Helm?</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81e5-9f48-ea6caa2be4c1">1.7.2 <strong>Почему нам нужен Helm?</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-8115-ba34-e850b9b81a6d">1.7.3 <strong>Что вы можете сделать с помощью Helm?</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81b9-849a-efd50a1d8b43">1.7.4 <strong>Как работает Helm?</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-810f-931d-df1bc46ed616">1.7.5 <strong>Что такое Helm Charts?</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-8193-88e0-eef8bc994577">1.7.6 <strong>Как работают чарты Helm?</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81f8-a4a8-ee50213ecb37">1.7.7 <strong>Структура чарта Helm</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-8122-8158-e1ba1b869a6d">1.7.8 <strong>Репозитории чартов Helm</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81f3-ae84-cf619e513cf6">1.7.9 <strong>Релизы чартов</strong></a></div></nav><h1 id="131aa64c-9d0a-81cf-bb06-d36e6f63e728" class="">1. Теоретическая часть</h1><h2 id="131aa64c-9d0a-81b5-8e64-e04a221f525b" class=""><strong>1.1 Введение</strong></h2><h3 id="131aa64c-9d0a-81f2-aa0c-ef469fec5313" class="">1.1.1 Что такое Kubernetes?</h3><p id="131aa64c-9d0a-8187-827c-f06a84ac51ac" class="">Kubernetes - операционная система для облачных решений, представляющая собой открытую платформу для управления кластерами контейнерных приложений и сервисов. Это решение было разработано инженерами Google - Джо Бедой, Бренданом Бернсом и Крейгом Мак-Лаки в 2014 году и вскоре после этого было выпущено с открытым исходным кодом. С тех пор Kubernetes быстро стал самостоятельной и активно развивающейся экосистемой &quot;Cloud Native&quot;. В настоящее время управление Kubernetes осуществляется &quot;Cloud Native Computing Foundation&quot; (CNCF), подразделением Linux Foundation.</p><p id="131aa64c-9d0a-81b7-bee3-dac8557e4bd7" class="">Kubernetes стал первым выпускным проектом CNCF и одним из самых быстрорастущих проектов с открытым исходным кодом в истории. Более 2300 участников работают над Kubernetes, и оно широко используется как крупными, так и малыми компаниями, включая половину Fortune 100.</p><h3 id="131aa64c-9d0a-81e4-9f4f-dd8b72a99586" class="">1.1.2 Зачем использовать Kubernetes?</h3><p id="131aa64c-9d0a-817f-a61b-f33228281bdc" class="">Контейнеры — хороший способ объединить и запустить ваши приложения. В производственной среде вам необходимо управлять контейнерами, в которых выполняются приложения, и обеспечивать отсутствие простоев. Например, если контейнер выходит из строя, необходимо запустить другой контейнер. Не было бы проще, если бы такое поведение обрабатывалось системой?</p><p id="131aa64c-9d0a-81f9-87ca-fa905f5f8678" class="">Вот тут-то на помощь и приходит Kubernetes! Kubernetes предоставляет вам платформу для устойчивой работы распределенных систем. Он обеспечивает масштабирование и аварийное переключение вашего приложения, предоставляет шаблоны развертывания и многое другое. Например: Kubernetes может легко управлять канареечным развертыванием вашей системы. <br/>При канареечном развертывании переключение происходит постепенно, начиная с части пользователей.<br/></p><h3 id="131aa64c-9d0a-8132-9d9b-eba9575c4b76" class="">1.1.3 <strong>Возможности, которые предоставляет k8s</strong></h3><ul id="131aa64c-9d0a-81a8-bf5d-fffd18a80239" class="bulleted-list"><li style="list-style-type:disc"><em><strong>Обнаружение служб и балансировка нагрузки</strong></em> <p id="131aa64c-9d0a-81a2-b9eb-f3bf77c3cd87" class="">Kubernetes может предоставлять контейнер, используя DNS-имя или собственный IP-адрес. Если трафик в контейнере высокий, Kubernetes может балансировать нагрузку и распределять сетевой трафик, чтобы развертывание было стабильным.</p></li></ul><ul id="131aa64c-9d0a-813d-aa57-f9d9d43d474b" class="bulleted-list"><li style="list-style-type:disc"><em><strong>Оркестрация хранилища</strong></em><p id="131aa64c-9d0a-8144-8ea4-d2ef05e1ff0e" class="">Kubernetes позволяет автоматически монтировать систему хранения по вашему выбору, например локальные хранилища, общедоступные облака и т. д.</p></li></ul><ul id="131aa64c-9d0a-81bf-9540-e52a330a5b75" class="bulleted-list"><li style="list-style-type:disc"><em><strong>Автоматизированное развертывание и откат</strong></em><p id="131aa64c-9d0a-8197-80ed-e011a9552482" class="">Вы можете описать желаемое состояние развернутых контейнеров с помощью Kubernetes, и он может изменить фактическое состояние на желаемое с контролируемой скоростью. Например, вы можете автоматизировать Kubernetes для создания новых контейнеров для вашего развертывания, удаления существующих контейнеров и переноса всех их ресурсов в новый контейнер.</p></li></ul><ul id="131aa64c-9d0a-8198-a9d1-e47dae21492f" class="bulleted-list"><li style="list-style-type:disc"><em><strong>Автоматическая упаковка контейнеров</strong></em><p id="131aa64c-9d0a-8134-a0d4-dda5ec0908a6" class="">Вы предоставляете Kubernetes кластер узлов, которые он может использовать для выполнения контейнерных задач. Вы сообщаете Kubernetes, сколько процессора и памяти (ОЗУ) требуется каждому контейнеру. Kubernetes может разместить контейнеры на ваших узлах, чтобы максимально эффективно использовать ваши ресурсы.</p></li></ul><ul id="131aa64c-9d0a-81f8-af47-c13597571eb0" class="bulleted-list"><li style="list-style-type:disc"><em><strong>Самовосстановление</strong></em><p id="131aa64c-9d0a-81d2-9b15-d09ccd5cb05f" class="">Kubernetes перезапускает контейнеры, которые вышли из строя, заменяет контейнеры, уничтожает контейнеры, которые не отвечают на заданную пользователем проверку работоспособности, и не объявляет о них клиентам, пока они не будут готовы к работе.</p></li></ul><ul id="131aa64c-9d0a-811f-8cd3-e7c1bf1f0e70" class="bulleted-list"><li style="list-style-type:disc"><em><strong>Управление секретами и конфигурациями</strong></em><p id="131aa64c-9d0a-8120-b596-edb69c8de5e2" class="">Kubernetes позволяет хранить конфиденциальную информацию, такую как пароли, токены OAuth и ключи SSH, и управлять ею. Вы можете развертывать и обновлять секреты и конфигурацию приложения, не перестраивая образы контейнеров и не раскрывая секреты в конфигурации стека.</p></li></ul><ul id="131aa64c-9d0a-81f2-a65a-ea6d10ab6f7a" class="bulleted-list"><li style="list-style-type:disc"><em><strong>Пакетное выполнение</strong></em><p id="131aa64c-9d0a-81b2-8030-d8795f02d62e" class="">Помимо сервисов, Kubernetes может управлять вашими пакетными и CI-рабочими нагрузками, при желании заменяя вышедшие из строя контейнеры.</p></li></ul><ul id="131aa64c-9d0a-816b-912a-ca1856667aa9" class="bulleted-list"><li style="list-style-type:disc"><em><strong>Горизонтальное масштабирование</strong></em><p id="131aa64c-9d0a-8131-8842-d8d17600a95f" class="">Масштабируйте свое приложение вверх и вниз с помощью простой команды, с помощью пользовательского интерфейса или автоматически в зависимости от загрузки ЦП.</p></li></ul><ul id="131aa64c-9d0a-8145-92f5-de50f33c6161" class="bulleted-list"><li style="list-style-type:disc"><em><strong>Двойной стек IPv4/IPv6</strong></em><p id="131aa64c-9d0a-8138-aab8-c14a387f130a" class="">Выделение адресов IPv4 и IPv6 модулям и службам.</p></li></ul><ul id="131aa64c-9d0a-818a-8b21-c4b94d6e741f" class="bulleted-list"><li style="list-style-type:disc"><em><strong>Расширяемость </strong></em><p id="131aa64c-9d0a-815b-867b-ec239d70e3aa" class="">Добавляйте функции в свой кластер Kubernetes, не меняя исходного кода.</p></li></ul><h3 id="131aa64c-9d0a-81b2-a27b-ec12503031a5" class="">1.1.4 <strong>Чем Kubernetes не является?</strong></h3><p id="131aa64c-9d0a-81c1-b510-c37686a32115" class="">Kubernetes — это не традиционная комплексная система PaaS (платформа как услуга). Поскольку Kubernetes работает на уровне контейнера, а не на уровне оборудования, он предоставляет некоторые общеприменимые функции, общие для предложений PaaS, такие как развертывание, масштабирование, балансировка нагрузки, а также позволяет пользователям интегрировать свои решения для ведения журнала, мониторинга и оповещения. Однако Kubernetes не является монолитным, и эти решения по умолчанию являются необязательными и подключаемыми. Kubernetes предоставляет стандартные блоки для создания платформ разработчиков, но сохраняет выбор пользователя и гибкость там, где это важно.</p><ul id="131aa64c-9d0a-812a-8b24-cace3f90e89c" class="bulleted-list"><li style="list-style-type:disc">Не ограничивает типы поддерживаемых приложений. Kubernetes стремится поддерживать различные виды рабочих нагрузок, включая рабочие нагрузки без сохранения состояния, с отслеживанием состояния и обработки данных. Если приложение может работать в контейнере, оно должно отлично работать и в Kubernetes.</li></ul><ul id="131aa64c-9d0a-810a-9c60-c41aa5dadbd6" class="bulleted-list"><li style="list-style-type:disc">Не развертывает исходный код и не собирает ваше приложение. Рабочие процессы непрерывной интеграции, доставки и развертывания (CI/CD) предпочтениями организации, а также техническими требованиями.</li></ul><ul id="131aa64c-9d0a-8184-bdf9-fe3a6c503e87" class="bulleted-list"><li style="list-style-type:disc">Не предоставляет службы уровня приложения, такие как промежуточное программное обеспечение (например, шины сообщений), платформы обработки данных (например, Spark), базы данных (например, MySQL), кэши или кластерные системы хранения (например, Ceph). как встроенные сервисы. Такие компоненты могут работать в Kubernetes и/или могут быть доступны приложениям, работающим в Kubernetes, через переносимые механизмы, такие как Open Service Broker.</li></ul><ul id="131aa64c-9d0a-81b3-9f5f-f2d49d740cb6" class="bulleted-list"><li style="list-style-type:disc">Не диктует решения для ведения логирования, мониторинга или оповещения. Он обеспечивает некоторые интеграции концепции, а также механизмы для сбора и экспорта метрик.</li></ul><ul id="131aa64c-9d0a-81b5-97c6-cc15e5579e91" class="bulleted-list"><li style="list-style-type:disc">Не предоставляет и не требует использования языка/системы конфигурации (например, Jsonnet). Он предоставляет декларативный API, на который могут быть нацелены произвольные формы декларативных спецификаций.</li></ul><ul id="131aa64c-9d0a-81ec-b01e-ce2c2611c112" class="bulleted-list"><li style="list-style-type:disc">Не предоставляет и не применяет какие-либо комплексные системы конфигурации, обслуживания, управления или самовосстановления машины.</li></ul><ul id="131aa64c-9d0a-8126-b97a-ff1b1700c96a" class="bulleted-list"><li style="list-style-type:disc">Кроме того, Kubernetes — это не просто система оркестровки. Фактически, он устраняет необходимость в оркестровке. Техническое определение оркестрации — это выполнение определенного рабочего процесса: сначала выполните A, затем B, затем C. Напротив, Kubernetes включает в себя набор независимых, компонуемых процессов управления, которые непрерывно приводят текущее состояние к заданному желаемому состоянию. Неважно, как вы доберетесь от А до С. Централизованное управление также не требуется. В результате система становится проще в использовании, становится более мощной, надежной, отказоустойчивой и расширяемой.</li></ul><h3 id="131aa64c-9d0a-8175-b62b-fd430e046a22" class="">1.1.5 Краткая история Kubernetes</h3><p id="131aa64c-9d0a-81db-abc9-d5652bbdd622" class="">В книге &quot;Site Reliability Engineering&quot; описывается внутренний проект компании Google - система управления кластерами Borg. В 2014 году Google публикует исходные коды этого проекта и уже в 2015 году совместно с Linux Foundation создает фонд Cloud Native Computing Foundation (CNCF), передав в него исходные коды Kubernetes в качестве своего технического вклада. Фонд разрабатывает open-source проекты для создания приложений, ориентированных на облачные модели архитектур.</p><p id="131aa64c-9d0a-819a-9614-c8cb8e1db8e1" class="">Сейчас Kubernetes — alumni, или по-русски «выпускник», Cloud Native Computing Foundation. Его довели до стабильной версии, и он получил статус Graduated Project (завершённый проект) в терминологии CNCF.</p><p id="131aa64c-9d0a-81f4-bc83-c8e69c2931d6" class="">Первоначальные версии Kubernetes были более монолитными и адаптированными для работы с Docker на заднем плане. В рамках программы CNCF Kubernetes стал стабильным и расширяемым продуктом, и возможно изменение технологий практически на каждом уровне виртуальной инфраструктуры. Сейчас Kubernetes поддается высокой кастомизации: можно выбрать любую технологию работы с контейнерами, хранилищами или сетью.</p><p id="131aa64c-9d0a-81a6-a7d9-ff802386f46f" class="">Такой подход к развитию сделал Kubernetes популярным решением для продакшен-систем и корпоративных сетей. Он получил больше компонентов, связанных с безопасностью, алгоритмы управления ресурсами и процессами стали более стабильными.</p><h2 id="131aa64c-9d0a-813d-a17f-db6ab2a87872" class=""><strong>1.2 Архитектура Kubernetes</strong></h2><figure id="131aa64c-9d0a-814f-a045-f4000cdf26ae" class="image"><a href="%D0%9B%D0%B5%D0%BA%D1%86%D0%B8%D1%8F%203%203%20Kubernetes(K8s)%20131aa64c9d0a815cbe0bd0938538bffc/Untitled.png"><img style="width:860px" src="%D0%9B%D0%B5%D0%BA%D1%86%D0%B8%D1%8F%203%203%20Kubernetes(K8s)%20131aa64c9d0a815cbe0bd0938538bffc/Untitled.png"/></a></figure><p id="131aa64c-9d0a-813c-907f-da6a60c08c0a" class=""><em><strong>Кластер</strong></em><div class="indented"><p id="131aa64c-9d0a-815f-9e20-f32ab1baa8da" class="">Развертывание Kubernetes — это, в первую очередь, поднятие кластера. В кластере обязательно есть хотя бы одна нода. Она состоит из набора машин, которые запускают контейнерные приложения. Обычно на одной ноде кластер не ограничивается, поскольку дополнительные ноды решают проблему отказустойчивости.</p></div></p><p id="131aa64c-9d0a-814e-80bb-c06d8cbf153a" class=""><em><strong>Nods (</strong></em><em>узлы</em><em><strong>)</strong></em><div class="indented"><p id="131aa64c-9d0a-8100-a63a-c46aa7a21b92" class="">Это физические или виртуальные машины, на которых развертываются и запускаются контейнеры с приложениями. Каждый узел содержит сервисы, необходимые для запуска подов.</p></div></p><p id="131aa64c-9d0a-8134-8251-f31d747d6d8f" class="">Обычно в кластере есть несколько узлов, но в среде обучения или среде с ограниченными ресурсами можно использовать один.</p><h3 id="131aa64c-9d0a-81f9-909e-e84adb8fed74" class=""><strong>1.2.1 Типы нод</strong></h3><ul id="131aa64c-9d0a-813d-b7a0-d29c2bdeae29" class="bulleted-list"><li style="list-style-type:disc"><em><strong>Master</strong></em><em> (мастер-нода)</em><p id="131aa64c-9d0a-8152-99a2-fc65806fcc8b" class="">Узел, управляющий всем кластером. Он следит за остальными нодами и распределяет между ними нагрузку с помощью менеджера контроллеров (controller manager) и планировщика (scheduler). Как правило, мастер-нода занимается только управлением и не берет на себя рабочие нагрузки. Для повышения отказоустойчивости существует несколько мастер-нод.</p></li></ul><ul id="131aa64c-9d0a-81c6-a6bd-c64493de6aad" class="bulleted-list"><li style="list-style-type:disc"><em><strong>Worker</strong></em><em> (рабочие ноды)</em><p id="131aa64c-9d0a-8150-a503-ed67d8818302" class="">Узлы, на которых работают контейнеры. В зависимости от параметров ноды (объема памяти и центрального процессора) на одном узле может работать множество контейнеров. Чем больше рабочих узлов, тем больше приложений можно запустить. Также количество влияет на отказоустойчивость кластера, потому что при выходе из строя одной ноды нагрузка распределяется по оставшимся.</p></li></ul><p id="131aa64c-9d0a-811d-b4e2-ccdf589b0649" class="">Работающий кластер Kubernetes включает в себя агента, запущенного на нодах (kubelet), и компоненты мастера (APIs, scheduler, etc), поверх решения с распределенным хранилищем.</p><h3 id="131aa64c-9d0a-8166-9bc1-d907f50e4542" class=""><strong>1.2.2 </strong><em><strong>Pods (</strong></em><em>отсеки</em><em><strong>)</strong></em></h3><p id="131aa64c-9d0a-817e-afa9-d1411574f7bc" class="">Pod определяется представлением запроса на запуск (execute) одного или более контейнеров на одном узле. Они разделяют доступ к таким ресурсам, как: тома хранилища и сетевой стек.</p><p id="131aa64c-9d0a-818d-a113-d544e6d24565" class="">Поды считаются базовыми строительными блоками Kubernetes, поскольку все рабочие нагрузки в Kubernetes — например, Deployments, ReplicaSets и Jobs — могут быть выражены в виде pods.<br/>Pod — это единственный объект в Kubernetes, который приводит к запуску контейнеров. Нет пода — нет контейнера.<br/></p><h3 id="131aa64c-9d0a-81a5-85b2-c7ee66f3c646" class=""><strong>1.2.3 </strong><em><strong>Control Plane (</strong></em><em>плоскость управления</em><em><strong>)</strong></em></h3><p id="131aa64c-9d0a-818a-946f-efdfc96c5488" class="">Компоненты плоскости управления принимают глобальные решения о кластере (например, планирование), а также обнаруживают события кластера и реагируют на них (например, запуск нового модуля, когда поле реплик развертывания не удовлетворено).<br/>Компоненты плоскости управления можно запускать на любой машине в кластере.<br/>Однако для простоты сценарии установки обычно запускают все компоненты плоскости управления на одном компьютере и не запускают на этом компьютере пользовательские контейнеры.<br/></p><h3 id="131aa64c-9d0a-81ea-87de-c238d562efed" class=""><strong>1.2.4 </strong><em><strong>Объекты</strong></em></h3><p id="131aa64c-9d0a-81b8-9f1a-f1c03de12fd2" class="">Сущности, которые в архитектуре Kubernetes используются для представления состояния кластера.</p><p id="131aa64c-9d0a-81ae-951d-f59b87f75168" class=""><em><strong>Объекты плоскости управления</strong></em></p><ul id="131aa64c-9d0a-81b6-9163-f1688127f1f1" class="bulleted-list"><li style="list-style-type:disc"><strong>Kube-apiserver</strong><p id="131aa64c-9d0a-8110-a31f-e8ff2d268e39" class="">С помощью сервера API обеспечивается работа API кластера, обрабатываются REST-операции и предоставляется интерфейс, через который остальные компоненты взаимодействуют друг с другом. Кроме этого, через него проходят запросы на изменение состояния или чтение кластера.</p></li></ul><ul id="131aa64c-9d0a-8184-b9f3-e72a6b438dd2" class="bulleted-list"><li style="list-style-type:disc"><strong>Kube-scheduler</strong><p id="131aa64c-9d0a-81d1-89d1-f450c528fea3" class="">Компонент-планировщик, который определяет на каких узлах разворачивать pods. Он учитывает такие факторы, как ограничения, требования к ресурсам, местонахождение данных и пр.</p></li></ul><ul id="131aa64c-9d0a-81d2-9ba7-ddaa8ec5ddfc" class="bulleted-list"><li style="list-style-type:disc"><strong>Etcd</strong><p id="131aa64c-9d0a-8197-af78-e0eb62071496" class="">Распределенное хранилище в формате «ключ-значение». В нем хранится состояние всего кластера. Главная задача etcd — обеспечить отказоустойчивость кластера и консистентность данных. Etcd — самостоятельный проект. Он развивается отдельно от Kubernetes и применяется в разных продуктах.</p></li></ul><ul id="131aa64c-9d0a-818a-9c9a-fe2f8ce153ad" class="bulleted-list"><li style="list-style-type:disc"><strong>Kube-controller-manager</strong><p id="131aa64c-9d0a-81b5-9f09-ca76c8393399" class="">Компонент запускает работу контроллеров.</p><p id="131aa64c-9d0a-8141-bcca-c6f6e1ded527" class="">Логически каждый контроллер представляет собой отдельный процесс, но для уменьшения сложности все они компилируются в один двоичный файл и выполняются в одном процессе.</p><p id="131aa64c-9d0a-8169-8daf-e3892ca710e5" class="">Существует много разных типов контроллеров. Некоторые примеры из них:</p><ul id="131aa64c-9d0a-81dc-8798-de9b6995d036" class="bulleted-list"><li style="list-style-type:circle"><em>Контроллер узла:</em> отвечает за обнаружение и реагирование при выходе узлов из строя.</li></ul><ul id="131aa64c-9d0a-8182-9143-c540463cd4ca" class="bulleted-list"><li style="list-style-type:circle"><em>Контроллер заданий: </em>отслеживает объекты заданий, которые представляют собой одноразовые задачи, а затем создает модули для выполнения этих задач до завершения.</li></ul><ul id="131aa64c-9d0a-819b-aae9-d985babc9f6c" class="bulleted-list"><li style="list-style-type:circle"><em>Контроллер EndpointSlice: </em>заполняет объекты EndpointSlice (чтобы обеспечить связь между службами и модулями).</li></ul><ul id="131aa64c-9d0a-818d-aca9-ed591608aff2" class="bulleted-list"><li style="list-style-type:circle"><em>Контроллер ServiceAccount</em>: создайте учетные записи ServiceAccount по умолчанию для новых пространств имен.</li></ul></li></ul><ul id="131aa64c-9d0a-81b7-8a1c-ea57c6dbdb2e" class="bulleted-list"><li style="list-style-type:disc"><strong>Cloud-controller-manager</strong><p id="131aa64c-9d0a-81db-8432-d4233e01ee91" class="">Компонент плоскости управления Kubernetes, в который встроена логика управления, специфичная для облака. Диспетчер облачных контроллеров позволяет вам связать ваш кластер с API вашего облачного провайдера и отделить компоненты, которые взаимодействуют с этой облачной платформой, от компонентов, которые взаимодействуют только с вашим кластером.<br/>Менеджер облачных контроллеров запускает только контроллеры, специфичные для вашего облачного провайдера. Если вы используете Kubernetes у себя или в учебной среде на своем ПК, в кластере нет менеджера облачного контроллера.<br/></p></li></ul><p id="131aa64c-9d0a-816b-9bf0-e3d6313762a9" class=""><em><strong>Объекты узлов</strong></em></p><ul id="131aa64c-9d0a-810d-aae1-c132deaf8390" class="bulleted-list"><li style="list-style-type:disc"><strong>Kubelet</strong><p id="131aa64c-9d0a-813e-900b-d785becb9903" class="">Cлужба управляет состоянием ноды: запуском, остановкой и поддержанием работы контейнеров и подов. </p></li></ul><ul id="131aa64c-9d0a-8181-babe-c5622761957a" class="bulleted-list"><li style="list-style-type:disc"><strong>Kube-proxy</strong><p id="131aa64c-9d0a-81b2-b634-e02920d218ce" class="">Служба, которая управляет правилами балансировки нагрузки. Она конфигурирует правила IPVS или iptables, через которые выполняются проксирование и роутинг. </p></li></ul><ul id="131aa64c-9d0a-813c-988b-d76641de43b2" class="bulleted-list"><li style="list-style-type:disc"><strong>Container runtime</strong><p id="131aa64c-9d0a-81af-8022-cfd7d20439eb" class="">Фундаментальный компонент, который позволяет Kubernetes эффективно запускать контейнеры. Он отвечает за управление выполнением и жизненным циклом контейнеров в среде Kubernetes.</p><p id="131aa64c-9d0a-8114-a5a2-c59b219f3bb1" class="">Kubernetes поддерживает среды выполнения контейнеров, такие как Containerd, CRI-O и любую другую реализацию Kubernetes CRI (интерфейс выполнения контейнера).</p></li></ul><h2 id="131aa64c-9d0a-81bc-8c1a-d4e484e209b0" class="">1.3 Рабочие нагрузки</h2><p id="131aa64c-9d0a-8150-9dae-fee9bdcb9f88" class="">Рабочая нагрузка — это приложение, работающее в Kubernetes. Независимо от того, представляет ли ваша рабочая нагрузка один компонент или несколько, которые работают вместе, в Kubernetes вы запускаете ее внутри набора модулей. В Kubernetes Pod представляет собой набор работающих контейнеров в вашем кластере.</p><h3 id="131aa64c-9d0a-812a-a94b-d1443d6af985" class="">1.3.1 Pods</h3><p id="131aa64c-9d0a-8171-9602-c8a4b887cf99" class="">Поды в кластере Kubernetes используются двумя основными способами:</p><ul id="131aa64c-9d0a-815a-96c1-d0282fc48ccd" class="bulleted-list"><li style="list-style-type:disc">Поды, запускающие один контейнер<p id="131aa64c-9d0a-81e6-84cc-d4c14b11d8f5" class="">Модель «один контейнер на под» — наиболее распространенный вариант использования Kubernetes; в этом случае вы можете рассматривать Pod как оболочку одного контейнера; Kubernetes управляет подами, а не контейнерами напрямую.</p></li></ul><ul id="131aa64c-9d0a-8184-afbc-fa6c6faf8e8b" class="bulleted-list"><li style="list-style-type:disc">Поды, запускающие несколько контейнеров<p id="131aa64c-9d0a-811f-a219-d05fe5fd0b4d" class="">Под может инкапсулировать приложение, состоящее из нескольких совместно расположенных контейнеров, которые тесно связаны и нуждаются в совместном использовании ресурсов. Эти совмещенные контейнеры образуют единое целое.</p><p id="131aa64c-9d0a-8198-aebe-f7ee038c280c" class="">Группирование нескольких совместно расположенных и совместно управляемых контейнеров в одном модуле — относительно продвинутый вариант использования. Вам следует использовать этот шаблон только в определенных случаях, когда ваши контейнеры тесно связаны.</p><p id="131aa64c-9d0a-81df-b003-d466f89a9ae7" class="">Вам не нужно запускать несколько контейнеров для обеспечения репликации (для обеспечения устойчивости или емкости)</p></li></ul><p id="131aa64c-9d0a-8151-92ee-fa3d6f2ee4aa" class=""><em><strong>Храненение данных в подах</strong></em><div class="indented"><p id="131aa64c-9d0a-8161-af3f-c0717f86dcc7" class="">Под может указать набор томов общего хранилища. Все контейнеры в модуле имеют доступ к общим томам, что позволяет этим контейнерам обмениваться данными. Тома также позволяют постоянным данным в поде сохраняться в случае, если один из контейнеров внутри потребуется перезапустить. </p></div></p><p id="131aa64c-9d0a-81d5-a24c-d4821ee80501" class=""><em><strong>Сети в подах</strong></em><div class="indented"><p id="131aa64c-9d0a-8176-8e5f-e5aefac0e4ab" class="">Каждому поду назначается уникальный IP-адрес для каждого семейства адресов. Каждый контейнер в модуле использует общее сетевое пространство имен, включая IP-адрес и сетевые порты. Внутри пода (и только тогда) контейнеры, принадлежащие этому поду, могут взаимодействовать друг с другом, используя localhost. Когда контейнеры в поде взаимодействуют с объектами за пределами пода, они должны координировать использование общих сетевых ресурсов (таких как порты). Внутри пода контейнеры имеют общий IP-адрес и пространство портов и могут находить друг друга через localhost. Контейнеры в модуле также могут взаимодействовать друг с другом, используя стандартные межпроцессные коммуникации, такие как семафоры SystemV или общую память POSIX. Контейнеры в разных подах имеют разные IP-адреса и не могут обмениваться данными через IPC на уровне ОС без специальной настройки. Контейнеры, которые хотят взаимодействовать с контейнером, работающим в другом поде, могут использовать для связи IP-сети.</p></div></p><p id="131aa64c-9d0a-81d4-bec5-dc77b52fdcdd" class=""><em><strong>Статус пода</strong></em><div class="indented"><p id="131aa64c-9d0a-8108-975f-f4f92c7c99cc" class="">Поле статуса пода — это объект PodStatus, который имеет поле фазы.</p><p id="131aa64c-9d0a-81e3-8b0b-e58c8e23c490" class="">Фаза пода — это простая, высокоуровневая сводка того, на каком этапе жизненного цикла находится модуль. Эта фаза не предназначена для комплексного сбора данных о состоянии контейнера или пода, а также не является комплексным конечным автоматом.</p><p id="131aa64c-9d0a-815f-9d76-c523db92ca8e" class="">Вот возможные значения фазы:</p><table id="131aa64c-9d0a-81c5-8994-ee88d80b122a" class="simple-table"><tbody><tr id="131aa64c-9d0a-81c1-b4dc-ccbccf28fa26"><td id="&lt;&lt;\v" class="" style="width:92.33334350585938px">Pending</td><td id="Mw:b" class="" style="width:563px">Под был подтвержден кластером Kubernetes, но один или несколько контейнеров не настроены и не готовы к работе. Сюда входит время, которое модуль проводит в ожидании планирования, а также время, потраченное на загрузку образов контейнеров по сети.</td></tr><tr id="131aa64c-9d0a-81f0-9d6e-f38707243ac7"><td id="&lt;&lt;\v" class="" style="width:92.33334350585938px">Running</td><td id="Mw:b" class="" style="width:563px">Под привязан к узлу, и все контейнеры созданы. По крайней мере один контейнер все еще работает или находится в процессе запуска или перезапуска.</td></tr><tr id="131aa64c-9d0a-81b5-8aca-de8fe844b068"><td id="&lt;&lt;\v" class="" style="width:92.33334350585938px">Succeeded </td><td id="Mw:b" class="" style="width:563px">Все контейнеры в модуле завершились успешно и не будут перезапущены.</td></tr><tr id="131aa64c-9d0a-81dd-9dfe-f3104b73387f"><td id="&lt;&lt;\v" class="" style="width:92.33334350585938px">Failed</td><td id="Mw:b" class="" style="width:563px">Все контейнеры в модуле завершили работу, и по крайней мере один контейнер завершил работу из-за сбоя. То есть контейнер либо завершил работу с ненулевым статусом, либо был завершен системой.</td></tr><tr id="131aa64c-9d0a-8151-83fc-c1fef1b9861d"><td id="&lt;&lt;\v" class="" style="width:92.33334350585938px">Unknown</td><td id="Mw:b" class="" style="width:563px">По какой-то причине состояние Pod не удалось получить. Эта фаза обычно возникает из-за ошибки связи с узлом, на котором должен работать модуль.</td></tr></tbody></table><p id="131aa64c-9d0a-810b-9c3e-d03541a632a3" class="">Если узел останавливается или отключается от остальной части кластера, Kubernetes применяет политику, устанавливающую для всех модулей Pod на потерянном узле значение Failed.</p></div></p><p id="131aa64c-9d0a-811a-927a-ea3b25b79299" class=""><em><strong>Статус контейнера</strong></em><div class="indented"><p id="131aa64c-9d0a-8127-93bf-deb528bae50e" class="">Помимо фазы пода в целом, Kubernetes отслеживает состояние каждого контейнера внутри пода. Вы можете использовать перехватчики жизненного цикла контейнера, чтобы запускать события в определенные моменты жизненного цикла контейнера.</p><table id="131aa64c-9d0a-8130-854c-f9d6166334c6" class="simple-table"><tbody><tr id="131aa64c-9d0a-81e5-9214-f64c8a83ac23"><td id="\&gt;M@" class="">Waiting<strong><a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-state-waiting"></a></strong></td><td id="`CY[" class="" style="width:536px">Если контейнер не находится ни в состоянии «Running», ни в состоянии «Terminated», он находится в состоянии «Waiting». Контейнер в состоянии ожидания по-прежнему выполняет операции, необходимые для завершения запуска: например, извлекает образ контейнера из реестра образов контейнера или применяет секретные данные. Когда вы используете <code>kubectl</code>для запроса пода с контейнером, находящимся в состоянии «Waiting», вы также видите поле «Причина», в котором указано, почему контейнер находится в этом состоянии.</td></tr><tr id="131aa64c-9d0a-8191-96e9-da96ed1663d6"><td id="\&gt;M@" class="">Running</td><td id="`CY[" class="" style="width:536px">Статус «Running» указывает на то, что контейнер выполняется без проблем. Если был настроен перехват postStart, он уже выполнен и завершен. Когда вы используете <code>kubectl</code> для запроса пода с запущенным контейнером, вы также видите информацию о том, когда контейнер перешел в состояние «Running».</td></tr><tr id="131aa64c-9d0a-81ba-af38-fb7ae787e60b"><td id="\&gt;M@" class="">Terminated<strong><a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-state-terminated"></a></strong></td><td id="`CY[" class="" style="width:536px">Контейнер в состоянии «Terminated» начал выполнение, а затем либо дошел до завершения, либо по какой-то причине вышел из строя. Когда вы используете <code>kubectl</code> для запроса пода с завершенным контейнером, вы видите причину, код выхода, а также время начала и окончания периода выполнения этого контейнера.<br/><br/>Если в контейнере настроен перехват preStop, этот перехват запускается до того, как контейнер перейдет в состояние «Terminated».<br/></td></tr></tbody></table></div></p><h3 id="131aa64c-9d0a-81d5-bdb5-f2c692156684" class="">1.3.2 Управление рабочей нагрузкой</h3><p id="131aa64c-9d0a-811f-8f79-e5c35a57f1b2" class="">Kubernetes предоставляет несколько встроенных API для декларативного управления вашими рабочими нагрузками и компонентами этих рабочих нагрузок.</p><p id="131aa64c-9d0a-811a-884b-c86dd32f27a5" class="">В конечном итоге ваши приложения запускаются как контейнеры внутри подов; однако управление отдельными подами потребует больших усилий. Например, если под выходит из строя, вы, вероятно, захотите запустить новый под, чтобы заменить его. Kubernetes может сделать это за вас.</p><p id="131aa64c-9d0a-8184-932d-d7e7ada49f4f" class="">Вы используете Kubernetes API для создания объекта рабочей нагрузки, который представляет более высокий уровень абстракции, чем под, а затем плоскость управления Kubernetes автоматически управляет объектами под от вашего имени на основе спецификации определенного вами объекта рабочей нагрузки.</p><ul id="131aa64c-9d0a-81df-925a-c8e2048f56bc" class="bulleted-list"><li style="list-style-type:disc"><em><strong>Deployment</strong></em><p id="131aa64c-9d0a-816f-9c60-dc7e3a31ef85" class="">Развертывание (и, косвенно, ReplicaSet) — наиболее распространенный способ запуска приложения в кластере. Развертывание хорошо подходит для управления рабочей нагрузкой приложений без отслеживания состояния в вашем кластере, где любой под в развертывании взаимозаменяем и может быть заменен при необходимости. (Развертывания являются заменой устаревшего API ReplicationController).</p></li></ul><ul id="131aa64c-9d0a-814c-acb3-d5606d0316d7" class="bulleted-list"><li style="list-style-type:disc"><em><strong>StatefulSet</strong></em><p id="131aa64c-9d0a-8169-860d-e62749477c3f" class="">StatefulSet позволяет вам управлять одним или несколькими модулями (все они выполняют один и тот же код приложения), при этом поды полагаются на наличие отдельной идентичности. Это отличается от развертывания, в котором предполагается, что поды будут взаимозаменяемыми. Наиболее распространенное использование StatefulSet — возможность установить связь между его подами и их постоянным хранилищем. Например, вы можете запустить StatefulSet, который связывает каждый под с PersistentVolume. Если один из подов в StatefulSet выходит из строя, Kubernetes создает заменяющий под, подключенный к тому же самому поду PersistentVolume.</p></li></ul><ul id="131aa64c-9d0a-81d9-b2ae-f92b74e7b3c8" class="bulleted-list"><li style="list-style-type:disc"><em><strong>DaemonSet</strong></em><p id="131aa64c-9d0a-81a4-874f-d1c67ed425f2" class="">DaemonSet определяет поды, которые предоставляют возможности, локальные для определенного узла; например, драйвер, который позволяет контейнерам на этом узле получать доступ к системе хранения. Вы используете DaemonSet, когда драйвер или другая служба уровня узла должна запускаться на узле, где это полезно. Каждый под в DaemonSet выполняет роль, аналогичную системному демону на классическом сервере Unix/POSIX. DaemonSet может иметь основополагающее значение для работы вашего кластера, например, плагин, позволяющий этому узлу получить доступ к сети кластера, он может помочь вам управлять узлом или предоставить менее важные функции, улучшающие используемую вами контейнерную платформу. Вы можете запускать DaemonSets (и их модули) на каждом узле вашего кластера или только на его подмножестве (например, устанавливать драйвер ускорителя графического процессора только на узлах, на которых установлен графический процессор).</p></li></ul><ul id="131aa64c-9d0a-81ca-9253-e714a43d13d7" class="bulleted-list"><li style="list-style-type:disc">Вы можете использовать <em><strong>Job </strong></em>и/или <em><strong>CronJob </strong></em>для определения задач, которые выполняются до завершения, а затем останавливаются. <em><strong>Job</strong></em> представляет собой разовую задачу, тогда как каждое задание <em><strong>CronJob</strong></em> повторяется по расписанию.</li></ul><h2 id="131aa64c-9d0a-8128-9bbc-f847fefa2bba" class="">1.4 Хранение данных</h2><h3 id="131aa64c-9d0a-8111-a58c-dc6a63012c9a" class="">1.4.1 <strong>Volumes (тома)</strong></h3><p id="131aa64c-9d0a-811f-8291-d30b7d62d5b9" class="">Файлы на диске в контейнере эфемерны, что создает некоторые проблемы для нетривиальных приложений при запуске в контейнерах. Одна проблема возникает, когда контейнер выходит из строя или останавливается. Состояние контейнера не сохраняется, поэтому все файлы, созданные или измененные за время существования контейнера, теряются. Во время сбоя kubelet перезапускает контейнер с чистым состоянием. Другая проблема возникает, когда в модуле работает несколько контейнеров, и им необходимо совместно использовать файлы. Может быть сложно настроить и получить доступ к общей файловой системе во всех контейнерах. Абстракция тома Kubernetes решает обе эти проблемы. </p><p id="131aa64c-9d0a-81f8-bc6c-ec5749f31d30" class="">Управление хранилищем отличается от управления вычислительными экземплярами. Подсистема PersistentVolume предоставляет пользователям и администраторам API, который отделяет детали того, как предоставляется хранилище от того, как оно используется. Для этого представляются два новых ресурса API: PersistentVolume и PersistentVolumeClaim.</p><p id="131aa64c-9d0a-81ff-b083-d6e9dceb0d45" class=""><em><strong>PersistentVolume (PV)</strong></em> — это часть хранилища в кластере, которая была предоставлена администратором или динамически предоставлена с использованием классов хранения. Это ресурс в кластере, точно так же, как узел является ресурсом кластера. PV — это плагины томов, такие как Volumes, но их жизненный цикл не зависит от какого-либо отдельного модуля, который использует PV. Этот объект API фиксирует детали реализации хранилища, будь то NFS, iSCSI или система хранения, зависящая от облачного провайдера.</p><p id="131aa64c-9d0a-81bf-ae20-fbb187642fe2" class=""><em><strong>PersistentVolumeClaim (PVC)</strong></em> — это запрос пользователя на хранилище. Это похоже на Pod. Поды потребляют ресурсы узла, а PVC — фотоэлектрические ресурсы. Поды могут запрашивать определенные уровни ресурсов (ЦП и Память). Утверждения могут запрашивать определенный размер и режимы доступа (например, их можно смонтировать ReadWriteOnce, ReadOnlyMany, ReadWriteMany или ReadWriteOncePod, см. раздел AccessModes).</p><p id="131aa64c-9d0a-81c7-81fe-fc85d632502a" class="">Хотя PersistentVolumeClaims позволяют пользователю использовать абстрактные ресурсы хранилища, обычно для решения различных задач пользователям нужны PersistentVolumes с различными свойствами, такими как производительность. Администраторы кластера должны иметь возможность предлагать различные PersistentVolumes, которые различаются не только по размеру и режимам доступа, но не раскрывают пользователям подробности реализации этих томов. Для этих нужд существует ресурс StorageClass.</p><h3 id="131aa64c-9d0a-81f7-be3c-deb4c919dc6a" class="">1.4.2 <strong>Configuration (конфигурация)</strong></h3><p id="131aa64c-9d0a-81e5-842b-c63a63a7865d" class="">Передача параметров конфигурации приложениям, работающим в модулях, обычно выполняется с помощью ConfigMaps в кластерах Kubernetes. Эти параметры конфигурации сопоставляются в виде файлов с контейнерными приложениями.</p><p id="131aa64c-9d0a-81ff-bff3-e77575c571e0" class="">Данные конфигурации не должны быть конфиденциальными. Любые конфиденциальные данные должны помещаться в Kubernetes Secrets (см. следующий раздел) или в какой-либо другой инструмент управления секретами, например HashiCorp Vault.</p><p id="131aa64c-9d0a-81ca-b5d3-e825570c6f31" class="">Хотя данные конфигурации не должны быть конфиденциальными, они все же могут быть чувствительными к безопасности. Например, изменение некоторых URL-адресов с https:// на http:// может привести к тому, что приложения будут отправлять конфиденциальную информацию без защиты TLS. Поэтому рекомендуется ограничить доступ к ConfigMaps в кластере только необходимому персоналу, по крайней мере, с правами на внесение изменений.</p><h3 id="131aa64c-9d0a-8158-ac64-ddb00cec8aa7" class="">1.4.3 <strong>Kubernetes Secrets (Секреты)</strong></h3><p id="131aa64c-9d0a-81c0-b84d-e5b10da220ce" class="">Секреты — это объекты Kubernetes, аналогичные ConfigMaps, но содержащие конфиденциальные данные. Секреты должны быть зашифрованы в неактивном состоянии (обратите внимание, что вам может потребоваться включить шифрование ETCD вручную и убедиться, что ETCD взаимодействует только с сервером KubeAPI через взаимный TLS). И Secrets, и ConfigMaps используются для настройки вашей рабочей нагрузки. Основная причина, по которой Kubernetes рассматривает их как отдельные объекты, заключается в том, что пользователи могут назначать разные права доступа для каждого типа объектов. Излишне говорить, что секреты Kubernetes должны быть максимально ограничены, и, в отличие от ConfigMaps, даже чрезмерные разрешения на чтение могут быть опасны, когда дело касается секретов.</p><p id="131aa64c-9d0a-8135-94b4-c11be889e11d" class="">Секреты можно передавать в контейнеры либо как переменные среды, либо как смонтированные файлы. Однако лучшие практики рекомендуют использовать файловый механизм и гарантировать, что секреты сопоставляются только с теми рабочими нагрузками, которые должны иметь к ним доступ.</p><h3 id="131aa64c-9d0a-8199-8ad1-e2d22a614dbc" class="">1.4.4 <strong>Role-Based Access Control </strong>(Ролевой контроль доступа)</h3><p id="131aa64c-9d0a-811c-8596-e7b1b3c690bb" class="">Объекты RBAC определяют, какие сущности (например, люди или модули) могут делать с различными объектами Kubernetes. Очень важно создать разумные RBAC (в идеале следуя принципу минимальных привилегий) для защиты вашего кластера. В противном случае шифрование томов и секретов будет бесполезным, если человек или модуль смогут получить доступ к API Kubernetes для таких объектов.</p><p id="131aa64c-9d0a-81d2-b591-f6cec2abc627" class="">Как правило, если вы предоставляете слишком широкие разрешения, кто-то может легко создать модуль, который смонтирует секрет и, таким образом, получит легкий доступ к данным, которые вы хотели сохранить конфиденциальными. Разрешение на создание модулей здесь особенно важно, поэтому время, потраченное на создание правильно созданных правил RBAC, должно быть частью вашей стратегии по обеспечению безопасности хранящихся данных. ARMO Kubescape предлагает обширные возможности визуализации RBAC, позволяющие проверить, кто имеет доступ к какому объекту Kubernetes и какой тип доступа.</p><h2 id="131aa64c-9d0a-8104-b918-c78861b51ecb" class=""><mark class="highlight-default">1.5 Службы, балансировка нагрузки и сеть</mark></h2><h3 id="131aa64c-9d0a-81bf-b30e-dae71801a952" class=""><mark class="highlight-default">1.5.1 Сетевая модель Kubernetes</mark></h3><p id="131aa64c-9d0a-81e3-af02-f85debefa530" class="">Каждый под в кластере получает свой собственный уникальный IP-адрес внутри кластера. Это означает, что вам не нужно явно создавать связи между подами, и вам почти никогда не придется иметь дело с пробросом портов контейнера с портами хоста.<br/>Это создает чистую, обратно совместимую модель, в которой поды можно рассматривать как виртуальные машины или физические хосты с точки зрения распределения портов, именования, обнаружения служб, балансировки нагрузки, настройки приложений и миграции.<br/></p><p id="131aa64c-9d0a-8138-a10d-c93dd25df396" class="">Kubernetes предъявляет следующие фундаментальные требования к любой сетевой реализации (за исключением каких-либо преднамеренных политик сегментации сети):</p><ul id="131aa64c-9d0a-8151-a66a-f030b268bd6a" class="bulleted-list"><li style="list-style-type:disc">Поды могут взаимодействовать со всеми другими подами на любом другом узле без NAT.</li></ul><ul id="131aa64c-9d0a-8151-b074-cef41159fc07" class="bulleted-list"><li style="list-style-type:disc">Агенты на узле (например, системные демоны, kubelet) могут взаимодействовать со всеми подами на этом узле.</li></ul><p id="131aa64c-9d0a-81e9-8ba8-dea33688c551" class="">Эта модель не только менее сложна в целом, но и в принципе совместима с желанием Kubernetes обеспечить легкий перенос приложений с виртуальных машин в контейнеры. Если инфраструктура располагалась на виртуальных машинах и виртуальные машины имела IP-адреса и могла взаимодействовать с другими виртуальными машинами в вашем проекте. Это та же базовая модель.</p><p id="131aa64c-9d0a-81d3-bf70-caeef5559e9d" class="">IP-адреса Kubernetes существуют в области пода — контейнеры внутри пода совместно используют свои сетевые пространства имен, включая IP-адрес и MAC-адрес. Это означает, что все контейнеры внутри пода могут достигать портов друг друга на локальном хосте. Это также означает, что контейнеры внутри пода должны координировать использование портов, но это ничем не отличается от процессов в виртуальной машине. Это называется моделью «IP на каждый модуль».</p><p id="131aa64c-9d0a-812c-ac35-e5021565cda7" class="">Как это реализовано, зависит от конкретной используемой среды выполнения контейнера.</p><p id="131aa64c-9d0a-81dc-842b-f97e35a1985e" class="">4 основных концепции сетевой модели Kubernetes:</p><ul id="131aa64c-9d0a-811d-9a64-f63ede462d81" class="bulleted-list"><li style="list-style-type:disc">Контейнеры внутри пода для коммуникации используют петлевой интерфейс.</li></ul><ul id="131aa64c-9d0a-8139-923b-ed518f77893b" class="bulleted-list"><li style="list-style-type:disc">Кластерная сеть обеспечивает связь между различными подами.</li></ul><ul id="131aa64c-9d0a-8128-ace4-dacab89566e8" class="bulleted-list"><li style="list-style-type:disc">Service API позволяет сделать приложение, работающее в поде, доступным из-за пределов кластера.<ul id="131aa64c-9d0a-81fc-b8f7-f66b31402f59" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-default">Ingress</mark><mark class="highlight-red"><strong> </strong></mark>обеспечивает дополнительные возможности специально для HTTP-приложений, веб-сайтов и API.</li></ul></li></ul><ul id="131aa64c-9d0a-818b-9287-c37fb5245361" class="bulleted-list"><li style="list-style-type:disc">Service также можно использовать для публикации служб только для использования внутри кластера.</li></ul><h3 id="131aa64c-9d0a-8169-974a-d8d3b03242e7" class=""><mark class="highlight-default">1.5.2 Service</mark></h3><p id="131aa64c-9d0a-817c-ba08-e54acd712b64" class="">В Kubernetes <mark class="highlight-default">Service </mark>— это метод предоставления доступа к сетевому приложению, которое работает как один или несколько подов в вашем кластере.</p><p id="131aa64c-9d0a-81ef-9dfe-ca0be74d9ab0" class="">Основная цель Сервисов в Kubernetes — отсутствие необходимости модифицировать существующее приложение для использования незнакомого механизма обнаружения сервисов. Вы можете запускать код в подах, будь то код, разработанный для облака, или старое приложение, которое вы поместили в контейнер. Вы используете Сервис, чтобы сделать этот набор подов доступными в сети, чтобы клиенты могли с ним взаимодействовать.</p><p id="131aa64c-9d0a-81c9-b3ef-d409e3399daf" class="">Если вы используете развертывание для запуска своего приложения, это развертывание может динамически создавать и уничтожать поды. Время от времени вы не знаете, сколько из этих поды работает и исправно; возможно, вы даже не знаете, как называются эти поды. Поды Kubernetes создаются и уничтожаются в соответствии с желаемым состоянием вашего кластера. Поды — это эфемерные ресурсы (не следует ожидать, что отдельный под будет надежным и долговечным).</p><p id="131aa64c-9d0a-81ac-8a99-c26609dee7ff" class="">Каждый под получает свой собственный IP-адрес (Kubernetes ожидает, что это обеспечат сетевые плагины). Для данного развертывания в вашем кластере набор модулей, запущенных в один момент времени, может отличаться от набора модулей, запускающих это приложение мгновением позже.</p><p id="131aa64c-9d0a-81c4-82b5-ee53b794b6d8" class="">Это приводит к проблеме: если некоторый набор подов (назовем их «бэкэндами») обеспечивает функциональность другим подам (назовем их «фронтендами») внутри вашего кластера, как внешние интерфейсы узнают и отслеживают, к какому IP-адресу подключаться, чтобы интерфейсная часть могла использовать внутреннюю часть рабочей нагрузки?</p><p id="131aa64c-9d0a-81fd-9900-c24728df3f39" class="">Ответом на этот вопрос являются Сервисы.</p><p id="131aa64c-9d0a-81ba-9faa-d9b279005df2" class="">API Сервисы, являющийся частью Kubernetes, представляет собой абстракцию, помогающую предоставлять доступ к группам подов по сети. Каждый объект службы определяет логический набор конечных точек (обычно этими конечными точками являются поды), а также политику обеспечения доступа к этим подам.</p><p id="131aa64c-9d0a-81a9-8e33-cfa276fffafa" class="">Например, рассмотрим серверную часть обработки изображений без сохранения состояния, которая работает с 3 репликами. Эти реплики взаимозаменяемы — интерфейсным службам все равно, какой серверный интерфейс они используют. Хотя фактические поды, составляющие набор серверных частей, могут меняться, клиентским клиентам не нужно об этом знать, а также им не нужно самим отслеживать набор серверных частей.</p><p id="131aa64c-9d0a-81d8-a628-f3a474ead65c" class="">Абстракция Службы обеспечивает такое разделение.</p><p id="131aa64c-9d0a-81d9-8d2a-d4fc86222ad3" class="">Набор подов, на которые нацелена Служба, обычно определяется определяемым вами селектором.</p><p id="131aa64c-9d0a-81fb-903f-fcd07be3a75c" class="">Если ваша рабочая нагрузка использует HTTP, вы можете использовать Ingress для управления тем, как веб-трафик достигает этой рабочей нагрузки. Ingress не является типом службы, но он действует как точка входа в ваш кластер. Ingress позволяет объединить правила маршрутизации в один ресурс, чтобы вы могли предоставлять доступ к нескольким компонентам вашей рабочей нагрузки, работающим отдельно в вашем кластере, за одним прослушивателем.</p><h3 id="131aa64c-9d0a-81d9-a770-f1e6d581949d" class=""><mark class="highlight-default">1.5.3 </mark><mark class="highlight-default"><strong>Ingress</strong></mark></h3><p id="131aa64c-9d0a-8157-b05b-fe5fc1328877" class="">Объект API, который управляет внешним доступом к службам в кластере, обычно HTTP.</p><p id="131aa64c-9d0a-81c9-a39d-cf61e44a2192" class="">Ingress может обеспечивать балансировку нагрузки, завершение запросов SSL и виртуальный хостинг на основе имени.</p><p id="131aa64c-9d0a-8112-bf46-e9af62bb724b" class="">Ingrees предоставляет маршруты HTTP и HTTPS из-за пределов кластера службам внутри кластера. Маршрутизация трафика контролируется правилами, определенными в ресурсе Ingress.</p><p id="131aa64c-9d0a-811c-aed5-f37cf5308ef4" class="">Вот простой пример, когда Ingress отправляет весь свой трафик в одну службу:</p><figure id="131aa64c-9d0a-8146-a4b4-dd7ffd7d9c1e" class="image"><a href="%D0%9B%D0%B5%D0%BA%D1%86%D0%B8%D1%8F%203%203%20Kubernetes(K8s)%20131aa64c9d0a815cbe0bd0938538bffc/Untitled%201.png"><img style="width:851px" src="%D0%9B%D0%B5%D0%BA%D1%86%D0%B8%D1%8F%203%203%20Kubernetes(K8s)%20131aa64c9d0a815cbe0bd0938538bffc/Untitled%201.png"/></a></figure><p id="131aa64c-9d0a-81a0-9b46-f5227092d438" class="">Ingress может быть настроен для предоставления Службам URL-адресов, доступных извне, балансировки трафика, завершение запросов SSL/TLS и предложения виртуального хостинга на основе имени. Контроллер Ingress отвечает за выполнение Ingress, обычно с помощью балансировщика нагрузки, хотя он также может настроить пограничный маршрутизатор или дополнительные интерфейсы для обработки трафика. </p><h3 id="131aa64c-9d0a-8141-8a9f-c50d98983167" class=""><mark class="highlight-default">1.5.4 Контроллер Ingrees</mark></h3><p id="131aa64c-9d0a-8182-a1b9-d4e0a2120b4a" class="">Чтобы ресурс Ingrees работал, в кластере должен быть запущен Ingrees контроллер.</p><p id="131aa64c-9d0a-81aa-880a-c7538f2ccd8e" class="">В отличие от других типов контроллеров, которые запускаются как часть kube-controller-manager, контроллеры Ingress не запускаются автоматически вместе с кластером.</p><h3 id="131aa64c-9d0a-811c-b540-cba33794c30c" class=""><mark class="highlight-default">1.5.5 Сетевые политики</mark></h3><p id="131aa64c-9d0a-81ba-9a82-f3cc0f3968e0" class="">Если вы хотите контролировать поток трафика на уровне IP-адреса или порта для протоколов TCP, UDP и SCTP, вы можете рассмотреть возможность использования Kubernetes NetworkPolicies для определенных приложений в вашем кластере. NetworkPolicies — это конструкция, ориентированная на приложение, которая позволяет вам указать, как поду разрешено взаимодействовать с различными сетевыми «объектами» (здесь мы используем слово «объект», чтобы не перегружать более распространенные термины, такие как «конечные точки» и «сервисы») , которые имеют определенное значение Kubernetes). NetworkPolicies применяются к соединению с модулем на одном или обоих концах и не имеют отношения к другим соединениям.</p><p id="131aa64c-9d0a-81ed-930b-d42e66372e32" class="">Объекты, с которыми может взаимодействовать Pod, идентифицируются с помощью комбинации следующих трех идентификаторов:</p><ol type="1" id="131aa64c-9d0a-81b6-acab-ec0c0af5b82b" class="numbered-list" start="1"><li>Другие разрешенные поды (исключение: под не может заблокировать доступ к себе)</li></ol><ol type="1" id="131aa64c-9d0a-8161-bf43-fce3c321f52b" class="numbered-list" start="2"><li>Разрешенные пространства имен</li></ol><ol type="1" id="131aa64c-9d0a-8187-a395-cc6f6eabed6c" class="numbered-list" start="3"><li>IP-блоки (исключение: трафик к и от узла, на котором работает под, всегда разрешен, независимо от IP-адреса пода или узла)</li></ol><p id="131aa64c-9d0a-81b6-a2e2-c99f95e233d7" class="">При определении NetworkPolicy на основе модуля или пространства имен вы используете селектор, чтобы указать, какой трафик разрешен к и от модулей, соответствующих селектору.</p><p id="131aa64c-9d0a-818e-bfde-f71d6c391309" class="">Между тем, когда создаются NetworkPolicies на основе IP, мы определяем политики на основе блоков IP (диапазонов CIDR).</p><h3 id="131aa64c-9d0a-81c7-b029-d989d603a32b" class=""><mark class="highlight-default">1.5.6 DNS для служб и модулей</mark></h3><p id="131aa64c-9d0a-818d-92b8-fdb4faad761a" class="">Kubernetes создает записи DNS для служб и модулей. Вы можете обращаться к Службам, используя согласованные DNS-имена вместо IP-адресов.</p><p id="131aa64c-9d0a-81df-91f2-c267fee8ec66" class="">Kubernetes публикует информацию о модулях и службах, которая используется для программирования DNS. Kubelet настраивает DNS подов так, чтобы запущенные контейнеры могли искать службы по имени, а не по IP.</p><p id="131aa64c-9d0a-8158-bc0a-d98fbb9bffbb" class="">Службам, определенным в кластере, назначаются DNS-имена. По умолчанию список поиска DNS клиентского модуля включает собственное пространство имен модуля и домен кластера по умолчанию.</p><h2 id="131aa64c-9d0a-818c-a67e-d9bb1bd0a988" class="">1.6 Сетевые плагины</h2><p id="131aa64c-9d0a-81ca-9d09-c1521e22e450" class="">В кластерной сети платформа Kubernetes 1.29 предлагает поддержку плагинов Container Network Interface (CNI). При выборе плагина CNI для использования в вашем кластере необходимо учесть его совместимость и соответствие ваших потребностей. В экосистеме Kubernetes доступны различные плагины, включая как с открытым, так и с закрытым исходным кодом.</p><p id="131aa64c-9d0a-819f-be59-dd467b2837ce" class="">Плагин CNI является неотъемлемой частью реализации сетевой модели Kubernetes. Рекомендуется использовать плагин CNI, который совместим с версией 0.4.0 или более новыми версиями спецификации CNI. Проект Kubernetes рекомендует использовать плагин, соответствующий спецификации CNI v1.0.0 (плагины могут быть совместимы с несколькими версиями спецификации).</p><h3 id="131aa64c-9d0a-812c-91aa-d0db18fba544" class="">1.6.1 Flannel</h3><p id="131aa64c-9d0a-819d-a25a-fad99a505173" class="">Flannel — это, по сути, оверлейная сеть, в которой данные TCP оборачиваются в другой сетевой пакет для маршрутизации и связи, и в настоящее время поддерживает маршрутизацию UDP, VxLAN, AWS VPC и GCE.</p><p id="131aa64c-9d0a-8174-b53f-ce06fa974c08" class="">Flannel запускает агент flanneld на каждом хосте, который предварительно назначает хосту подсеть и назначает IP-адрес поду. flannel использует Kubernetes или etcd для хранения такой информации, как конфигурация сети, назначенные подсети и общедоступные IP-адреса хостов. Пакеты пересылаются через внутренние механизмы типа VXLAN, UDP или host-gw.</p><p id="131aa64c-9d0a-81a4-97be-d488f4077102" class="">Flannel указывает, что отдельные поды на одном хосте принадлежат к одной и той же подсети, а поды на разных хостах принадлежат к разным подсетям.</p><p id="131aa64c-9d0a-81ef-aac7-c494e6922b5b" class="">Поддерживает 3 реализации: UDP, VxLAN, хост-gw.</p><ul id="131aa64c-9d0a-811d-ba10-ea1c41257af1" class="bulleted-list"><li style="list-style-type:disc"><em><strong>Режим UDP:</strong></em> использует устройство flannel.0 для декапсуляции пакетов, не поддерживается ядром изначально, частое переключение состояний ядра и пользователя, очень низкая производительность.</li></ul><ul id="131aa64c-9d0a-81dc-a672-f6ac9f48e882" class="bulleted-list"><li style="list-style-type:disc"><em><strong>Режим VxLAN:</strong></em> использует flannel.1 для распаковки пакетов, не поддерживается ядром изначально, с высокой производительностью.</li></ul><ul id="131aa64c-9d0a-816b-aeeb-df83e8c0abfe" class="bulleted-list"><li style="list-style-type:disc"><em><strong>Режим хост-gw: </strong></em>нет необходимости в промежуточных устройствах, таких как flannel.1, прямой хост в качестве адреса следующего перехода подсети, лучшая производительность.</li></ul><p id="131aa64c-9d0a-81b2-b404-f1c83b9512b6" class="">Потеря производительности Host-GW составляет около 10%, в то время как все другие сетевые решения на основе «туннелирования» VxLAN имеют потерю производительности около 20–30%.</p><h3 id="131aa64c-9d0a-814d-b3e2-ffc1dad97c45" class="">1.6.2 Calico</h3><p id="131aa64c-9d0a-819c-8fda-e7791fedebb4" class="">Плагин Calico может использоваться в интеграции с Flannel (подпроект Canal) или самостоятельно, покрывая как функции по обеспечению сетевой связности, так и возможности управления доступностью.</p><p id="131aa64c-9d0a-810d-a02b-c5b3ba3585b7" class="">Какие возможности даёт использование «коробочного» решения K8s и набора API из Calico?</p><p id="131aa64c-9d0a-8111-b696-f49033180ead" class="">Вот что встроено в NetworkPolicy:</p><ul id="131aa64c-9d0a-8110-8636-d633d6a0c8eb" class="bulleted-list"><li style="list-style-type:disc">политики ограничены окружением;</li></ul><ul id="131aa64c-9d0a-8185-bff8-d424a957ab21" class="bulleted-list"><li style="list-style-type:disc">политики применяются к pod’ам, помеченным лейблами;</li></ul><ul id="131aa64c-9d0a-81c6-9f1c-cdffdbeef97c" class="bulleted-list"><li style="list-style-type:disc">правила могут быть применены к pod’ам, окружениям или подсетям;</li></ul><ul id="131aa64c-9d0a-81be-a4cf-cd23c64bcfa0" class="bulleted-list"><li style="list-style-type:disc">правила могут содержать протоколы, именованные или символьные указания портов.</li></ul><p id="131aa64c-9d0a-8182-9bff-fe81f4e9e4d7" class="">А вот как Calico расширяет эти функции:</p><ul id="131aa64c-9d0a-814e-823d-e0cc8202df5f" class="bulleted-list"><li style="list-style-type:disc">политики могут применяться к любому объекту: pod, контейнер, виртуальная машина или интерфейс;</li></ul><ul id="131aa64c-9d0a-818f-b1f8-e9c12384e4db" class="bulleted-list"><li style="list-style-type:disc">правила могут содержать конкретное действие (запрет, разрешение, логирование);</li></ul><ul id="131aa64c-9d0a-8150-b475-efc4e4f317af" class="bulleted-list"><li style="list-style-type:disc">в качестве цели или источника правил может быть порт, диапазон портов, протоколы, HTTP- или ICMP-атрибуты, IP или подсеть (4 или 6 поколения), любые селекторы (узлов, хостов, окружений);</li></ul><ul id="131aa64c-9d0a-8170-98e2-dd6c66c0eb28" class="bulleted-list"><li style="list-style-type:disc">дополнительно можно регулировать прохождение трафика с помощью настроек DNAT и политик проброса трафика.</li></ul><h2 id="131aa64c-9d0a-813a-9382-cbcdb0f1a6f3" class="">1.7 <strong>Что такое Helm и Helm Charts?</strong></h2><p id="131aa64c-9d0a-8190-8f36-f085fa9137e6" class="">Helm — это инструмент для управления Kubernetes, который автоматизирует создание, упаковку, настройку и развертывание приложений и служб в кластерах Kubernetes.</p><h3 id="131aa64c-9d0a-8109-991d-eb6f00f33ef7" class="">1.7.1 <strong>Что такое Helm?</strong></h3><p id="131aa64c-9d0a-81d6-ac0f-ea6fe8104037" class="">Если бы Kubernetes был операционной системой, то helm был бы его менеджером пакетов, аналогом apt для ubuntu и yum для centos. </p><p id="131aa64c-9d0a-8179-a109-d80a400f292a" class="">Helm развертывает пакетные приложения в Kubernetes и структурирует их в чарты (Helm Charts). Чарты содержат все предустановленные ресурсы приложения вместе со всеми версиями, которые помещены в один легко управляемый пакет.</p><p id="131aa64c-9d0a-8186-9e45-f7041f35baec" class="">Helm упрощает установку, обновление, вызов зависимостей и настройку развертываний в Kubernetes с помощью простых CLI-команд. Пакеты программного обеспечения находятся в репозиториях или создаются.</p><h3 id="131aa64c-9d0a-81e5-9f48-ea6caa2be4c1" class="">1.7.2 <strong>Почему нам нужен Helm?</strong></h3><p id="131aa64c-9d0a-8124-b644-e99087992554" class="">Helm упрощает установку, обновление, управление зависимостями и настройку развертываний в Kubernetes с помощью простых cli-команд. Helm автоматизирует обслуживание YAML-файлов для объектов Kubernetes, упаковывая информацию в чарты и анонсируя их в кластере Kubernetes. </p><p id="131aa64c-9d0a-8135-9e5c-dcd8a0052791" class="">Helm позволяет отслеживать историю версий для установленных приложений, а также выполнять откат к предыдущим версиям или обновление до новых.</p><p id="131aa64c-9d0a-815c-a484-c8c3c433fc91" class="">Доступные команды:</p><ul id="131aa64c-9d0a-8182-bd6a-f8c4d9b055fb" class="bulleted-list"><li style="list-style-type:disc"><strong>Completion</strong> — создает сценарий автозаполнения для указанной оболочки.</li></ul><ul id="131aa64c-9d0a-8106-ab30-d588830fec9d" class="bulleted-list"><li style="list-style-type:disc"><strong>Create</strong> — создает новый чарт с заданным именем.</li></ul><ul id="131aa64c-9d0a-8198-ac61-e1860039dbc1" class="bulleted-list"><li style="list-style-type:disc"><strong>Dependency</strong> — управление зависимостями чарта.<strong>Env</strong> — информация о клиентской среде Helm.</li></ul><ul id="131aa64c-9d0a-8117-a998-d1320f04907b" class="bulleted-list"><li style="list-style-type:disc"><strong>Get</strong> — загрузка расширенной информации об именованном релизе.</li></ul><ul id="131aa64c-9d0a-8169-9e6b-ed65afb8224f" class="bulleted-list"><li style="list-style-type:disc"><strong>Help</strong> — помощь по любой команде.</li></ul><ul id="131aa64c-9d0a-812d-96f4-f316d354bdfe" class="bulleted-list"><li style="list-style-type:disc"><strong>History</strong> — получить историю релизов.</li></ul><ul id="131aa64c-9d0a-8159-a42a-ea6e5d3f4617" class="bulleted-list"><li style="list-style-type:disc"><strong>Install</strong> — установить чарт.</li></ul><ul id="131aa64c-9d0a-8172-85c1-d42bf97f0bc0" class="bulleted-list"><li style="list-style-type:disc"><strong>Lint</strong> — проверить чарт на возможные проблемы.</li></ul><ul id="131aa64c-9d0a-8108-9aa9-cf622ad681ab" class="bulleted-list"><li style="list-style-type:disc"><strong>List</strong> — список релизов.</li></ul><ul id="131aa64c-9d0a-81a7-aeef-cee6bcb9c1e2" class="bulleted-list"><li style="list-style-type:disc"><strong>Package</strong> — упаковать каталог чарта в архив чарта.</li></ul><ul id="131aa64c-9d0a-818d-933f-c439fd0fc7fa" class="bulleted-list"><li style="list-style-type:disc"><strong>Plugin</strong> — установить, внести в список или удалить плагины Helm.</li></ul><ul id="131aa64c-9d0a-810f-bbea-c9e3779ae707" class="bulleted-list"><li style="list-style-type:disc"><strong>Pull</strong> — загрузить чарт из репозитория или (опционально) распаковать его в локальный каталог.</li></ul><ul id="131aa64c-9d0a-81db-a545-c816b260c171" class="bulleted-list"><li style="list-style-type:disc"><strong>Repo</strong> — установка, внесение в список, удаление, обновление и индексация репозиториев чартов.</li></ul><ul id="131aa64c-9d0a-8186-990b-d005c8d9d0de" class="bulleted-list"><li style="list-style-type:disc"><strong>Rollback</strong> — откат релиза к предыдущей версии.</li></ul><ul id="131aa64c-9d0a-81da-be2a-daaa03982f07" class="bulleted-list"><li style="list-style-type:disc"><strong>Search</strong> — поиск в чарте по ключевым словам.</li></ul><ul id="131aa64c-9d0a-814a-8532-e796d63e6776" class="bulleted-list"><li style="list-style-type:disc"><strong>Show</strong> — показать информацию о чарте.</li></ul><ul id="131aa64c-9d0a-81c0-9892-f3a61b24b77e" class="bulleted-list"><li style="list-style-type:disc"><strong>Status</strong> — отображение статуса названного релиза.</li></ul><ul id="131aa64c-9d0a-8121-95a4-e07a825f77c7" class="bulleted-list"><li style="list-style-type:disc"><strong>Template</strong> — локальное отображение шаблонов.</li></ul><ul id="131aa64c-9d0a-81b1-8d27-c2b396faf3e4" class="bulleted-list"><li style="list-style-type:disc"><strong>Test</strong> — запустить тесты релиза.<strong>Uninstall</strong> — деинсталлировать релиз.</li></ul><ul id="131aa64c-9d0a-8128-836b-db7aee96b27c" class="bulleted-list"><li style="list-style-type:disc"><strong>Upgrade</strong> — обновить релиз.</li></ul><ul id="131aa64c-9d0a-815e-ac96-cdc4cb99d3cb" class="bulleted-list"><li style="list-style-type:disc"><strong>Verify</strong> — проверить, что чарт по указанному пути подписан и действителен.</li></ul><ul id="131aa64c-9d0a-81e3-a4f9-d2c121735b3b" class="bulleted-list"><li style="list-style-type:disc"><strong>Version</strong> — распечатать информацию о версии клиента.</li></ul><h3 id="131aa64c-9d0a-8115-ba34-e850b9b81a6d" class="">1.7.3 <strong>Что вы можете сделать с помощью Helm?</strong></h3><p id="131aa64c-9d0a-811d-99b3-e28e7bc6cf44" class="">Helm позволяет разработчикам программного обеспечения развертывать и тестировать среду самым простым способом. Требуется меньше времени, чтобы перейти от разработки к тестированию и продакшену.</p><p id="131aa64c-9d0a-811a-b89b-fa828d8f0746" class="">Помимо повышения производительности, Helm предоставляет разработчикам удобный способ упаковки и отправки приложений конечным пользователям для установки.</p><h3 id="131aa64c-9d0a-81b9-849a-efd50a1d8b43" class="">1.7.4 <strong>Как работает Helm?</strong></h3><p id="131aa64c-9d0a-81c3-9990-d5cb5d77f23f" class="">Helm и Kubernetes работают как клиент-серверное приложение. Клиент Helm отправляет ресурсы в кластер Kubernetes. Серверная часть зависит от версии: Helm 2 использует <br/><br/><strong>Tiller</strong>, тогда как Helm 3 избавился от <strong>Tiller</strong> и полностью полагается на Kubernetes API.</p><figure id="131aa64c-9d0a-8114-8fbd-d99cd5f8d8d6" class="image"><a href="%D0%9B%D0%B5%D0%BA%D1%86%D0%B8%D1%8F%203%203%20Kubernetes(K8s)%20131aa64c9d0a815cbe0bd0938538bffc/Untitled%202.png"><img style="width:708px" src="%D0%9B%D0%B5%D0%BA%D1%86%D0%B8%D1%8F%203%203%20Kubernetes(K8s)%20131aa64c9d0a815cbe0bd0938538bffc/Untitled%202.png"/></a></figure><h3 id="131aa64c-9d0a-810f-931d-df1bc46ed616" class="">1.7.5 <strong>Что такое Helm Charts?</strong></h3><p id="131aa64c-9d0a-8134-a49b-f961f43b2317" class="">Чарты Helm (Helm Charts) — это пакеты Helm, состоящие из файлов и шаблонов YAML, которые преобразуются в файлы манифеста Kubernetes. Чарты могут повторно использоваться кем угодно и в любой среде, что уменьшает сложность и количество дубликатов.</p><h3 id="131aa64c-9d0a-8193-88e0-eef8bc994577" class="">1.7.6 <strong>Как работают чарты Helm?</strong></h3><p id="131aa64c-9d0a-81ba-9e4a-d8640016905b" class="">Три основные концепции чартов Helm:</p><ol type="1" id="131aa64c-9d0a-81a4-a165-e9d26d521fdf" class="numbered-list" start="1"><li><strong>Чарт</strong> — предварительно настроенный шаблон ресурсов Kubernetes.</li></ol><ol type="1" id="131aa64c-9d0a-81a3-88ae-db04481c3ebf" class="numbered-list" start="2"><li><strong>Релиз</strong> — чарт, развернутый с помощью Helm в кластере Kubernetes.</li></ol><ol type="1" id="131aa64c-9d0a-8181-9aeb-f0010b99e9b2" class="numbered-list" start="3"><li><strong>Репозиторий</strong> — общедоступные чарты.</li></ol><p id="131aa64c-9d0a-813f-a821-f425671aecc6" class="">Рабочий процесс заключается в поиске чартов через репозитории и создании релизов путем установки чартов в кластеры Kubernetes.</p><h3 id="131aa64c-9d0a-81f8-a4a8-ee50213ecb37" class="">1.7.7 <strong>Структура чарта Helm</strong></h3><p id="131aa64c-9d0a-814f-b7e0-c9a265b64b92" class="">Файлы и каталоги чарта Helm имеют определенную функцию:</p><table id="131aa64c-9d0a-8181-b6a0-d08e706268ed" class="simple-table"><tbody><tr id="131aa64c-9d0a-8119-8dd3-f5521271e518"><td id="a&gt;SY" class="" style="width:146px"><strong>Название</strong></td><td id=";HVw" class=""><strong>Тип</strong></td><td id="DNm=" class="" style="width:482px"><strong>Функция</strong></td></tr><tr id="131aa64c-9d0a-81a7-b8c9-c0772a2826d3"><td id="a&gt;SY" class="" style="width:146px">charts/</td><td id=";HVw" class="">Каталог</td><td id="DNm=" class="" style="width:482px">Каталог для управляемых вручную зависимостей чарта.</td></tr><tr id="131aa64c-9d0a-8187-8e46-daa23131f74c"><td id="a&gt;SY" class="" style="width:146px">templates/</td><td id=";HVw" class="">Каталог</td><td id="DNm=" class="" style="width:482px">Написанные на языке Go файлы шаблонов, объединенные с конфигурационными значениями из файла values.yaml и предназначенные для генерации манифестов Kubernetes.</td></tr><tr id="131aa64c-9d0a-81f2-8d14-f5c022c26c64"><td id="a&gt;SY" class="" style="width:146px">Chart.yaml</td><td id=";HVw" class="">Файл</td><td id="DNm=" class="" style="width:482px">Метаданные о чартах, такие как: версия, имя, ключевые слова для поиска и так далее.</td></tr><tr id="131aa64c-9d0a-81de-93f1-f47e93c385d3"><td id="a&gt;SY" class="" style="width:146px">LICENSE (опционально)</td><td id=";HVw" class="">Файл</td><td id="DNm=" class="" style="width:482px">Лицензия на чарт в текстовом формате.</td></tr><tr id="131aa64c-9d0a-8197-93cc-e51838323577"><td id="a&gt;SY" class="" style="width:146px">README.md (опционально)</td><td id=";HVw" class="">Файл</td><td id="DNm=" class="" style="width:482px">Удобочитаемая информация для пользователей чарта.</td></tr><tr id="131aa64c-9d0a-8161-8e6d-c883ee1fd982"><td id="a&gt;SY" class="" style="width:146px">requirements.yaml (опционально)</td><td id=";HVw" class="">Файл</td><td id="DNm=" class="" style="width:482px">Список зависимостей чарта.</td></tr><tr id="131aa64c-9d0a-81f6-9cff-ec4bbbf8d026"><td id="a&gt;SY" class="" style="width:146px">values.yaml</td><td id=";HVw" class="">Файл</td><td id="DNm=" class="" style="width:482px">Настройки чарта по умолчанию.</td></tr></tbody></table><h3 id="131aa64c-9d0a-8122-8158-e1ba1b869a6d" class="">1.7.8 <strong>Репозитории чартов Helm</strong></h3><p id="131aa64c-9d0a-81c3-a9c5-d2fcbe57e3ae" class="">Репозитории содержат чарты, которые могут быть установлены или предоставлены для доступа другим пользователям. Helm обеспечивает поиск напрямую из клиента. Существует два основных типа поиска:</p><ul id="131aa64c-9d0a-813d-8728-d9b706cdcb89" class="bulleted-list"><li style="list-style-type:disc"><code>helm search hub</code><strong> </strong>— поиск через Artifact Hub  из множества репозиториев.</li></ul><ul id="131aa64c-9d0a-813f-9995-efa8709d5851" class="bulleted-list"><li style="list-style-type:disc"><code>helm search repo</code> — поиск через репозитории, добавленные в локальном клиенте Helm с помощью helm repo add.</li></ul><p id="131aa64c-9d0a-810f-b570-c8e00137b00a" class="">Без каких-либо фильтров в результатах поиска отображаются все доступные чарты. Чтобы уточнить запрос, добавьте условие поиска. Например:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-816b-acc7-cd81f995d3fd" class="code"><code class="language-SQL">helm search hub wordpress</code></pre><p id="131aa64c-9d0a-81ff-a79e-dc0ea0dca91a" class=""><strong>Когда найдете подходящий чарт, установите его с помощью </strong><code>helm install</code><strong>.</strong></p><h3 id="131aa64c-9d0a-81f3-ae84-cf619e513cf6" class="">1.7.9 <strong>Релизы чартов</strong></h3><p id="131aa64c-9d0a-81ab-8794-cb692943bef9" class="">При установке чарта создается новый пакет. Команда <code>helm install</code> принимает два аргумента:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8103-9cb5-f2bc1025dee9" class="code"><code class="language-SQL">helm install &lt;release name&gt; &lt;chart name&gt;</code></pre><p id="131aa64c-9d0a-8107-8f47-e16be181b2fd" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

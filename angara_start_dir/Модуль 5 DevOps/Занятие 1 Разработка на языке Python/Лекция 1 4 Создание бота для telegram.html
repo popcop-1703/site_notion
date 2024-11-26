@@ -1,0 +1,1495 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Лекция 1.4. Создание бота для telegram</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+
+		.checkbox-on {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+
+		.checkbox-off {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-8178-8a22-c2bad54e0e4c" class="page sans">
+		<header>
+			<div class="page-header-icon undefined"><img class="icon"
+					src="https://www.notion.so/icons/slideshow_gray.svg" /></div>
+			<h1 class="page-title">Лекция 1.4. Создание бота для telegram</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<h1 id="131aa64c-9d0a-813b-9c59-da5937d7ad64" class="">Оглавление</h1>
+			<nav id="131aa64c-9d0a-8105-b049-c241c1f01b3e" class="block-color-gray table_of_contents">
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-813b-9c59-da5937d7ad64">Оглавление</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-816e-bfae-ee6e0b2a9f39">1. Регистрация бота</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8108-af92-fc2e7eb3789b">1.1 Обзор Telegram Bot API</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81a9-b718-fc0dac124c50">1.1.1 Что такое Telegram Bot API?</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81d5-969c-d5fe15751ee7">1.1.2 Какие возможности предоставляет API для
+						создания ботов?</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81ca-88af-f394e03cd7ff">1.2 Регистрация бота в Telegram</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81cf-ab8f-f0dba078b25e">1.2.1 Создание нового бота через BotFather</a>
+				</div>
+				<div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-812b-a1a6-cb355961a850">1.2.2 Получение уникального токена для доступа к
+						API</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81a4-b372-d770c72f434d">2. <strong>Отправка сообщений с помощью Telegram
+							Bot API</strong></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-816c-98e5-d0e825034328">2.1 Ознакомление с Telegram Bot API</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-815f-ac1f-fbd17cb2fd9c">2.1.1 Обзор основных методов для взаимодействия с
+						API</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81b5-a798-c639c653ebf8">2.1.2 Форматы запросов и ответов</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81db-ba87-d22c51f90636">2.2 Настройка окружения</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-814b-b21d-ff5b7e9ed56c">2.2.1 Установка необходимых библиотек</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81c6-9632-ca2d8ee3e411">2.2.2 Импорт токена бота в проект</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8152-bbb0-f6ae77e7ac92">2.3 Создание программы для отправки сообщения</a>
+				</div>
+				<div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8115-9aee-d53f1a0d626a">2.3.1 Использование токена для аутентификации
+						запросов к API</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81b4-a3a0-c5eeb2e2137c">2.3.2 Отправка простого текстового сообщения через
+						API</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81fd-96d6-df3223f04d7c">3. <strong>Использование библиотеки
+							python-telegram-bot</strong></a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8120-87b1-ce1082790e15">3.1 Введение в python-telegram-bot</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-8179-8a12-ecd2a0e7f127">3.2 Установка и настройка библиотеки</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-812e-815c-f6adcd61fd4c">3.3 Создание бота с использованием
+						python-telegram-bot</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81e6-81de-cce54399aa6a">3.3.1 Запуск примера из официальной
+						документации</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-81bb-a401-deb5d6df070b">3.3.2 Дополнение функционала</a></div>
+				<div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link"
+						href="#131aa64c-9d0a-810c-8a18-d147e2aa21c9">3.3.3 Проверка работоспособности</a></div>
+			</nav>
+			<h1 id="131aa64c-9d0a-816e-bfae-ee6e0b2a9f39" class="">1. Регистрация бота</h1>
+			<h2 id="131aa64c-9d0a-8108-af92-fc2e7eb3789b" class="">1.1 Обзор Telegram Bot API</h2>
+			<h3 id="131aa64c-9d0a-81a9-b718-fc0dac124c50" class="">1.1.1 Что такое Telegram Bot API?</h3>
+			<p id="131aa64c-9d0a-81a0-ba9c-c2636c885c81" class="">Telegram Bot API - это интерфейс программирования
+				приложений, предоставляемый Telegram, который позволяет разработчикам создавать и управлять ботами в
+				мессенджере Telegram. Он предоставляет набор методов и возможностей для взаимодействия с ботами, включая
+				отправку сообщений, управление подписчиками, работу с медиа-контентом и многое другое. Этот API основан
+				на протоколе HTTPS, что обеспечивает безопасное и простое взаимодействие с ботом.</p>
+			<h3 id="131aa64c-9d0a-81d5-969c-d5fe15751ee7" class="">1.1.2 Какие возможности предоставляет API для
+				создания ботов?</h3>
+			<p id="131aa64c-9d0a-818f-b3ff-e1150caf5fef" class="">Telegram Bot API предоставляет разнообразные
+				возможности для создания ботов, включая, но не ограничиваясь:</p>
+			<ol type="1" id="131aa64c-9d0a-8122-a329-d7e06cc0719a" class="numbered-list" start="1">
+				<li><strong>Отправка сообщений</strong>: Боты могут отправлять текстовые сообщения, изображения, аудио-
+					и видеофайлы, документы и другие медиа-ресурсы пользователям и в групповые чаты.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ed-bce3-d3ff6da1b934" class="numbered-list" start="2">
+				<li><strong>Получение сообщений</strong>: Боты могут принимать сообщения от пользователей и групп,
+					обрабатывать их и реагировать соответствующим образом.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-813e-a0c1-cfb688ad90d8" class="numbered-list" start="3">
+				<li><strong>Управление командами</strong>: Боты могут реагировать на команды, введенные пользователем в
+					чате, и выполнять соответствующие действия.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ac-aba8-fc139f646d34" class="numbered-list" start="4">
+				<li><strong>Работа с клавиатурой</strong>: Боты могут создавать интерактивные клавиатуры для упрощения
+					взаимодействия с пользователем.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8142-9a12-d0f85d5161c6" class="numbered-list" start="5">
+				<li><strong>Управление подписками и уведомлениями</strong>: Боты могут управлять подписками
+					пользователей на определенные события и отправлять им уведомления.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81bd-a4fc-d9a8d60a8586" class="numbered-list" start="6">
+				<li><strong>Работа с inline-режимом</strong>: Боты могут предоставлять ответы на запросы пользователей
+					прямо внутри чатов, не входя в них.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81b3-b62e-c3f3008ea2ce" class="numbered-list" start="7">
+				<li><strong>Аналитика и статистика</strong>: API позволяет собирать данные о взаимодействии
+					пользователей с ботом для анализа и улучшения его работы.</li>
+			</ol>
+			<h2 id="131aa64c-9d0a-81ca-88af-f394e03cd7ff" class="">1.2 Регистрация бота в Telegram</h2>
+			<h3 id="131aa64c-9d0a-81cf-ab8f-f0dba078b25e" class="">1.2.1 Создание нового бота через BotFather</h3>
+			<p id="131aa64c-9d0a-81bd-80de-c28123172bf0" class="">Для создания новых ботов telegram необходимо
+				использовать: </p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81af-9dd5-ccdd35f92765"
+				class="code"><code class="language-Python">https://t.me/BotFather</code></pre>
+			<p id="131aa64c-9d0a-8120-bbcf-cef5df010056" class="">Нас встретит приветственное сообщение:</p>
+			<figure id="131aa64c-9d0a-8153-9451-eb7e73a83af3" class="image"><a
+					href=" Лекция 1 4 Создание бота для telegram/Untitled.png"><img
+						style="width:672px"
+						src=" Лекция 1 4 Создание бота для telegram/Untitled.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8144-8734-e2f9e16db3c8" class="">С описанием возможностей BotFather и страницами,
+				которые дает подробные сведение о ботах в телеграм и Bot API.</p>
+			<p id="131aa64c-9d0a-819e-9c31-dc92b39d7f31" class="">Для начала взаимодействия введем команду:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8168-aa13-c3df34703557"
+				class="code"><code class="language-Python">/start</code></pre>
+			<figure id="131aa64c-9d0a-813e-80d3-db2992679e43" class="image"><a
+					href=" Лекция 1 4 Создание бота для telegram/Untitled%201.png"><img
+						style="width:539.9999389648438px"
+						src=" Лекция 1 4 Создание бота для telegram/Untitled%201.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81cf-bba9-d75a0c20d805" class="">Получим список команд бота с кратким описанием их
+				функционала. Нас интересует команда: </p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8143-a474-e03bf64c47af"
+				class="code"><code class="language-Python">/newbot</code></pre>
+			<p id="131aa64c-9d0a-8111-a35e-c61f6bd3cf49" class="">Ее и введем.</p>
+			<figure id="131aa64c-9d0a-816c-951f-ee32594155e8" class="image"><a
+					href=" Лекция 1 4 Создание бота для telegram/Untitled%202.png"><img
+						style="width:672px"
+						src=" Лекция 1 4 Создание бота для telegram/Untitled%202.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8116-a61b-f1a42384630d" class="">Далее нам предложили ввести имя нашего бота. Имя может
+				быть любым.</p>
+			<p id="131aa64c-9d0a-81b5-b904-e440a5aceddf" class="">После ввода имени необходимо создать username для
+				бота:</p>
+			<figure id="131aa64c-9d0a-812e-8e4b-c1b069c14c8f" class="image"><a
+					href=" Лекция 1 4 Создание бота для telegram/Untitled%203.png"><img
+						style="width:672px"
+						src=" Лекция 1 4 Создание бота для telegram/Untitled%203.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81a9-b12f-e36fc39e88a2" class="">Чтобы username был корректным он должен содержать
+				упоминание о том, что это бот (оканчиваться на ‘bot’). Важно, чтобы username был уникальным.</p>
+			<h3 id="131aa64c-9d0a-812b-a1a6-cb355961a850" class="">1.2.2 Получение уникального токена для доступа к API
+			</h3>
+			<p id="131aa64c-9d0a-81e2-a610-e8d81aaa778e" class="">После того, как мы успешно выполним шаги, описанные
+				выше мы получим token для нашего бота и ссылку на него:</p>
+			<figure id="131aa64c-9d0a-8175-8196-ea139f343c50" class="image"><a
+					href=" Лекция 1 4 Создание бота для telegram/Untitled%204.png"><img
+						style="width:672px"
+						src=" Лекция 1 4 Создание бота для telegram/Untitled%204.png" /></a>
+			</figure>
+			<h1 id="131aa64c-9d0a-81a4-b372-d770c72f434d" class="">2. <strong>Отправка сообщений с помощью Telegram Bot
+					API</strong></h1>
+			<h2 id="131aa64c-9d0a-816c-98e5-d0e825034328" class="">2.1 Ознакомление с Telegram Bot API</h2>
+			<h3 id="131aa64c-9d0a-815f-ac1f-fbd17cb2fd9c" class="">2.1.1 Обзор основных методов для взаимодействия с API
+			</h3>
+			<p id="131aa64c-9d0a-8124-95b7-df64c36cabf7" class="">Основные методы для отправки сообщений через Telegram
+				Bot API включают:</p>
+			<ol type="1" id="131aa64c-9d0a-8141-ac5c-e5f14e557d7c" class="numbered-list" start="1">
+				<li><code><strong>sendMessage</strong></code>: отправляет текстовое сообщение пользователю.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8177-baa0-d7d4ae1281b5" class="numbered-list" start="2">
+				<li><code><strong>sendPhoto</strong></code>: отправляет фотографию пользователю.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8185-88b9-c44a96fe932f" class="numbered-list" start="3">
+				<li><code><strong>sendAudio</strong></code>: отправляет аудиозапись пользователю.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8120-b1d6-f09ceda2fb03" class="numbered-list" start="4">
+				<li><code><strong>sendDocument</strong></code>: отправляет документ пользователю.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-817f-88f6-c9cfbf5ce382" class="numbered-list" start="5">
+				<li><code><strong>sendVideo</strong></code>: отправляет видеозапись пользователю.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8148-aaf4-dcb76c96423d" class="numbered-list" start="6">
+				<li><code><strong>sendAnimation</strong></code>: отправляет анимацию пользователю.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8190-a3ee-d1963d06702b" class="numbered-list" start="7">
+				<li><code><strong>sendVoice</strong></code>: отправляет голосовое сообщение пользователю.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81a2-9187-caf184e7258e" class="numbered-list" start="8">
+				<li><code><strong>sendLocation</strong></code>: отправляет местоположение пользователю.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8116-8a17-d312a07873dd" class="numbered-list" start="9">
+				<li><code><strong>sendVenue</strong></code>: отправляет информацию о месте встречи пользователю.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81ea-b883-ce457fad8a84" class="numbered-list" start="10">
+				<li><code><strong>sendContact</strong></code>: отправляет контакт пользователю.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81da-820b-c4be62389411" class="numbered-list" start="11">
+				<li><code><strong>sendPoll</strong></code>: отправляет опрос пользователю.</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8138-8f39-ea466a60d2eb" class="numbered-list" start="12">
+				<li><code><strong>getUpdates</strong></code>: получает список обновлений.</li>
+			</ol>
+			<p id="131aa64c-9d0a-81ac-94e9-ee319095f8ef" class="">Это лишь небольшой список методов Telegram Bot API.
+				Есть и другие методы, которые могут быть полезны в зависимости от функциональности вашего бота. Для
+				получения подробной информации о методах и их параметрах рекомендуется ознакомиться с официальной
+				документацией Telegram Bot API.</p>
+			<h3 id="131aa64c-9d0a-81b5-a798-c639c653ebf8" class="">2.1.2 Форматы запросов и ответов</h3>
+			<p id="131aa64c-9d0a-8154-aa62-c25dacd4561b" class="">Telegram Bot API поддерживает форматы запросов и
+				ответов в JSON. Для отправки запроса к API используется метод HTTP POST. В ответ на запрос API
+				возвращает JSON-объект с информацией о выполненной операции или ошибке.</p>
+			<h2 id="131aa64c-9d0a-81db-ba87-d22c51f90636" class="">2.2 Настройка окружения</h2>
+			<p id="131aa64c-9d0a-8135-a2df-ef72d64ead27" class="">Для отправки сообщений через Telegram Bot API нам
+				понадобится установить необходимые библиотеки и импортировать токен бота в наш проект.</p>
+			<h3 id="131aa64c-9d0a-814b-b21d-ff5b7e9ed56c" class="">2.2.1 Установка необходимых библиотек</h3>
+			<p id="131aa64c-9d0a-81a6-a205-cb66c2042726" class="">Для взаимодействия с API мы можем использовать
+				библиотеку <code><strong>requests</strong></code>, которая позволяет отправлять HTTP-запросы.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-816c-8a66-c15d49b83ff0"
+				class="code"><code class="language-Python">pip install requests</code></pre>
+			<h3 id="131aa64c-9d0a-81c6-9632-ca2d8ee3e411" class="">2.2.2 Импорт токена бота в проект</h3>
+			<p id="131aa64c-9d0a-81af-b894-cc45be5a7a00" class="">Для аутентификации запросов к API нам понадобится
+				токен бота, который мы получаем при создании бота через BotFather в Telegram. Этот токен должен быть
+				импортирован в наш проект для использования при отправке запросов к API.</p>
+			<h2 id="131aa64c-9d0a-8152-bbb0-f6ae77e7ac92" class="">2.3 Создание программы для отправки сообщения</h2>
+			<p id="131aa64c-9d0a-8166-9b8f-ca12c1544ad1" class="">Теперь, когда наше окружение настроено, мы можем
+				создать программу для отправки сообщения через Telegram Bot API.</p>
+			<h3 id="131aa64c-9d0a-8115-9aee-d53f1a0d626a" class="">2.3.1 Использование токена для аутентификации
+				запросов к API</h3>
+			<p id="131aa64c-9d0a-815d-a587-d14eb790bbeb" class="">Для отправки запросов к API мы должны передать токен
+				бота в заголовке запроса. Это обеспечит аутентификацию и разрешит боту отправлять сообщения.</p>
+			<h3 id="131aa64c-9d0a-81b4-a3a0-c5eeb2e2137c" class="">2.3.2 Отправка простого текстового сообщения через
+				API</h3>
+			<p id="131aa64c-9d0a-8125-b31e-d77be5cd05fb" class="">Давайте напишем программу, которая отправляет простое
+				текстовое сообщение через Telegram Bot API.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ed-81ca-f9f561b3a9e1" class="code"><code class="language-Python">import requests
+
+def send_message(token, chat_id, text):
+    url = f&quot;https://api.telegram.org/bot{token}/sendMessage&quot;
+    payload = {
+        &quot;chat_id&quot;: chat_id,
+        &quot;text&quot;: text
+    }
+    response = requests.post(url, json=payload)
+    if response.status_code == 200:
+        print(&quot;Сообщение успешно отправлено!&quot;)
+    else:
+        print(&quot;Ошибка при отправке сообщения:&quot;, response.text)
+
+# Замените &quot;YOUR_BOT_TOKEN&quot; на реальный токен вашего бота
+bot_token = &quot;YOUR_BOT_TOKEN&quot;
+# Замените &quot;YOUR_CHAT_ID&quot; на ваш chat_id
+chat_id = &quot;YOUR_CHAT_ID&quot;
+message_text = &quot;Привет, мир! Это сообщение отправлено через Telegram Bot API.&quot;
+
+send_message(bot_token, chat_id, message_text)</code></pre>
+			<figure class="block-color-purple_background callout" style=" display:flex"
+				id="131aa64c-9d0a-8148-9db8-edb4c7c77ba8">
+				<div style="font-size:1.5em"><span class="icon">❗</span></div>
+				<div style="width:100%">Важно изменить <code><strong>YOUR_BOT_TOKEN</strong></code> на реальный токен
+					вашего бота и <code><strong>YOUR_CHAT_ID</strong></code> на ваш chat_id. </div>
+			</figure>
+			<p id="131aa64c-9d0a-8171-8b2a-ffd35ab8c95b" class="">Для получения chat_id необхродимо:</p>
+			<ol type="1" id="131aa64c-9d0a-8186-b6a3-f9611396f0e5" class="numbered-list" start="1">
+				<li> Отправить нашему боту любое сообщение (бот на него никак не ответит, но так и должно быть).</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-816f-9085-c34557aedc0e" class="numbered-list" start="2">
+				<li> Перейти в браузере по адресу:
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-818e-a634-de588d864bd5"
+						class="code"><code class="language-Python">https://api.telegram.org/bot&lt;Токен вашего бота&gt;/getUpdates</code></pre>
+					<p id="131aa64c-9d0a-81ef-916c-dc87bc46a813" class="">Где вместо <strong>&lt;Токен вашего
+							бота&gt; </strong>необходимо вписать  ранее полученный токен вашего бота.</p>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81bb-8cf3-ee8fd02b2d6f" class="numbered-list" start="3">
+				<li>Смотрим на ответ:<ol type="a" id="131aa64c-9d0a-81c7-aebb-e60acd971410" class="numbered-list"
+						start="1">
+						<li>Если результат имеет вид:</li>
+					</ol>
+					<figure id="131aa64c-9d0a-81da-b609-e0f79b03c83b" class="image"><a
+							href=" Лекция 1 4 Создание бота для telegram/Untitled%205.png"><img
+								style="width:480px"
+								src=" Лекция 1 4 Создание бота для telegram/Untitled%205.png" /></a>
+					</figure>
+					<p id="131aa64c-9d0a-81e6-8de2-e9a17e0b9288" class="">Попробуйте написать боту еще раз. После чего
+						обновите страницу</p>
+					<p id="131aa64c-9d0a-8116-b4b3-c8a0e807e637" class="">b. Нас интересует значение рядом с ID (не
+						update_id). Копируем его.</p>
+					<figure id="131aa64c-9d0a-813b-bee1-d7e2a47e9b74" class="image"><a
+							href=" Лекция 1 4 Создание бота для telegram/Untitled%206.png"><img
+								style="width:461.9980773925781px"
+								src=" Лекция 1 4 Создание бота для telegram/Untitled%206.png" /></a>
+					</figure>
+				</li>
+			</ol>
+			<p id="131aa64c-9d0a-8175-9b90-dfd5f61d3bd5" class="">Если все шаги были выполнены верно, то мы получим
+				сообщение от нашего бота:</p>
+			<figure id="131aa64c-9d0a-813f-ac6e-c144aeedc3a4" class="image"><a
+					href=" Лекция 1 4 Создание бота для telegram/Untitled%207.png"><img
+						style="width:672px"
+						src=" Лекция 1 4 Создание бота для telegram/Untitled%207.png" /></a>
+			</figure>
+			<h1 id="131aa64c-9d0a-81fd-96d6-df3223f04d7c" class="">3. <strong>Использование библиотеки
+					python-telegram-bot</strong></h1>
+			<h2 id="131aa64c-9d0a-8120-87b1-ce1082790e15" class="">3.1 Введение в python-telegram-bot</h2>
+			<p id="131aa64c-9d0a-814f-b956-de9d334abbc4" class="">Python-telegram-bot - это мощная библиотека для
+				создания ботов Telegram на языке Python. Она предоставляет простой и интуитивно понятный интерфейс для
+				взаимодействия с Telegram Bot API, обеспечивая возможность создания ботов с различной функциональностью,
+				включая ответы на сообщения, обработку команд, отправку медиафайлов и многое другое.</p>
+			<h2 id="131aa64c-9d0a-8179-8a12-ecd2a0e7f127" class="">3.2 Установка и настройка библиотеки</h2>
+			<p id="131aa64c-9d0a-8124-8d0e-d4522ec9ca01" class="">Для установки библиотеки python-telegram-bot можно
+				использовать pip:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8187-b042-ee92275e2de0"
+				class="code"><code class="language-Python">pip install python-telegram-bot==13.7</code></pre>
+			<figure class="block-color-blue_background callout" style=" display:flex"
+				id="131aa64c-9d0a-8126-851d-ceb7893a1be3">
+				<div style="font-size:1.5em"><span class="icon">🔍</span></div>
+				<div style="width:100%">В этом примере используется старая версия этой библиотеки, так как для
+					использования новых версий требуется знание и понимание принципов написания асинхронного кода.</div>
+			</figure>
+			<h2 id="131aa64c-9d0a-812e-815c-f6adcd61fd4c" class="">3.3 Создание бота с использованием
+				python-telegram-bot</h2>
+			<h3 id="131aa64c-9d0a-81e6-81de-cce54399aa6a" class="">3.3.1 Запуск примера из официальной документации</h3>
+			<p id="131aa64c-9d0a-814b-b133-dff2aed0246c" class="">В документации к библиотеке есть готовые примеры кода.
+				Давайте запустим пример эхобота.</p>
+			<p id="131aa64c-9d0a-8164-962d-ebf3728dcb85" class=""><strong>Эхобот</strong> — это бот, который просто
+				повторяет за вами.</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-816c-b58b-f3141fc328ea" class="code"><code class="language-Python">import logging
+
+from telegram import Update, ForceReply
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+
+
+TOKEN = &quot;YOUR_BOT_TOKEN&quot;
+
+
+# Подключаем логирование
+logging.basicConfig(
+    filename=&#x27;logfile.txt&#x27;, format=&#x27;%(asctime)s - %(name)s - %(levelname)s - %(message)s&#x27;, level=logging.INFO
+)
+
+logger = logging.getLogger(__name__)
+
+
+def start(update: Update, context):
+    user = update.effective_user
+    update.message.reply_text(f&#x27;Привет {user.full_name}!&#x27;)
+    
+
+def echo(update: Update, context):
+    update.message.reply_text(update.message.text)
+
+
+def main():
+		# Создайте программу обновлений и передайте ей токен вашего бота
+    updater = Updater(TOKEN, use_context=True)
+
+    # Получаем диспетчер для регистрации обработчиков
+    dp = updater.dispatcher
+		
+		# Регистрируем обработчики команд
+    dp.add_handler(CommandHandler(&quot;start&quot;, start))
+		
+		# Регистрируем обработчик текстовых сообщений
+    dp.add_handler(MessageHandler(Filters.text &amp; ~Filters.command, echo))
+		
+		# Запускаем бота
+    updater.start_polling()
+
+		# Останавливаем бота при нажатии Ctrl+C
+    updater.idle()
+
+
+if __name__ == &#x27;__main__&#x27;:
+    main()
+</code></pre>
+			<figure class="block-color-purple_background callout" style=" display:flex"
+				id="131aa64c-9d0a-8113-9332-f438a1e379ae">
+				<div style="font-size:1.5em"><span class="icon">❗</span></div>
+				<div style="width:100%">Для корректной работы необходимо заменить <code>YOUR_BOT_TOKEN</code> на токен,
+					который вы получили, при регистрации своего бота.</div>
+			</figure>
+			<p id="131aa64c-9d0a-8194-8189-ce224c7f4c37" class="">Разберем подробнее некоторые части кода:</p>
+			<figure id="131aa64c-9d0a-815b-ba6b-e3d115338f9e" class="image"><a
+					href=" Лекция 1 4 Создание бота для telegram/Untitled%208.png"><img
+						style="width:708px"
+						src=" Лекция 1 4 Создание бота для telegram/Untitled%208.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81cd-81ee-ef4bd8001a7b" class="">Функция <code>echo()</code>:</p>
+			<figure id="131aa64c-9d0a-8191-82d2-de2cb0c4c4fb" class="image"><a
+					href=" Лекция 1 4 Создание бота для telegram/Untitled%209.png"><img
+						style="width:708px"
+						src=" Лекция 1 4 Создание бота для telegram/Untitled%209.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81fc-a7d3-ea6aa479ce61" class="">Функция <code>start()</code>:</p>
+			<p id="131aa64c-9d0a-81f6-b3ad-c3fb4b0c5847" class="">В функции <code>start()</code> мы получаем
+				пользователя, с которыми общаемся, с помощью <code>user = update.effective_user</code>. После чего мы
+				можем получить его полное имя, используя: <code>user.full_name</code>.</p>
+			<h3 id="131aa64c-9d0a-81bb-a401-deb5d6df070b" class="">3.3.2 Дополнение функционала</h3>
+			<p id="131aa64c-9d0a-811b-9c40-d636c6aabd98" class="">Мы разобрались с примером самого просто бота и на
+				данном этапе мы можем добавить еще одну функцию, которая будет проверять текст на наличие в нем
+				телефонных номеров, соответсвующих определнному шалблону.</p>
+			<p id="131aa64c-9d0a-811a-937a-d562c2c23c5a" class="">Создадим функцию <code>findPhoneNumbersCommand</code>,
+				которая обрабатывает вызов соответсвующей команды и вызывает функцию <code>findPhoneNumbers</code>.</p>
+			<p id="131aa64c-9d0a-81c1-a12f-f79535a463d7" class=""><code>findPhoneNumbersCommand</code>:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81c2-8653-fb664400d293" class="code"><code class="language-Python">def findPhoneNumbersCommand(update: Update, context):
+    update.message.reply_text(&#x27;Введите текст для поиска телефонных номеров: &#x27;)
+
+    return &#x27;findPhoneNumbers&#x27;</code></pre>
+			<p id="131aa64c-9d0a-8165-9860-c3bba5be700a" class=""><code>findPhoneNumbers</code>:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8190-8a05-fa105ba54162" class="code"><code class="language-Python">def findPhoneNumbers (update: Update, context):
+    user_input = update.message.text # Получаем текст, содержащий(или нет) номера телефонов
+
+    phoneNumRegex = re.compile(r&#x27;8 \(\d{3}\) \d{3}-\d{2}-\d{2}&#x27;) # формат 8 (000) 000-00-00
+
+    phoneNumberList = phoneNumRegex.findall(user_input) # Ищем номера телефонов
+
+    if not phoneNumberList: # Обрабатываем случай, когда номеров телефонов нет
+        update.message.reply_text(&#x27;Телефонные номера не найдены&#x27;)
+        return # Завершаем выполнение функции
+    
+    phoneNumbers = &#x27;&#x27; # Создаем строку, в которую будем записывать номера телефонов
+    for i in range(len(phoneNumberList)):
+        phoneNumbers += f&#x27;{i+1}. {phoneNumberList[i]}\n&#x27; # Записываем очередной номер
+        
+    update.message.reply_text(phoneNumbers) # Отправляем сообщение пользователю
+    return ConversationHandler.END # Завершаем работу обработчика диалога</code></pre>
+			<p id="131aa64c-9d0a-81d1-b285-f5fd36933146" class="">Так как, обработка этой команды подразумевает
+				некоторое подобие диалога между пользователем и ботом, то нам понадобится создать соответсвующий
+				обработчик:</p>
+			<p id="131aa64c-9d0a-81bb-8b40-d4e8ce0143fa" class=""><code>convHandlerFindPhoneNumbers</code>:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8102-beaa-e26ab0e299ba" class="code"><code class="language-Python">convHandlerFindPhoneNumbers = ConversationHandler(
+        entry_points=[CommandHandler(&#x27;findPhoneNumbers&#x27;, findPhoneNumbersCommand)],
+        states={
+            &#x27;findPhoneNumbers&#x27;: [MessageHandler(Filters.text &amp; ~Filters.command, findPhoneNumbers)],
+        },
+        fallbacks=[]
+    )</code></pre>
+			<p id="131aa64c-9d0a-81b1-8702-cda1afb36d37" class="">Также необходимо зарегистрировать этот обработчик:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-815a-82d8-cd96a83bf339"
+				class="code"><code class="language-Python">dp.add_handler(convHandlerFindPhoneNumbers)</code></pre>
+			<p id="131aa64c-9d0a-812c-8910-c9d9b4ad7e3c" class="">Листинг кода:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ca-93bf-dced045baf5c" class="code"><code class="language-Python">import logging
+import re
+
+from telegram import Update, ForceReply
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, ConversationHandler
+
+
+TOKEN = &quot;YOUR_BOT_TOKEN&quot;
+
+
+# Подключаем логирование
+logging.basicConfig(
+    filename=&#x27;logfile.txt&#x27;, format=&#x27;%(asctime)s - %(name)s - %(levelname)s - %(message)s&#x27;, level=logging.INFO
+)
+
+logger = logging.getLogger(__name__)
+
+
+def start(update: Update, context):
+    user = update.effective_user
+    update.message.reply_text(f&#x27;Привет {user.full_name}!&#x27;)
+
+
+def helpCommand(update: Update, context):
+    update.message.reply_text(&#x27;Help!&#x27;)
+
+
+def findPhoneNumbersCommand(update: Update, context):
+    update.message.reply_text(&#x27;Введите текст для поиска телефонных номеров: &#x27;)
+
+    return &#x27;findPhoneNumbers&#x27;
+
+
+def findPhoneNumbers (update: Update, context):
+    user_input = update.message.text # Получаем текст, содержащий(или нет) номера телефонов
+
+    phoneNumRegex = re.compile(r&#x27;8 \(\d{3}\) \d{3}-\d{2}-\d{2}&#x27;) # формат 8 (000) 000-00-00
+
+    phoneNumberList = phoneNumRegex.findall(user_input) # Ищем номера телефонов
+
+    if not phoneNumberList: # Обрабатываем случай, когда номеров телефонов нет
+        update.message.reply_text(&#x27;Телефонные номера не найдены&#x27;)
+        return # Завершаем выполнение функции
+    
+    phoneNumbers = &#x27;&#x27; # Создаем строку, в которую будем записывать номера телефонов
+    for i in range(len(phoneNumberList)):
+        phoneNumbers += f&#x27;{i+1}. {phoneNumberList[i]}\n&#x27; # Записываем очередной номер
+        
+    update.message.reply_text(phoneNumbers) # Отправляем сообщение пользователю
+    return ConversationHandler.END # Завершаем работу обработчика диалога
+
+
+def echo(update: Update, context):
+    update.message.reply_text(update.message.text)
+
+
+def main():
+    updater = Updater(TOKEN, use_context=True)
+
+    # Получаем диспетчер для регистрации обработчиков
+    dp = updater.dispatcher
+
+    # Обработчик диалога
+    convHandlerFindPhoneNumbers = ConversationHandler(
+        entry_points=[CommandHandler(&#x27;findPhoneNumbers&#x27;, findPhoneNumbersCommand)],
+        states={
+            &#x27;findPhoneNumbers&#x27;: [MessageHandler(Filters.text &amp; ~Filters.command, findPhoneNumbers)],
+        },
+        fallbacks=[]
+    )
+		
+	# Регистрируем обработчики команд
+    dp.add_handler(CommandHandler(&quot;start&quot;, start))
+    dp.add_handler(CommandHandler(&quot;help&quot;, helpCommand))
+    dp.add_handler(convHandlerFindPhoneNumbers)
+		
+	# Регистрируем обработчик текстовых сообщений
+    dp.add_handler(MessageHandler(Filters.text &amp; ~Filters.command, echo))
+		
+	# Запускаем бота
+    updater.start_polling()
+
+	# Останавливаем бота при нажатии Ctrl+C
+    updater.idle()
+
+
+if __name__ == &#x27;__main__&#x27;:
+    main()
+</code></pre>
+			<figure class="block-color-purple_background callout" style=" display:flex"
+				id="131aa64c-9d0a-81dd-ab48-fe4062915256">
+				<div style="font-size:1.5em"><span class="icon">❗</span></div>
+				<div style="width:100%">Для корректной работы необходимо заменить <code>YOUR_BOT_TOKEN</code> на токен,
+					который вы получили, при регистрации своего бота.</div>
+			</figure>
+			<h3 id="131aa64c-9d0a-810c-8a18-d147e2aa21c9" class="">3.3.3 Проверка работоспособности</h3>
+			<ol type="1" id="131aa64c-9d0a-8135-8806-c397e5ec4c72" class="numbered-list" start="1">
+				<li>Вызов команды <code>/start</code>:</li>
+			</ol>
+			<figure id="131aa64c-9d0a-8153-a74c-c88bc67f7eb3" class="image"><a
+					href=" Лекция 1 4 Создание бота для telegram/Untitled%2010.png"><img
+						style="width:240px"
+						src=" Лекция 1 4 Создание бота для telegram/Untitled%2010.png" /></a>
+			</figure>
+			<ol type="1" id="131aa64c-9d0a-8124-9828-c49b36b64aa6" class="numbered-list" start="2">
+				<li>Вызов команды <code>/help</code>:</li>
+			</ol>
+			<figure id="131aa64c-9d0a-81f3-addd-f2d73744290a" class="image"><a
+					href=" Лекция 1 4 Создание бота для telegram/Untitled%2011.png"><img
+						style="width:164px"
+						src=" Лекция 1 4 Создание бота для telegram/Untitled%2011.png" /></a>
+			</figure>
+			<ol type="1" id="131aa64c-9d0a-819a-9d93-e36050a2bedc" class="numbered-list" start="3">
+				<li>Вызов команды <code>/findPhoneNumbers</code>:</li>
+			</ol>
+			<figure id="131aa64c-9d0a-818b-8bc3-da95448d7438" class="image"><a
+					href=" Лекция 1 4 Создание бота для telegram/Untitled%2012.png"><img
+						style="width:498px"
+						src=" Лекция 1 4 Создание бота для telegram/Untitled%2012.png" /></a>
+			</figure>
+			<ol type="1" id="131aa64c-9d0a-8146-86ff-ca787c35e6d1" class="numbered-list" start="4">
+				<li>Проверка того, что бот выполняет корректно свой основной функционал (повтор сообщений):</li>
+			</ol>
+			<figure id="131aa64c-9d0a-8114-988c-e25fbdc68d68" class="image"><a
+					href=" Лекция 1 4 Создание бота для telegram/Untitled%2013.png"><img
+						style="width:373px"
+						src=" Лекция 1 4 Создание бота для telegram/Untitled%2013.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81d7-9a46-dda2095408fd" class="">
+			</p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

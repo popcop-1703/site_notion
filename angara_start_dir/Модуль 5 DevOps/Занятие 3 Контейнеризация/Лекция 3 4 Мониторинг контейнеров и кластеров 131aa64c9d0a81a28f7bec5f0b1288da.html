@@ -1,0 +1,684 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Лекция 3.4. Мониторинг контейнеров и кластеров</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="131aa64c-9d0a-81a2-8f7b-ec5f0b1288da" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/slideshow_gray.svg"/></div><h1 class="page-title">Лекция 3.4. Мониторинг контейнеров и кластеров</h1><p class="page-description"></p></header><div class="page-body"><h1 id="131aa64c-9d0a-81dd-85bd-ed756c7b4964" class="">Оглавление</h1><nav id="131aa64c-9d0a-8159-ae81-ff6cb5abbd3f" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#131aa64c-9d0a-81dd-85bd-ed756c7b4964">Оглавление</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#131aa64c-9d0a-81ad-9cef-db4b5da294d5">1. Теоретическая часть</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-81bb-88c6-d1d68f4f543a">1.1 Что означает мониторинг контейнеров?</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-812f-a7c7-e616627946ef">1.2 Почему нужно мониторить контейнеры?</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-81e9-9fe6-db5d1cda43ba">1.3 Что означает мониторинг кластеров <strong>Kubernetes</strong>?</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-81f1-bc29-c128ccdd77e2">1.4 Почему нужно мониторить кластеры <strong>Kubernetes</strong>?</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-8186-bbb0-edcb975a7807">1.5 Какие метрики нужно собирать, при мониторинге кластеров <strong>Kubernetes</strong>?</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-8186-ad11-ffe397f64082">1.6 Системы для мониторинга контейнеров и кластеров</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-8185-9662-c515800a3cd6">1.6.1 <strong>Sematext</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81ae-a8b5-dfb1fb0adbe3">1.6.2 <strong>Datadog</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-8172-b19a-ec60edf1eb2b">1.6.3 <strong>Dynatrace</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-8192-a95d-d8fe644daddc">1.6.4 <strong>Prometheus</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-8153-a688-fefda8124770">1.6.5 <strong>Grafana</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-814c-abd0-ee0a02060c70">1.6.6 Loki</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-816a-9c27-e9f9415ac355">1.6.7 <strong>Promtail</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-8120-9ebd-e46588df3112">1.6.8 <strong>cAdvisor </strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-8165-b0e3-df94f3b98d66">1.6.9 <strong>Node-Exporter</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-8135-9293-ff5547b2e5cf">1.6.10 <strong>Kubernetes Dashboard</strong></a></div></nav><h1 id="131aa64c-9d0a-81ad-9cef-db4b5da294d5" class="">1. Теоретическая часть</h1><h2 id="131aa64c-9d0a-81bb-88c6-d1d68f4f543a" class="">1.1 Что означает мониторинг контейнеров?</h2><p id="131aa64c-9d0a-8104-8abd-e3bf59c8030b" class="">Системы мониторинга помогают командам DevOps быстрее обнаруживать и решать проблемы с производительностью. Поскольку Docker и Kubernetes постоянно развиваются, важно с самого начала обеспечить мониторинг контейнеров и управление журналами.</p><p id="131aa64c-9d0a-8123-9897-c9774f6c8a86" class="">Мониторинг Docker-контейнеров очень сложен. Разработать стратегию и построить соответствующую систему мониторинга совсем непросто.</p><p id="131aa64c-9d0a-811e-b4f4-fbf249c35fe1" class="">В этом посте мы собираемся углубиться в то, что такое мониторинг контейнеров и зачем он вам нужен, а также сравнить лучшие инструменты мониторинга контейнеров, доступные сегодня.</p><h2 id="131aa64c-9d0a-812f-a7c7-e616627946ef" class="">1.2 Почему нужно мониторить контейнеры?</h2><p id="131aa64c-9d0a-81bc-bd89-dd67eb462219" class="">Мониторинг ваших контейнеров в режиме реального времени необходим для обеспечения максимальной производительности приложения. Однако когда дело доходит до контейнеров Docker, мониторинг помогает вам решать следующие задачи:</p><ul id="131aa64c-9d0a-81dc-88c1-eaa2596820a3" class="bulleted-list"><li style="list-style-type:disc">Выявляйть и устранять проблемы на ранней стадии, чтобы избежать рисков в проекте.</li></ul><ul id="131aa64c-9d0a-8136-9133-e4b1beafabf8" class="bulleted-list"><li style="list-style-type:disc">Безопасно внедрять изменения, поскольку вся среда контролируется.</li></ul><ul id="131aa64c-9d0a-81d8-9a02-fabdb642e50e" class="bulleted-list"><li style="list-style-type:disc">Точечно настраивать приложения для повышения производительности и удобства работы пользователей.</li></ul><ul id="131aa64c-9d0a-81e7-9fa4-c562776547c5" class="bulleted-list"><li style="list-style-type:disc">Оптимизировать распределение ресурсов.</li></ul><h2 id="131aa64c-9d0a-81e9-9fe6-db5d1cda43ba" class="">1.3 Что означает мониторинг кластеров <strong>Kubernetes</strong>?</h2><p id="131aa64c-9d0a-81db-942d-c2541bf4d359" class="">Мониторинг Kubernetes — это процесс непрерывного отслеживания, измерения и анализа характеристик производительности, работоспособности и стоимости контейнерных приложений, работающих в кластере Kubernetes.</p><p id="131aa64c-9d0a-81dc-a460-ec68691897a6" class="">Целью мониторинга в DevOps часто является упреждающее обеспечение оптимальной производительности и работоспособности контейнеров, чтобы предотвратить влияние проблем на качество обслуживания клиентов.</p><p id="131aa64c-9d0a-81ab-ac5f-d37ef91de4bd" class="">Инженеры DevOps анализируют конкретные показатели, которые выдает ваша инфраструктура Kubernetes, определяя, что работает, а что нет. Но это не все.</p><h2 id="131aa64c-9d0a-81f1-bc29-c128ccdd77e2" class="">1.4 Почему нужно мониторить кластеры <strong>Kubernetes</strong>?</h2><p id="131aa64c-9d0a-8107-8b1d-db975be36ad7" class="">Возможности мониторинга Kubernetes:</p><ul id="131aa64c-9d0a-8174-a10e-d3759f6abc08" class="bulleted-list"><li style="list-style-type:disc">Позволяет постоянно отслеживать изменения в высокораспределенных и динамичных средах K8s.</li></ul><ul id="131aa64c-9d0a-81f6-9b71-fe66e0b21e1b" class="bulleted-list"><li style="list-style-type:disc">Помогает оценить влияние таких изменений с учетом контекста, чтобы предотвратить нежелательные аномалии или простои.</li></ul><ul id="131aa64c-9d0a-8123-99fb-f0ff28fb5729" class="bulleted-list"><li style="list-style-type:disc">Помогает визуализировать, как все контейнеры и другие компоненты работают вместе.</li></ul><ul id="131aa64c-9d0a-810a-92e4-f13e08ed6feb" class="bulleted-list"><li style="list-style-type:disc">Позволяет выявлять и устранять угрозы безопасности и требованиям соответствия Kubernetes до того, как они станут проблемой.</li></ul><ul id="131aa64c-9d0a-8187-b528-f1cb283a0f4b" class="bulleted-list"><li style="list-style-type:disc">Позволяет отслеживать использование ресурсов в Kubernetes и связанные с этим затраты, чтобы можно было более точно их распределять.</li></ul><ul id="131aa64c-9d0a-8130-9352-f1c0acdfd3a2" class="bulleted-list"><li style="list-style-type:disc">Помогает обнаружить коренные причины аномалий производительности, безопасности и затрат в установке K8s, что позволяет сократить время простоя.</li></ul><ul id="131aa64c-9d0a-817b-b0e0-e048374e500a" class="bulleted-list"><li style="list-style-type:disc">Позволяет отслеживать пользовательский опыт, чтобы оптимизировать его для целевых клиентов.</li></ul><ul id="131aa64c-9d0a-8153-9747-f762062257b0" class="bulleted-list"><li style="list-style-type:disc">Обеспечивает непрерывность бизнеса, обнаруживая проблемы до их возникновения.</li></ul><ul id="131aa64c-9d0a-8131-ac43-e5d7146c007f" class="bulleted-list"><li style="list-style-type:disc">Повышает прозрачность вашей сети Kubernetes, позволяя вам оценить конфигурацию и производительность ваших коммутаторов, маршрутизаторов, серверов, виртуальных машин и других компонентов.</li></ul><h2 id="131aa64c-9d0a-8186-bbb0-edcb975a7807" class="">1.5 Какие метрики нужно собирать, при мониторинге кластеров <strong>Kubernetes</strong>?</h2><p id="131aa64c-9d0a-8109-902d-e5b2e8bcf0f9" class="">Метрики мониторинга помогают инженерам анализировать работу приложений и контейнеров K8s после развертывания. Существует несколько показателей мониторинга Kubernetes, которые необходимо отслеживать, в том числе те, которые указывают:</p><ul id="131aa64c-9d0a-81c2-a4fd-f41ab79357ae" class="bulleted-list"><li style="list-style-type:disc">Состояние кластера Kubernetes, такое как его состояние, запущенные контейнеры, сетевой ввод/вывод и индикаторы потребления ресурсов.</li></ul><ul id="131aa64c-9d0a-8103-8d2b-ed984f16538d" class="bulleted-list"><li style="list-style-type:disc">Время ответа на запросы к API.</li></ul><ul id="131aa64c-9d0a-81c8-af6f-ee4a7f24e4a4" class="bulleted-list"><li style="list-style-type:disc">Запуск и развертывание подов Kubernetes.</li></ul><ul id="131aa64c-9d0a-81ad-b7f1-e06accc456b2" class="bulleted-list"><li style="list-style-type:disc">Метрики ресурсов, такие как загрузка ЦП, использование памяти и использование диска как на уровне узла, так и на уровне пода.</li></ul><ul id="131aa64c-9d0a-8178-a431-dc8f1f69eff0" class="bulleted-list"><li style="list-style-type:disc">Метрики плоскости управления, такие как хранилища данных etcd, серверы API, жизненные циклы контроллеров и состояние планировщика.</li></ul><ul id="131aa64c-9d0a-812a-bfbf-edab2c417343" class="bulleted-list"><li style="list-style-type:disc">Контейнерные и прикладные метрики.</li></ul><p id="131aa64c-9d0a-81ce-a0d7-e21fcebd6432" class="">Тем не менее, как вы собираете и анализируете метрики Kubernetes?</p><p id="131aa64c-9d0a-81b6-8817-dae58a9f2c7f" class="">Команды инженеров делают это, оценивая различные уровни абстракции, такие как контейнеры, поды, узлы и кластеры Kubernetes. Инженеры часто собирают как можно больше показателей, прежде чем они смогут сосредоточиться на выбранных ключевых показателях эффективности (KPI), которые соответствуют их уникальным потребностям в мониторинге K8s.</p><p id="131aa64c-9d0a-8190-8b46-c1d558bda120" class="">В целом метрики Kubernetes собираются одним из двух способов:</p><ol type="1" id="131aa64c-9d0a-81f9-b6d4-d145ba1e4fa3" class="numbered-list" start="1"><li>Использование DaemonSets:<p id="131aa64c-9d0a-812b-9ca4-d57e949a3ee7" class="">DaemonSets — это класс Kubernetes, которые запускают копии необходимых подов на всех узлах. При этом на всех нужных подах запускается агент мониторинга для сбора показателей работоспособности и производительности. Многие инструменты используют этот подход, поскольку DaemonSets легко подготовить к использованию.</p></li></ol><ol type="1" id="131aa64c-9d0a-818c-9434-fb5821e12ca5" class="numbered-list" start="2"><li>Использование сервера метрик:<p id="131aa64c-9d0a-81dc-b58a-e589db818183" class="">Инженеры устанавливают сервер метрик как обычный под внутри кластера Kubernetes для сбора данных и событий из модулей и контейнеров внутри кластера. До прекращения поддержки сервером метрик использовался Heapster. Серверы метрик — отличный выбор, если вы работаете с большими рабочими нагрузками, поскольку они могут отслеживать кластеры, содержащие до 5000 узлов.</p></li></ol><h2 id="131aa64c-9d0a-8186-ad11-ffe397f64082" class="">1.6 Системы для мониторинга контейнеров и кластеров</h2><h3 id="131aa64c-9d0a-8185-9662-c515800a3cd6" class="">1.6.1 <strong>Sematext</strong></h3><p id="131aa64c-9d0a-81bd-b39c-cb8ec24f2449" class="">Sematext Monitoring — это полнофункциональное решение для наблюдения с возможностями мониторинга Docker и Kubernetes. Он предоставляет более полную и простую в настройке панель мониторинга метрик, событий и журналов, предоставляющую полезную информацию о контейнерах и инфраструктуре. Sematext обеспечивает полную видимость для оркестраторов контейнеров и контейнеров, если вам нужно комплексное решение для ведения журналов и мониторинга. Тем не менее, он также совместим с традиционными системами.</p><p id="131aa64c-9d0a-8132-a7a8-cfbb58100eb2" class="">Вы можете собирать все события, журналы и метрики, работающие в кластере Kubernetes, структурировать их и визуализировать на настраиваемых панелях мониторинга. Все это происходит в режиме реального времени.</p><p id="131aa64c-9d0a-81c9-99fe-eda7b89b1023" class="">С помощью Sematext вы также можете обнаруживать аномалии в режиме реального времени и получать оповещения о проблемах на уровне модуля. Помимо мониторинга использования ресурсов, он также фиксирует пропускную способность сети. Кроме того, его также легко установить в качестве оператора Sematext, DaemonSet, Helmchart или оператора Kubernetes.</p><h3 id="131aa64c-9d0a-81ae-a8b5-dfb1fb0adbe3" class="">1.6.2 <strong>Datadog</strong></h3><p id="131aa64c-9d0a-814d-8e06-c734725f2b6d" class="">Если вы не хотите самостоятельно следить за инфраструктурой или запускать какое-либо хранилище, Datadog может помочь. Datadog предоставляет надежную систему мониторинга вашей инфраструктуры, приложений, сети и журналов, а также предлагает поддержку контейнеров Docker. Datadog позволяет вашей команде агрегировать состояния сервисов, метрики и события в вашей среде Kubernetes в режиме реального времени. С его помощью вы можете отслеживать целые кластеры вплоть до одного хоста.</p><p id="131aa64c-9d0a-8176-beb3-f3af240cead6" class="">Datadog позволяет вам видеть содержимое приложений или стеков из любого места и в любом масштабе. Он предлагает комплексные услуги DevOps, включая сеть, безопасность и мониторинг в реальном времени. Он также обеспечивает управление журналами, включая фильтры, функции поиска и инструмент анализа журналов для устранения неполадок.</p><p id="131aa64c-9d0a-810e-820d-dfe277f28b05" class="">Все, что необходимо, для мониторинга контейнеров — это установить агент Datadog. Если у вас уже установлен агент, все готово. Если нет, просто загрузите пакет агента и следуйте инструкциям. Единственное, что следует иметь в виду, это то, что ограничение по умолчанию составляет 350 метрик на отслеживаемый экземпляр. Вы также можете автоматически собирать журналы Docker, если хотите иметь полную видимость своих контейнеров.</p><p id="131aa64c-9d0a-81f0-aba8-ef048a67a88f" class="">Инструмент предлагает полный доступ к API для всех приложений и инфраструктуры для повышения наглядности. Кроме того, его можно запустить на каждом узле кластера с помощью DaemonSet.</p><h3 id="131aa64c-9d0a-8172-b19a-ec60edf1eb2b" class="">1.6.3 <strong>Dynatrace</strong></h3><p id="131aa64c-9d0a-81ad-95fe-ebd293346934" class="">Dynatrace также представляет собой полнофункциональное решение для наблюдения, которое обеспечивает удобный подход к мониторингу показателей и журналов ваших контейнеров Docker и кластерной инфраструктуры Kubernetes. Вы можете использовать его для мониторинга доступности и работоспособности приложений и процессов, зависимостей и соединений между хостами, контейнерами и облачными экземплярами.</p><p id="131aa64c-9d0a-813e-935b-c398ca5ab4dd" class="">Доступный как в модели «программное обеспечение как услуга» (SaaS), так и в локальной модели, он удовлетворит большинство ваших потребностей в мониторинге.</p><p id="131aa64c-9d0a-81e0-8577-e06c38f863d3" class="">Dynatrace позволяет вам исследовать использование ресурсов контейнера на отдельных хостах так же, как в противном случае вы могли бы это сделать, только выполнив команду статистики Docker. Вы получаете доступ к метрикам Docker, таким как использование ЦП, RSS и использование кэш-памяти, как входящий, так и исходящий сетевой трафик, а также общее время, в течение которого использование ЦП контейнером было ограничено. </p><p id="131aa64c-9d0a-812e-a77b-d6187a568c12" class="">Dynatrace позволяет вам объединить и использовать информацию из более чем 500 различных инструментов, которые вы, вероятно, уже используете, включая AWS, Azure, OpenShift, Google Cloud и Kubernetes, среди других. Более того, он использует события, трассировки, метрики и информацию о поведении, чтобы раскрыть внутреннюю работу приложений Kubernetes.</p><h3 id="131aa64c-9d0a-8192-a95d-d8fe644daddc" class="">1.6.4 <strong>Prometheus</strong></h3><p id="131aa64c-9d0a-81bb-8924-eb2d31822f3c" class="">Prometheus — одно из самых популярных решений для мониторинга Kubernetes и Docker с открытым исходным кодом по нескольким причинам. Главным из них является то, что он сочетает в себе мощный язык запросов (PromQL) с многомерной моделью данных, в отличие от альтернативных баз данных временных рядов, таких как InfluxDB, Cassandra и Graphite.</p><p id="131aa64c-9d0a-81e5-9277-ec6a2cfd4153" class="">Кроме того, он использует метод извлечения, а не метода push, имеет большое сообщество разработчиков, которое помогает улучшить платформу, и предоставляет инструменты оповещения в режиме реального времени. Вы также можете запустить платформу поверх Kubernetes с помощью оператора Prometheus.</p><p id="131aa64c-9d0a-81ab-9d71-ec0f545678e7" class="">Однако он не имеет встроенного инструмента визуализации. Для этого вам нужно будет использовать другой инструмент, например Grafana.</p><h3 id="131aa64c-9d0a-8153-a688-fefda8124770" class="">1.6.5 <strong>Grafana</strong></h3><p id="131aa64c-9d0a-8161-a463-d5125cdc18b0" class="">Grafana — это надежное решение с открытым исходным кодом для запроса, визуализации, мониторинга, оповещения и анализа метрик, трассировок и журналов. Обычно инженеры используют его в сочетании с Prometheus, Grafite или InfluxDB. Это потому, что Grafana предлагает отличные панели визуализации и мониторинга для использования с базами данных.</p><p id="131aa64c-9d0a-81ec-ac30-dc46c25f54d5" class="">Многие инженеры используют его, поскольку он предлагает надежные оповещения, может запрашивать несколько объектов одновременно, поддерживает Elasticsearch и совместим со многими источниками данных. Grafana также позволяет просматривать журналы логов.</p><h3 id="131aa64c-9d0a-814c-abd0-ee0a02060c70" class="">1.6.6 Loki</h3><p id="131aa64c-9d0a-81bb-a484-f1956e909863" class="">Loki — это горизонтально масштабируемая, высокодоступная, многопользовательская система агрегирования логов, вдохновленная Prometheus. Он спроектирован так, чтобы быть очень экономичным и простым в эксплуатации. Он индексирует не содержимое журналов, а набор меток для каждого потока журналов.</p><p id="131aa64c-9d0a-8156-abdb-c1e6f3e33ccf" class="">Проект Loki был запущен в Grafana Labs в 2018 году и анонсирован на KubeCon Seattle. Loki выпускается под лицензией AGPLv3.</p><h3 id="131aa64c-9d0a-816a-9c27-e9f9415ac355" class="">1.6.7 <strong>Promtail</strong></h3><p id="131aa64c-9d0a-8162-8498-c8e98ca58f71" class="">Promtail — это агент, который отправляет содержимое локальных журналов в локальный экземпляр Grafana Loki или Grafana Cloud. Обычно он развертывается на каждой машине, на которой работают приложения, которые необходимо отслеживать.<br/>В настоящее время Promtail может отслеживать журналы из двух источников: локальных файлов журналов и журнала systemd (только на машинах AMD64).<br/></p><p id="131aa64c-9d0a-811e-bf34-d2c521334918" class="">Прежде чем Promtail сможет отправить какие-либо данные из файлов журналов в Loki, ему необходимо найти информацию о своей среде. В частности, это означает обнаружение приложений, отправляющих строки журнала в файлы, которые необходимо отслеживать.</p><h3 id="131aa64c-9d0a-8120-9ebd-e46588df3112" class="">1.6.8 <strong>cAdvisor </strong></h3><p id="131aa64c-9d0a-8161-9630-cf57b753728e" class="">cAdvisor — сокращенно от «Container Advisor», — это сборщик метрик с открытым исходным кодом, созданный Google для анализа и предоставления данных об использовании ресурсов и производительности запущенных контейнеров. Он также предоставляет готовые метрики Prometheus.</p><p id="131aa64c-9d0a-8170-9ee4-f5f2031ee436" class="">cAdvisor автоматически обнаруживает активные контейнеры, поэтому вы можете отслеживать их показатели, такие как использование ЦП, сети и памяти (на уровне узла, а не для каждого модуля). Однако, как и в случае с панелью управления Kubernetes, она в первую очередь ориентирована на сбор метрик, а не журналов событий, трассировок и событий, и не хранит долгосрочные данные.</p><p id="131aa64c-9d0a-81e1-a946-cdfb6947f9d5" class="">В репозитории Github говорится: «cAdvisor (Container Advisor) предоставляет пользователям контейнеров понимание использования ресурсов и характеристик производительности их работающих контейнеров».</p><p id="131aa64c-9d0a-8148-b6d2-dbc817408422" class="">Проще говоря, это означает, что cAdvisor работает как демон и собирает, агрегирует, обрабатывает и экспортирует информацию о контейнерах. Он сохраняет параметры изоляции ресурсов, историческое использование ресурсов, гистограммы полного исторического использования ресурсов и сетевую статистику для каждого контейнера. Эти данные экспортируются по контейнерам и по всему компьютеру.</p><h3 id="131aa64c-9d0a-8165-b0e3-df94f3b98d66" class="">1.6.9 <strong>Node-Exporter</strong></h3><p id="131aa64c-9d0a-81de-bc82-d124721c314c" class="">Node Exporter — это программное обеспечение, которое можно установить на ядро *NIX (Linux, OpenBSD, FreeBSD или Darwin).<br/>Он предоставит метрики, которые Prometheus сможет затем получить.<br/></p><p id="131aa64c-9d0a-8184-a2e3-cf7584ecba11" class="">В словаре Prometheus это называется экспортером и будет использоваться в качестве цели в конфигурации Prometheus.<br/>Prometheus будет подключаться к Node Exporter с использованием TCP-порта 9100 и протокола HTTP через определенные промежутки времени для получения этих показателей.<br/></p><h3 id="131aa64c-9d0a-8135-9293-ff5547b2e5cf" class="">1.6.10 <strong>Kubernetes Dashboard</strong></h3><p id="131aa64c-9d0a-81da-adb0-c3b416ed0c73" class="">Kubernetes Dashboard — собственный инструмент мониторинга Kubernetes.</p><p id="131aa64c-9d0a-817f-9c3e-df25d0f93ec1" class="">Dashboard — это веб-интерфейс пользователя Kubernetes. Вы можете использовать Dashboard для развертывания контейнерных приложений в кластере Kubernetes, устранения неполадок контейнерного приложения и управления ресурсами кластера. Вы можете использовать Dashboard для обзора приложений, работающих в вашем кластере, а также для создания или изменения отдельных ресурсов Kubernetes (таких как Deployments, Jobs, DaemonSets и т. д.). Например, вы можете масштабировать Deployment, инициировать чередующееся обновление, перезапустить под или развернуть новые приложения с помощью мастера развертывания.</p><p id="131aa64c-9d0a-81b8-bad9-fdcb7c5cb6bb" class="">Панель мониторинга также предоставляет информацию о состоянии ресурсов Kubernetes в вашем кластере и обо всех возможных ошибках.</p><figure class="block-color-orange_background callout" style="white-space:pre-wrap;display:flex" id="131aa64c-9d0a-813c-b91b-fd5aaa0dc947"><div style="font-size:1.5em"><span class="icon">❗</span></div><div style="width:100%">Dashboard нельзя использовать для мониторинга Docker контейнеров </div></figure></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

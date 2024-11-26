@@ -1,0 +1,1355 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Практическая работа к лекции 2.4</title>
+	<style>
+		/* cspell:disable-file */
+		/* webkit printing magic: print all background colors */
+		html {
+			-webkit-print-color-adjust: exact;
+		}
+
+		* {
+			box-sizing: border-box;
+			-webkit-print-color-adjust: exact;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		@media only screen {
+			body {
+				margin: 2em auto;
+				max-width: 900px;
+				color: rgb(55, 53, 47);
+			}
+		}
+
+		body {
+			line-height: 1.5;
+			/* white-space: pre-wrap; */
+		}
+
+		a,
+		a.visited {
+			color: inherit;
+			text-decoration: underline;
+		}
+
+		.pdf-relative-link-path {
+			font-size: 80%;
+			color: #444;
+		}
+
+		h1,
+		h2,
+		h3 {
+			letter-spacing: -0.01em;
+			line-height: 1.2;
+			font-weight: 600;
+			margin-bottom: 0;
+		}
+
+		.page-title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-top: 0;
+			margin-bottom: 0.75em;
+		}
+
+		h1 {
+			font-size: 1.875rem;
+			margin-top: 1.875rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+			margin-top: 1.25rem;
+		}
+
+		.source {
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			padding: 1.5em;
+			word-break: break-all;
+		}
+
+		.callout {
+			border-radius: 3px;
+			padding: 1rem;
+		}
+
+		figure {
+			margin: 1.25em 0;
+			page-break-inside: avoid;
+		}
+
+		figcaption {
+			opacity: 0.5;
+			font-size: 85%;
+			margin-top: 0.5em;
+		}
+
+		mark {
+			background-color: transparent;
+		}
+
+		.indented {
+			padding-left: 1.5em;
+		}
+
+		hr {
+			background: transparent;
+			display: block;
+			width: 100%;
+			height: 1px;
+			visibility: visible;
+			border: none;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+		}
+
+		img {
+			max-width: 100%;
+		}
+
+		@media only print {
+			img {
+				max-height: 100vh;
+				object-fit: contain;
+			}
+		}
+
+		@page {
+			margin: 1in;
+		}
+
+		.collection-content {
+			font-size: 0.875rem;
+		}
+
+		.column-list {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			padding: 0 1em;
+		}
+
+		.column:first-child {
+			padding-left: 0;
+		}
+
+		.column:last-child {
+			padding-right: 0;
+		}
+
+		.table_of_contents-item {
+			display: block;
+			font-size: 0.875rem;
+			line-height: 1.3;
+			padding: 0.125rem;
+		}
+
+		.table_of_contents-indent-1 {
+			margin-left: 1.5rem;
+		}
+
+		.table_of_contents-indent-2 {
+			margin-left: 3rem;
+		}
+
+		.table_of_contents-indent-3 {
+			margin-left: 4.5rem;
+		}
+
+		.table_of_contents-link {
+			text-decoration: none;
+			opacity: 0.7;
+			border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid rgba(55, 53, 47, 0.09);
+			border-collapse: collapse;
+		}
+
+		table {
+			border-left: none;
+			border-right: none;
+		}
+
+		th,
+		td {
+			font-weight: normal;
+			padding: 0.25em 0.5em;
+			line-height: 1.5;
+			min-height: 1.5em;
+			text-align: left;
+		}
+
+		th {
+			color: rgba(55, 53, 47, 0.6);
+		}
+
+		ol,
+		ul {
+			margin: 0;
+			margin-block-start: 0.6em;
+			margin-block-end: 0.6em;
+		}
+
+		li>ol:first-child,
+		li>ul:first-child {
+			margin-block-start: 0.6em;
+		}
+
+		ul>li {
+			list-style: disc;
+		}
+
+		ul.to-do-list {
+			padding-inline-start: 0;
+		}
+
+		ul.to-do-list>li {
+			list-style: none;
+		}
+
+		.to-do-children-checked {
+			text-decoration: line-through;
+			opacity: 0.375;
+		}
+
+		ul.toggle>li {
+			list-style: none;
+		}
+
+		ul {
+			padding-inline-start: 1.7em;
+		}
+
+		ul>li {
+			padding-left: 0.1em;
+		}
+
+		ol {
+			padding-inline-start: 1.6em;
+		}
+
+		ol>li {
+			padding-left: 0.2em;
+		}
+
+		.mono ol {
+			padding-inline-start: 2em;
+		}
+
+		.mono ol>li {
+			text-indent: -0.4em;
+		}
+
+		.toggle {
+			padding-inline-start: 0em;
+			list-style-type: none;
+		}
+
+		/* Indent toggle children */
+		.toggle>li>details {
+			padding-left: 1.7em;
+		}
+
+		.toggle>li>details>summary {
+			margin-left: -1.1em;
+		}
+
+		.selected-value {
+			display: inline-block;
+			padding: 0 0.5em;
+			background: rgba(206, 205, 202, 0.5);
+			border-radius: 3px;
+			margin-right: 0.5em;
+			margin-top: 0.3em;
+			margin-bottom: 0.3em;
+			white-space: nowrap;
+		}
+
+		.collection-title {
+			display: inline-block;
+			margin-right: 1em;
+		}
+
+		.page-description {
+			margin-bottom: 2em;
+		}
+
+		.simple-table {
+			margin-top: 1em;
+			font-size: 0.875rem;
+			empty-cells: show;
+		}
+
+		.simple-table td {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table th {
+			height: 29px;
+			min-width: 120px;
+		}
+
+		.simple-table-header-color {
+			background: rgb(247, 246, 243);
+			color: black;
+		}
+
+		.simple-table-header {
+			font-weight: 500;
+		}
+
+		time {
+			opacity: 0.5;
+		}
+
+		.icon {
+			display: inline-block;
+			max-width: 1.2em;
+			max-height: 1.2em;
+			text-decoration: none;
+			vertical-align: text-bottom;
+			margin-right: 0.5em;
+		}
+
+		img.icon {
+			border-radius: 3px;
+		}
+
+		.user-icon {
+			width: 1.5em;
+			height: 1.5em;
+			border-radius: 100%;
+			margin-right: 0.5rem;
+		}
+
+		.user-icon-inner {
+			font-size: 0.8em;
+		}
+
+		.text-icon {
+			border: 1px solid #000;
+			text-align: center;
+		}
+
+		.page-cover-image {
+			display: block;
+			object-fit: cover;
+			width: 100%;
+			max-height: 30vh;
+		}
+
+		.page-header-icon {
+			font-size: 3rem;
+			margin-bottom: 1rem;
+		}
+
+		.page-header-icon-with-cover {
+			margin-top: -0.72em;
+			margin-left: 0.07em;
+		}
+
+		.page-header-icon img {
+			border-radius: 3px;
+		}
+
+		.link-to-page {
+			margin: 1em 0;
+			padding: 0;
+			border: none;
+			font-weight: 500;
+		}
+
+		p>.user {
+			opacity: 0.5;
+		}
+
+		td>.user,
+		td>time {
+			white-space: nowrap;
+		}
+
+		input[type="checkbox"] {
+			transform: scale(1.5);
+			margin-right: 0.6em;
+			vertical-align: middle;
+		}
+
+		p {
+			margin-top: 0.5em;
+			margin-bottom: 0.5em;
+		}
+
+		.image {
+			border: none;
+			margin: 1.5em 0;
+			padding: 0;
+			border-radius: 0;
+			text-align: center;
+		}
+
+		.code,
+		code {
+			background: rgba(135, 131, 120, 0.15);
+			border-radius: 3px;
+			padding: 0.2em 0.4em;
+			border-radius: 3px;
+			font-size: 85%;
+			tab-size: 2;
+		}
+
+		code {
+			color: #eb5757;
+		}
+
+		.code {
+			padding: 1.5em 1em;
+		}
+
+		.code-wrap {
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.code>code {
+			background: none;
+			padding: 0;
+			font-size: 100%;
+			color: inherit;
+		}
+
+		blockquote {
+			font-size: 1.25em;
+			margin: 1em 0;
+			padding-left: 1em;
+			border-left: 3px solid rgb(55, 53, 47);
+		}
+
+		.bookmark {
+			text-decoration: none;
+			max-height: 8em;
+			padding: 0;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+		}
+
+		.bookmark-title {
+			font-size: 0.85em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 1.75em;
+			white-space: nowrap;
+		}
+
+		.bookmark-text {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.bookmark-info {
+			flex: 4 1 180px;
+			padding: 12px 14px 14px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+
+		.bookmark-image {
+			width: 33%;
+			flex: 1 1 180px;
+			display: block;
+			position: relative;
+			object-fit: cover;
+			border-radius: 1px;
+		}
+
+		.bookmark-description {
+			color: rgba(55, 53, 47, 0.6);
+			font-size: 0.75em;
+			overflow: hidden;
+			max-height: 4.5em;
+			word-break: break-word;
+		}
+
+		.bookmark-href {
+			font-size: 0.75em;
+			margin-top: 0.25em;
+		}
+
+		.sans {
+			font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		}
+
+		.code {
+			font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+		}
+
+		.serif {
+			font-family: Lyon-Text, Georgia, ui-serif, serif;
+		}
+
+		.mono {
+			font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+		}
+
+		.pdf .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .sans {
+			font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+		}
+
+		.pdf .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .code {
+			font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.pdf .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .serif {
+			font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+		}
+
+		.pdf .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+		}
+
+		.pdf:lang(zh-CN) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+		}
+
+		.pdf:lang(zh-TW) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+		}
+
+		.pdf:lang(ko-KR) .mono {
+			font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+		}
+
+		.highlight-default {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.highlight-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.highlight-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.highlight-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.highlight-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.highlight-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.highlight-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.highlight-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.highlight-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.highlight-default_background {
+			color: rgba(55, 53, 47, 1);
+		}
+
+		.highlight-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.highlight-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.highlight-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.highlight-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.highlight-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.highlight-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.highlight-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.highlight-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.highlight-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.block-color-default {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray {
+			color: rgba(120, 119, 116, 1);
+			fill: rgba(120, 119, 116, 1);
+		}
+
+		.block-color-brown {
+			color: rgba(159, 107, 83, 1);
+			fill: rgba(159, 107, 83, 1);
+		}
+
+		.block-color-orange {
+			color: rgba(217, 115, 13, 1);
+			fill: rgba(217, 115, 13, 1);
+		}
+
+		.block-color-yellow {
+			color: rgba(203, 145, 47, 1);
+			fill: rgba(203, 145, 47, 1);
+		}
+
+		.block-color-teal {
+			color: rgba(68, 131, 97, 1);
+			fill: rgba(68, 131, 97, 1);
+		}
+
+		.block-color-blue {
+			color: rgba(51, 126, 169, 1);
+			fill: rgba(51, 126, 169, 1);
+		}
+
+		.block-color-purple {
+			color: rgba(144, 101, 176, 1);
+			fill: rgba(144, 101, 176, 1);
+		}
+
+		.block-color-pink {
+			color: rgba(193, 76, 138, 1);
+			fill: rgba(193, 76, 138, 1);
+		}
+
+		.block-color-red {
+			color: rgba(212, 76, 71, 1);
+			fill: rgba(212, 76, 71, 1);
+		}
+
+		.block-color-default_background {
+			color: inherit;
+			fill: inherit;
+		}
+
+		.block-color-gray_background {
+			background: rgba(241, 241, 239, 1);
+		}
+
+		.block-color-brown_background {
+			background: rgba(244, 238, 238, 1);
+		}
+
+		.block-color-orange_background {
+			background: rgba(251, 236, 221, 1);
+		}
+
+		.block-color-yellow_background {
+			background: rgba(251, 243, 219, 1);
+		}
+
+		.block-color-teal_background {
+			background: rgba(237, 243, 236, 1);
+		}
+
+		.block-color-blue_background {
+			background: rgba(231, 243, 248, 1);
+		}
+
+		.block-color-purple_background {
+			background: rgba(244, 240, 247, 0.8);
+		}
+
+		.block-color-pink_background {
+			background: rgba(249, 238, 243, 0.8);
+		}
+
+		.block-color-red_background {
+			background: rgba(253, 235, 236, 1);
+		}
+
+		.select-value-color-uiBlue {
+			background-color: rgba(35, 131, 226, .07);
+		}
+
+		.select-value-color-pink {
+			background-color: rgba(245, 224, 233, 1);
+		}
+
+		.select-value-color-purple {
+			background-color: rgba(232, 222, 238, 1);
+		}
+
+		.select-value-color-green {
+			background-color: rgba(219, 237, 219, 1);
+		}
+
+		.select-value-color-gray {
+			background-color: rgba(227, 226, 224, 1);
+		}
+
+		.select-value-color-transparentGray {
+			background-color: rgba(227, 226, 224, 0);
+		}
+
+		.select-value-color-translucentGray {
+			background-color: rgba(0, 0, 0, 0.06);
+		}
+
+		.select-value-color-orange {
+			background-color: rgba(250, 222, 201, 1);
+		}
+
+		.select-value-color-brown {
+			background-color: rgba(238, 224, 218, 1);
+		}
+
+		.select-value-color-red {
+			background-color: rgba(255, 226, 221, 1);
+		}
+
+		.select-value-color-yellow {
+			background-color: rgba(253, 236, 200, 1);
+		}
+
+		.select-value-color-blue {
+			background-color: rgba(211, 229, 239, 1);
+		}
+
+		.select-value-color-pageGlass {
+			background-color: undefined;
+		}
+
+		.select-value-color-washGlass {
+			background-color: undefined;
+		}
+
+		.checkbox {
+			display: inline-flex;
+			vertical-align: text-bottom;
+			width: 16;
+			height: 16;
+			background-size: 16px;
+			margin-left: 2px;
+			margin-right: 5px;
+		}
+
+		.checkbox-on {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+
+		.checkbox-off {
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+		}
+	</style>
+</head>
+
+<body>
+	<article id="131aa64c-9d0a-8122-ab43-d4527f659207" class="page sans">
+		<header>
+			<div class="page-header-icon undefined"><img class="icon"
+					src="https://www.notion.so/icons/compose_gray.svg" /></div>
+			<h1 class="page-title">Практическая работа к лекции 2.4</h1>
+			<p class="page-description"></p>
+		</header>
+		<div class="page-body">
+			<h1 id="131aa64c-9d0a-818f-ad81-c612ea9bbab5" class="">2. Практическая часть</h1>
+			<h2 id="131aa64c-9d0a-818c-8e64-c7e5bf802d6d" class=""><strong>2.1 Настройка р</strong>епликации</h2>
+			<p id="131aa64c-9d0a-8161-a662-e23fd389b285" class="">Для проведения данной работы нам потребуется две
+				Linux-машинки. В рамках этой инструкции были развернуты два Debian 12. Рекомендуется установить две
+				абсолютно одинаковые инсталляции OC.</p>
+			<p id="131aa64c-9d0a-81c4-b0b9-ec8cdd0d2d48" class="">Так как репликация у нас будет типа Master-Slave, то
+				необходимо определиться с системой, которая будет выступать в качестве сервера “Master”. Выведем ее
+				сетевые интерфейсы, чтобы в следующих шагах не запутаться в ip-адресах.</p>
+			<figure id="131aa64c-9d0a-8123-bc19-ccf94483a91c" class="image"><a
+					href="Практическая работа к лекции 2 4/Untitled.png"><img
+						style="width:708px"
+						src="Практическая работа к лекции 2 4/Untitled.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-817e-ba88-d3423f5ef9a0" class="">То же действие проделаем с подчиненным сервером</p>
+			<figure id="131aa64c-9d0a-8169-bf42-c8dfa416f432" class="image"><a
+					href="Практическая работа к лекции 2 4/Untitled%201.png"><img
+						style="width:708px"
+						src="Практическая работа к лекции 2 4/Untitled%201.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-810c-b564-fe44f5ad55de" class="">Далее устанавливаем СУБД на сервере:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-814d-b959-c1b125ba86a6"
+				class="code"><code class="language-JavaScript">sudo apt-get install postgresql postgresql-contrib</code></pre>
+			<figure id="131aa64c-9d0a-8100-b422-e48c58d5dde1" class="image"><a
+					href="Практическая работа к лекции 2 4/Untitled%202.png"><img
+						style="width:708px"
+						src="Практическая работа к лекции 2 4/Untitled%202.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8180-9519-cd77f4c0e6d8" class="">Аналогичное действие проделаем на сервере “Slave”</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81e2-835c-f64dd4c81dab"
+				class="code"><code class="language-JavaScript">sudo apt-get install postgresql postgresql-contrib</code></pre>
+			<figure id="131aa64c-9d0a-81a9-9705-f306b26ef987" class="image"><a
+					href="Практическая работа к лекции 2 4/Untitled%203.png"><img
+						style="width:708px"
+						src="Практическая работа к лекции 2 4/Untitled%203.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81d5-b543-dabcf844f8c0" class="">После установки необходимо проверить, был ли запущен
+				сервис СУБД на обоих серверах</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8196-936c-e481e36d618b" class="code"><code class="language-JavaScript">service postgresql status
+--------------------------
+service postgresql start    #для запуска сервиса
+--------------------------
+service postgresql restart  #для перезапуска
+--------------------------
+service postgresql stop     #для остановки</code></pre>
+			<figure id="131aa64c-9d0a-815f-9697-c03b44601df2" class="image"><a
+					href="Практическая работа к лекции 2 4/Untitled%204.png"><img
+						style="width:708px"
+						src="Практическая работа к лекции 2 4/Untitled%204.png" /></a>
+			</figure>
+			<figure id="131aa64c-9d0a-81cb-be2a-eed491e7c275" class="image"><a
+					href="Практическая работа к лекции 2 4/Untitled%205.png"><img
+						style="width:708px"
+						src="Практическая работа к лекции 2 4/Untitled%205.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81db-81fb-e74d57a82ea7" class="">Можем заранее посмотреть список баз данных на
+				подчиненном сервере</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81f8-8259-fad49a0d3d0e" class="code"><code class="language-JavaScript">sudo -u postgres -i
+psql
+\l</code></pre>
+			<figure id="131aa64c-9d0a-81d6-82d6-c2a27ddd6f34" class="image"><a
+					href="Практическая работа к лекции 2 4/Untitled%206.png"><img
+						style="width:708px"
+						src="Практическая работа к лекции 2 4/Untitled%206.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8193-a82f-df6f18173cca" class="">Те же действия повторим и с другим сервером</p>
+			<figure id="131aa64c-9d0a-81de-aa47-d732b145e9c2" class="image"><a
+					href="Практическая работа к лекции 2 4/Untitled%207.png"><img
+						style="width:708px"
+						src="Практическая работа к лекции 2 4/Untitled%207.png" /></a>
+			</figure>
+			<figure class="block-color-gray_background callout" style=" display:flex"
+				id="131aa64c-9d0a-8183-b3cf-dc468d2100f1">
+				<div style="font-size:1.5em"><span class="icon">⚠️</span></div>
+				<div style="width:100%"><strong>В случае, если на сервере “Master” у вас нет новых созданных баз данных,
+						то создайте их самостоятельно</strong></div>
+			</figure>
+			<p id="131aa64c-9d0a-81ff-b8d1-de60c229d8dc" class="">Теперь приступаем к настройке сервера “Master”.</p>
+			<p id="131aa64c-9d0a-81de-af0a-e3c8444748c4" class="">Перейдем на УЗ пользователя postgres</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81b5-9494-f82e4bb1fc9c"
+				class="code"><code class="language-JavaScript">sudo -u postgres -i</code></pre>
+			<figure id="131aa64c-9d0a-817e-9c6f-d1317d0f81b7" class="image"><a
+					href="Практическая работа к лекции 2 4/Untitled%208.png"><img
+						style="width:708px"
+						src="Практическая работа к лекции 2 4/Untitled%208.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-813a-bf54-e242b6b9ad72" class="">Под аккаунтом postgres необходимо создать пользователя
+				для репликации</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81f8-a20b-c76ce0d35e37"
+				class="code"><code class="language-JavaScript">createuser --replication -P repl_user</code></pre>
+			<figure id="131aa64c-9d0a-818a-b41a-db7b167a90d4" class="image"><a
+					href="Практическая работа к лекции 2 4/Untitled%209.png"><img
+						style="width:708px"
+						src="Практическая работа к лекции 2 4/Untitled%209.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-819c-bc83-e9d1c142ad8e" class="">Далее просмотрим расположение config-файла</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81d4-b830-e25bc94a0719"
+				class="code"><code class="language-JavaScript">psql -c &#x27;SHOW config_file;&#x27;</code></pre>
+			<figure id="131aa64c-9d0a-818b-a66a-da2d85e1754d" class="image"><a
+					href="Практическая работа к лекции 2 4/Untitled%2010.png"><img
+						style="width:743px"
+						src="Практическая работа к лекции 2 4/Untitled%2010.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81a0-9165-ee7da39fcfa2" class="">Нам необходимо внести в этот файл некоторые правки</p>
+			<figure id="131aa64c-9d0a-8161-8fc2-f4616a7bcfbf" class="image"><a
+					href="Практическая работа к лекции 2 4/Untitled%2011.png"><img
+						style="width:708px"
+						src="Практическая работа к лекции 2 4/Untitled%2011.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81c6-a011-c0019c601bd9" class="">В файл необходимо внести следующие правки:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-811c-9993-c90467c25beb" class="code"><code class="language-JavaScript">archive_mode = on               
+
+archive_command = &#x27;cp %p /oracle/pg_data/archive/%f&#x27; </code></pre>
+			<figure id="131aa64c-9d0a-810f-927a-d5586943706d" class="image"><a
+					href="Практическая работа к лекции 2 4/Untitled%2012.png"><img
+						style="width:708px"
+						src="Практическая работа к лекции 2 4/Untitled%2012.png" /></a>
+			</figure>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8184-bef8-d80d6141d5ea"
+				class="code"><code class="language-JavaScript">max_wal_senders = 10</code></pre>
+			<figure id="131aa64c-9d0a-81b4-878c-fb767717c3dd" class="image"><a
+					href="Практическая работа к лекции 2 4/Untitled%2013.png"><img
+						style="width:708px"
+						src="Практическая работа к лекции 2 4/Untitled%2013.png" /></a>
+			</figure>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ea-a531-dbc48f3afdaf" class="code"><code class="language-JavaScript">wal_level = replica                     
+
+wal_log_hints = on</code></pre>
+			<figure id="131aa64c-9d0a-816e-8f90-caba530c6134" class="image"><a
+					href="Практическая работа к лекции 2 4/Untitled%2014.png"><img
+						style="width:708px"
+						src="Практическая работа к лекции 2 4/Untitled%2014.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8145-9984-ccd76c8afcd0" class="">Далее необходимо внести дополнения в файл pg_hba.conf,
+				добавив имя пользователя для репликаций и IP-адрес подчиненного сервера.</p>
+			<p id="131aa64c-9d0a-8148-aad5-f4b328e5524c" class="">Откроем конфигурационный файл pg_hba.conf с помощью
+				текстового редактора nano</p>
+			<figure id="131aa64c-9d0a-818a-bb75-d8cc33a34267" class="image"><a
+					href="Практическая работа к лекции 2 4/Untitled%2015.png"><img
+						style="width:708px"
+						src="Практическая работа к лекции 2 4/Untitled%2015.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81bb-b515-d28b5fcd2776" class="">И внесем правки</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81e8-92a0-d58e560c8beb"
+				class="code"><code class="language-JavaScript">host replication repl_user &lt;IP_SLAVE_SERVER&gt; scram-sha-256</code></pre>
+			<figure id="131aa64c-9d0a-81d6-8476-f6255feb668a" class="image"><a
+					href="Практическая работа к лекции 2 4/Untitled%2016.png"><img
+						style="width:764px"
+						src="Практическая работа к лекции 2 4/Untitled%2016.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8126-a4b8-deaeda096122" class="">После внесения правок в конфигурационные файлы,
+				перезапустим сервис</p>
+			<figure id="131aa64c-9d0a-8179-9b9b-f8eaa8803448" class="image"><a
+					href="Практическая работа к лекции 2 4/Untitled%2017.png"><img
+						style="width:708px"
+						src="Практическая работа к лекции 2 4/Untitled%2017.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81d8-83b2-d78cd5012b2a" class="">На этом настройка сервера Master завершена. Теперь
+				перейдем к настройке сервера Slave. Прежде всего правим файл postgresql.conf</p>
+			<figure id="131aa64c-9d0a-81c6-82e3-eaf81e029e6c" class="image"><a
+					href="Практическая работа к лекции 2 4/Untitled%2018.png"><img
+						style="width:708px"
+						src="Практическая работа к лекции 2 4/Untitled%2018.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81e6-89a8-d2e76394beed" class="">Для внесения дальнейших изменений нам необходимо
+				остановить сервер</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ca-8f74-fdeb0edb1fb7" class="code"><code class="language-JavaScript">systemctl stop postgresql
+-------------------------
+OR
+-------------------------
+service postgresql stop</code></pre>
+			<figure id="131aa64c-9d0a-81ce-be27-d0ecba5742b5" class="image"><a
+					href="Практическая работа к лекции 2 4/Untitled%2019.png"><img
+						style="width:816px"
+						src="Практическая работа к лекции 2 4/Untitled%2019.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8153-bc83-fa8a867853a3" class="">Так как в режиме подчиненного сервера у нас все данные
+				реплицируются с основного, нам необходимо удалить файлы из каталога main. Если у вас инсталляция не
+				новая, можно предварительно сделать бэкап содержимого этого каталога.</p>
+			<figure id="131aa64c-9d0a-8120-8a04-fecf71529647" class="image"><a
+					href="Практическая работа к лекции 2 4/Untitled%2020.png"><img
+						style="width:708px"
+						src="Практическая работа к лекции 2 4/Untitled%2020.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8168-bb91-c1eb56237a36" class="">Теперь проведем проверку работы процесса репликации.
+				Для этого используем команду <code>pg_basebackup</code> с адресом основного сервера и именем
+				пользователя для репликаций</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-81ea-98c5-f7bbed6dffc2"
+				class="code"><code class="language-JavaScript">pg_basebackup -R -h &lt;IP_MASTER_SERVER&gt; -U repl_user -D /var/lib/postgresql/15/main -P</code></pre>
+			<figure id="131aa64c-9d0a-81e9-9567-e108b8434c2c" class="image"><a
+					href="Практическая работа к лекции 2 4/Untitled%2021.png"><img
+						style="width:910px"
+						src="Практическая работа к лекции 2 4/Untitled%2021.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-818c-a3f8-f972495c9161" class="">Запустим сервис</p>
+			<figure id="131aa64c-9d0a-81c2-8792-c9401c81b4f4" class="image"><a
+					href="Практическая работа к лекции 2 4/Untitled%2022.png"><img
+						style="width:709px"
+						src="Практическая работа к лекции 2 4/Untitled%2022.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8101-aa3d-dbff69579d59" class="">Теперь просмотрим список реплицированных баз данных
+			</p>
+			<figure id="131aa64c-9d0a-815b-9b5c-cb9b548c1d1b" class="image"><a
+					href="Практическая работа к лекции 2 4/Untitled%2023.png"><img
+						style="width:708px"
+						src="Практическая работа к лекции 2 4/Untitled%2023.png" /></a>
+			</figure>
+			<h2 id="131aa64c-9d0a-81d4-935f-c448c99e4145" class=""><strong>2.2 Настройка м</strong>ногопользовательского
+				доступ и разграничения прав</h2>
+			<ol type="1" id="131aa64c-9d0a-8164-8783-e60a5ad2d10f" class="numbered-list" start="1">
+				<li>Создание пользователей:
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-8117-9f16-f76cb4794179" class="code"><code class="language-SQL">CREATE USER ADMpetr WITH PASSWORD &#x27;eve@123&#x27;;
+CREATE USER petr WITH PASSWORD &#x27;eve@123&#x27;;</code></pre>
+					<figure id="131aa64c-9d0a-814b-83ed-cb832bdb5b64" class="image"><a
+							href="Практическая работа к лекции 2 4/Untitled%2024.png"><img
+								style="width:672px"
+								src="Практическая работа к лекции 2 4/Untitled%2024.png" /></a>
+					</figure>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81a9-9140-f310259e280c" class="numbered-list" start="2">
+				<li>Назначение прав доступа:
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-8159-9a85-c326ce118705"
+						class="code"><code class="language-SQL">GRANT SELECT, INSERT ON Покупатели TO admpetr;</code></pre>
+					<figure id="131aa64c-9d0a-8199-b73c-e2cb5b966ea1" class="image"><a
+							href="Практическая работа к лекции 2 4/Untitled%2025.png"><img
+								style="width:672px"
+								src="Практическая работа к лекции 2 4/Untitled%2025.png" /></a>
+					</figure>
+					<figure class="block-color-purple_background callout" style=" display:flex"
+						id="131aa64c-9d0a-8119-a8a6-e6fa320a8e7a">
+						<div style="font-size:1.5em"><span class="icon">❗</span></div>
+						<div style="width:100%">Вы должны быть подключены к базе данных. <code>\c db_customers</code>
+						</div>
+					</figure>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81d3-ac8f-ffcba43d6930" class="numbered-list" start="3">
+				<li>Ограничение доступа:
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-8112-870e-dba013b4d1cb"
+						class="code"><code class="language-SQL">REVOKE INSERT ON Покупатели FROM petr;</code></pre>
+					<figure id="131aa64c-9d0a-815b-9aeb-cb79a12221ba" class="image"><a
+							href="Практическая работа к лекции 2 4/Untitled%2026.png"><img
+								style="width:672px"
+								src="Практическая работа к лекции 2 4/Untitled%2026.png" /></a>
+					</figure>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8113-8a36-deb7fe6371b3" class="numbered-list" start="4">
+				<li>Подключение от имени пользователя <code>petr</code>:
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-8168-ac0f-d033e98c959c"
+						class="code"><code class="language-SQL">psql -U petr -d db_customers -h 127.0.0.1 -W</code></pre>
+					<figure id="131aa64c-9d0a-81a5-bb5b-f1eb33d84ad6" class="image"><a
+							href="Практическая работа к лекции 2 4/Untitled%2027.png"><img
+								style="width:711px"
+								src="Практическая работа к лекции 2 4/Untitled%2027.png" /></a>
+					</figure>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8172-8547-e5c88c256050" class="numbered-list" start="5">
+				<li>Попытка добавить данные в таблицу:
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-817b-951f-e7c27d6223f9" class="code"><code class="language-SQL">INSERT INTO Покупатели (Имя, ПоследняяПокупка)
+VALUES (&#x27;Иванова Анна&#x27;, &#x27;2024-01-01&#x27;),
+       (&#x27;Петрова Ирина&#x27;, &#x27;2024-02-15&#x27;),
+       (&#x27;Сидорова Евгения&#x27;, &#x27;2023-12-20&#x27;),
+       (&#x27;Жукова Пчела&#x27;, &#x27;2024-03-10&#x27;),
+       (&#x27;Козлова&#x27;, &#x27;2024-01-30&#x27;);</code></pre>
+					<figure id="131aa64c-9d0a-813f-9e99-f16f6a426337" class="image"><a
+							href="Практическая работа к лекции 2 4/Untitled%2028.png"><img
+								style="width:680px"
+								src="Практическая работа к лекции 2 4/Untitled%2028.png" /></a>
+					</figure>
+					<p id="131aa64c-9d0a-8166-8fa8-f6a0eb853ee8" class="">Мы видим ошибку
+						<code>permission denied for table Покупатели</code>, которая говорит нам о том, что у этого
+						пользователя нет прав на добавление данных в эту таблицу.</p>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-8177-871d-c9be5237d9b9" class="numbered-list" start="6">
+				<li>Подключение от имени пользователя <code>admpetr</code>:
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-8155-b1c6-dc36dceb6aef"
+						class="code"><code class="language-SQL">psql -U admpetr -d db_customers -h 127.0.0.1 -W</code></pre>
+				</li>
+			</ol>
+			<ol type="1" id="131aa64c-9d0a-81bf-aa4d-e653e2ae86d7" class="numbered-list" start="7">
+				<li>Попытка добавить данные в таблицу:
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+						integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+						crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+					<link rel="stylesheet"
+						href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+						integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+						crossorigin="anonymous" referrerPolicy="no-referrer" />
+					<pre id="131aa64c-9d0a-81a8-99cc-e83c77a33324" class="code"><code class="language-SQL">INSERT INTO Покупатели (Имя, ПоследняяПокупка)
+VALUES (&#x27;Иванова Анна&#x27;, &#x27;2024-01-01&#x27;),
+       (&#x27;Петрова Ирина&#x27;, &#x27;2024-02-15&#x27;),
+       (&#x27;Сидорова Евгения&#x27;, &#x27;2023-12-20&#x27;),
+       (&#x27;Жукова Пчела&#x27;, &#x27;2024-03-10&#x27;),
+       (&#x27;Козлова&#x27;, &#x27;2024-01-30&#x27;);</code></pre>
+					<figure id="131aa64c-9d0a-81ef-98ad-d4de55caa160" class="image"><a
+							href="Практическая работа к лекции 2 4/Untitled%2029.png"><img
+								style="width:680px"
+								src="Практическая работа к лекции 2 4/Untitled%2029.png" /></a>
+					</figure>
+					<figure id="131aa64c-9d0a-8164-b79e-ce47959301ee" class="image"><a
+							href="Практическая работа к лекции 2 4/Untitled%2030.png"><img
+								style="width:768px"
+								src="Практическая работа к лекции 2 4/Untitled%2030.png" /></a>
+					</figure>
+				</li>
+			</ol>
+			<h2 id="131aa64c-9d0a-81de-9180-c9ab05cfb68a" class=""><strong>2.3 Транзакции и точки сохранения</strong>
+			</h2>
+			<h3 id="131aa64c-9d0a-81af-a10c-eb0202ab1a2f" class="">2.3.1 Примеры использования транзакций</h3>
+			<p id="131aa64c-9d0a-8128-aa08-fa652c580827" class="">В PostgreSQL транзакции могут быть управляемыми явным
+				образом с помощью операторов <code><strong>BEGIN</strong></code>, <code><strong>COMMIT</strong></code> и
+				<code><strong>ROLLBACK</strong></code>, либо они могут быть неявными, когда каждый запрос автоматически
+				запускает новую транзакцию, если таковая не существует.</p>
+			<p id="131aa64c-9d0a-81d4-abe2-de2df0a2c219" class="">Предположим, что у нас есть задача обновить дату
+				последней покупки для всех покупателей и затем удалить данные о покупателе с недопустимым форматом
+				имени:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-8131-9207-e724e079b6f0" class="code"><code class="language-SQL">BEGIN;
+
+-- Обновляем дату последней покупки для всех покупателей
+UPDATE Покупатели
+SET ПоследняяПокупка = CURRENT_DATE;
+
+-- Удаляем данные о покупателе с недопустимым форматом имени
+DELETE FROM Покупатели
+WHERE Имя = &#x27;Козлов&#x27;;
+
+COMMIT; -- Фиксация изменений</code></pre>
+			<figure id="131aa64c-9d0a-8101-af8c-ef651e7abe5d" class="image"><a
+					href="Практическая работа к лекции 2 4/Untitled%2031.png"><img
+						style="width:589px"
+						src="Практическая работа к лекции 2 4/Untitled%2031.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-81b2-b4af-f4ec03ffabc3" class="">В результате у нас обновилась дата у 6 строк, и после
+				выполнилось удаление одного из пользователей (Козлов).</p>
+			<p id="131aa64c-9d0a-81a4-8c84-e42e603894c1" class="">В этом примере, если все операции внутри транзакции
+				завершатся успешно, изменения будут зафиксированы. Если произойдет ошибка или нарушение целостности
+				данных, транзакция будет отменена, и все изменения будут откачены.</p>
+			<h3 id="131aa64c-9d0a-8135-b8dc-c79e6341872e" class="">2.3.2 Примеры использования точек сохранения</h3>
+			<p id="131aa64c-9d0a-8181-9a9a-d84965cfea00" class="">Предположим, что мы хотим выполнить ряд операций в
+				рамках транзакции, но хотим иметь возможность откатиться только в случае ошибки при обновлении даты
+				последней покупки для конкретного покупателя:</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+				integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg=="
+				crossorigin="anonymous" referrerPolicy="no-referrer"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+				integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+				crossorigin="anonymous" referrerPolicy="no-referrer" />
+			<pre id="131aa64c-9d0a-814e-b97b-fe18b76473dc" class="code"><code class="language-SQL">BEGIN;
+
+-- Обновляем дату последней покупки для покупателя &quot;Иванов Иван&quot;
+UPDATE Покупатели
+SET ПоследняяПокупка = CURRENT_DATE
+WHERE Имя = &#x27;Иванов Иван&#x27;;
+
+-- Сохраняем точку сохранения перед обновлением следующего покупателя
+SAVEPOINT update_next;
+
+-- Обновляем дату последней покупки для покупателя &quot;Петров Петр&quot;
+UPDATE Покупатели
+SET ПоследняяПокупка = CURRENT_DATE
+WHERE Имя = &#x27;Петров Петр&#x27;;
+
+-- Если произошла ошибка, откатываемся к точке сохранения
+ROLLBACK TO update_next;
+
+COMMIT; -- Фиксация изменений</code></pre>
+			<figure id="131aa64c-9d0a-81f6-8914-f93478142a25" class="image"><a
+					href="Практическая работа к лекции 2 4/Untitled%2032.png"><img
+						style="width:581px"
+						src="Практическая работа к лекции 2 4/Untitled%2032.png" /></a>
+			</figure>
+			<p id="131aa64c-9d0a-8183-a45e-dc98e29e3077" class="">В этом примере, если обновление для покупателя
+				&quot;Петров Петр&quot; завершится неудачно (например, из-за нарушения ограничений уникальности), мы
+				откатимся к точке сохранения и не затронем изменения, сделанные для покупателя &quot;Иванов Иван&quot;.
+			</p>
+			<p id="131aa64c-9d0a-81aa-9273-e82da9638eec" class="">
+			</p>
+		</div>
+	</article><span class="sans" style="font-size:14px;padding-top:2em"></span>
+</body>
+
+</html>

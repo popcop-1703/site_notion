@@ -1,0 +1,698 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Практическая работа к лекции 4.2</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="131aa64c-9d0a-812d-bea4-d4ad3c531fed" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/compose_gray.svg"/></div><h1 class="page-title">Практическая работа к лекции 4.2</h1><p class="page-description"></p></header><div class="page-body"><h1 id="131aa64c-9d0a-8153-ace2-fdcd17c3750f" class="">2. Практическая часть</h1><h2 id="131aa64c-9d0a-81e5-b885-cd1f9b485787" class="">2.1 Где установить Git</h2><p id="131aa64c-9d0a-81d2-acc7-ecd4b77e12a2" class="">Переходим по ссылке </p><figure id="131aa64c-9d0a-8128-97bc-c0d697d58b03"><a href="https://git-scm.com/download/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Git - Downloads</div><div class="bookmark-description">The entire Pro Git book written
+  by Scott Chacon and Ben Straub is available to read online for free.
+  Dead tree versions are available on Amazon.com.</div></div><div class="bookmark-href"><img src="https://git-scm.com/favicon.ico" class="icon bookmark-icon"/>https://git-scm.com/download/</div></div></a></figure><figure id="131aa64c-9d0a-814b-bcd5-d2be0e5bb0df" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled.png"><img style="width:1158px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled.png"/></a></figure><p id="131aa64c-9d0a-8145-8fd6-d310a4486e22" class="">Выбираем нужную ОС, в моем случае Windows, выбираем свою разрядность системы и скачиваем установщик. Далее Установка выполняется в один клик.</p><figure id="131aa64c-9d0a-813d-bce0-c1463d7c7b46" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%201.png"><img style="width:507px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%201.png"/></a></figure><p id="131aa64c-9d0a-81e3-a1ff-ead921e3fee2" class="">После установки находим Git Bash</p><figure id="131aa64c-9d0a-8120-9830-dcf59cd3d2f8" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%202.png"><img style="width:756px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%202.png"/></a></figure><p id="131aa64c-9d0a-81d5-b1e6-e1ef8c95301a" class="">Занятие будет проходить нём.</p><h2 id="131aa64c-9d0a-81fb-ae6c-ff320a6b4452" class="">2.2 <mark class="highlight-default">Как устроен Git</mark></h2><h3 id="131aa64c-9d0a-810f-9eae-f90be1283021" class=""><mark class="highlight-default">2.2.1 Первоначальная настройка</mark></h3><p id="131aa64c-9d0a-812c-8102-ef2906e5face" class="">Перед началом работы с git необходимо указать имя пользователя и почту:</p><p id="131aa64c-9d0a-8125-bb21-f543ec6f0c0a" class=""><code>git config --global user.name &quot;John Doe&quot;</code></p><p id="131aa64c-9d0a-81d7-97c3-e628c780ad55" class=""><code>git config --global user.email &quot;johndoe@example.com&quot;</code></p><figure id="131aa64c-9d0a-81a1-8788-fbcef987d5ad" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%203.png"><img style="width:672px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%203.png"/></a></figure><p id="131aa64c-9d0a-81ca-84aa-e34fe0bafea8" class="">Для просмотра всех настроек выполним</p><p id="131aa64c-9d0a-813f-92af-d9c131155864" class=""><code> git config --list --show-origin</code></p><figure id="131aa64c-9d0a-811a-b1fd-ea4654f1717e" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%204.png"><img style="width:672px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%204.png"/></a><figcaption>чтобы выйти нажмите клавишу q</figcaption></figure><h3 id="131aa64c-9d0a-8115-8bb0-c65ca5f320c7" class="">2.2.2 Создание репозитория</h3><p id="131aa64c-9d0a-81ef-ac42-eaa32232a7f7" class="">Для работы с Git репозиторием нужно его создать или скачать. </p><ul id="131aa64c-9d0a-8155-b63b-f36fed4b2f2e" class="bulleted-list"><li style="list-style-type:disc">Вы можете взять локальный каталог и превратить его в git репозиторий одной командой:</li></ul><p id="131aa64c-9d0a-81c5-9512-f73d7bcae952" class=""><code>git init</code></p><figure id="131aa64c-9d0a-8181-86fe-c7b1dda65b9d" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%205.png"><img style="width:766px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%205.png"/></a></figure><ul id="131aa64c-9d0a-8169-a7ac-dbc4e8eb4e20" class="bulleted-list"><li style="list-style-type:disc">Или вы можете скачать git репозиторий например с GitHub командой </li></ul><p id="131aa64c-9d0a-816c-aa22-dc3445064664" class=""><code>git clone https://github.com/…</code></p><p id="131aa64c-9d0a-81ef-b7a7-fe724818e627" class="">Мы воспользуемся первым способом.</p><p id="131aa64c-9d0a-81f1-885e-d41afa108307" class="">После выполнения команды появляется каталог .git (о содержимом каталога поговорим позже). После этого все добавленные файлы в текущую директорию получат статус <em><strong>не отслеживаемые</strong></em> (untracked).</p><figure id="131aa64c-9d0a-813c-a046-dfd2614ee866" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%206.png"><img style="width:672px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%206.png"/></a><figcaption>добавлен файл и каталог. оба получили статус untracked</figcaption></figure><p id="131aa64c-9d0a-8166-aae2-fdc0e7dbae96" class="">Это значит что git не будет запоминать эти файлы и не будет отслеживать их изменения.</p><p id="131aa64c-9d0a-81dc-88b7-f996c88124fa" class="">Команда <code>git add &lt;file&gt;</code> сообщает git, что необходимо индексировать этот файл, то есть следить за его изменением. </p><figure id="131aa64c-9d0a-81f7-acba-e9b11b245f6c" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%207.png"><img style="width:672px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%207.png"/></a></figure><p id="131aa64c-9d0a-818c-a350-fdd566ab3ba9" class="">Выполним наш первый коммит. </p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81ec-aa24-c00c9195d9cd" class="code"><code class="language-Bash">git commit -am &quot;first commit”
+-a автоматически добавляет все изменения рабочей директории в индекс. Флаг применять осторожно, дабы не добавить лишнее
+-m оставляем комментарий</code></pre><figure id="131aa64c-9d0a-8159-951a-dad62428a1d3" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%208.png"><img style="width:720px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%208.png"/></a></figure><p id="131aa64c-9d0a-81ca-89f8-f286ad77e6f1" class="">При вводе <code>git log</code> мы сможем его увидеть.</p><p id="131aa64c-9d0a-81a2-956c-cfe73e5ace07" class="">А так же увидим хэш коммита, автора и дату изменения.</p><figure id="131aa64c-9d0a-8145-b1cf-e892829efb1d" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%209.png"><img style="width:877px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%209.png"/></a></figure><p id="131aa64c-9d0a-81b1-9524-f89bef14f858" class="">Но мы ничего не записывали в файлы. Запишем в “test1.txt” следующее:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8143-a93f-c5810d6080f4" class="code"><code class="language-Bash">книга по git:
+https://git-scm.com/book/ru/v2/</code></pre><p id="131aa64c-9d0a-81fa-a9dd-df80b0735ef5" class="">При выполнении <code>git status</code> видим новое состояние modified, говорящее нам об изменении файла, но не добавлении его в следующий коммит. </p><figure id="131aa64c-9d0a-811b-8d5d-d8e632f104e8" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2010.png"><img style="width:720px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2010.png"/></a></figure><p id="131aa64c-9d0a-8122-89c6-ff705cb6b485" class="">Выполним <code>git add test1.txt</code></p><figure id="131aa64c-9d0a-815c-8946-f03c97985e41" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2011.png"><img style="width:672px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2011.png"/></a></figure><p id="131aa64c-9d0a-8186-a659-f558c631d4d9" class="">Теперь выполним знакомую нам команду но уже с новым флагом:</p><p id="131aa64c-9d0a-8112-9f15-c266929e6b1f" class=""><code>git commit --amend</code></p><figure id="131aa64c-9d0a-8105-9a25-c5dc60a3a7fd" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2012.png"><img style="width:672px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2012.png"/></a></figure><p id="131aa64c-9d0a-814e-94e7-f53b4df7dc69" class="">Далее пишем :wq и жмем Enter</p><blockquote id="131aa64c-9d0a-8153-a9b2-c8de4a027c6c" class=""><mark class="highlight-teal">Команда </mark><mark class="highlight-teal"><code>git commit --amend</code></mark><mark class="highlight-teal"> нужна если коммит выполнен слишком рано. Флаг позволяет внести изменение в уже сделанный коммит. Важно понимать что при выполнении этой команды предыдущий коммит просто перезаписывается, а значит вернуть его будет не возможно. Этот флаг следует применять осторожно. Например в избежании случаев “Ой, забыл добавить файл” или “Исправление грамматической ошибки”.</mark></blockquote><h3 id="131aa64c-9d0a-81e9-bf29-ca66ae6b9ec0" class="">2.2.3 Ветка в Git</h3><p id="131aa64c-9d0a-8126-8cdb-f73c5f48f602" class="">Ранее можно было заметить слово master, записанное в скобках рядом с нашим расположением в файловой системе. Помимо этого при выполнении <code>git log</code> можно увидеть запись “HEAD → master”. </p><figure id="131aa64c-9d0a-8175-9491-d8c409646e09" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2013.png"><img style="width:910px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2013.png"/></a></figure><p id="131aa64c-9d0a-8133-b1c6-f46fb4355548" class="">Это указатели на эти ветки. Master (имя ветки можно сменить) является главной веткой в проекте. HEAD - это указатель, который показывает где мы сейчас находимся и какое состояние файлов мы сейчас наблюдаем.</p><p id="131aa64c-9d0a-8168-b4dc-f1ad8c3778cf" class="">Если мы хотим создать новую ветку, мы лишь создаем новый указатель. Сделать это можно командой <code>git branch</code>:</p><p id="131aa64c-9d0a-814f-973c-f8e7e3544d8b" class=""><code>git branch testing</code></p><figure id="131aa64c-9d0a-8159-a511-ee7132824eb5" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2014.png"><img style="width:1071px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2014.png"/></a></figure><p id="131aa64c-9d0a-8140-a6b5-cd61106192a6" class="">
+</p><p id="131aa64c-9d0a-8178-aa0a-cd0504895f39" class="">Как тогда Git узнает в какой ветке мы находимся? Для этого существует специальный указатель HEAD. </p><p id="131aa64c-9d0a-81f4-b2fc-e54c69dc2ee5" class="">Для переключения на другую ветку, выполним команду <code>git checkout &lt;name&gt;</code> </p><figure id="131aa64c-9d0a-814f-82d9-ca57e2bcd00f" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2015.png"><img style="width:1040px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2015.png"/></a></figure><blockquote id="131aa64c-9d0a-81f1-b0dc-c169235fc4cd" class=""><mark class="highlight-teal">На самом деле команда checkout позволяет переключаться не только между ветками, но и между коммитами. Существует ещё команда </mark><mark class="highlight-red"><code>git switch master</code></mark><mark class="highlight-teal"> , позволяющая переключаться только между ветками.</mark></blockquote><p id="131aa64c-9d0a-8150-85b2-c9b837b7a191" class="">Добавим еще один файл и выполним коммит</p><p id="131aa64c-9d0a-8103-bc1b-de53073ca6d5" class=""><code>git commit -m “added new ‘test2.txt’ file”</code></p><figure id="131aa64c-9d0a-81ee-9d17-d20902a0efc5" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2016.png"><img style="width:720px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2016.png"/></a></figure><p id="131aa64c-9d0a-8182-bcb7-ce2850aff34e" class="">Выполним команду <code>git log</code></p><figure id="131aa64c-9d0a-81f3-834f-db8b57b98b97" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2017.png"><img style="width:720px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2017.png"/></a></figure><p id="131aa64c-9d0a-81f4-8c30-fed4d0758d16" class="">Новый коммит появляется над предыдущим. </p><p id="131aa64c-9d0a-817f-8e2a-d078b463f5b8" class="">Переключимся на ветку master. <code>git checkout master</code></p><p id="131aa64c-9d0a-8170-9df8-df1c1b97ce5e" class="">Создадим новый файл test3.txt</p><p id="131aa64c-9d0a-8152-a574-e49b20de7efd" class="">Проиндексируем и добавим в коммит:</p><p id="131aa64c-9d0a-81f9-979f-da921049ccd4" class=""><code>git add .</code>   - этой командой можно индексировать все файлы в текущем каталоге</p><p id="131aa64c-9d0a-81db-8702-d6f2128ff70a" class=""><code>git commit -m “new file added”</code></p><figure id="131aa64c-9d0a-816b-8ab1-ce4d76c0fb1f" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2018.png"><img style="width:672px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2018.png"/></a></figure><p id="131aa64c-9d0a-819b-a35b-dbcd76c2b902" class="">Теперь если мы захотим посмотреть git log мы увидим только нашу ветку master. </p><p id="131aa64c-9d0a-81d9-bd23-e27f2e0b2759" class="">Для просмотра и других веток выполним команду</p><p id="131aa64c-9d0a-8199-9574-d3f275b402c2" class=""><code>git log --oneline --decorate --graph --all</code></p><figure id="131aa64c-9d0a-81ce-809d-c2f7f7ba36fc" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2019.png"><img style="width:672px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2019.png"/></a></figure><h3 id="131aa64c-9d0a-811f-bd0d-f739a758c3e5" class="">2.2.4  .gitconfig</h3><p id="131aa64c-9d0a-815e-9201-c5a9dacf1959" class="">Как мы видим, появляются команды с большим количеством флагов и вводить их каждый раз не хочется. Для этого в Git существует <code>.gitconfig</code></p><p id="131aa64c-9d0a-8143-966f-df6b0d4cfe9e" class="">Хранится он в домашнем каталоге пользователя</p><blockquote id="131aa64c-9d0a-8149-bf6c-f481a581bf44" class=""><mark class="highlight-teal">На самом деле существует несколько файлов gitconfig:<br/>1. На уровне системы (/etc/gitconfig).  <br/></mark><mark class="highlight-teal"><code>git config --system<br/><br/></code></mark><mark class="highlight-teal">Для его редактирования должны быть права root.<br/>2. Настройки пользователя хранит <br/></mark><mark class="highlight-teal"><code>~/.gitconfig</code></mark><mark class="highlight-teal"> или </mark><mark class="highlight-teal"><code>~/.config/git/config</code></mark><mark class="highlight-teal"> . Используется при флаге </mark><mark class="highlight-teal"><code>--global<br/><br/></code></mark><mark class="highlight-teal">3. Для текущего git репозитория хранится в .git/config<br/>Для запуска нужно указать флаг <br/></mark><mark class="highlight-teal"><code>--local</code></mark></blockquote><p id="131aa64c-9d0a-814b-8825-c2d0c3b0b916" class="">
+</p><figure id="131aa64c-9d0a-8148-8f38-ed0f45c098d8" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2020.png"><img style="width:381px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2020.png"/></a></figure><p id="131aa64c-9d0a-816b-9a6f-f8f2d092569b" class="">Внутри можем увидеть имя и почту. В конце файла добавляем alias</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81f1-99ec-c1602fb7bcc9" class="code"><code class="language-Bash">[alias]
+  co = checkout
+  ci = commit
+  st = status
+  br = branch
+	graph = log --oneline --decorate --graph --all</code></pre><figure id="131aa64c-9d0a-8112-ae99-d87e2a3a1613" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2021.png"><img style="width:672px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2021.png"/></a></figure><p id="131aa64c-9d0a-8115-a81d-cb5970fc2e73" class="">Сохраняем и пробуем воспользоваться</p><figure id="131aa64c-9d0a-8113-a770-d9a99d7a8c09" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2022.png"><img style="width:672px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2022.png"/></a></figure><p id="131aa64c-9d0a-8157-9112-fc3dc8762f8f" class="">Другой способ добавить alias <code>git config --global alias.ci commit</code></p><h3 id="131aa64c-9d0a-81e8-9348-e204659746e3" class="">2.2.5  .gitignore</h3><p id="131aa64c-9d0a-8135-9695-ec0211658cb6" class="">.gitignore - файл внутри проекта, говорящий git какие файлы стоит игнорировать.</p><p id="131aa64c-9d0a-81a0-948d-e47222fe82a6" class="">Некоторые файлы обычно не являются частью исходного кода проекта и не должны быть включены в коммит, так как они могут быть воссозданы из исходного кода или являются временными файлами, которые не нужны для дальнейшей работы. Файлы хранящие переменные окружения(.env) не должны быть включены в коммит. Игнорирование этих файлов позволяет уменьшить размер коммита и упростить процесс отслеживания изменений в проекте.</p><p id="131aa64c-9d0a-814d-92d2-c6ae563945da" class="">gitignore поддерживает шаблоны. К шаблонам применяются следующие правила:</p><ul id="131aa64c-9d0a-8103-92f6-d9ed92d65367" class="bulleted-list"><li style="list-style-type:disc">Комментирование шаблонов (игнорирование). Нужно поставить символ “#”</li></ul><ul id="131aa64c-9d0a-81f4-8a0c-f860ccb41851" class="bulleted-list"><li style="list-style-type:disc">Шаблоны применяются рекурсивно во всем дереве каталогов.</li></ul><ul id="131aa64c-9d0a-813c-bfc0-ff49dfbb5f18" class="bulleted-list"><li style="list-style-type:disc">Для избегания рекурсии используйте символ слеш (/) в начале шаблона.</li></ul><ul id="131aa64c-9d0a-8115-850b-f1853f10e6c2" class="bulleted-list"><li style="list-style-type:disc">Для исключения каталога добавьте слеш (/) в конец шаблона.</li></ul><ul id="131aa64c-9d0a-8177-a9a3-d0eca7b5f4bc" class="bulleted-list"><li style="list-style-type:disc">Можно инвертировать шаблон, достаточно поставить символ “!” в начале правила.</li></ul><blockquote id="131aa64c-9d0a-81a5-a6e1-c0ab5e754074" class=""><mark class="highlight-teal">Для команды git add существует флаг -f (или </mark><mark class="highlight-teal"><code>--force</code></mark><mark class="highlight-teal">), который позволяет принудительно выполнить коммит для игнорируемого файла. Это полезно если под шаблон игнорирования попадает нужный файл.<br/><br/>Примеры шаблонов: <br/></mark><mark class="highlight-teal"><a href="https://github.com/github/gitignore">https://github.com/github/gitignore</a></mark></blockquote><p id="131aa64c-9d0a-81b9-8103-e16378ea61ba" class="">Создадим .gitignore и запишем в него test.py</p><figure id="131aa64c-9d0a-81fd-ab0f-f9bb885dff2a" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2023.png"><img style="width:672px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2023.png"/></a></figure><figure id="131aa64c-9d0a-810c-a627-eebfb7c67a9a" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2024.png"><img style="width:624px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2024.png"/></a></figure><p id="131aa64c-9d0a-81d9-a9d7-c2fb8a9e279e" class="">Теперь посмотрим git status</p><figure id="131aa64c-9d0a-81f9-89a6-d596bb6ad009" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2025.png"><img style="width:672px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2025.png"/></a></figure><p id="131aa64c-9d0a-81c0-8006-fd3b456b142e" class="">Git игнорирует <a href="http://test.py">test.py</a> , но .gitignore все же видит и сигнализирует нам что он не индексируется. Добавим и его в  .gitignore</p><figure id="131aa64c-9d0a-81b0-82c2-cf790a761d0a" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2026.png"><img style="width:672px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2026.png"/></a></figure><h2 id="131aa64c-9d0a-81b5-a0e3-e4beb99189c9" class=""><mark class="highlight-default">2.3 Работа с Git</mark></h2><h3 id="131aa64c-9d0a-81e0-9b86-fd79b0fe2822" class=""><mark class="highlight-default">2.</mark>3.1 Слияние </h3><p id="131aa64c-9d0a-8174-b489-ed0ee40bdb57" class="">Перед слиянием нужно проверить следующее:</p><ol type="1" id="131aa64c-9d0a-81d7-b060-ca6ff5ca28f6" class="numbered-list" start="1"><li>Указатель HEAD указывает на ветку, принимающую результаты слияния.</li></ol><ol type="1" id="131aa64c-9d0a-8189-958e-c0ff27b29f6a" class="numbered-list" start="2"><li>Проверить факт получения последних коммитов из удаленного репозитория (об удаленных репозиториях чуть позже).</li></ol><p id="131aa64c-9d0a-812f-9dac-cc54996e151e" class="">Для слияния выполним команду <code>git merge &lt;name&gt;</code>, где &lt;name&gt; - ветка которую нужно слить в принимающую.</p><figure id="131aa64c-9d0a-8189-8a29-f434f9a38ae8" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2027.png"><img style="width:720px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2027.png"/></a></figure><figure id="131aa64c-9d0a-81b2-8421-e0753904538b" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2028.png"><img style="width:720px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2028.png"/></a></figure><p id="131aa64c-9d0a-8131-8bda-e0a381d4e0b2" class="">Сбросим последний коммит.  <code>git reset --hard HEAD~1</code></p><blockquote id="131aa64c-9d0a-8153-ba34-ddca16615dd7" class=""><mark class="highlight-teal">Тема отмены изменений будет затронута позже.</mark></blockquote><figure id="131aa64c-9d0a-81d8-ab3a-d8d03d9ce20d" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2029.png"><img src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2029.png"/></a></figure><p id="131aa64c-9d0a-8118-807f-d1fda07e9d93" class="">Однако не всегда процесс слияния проходит гладко. Если в двух ветках изменен файл в одном и том же месте, то произойдет конфликт. </p><p id="131aa64c-9d0a-81b1-9429-d4cc4b41eea0" class="">Процесс слияния будет приостановлен, пока не решится конфликт. Чтобы посмотреть какие файлы не объединены, можно выполнить<code> git status </code></p><p id="131aa64c-9d0a-81e0-a534-e570b4ea7369" class="">Отредактируем файл test1.txt, изменим ссылку. После выполним коммит.</p><figure id="131aa64c-9d0a-8163-959d-fe9c5f2ce5a7" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2030.png"><img style="width:582px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2030.png"/></a></figure><p id="131aa64c-9d0a-8118-b9ad-de572d350ab2" class="">Перейдем в ветку testing и тоже отредактируем ссылку, но уже другим образом. Так же выполним коммит.</p><figure id="131aa64c-9d0a-81e6-9353-da76156cda25" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2031.png"><img style="width:637px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2031.png"/></a></figure><p id="131aa64c-9d0a-81ba-98d6-d182112567fd" class="">После этого снова попробуем выполнить слияние.</p><figure id="131aa64c-9d0a-81c5-b596-e75abab23822" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2032.png"><img style="width:651px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2032.png"/></a></figure><p id="131aa64c-9d0a-8166-a11c-d8a8c82bb965" class="">Видим что git сообщает нам о конфликте слияния. </p><p id="131aa64c-9d0a-81d9-b3f4-c75d7cbab052" class="">Если открыть конфликтующий файл, Git особым образом выделит текст:</p><figure id="131aa64c-9d0a-8155-bb74-fb8650b4c907" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2033.png"><img style="width:439px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2033.png"/></a></figure><p id="131aa64c-9d0a-81cf-bb05-e31f575884e6" class="">Сверху отмечен вариант из мастер ветки (на нее указывал HEAD), после знаков “=” вариант из ветки testing. Оставляем файл в следующим состоянии:</p><figure id="131aa64c-9d0a-81af-a7c5-d20e22a36aaf" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2034.png"><img style="width:366px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2034.png"/></a></figure><blockquote id="131aa64c-9d0a-812e-a7d8-e4b351fd7dc6" class=""><mark class="highlight-teal">Так же все конфликты можно посмотреть с помощью команды </mark><mark class="highlight-teal"><code>git mergetool</code></mark></blockquote><p id="131aa64c-9d0a-81c7-bf84-de5be0045d70" class="">После исправления нужно выполнить <code>git add</code>для этого файла. Это будет означать что конфликт решен. Следом нужно выполнить <code>git commit</code>, для создания коммита слияния.</p><figure id="131aa64c-9d0a-810c-9370-d0f744e5988d" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2035.png"><img style="width:645px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2035.png"/></a></figure><h3 id="131aa64c-9d0a-814a-866f-f9eb090793a7" class=""><mark class="highlight-default">2.</mark>3.2 Отмена изменений</h3><p id="131aa64c-9d0a-81b4-88ba-cbdc5bca2add" class="">В Git существует универсальная команда для отмены изменений - <code>git reset</code>.</p><p id="131aa64c-9d0a-8198-a070-f6ed953df392" class="">Вызывается она с одним следующих флагов:</p><ul id="131aa64c-9d0a-81ec-9a06-e655a6016d19" class="bulleted-list"><li style="list-style-type:disc">--soft — оставляет файлы в текущем состоянии, но удаляет коммиты.<br/> <br/><code>git reset --soft HEAD~3</code> - удаляются последний три коммита.</li></ul><ul id="131aa64c-9d0a-8103-b4ed-f001d5791606" class="bulleted-list"><li style="list-style-type:disc">--mixed — флаг по умолчанию (указывать не обязательно). Отменяет индексацию(<code>git add</code>) и отменяет коммит. При этом файлы будут изменены, и получат состояние modified.</li></ul><ul id="131aa64c-9d0a-811e-a11d-d8a701f94301" class="bulleted-list"><li style="list-style-type:disc">--hard — сбрасывает изменения и удаляет все коммиты.<br/><br/><code>git reset --hard ac12h2d </code>- удаляются все коммиты, сделанные после <code>ac12h2d</code></li></ul><blockquote id="131aa64c-9d0a-812e-82ab-fee96209b4b2" class=""><mark class="highlight-teal">На самом деле </mark><mark class="highlight-teal"><code>git reset --hard</code></mark><mark class="highlight-teal"> не удаляет коммиты с диска, удаляются только ссылки на них в дереве изменений. Коммит можно будет вернуть, если на него указывает тэг.</mark></blockquote><p id="131aa64c-9d0a-81db-b938-e5a31c01b08e" class="">
+</p><p id="131aa64c-9d0a-8144-956e-c6a45edcd903" class=""><code>git revert 234n7dc</code> - создает новый коммит, отменяющий изменения в указанном коммите. Считается самым безопасным способом отмены изменений, особенно если над проектом работают несколько людей. </p><p id="131aa64c-9d0a-8141-bd25-f765b3f4392d" class="">
+</p><p id="131aa64c-9d0a-81fb-afc5-dd6799249384" class=""><code>git restore test.txt</code> - отмена изменений файла.<br/>Так же restore позволяет отменить индексацию файла:  <br/><code>git restore --staged test.txt</code></p><h3 id="131aa64c-9d0a-8127-a217-fb7056f0e4eb" class=""><mark class="highlight-default">2.</mark>3.3 Удаленный репозиторий</h3><p id="131aa64c-9d0a-813c-b560-e0124b198220" class="">Удаленные репозитории представляют собой git репо, находящиеся на удаленной машине. </p><p id="131aa64c-9d0a-81f3-ba7f-d5fda4d8a68b" class="">Клонируем репозиторий: <code>git clone https://github.com/schacon/ticgit</code></p><figure id="131aa64c-9d0a-81fd-ac37-df18f15deb7d" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2036.png"><img style="width:496px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2036.png"/></a></figure><p id="131aa64c-9d0a-8117-ae80-e0a9a73d9c58" class="">Перейдем в каталог ticgit</p><figure id="131aa64c-9d0a-8157-91ff-d1bd2c6d4836" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2037.png"><img style="width:522px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2037.png"/></a></figure><p id="131aa64c-9d0a-81a6-8472-c5bcdd223c11" class=""><code>git remote</code> выводит название удаленного репозитория, origin дефолтное название которое дает git.  При указании флага <code>-v</code> выводится ссылка.</p><p id="131aa64c-9d0a-8109-b4ef-e37a4af880d8" class="">При настройке нескольких удаленных репозиториев, если работают несколько пользователей, строк будет в разы больше.  Это означает, что мы можем получить доступ до любого из этих пользователей.</p><p id="131aa64c-9d0a-8152-b5f4-ce256dd51050" class="">Для того, чтобы присвоить репозиторию свое имя, достаточно выполнить следующую команду <code>git remote add ticgit </code><code><a href="https://github.com/schacon/ticgit">https://github.com/schacon/ticgit</a></code></p><figure id="131aa64c-9d0a-81fc-8866-d8289a05fa0a" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2038.png"><img style="width:576px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2038.png"/></a></figure><p id="131aa64c-9d0a-81f9-8b06-ee0d13bbd776" class="">Теперь если мы хотим получить изменения с удаленного репозитория, можно выполнить команду <code> git fetch ticgit</code></p><figure id="131aa64c-9d0a-81a4-88cf-e819152ad708" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2039.png"><img style="width:504px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2039.png"/></a></figure><p id="131aa64c-9d0a-81c6-b228-c7ede1c9280e" class="">Ветка master сейчас доступна под именем ticgit/master.</p><figure id="131aa64c-9d0a-8110-b661-d0b67723251e" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2040.png"><img style="width:577px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2040.png"/></a></figure><p id="131aa64c-9d0a-81d6-a158-cb8c8ecbbe02" class="">Стоит отметить, git fetch копирует данные в ваш локальный репозиторий, но не сливает с вашими наработками. При необходимости это нужно сделать самостоятельно.</p><p id="131aa64c-9d0a-8162-8011-ff4b7c1ef5d7" class="">Команда <code>git push</code> используется для создание резервной копии на сервере и отправки изменений для синхронизации кодовой базы.</p><p id="131aa64c-9d0a-8108-bc9e-d4cee9b58907" class="">Создадим репозиторий на github</p><p id="131aa64c-9d0a-8122-9f77-f6afdb47daee" class="">На домашней страницу жмем кнопку new</p><figure id="131aa64c-9d0a-811c-a6ff-d13ae7ce6fa6" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2041.png"><img style="width:364px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2041.png"/></a></figure><p id="131aa64c-9d0a-8142-ba64-ff8a1ea733f8" class="">Даем название и выбираем публичный или приватный репозиторий</p><figure id="131aa64c-9d0a-8190-b626-e7c2a6d29486" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2042.png"><img style="width:806px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2042.png"/></a></figure><p id="131aa64c-9d0a-810f-8c54-df91a1b3062d" class="">Жмем Create repository и видим следующую картину:</p><figure id="131aa64c-9d0a-8185-a726-e37af0c057a3" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2043.png"><img style="width:1352px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2043.png"/></a></figure><p id="131aa64c-9d0a-81ee-af2f-fa9a1d6fd87d" class="">Здесь нас интересует ссылка, копируем её.</p><p id="131aa64c-9d0a-81c9-ba14-c535707ccafa" class="">Чтобы запушить наш репозиторий на гитхаб, нужно связать локальный и удаленный репозиторий. <code>git remote add origin &lt;скопированная ссылка с гитхаб&gt;</code></p><p id="131aa64c-9d0a-8125-9713-f94e5e2c2925" class="">origin - произвольное название удаленного репозитория. </p><figure id="131aa64c-9d0a-8109-8ead-de817820427d" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2044.png"><img style="width:1184px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2044.png"/></a></figure><p id="131aa64c-9d0a-813b-9450-f8213031c188" class="">Выполняем вход</p><figure id="131aa64c-9d0a-81b1-b5e9-eb88db24fb73" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2045.png"><img style="width:453px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2045.png"/></a></figure><p id="131aa64c-9d0a-810e-aded-f2e2e1006649" class="">С помощью <code>git remote</code> можно посмотреть подключенные удаленные репозитории</p><p id="131aa64c-9d0a-8102-8154-d5bbc1d125eb" class="">Запушим в гитхаб: <code>git push origin master</code> </p><p id="131aa64c-9d0a-8105-8fdd-d18253c7d7d0" class="">master - ветка которую мы отправляем на удаленный сервер. Если ее там нет, то она будет создана.</p><blockquote id="131aa64c-9d0a-81ee-9755-d284ba2edf12" class=""><mark class="highlight-teal">Есть вариант слить ветку в другую. Для этого команда будет выглядеть так: </mark><mark class="highlight-teal"><code>git push origin master:remote_branch</code></mark><mark class="highlight-teal"> remote-branch - удаленная ветка в которую нужно слить.</mark></blockquote><figure id="131aa64c-9d0a-813b-b9c4-c1e50e35ebd1" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2046.png"><img style="width:573px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2046.png"/></a></figure><p id="131aa64c-9d0a-81e8-9d89-c7a5b18c0d14" class="">Теперь в GitHub можем увидеть наш проект.</p><figure id="131aa64c-9d0a-811c-afa3-c1f2132a5c6d" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2047.png"><img style="width:944px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2047.png"/></a></figure><p id="131aa64c-9d0a-8178-a1f2-cc6106786851" class="">Если мы хотим запушить теги то нужно добавить флаг <code>git push --tags</code></p><p id="131aa64c-9d0a-8168-a076-ea418b3f8d32" class="">Если мы хотим запушить все, не ограничиваясь одной веткой: <code>git push --all</code></p><p id="131aa64c-9d0a-8165-b184-e0d9bc8ca0db" class=""><code>git pull</code> является сокращением двух других команд. Сначала команда выполняет <code>git fetch</code> , затем выполняется слияние содержимого. Для слитого содержимого выполняется новый коммит и указатель HEAD переносится на этот коммит.</p><p id="131aa64c-9d0a-81ae-b2d5-daf5bc61b1d0" class=""><code>git pull &lt;remote-repo&gt;</code></p><h3 id="131aa64c-9d0a-812f-b40a-e0117f5b83a2" class=""><mark class="highlight-default">2.</mark>3.4 Теги в Git</h3><p id="131aa64c-9d0a-817d-ae3c-f75ea54ab466" class="">Повсеместно встречается практика использования тегов для указания версии приложения. Теги устанавливаются на коммиты и являются своего рода указателем. Например:</p><p id="131aa64c-9d0a-81d6-b360-eec979314023" class=""><code>git tag -a v1.0 -m &quot;my version 1.0&quot;</code></p><p id="131aa64c-9d0a-81c7-b295-e9491cc16231" class="">-m для установки сообщения “my version 1.0”</p><figure id="131aa64c-9d0a-81a5-a8e8-d0c8d3f5ac7a" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2048.png"><img style="width:487px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2048.png"/></a></figure><p id="131aa64c-9d0a-8137-8d2d-f99db60dbf39" class="">Удаление тега:</p><p id="131aa64c-9d0a-8121-8076-e5fbbd7589da" class=""><code>git tag -d v1.4</code></p><figure id="131aa64c-9d0a-81e5-b8da-e87ca2fe5273" class="image"><a href="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2049.png"><img style="width:446px" src="%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%D0%BA%20%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8%204%202%20131aa64c9d0a812dbea4d4ad3c531fed/Untitled%2049.png"/></a></figure></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

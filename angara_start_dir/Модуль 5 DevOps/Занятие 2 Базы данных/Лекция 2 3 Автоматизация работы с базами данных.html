@@ -1,0 +1,697 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Лекция 2.3. Автоматизация работы с базами данных</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="131aa64c-9d0a-8126-a4f5-e7d238845d69" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/slideshow_gray.svg"/></div><h1 class="page-title">Лекция 2.3. Автоматизация работы с базами данных</h1><p class="page-description"></p></header><div class="page-body"><h1 id="131aa64c-9d0a-8133-906c-fe45742801c5" class="">Оглавление</h1><nav id="131aa64c-9d0a-812b-8628-ef02bfa759a1" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#131aa64c-9d0a-8133-906c-fe45742801c5">Оглавление</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#131aa64c-9d0a-8147-86e0-ef3ec403b776">1. Теоретическая часть</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-8107-9d6c-d88a00380400">1.1 Введение</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-817f-a37e-d6b0ca5caa94"><mark class="highlight-default">1.1.1 Этапы автоматизации баз данных:</mark></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-810a-84d8-e5cec13b89ac"><mark class="highlight-default">1.1.2 Разработка баз данных</mark></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-815f-9521-fcbb0fee5384"><mark class="highlight-default">1.2 ORM (Object-Relational Mapping)</mark></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-81c1-9cb3-c95c2511b6d6"><mark class="highlight-default">1.3 ETL (Extract, Transform, Load)</mark></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81ad-8b06-c6c4502dcad4">1.3.1 Как реализовано ETL</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81fc-b438-c8d18e234de6">1.3.2 Инструменты</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-8197-8417-d1300313ed73"><mark class="highlight-default">1.3.3 Заключение</mark></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-81a8-b81a-cd32b0d5728c"><mark class="highlight-default">1.4 Хранимые процедуры</mark></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-814b-b091-c6ad06a6afdf"><mark class="highlight-default">1.5 Индексы</mark></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-814e-9737-e1080e9efba2"><mark class="highlight-default">1.6 Триггеры</mark></a></div></nav><h1 id="131aa64c-9d0a-8147-86e0-ef3ec403b776" class="">1. Теоретическая часть</h1><h2 id="131aa64c-9d0a-8107-9d6c-d88a00380400" class="">1.1 Введение</h2><p id="131aa64c-9d0a-81f4-90cf-cc6643b1ede6" class="">Качественно структурированные базы данных, функционирующие без сбоев, открывают множество возможностей для решения задач, не требуя дополнительных затрат времени и человеческих ресурсов. В автоматизированных базах данных поиск нужной информации осуществляется без особых усилий, при этом имеется ряд дополнительных функций, таких как учет клиентов, контроль финансовых и товарно-материальных потоков, создание детальной статистики, ведение документооборота и другие.</p><p id="131aa64c-9d0a-81f7-9baa-e93dad8a5f5c" class="">Благодаря автоматизации баз данных руководитель всегда может получить доступ к актуальной информации о функционировании своего бизнеса. Кроме того, использование качественных систем управления базами данных позволяет существенно снизить пиковые нагрузки на серверы компании, равномерно распределяя их. В результате снижаются затраты на электроэнергию и обслуживание техники.</p><h3 id="131aa64c-9d0a-817f-a37e-d6b0ca5caa94" class=""><mark class="highlight-default">1.1.1 Этапы автоматизации баз данных:</mark></h3><ul id="131aa64c-9d0a-8113-b572-dd3e158aa60a" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-default"><strong>Изучение и программный анализ предметной области</strong></mark><mark class="highlight-default"> – типов данных и бизнес-процессов.</mark></li></ul><ul id="131aa64c-9d0a-8179-89e6-e03e687f0734" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-default"><strong>Проектирование системы</strong></mark><mark class="highlight-default"> – создание необходимых связей и сущностей.</mark></li></ul><ul id="131aa64c-9d0a-81e5-a01b-e8c1e0a15f01" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-default"><strong>Написание приложений для баз данных</strong></mark><mark class="highlight-default"> – функций, представлений, процедур.</mark></li></ul><ul id="131aa64c-9d0a-812f-8521-ff38c90aa55a" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-default"><strong>Создание модулей администрирования</strong></mark><mark class="highlight-default"> – раздельного доступа к информации, автоматического выполнения различных операций, создания резервных копий.</mark></li></ul><ul id="131aa64c-9d0a-810f-80d4-dbfa4b31deed" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-default"><strong>Настройка возможности импорта информации</strong></mark><mark class="highlight-default"> в базу данных из различных источников - интернета, файлов XML Excel, Word, и т.д.</mark></li></ul><ul id="131aa64c-9d0a-8139-9517-c24a5ddd76af" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-default"><strong>Автоматизация системы</strong></mark><mark class="highlight-default"> мониторинга, анализа и построения отчётов.</mark></li></ul><h3 id="131aa64c-9d0a-810a-84d8-e5cec13b89ac" class=""><mark class="highlight-default">1.1.2 Разработка баз данных</mark></h3><p id="131aa64c-9d0a-81ea-ade6-e5435eed06dc" class=""><mark class="highlight-default">Разработка баз данных предусматривает соблюдение нескольких требований, выдвигаемых к системам хранения и передачи информации. Любая база данных должна соответствовать следующим критериям:</mark></p><ul id="131aa64c-9d0a-8197-b6df-da1e909ef8d8" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-default">Полная независимость от сторонних программ;</mark></li></ul><ul id="131aa64c-9d0a-8133-991e-effbea3c6bba" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-default">Надежная защита от искажения, потери данных и несанкционированного доступа к ним;</mark></li></ul><ul id="131aa64c-9d0a-8196-8f4a-ec17eab374b5" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-default">Регулярное обновление;</mark></li></ul><ul id="131aa64c-9d0a-81ac-a16e-fdc2a70f409a" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-default">Удобный поиск по запросу;</mark></li></ul><ul id="131aa64c-9d0a-81cf-8ffa-d354ed8feefc" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-default">Многократное обращение к данным и их использование.</mark></li></ul><h2 id="131aa64c-9d0a-815f-9521-fcbb0fee5384" class=""><mark class="highlight-default">1.2 ORM (Object-Relational Mapping)</mark></h2><p id="131aa64c-9d0a-815c-9ee6-e5b1f7fbe9df" class=""><mark class="highlight-default">ORM (Object-Relational Mapping): ORM - это технология, которая позволяет автоматически преобразовывать данные из базы данных в объекты в коде приложения. Это позволяет разработчикам работать с данными в более удобном и понятном формате, не заботясь о деталях взаимодействия с базой данных.</mark></p><p id="131aa64c-9d0a-816b-8530-dff19b402e7a" class="">Существует множество ORM-библиотек для различных языков программирования. Например, для Python есть SQLAlchemy и Django ORM, для Ruby - Active Record, для Java - Hibernate, а для JavaScript - Sequelize и TypeORM.</p><p id="131aa64c-9d0a-81c1-b7c1-dadb3bd82df1" class="">Применение ORM имеет множество преимуществ:</p><ol type="1" id="131aa64c-9d0a-81da-8063-fa43eda56307" class="numbered-list" start="1"><li><strong>Уменьшение кода:</strong> Код для работы с БД стандартизирован и автоматизирован, что позволяет писать меньше кода на SQL.</li></ol><ol type="1" id="131aa64c-9d0a-81f8-a9b6-cc5a23fd1297" class="numbered-list" start="2"><li><strong>Обеспечение безопасности:</strong> ORM обычно защитит ваше приложение от таких угроз, как SQL-инъекции.</li></ol><ol type="1" id="131aa64c-9d0a-81ee-a637-cd90572df6ad" class="numbered-list" start="3"><li><strong>Совместимость:</strong> Они предоставляют абстракцию, которая может позволить вашему коду работать с несколькими типами баз данных без изменений.</li></ol><ol type="1" id="131aa64c-9d0a-816e-a0fc-e9bd148abac4" class="numbered-list" start="4"><li><strong>Объектно-ориентированность:</strong> ORM позволяет работать с БД так, как если бы данные были объектами в ООП. Это способствует расширению возможностей синтаксиса языка программирования и упрощает разработку.</li></ol><p id="131aa64c-9d0a-81e0-9097-e5678412d6c1" class="">Однако следует помнить, что, несмотря на все преимущества, ORM также может добавить дополнительную сложность и уменьшить производительность, особенно при работе с большими объемами данных или сложными запросами в базу данных. В этих случаях напрямую написанный SQL может быть более подходящим.</p><p id="131aa64c-9d0a-8131-bbc4-c2da2fbb0dfd" class="">
+</p><h2 id="131aa64c-9d0a-81c1-9cb3-c95c2511b6d6" class=""><mark class="highlight-default">1.3 ETL (Extract, Transform, Load)</mark></h2><p id="131aa64c-9d0a-8158-a06e-f6a84c70a7bf" class=""><mark class="highlight-default">ETL (Extract, Transform, Load): ETL - это процесс, который включает в себя извлечение данных из различных источников, их преобразование и загрузку в целевую базу данных. Это позволяет автоматизировать процесс сбора и обработки данных из различных источников.</mark></p><p id="131aa64c-9d0a-8108-a988-c20e5f5cfbc2" class=""><strong>ETL-процессы</strong> — это серия действий, которые нужны для извлечения данных из нескольких источников, их преобразования и загрузки в целевую базу данных. </p><p id="131aa64c-9d0a-8130-909c-eec73ab32a1c" class="">Сначала происходит извлечение данных из разных источников, например, из баз данных, электронных таблиц и т.д. После того, как данные были извлечены из исходных источников, они переходят на следующий этап: их нужно преобразовать в нужный формат для дальнейшего использования. Зачастую информация, которую мы получаем на первом этапе, не всегда подходит для дальнейшей обработки, поэтому нам нужно произвести &quot;трансформацию&quot; данных. И в завершении — мы загружаем наши готовые данные в целевую базу данных. </p><h3 id="131aa64c-9d0a-81ad-8b06-c6c4502dcad4" class="">1.3.1 Как реализовано ETL</h3><p id="131aa64c-9d0a-8178-a15b-c7391903efec" class="">Прежде всего, необходимо определить основную цель использования ETL. Например, мы можем стремиться выгрузить данные из базы данных, обработать их (включая очистку данных) и загрузить обратно в базу данных.</p><p id="131aa64c-9d0a-8183-a59f-d43449396908" class="">Второй шаг — выбор подходящих инструментов. Обычно для ETL используются специализированные инструменты, такие как Apache NiFi, Talend, Apache Spark, и др. Однако, в некоторых случаях можно также использовать стандартные инструменты СУБД, такие как PostgreSQL или Oracle.</p><p id="131aa64c-9d0a-81cb-8085-cc73120b8cc0" class="">Далее, мы переходим к настройке нашего ETL процесса. Первым шагом является выбор источника данных. Это может быть CSV файл, база данных или даже API. Затем мы создаем запрос для выборки данных, необходимых для проведения операций над исходными данными.</p><p id="131aa64c-9d0a-8130-8a53-d32977206e4a" class="">Затем мы обрабатываем исходные данные. Этот шаг может включать фильтрацию исходных данных, трансформацию данных и их очистку. Для этого можно использовать мощный SQL или специальные инструменты предварительной обработки данных, такие как OpenRefine и DataWrangler.</p><p id="131aa64c-9d0a-81ab-9dca-ec985092919e" class="">После этого, мы загружаем данные в целевую базу данных. Для вставки данных в базу данных следует использовать обычный SQL запрос. Важно создать таблицы заранее в базе данных и удостовериться в правильном соответствии столбцов.</p><p id="131aa64c-9d0a-818c-8665-c97db5dab5e7" class="">И, наконец, мы можем выполнить последний шаг настройки нашего ETL процесса — обновление данных в целевой базе данных. Здесь мы можем обновлять данные, уже существующие в таблице. Для этого можно использовать оператор ON CONFLICT для вставки новых данных или обновления существующих записей в таблице.</p><p id="131aa64c-9d0a-8127-a009-c69d2d55ea20" class="">Таким образом, это общие шаги, необходимые для реализации ETL процесса. Естественно, реализация может быть более сложной в случае работы с большими и сложными данными.</p><h3 id="131aa64c-9d0a-81fc-b438-c8d18e234de6" class="">1.3.2 Инструменты</h3><p id="131aa64c-9d0a-81c0-ba5e-e037d3f8f70f" class="">Давайте начнем с Apache Kafka. Этот инструмент является одним из наиболее популярных решений для обработки потоковых данных. Он позволяет синхронизировать сообщения между различными источниками и обрабатывать их в реальном времени. Кроме того, Kafka обладает мощными возможностями масштабирования, что делает его идеальным выбором для крупных проектов. Он также хорошо интегрируется с другими инструментами Big Data, такими как Apache Hadoop и Spark.</p><p id="131aa64c-9d0a-811e-94cb-ce75603e6371" class="">Следующим в списке является Apache NiFi. Этот инструмент был разработан компанией NSA (Национальное Управление США по Вопросам Безопасности) почти десять лет назад и сейчас является проектом Apache Foundation. NiFi может легко обрабатывать большие объемы данных, а его графический интерфейс обеспечивает удобный и интуитивно понятный интерфейс для определения преобразований данных. Он также обеспечивает автоматическое масштабирование обработки данных и имеет множество источников данных, включая базы данных, файлы и даже API.</p><p id="131aa64c-9d0a-8111-88fc-f5f0d6c5b23b" class="">Ну и, наконец, не могу не упомянуть Apache Spark. Spark — это быстрый и мощный инструмент обработки данных, который может использоваться для решения множества задач, включая ETL. Spark поддерживает работу с данными в режиме реального времени и потоковую обработку данных, что делает его отличным выбором для большинства проектов обработки данных. Он также умеет работать с различными источниками данных и обеспечивает быстрый и масштабируемый процесс ETL.</p><h3 id="131aa64c-9d0a-8197-8417-d1300313ed73" class=""><mark class="highlight-default">1.3.3 Заключение</mark></h3><p id="131aa64c-9d0a-81ba-8d3c-cafcb5491746" class="">Следует отметить, что ETL процессы могут быть довольно сложными и требуют тщательного планирования и тестирования. ETL процессы не являются статическими и требуют постоянной оптимизации и улучшений. В этом отношении, инструменты ETL будут продолжать играть ключевую роль в технологическом прогрессе области обработки данных и останутся актуальными на протяжении многих лет.</p><h2 id="131aa64c-9d0a-81a8-b81a-cd32b0d5728c" class=""><mark class="highlight-default">1.4 Хранимые процедуры</mark></h2><p id="131aa64c-9d0a-8118-9ca4-cd71ebf0c420" class=""><mark class="highlight-default">Хранимые процедуры: Хранимые процедуры - это блоки кода, которые хранятся в базе данных и могут быть вызваны из SQL-запросов. Они позволяют автоматизировать повторяющиеся задачи, такие как обработка данных или выполнение сложных запросов.</mark></p><p id="131aa64c-9d0a-818b-987f-d430165104aa" class=""><mark class="highlight-default">Между функциями и хранимыми процедурами в PostgreSQL есть несколько различий. Они показаны в таблице ниже.</mark></p><table id="131aa64c-9d0a-812a-be42-c51c7e69e03e" class="simple-table"><tbody><tr id="131aa64c-9d0a-81c1-91a6-c04cf4a048fd"><td id="dJX\" class=""><strong>Функции</strong></td><td id="hpj|" class=""><strong>Хранимые процедуры</strong></td></tr><tr id="131aa64c-9d0a-81b9-8f0a-cea2606c4c78"><td id="dJX\" class="">Функция имеет возвращаемый тип и возвращает значение</td><td id="hpj|" class="">Хранимая процедура не имеет возвращаемого типа, но имеет выходные аргументы</td></tr><tr id="131aa64c-9d0a-81b6-b55a-c5cdb5b06f20"><td id="dJX\" class="">Использование DML (insert, update, delete) запросов внутри функции невозможно. В функциях разрешены только SELECT-запросы</td><td id="hpj|" class="">Использование DML-запросов (insert, update, delete) возможно в хранимой процедуре.</td></tr><tr id="131aa64c-9d0a-81fa-a5bd-f8149097d46c"><td id="dJX\" class="">Функция не имеет выходных аргументов</td><td id="hpj|" class="">Хранимая процедура имеет и входные, и выходные аргументы</td></tr><tr id="131aa64c-9d0a-8150-a402-f300aa83e7d3"><td id="dJX\" class="">Вызов хранимой процедуры из функции невозможно</td><td id="hpj|" class="">Использование или же управление транзакциями возможно в хранимой процедуре</td></tr><tr id="131aa64c-9d0a-81b6-8a69-dcc18ba1a02e"><td id="dJX\" class="">Вызов функции внутри <code>SELECT</code> запросов возможен</td><td id="hpj|" class="">Вызов хранимой процедуры из <code>SELECT</code> запросов невозможно</td></tr></tbody></table><p id="131aa64c-9d0a-81c0-8820-e99efa8c5cf0" class="">
+</p><h2 id="131aa64c-9d0a-814b-b091-c6ad06a6afdf" class=""><mark class="highlight-default">1.5 Индексы</mark></h2><p id="131aa64c-9d0a-8143-a7fe-c92a90d16d5b" class="">Индексы в PostgreSQL — специальные объекты базы данных, предназначенные в основном для ускорения доступа к данным. Это вспомогательные структуры: любой индекс можно удалить и восстановить заново по информации в таблице. Иногда приходится слышать, что СУБД может работать и без индексов, просто медленно. Однако это не так, ведь индексы служат также для поддержки некоторых ограничений целостности.</p><p id="131aa64c-9d0a-81dd-af8d-c86b906cd504" class="">Несмотря на все различия между типами индексов (называемыми также <em>методами доступа</em>), в конечном счете любой из них устанавливает соответствие между ключом (например, значением проиндексированного столбца) и строками таблицы, в которых этот ключ встречается. Строки идентифицируются с помощью TID (tuple id), который состоит из номера блока файла и позиции строки внутри блока. Тогда, зная ключ или некоторую информацию о нем, можно быстро прочитать те строки, в которых может находиться интересующая нас информация, не просматривая всю таблицу полностью.</p><p id="131aa64c-9d0a-8193-bd11-c044d69facc5" class="">Важно понимать, что индекс, ускоряя доступ к данным, взамен требует определенных затрат на свое поддержание. При любой операции над проиндексированными данными — будь то вставка, удаление или обновление строк таблицы, — индексы, созданные для этой таблицы, должны быть перестроены, причем в рамках той же транзакции. Заметим, что обновление полей таблицы, по которым не создавались индексы, не приводит к перестроению индексов; этот механизм называется HOT (Heap-Only Tuples).</p><blockquote id="131aa64c-9d0a-8182-aeca-cccef209657e" class="">ПРИМЕР:<br/>Hash-индексирование в PostgreSQL обеспечивает более быстрый доступ по равенству, однако оно неэффективно для операций диапазона или сортировки. Создание Hash-индекса может быть полезно, если ваши операции часто включают точное сравнение на равенство.<br/><p id="131aa64c-9d0a-817a-be87-f9fc1b5525ed" class="">Пример создания hash-индекса:<br/><br/><code>CREATE INDEX index_name ON table_name USING HASH (column_name);</code></p><p id="131aa64c-9d0a-81a0-81f9-e1e8bf649c79" class="">Этот пример применим, если у нас есть таблица &quot;employees&quot; и мы хотим создать hash-индекс для колонки &quot;emp_id&quot;:<br/><br/><code>CREATE INDEX emp_id_index ON employees USING HASH (emp_id);</code></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-817c-b616-d856c36a453b" class="code"><code class="language-SQL">CREATE INDEX - это оператор SQL, который используется для создания индекса.
+emp_id_index - это имя, которое вы хотите присвоить индексу.
+ON employees - это имя таблицы, для которой вы создаете индекс.
+USING HASH - это указание PostgreSQL использовать hash-индекс.
+(emp_id) - имя столбца, в котором вы хотите создать индекс.</code></pre><p id="131aa64c-9d0a-81eb-9113-e18dc1434891" class="">Учтите, что использование hash-индексов в PostgreSQL ограничено и не всегда рекомендуется. В текущих версиях PostgreSQL hash-индексы не могут быть воспроизведены потоковой репликацией, что затрудняет их использование в распределенных системах.</p></blockquote><h2 id="131aa64c-9d0a-814e-9737-e1080e9efba2" class=""><mark class="highlight-default">1.6 Триггеры</mark></h2><p id="131aa64c-9d0a-81bb-9c19-e0d064ae78f7" class=""><mark class="highlight-default">Триггеры - это специальные функции, которые автоматически выполняются при определенных событиях, таких как вставка, обновление или удаление данных. Они могут быть использованы для автоматического выполнения определенных задач, таких как обновление других таблиц или отправка уведомлений (</mark>INSERT, UPDATE, DELETE, TRUNCATE<mark class="highlight-default">). </mark> В зависимости от требований мы можем запускать триггер до, после или вместо события/операции.</p><p id="131aa64c-9d0a-81aa-a0f3-e6b7677464e9" class="">Это довольно мощный инструмент, у которого много сценариев использования. Вот лишь несколько примеров:</p><ol type="1" id="131aa64c-9d0a-81d7-9465-ca1c12c35ede" class="numbered-list" start="1"><li>Вы можете использовать триггерные конструкции для отслеживания транзакций таблицы, регистрируя сведения о событии.</li></ol><ol type="1" id="131aa64c-9d0a-81ab-8ca2-f9a386a91446" class="numbered-list" start="2"><li>Вы можете создать триггер, с помощью которого будете проверять ограничения перед применением транзакции.</li></ol><ol type="1" id="131aa64c-9d0a-81a8-907d-c04f2bde8021" class="numbered-list" start="3"><li>С помощью таких спусковых крючков вы можете автоматически заполнять поля, используя записи новых транзакций.</li></ol><blockquote id="131aa64c-9d0a-8119-8cf4-d01a83aec2ea" class="">Создание функции триггера выглядит примерно так:<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8131-944f-f1da47b20358" class="code"><code class="language-SQL">CREATE OR REPLACE FUNCTION my_trigger_function() 
+RETURNS TRIGGER AS $$
+BEGIN
+  -- Здесь идёт код функции, который будет выполняться при срабатывании триггера
+END;
+$$ LANGUAGE plpgsql;</code></pre><p id="131aa64c-9d0a-8159-8653-eac7fa942b95" class="">Прикрепление этой функции в качестве триггера к таблице:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8132-8792-cff450e50a41" class="code"><code class="language-SQL">CREATE TRIGGER my_trigger 
+AFTER INSERT OR UPDATE OR DELETE ON my_table
+FOR EACH ROW EXECUTE PROCEDURE my_trigger_function();</code></pre><p id="131aa64c-9d0a-8164-b0c3-f2143d652a90" class="">В этом примере <code>my_trigger</code> будет срабатывать каждый раз, когда в <code>my_table</code> происходит вставка, обновление или удаление строки.</p><p id="131aa64c-9d0a-819c-8148-ef58e486c65d" class="">Важно учесть, что функция триггера в PostgreSQL должна возвращать значение типа <code>TRIGGER</code>, а код функции обычно написан на языке <code>plpgsql</code>. Если функция успешно выполнена, это указывает на то, что операция, вызвавшая триггер, должна быть завершена. Если функция сгенерирует исключение, операция будет отклонена.</p></blockquote></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

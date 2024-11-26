@@ -1,0 +1,687 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Лекция 4.6. Безопасность в CI/CD</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="131aa64c-9d0a-8134-b67d-e9bb2202d5bb" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/slideshow_gray.svg"/></div><h1 class="page-title">Лекция 4.6. Безопасность в CI/CD</h1><p class="page-description"></p></header><div class="page-body"><h1 id="131aa64c-9d0a-811e-87af-f8d21752b440" class="">Оглавление</h1><nav id="131aa64c-9d0a-818e-acc7-dfeb86e782ea" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#131aa64c-9d0a-811e-87af-f8d21752b440">Оглавление</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#131aa64c-9d0a-8157-9ca9-ecae81d5e086">1. Теоретическая часть</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-81f5-91e0-dfb5e511c501">1.1 Введение</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81e4-ba6f-f5a697d0fa55"><mark class="highlight-default">1.1.1 Shift-left</mark></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-8148-9d6c-ebbc7f303de3"><strong>1.1.2 Структура DevSecOps-пайплайна</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-8157-a09d-ea50397b47d5">1.2 SAST — <strong>Static application security testing</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-81c3-9d6c-eeabc6f61c36">1.3 DAST — <strong>Dynamic application security testing</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81b8-8139-ccb3e1ef9623"><strong>Примеры DAST‑инструментов</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-81ed-89b9-fecc0c8219d3"><mark class="highlight-default">1.4 IAST</mark></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81d2-a32c-cc9835ef94f1"><strong>Примеры IAST‑инструментов</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-8158-86b5-ed0e50a5ab28">1.5 RASP</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-8157-a530-d64ab3bfe4b9"><strong>RASP‑инструменты</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-8191-8d66-ed02a413034d">1.6 SCA</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-8166-9992-da4330a494ef">1.7 OAST</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-8113-a27b-e93361cc69fd">1.8 Fuzzing</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-8189-9dd7-d4298e7dc176"><mark class="highlight-default">1.9 Сканер докер образов</mark></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-8162-805b-c9c2fd496dcf">1.10 <strong>CICD-SEC</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-813d-8e0b-e825815956a2">1.10.1 CICD-SEC-1: Недостаточные механизмы управления потоком</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81e2-affe-e750a595a5bf">1.10.2 CICD-SEC-2: Неадекватное управление идентификацией и доступом</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-815e-a1b1-f33ff25d37be">1.10.3 CICD-SEC-3: Злоупотребление цепочкой зависимостей</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-814f-a5f2-dd6cbd93b697">1.10.4 CICD-SEC-4: Выполнение «отравленного» pipeline</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81d1-8d65-f883ec4ad81b">1.10.5 CICD-SEC-5: Недостаточный контроль доступа конвейера</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-815e-9a5c-e256494b1964">1.10.6 CICD-SEC-6: Недостаточная &quot;гигиена&quot; секретов</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-8187-927c-e95a5f6c0286">1.10.7 CICD-SEC-7: Небезопасная конфигурация</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-811b-9fff-eec3b547e95d">1.10.8 CICD-SEC-8: Неконтролируемое использование сторонних сервисов</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81b9-abd0-e2315eb3aa74">1.10.9 CICD-SEC-9: Некорректная валидация артефактов/Неправильная проверка целостности артефакта</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-8124-a231-c7f9f2702d27">1.10.10 CICD-SEC-10: Недостаточное логирование и мониторинг</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-8146-adfd-fc20573e895d">Дополнительные материалы</a></div></nav><p id="131aa64c-9d0a-81d0-9eb6-ff2f84a7edc7" class="">
+</p><h1 id="131aa64c-9d0a-8157-9ca9-ecae81d5e086" class="">1. Теоретическая часть</h1><h2 id="131aa64c-9d0a-81f5-91e0-dfb5e511c501" class="">1.1 Введение</h2><p id="131aa64c-9d0a-8173-9525-e46c8e3ce2ba" class="">DevSecOps - это инновационная практика, которая включает в себя тестирование безопасности на каждом этапе разработки программного обеспечения. Она зависит от эффективного сотрудничества между разработчиками ПО, специалистами по безопасности и операционными группами, чтобы создать безопасное и защищенное программное обеспечение. Одним из ключевых аспектов DevSecOps является культурная трансформация, при которой каждый, кто участвует в процессе создания программного обеспечения, принимает ответственность за его безопасность.</p><p id="131aa64c-9d0a-8160-8051-df3520cc2b0c" class="">DevSecOps объединяет концепции разработки, безопасности и операций в рамках единой практики. Каждый термин определяет свою роль и обязанности в командах разработчиков, работающих над программными приложениями.</p><p id="131aa64c-9d0a-81ac-93bc-ec2524244c8d" class="">Основная цель DevSecOps - помочь разработчикам эффективно решать проблемы безопасности. Эта методика предлагает альтернативу устаревшим подходам к обеспечению безопасности программного обеспечения, которые часто приводили к срывам сроков и отставанию от постоянно меняющихся требований.</p><p id="131aa64c-9d0a-8126-ab48-e16d34450dc0" class="">Успешная реализация DevSecOps включает в себя следующие компоненты:</p><ul id="131aa64c-9d0a-81ee-af21-f8cce3965763" class="bulleted-list"><li style="list-style-type:disc">Анализ кода: процесс, в ходе которого осуществляется исследование исходного кода приложения для выявления уязвимостей и обеспечения его соответствия передовым практикам безопасности.</li></ul><ul id="131aa64c-9d0a-8149-9d0e-e8fc4cd74e1d" class="bulleted-list"><li style="list-style-type:disc">Управление изменениями: команды разработчиков программного обеспечения используют инструменты управления изменениями для отслеживания изменений, связанных с программным обеспечением и требованиями, управления ими и создания соответствующей отчетности. Это позволяет предотвратить возникновение непреднамеренных уязвимостей безопасности, вызванных изменениями в ПО.</li></ul><ul id="131aa64c-9d0a-81ef-896a-d5a45ba61fa4" class="bulleted-list"><li style="list-style-type:disc">Управление соответствием: команды разработчиков ПО обеспечивают соответствие программного обеспечения нормативным требованиям. К примеру, можно использовать сервис AWS CloudHSM для демонстрации соответствия требованиям безопасности, конфиденциальности и защиты от несанкционированного доступа, таким как HIPAA, FedRAMP и PCI.</li></ul><ul id="131aa64c-9d0a-8102-b83d-e573b993da34" class="bulleted-list"><li style="list-style-type:disc">Моделирование угроз: команды DevSecOps исследуют проблемы безопасности, которые могут возникнуть до и после развертывания приложения. Они устраняют известные проблемы и выпускают обновленные версии приложений.</li></ul><ul id="131aa64c-9d0a-810c-b066-ef12cadab89a" class="bulleted-list"><li style="list-style-type:disc">Обучение по безопасности: обучение по безопасности означает обучение разработчиков программного обеспечения и операционных групп актуальным рекомендациям в области безопасности. Такие практики позволяют командам разработки и эксплуатации независимо принимать решения по безопасности при создании и развертывании приложения.</li></ul><h3 id="131aa64c-9d0a-81e4-ba6f-f5a697d0fa55" class=""><mark class="highlight-default">1.1.1 Shift-left</mark></h3><p id="131aa64c-9d0a-811f-84ca-c41ec74154f1" class="">Основная цель методологии DevSecOps заключается в интеграции автоматизированных проверок безопасности в процесс разработки, то есть в devops-пайплайн. Ранее специалисты по информационной безопасности проводили проверки уже после завершения процесса разработки, однако такой подход оказался неэффективным. Обнаружение ошибок в процессе тестирования безопасности заставляло начинать весь цикл разработки заново, что требовало много времени и денег.</p><p id="131aa64c-9d0a-8174-aaf7-d1611e85071d" class="">Для достижения максимальной эффективности проверки безопасности должны выполняться как можно раньше. Визуально это можно представить переносом проверок в левую сторону пайплайна. Эта концепция называется shift-left и широко обсуждается специалистами по безопасности.</p><h3 id="131aa64c-9d0a-8148-9d6c-ebbc7f303de3" class=""><strong>1.1.2 Структура DevSecOps-пайплайна</strong></h3><figure id="131aa64c-9d0a-8139-bf94-c386df39f806" class="image"><a href="%D0%9B%D0%B5%D0%BA%D1%86%D0%B8%D1%8F%204%206%20%D0%91%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C%20%D0%B2%20CI%20CD%20131aa64c9d0a8134b67de9bb2202d5bb/Untitled.png"><img style="width:1809px" src="%D0%9B%D0%B5%D0%BA%D1%86%D0%B8%D1%8F%204%206%20%D0%91%D0%B5%D0%B7%D0%BE%D0%BF%D0%B0%D1%81%D0%BD%D0%BE%D1%81%D1%82%D1%8C%20%D0%B2%20CI%20CD%20131aa64c9d0a8134b67de9bb2202d5bb/Untitled.png"/></a><figcaption>Здесь изображены основные этапы проверки безопасности</figcaption></figure><p id="131aa64c-9d0a-816b-8050-f6b1f4f84f9f" class="">1. Pre-commit – проверка безопасности исходного кода до его коммита разработчиком в систему контроля версий. Эта проверка позволяет обнаружить незашифрованную конфиденциальную информацию, такую как пароли или API-ключи.</p><p id="131aa64c-9d0a-8184-bddd-e6a4707fb72a" class="">2. Pre-build – проверка безопасности исходного кода после его попадания в систему контроля версий. В ходе этой проверки выполняется статический анализ исходного кода и его зависимостей для обнаружения распространенных уязвимостей, таких как те, которые перечислены в owasp top ten.</p><p id="131aa64c-9d0a-81a8-a015-f42e5eddf381" class="">3. Post-build – проверка безопасности артефакта, собранного из исходного кода, такого как Docker-файл, RPM-пакет или JAR-архив. Инструменты анализируют окружение и зависимости приложения, ищут устаревшие версии пакетов и библиотек, имеющих исправления в более новых версиях.</p><p id="131aa64c-9d0a-818b-b59f-e6d9fbdbfe2a" class="">4. Test-time – проверка безопасности приложения, запущенного из собранного артефакта. В этой фазе инструменты пытаются &quot;сломать&quot; приложение, имитируя действия злоумышленников.</p><p id="131aa64c-9d0a-81be-aaa1-de6423fe1d0c" class="">5. Post-deploy – проверка безопасности приложения после его развертывания в production-среде. В реальном времени инструменты мониторят открытые реестры известных уязвимостей и отправляют уведомления при обнаружении угроз для приложения.</p><h2 id="131aa64c-9d0a-8157-a09d-ea50397b47d5" class="">1.2 SAST — <strong>Static application security testing</strong></h2><p id="131aa64c-9d0a-812d-b354-fed7998545c5" class="">Статический анализ кода представляет собой процесс анализа исходного кода без его выполнения. Он позволяет обнаружить потенциальные проблемы, такие как синтаксические ошибки, неправильное использование переменных и функций, утечки памяти и т.д.</p><p id="131aa64c-9d0a-8191-974f-d7c3c0d3c68e" class="">SAST (анализ безопасности исходного кода) позволяет разработчикам обнаруживать уязвимости безопасности приложения на ранних этапах процесса разработки программного обеспечения.</p><p id="131aa64c-9d0a-81b4-9577-eb093c171c8b" class="">Тестирование &quot;белого ящика&quot; – это метод тестирования ПО, который включает в себя проверку внутренней структуры и дизайна программного обеспечения, в отличие от проверки внешних результатов или опыта конечного пользователя, что характерно для тестирования &quot;черного ящика&quot;.</p><p id="131aa64c-9d0a-81e0-ab88-f183b822c7ee" class="">SAST также обеспечивает соответствие руководствам и стандартам кодирования без фактического выполнения базового кода.</p><p id="131aa64c-9d0a-8191-a256-f188860c8ad5" class=""><mark class="highlight-default">Статические анализаторы кода можно поделить на два вида. </mark></p><ul id="131aa64c-9d0a-817a-a1dc-da3c71b76389" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-default">Линтеры - инструменты статиче</mark>ского анализа кода, которые проверяют код на соответствие определенным стилистическим правилам и стандартам. Их цель - обнаружить распространенные ошибки и антипаттерны.</li></ul><ul id="131aa64c-9d0a-8119-aaa7-f07f1e3e0dbb" class="bulleted-list"><li style="list-style-type:disc">Статические анализаторы уязвимостей — это более сложные инструменты, которые анализируют код программы в поисках уязвимостей и вредоносных конструкций. Они строят граф вызовов функций и могут анализировать как используемый, так и неиспользуемый код.</li></ul><p id="131aa64c-9d0a-8121-936d-f78b7ac67380" class="">Один из самых известных представителей SAST - SonarQube. </p><p id="131aa64c-9d0a-8168-a581-d426f6f43e30" class=""><strong>SonarQube </strong>— платформа с открытым исходным кодом для непрерывного анализа и измерения качества программного кода.</p><ul id="131aa64c-9d0a-81bd-b750-e0f10269d56d" class="bulleted-list"><li style="list-style-type:disc">Российские решения:<ul id="131aa64c-9d0a-8130-8872-c4fd6c56b9c6" class="bulleted-list"><li style="list-style-type:circle"><a href="https://www.ptsecurity.com/ww-en/products/ai/">PT Application Inspector</a></li></ul><ul id="131aa64c-9d0a-81f8-89d3-f23d242c9ba6" class="bulleted-list"><li style="list-style-type:circle"><a href="https://pvs-studio.com/en/pvs-studio/sast/">PVS‑Studio</a></li></ul></li></ul><h2 id="131aa64c-9d0a-81c3-9d6c-eeabc6f61c36" class="">1.3 DAST — <strong>Dynamic application security testing</strong></h2><p id="131aa64c-9d0a-81b6-8882-cced06b2f0f3" class="">Динамический анализ кода - это процесс тестирования программного кода во время его выполнения. Такой анализ позволяет обнаруживать ошибки, которые проявляются только при работе программы, такие как некорректное поведение в определенных условиях и проблемы с производительностью.</p><p id="131aa64c-9d0a-81e4-8c7f-e2b691461d06" class="">DAST (Dynamic Application Security Testing) предоставляет возможность обнаруживать проблемы, недоступные для других типов тестирования. Например, проблемы с архитектурой информационных систем или с аутентификацией, а также ошибки, возникающие при взаимодействии пользователя с приложением. Тестирование с использованием DAST позволяет выявить недостатки, которые могут быть пропущены обычными тестами. Более того, DAST помогает обеспечить соответствие продукта нормативным документам.</p><p id="131aa64c-9d0a-81e3-98a9-f944652d3815" class="">Тестирование чёрного ящика или поведенческое тестирование - это стратегия тестирования, при которой рассматривается функциональное поведение объекта (программы, системы) с точки зрения внешнего мира. Важно отметить, что тестировщики, занимающиеся тестированием чёрного ящика, не имеют доступа к исходному коду приложения.</p><p id="131aa64c-9d0a-818b-ae44-e7f95c2b2ce9" class="">Некоторые известные динамические анализаторы:</p><ul id="131aa64c-9d0a-8118-b0f6-e906f2a9b3d7" class="bulleted-list"><li style="list-style-type:disc">Netsparker - это отличное решение DAST, которое позволяет IT-персоналу отслеживать потенциальные векторы атак. Этот инструмент особенно полезен для организаций, которые должны демонстрировать соответствие стандартам HIPAA или PCI DSS. Netsparker можно установить на операционные системы Windows или Windows Server, а также использовать в качестве облачного сервиса.</li></ul><ul id="131aa64c-9d0a-81fe-b73f-cfd01b13f00f" class="bulleted-list"><li style="list-style-type:disc">GitLab Pro - это последняя версия платформы GitLab, предназначенная для поддержки CI/CD в DevOps. В ней также доступен механизм DAST, предоставляемый в виде облачного сервиса с подпиской. Система DAST GitLab поддерживает сканирование API и может быть развернута по запросу или по расписанию. Кроме того, в состав системы входит сервис статического анализа кода (SAST). Для GitLab Pro доступна бесплатная тридцатидневная пробная версия.</li></ul><p id="131aa64c-9d0a-8131-b25b-feb17fffb746" class="">Недостатки DAST</p><p id="131aa64c-9d0a-815a-96c5-fc375964ebe3" class="">Методы динамического тестирования безопасности приложений могут помочь в обнаружении уязвимостей, однако есть некоторые недостатки, которые следует учитывать.</p><p id="131aa64c-9d0a-813e-a9b7-d189fe913801" class="">Во-первых, разработка полного набора тестов для каждого приложения является сложной задачей. Методы DAST могут порождать ложноположительные результаты, что затрудняет работу аналитиков.</p><p id="131aa64c-9d0a-81ce-b4d5-fd858a5e505a" class="">Во-вторых, инструменты DAST могут указывать на проблемы, но не обнаруживать недостатки внутри кода приложения. Более того, эти инструменты сосредоточены на запросах и ответах, что может привести к появлению ошибок в архитектурной концепции проекта.</p><p id="131aa64c-9d0a-8199-815b-dc3f67853ddd" class="">В-третьих, процесс DAST может занимать много времени (обычно требуются дни или недели для проведения тестирования). Обнаруженные проблемы на поздних этапах жизненного цикла приложения могут вызвать большое количество задач для команды разработчиков, приводя к продлению сроков и увеличению затрат. В определенных случаях разработчикам может потребоваться возвращаться и изучать старый код перед внесением необходимых исправлений.</p><h3 id="131aa64c-9d0a-81b8-8139-ccb3e1ef9623" class=""><strong>Примеры DAST‑инструментов</strong></h3><ul id="131aa64c-9d0a-8162-97da-e2b7fc9b660b" class="bulleted-list"><li style="list-style-type:disc"><a href="https://docs.gitlab.com/ee/user/application_security/dast/">GitLab DAST</a> (доступно только в Ultimate‑версии)</li></ul><ul id="131aa64c-9d0a-81e3-b846-cd278bc5f825" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.zaproxy.org/">OWASP Zed Attack Proxy (ZAP)</a> (решение open‑source, которое используется в том числе и в GitLab DAST)</li></ul><ul id="131aa64c-9d0a-8182-8cd2-dfcf8e4dc0c0" class="bulleted-list"><li style="list-style-type:disc">Acunetix</li></ul><ul id="131aa64c-9d0a-813c-8c98-e56648a2d21e" class="bulleted-list"><li style="list-style-type:disc">Fortify WebInspect</li></ul><ul id="131aa64c-9d0a-8190-a43a-ccf3153299a5" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.ptsecurity.com/ww-en/products/ai/">PT Application Inspector</a></li></ul><h2 id="131aa64c-9d0a-81ed-89b9-fecc0c8219d3" class=""><mark class="highlight-default">1.4 IAST</mark></h2><p id="131aa64c-9d0a-8195-8b84-ce0a48e1978a" class="">Iast (интерактивное тестирование безопасности приложений) - это метод тестирования безопасности, который использует современные подходы и является лучшим выбором для проверки соответствия безопасности веб- и мобильных приложений. В отличие от устаревших технологий, таких как sast и dast, iast предлагает устранить их недостатки и предоставить более полный и эффективный анализ.</p><p id="131aa64c-9d0a-81ff-8261-d7ae7c25b9f0" class="">Один из недостатков статического анализа (sast) заключается в том, что он ограничен только просмотром исходного кода приложений, и не может обеспечить достаточное понимание библиотек и фреймворков, которые часто используются в современных приложениях. Также, сторонние компоненты могут привести к ложным срабатываниям статических анализаторов.</p><p id="131aa64c-9d0a-8133-a3cd-f8b7f8e3f35a" class="">В отличие от этих подходов, iast объединяет лучшие элементы sast и dast и позволяет <mark class="highlight-default">проводить анализ в реальном времени:</mark></p><ul id="131aa64c-9d0a-8122-9ec9-ff9d40b0e1bf" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-default">в любом месте процесса разработки IDE</mark></li></ul><ul id="131aa64c-9d0a-812b-90fc-dbc011d4691e" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-default">непрерывной интегрированной среде</mark></li></ul><ul id="131aa64c-9d0a-8163-9df4-cf05d5745a22" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-default">производственной среде</mark></li></ul><p id="131aa64c-9d0a-819e-8335-c533dfa2851c" class=""><mark class="highlight-default">Поскольку iast работает внутри приложения, он анализирует не только код приложения. </mark></p><p id="131aa64c-9d0a-8178-8b06-e6e7965128df" class=""><mark class="highlight-default">Он может анализировать:</mark></p><ul id="131aa64c-9d0a-81e8-9dac-d15fedf0deba" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-default">код приложения</mark></li></ul><ul id="131aa64c-9d0a-811b-9ffb-fcb39821f4b6" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-default">потоки данных</mark></li></ul><ul id="131aa64c-9d0a-8112-bc57-ffeafba47695" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-default">конфигурации</mark></li></ul><ul id="131aa64c-9d0a-81f6-98f4-d1b7f2bff1fa" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-default">HTTP-запросы и ответы</mark></li></ul><ul id="131aa64c-9d0a-8196-a338-e00e2d09ee96" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-default">библиотеки, фреймворки и другие компоненты</mark></li></ul><ul id="131aa64c-9d0a-8160-8aaf-ee2ce0ef0cca" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-default">информацию о внутреннем подключении</mark></li></ul><h3 id="131aa64c-9d0a-81d2-a32c-cc9835ef94f1" class=""><strong>Примеры IAST‑инструментов</strong></h3><ul id="131aa64c-9d0a-81f5-a99f-fe14935f2596" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.synopsys.com/software-integrity/security-testing/interactive-application-security-testing.html">Synopsys Seeker</a></li></ul><ul id="131aa64c-9d0a-81fa-8896-f33c27854e71" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.veracode.com/products/interactive-analysis-iast">Veracode Interactive Analysis</a></li></ul><ul id="131aa64c-9d0a-8135-bbed-cdf33ced50bf" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.checkmarx.com/products/interactive-application-security-testing">Checkmarx CxIAST</a></li></ul><ul id="131aa64c-9d0a-81df-a821-f4e528328510" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.ptsecurity.com/ww-en/products/ai/">PT Application Inspector</a></li></ul><h2 id="131aa64c-9d0a-8158-86b5-ed0e50a5ab28" class="">1.5 RASP</h2><p id="131aa64c-9d0a-81f8-a81b-c17c53eb79d4" class="">Runtime Application Self-Protection (расшифровывается как RASP) - это технология, которая в реальном времени обнаруживает и блокирует атаки на приложение. Она добавляет защитные функции в окружение выполнения, позволяя приложению самозащиту в автоматическом режиме.</p><p id="131aa64c-9d0a-81ea-8ef5-e81b84cf7a63" class="">Основное преимущество технологии RASP по сравнению с другими средствами защиты веб-приложений заключается в том, что она понимает работу приложения и распознает атаки и нелегитимный трафик. При этом RASP способен обнаружить не только типичные атаки с использованием сигнатурного сравнения, но и попытки эксплуатации уязвимостей zero-day, реагируя на аномалии.</p><h3 id="131aa64c-9d0a-8157-a530-d64ab3bfe4b9" class=""><strong>RASP‑инструменты</strong></h3><ul id="131aa64c-9d0a-8159-a05c-c0ec9c177eca" class="bulleted-list"><li style="list-style-type:disc">Fortify</li></ul><ul id="131aa64c-9d0a-8195-94ba-e4afa4f461bd" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.sqreen.com/">Sqreen</a></li></ul><ul id="131aa64c-9d0a-8143-92e5-e2f4ebc80bc3" class="bulleted-list"><li style="list-style-type:disc"><a href="https://github.com/baidu/openrasp">OpenRASP</a> (решение open‑source, разработанное Baidu)</li></ul><ul id="131aa64c-9d0a-819a-bccf-cbb969b51b89" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.signalsciences.com/products/rasp-runtime-application-self-protection/">Signal Sciences</a></li></ul><h2 id="131aa64c-9d0a-8191-8d66-ed02a413034d" class="">1.6 SCA</h2><p id="131aa64c-9d0a-81cb-8854-e5b7cdb8d1c0" class="">Анализ состава программного обеспечения (англ. Software Composition Analysis, SCA) - это процесс, который автоматизирует отслеживание использования программного обеспечения с открытым исходным кодом (OSS) с целью управления рисками, обеспечения безопасности и соответствия лицензиям.</p><p id="131aa64c-9d0a-81cd-838b-dfaa77b06297" class="">SCA позволяет обнаружить проблемы, когда уязвимость в одном компоненте может привести к проблемам с безопасностью во всех приложениях, которые используют этот компонент.</p><p id="131aa64c-9d0a-815b-bf12-f22f79199799" class="">Хорошим примером является уязвимость под названием Log4Shell, которая была обнаружена в конце 2021 года в популярном java-фреймворке для логирования под названием Log4j. Эта уязвимость стала одной из самых серьезных, так как позволяла злоумышленникам выполнить произвольный java-код на миллионах устройств.</p><ul id="131aa64c-9d0a-8159-9560-e890e3ba71b2" class="bulleted-list"><li style="list-style-type:disc">Опенсорсное решение:<ul id="131aa64c-9d0a-814f-88e1-c70af8a7b019" class="bulleted-list"><li style="list-style-type:circle"><a href="https://trivy.dev/">Trivy</a></li></ul></li></ul><ul id="131aa64c-9d0a-816a-823c-e158f970b332" class="bulleted-list"><li style="list-style-type:disc">Инструмент в составе GitLab (доступен только в Ultimate‑версии):<ul id="131aa64c-9d0a-8123-89f6-dc333f2474fb" class="bulleted-list"><li style="list-style-type:circle"><a href="https://docs.gitlab.com/ee/user/application_security/dependency_scanning/">GitLab Dependency Scanning</a></li></ul></li></ul><ul id="131aa64c-9d0a-8162-9a2a-e37b19afcdcb" class="bulleted-list"><li style="list-style-type:disc">Российские решения:<ul id="131aa64c-9d0a-81ff-9980-e0be00d5d8f5" class="bulleted-list"><li style="list-style-type:circle"><a href="https://profiscope.io/">Profiscope</a></li></ul><ul id="131aa64c-9d0a-81f1-be00-d900fab4d5d6" class="bulleted-list"><li style="list-style-type:circle"><a href="https://codescoring.ru/">CodeScoring</a></li></ul></li></ul><h2 id="131aa64c-9d0a-8166-9992-da4330a494ef" class="">1.7 OAST</h2><p id="131aa64c-9d0a-8128-b4bb-c000a7e63138" class="">OAST - инструмент разработанный компанией <a href="https://portswigger.net/">PortSwigger</a>. Он может обнаруживать те уязвимости, которые не может найти динамический анализатор.</p><p id="131aa64c-9d0a-8166-bf14-c22441dd8b58" class="">OAST сочетает в себе механизм доставки обычного DAST с детективными возможностями IAST. Он работает динамически, отправляя полезные данные работающему приложению. Эти полезные данные проходят обработку приложения обычным способом. Если полезная нагрузка обрабатывается небезопасным образом, она фактически использует некоторые инструменты для изменения поведения приложения, заставляя его осуществлять сетевое взаимодействие (обычно DNS) с внешней системой. Содержимое этого взаимодействия позволяет инструменту OAST сообщить точный тип уязвимости и точку ввода, которая может быть использована для ее запуска.</p><h2 id="131aa64c-9d0a-8113-a27b-e93361cc69fd" class="">1.8 Fuzzing</h2><p id="131aa64c-9d0a-8110-bb06-ff7caae38472" class="">Фаззинг (fuzzing или fuzz testing), – это метод тестирования, который призван специально вызывать сбои и обойти защиту проверяемого приложения. Для достижения этой цели применяются неправильные или случайные данные. Несмотря на свою простоту, этот метод демонстрирует высокую эффективность, поэтому широко применяется в рамках комплексного подхода к обеспечению безопасности.</p><p id="131aa64c-9d0a-81ce-9027-f170d8623ddb" class="">Фаззинг-тестирование способно выявить такие проблемы, как:</p><ul id="131aa64c-9d0a-81ed-9833-e1d231210f81" class="bulleted-list"><li style="list-style-type:disc">Скрытые проблемы безопасности.</li></ul><ul id="131aa64c-9d0a-8167-b5ae-c069f543c9e1" class="bulleted-list"><li style="list-style-type:disc">Недостатки, не обнаруженные при других формах тестирования.</li></ul><ul id="131aa64c-9d0a-8133-9f19-e9a21b6b460b" class="bulleted-list"><li style="list-style-type:disc">Нарушения целостности потока управления.</li></ul><ul id="131aa64c-9d0a-8142-b52f-dd059c72d739" class="bulleted-list"><li style="list-style-type:disc">Неожиданное поведение программного обеспечения.</li></ul><ul id="131aa64c-9d0a-81d7-9308-e8d9f474da1c" class="bulleted-list"><li style="list-style-type:disc">Обработка исключительных ситуаций.</li></ul><p id="131aa64c-9d0a-81c3-91a1-ea94324146e4" class="">Фаззинг-тестирование позволяет достичь наивысшего покрытия кода при его исследовании и обнаружить проблемы с планированием и производительностью.</p><p id="131aa64c-9d0a-8113-857c-edd19445a38a" class="">Среди преимуществ фаззинг-тестирования можно выделить следующие:</p><ul id="131aa64c-9d0a-8110-a94f-fc1cf3027d0b" class="bulleted-list"><li style="list-style-type:disc">Выявление проблем в сложных программах.</li></ul><ul id="131aa64c-9d0a-81c8-bc8b-ff25e9377afe" class="bulleted-list"><li style="list-style-type:disc">Обнаружение ошибок, которые не были раскрыты другими методами анализа.</li></ul><ul id="131aa64c-9d0a-8198-b8e8-c60643d75a1b" class="bulleted-list"><li style="list-style-type:disc">Проверка уровня безопасности.</li></ul><ul id="131aa64c-9d0a-818e-9417-f0c00630e741" class="bulleted-list"><li style="list-style-type:disc">Минимизация человеческого участия в процессе тестирования.</li></ul><ul id="131aa64c-9d0a-810c-85ec-c28db3ef3222" class="bulleted-list"><li style="list-style-type:disc">Снижение затрат команды разработчиков, так как такое тестирование обходится значительно дешевле, чем ручная проверка.</li></ul><p id="131aa64c-9d0a-814a-8d05-f361fd3212a2" class="">Однако фаззинг-тестирование также имеет свои слабые стороны, связанные преимущественно с финансовыми вопросами. При внедрении анализаторов кода необходимо учесть затраты. Еще одна статья расходов – привлечение опытных экспертов для оценки результатов тестирования и устранения обнаруженных проблем, если в компании нет таких специалистов.</p><p id="131aa64c-9d0a-813c-ba16-c6439c8f9e7f" class="">Временные затраты также являются недостатком фаззинг-тестирования программного обеспечения. При проведении быстрого поверхностного анализа в некоторых случаях могут быть пропущены уязвимости, поэтому специалисты рекомендуют проводить детальное фаззинг-тестирование, хоть это и занимает больше времени, но в разы повышает эффективность.</p><p id="131aa64c-9d0a-8128-856f-f47fb5d9f764" class="">
+</p><h2 id="131aa64c-9d0a-8189-9dd7-d4298e7dc176" class=""><mark class="highlight-default">1.9 Сканер докер образов</mark></h2><p id="131aa64c-9d0a-8148-b337-db568d2b61f6" class=""><mark class="highlight-default">Условно уязвимости в docker-образах можно разделить на следующие:</mark></p><ul id="131aa64c-9d0a-81d0-8ea6-d859b0689519" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-default">OS Vulnerabilities – уязвимости базового образа и системных пакетов, включённых в этот образ;</mark></li></ul><ul id="131aa64c-9d0a-8146-810f-c9352b23a2fc" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-default">Dependencies – уязвимости в сторонних зависимостях;</mark></li></ul><ul id="131aa64c-9d0a-81b7-b03f-ec3568a5c8f7" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-default">Software Vulnerabilities – уязвимости непосредственно в коде приложений, которые запускаются в контейнерах;</mark></li></ul><ul id="131aa64c-9d0a-8131-b558-e8e0c7e31c82" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-default">Dockerfile – небезопасные инструкции для сборки образа.</mark></li></ul><p id="131aa64c-9d0a-819a-8211-e142a33f6ee3" class=""><mark class="highlight-default">Сканеры помогают выявить уязвимости и предоставляют рекомендации по их устранению, что может сэкономить тонны времени и сил. В качестве хранилища образов можно использовать Harbor, который с помощью адаптеров умеет работать с некоторыми сканерами. Это</mark> значительно упрощает процесс создания пайплайнов. Кроме того, Harbor может выгрузить отчет о найденных уязвимостях в универсальном csv-формате.</p><p id="131aa64c-9d0a-81df-8689-f4d329f453e0" class="">Один из популярных бесплатных сканеров - clair от coreos, предназначен для статического анализа уязвимостей в приложениях и docker-образах. С помощью интеграции с реестром docker, clair может автоматически сканировать все новые образы на наличие уязвимостей.</p><p id="131aa64c-9d0a-81d0-b22e-fe639489e94f" class="">Еще один популярный инструмент - trivy от aqua security, также бесплатен и может обнаруживать уязвимости в операционной системе и уязвимые библиотеки, используемые вашим приложением. trivy легко интегрируется в процесс ci/cd и может использоваться для регулярной проверки безопасности.<mark class="highlight-red"><br/><br/></mark><mark class="highlight-default">Коммерческие продукты, такие как Docker Security Scanning, теперь называемый частью Docker Enterprise, предлагают более широкие возможности и интеграцию с Docker Hub, что позволяет сканировать образы перед тем, как они будут опубликованы в реестре.</mark></p><h2 id="131aa64c-9d0a-8162-805b-c9c2fd496dcf" class="">1.10 <strong>CICD-SEC</strong></h2><p id="131aa64c-9d0a-81ef-b9fa-eb8a10070295" class="">Сообщество OWASP представило топ 10 уязвимостей CI/CD конвейера. </p><figure id="131aa64c-9d0a-81f1-be2d-db1b6229dc91"><a href="https://owasp.org/www-project-top-10-ci-cd-security-risks/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">OWASP Top 10 CI/CD Security Risks | OWASP Foundation</div><div class="bookmark-description">OWASP Top 10 CI/CD Security Risks project helps defenders identify focus areas for securing their CI/CD ecosystem.</div></div><div class="bookmark-href"><img src="https://owasp.org/www--site-theme/favicon.ico" class="icon bookmark-icon"/>https://owasp.org/www-project-top-10-ci-cd-security-risks/</div></div><img src="https://owasp.org/www--site-theme/favicon.ico" class="bookmark-image"/></a></figure><p id="131aa64c-9d0a-8141-8320-c03bb9c6a370" class="">Этот топ позволяет специалистам определить приоритетные направления обеспечения безопасности CI/CD.</p><ul id="131aa64c-9d0a-8148-9f21-d8280158f7a8" class="bulleted-list"><li style="list-style-type:disc">CICD-SEC-1: Недостаточные механизмы управления потоком</li></ul><ul id="131aa64c-9d0a-81e8-9c3a-d9a13dc8511f" class="bulleted-list"><li style="list-style-type:disc">CICD-SEC-2: Неадекватное управление идентификацией и доступом</li></ul><ul id="131aa64c-9d0a-8166-bfe6-efadd43229a9" class="bulleted-list"><li style="list-style-type:disc">CICD-SEC-3: Злоупотребление цепочкой зависимостей</li></ul><ul id="131aa64c-9d0a-817b-828b-c01b1ac1d7b6" class="bulleted-list"><li style="list-style-type:disc">CICD-SEC-4: Выполнение «отравленного» pipeline</li></ul><ul id="131aa64c-9d0a-81a4-a87b-cb90e74a6dc4" class="bulleted-list"><li style="list-style-type:disc">CICD-SEC-5: Недостаточный контроль доступа конвейера</li></ul><ul id="131aa64c-9d0a-8178-8823-d02684ee60bf" class="bulleted-list"><li style="list-style-type:disc">CICD-SEC-6: Недостаточная &quot;гигиена&quot; секретов</li></ul><ul id="131aa64c-9d0a-8117-af4c-fc1131371c61" class="bulleted-list"><li style="list-style-type:disc">CICD-SEC-7: Небезопасная конфигурация</li></ul><ul id="131aa64c-9d0a-8189-bc10-fda24fef9625" class="bulleted-list"><li style="list-style-type:disc">CICD-SEC-8: Неконтролируемое использование сторонних сервисов</li></ul><ul id="131aa64c-9d0a-814c-a7f3-eafce03ca9fd" class="bulleted-list"><li style="list-style-type:disc">CICD-SEC-9: Некорректная валидация артефактов</li></ul><ul id="131aa64c-9d0a-8192-8ea5-f5f3089cdb24" class="bulleted-list"><li style="list-style-type:disc">CICD-SEC-10: Недостаточное логирование и мониторинг</li></ul><p id="131aa64c-9d0a-8101-8e69-cf381cb89a47" class="">Половина из этого списка так или иначе пересекается с OWASP TOP 10:2021.</p><p id="131aa64c-9d0a-81af-a5a2-ee2e499847e9" class="">Мы лишь кратко ознакомимся с каждой из уязвимостей. Для более подробного ознакомления с CICD-SEC предлагаю перейти на <a href="https://owasp.org/www-project-top-10-ci-cd-security-risks/">официальный сайт</a>.</p><h3 id="131aa64c-9d0a-813d-8e0b-e825815956a2" class="">1.10.1 CICD-SEC-1: Недостаточные механизмы управления потоком</h3><p id="131aa64c-9d0a-813a-964d-d1c7c465095d" class="">Недостаточные механизмы управления потоком относятся к способности злоумышленника, получившего разрешения на доступ к системе в рамках процесса CI/CD (SCM, CI, хранилище артефактов и т. д.), самостоятельно проталкивать вредоносный код или артефакты по конвейеру из-за отсутствие механизмов, обеспечивающих дополнительное одобрение или проверку.</p><p id="131aa64c-9d0a-81bb-8fc7-dfe247e2d9dd" class="">Вы попадаете в зону риска если:</p><ul id="131aa64c-9d0a-81c2-aa01-d160beffde02" class="bulleted-list"><li style="list-style-type:disc">используете автоматическое развертывание в production</li></ul><ul id="131aa64c-9d0a-8137-a490-fd43c059ebd0" class="bulleted-list"><li style="list-style-type:disc">выполняете дебаг в production</li></ul><ul id="131aa64c-9d0a-81e3-ad6a-dcc8dac427fd" class="bulleted-list"><li style="list-style-type:disc">используете ручной триггер на развертывание в production</li></ul><ul id="131aa64c-9d0a-815f-801e-e53955ae1809" class="bulleted-list"><li style="list-style-type:disc">у вас бесконтрольное слияние веток</li></ul><ul id="131aa64c-9d0a-8130-a320-cc3d9e6309a1" class="bulleted-list"><li style="list-style-type:disc">бесконтрольный push в production</li></ul><ul id="131aa64c-9d0a-8172-9466-c7fabecb6476" class="bulleted-list"><li style="list-style-type:disc">плохо настроен доступ к рабочей среде или инфраструктуре.</li></ul><h3 id="131aa64c-9d0a-81e2-affe-e750a595a5bf" class="">1.10.2 CICD-SEC-2: Неадекватное управление идентификацией и доступом</h3><p id="131aa64c-9d0a-81ae-b7f7-e2aee2a678e9" class="">Неадекватное управления идентификацией и доступом возникают из-за трудностей в управлении огромным количеством идентификационных данных, разбросанных по различным системам инженерной экосистемы, от контроля версий до развертывания. Существование плохо управляемых учетных записей (как человеческих, так и программных)<br/>увеличивает потенциал и степень ущерба от их компрометации.<br/></p><p id="131aa64c-9d0a-8167-b91d-d790deb9d601" class="">Зона риска:</p><ul id="131aa64c-9d0a-81f0-a43b-de37de39f74b" class="bulleted-list"><li style="list-style-type:disc">общие аккаунты на несколько сотрудников</li></ul><ul id="131aa64c-9d0a-818a-a961-fb1d7e28e79a" class="bulleted-list"><li style="list-style-type:disc">оutsourcing разработки внешними сотрудниками</li></ul><ul id="131aa64c-9d0a-814c-b5c1-f686beab4b9c" class="bulleted-list"><li style="list-style-type:disc">выдача избыточных привилегий</li></ul><ul id="131aa64c-9d0a-810f-b4a6-d7ac0522b052" class="bulleted-list"><li style="list-style-type:disc">«забытые» доступы. Человек уже не работает, а его учетка существует.</li></ul><h3 id="131aa64c-9d0a-815e-a1b1-f33ff25d37be" class="">1.10.3 CICD-SEC-3: Злоупотребление цепочкой зависимостей</h3><p id="131aa64c-9d0a-8133-a55b-dc9022a453d7" class="">Риски злоупотребления цепочкой зависимостей относятся к способности злоумышленника злоупотреблять недостатками, связанными с тем, как рабочие станции разработки и среды сборки извлекают зависимости кода. Злоупотребление цепочкой зависимостей приводит к тому, что вредоносный пакет случайно извлекается и выполняется локально при извлечении.</p><p id="131aa64c-9d0a-810a-9ca8-cfe541741d24" class="">Вектора атак:</p><ul id="131aa64c-9d0a-81df-ad2c-debd54949a96" class="bulleted-list"><li style="list-style-type:disc"><strong>Dependency confusion</strong> — публикация заражённых пакетов в общедоступных репозиториях с названием как у одного из внутренних пакетов. Реализуют это в надежде на то, что менеджер пакетов по ошибке получит вредоносный пакет вместо легитимного.</li></ul><ul id="131aa64c-9d0a-8115-bba0-f2903e9f980e" class="bulleted-list"><li style="list-style-type:disc"><strong>Dependency hijacking</strong> — угон учетной записи владельца популярного общедоступного пакета и загрузка вредоносного от его имени.</li></ul><ul id="131aa64c-9d0a-819c-986d-fd7cdea422de" class="bulleted-list"><li style="list-style-type:disc"><strong>Typosquatting</strong> — публикация вредоносных пакетов с именами, похожими на имена популярных пакетов, в надежде на опечатку.</li></ul><ul id="131aa64c-9d0a-8123-abcc-e0956ac1d1e7" class="bulleted-list"><li style="list-style-type:disc"><strong>Brandjacking</strong> — публикация вредоносных пакетов под видом «брендированного», ложная ассоциация со знакомым брендом.</li></ul><h3 id="131aa64c-9d0a-814f-a5f2-dd6cbd93b697" class="">1.10.4 CICD-SEC-4: Выполнение «отравленного» pipeline</h3><p id="131aa64c-9d0a-81e0-9625-fd0d22c650d7" class="">Poisoned Pipeline Execution (PPE) относятся к способности злоумышленника с доступом к системам контроля версий и без доступа к среде сборки манипулировать процессом сборки путем внедрения вредоносного кода/команд в конфигурацию конвейера сборки.<br/>по сути «отравляет» конвейер и запускает вредоносный код как часть процесса сборки.<br/></p><p id="131aa64c-9d0a-816f-b5af-facd00fd7094" class="">Известные атаки:</p><ul id="131aa64c-9d0a-813f-b4d0-f38446788fc6" class="bulleted-list"><li style="list-style-type:disc">Direct/прямой PPE — изменение файла конфигурации CI в репозитории, либо отправляя изменения в незащищенную удаленную ветку репозитория. <br/><br/>Поскольку выполнение конвейера CI запускается событиями «push» или «PR»,<br/>а выполнение конвейера определяется командами в измененном файле конфигурации CI (.gitlab-ci.yml), вредоносные команды злоумышленника в конечном итоге запускаются на узле сборки после запуска конвейера сборки.<br/></li></ul><ul id="131aa64c-9d0a-8129-be23-fe1ccd639d7e" class="bulleted-list"><li style="list-style-type:disc">Indirect/косвенный PPE — когда D-PPE нереализуемо, злоумышленник все равно может «отравить» конвейер, внедрив вредоносный код в файлы, на которые ссылается конфигурация. Например, example.sh, Makefile, файлы в том же репо, которые используются при сборке, и т.д.</li></ul><ul id="131aa64c-9d0a-8123-b610-ce145e5ff932" class="bulleted-list"><li style="list-style-type:disc">Public PPE — злоумышленнику требуется доступ к репозиторию, где находится конфигурация конвейера, или к файлам, на которые он ссылается, но в публичных, общедоступные проектах/репозиториях.</li></ul><h3 id="131aa64c-9d0a-81d1-8d65-f883ec4ad81b" class="">1.10.5 CICD-SEC-5: Недостаточный контроль доступа конвейера</h3><p id="131aa64c-9d0a-811e-90c3-dede29169561" class="">Узлы выполнения конвейера имеют доступ к многочисленным ресурсам и системам внутри и за пределами среды выполнения. Это может позволить злоумышленнику перемещаться внутри или за пределами системы CI/CD.</p><h3 id="131aa64c-9d0a-815e-9a5c-e256494b1964" class="">1.10.6 CICD-SEC-6: Недостаточная &quot;гигиена&quot; секретов</h3><p id="131aa64c-9d0a-8107-b260-c7b545e30283" class="">Риски недостаточной гигиены учетных данных связаны со способностью злоумышленника получать и использовать различные секреты и токены, распространяющиеся по всему конвейеру. </p><p id="131aa64c-9d0a-817e-9670-e772a1080945" class="">Примеры:</p><ul id="131aa64c-9d0a-814a-a3d6-d8aeeda5f870" class="bulleted-list"><li style="list-style-type:disc">хранение учетных данных разработчиком в своем репозитории. </li></ul><ul id="131aa64c-9d0a-813c-901f-f693ad8e1516" class="bulleted-list"><li style="list-style-type:disc">Забыли сменить пароль после настройки сервиса.</li></ul><ul id="131aa64c-9d0a-8143-9ad3-fc8b55375eee" class="bulleted-list"><li style="list-style-type:disc">При сборке и развёртывании, в том числе на стороне заказчика, секреты передаются в открытом виде.</li></ul><h3 id="131aa64c-9d0a-8187-927c-e95a5f6c0286" class="">1.10.7 CICD-SEC-7: Небезопасная конфигурация</h3><p id="131aa64c-9d0a-8142-8d9a-c369ca13d864" class="">Настройки по умолчанию, отсутствие важных исправлений безопасности, путаница зависимостей (Dependency confusion). Это не полный список причин риска небезопасной конфигурации.</p><h3 id="131aa64c-9d0a-811b-9fff-eec3b547e95d" class="">1.10.8 CICD-SEC-8: Неконтролируемое использование сторонних сервисов</h3><p id="131aa64c-9d0a-810f-af84-e7cd10ca67a0" class="">Использование сторонних сервисов повышает поверхность атаки. Соответственно неконтролируемое использование увеличивает поверхность еще больше. Хуже, если компания использовав какой-то сервис, перешла на новый, а токен на старом забыли отключить.</p><h3 id="131aa64c-9d0a-81b9-abd0-e2315eb3aa74" class="">1.10.9 CICD-SEC-9: Некорректная валидация артефактов/Неправильная проверка целостности артефакта</h3><p id="131aa64c-9d0a-81c0-9517-f8e02e579796" class="">Риски неправильной проверки целостности артефактов позволяют злоумышленнику, имеющему доступ к одной из систем в процессе CI/CD, проталкивать вредоносный код или артефакты по конвейеру из-за недостаточных механизмов обеспечения проверки кода и артефактов.</p><h3 id="131aa64c-9d0a-8124-a231-c7f9f2702d27" class="">1.10.10 CICD-SEC-10: Недостаточное логирование и мониторинг</h3><p id="131aa64c-9d0a-81f0-b4d0-c097f5866901" class="">Недостаточное ведение журнала позволяют злоумышленнику осуществлять вредоносные действия в среде CI/CD, не будучи обнаруженным на любом этапе атаки, включая идентификацию TTP злоумышленника (Techniques, Tactics and Procedures) как часть любого пост-инцидента. расследование.</p><h2 id="131aa64c-9d0a-8146-adfd-fc20573e895d" class="">Дополнительные материалы</h2><p id="131aa64c-9d0a-81ba-a1db-c5cf4a1f40cc" class=""><a href="https://cloud.yandex.ru/ru/blog/posts/2023/06/devsecops-steps-part-2">https://cloud.yandex.ru/ru/blog/posts/2023/06/devsecops-steps-part-2</a></p><p id="131aa64c-9d0a-8132-994d-d3c7c5a28782" class=""><a href="https://habr.com/ru/companies/zyxel/articles/651667/">https://habr.com/ru/companies/zyxel/articles/651667/</a></p><p id="131aa64c-9d0a-81d5-a094-f49e4257c914" class=""><a href="https://habr.com/ru/companies/zyxel/articles/549850/">https://habr.com/ru/companies/zyxel/articles/549850/</a></p><p id="131aa64c-9d0a-819f-bf30-f5f2ef73d16b" class=""><a href="https://owasp.org/www-project-top-10-ci-cd-security-risks/">https://owasp.org/www-project-top-10-ci-cd-security-risks/</a></p><p id="131aa64c-9d0a-8156-b8b2-f5fb8c0cde3e" class="">Дополнительные материалы по CICD-SEC:</p><p id="131aa64c-9d0a-812f-b228-feff8d5d2791" class=""><a href="https://habr.com/ru/companies/ru_mts/articles/781688/">https://habr.com/ru/companies/ru_mts/articles/781688/</a></p><p id="131aa64c-9d0a-8161-ab85-fc06177483d9" class=""><a href="https://habr.com/ru/companies/bimeister/articles/781274/">https://habr.com/ru/companies/bimeister/articles/781274/</a></p><p id="131aa64c-9d0a-815c-a7e1-ffd5bb68f79a" class=""><a href="https://owasp.org/www-project-top-10-ci-cd-security-risks/">https://owasp.org/www-project-top-10-ci-cd-security-risks/</a></p><p id="131aa64c-9d0a-815f-8c23-d88e00cbd912" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

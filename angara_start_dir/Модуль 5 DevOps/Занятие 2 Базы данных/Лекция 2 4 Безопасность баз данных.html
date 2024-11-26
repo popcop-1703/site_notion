@@ -1,0 +1,685 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Лекция 2.4. Безопасность баз данных</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="131aa64c-9d0a-816a-b0f5-fb2b0b7c681b" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/slideshow_gray.svg"/></div><h1 class="page-title">Лекция 2.4. Безопасность баз данных</h1><p class="page-description"></p></header><div class="page-body"><h1 id="131aa64c-9d0a-81c1-acb4-e7f45d3136fe" class="">Оглавление</h1><nav id="131aa64c-9d0a-81ba-a934-e77c068a49fc" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#131aa64c-9d0a-81c1-acb4-e7f45d3136fe">Оглавление</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#131aa64c-9d0a-81c1-9321-d26c50d7cddd">1. Теоретическая часть</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-8171-8056-d41b0f684298">1.1 Репликация</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-8182-9067-ff7b074fb64f">1.1.1 В чем разница между репликацией данных и репликацией баз данных?</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-815d-b06e-c54fba882f0e">1.1.2 Процесс репликации</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-8177-97c8-ebb6cd7770f5">1.1.3 Типы репликации базы данных</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81fc-b49e-d032e4dda66a">1.1.4 Репликация в PostgreSQL</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-81b8-bf7d-e00d453b82e0">1.2 SQL-инъекции</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81bb-99ae-d059960e80fe">1.2.1 Что такое атаки с использованием SQL-инъекций?</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-8149-b127-d977f55df5fb">1.2.2 Типы атак с использованием SQL-инъекций</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-8190-b61c-dfaa58e1c48c">1.2.3 Предотвращение атак типа SQL-инъекция</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81a4-90bf-ea44de716a79">1.2.4 Обнаружение атак</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-8149-bf88-dbca58bb9af0">1.3 Многопользовательский доступ и разграничение прав</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81fb-ba17-ead0e20f909f">1.3.1 Встроенные механизмы аутентификации</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81db-bf97-d42dc5d69869">1.3.2 Проверка на уровне приложения</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-81e6-96d3-c26a39bd3666">1.3.3. Введение сессии на уровне СУБД</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#131aa64c-9d0a-8121-bcda-e5f7a6e7b6b4">1.4 <strong>Транзакции и точки сохранения</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-8163-b15f-c2e7bd0d0672">1.4.1 <strong>Транзакции</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#131aa64c-9d0a-8100-b065-e35430174eb4">1.4.2 <strong>Точки сохранения (Savepoints)</strong></a></div></nav><h1 id="131aa64c-9d0a-81c1-9321-d26c50d7cddd" class="">1. Теоретическая часть</h1><h2 id="131aa64c-9d0a-8171-8056-d41b0f684298" class="">1.1 Репликация</h2><p id="131aa64c-9d0a-8134-bf49-dd7e60f382f5" class=""><strong>Репликация</strong> — одна из техник масштабирования баз данных. Состоит эта техника в том, что данные с одного сервера базы данных постоянно копируются (реплицируются) на один или несколько других (называемые репликами). Для приложения появляется возможность использовать не один сервер для обработки всех запросов, а несколько. Таким образом появляется возможность распределить нагрузку с одного сервера на несколько.</p><p id="131aa64c-9d0a-81f5-8d72-e55fcfa4b7a4" class="">Одной из основных причин использования репликации является улучшение производительности системы. Распределение нагрузки между репликами позволяет увеличить пропускную способность и снизить задержки при выполнении запросов. Например, репликация может использоваться для отделения операций чтения и записи данных, что увеличивает производительность.</p><p id="131aa64c-9d0a-81ec-992b-ede69d58ae62" class="">Репликация также позволяет обеспечить отказоустойчивость системы. При сбое одного из серверов или узлов базы данных, другие реплики могут продолжать работу и обеспечивать доступ к данным. Это позволяет избежать простоев в работе системы и потери данных.</p><p id="131aa64c-9d0a-810f-b91f-d397926aecc5" class="">Репликация базы данных играет решающую роль в современном управлении данными. Это фундаментальный метод, используемый организациями для обеспечения целостности, надежности и доступности данных. Это упрощает доступ к данным для нескольких групп и, создавая копии, защищает данные от подделки и уничтожения.</p><p id="131aa64c-9d0a-81dd-80d0-fd655856b2e4" class="">Репликация базы данных — это непрерывный процесс. Непрерывная репликация гарантирует, что изменения в основной базе данных оперативно распространяются на реплики, гарантируя глобальную актуальность данных. Это позволяет организациям добавлять новые реплики и адаптировать развивающиеся схемы. Непрерывная репликация также облегчает автоматическое переключение при сбое и восстановление, обеспечивая плавный переход при сбоях основной базы данных.</p><p id="131aa64c-9d0a-817f-8ed1-fd8d73157954" class="">Благодаря репликации возможно:</p><ol type="1" id="131aa64c-9d0a-8138-b988-f839cf43ef25" class="numbered-list" start="1"><li><strong>Непрерывная доступность данных:</strong> Если основная база данных отказывает, вы можете переключиться на реплику, минимизируя простой в обслуживании и потерю данных.</li></ol><ol type="1" id="131aa64c-9d0a-811b-b69d-c07d2c9b6689" class="numbered-list" start="2"><li><strong>Балансировка нагрузки:</strong> Вы можете отправлять запросы только на чтение к репликам, чтобы уменьшить нагрузку на основную базу данных.</li></ol><ol type="1" id="131aa64c-9d0a-8125-bb47-c962bc5d19f9" class="numbered-list" start="3"><li><strong>Бэкапы</strong>: Реплики могут служить как места для бэкапа.</li></ol><ol type="1" id="131aa64c-9d0a-8178-beef-e9db42cb888b" class="numbered-list" start="4"><li><strong>Отказоустойчивость:</strong> Репликация может помочь восстановить данные в случае повреждения или потери данных.</li></ol><h3 id="131aa64c-9d0a-8182-9067-ff7b074fb64f" class="">1.1.1 В чем разница между репликацией данных и репликацией баз данных?</h3><p id="131aa64c-9d0a-81b0-8cfa-fed1440a3314" class="">Прежде чем углубляться в репликацию базы данных, важно понять разницу между репликацией данных и репликацией базы данных.</p><p id="131aa64c-9d0a-81f1-aaad-e8978eba051e" class="">Репликация данных означает копирование определенных данных с одного устройства хранения на другое, часто в целях резервного копирования. Этот процесс гарантирует, что в случае аппаратного сбоя или потери данных реплицированные данные можно будет использовать для восстановления исходных данных.</p><p id="131aa64c-9d0a-811f-9cce-cafec88a9517" class="">С другой стороны, репликация базы данных предполагает репликацию <em>всей</em> базы данных, включая ее схему, таблицы и хранимые процедуры, на несколько серверов. В отличие от репликации данных, которая фокусируется исключительно на копировании данных, репликация базы данных направлена на создание идентичных копий всей структуры базы данных и ее содержимого.</p><p id="131aa64c-9d0a-8108-8a70-c0e37cfe8c03" class="">Естественно, репликация базы данных требует большей сложности и замысловатости по сравнению с простой репликацией данных. Это требует тщательного рассмотрения таких факторов, как согласованность данных, синхронизация и разрешение конфликтов.</p><h3 id="131aa64c-9d0a-815d-b06e-c54fba882f0e" class="">1.1.2 Процесс репликации</h3><p id="131aa64c-9d0a-810e-ad36-cab96b0fc84d" class="">Репликация базы данных использует набор методов для копирования и синхронизации данных между несколькими базами данных или серверами. Система отслеживания измененных данных (CDC) — один из таких методов. Он фиксирует изменения в исходной базе данных и обновляет реплику в режиме реального времени.</p><p id="131aa64c-9d0a-8125-bd2d-f9f89f9c49cb" class="">В общем, репликация включает в себя первичную базу данных, которая служит источником достоверных данных, и одну или несколько реплик, которые поддерживают копии первичной базы данных. Когда в основной базе данных происходит изменение, оно фиксируется механизмом репликации и распространяется на реплики. Это гарантирует, что данные в репликах соответствуют основной базе данных.</p><h3 id="131aa64c-9d0a-8177-97c8-ebb6cd7770f5" class="">1.1.3 Типы репликации базы данных</h3><p id="131aa64c-9d0a-8106-8e4e-faaf3371153d" class="">Технология репликации баз данных достаточно гибкая и может быть настроена под конкретную задачу. Основное разделение идет по трем принципам:</p><ul id="131aa64c-9d0a-812a-b475-d650a50c4745" class="bulleted-list"><li style="list-style-type:disc"><strong>Способ синхронизации данных.</strong></li></ul><ul id="131aa64c-9d0a-8152-82e2-c032911ca2e7" class="bulleted-list"><li style="list-style-type:disc"><strong>Способ передачи данных.</strong></li></ul><ul id="131aa64c-9d0a-819b-bd3a-e3e7b89c4c56" class="bulleted-list"><li style="list-style-type:disc"><strong>Тип серверной архитектуры.</strong></li></ul><p id="131aa64c-9d0a-8132-bf27-ef9e2156deac" class="">Первый подразумевает под собой алгоритм или правило, по которому данные синхронизируются между оригиналом и репликами. В SQL-сервере основными типами являются:</p><ul id="131aa64c-9d0a-815c-851d-fe4897ec44c5" class="bulleted-list"><li style="list-style-type:disc"><strong>Транзакционная</strong> — любые изменения в оригинале фиксируются и доставляются в реплики. Обновление информации происходит практически моментально.</li></ul><ul id="131aa64c-9d0a-812e-95f0-da57b03b3616" class="bulleted-list"><li style="list-style-type:disc"><strong>Репликация моментальных снимков</strong> — данные обновляются периодически. В определенные моменты времени делается снимок базы данных, который накладывается на реплики. Это один из самых простых способов. Его большим преимуществом является периодичность, то есть он не несет постоянной нагрузки на систему.</li></ul><ul id="131aa64c-9d0a-815e-b53c-c32f112a0509" class="bulleted-list"><li style="list-style-type:disc"><strong>Слияние</strong> — является промежуточным вариантом между транзакционным способом и репликацией моментальных снимков. Метод отслеживает изменения, фиксирует и периодически передает их. Если за отслеживаемый период было внесено всего два изменения, то именно они будут переданы. Это намного быстрее и проще, чем обновлять всю таблицу.</li></ul><ul id="131aa64c-9d0a-81c5-8839-f3d6f415aada" class="bulleted-list"><li style="list-style-type:disc"><strong>Одноранговая</strong> — изменения согласуются на уровне транзакций и передаются между несколькими копиями СУБД. Все процессы происходят практически в режиме реального времени. Возможно небольшое запаздывание.</li></ul><ul id="131aa64c-9d0a-81b0-b7ac-e4977bfcd1a3" class="bulleted-list"><li style="list-style-type:disc"><strong>Двунаправленная</strong> — технология позволяет двум серверам обмениваться данными между собой.</li></ul><p id="131aa64c-9d0a-8195-ac47-ce80a2b2ce0e" class="">По способу передачи данных выделяют:</p><ul id="131aa64c-9d0a-8144-a0ce-f0f3bebf302a" class="bulleted-list"><li style="list-style-type:disc"><strong>Асинхронную репликацию </strong>— после записи в оригинал информация дублируется в реплику. Такой механизм подразумевает, что копия всегда отстает от главной СУБД. Главное преимущество заключается в простоте развертывания и инертности к увеличению расстояния канала передачи данных.</li></ul><ul id="131aa64c-9d0a-8180-b147-cd9a444102b7" class="bulleted-list"><li style="list-style-type:disc"><strong>Синхронную репликацию</strong> — данные дублируются в реальном времени. Это позволяет иметь несколько актуальных копий, поэтому полная потеря данных практически невозможна. Способ требует высоких вычислительных мощностей, так как несет постоянную нагрузку на основное приложение.</li></ul><ul id="131aa64c-9d0a-8188-803f-f4b3616f6062" class="bulleted-list"><li style="list-style-type:disc"><strong>Полусинхронная репликация</strong> — компромисс между вышеописанными способами. Все изменения фиксируются локально. При этом изменения поступают на реплики, но не обновляют значения моментально.</li></ul><ul id="131aa64c-9d0a-8192-8f0f-d7ee99c85024" class="bulleted-list"><li style="list-style-type:disc"><strong>Физическая репликация</strong> — мастер передает на реплику журнальные записи. Реплика применяет их к своим файлам данных. Все процессы носят чисто «механический» характер. Поэтому это возможно только для одинаковых платформ, в которых есть двоичная совместимость.</li></ul><ul id="131aa64c-9d0a-8132-b5d3-d5fd40a6e5db" class="bulleted-list"><li style="list-style-type:disc"><strong>Логическая журнальная репликация</strong> — является более «умным» методом, чем физическое копирование. Кроме журнальных записей на реплику поступает информация высокого уровня. Она позволяет декодировать журнальную информацию для внесения изменений в целевые таблицы.</li></ul><p id="131aa64c-9d0a-8155-bf38-f11563d06042" class="">По типу серверной архитектуры бывают:</p><ul id="131aa64c-9d0a-81dd-a148-ee658345a0d5" class="bulleted-list"><li style="list-style-type:disc"><strong>Однолидерные</strong> — реплики считывают данные с одного сервера. Стандартная структура.</li></ul><ul id="131aa64c-9d0a-8111-bf2e-d6f993de7fd4" class="bulleted-list"><li style="list-style-type:disc"><strong>Многолидерные</strong> — реплики считывают данные с нескольких серверов. Актуальна для рассредоточенной структуры.</li></ul><ul id="131aa64c-9d0a-81b4-9e5f-cd968a7caceb" class="bulleted-list"><li style="list-style-type:disc"><strong>Без лидеров </strong>— любой сервер служит моделью для реплик. Максимально гибкая структура. Но могут возникнуть проблемы с синхронизацией данных.</li></ul><h3 id="131aa64c-9d0a-81fc-b49e-d032e4dda66a" class="">1.1.4 Репликация в PostgreSQL</h3><p id="131aa64c-9d0a-8156-bfcd-f684151ca1da" class="">PostgreSQL предлагает два основных типа репликации:</p><ol type="1" id="131aa64c-9d0a-8127-b017-d56cf6f42856" class="numbered-list" start="1"><li><strong>Физическая репликация:</strong> Настроенная на уровне блока диска, и она копирует и сохраняет состояние каждого байта данных с основного сервера на реплику. Это наиболее простая форма репликации и обеспечивает полную копию данных с мастера на реплику.</li></ol><ol type="1" id="131aa64c-9d0a-81bb-ab8f-c2f86ebad0a2" class="numbered-list" start="2"><li><strong>Логическая репликация:</strong> Она передает изменения данных на уровне отдельных изменений состояния. Это позволяет, например, реплицировать только определенные таблицы или даже отдельные строки и столбцы, что дает большую гибкость, но влечет за собой дополнительную сложность.</li></ol><p id="131aa64c-9d0a-8167-bb05-fc3d0fce4693" class="">Оба типа репликации имеют свои преимущества и недостатки, и выбор между ними зависит от ваших конкретных требований.</p><h2 id="131aa64c-9d0a-81b8-bf7d-e00d453b82e0" class="">1.2 SQL-инъекции</h2><p id="131aa64c-9d0a-816e-9418-edc99958ab6c" class="">Все чаще клиентам предоставляется доступ к базам данных компании в целях управления счетами, получения поддержки клиентов или размещения и отслеживания заказов. Хотя это обеспечивает большое удобство для конечного пользователя, это также открывает базу данных для определенных уязвимостей. Любая функция, которая позволяет пользователю искать или редактировать контент в базе данных, рискует использовать эту функцию злоумышленником для получения дополнительного доступа к информации компании. Когда пользователь нарушает первоначальную цель ваших операторов SQL, это называется атакой с помощью SQL-инъекции.</p><h3 id="131aa64c-9d0a-81bb-99ae-d059960e80fe" class="">1.2.1 Что такое атаки с использованием SQL-инъекций?</h3><p id="131aa64c-9d0a-813d-9b2b-effc386907ac" class="">Атаки с помощью SQL-инъекций — это злонамеренные атаки, при которых данные «внедряются» в ваш SQL-запрос с использованием определенных деструктивных фраз или неэкранированных параметров. Хакеры используют эту технику, чтобы получить доступ к бизнес-данным и личной информации, а также изменить или удалить содержимое вашей базы данных. Одним из последних примеров атаки SQL-injection является атака «Meow», в результате которой в июле 2020 года было уничтожено почти 4000 незащищенных баз данных.</p><p id="131aa64c-9d0a-812e-a560-c17e69c42fc3" class="">Обычно атаки происходят через веб-интерфейс, например веб-страницу или приложение, которое позволяет пользователям выполнять поиск в базе данных или входить в учетную запись. Зачастую это делается с помощью автоматизированных сценариев. Если входные данные вашего веб-приложения не проверяются и не экранируются должным образом, злоумышленники могут использовать эти функции для изменения вашей базы данных с помощью деструктивных фраз, таких как <code>DROP TABLE</code>, <code>DELETE FROM</code>, <code>INSERT</code>, <code>UPDATE</code>, последовательность двух тире <code>--</code> или точку с запятой <code>;</code>, также они могут выгрузить всю базу данных с помощью операторов <code>SELECT</code>.</p><p id="131aa64c-9d0a-8117-b8d8-f328d6672dc0" class="">Излишне говорить, что последствия подобных атак могут оказаться разрушительными не только для содержимого вашей базы данных, но также для целостности и репутации вашей компании.</p><h3 id="131aa64c-9d0a-8149-b127-d977f55df5fb" class="">1.2.2 Типы атак с использованием SQL-инъекций</h3><p id="131aa64c-9d0a-810c-a2b8-fb99585b8de8" class="">Атаки с помощью SQL-инъекций делятся на три основные категории: In-band (также известные как «классические» или «простые» атаки), inferential атаки (или «слепые») и out-of-band атаки.</p><ol type="1" id="131aa64c-9d0a-8183-a3cd-edc89c5dc690" class="numbered-list" start="1"><li><em><strong>In-band атаки</strong></em><p id="131aa64c-9d0a-819e-9e70-ffd8bdf5a02d" class="">При простой или In-band атаке в базу данных отправляются команды для извлечения контента и возврата результатов непосредственно конечному пользователю. Даже сообщения об ошибках из-за неверных входных данных могут использоваться для определения базовой структуры базы данных, которую затем можно использовать для извлечения данных из других таблиц в базе данных путем реструктуризации исходного запроса. Например, если веб-сайт позволяет клиентам отслеживать свои заказы онлайн, вызывая базу данных с помощью оператора SQL, такого как следующий:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8160-a67a-d1c054505eaf" class="code"><code class="language-Python">SELECT * FROM orders WHERE order_id=&#x27;USER_INPUT&#x27;</code></pre><p id="131aa64c-9d0a-81cd-83c5-dd4ac8988e07" class="">Где вместо значения <code>USER_INPUT</code>, подразумевается передача пользовательского значения. Можно использовать этот оператор для извлечения дополнительной информации из базы данных, добавляя простой оператор <code>UNION SELECT</code> к номеру заказа. Например:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-8103-9436-f7af82dac676" class="code"><code class="language-Python">SELECT * FROM orders WHERE order_id= ‘123 UNION SELECT username, password from customers --’</code></pre><p id="131aa64c-9d0a-81f2-97e9-d6df2b693e51" class="">вернет информацию о заказе номер 123, а также имена пользователей и пароли всех клиентов в базе данных.</p></li></ol><ol type="1" id="131aa64c-9d0a-8126-9da8-e9495d880c19" class="numbered-list" start="2"><li><em><strong>Inferential (Слепые) атаки</strong></em><p id="131aa64c-9d0a-81ae-9efa-dd94b1f5ee37" class="">При этом типе атак злоумышленник отправляет команды в базу данных, но не получает обратно никакого содержимого базы данных. Вместо этого этот метод используется для того, чтобы узнать как можно больше о поведении системы. Существует два основных типа Inferential атак: логические и временные. Атаки на основе логических значений используют истинные или ложные утверждения для извлечения информации в зависимости от того, перезагружается ли веб-браузер с пустым или непустым ответом. Атаки на основе времени могут использовать такие функции, как pg_sleep, или использоваться в сочетании с атаками на основе логических значений для сбора информации из базы данных на основе времени, которое требуется веб-браузеру для перезагрузки.</p></li></ol><ol type="1" id="131aa64c-9d0a-8194-a1a0-c2079ffbc4e1" class="numbered-list" start="3"><li><em><strong>Out-of-band атаки</strong></em><p id="131aa64c-9d0a-816f-b809-ca11db9a43d5" class=""><strong>Out-of-band </strong>атаки предназначены для случаев, когда данные не могут быть извлечены через тот же канал, по которому собирается информация о системе, например, при работе с медленными, нестабильными системами или системами с большими нагрузками. Хакеры используют эту технику для отправки данных на внешний сервер, которым управляет хакер, с помощью DNS-запросов или пакетов UTL_HTTP.</p></li></ol><h3 id="131aa64c-9d0a-8190-b61c-dfaa58e1c48c" class="">1.2.3 Предотвращение атак типа SQL-инъекция</h3><p id="131aa64c-9d0a-8182-9f97-d09b9b00f8f2" class="">Теперь, когда мы знаем, что такое атаки с использованием SQL-инъекций, возникает вопрос: как их предотвратить? К счастью, есть несколько простых шагов, которые вы можете предпринять, чтобы защитить себя и свою систему от атак.</p><ol type="1" id="131aa64c-9d0a-8121-bde7-f49814366428" class="numbered-list" start="1"><li><em><strong>Проверка входных данных</strong></em><p id="131aa64c-9d0a-8189-a32e-dff0f3de947a" class="">Прежде всего, входные данные операторов SQL должны быть проверены или «очищены» перед отправкой в базу данных. Это можно сделать с помощью параметризованных операторов SQL, которые отделяют операторы запроса от данных. Параметризованные операторы используют сохраненные запросы с маркерами, называемыми параметрами, для представления входных данных. Вместо того, чтобы анализировать запрос и данные как одну строку, база данных считывает только сохраненный запрос как язык запросов, позволяя отправлять вводимые пользователем данные в виде списка параметров, которые база данных может обрабатывать исключительно как данные.</p><p id="131aa64c-9d0a-8175-b3d5-d95476d68536" class="">В качестве дополнительной меры предосторожности можно настроить параметризованные операторы, запрещающие вызывающей стороне выполнять определенные команды, такие как <code>DROP TABLE</code>. Вы также можете пропустить все входные данные через фильтр, чтобы отсеять определенные деструктивные фразы, такие как <code>DROP TABLE</code>, <code>DELETE FROM</code>, <code>SELECT * FROM</code>, последовательность двух тире «<code>--</code>» или точку с запятой <code>;</code>.</p></li></ol><ol type="1" id="131aa64c-9d0a-8156-8e60-dc300cc95ec5" class="numbered-list" start="2"><li><em><strong>Аудит базы данных</strong></em><p id="131aa64c-9d0a-81c8-82e2-f130e0a6ca97" class="">Регулярный аудит способствует поддержанию рабочего состояния среды PostgreSQL. Расширения, такие как pg_audit, обеспечивают более тщательное журналирование сеансов и объектов, чем стандартное журналирование в PostgreSQL. Такой уровень детализации может помочь выявить любые нетипичные запросы, например, запросы к системным таблицам. Системные таблицы, такие как те, которые находятся в information_schema, редко используются пользователями, и к ним следует относиться с осторожностью. Аудит также предоставляет информацию о том, какие таблицы, представления, процедуры и функции больше не используются. Удаление этих элементов снижает вероятность внедрения вредоносного кода злоумышленником, который может остаться незамеченным на протяжении долгого времени.</p></li></ol><ol type="1" id="131aa64c-9d0a-81c3-bb83-c8190ae33c7e" class="numbered-list" start="3"><li><em><strong>Изменение настроек по умолчанию</strong></em><p id="131aa64c-9d0a-811d-bbc1-cbe6483e1f63" class="">Рассмотрите возможность изменения настроек PostgreSQL по умолчанию, чтобы максимизировать информацию, записываемую в файлы журналов. Лучше всего начать с параметров <code>log_statement</code> и <code>log_min_error_statement</code> в файле <code>postgresql.conf</code>. </p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="131aa64c-9d0a-81a5-b615-fee4072b4062" class="code"><code class="language-Python">log_statement = all
+log_min_error_statement = ERROR</code></pre><p id="131aa64c-9d0a-81b7-992f-e1abbdad5645" class="">Поскольку эти настройки увеличат размер файлов журналов, вам необходимо будет соответствующим образом настроить параметры хранилища и процедуры резервного копирования журналов. Если для параметра <code>log_statement</code> установить значение «<code>all</code>», файлы журналов будут фиксировать все операторы <code>SQL</code>, выполняемые в базе данных. Единственным исключением могут быть операторы, содержащие простые синтаксические ошибки, поскольку эти операторы завершаются неудачей до фазы выполнения. Эти операторы можно фиксировать, установив для параметра <code>log_min_error_statement</code> значение «<code>ERROR</code>».</p></li></ol><ol type="1" id="131aa64c-9d0a-8138-a142-ee51f25543ac" class="numbered-list" start="4"><li><em><strong>Защита вашей системы</strong></em><p id="131aa64c-9d0a-8146-b7ab-e37a10fa4ebd" class="">Хотя мониторинг вашей системы и проверка входных данных являются лучшими способами защиты от атак, есть несколько дополнительных шагов, которые вы можете предпринять для защиты вашей системы.</p><ul id="131aa64c-9d0a-81f9-9474-ef63afc96e42" class="bulleted-list"><li style="list-style-type:disc">Отключите видимость ошибок базы данных для внешних пользователей на рабочих системах, чтобы избежать раскрытия информации о структуре и поведении системы.</li></ul><ul id="131aa64c-9d0a-818f-9957-eff11e0b4a03" class="bulleted-list"><li style="list-style-type:disc">Убедитесь, что все приложения, подключающиеся к базе данных, не используют учетные записи с правами администратора, особенно веб-приложения.</li></ul><ul id="131aa64c-9d0a-8100-926c-c247b43b5e77" class="bulleted-list"><li style="list-style-type:disc">Поддерживайте операционную систему и PostgreSQL в актуальном состоянии с помощью последних обновлений безопасности.</li></ul><ul id="131aa64c-9d0a-81fa-9a1e-f7265845e14f" class="bulleted-list"><li style="list-style-type:disc">Используйте сканеры уязвимостей и брандмауэры веб-приложений (<code>WAF</code>), чтобы убедиться в безопасности приложений перед их выпуском на рабочие серверы.</li></ul></li></ol><h3 id="131aa64c-9d0a-81a4-90bf-ea44de716a79" class="">1.2.4 Обнаружение атак</h3><p id="131aa64c-9d0a-8180-b6b9-db51926f02f3" class="">Хотя описанные выше шаги помогут защитить вашу систему от атак, нет ничего неуязвимого. Злоумышленники неустанно совершенствуют свои методы, и все системы уязвимы для атак.</p><p id="131aa64c-9d0a-8191-b2da-ef3048d05921" class="">Если вы подозреваете, что ваша база данных была скомпрометирована, первое, что вам следует сделать, это выключить систему. Затем просмотрите и проанализируйте свои журналы, чтобы найти любые потенциальные дыры, которые могли быть использованы. Вот некоторые ключевые вещи, на которые следует обратить внимание:</p><ul id="131aa64c-9d0a-8122-8c88-f61b11ff19b4" class="bulleted-list"><li style="list-style-type:disc"><em><strong>SQL-ошибки</strong></em>. Атаки почти всегда генерируют ошибки SQL, так что это хорошее место для начала. Это также лучший способ обнаружить атаку в момент ее совершения.</li></ul><ul id="131aa64c-9d0a-81f4-a512-e3ccaad5fcb7" class="bulleted-list"><li style="list-style-type:disc"><em><strong>Ошибки прав доступа</strong></em>. Всякий раз, когда неавторизованный пользователь пытается получить доступ к базе данных или изменить ее, это может указывать на атаку.</li></ul><ul id="131aa64c-9d0a-8192-9b20-d72ebbcb6e76" class="bulleted-list"><li style="list-style-type:disc"><em><strong>Ссылки на системные таблицы</strong></em>. Злоумышленники не всегда знают конкретные имена ваших таблиц, поэтому запросы к системным таблицам должны вызывать тревогу.</li></ul><h2 id="131aa64c-9d0a-8149-bf88-dbca58bb9af0" class="">1.3 Многопользовательский доступ и разграничение прав</h2><p id="131aa64c-9d0a-8155-8b08-d86416f98978" class="">Рассмотрим известные существующие способы разграничения прав доступа с их плюсами и минусами, среди которых можно выделить использование встроенных механизмов аутентификации СУБД и контроль доступа на уровне приложения.</p><h3 id="131aa64c-9d0a-81fb-ba17-ead0e20f909f" class="">1.3.1 Встроенные механизмы аутентификации</h3><p id="131aa64c-9d0a-819b-b9c3-e378a21db2a0" class="">При регистрации каждого сотрудника в системе создается соответствующая запись в базе данных, где ему назначаются нужные привилегии.</p><p id="131aa64c-9d0a-813b-a595-dc0473d28759" class="">Преимущества такого подхода: его простота и прозрачность. Из логов базы данных легко увидеть, какие операции выполняют сотрудники, можно объединять различные привилегии в роли и назначать их сотрудникам &quot;из коробки&quot;. Основной недостаток данного способа заключается в отсутствии контроля доступа на уровне отдельных строк. В версии 9.5 была добавлена функция <a href="https://www.postgresql.org/docs/current/static/ddl-rowsecurity.html">row-level security</a>, но данный механизм работает не так быстро, как желалось, особенно при использовании <a href="https://www.postgresql.org/message-id/103877619.228905.1477674957518.JavaMail.root%40trustedconcepts.com">JOIN</a>.</p><h3 id="131aa64c-9d0a-81db-bf97-d42dc5d69869" class="">1.3.2 Проверка на уровне приложения</h3><p id="131aa64c-9d0a-818e-ac0d-f7972c2e4f76" class="">Разграничение доступа прямо на уровне приложения – важный аспект безопасности. Выбор между внешним сервисом для аутентификации пользователей и хранением хешей паролей в базе данных непосредственно несомненно имеет значение. Важно, что все пользователи в конечном итоге обращаются к базе данных под одной учетной записью. Однако такой подход имеет недостатки, а именно:</p><p id="131aa64c-9d0a-81d0-b697-f17db5fde749" class="">1. Отсутствие контроля доступа на уровне строк или его усложнение.</p><p id="131aa64c-9d0a-81ef-a97b-d4c77df165d8" class="">2. В случае утечки пароля пользователя злоумышленник получает полный доступ к данным и может их как просматривать, так и изменять.</p><p id="131aa64c-9d0a-815e-b522-c861d2ee4a0e" class="">3. Приложение становится единственным звеном, регулирующим доступ, что делает необходимым переписывание всего кода при добавлении нового сервиса, работающего с базой данных.</p><h3 id="131aa64c-9d0a-81e6-96d3-c26a39bd3666" class="">1.3.3. Введение сессии на уровне СУБД</h3><p id="131aa64c-9d0a-81d3-8ca2-c5c86b12a202" class="">В базе данных создаётся процедура авторизации, которая проверяет логин и пароль пользователя и в случае успеха устанавливает значение некоторой сессионной переменной, которая была бы доступна на чтение до конца текущей сессии. </p><p id="131aa64c-9d0a-81e6-93bb-f29e29b615a0" class="">Минусы:</p><ol type="1" id="131aa64c-9d0a-8147-b8f7-ed1aeda1450c" class="numbered-list" start="1"><li>Всю логику работы с данными необходимо оборачивать в хранимые процедуры.</li></ol><ol type="1" id="131aa64c-9d0a-817d-9c2c-f3c53636874f" class="numbered-list" start="2"><li>Необходимость авторизации пользователя в начале каждой сессии, а если код обёрнут в транзакции, то в начале каждой транзакции. Это может быть некритично для так называемых &quot;толстых клиентов&quot;, но для веб приложений уже становится актуальным. В этом случае проблема решается оборачиванием драйвера, который предоставляет доступ к СУБД кастомным кодом таким образом, чтобы авторизация выполнялась перед выполнением каждого запроса. </li></ol><h2 id="131aa64c-9d0a-8121-bcda-e5f7a6e7b6b4" class="">1.4 <strong>Транзакции и точки сохранения</strong></h2><h3 id="131aa64c-9d0a-8163-b15f-c2e7bd0d0672" class="">1.4.1 <strong>Транзакции</strong></h3><p id="131aa64c-9d0a-8136-9ee5-fee75291b887" class="">Транзакция в PostgreSQL представляет собой логически связанный блок операций базы данных, который либо выполняется полностью (фиксируется), либо отменяется (откатывается) целиком. Основные характеристики транзакций определяются аббревиатурой ACID:</p><ul id="131aa64c-9d0a-81ac-9b12-c61dc5d67912" class="bulleted-list"><li style="list-style-type:disc"><em><strong>Атомарность</strong></em><strong> (Atomicity)</strong>: Транзакция считается атомарной, если все ее операции либо выполняются успешно и фиксируются, либо ни одна операция не выполняется и транзакция отменяется (откатывается).</li></ul><ul id="131aa64c-9d0a-81ef-975a-cd1b8e21d590" class="bulleted-list"><li style="list-style-type:disc"><em><strong>Согласованность</strong></em><strong> (Consistency)</strong>: Транзакция должна переводить базу данных из одного согласованного состояния в другое согласованное состояние. Если данные нарушают интегритет, транзакция должна быть отменена.</li></ul><ul id="131aa64c-9d0a-8182-b461-c2586fdc4186" class="bulleted-list"><li style="list-style-type:disc"><em><strong>Изолированность</strong></em><strong> (Isolation)</strong>: Транзакции выполняются изолированно друг от друга. Изменения, внесенные в рамках одной транзакции, не видны другим транзакциям до их фиксации.</li></ul><ul id="131aa64c-9d0a-816b-905f-dc6444c1e3ea" class="bulleted-list"><li style="list-style-type:disc"><em><strong>Долговечность</strong></em><strong> (Durability)</strong>: Фиксированные изменения должны быть надежно сохранены и не должны быть потеряны из-за сбоев системы.</li></ul><h3 id="131aa64c-9d0a-8100-b065-e35430174eb4" class="">1.4.2 <strong>Точки сохранения (Savepoints)</strong></h3><p id="131aa64c-9d0a-81d7-8d2c-fb60ff8e7c1b" class="">Точки сохранения представляют собой механизм в PostgreSQL, который позволяет разбить транзакцию на более мелкие части и явно указать места, до которых можно откатиться в случае отмены транзакции. Они предоставляют гибкость и контроль над транзакциями, позволяя разработчикам управлять изменениями в базе данных. Основные причины использования точек сохранения:</p><ol type="1" id="131aa64c-9d0a-8163-b1f5-ee61e116fb8e" class="numbered-list" start="1"><li><em><strong>Контроль за состоянием транзакции</strong></em>: С точками сохранения можно сохранять промежуточные состояния транзакции, позволяя откатиться к ним при необходимости.</li></ol><ol type="1" id="131aa64c-9d0a-8124-8470-cfecc81929ac" class="numbered-list" start="2"><li><em><strong>Частичный откат изменений</strong></em>: Возможность откатиться только до определенной точки сохранения, минуя предшествующие операции.</li></ol><ol type="1" id="131aa64c-9d0a-81d3-a2e0-c36ebbd985f3" class="numbered-list" start="3"><li><em><strong>Уменьшение нагрузки на сервер</strong></em>: Позволяют откатывать только часть транзакции, что может быть полезно при выполнении долгих операций.</li></ol></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
